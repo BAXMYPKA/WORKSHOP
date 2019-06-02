@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>WORKSHOP</name>
 	<packaging>pom</packaging>
-	<description>Demo project with Spring Boot, REST API, SQL, and React SPA</description>
+	<description>Demo project with Spring Boot, JPA, REST API and React SPA</description>
 	
 	<modules>
 		<module>internalREST</module>

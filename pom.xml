@@ -132,10 +132,10 @@
 <!--						<goals>-->
 <!--							<goal>process-asciidoc</goal>-->
 <!--						</goals>-->
-<!--						<configuration>-->
+<!--						<configurations>-->
 <!--							<backend>html</backend>-->
 <!--							<doctype>book</doctype>-->
-<!--						</configuration>-->
+<!--						</configurations>-->
 <!--					</execution>-->
 <!--				</executions>-->
 <!--				<dependencies>-->

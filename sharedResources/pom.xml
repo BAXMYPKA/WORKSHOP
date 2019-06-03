@@ -9,30 +9,29 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	
-	<artifactId>internalREST</artifactId>
+	<artifactId>sharedResources</artifactId>
 	<packaging>jar</packaging>
 	
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-remote-resources-plugin</artifactId>
 				<version>1.6.0</version>
-				<configuration>
-					<resourceBundles>
-						<resourceBundle>pro.workshop:sharedResources:${project.version}</resourceBundle>
-					</resourceBundles>
-				</configuration>
 				<executions>
 					<execution>
-						<phase>process-resources</phase>
 						<goals>
-							<goal>process</goal>
+							<goal>bundle</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<resourcesDirectory>${basedir}/src/main/resources</resourcesDirectory>
+					<includes>
+						<include>*.*</include>
+					</includes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
+	
 </project>

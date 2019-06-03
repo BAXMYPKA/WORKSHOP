@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/WORKSHOP.iml" filepath="$PROJECT_DIR$/.idea/WORKSHOP.iml" />
       <module fileurl="file://$PROJECT_DIR$/internalREST/internalREST.iml" filepath="$PROJECT_DIR$/internalREST/internalREST.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sharedResources/sharedResources.iml" filepath="$PROJECT_DIR$/sharedResources/sharedResources.iml" />
     </modules>
   </component>
 </project>

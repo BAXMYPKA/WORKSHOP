@@ -12,6 +12,14 @@
 	<artifactId>internalREST</artifactId>
 	<packaging>jar</packaging>
 	
+	<dependencies>
+		<dependency>
+			<groupId>pro.workshop</groupId>
+			<artifactId>sharedResources</artifactId>
+			<version>${project-version}</version>
+		</dependency>
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -20,12 +28,12 @@
 				<version>1.6.0</version>
 				<configuration>
 					<resourceBundles>
-						<resourceBundle>pro.workshop:sharedResources:${project.version}</resourceBundle>
+						<resourceBundle>pro.workshop:sharedResources:${project-version}</resourceBundle>
 					</resourceBundles>
 				</configuration>
 				<executions>
 					<execution>
-						<phase>process-resources</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>process</goal>
 						</goals>

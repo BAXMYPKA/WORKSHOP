@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="jdbc:h2:tcp://localhost:9092/mem:workshop" uuid="af08d03f-e9f0-4c8f-857b-5b6208b27e62">
+    <data-source name="MEM:WORKSHOP" uuid="af08d03f-e9f0-4c8f-857b-5b6208b27e62">
       <database-info product="H2" version="1.4.196 (2017-06-10)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.196 (2017-06-10)" dbms="H2" exact-version="1.4.196" exact-driver-version="1.4">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>Admin</user-name>
-      <introspection-schemas>*:*|@:@|WORKSHOP:*</introspection-schemas>
+      <introspection-schemas>@:@|WORKSHOP:INTERNAL</introspection-schemas>
     </data-source>
   </component>
 </project>

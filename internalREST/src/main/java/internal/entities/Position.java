@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,4 +22,9 @@ public class Position implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Column(unique = true, nullable = false)
+	private String name;
+	
+	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "position", orphanRemoval = true)
+	private Set<Employee> employees;
 }

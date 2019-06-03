@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/data.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -51,6 +49,27 @@
         <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
         <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
         <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+        <item name="EMPLOYEES: table" type="818c1b4a:H2ImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+        <item name="EMPLOYEES_TO_POSITIONS: table" type="818c1b4a:H2ImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+        <item name="POSITIONS: table" type="818c1b4a:H2ImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
         <item name="TESTS: table" type="818c1b4a:H2ImplModel$Table" />
       </path>
       <path>
@@ -67,20 +86,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="28" column="69" lean-forward="true" selection-start-line="28" selection-start-column="69" selection-end-line="28" selection-end-column="69" />
+            <state relative-caret-position="449">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+            <state relative-caret-position="416">
+              <caret line="41" column="91" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -91,20 +110,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+            <state relative-caret-position="432">
+              <caret line="27" column="66" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/data.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="14" selection-start-column="14" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -153,9 +163,10 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/filters/JwtAuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/data.sql" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/resources/schema.sql" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
       </list>
     </option>
   </component>
@@ -270,6 +281,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/internalREST/src/main/resources/templates" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -371,7 +383,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39300000" />
+    <option name="totallyTimeSpent" value="41907000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="432" y="1" width="1495" height="1058" extended-state="0" />
@@ -384,10 +396,11 @@
       <window_info id="Structure" order="4" sideWeight="0.30456027" side_tool="true" visible="true" weight="0.3074266" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.69543976" visible="true" weight="0.25188744" />
-      <window_info id="Database" order="8" sideWeight="0.4991453" weight="0.32875773" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.69543976" weight="0.25188744" />
+      <window_info id="Database" order="8" sideWeight="0.4991453" visible="true" weight="0.32875773" />
       <window_info id="Maven" order="9" sideWeight="0.49022803" weight="0.23747426" />
       <window_info id="Web" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Database Console" weight="0.32923076" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32923076" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.37025642" />
@@ -544,10 +557,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/schema.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/data.sql">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://af08d03f-e9f0-4c8f-857b-5b6208b27e62/database/WORKSHOP/schema/INTERNAL/table/EMPLOYEES">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="0a164861-23f6-4dda-84c0-627c35733238">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        <state relative-caret-position="432">
+          <caret line="27" column="66" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -556,25 +595,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        <state relative-caret-position="416">
+          <caret line="41" column="91" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/data.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="14" selection-start-column="14" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="28" column="69" lean-forward="true" selection-start-line="28" selection-start-column="69" selection-end-line="28" selection-end-column="69" />
         </state>
       </provider>
     </entry>

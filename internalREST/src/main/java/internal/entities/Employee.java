@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -37,4 +36,11 @@ public class Employee implements Serializable {
 	@Lob
 	@Column(length = 5242880) //5Mb
 	private byte[] photo;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "Employees_to_Positions",
+		schema = "INTERNAL",
+		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+	private Position position;
 }

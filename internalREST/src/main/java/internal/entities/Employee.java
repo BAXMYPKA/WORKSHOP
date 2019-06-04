@@ -6,12 +6,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "EMPLOYEES", schema = "INTERNAL")
+@Table(name = "Employees", schema = "INTERNAL")
 public class Employee implements Serializable {
 	
 	@Transient
@@ -32,6 +33,9 @@ public class Employee implements Serializable {
 	
 	@Column(nullable = false, length = 100)
 	private String email;
+	
+	@Column(nullable = false, columnDefinition = "")
+	private LocalDate birthday;
 	
 	@Column(nullable = false, length = 100)
 	private String phone;

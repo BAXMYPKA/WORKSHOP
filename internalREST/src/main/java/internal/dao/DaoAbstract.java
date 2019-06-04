@@ -32,10 +32,10 @@ public abstract class DaoAbstract <T extends Serializable, K> implements DaoInte
 	@PersistenceContext
 	public EntityManager entityManager;
 	
-	public T find(K key){
-		T entity = entityManager.find(this.entity, key);
-		return entity;
-	}
+//	public T find(K key){
+//		T entity = entityManager.find();
+//		return entity;
+//	}
 	
 	public List<T> findAll(){
 		return null;

@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "POSITIONS", schema = "INTERNAL")
+@Table(name = "Positions", schema = "INTERNAL")
 public class Position implements Serializable {
 	
 	@Transient

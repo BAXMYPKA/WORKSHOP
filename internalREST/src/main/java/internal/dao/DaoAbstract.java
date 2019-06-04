@@ -30,7 +30,7 @@ public abstract class DaoAbstract <T extends Serializable, K> implements DaoInte
 //	}
 
 	@PersistenceContext
-	private EntityManager entityManager;
+	public EntityManager entityManager;
 	
 	public T find(K key){
 		T entity = entityManager.find(this.entity, key);

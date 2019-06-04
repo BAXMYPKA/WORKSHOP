@@ -1,5 +1,7 @@
-package internal.http;
+package internal.https;
 
+import internal.dao.EmployeeDao;
+import internal.entities.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;

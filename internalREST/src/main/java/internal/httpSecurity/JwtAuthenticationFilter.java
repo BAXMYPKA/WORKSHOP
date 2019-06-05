@@ -1,5 +1,6 @@
 package internal.httpSecurity;
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,10 @@ import java.io.IOException;
 
 @Slf4j
 @Setter
+@NoArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-	
+
+
 //	@Override
 //	@Autowired
 //	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -30,8 +33,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		log.trace("DO FILTER...");
-		super.doFilter(req, res, chain);
+		log.trace("doFilter...");
+		try {
+			attemptAuthentication((HttpServletRequest) req, (HttpServletResponse) res);
+		} catch (AuthenticationException e){
+			System.out.println(e.getMessage());
+		}
+//		super.doFilter(req, res, chain);
 	}
 	
 	@Override
@@ -39,6 +47,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		log.trace("Authentication filter attempt...");
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 			null, null);
+		getAuthenticationManager().authenticate(authenticationToken);
 		return authenticationToken;
 	}
 }

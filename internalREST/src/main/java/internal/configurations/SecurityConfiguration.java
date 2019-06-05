@@ -1,13 +1,12 @@
 package internal.configurations;
 
-import internal.dao.DaoAbstract;
-import internal.entities.Employee;
 import internal.httpSecurity.JwtAuthenticationFilter;
 import internal.httpSecurity.WorkshopAuthenticationManager;
+import internal.httpSecurity.WorkshopAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
+				.and()
 			.addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
 				.antMatchers("/internal/login")
@@ -38,9 +37,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.failureForwardUrl("/internal/login?logged=false");
 	}
 	
-
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.authenticationProvider(authenticationProvider());
+//	}
+	
+	
 	@Bean
+	public AuthenticationProvider authenticationProvider(){
+		return new WorkshopAuthenticationProvider();
+	}
+	
+	@Bean
+	@DependsOn("authenticationProvider")
 	public WorkshopAuthenticationManager authenticationManager(){
+		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager();
+		authenticationManager.setAuthenticationProvider(authenticationProvider());
 		return new WorkshopAuthenticationManager();
 	}
 	

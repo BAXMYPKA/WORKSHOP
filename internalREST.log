@@ -14670,4 +14670,640 @@ Caused by: java.lang.IllegalArgumentException: authenticationManager must be spe
 -50:26:608 -TRACE 9456 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
 -50:30:134 -TRACE 9456 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
 -50:30:136 -TRACE 9456 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-08:16:132 - INFO 17924 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 17924 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-08:16:132 - INFO 17924 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-08:20:473 -DEBUG 17924 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-08:23:588 - WARN 17924 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-08:24:319 - INFO 17924 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 8.888 seconds (JVM running for 10.843)
+-09:12:594 -TRACE 17924 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-09:12:622 -TRACE 17924 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-09:12:623 -TRACE 17924 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-10:10:458 - INFO 8124 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 8124 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-10:10:461 - INFO 8124 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-10:12:592 -DEBUG 8124 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-10:14:341 - WARN 8124 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-10:14:873 - INFO 8124 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.935 seconds (JVM running for 6.106)
+-10:23:385 -TRACE 8124 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-10:23:402 -TRACE 8124 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-10:23:403 -TRACE 8124 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-12:14:542 -TRACE 8124 --- [http-nio-8080-exec-5] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-12:14:552 -TRACE 8124 --- [http-nio-8080-exec-6] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-12:14:552 -TRACE 8124 --- [http-nio-8080-exec-6] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-22:42:570 - INFO 8124 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 8124 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-22:42:570 - INFO 8124 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-22:43:727 - WARN 8124 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-22:44:138 - INFO 8124 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 1.6 seconds (JVM running for 755.372)
+-23:18:737 - INFO 2724 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 2724 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-23:18:737 - INFO 2724 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-23:20:962 -DEBUG 2724 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-23:22:794 - WARN 2724 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-23:23:310 - INFO 2724 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.011 seconds (JVM running for 6.157)
+-23:32:107 -TRACE 2724 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-23:32:124 -TRACE 2724 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-23:32:125 -TRACE 2724 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:01:627 - INFO 14616 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 14616 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-24:01:627 - INFO 14616 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-24:03:782 -DEBUG 14616 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-24:05:913 - WARN 14616 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-24:06:530 - INFO 14616 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.384 seconds (JVM running for 6.484)
+-24:07:770 -TRACE 14616 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:07:785 -TRACE 14616 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:07:785 -TRACE 14616 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:11:539 -TRACE 14616 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:11:546 -TRACE 14616 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:11:546 -TRACE 14616 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:43:233 - INFO 15904 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 15904 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-24:43:233 - INFO 15904 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-24:45:620 -DEBUG 15904 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-24:48:005 - WARN 15904 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-24:48:745 - INFO 15904 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.921 seconds (JVM running for 7.067)
+-24:48:991 -TRACE 15904 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:49:007 -TRACE 15904 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:49:007 -TRACE 15904 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:50:651 -TRACE 15904 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:50:657 -TRACE 15904 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-24:50:658 -TRACE 15904 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:30:508 - INFO 7716 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 7716 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-26:30:511 - INFO 7716 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-26:32:824 -DEBUG 7716 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-26:34:648 - WARN 7716 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-26:35:194 - INFO 7716 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.113 seconds (JVM running for 6.45)
+-26:37:899 -TRACE 7716 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:37:917 -TRACE 7716 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:37:918 -TRACE 7716 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:40:721 -TRACE 7716 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:40:722 -TRACE 7716 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:44:690 -TRACE 7716 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:49:572 -TRACE 7716 --- [http-nio-8080-exec-6] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:49:579 -TRACE 7716 --- [http-nio-8080-exec-7] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-26:49:579 -TRACE 7716 --- [http-nio-8080-exec-7] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:47:109 - INFO 8600 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 8600 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-27:47:112 - INFO 8600 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-27:49:273 -DEBUG 8600 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-27:51:504 - WARN 8600 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-27:52:231 - INFO 8600 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.629 seconds (JVM running for 6.682)
+-27:55:307 -TRACE 8600 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:55:323 -TRACE 8600 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:55:323 -TRACE 8600 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:57:457 -TRACE 8600 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:57:463 -TRACE 8600 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-27:57:464 -TRACE 8600 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-28:00:864 -TRACE 8600 --- [http-nio-8080-exec-5] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-28:00:865 -TRACE 8600 --- [http-nio-8080-exec-5] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:17:742 - INFO 19860 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 19860 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-30:17:745 - INFO 19860 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-30:20:334 -DEBUG 19860 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-30:22:176 - WARN 19860 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-30:22:713 - INFO 19860 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.424 seconds (JVM running for 6.637)
+-30:25:264 -TRACE 19860 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:25:284 -TRACE 19860 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:25:286 -TRACE 19860 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:27:616 -TRACE 19860 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:27:617 -TRACE 19860 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:33:248 -TRACE 19860 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:33:255 -TRACE 19860 --- [http-nio-8080-exec-5] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-30:33:255 -TRACE 19860 --- [http-nio-8080-exec-5] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-31:30:699 -TRACE 19860 --- [http-nio-8080-exec-7] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-31:30:704 -TRACE 19860 --- [http-nio-8080-exec-8] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-31:30:705 -TRACE 19860 --- [http-nio-8080-exec-8] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-32:10:702 -TRACE 19860 --- [http-nio-8080-exec-10] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-32:10:702 -TRACE 19860 --- [http-nio-8080-exec-10] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-32:26:432 -TRACE 19860 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-32:26:433 -TRACE 19860 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : DO FILTER...
+-03:28:407 - INFO 18292 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 18292 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-03:28:407 - INFO 18292 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-03:30:641 -ERROR 18292 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+-03:30:672 - WARN 18292 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+-03:30:694 -ERROR 18292 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+-
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at internal.InternalApplication.main(InternalApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_191]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_191]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_191]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1778) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:235) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:193) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:188) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:170) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:89) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:234) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:54) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5139) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:423) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:932) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:455) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 18 common frames omitted
+Caused by: java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.util.Assert.notNull(Assert.java:198) ~[spring-core-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.afterPropertiesSet(AbstractAuthenticationProcessingFilter.java:164) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1837) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1774) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	... 58 common frames omitted
+
+05:39:152 - INFO 7156 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 7156 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-05:39:155 - INFO 7156 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-05:41:368 -ERROR 7156 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+-05:41:404 - WARN 7156 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+-05:41:424 -ERROR 7156 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+-
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at internal.InternalApplication.main(InternalApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_191]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_191]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_191]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1778) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:235) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:193) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:188) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:170) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:89) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:234) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:54) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5139) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:423) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:932) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:455) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 18 common frames omitted
+Caused by: java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.util.Assert.notNull(Assert.java:198) ~[spring-core-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.afterPropertiesSet(AbstractAuthenticationProcessingFilter.java:164) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1837) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1774) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	... 58 common frames omitted
+
+07:37:870 - INFO 6424 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 6424 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-07:37:873 - INFO 6424 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-07:40:020 -ERROR 6424 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+-07:40:048 - WARN 6424 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+-07:40:068 -ERROR 6424 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+-
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at internal.InternalApplication.main(InternalApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_191]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_191]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_191]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1778) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:235) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:193) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:188) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:170) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:89) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:234) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:54) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5139) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:423) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:932) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:455) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 18 common frames omitted
+Caused by: java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.util.Assert.notNull(Assert.java:198) ~[spring-core-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.afterPropertiesSet(AbstractAuthenticationProcessingFilter.java:164) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1837) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1774) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	... 58 common frames omitted
+
+08:06:759 - INFO 23988 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 23988 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-08:06:762 - INFO 23988 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-08:08:970 -ERROR 23988 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+-08:09:006 - WARN 23988 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+-08:09:030 -ERROR 23988 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+-
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at internal.InternalApplication.main(InternalApplication.java:14) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_191]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_191]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_191]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_191]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 13 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'authenticationFilter' defined in class path resource [internal/configurations/SecurityConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1778) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:235) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:193) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:188) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:170) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:89) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:261) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:234) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:54) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5139) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:831) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1377) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1367) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[na:1.8.0_191]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[na:1.8.0_191]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:134) ~[na:1.8.0_191]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:902) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:262) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:423) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:932) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:455) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:106) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
+	... 18 common frames omitted
+Caused by: java.lang.IllegalArgumentException: authenticationManager must be specified
+	at org.springframework.util.Assert.notNull(Assert.java:198) ~[spring-core-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.afterPropertiesSet(AbstractAuthenticationProcessingFilter.java:164) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1837) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1774) ~[spring-beans-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	... 58 common frames omitted
+
+22:56:145 - INFO 10036 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 10036 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-22:56:148 - INFO 10036 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-22:58:419 -DEBUG 10036 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-23:00:255 - WARN 10036 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-23:00:817 - INFO 10036 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.084 seconds (JVM running for 6.15)
+-23:07:616 -TRACE 10036 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-23:16:792 -TRACE 10036 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-27:10:303 - INFO 20588 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 20588 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-27:10:303 - INFO 20588 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-27:12:502 -DEBUG 20588 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-27:14:241 - WARN 20588 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-27:14:758 - INFO 20588 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.914 seconds (JVM running for 5.978)
+-28:07:224 -TRACE 20588 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-28:11:846 -TRACE 20588 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-28:13:845 -TRACE 20588 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-29:44:657 - INFO 17324 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 17324 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-29:44:660 - INFO 17324 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-29:46:781 -DEBUG 17324 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-29:48:536 - WARN 17324 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-29:49:068 - INFO 17324 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.909 seconds (JVM running for 5.978)
+-29:55:603 -TRACE 17324 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-29:55:620 -TRACE 17324 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-29:55:622 -TRACE 17324 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-31:09:805 - INFO 20428 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 20428 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-31:09:805 - INFO 20428 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-31:11:923 -DEBUG 20428 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-31:13:693 - WARN 20428 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-31:14:209 - INFO 20428 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.84 seconds (JVM running for 5.946)
+-31:43:720 -TRACE 20428 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-31:43:720 -TRACE 20428 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-32:49:316 - INFO 15456 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 15456 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-32:49:316 - INFO 15456 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-32:51:494 -DEBUG 15456 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-32:53:731 - WARN 15456 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-32:54:330 - INFO 15456 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.5 seconds (JVM running for 6.633)
+-32:55:954 -TRACE 15456 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-32:55:954 -TRACE 15456 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-32:55:954 -TRACE 15456 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationManager        : Authenticating...
+-44:35:119 - INFO 13668 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 13668 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-44:35:119 - INFO 13668 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-44:37:306 -DEBUG 13668 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-44:39:572 - WARN 13668 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-44:40:309 - INFO 13668 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.654 seconds (JVM running for 6.759)
+-44:42:067 -TRACE 13668 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-44:42:067 -TRACE 13668 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-44:42:068 -TRACE 13668 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-07:13:736 - INFO 22628 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 22628 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-07:13:739 - INFO 22628 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-07:16:010 -DEBUG 22628 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-07:17:899 - WARN 22628 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-07:18:438 - INFO 22628 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.146 seconds (JVM running for 6.201)
+-07:20:175 -TRACE 22628 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-07:20:176 -TRACE 22628 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-07:20:176 -TRACE 22628 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-07:20:176 -TRACE 22628 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-09:08:448 - INFO 12492 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 12492 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-09:08:448 - INFO 12492 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-09:10:615 -DEBUG 12492 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-09:12:429 - WARN 12492 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-09:12:961 - INFO 12492 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.973 seconds (JVM running for 6.004)
+-09:14:372 -TRACE 12492 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-09:14:372 -TRACE 12492 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-09:14:373 -TRACE 12492 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-09:14:374 -TRACE 12492 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-09:14:381 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.p.[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [/workshop.pro] threw exception
+-
+org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
+	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_191]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_191]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_191]
+
+09:14:384 -TRACE 12492 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-09:14:384 -TRACE 12492 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-09:14:384 -TRACE 12492 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-09:14:384 -TRACE 12492 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-09:14:385 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.p.[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] threw exception
+-
+org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
+	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:461) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:394) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:253) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:348) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:173) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_191]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_191]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_191]
+
+09:14:385 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost]           : Exception Processing ErrorPage[errorCode=0, location=/error]
+-
+org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
+	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
+	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.5.RELEASE.jar:5.1.5.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.7.RELEASE.jar:5.1.7.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:461) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312) ~[tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:394) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:253) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:348) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:173) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_191]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_191]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.19.jar:9.0.19]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_191]
+
+13:02:160 - INFO 6992 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 6992 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-13:02:160 - INFO 6992 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-13:04:313 -DEBUG 6992 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-13:06:034 - WARN 6992 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-13:06:581 - INFO 6992 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 4.868 seconds (JVM running for 5.954)
+-13:26:924 -TRACE 6992 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-13:26:924 -TRACE 6992 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-13:26:925 -TRACE 6992 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-13:26:925 -TRACE 6992 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Provide authentication...
 -

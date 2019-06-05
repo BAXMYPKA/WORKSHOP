@@ -1,9 +1,7 @@
 package internal.dao;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,30 +10,24 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * The following parameters are obligatory to be set.
  * @param <T> Entity class
  * @param <K> Key class for the Entity class
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Repository
 public abstract class DaoAbstract <T extends Serializable, K> implements DaoInterface {
 	
-	private Class <T> entity;
-	private Class <K> key;
-	
-//	public DaoAbstract(Class<T> entity, Class<K> key){
-//		this.entity = entity;
-//		this.key = key;
-//	}
-
 	@PersistenceContext
 	public EntityManager entityManager;
 	
-//	public T find(K key){
-//		T entity = entityManager.find();
-//		return entity;
-//	}
+	private Class <T> entityClass;
+	private Class <K> keyClass;
+	
+	public T find(K key){
+		return entityManager.find(entityClass, key);
+	}
 	
 	public List<T> findAll(){
 		return null;

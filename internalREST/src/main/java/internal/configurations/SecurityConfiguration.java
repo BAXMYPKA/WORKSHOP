@@ -5,14 +5,11 @@ import internal.httpSecurity.WorkshopAuthenticationManager;
 import internal.httpSecurity.WorkshopAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,7 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
-			.addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
 				.antMatchers("/internal/login")
 					.permitAll()
@@ -37,12 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.loginPage("/internal/login")
 					.failureForwardUrl("/internal/login?logged=false");
 	}
-	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.authenticationProvider(authenticationProvider());
-//	}
-	
 	
 	@Bean
 	public AuthenticationProvider authenticationProvider(){

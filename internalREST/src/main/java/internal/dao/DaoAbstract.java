@@ -25,11 +25,11 @@ public abstract class DaoAbstract <T extends Serializable, K> implements DaoInte
 	private Class <T> entityClass;
 	private Class <K> keyClass;
 	
-	public T find(K key){
+	public T findEntity(K key){
 		return entityManager.find(entityClass, key);
 	}
 	
-	public List<T> findAll(){
+	public List<T> findEntities(){
 		return null;
 	}
 }

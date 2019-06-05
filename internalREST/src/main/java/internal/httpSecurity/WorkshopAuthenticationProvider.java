@@ -2,6 +2,7 @@ package internal.httpSecurity;
 
 import internal.dao.DaoAbstract;
 import internal.dao.EmployeesDao;
+import internal.entities.Employee;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ public class WorkshopAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.trace("Provide authentication...");
-		employeesDao.findAll();
+		Employee entity = employeesDao.findEntity(1L);
+		log.error("Found email={}", entity.getEmail());
 		if (true){
 			throw new UsernameNotFoundException("NOT FOUND");
 		}

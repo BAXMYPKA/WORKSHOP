@@ -1,30 +1,37 @@
 package internal.httpSecurity;
 
-import internal.dao.DaoAbstract;
-import internal.dao.EmployeesDao;
-import internal.entities.Employee;
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import javax.persistence.NoResultException;
 
 @Slf4j
 @Setter
-public class WorkshopAuthenticationProvider implements AuthenticationProvider {
+public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
-	private EmployeesDao employeesDao;
+	@Qualifier("employeesDetailsService")
+	private UserDetailsService employeesDetailsService;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		log.trace("Provide authentication...");
-		Employee entity = employeesDao.findEntity(1L);
-		log.error("Found email={}", entity.getEmail());
-		if (true){
+		try {
+			
+			User user = (User) employeesDetailsService.loadUserByUsername("");
+			log.error("Found employee={}", user.getUsername());
+		} catch (NoResultException e) {
+			log.error(e.getMessage());
+		}
+		if (true) {
 			throw new UsernameNotFoundException("NOT FOUND");
 		}
 		return null;

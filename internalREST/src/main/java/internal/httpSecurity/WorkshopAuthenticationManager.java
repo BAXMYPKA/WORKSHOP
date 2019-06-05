@@ -1,25 +1,30 @@
 package internal.httpSecurity;
 
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
-@Setter
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
+	private Set<AuthenticationProvider> authenticationProviders = new HashSet<>(3);
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		log.trace("Authentication manager...");
-		this.authenticationProvider.authenticate(authentication);
+		log.trace("AUTHENTICATING");
 //		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken();
-		return null;
+		throw new UsernameNotFoundException("");
+	}
+	
+	public void addAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+		this.authenticationProviders.add(authenticationProvider);
 	}
 }

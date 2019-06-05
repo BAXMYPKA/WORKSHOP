@@ -15153,7 +15153,7 @@ Caused by: java.lang.IllegalArgumentException: authenticationManager must be spe
 -09:14:381 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.p.[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [/workshop.pro] threw exception
 -
 org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
-	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.EmployeesAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
 	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
@@ -15214,7 +15214,7 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOU
 -09:14:385 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.p.[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] threw exception
 -
 org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
-	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.EmployeesAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
 	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
@@ -15257,7 +15257,7 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOU
 09:14:385 -ERROR 12492 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost]           : Exception Processing ErrorPage[errorCode=0, location=/error]
 -
 org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOUND
-	at internal.httpSecurity.WorkshopAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
+	at internal.httpSecurity.EmployeesAuthenticationProvider.authenticate(WorkshopAuthenticationProvider.java:16) ~[classes/:na]
 	at internal.httpSecurity.WorkshopAuthenticationManager.authenticate(WorkshopAuthenticationManager.java:21) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.attemptAuthentication(JwtAuthenticationFilter.java:46) ~[classes/:na]
 	at internal.httpSecurity.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:37) ~[classes/:na]
@@ -15538,4 +15538,59 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: NOT FOU
 -45:17:174 -TRACE 6784 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Provide authentication...
 -45:17:397 -ERROR 6784 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Found email=employee@shop.pro
 -45:17:398 -TRACE 6784 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : NOT FOUND
+-01:40:816 - INFO 9416 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 9416 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-01:40:816 - INFO 9416 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-01:46:634 -DEBUG 9416 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-01:47:354 - WARN 9416 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-01:48:195 - INFO 9416 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 8.254 seconds (JVM running for 10.307)
+-02:13:622 -TRACE 9416 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-02:13:622 -TRACE 9416 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-02:13:623 -TRACE 9416 --- [http-nio-8080-exec-4] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-02:13:624 -TRACE 9416 --- [http-nio-8080-exec-4] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-02:13:992 -ERROR 9416 --- [http-nio-8080-exec-4] i.h.WorkshopAuthenticationProvider       : Found email=employee@shop.pro
+-02:13:994 -TRACE 9416 --- [http-nio-8080-exec-4] i.httpSecurity.JwtAuthenticationFilter   : NOT FOUND
+-08:08:858 - INFO 6304 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 6304 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-08:08:858 - INFO 6304 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-08:15:639 -DEBUG 6304 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-08:16:697 - WARN 6304 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-08:19:035 - INFO 6304 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 11.512 seconds (JVM running for 14.345)
+-08:48:103 - INFO 3412 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 3412 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-08:48:103 - INFO 3412 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-08:54:429 -DEBUG 3412 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-08:55:299 - WARN 3412 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-08:56:615 - INFO 3412 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 9.229 seconds (JVM running for 11.126)
+-08:59:003 -TRACE 3412 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-08:59:004 -TRACE 3412 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-08:59:005 -TRACE 3412 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-08:59:006 -TRACE 3412 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-08:59:325 -ERROR 3412 --- [http-nio-8080-exec-2] i.h.WorkshopAuthenticationProvider       : Found employee=
+-08:59:328 -TRACE 3412 --- [http-nio-8080-exec-2] i.httpSecurity.JwtAuthenticationFilter   : NOT FOUND
+-09:20:430 - INFO 3412 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 3412 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-09:20:430 - INFO 3412 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-09:22:283 -DEBUG 3412 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-09:22:893 - WARN 3412 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-09:23:427 - INFO 3412 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 3.079 seconds (JVM running for 37.936)
+-09:23:447 -TRACE 3412 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-09:23:449 -TRACE 3412 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-09:23:449 -TRACE 3412 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationManager        : Authentication manager...
+-09:23:450 -TRACE 3412 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationProvider       : Provide authentication...
+-09:23:460 -ERROR 3412 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationProvider       : Found employee=Employee[id=1, firstName='EmpName', lastName='EmpLastName', email='employee@shop.pro', birthday=1970-07-25, phone='123456789', position=null]
+-09:23:462 -TRACE 3412 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : NOT FOUND
+-53:41:566 - INFO 12268 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 12268 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-53:41:576 - INFO 12268 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-53:47:153 -DEBUG 12268 --- [restartedMain] i.httpSecurity.JwtAuthenticationFilter   : Filter 'authenticationFilter' configured for use
+-53:47:759 - WARN 12268 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-53:48:494 - INFO 12268 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 7.596 seconds (JVM running for 9.649)
+-54:00:945 -TRACE 12268 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-54:00:946 -TRACE 12268 --- [http-nio-8080-exec-3] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-54:00:947 -TRACE 12268 --- [http-nio-8080-exec-3] i.h.WorkshopAuthenticationManager        : AUTHENTICATING
+-54:07:671 -TRACE 12268 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-54:07:673 -TRACE 12268 --- [http-nio-8080-exec-1] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-54:07:674 -TRACE 12268 --- [http-nio-8080-exec-1] i.h.WorkshopAuthenticationManager        : AUTHENTICATING
+-54:15:569 -TRACE 12268 --- [http-nio-8080-exec-6] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-54:15:570 -TRACE 12268 --- [http-nio-8080-exec-6] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-54:15:570 -TRACE 12268 --- [http-nio-8080-exec-6] i.h.WorkshopAuthenticationManager        : AUTHENTICATING
+-54:23:235 -TRACE 12268 --- [http-nio-8080-exec-7] i.httpSecurity.JwtAuthenticationFilter   : doFilter...
+-54:23:239 -TRACE 12268 --- [http-nio-8080-exec-7] i.httpSecurity.JwtAuthenticationFilter   : Authentication filter attempt...
+-54:23:242 -TRACE 12268 --- [http-nio-8080-exec-7] i.h.WorkshopAuthenticationManager        : AUTHENTICATING
 -

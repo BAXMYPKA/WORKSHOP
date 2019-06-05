@@ -1,11 +1,12 @@
 package internal.configurations;
 
+import internal.httpSecurity.EmployeesDetailsService;
 import internal.httpSecurity.JwtAuthenticationFilter;
 import internal.httpSecurity.WorkshopAuthenticationManager;
-import internal.httpSecurity.WorkshopAuthenticationProvider;
+import internal.httpSecurity.EmployeesAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,8 +22,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
 			.authorizeRequests()
 				.antMatchers("/internal/login")
 					.permitAll()
@@ -35,23 +36,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public AuthenticationProvider authenticationProvider(){
-		return new WorkshopAuthenticationProvider();
+	@Qualifier("employeesDetailsService")
+	@DependsOn("employeesDao")
+	public EmployeesDetailsService employeesDetailsService(){
+		return new EmployeesDetailsService();
 	}
 	
 	@Bean
-	@DependsOn("authenticationProvider")
-	public WorkshopAuthenticationManager authenticationManager(){
+	@Qualifier("employeesAuthenticationProvider")
+	@DependsOn("employeesDetailsService")
+	public EmployeesAuthenticationProvider employeesAuthenticationProvider(){
+		return new EmployeesAuthenticationProvider();
+	}
+	
+	@Bean
+	@Qualifier("workshopAuthenticationManager")
+	@DependsOn("employeesAuthenticationProvider")
+	public WorkshopAuthenticationManager workshopAuthenticationManager(){
 		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager();
-		authenticationManager.setAuthenticationProvider(authenticationProvider());
+		authenticationManager.addAuthenticationProvider(employeesAuthenticationProvider());
 		return new WorkshopAuthenticationManager();
 	}
 	
 	@Bean
-	@DependsOn(value = "authenticationManager")
+	@DependsOn("workshopAuthenticationManager")
 	public UsernamePasswordAuthenticationFilter authenticationFilter() {
 		UsernamePasswordAuthenticationFilter authenticationFilter = new JwtAuthenticationFilter();
-		authenticationFilter.setAuthenticationManager(authenticationManager());
+		authenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		return authenticationFilter;
 	}
 	

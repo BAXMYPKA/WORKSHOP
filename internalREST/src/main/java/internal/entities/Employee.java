@@ -3,6 +3,7 @@ package internal.entities;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Description;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class Employee implements Serializable {
 	@Column(name = "last_name", nullable = false, length = 100)
 	private String lastName;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 255) //Uses for storing BCrypt encoded passwords with the min length = 60
 	private String password;
 	
 	@Column(nullable = false, length = 100)
@@ -45,7 +46,7 @@ public class Employee implements Serializable {
 	@Column(length = 5242880) //5Mb
 	private byte[] photo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinTable(name = "Employees_to_Positions",
 		schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),

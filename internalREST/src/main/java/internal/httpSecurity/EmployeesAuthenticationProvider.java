@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
 @Setter
@@ -19,6 +20,8 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	@Qualifier("employeesDetailsService")
 	private UserDetailsService employeesDetailsService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	/**
 	 * User is ready to use implementation of the UserDetails
@@ -32,10 +35,12 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
 		log.trace("Provide authentication...");
+		
 		User user = (User) employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
-		log.debug("Employee={} is found. Proceeding with checking password...", user.getUsername());
-		//TODO: to implement passwords BCrypt checker
-		if (user.getPassword() != authenticationToken.getCredentials().toString()){
+		log.debug("Employee={} is found. Proceeding with matching passwords...", user.getUsername());
+		
+		//The raw password must match an encoded one from the Employee with that email
+		if (!passwordEncoder.matches((String)authenticationToken.getCredentials(), user.getPassword())){
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 		

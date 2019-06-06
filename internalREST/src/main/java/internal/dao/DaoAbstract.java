@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +16,8 @@ import java.util.List;
  *
  * @param <T> Entity class
  * @param <K> Key class for the Entity class
+ *
+ * Subclasses are throw PersistenceContext exceptions
  */
 @Getter
 @Setter
@@ -28,8 +30,8 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	private Class<T> entityClass;
 	private Class<K> keyClass;
 	
-	public T findEntity(K key) throws EntityNotFoundException, IllegalArgumentException {
-		if (key == null){
+	public T findOne(K key) throws EntityNotFoundException, IllegalArgumentException {
+		if (key == null) {
 			throw new IllegalArgumentException("Key parameter is invalid!");
 		}
 		T t = entityManager.find(entityClass, key);
@@ -39,7 +41,9 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		return t;
 	}
 	
-	public List<T> findEntities() {
-		return null;
+	public List<T> findAll() {
+		TypedQuery<T> selectAll = entityManager.createQuery("SELECT t FROM "+entityClass.getSimpleName()+" t", entityClass);
+		List<T> entities = selectAll.getResultList();
+		return entities;
 	}
 }

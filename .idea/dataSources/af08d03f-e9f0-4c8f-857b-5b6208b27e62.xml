@@ -20,119 +20,191 @@
       <Visible>1</Visible>
     </schema>
     <table id="7" parent="3" name="USERS"/>
-    <table id="8" parent="5" name="EMPLOYEES"/>
-    <table id="9" parent="5" name="EMPLOYEES_TO_POSITIONS"/>
-    <table id="10" parent="5" name="POSITIONS"/>
-    <column id="11" parent="8" name="ID">
+    <table id="8" parent="5" name="DEPARTMENTS"/>
+    <table id="9" parent="5" name="DEPARTMENTS_TO_POSITIONS"/>
+    <table id="10" parent="5" name="EMPLOYEES"/>
+    <table id="11" parent="5" name="EMPLOYEES_TO_POSITIONS"/>
+    <table id="12" parent="5" name="POSITIONS"/>
+    <column id="13" parent="8" name="ID">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="12" parent="8" name="BIRTHDAY">
+    <column id="14" parent="8" name="NAME">
       <Position>2</Position>
-      <DataType>DATE(10)|91s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="13" parent="8" name="EMAIL">
-      <Position>3</Position>
-      <DataType>VARCHAR(100)|12s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="14" parent="8" name="FIRST_NAME">
-      <Position>4</Position>
-      <DataType>VARCHAR(100)|12s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="15" parent="8" name="LAST_NAME">
-      <Position>5</Position>
-      <DataType>VARCHAR(100)|12s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="16" parent="8" name="PASSWORD">
-      <Position>6</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="8" name="PHONE">
-      <Position>7</Position>
-      <DataType>VARCHAR(100)|12s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="18" parent="8" name="PHOTO">
-      <Position>8</Position>
-      <DataType>BLOB(max)|2004s</DataType>
-    </column>
-    <index id="19" parent="8" name="PRIMARY_KEY_4">
+    <index id="15" parent="8" name="PRIMARY_KEY_9">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="20" parent="8" name="CONSTRAINT_4">
+    <index id="16" parent="8" name="UK_J6CWKS7XECS5JOV19RO8GE3QK_INDEX_9">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="8" name="CONSTRAINT_9">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="21" parent="9" name="POSITION_ID">
+    <key id="18" parent="8" name="UK_J6CWKS7XECS5JOV19RO8GE3QK_INDEX_9">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NAME</ColNames>
+    </key>
+    <column id="19" parent="9" name="DEPARTMENT_ID">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5s</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="9" name="EMPLOYEE_ID">
+    <column id="20" parent="9" name="POSITION_ID">
       <Position>2</Position>
       <DataType>BIGINT(19)|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="23" parent="9" name="PRIMARY_KEY_1">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>EMPLOYEE_ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="24" parent="9" name="FKGQYO1DB6GYHISO0QW55M90HIB_INDEX_1">
+    <index id="21" parent="9" name="PRIMARY_KEY_D">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>POSITION_ID</ColNames>
+      <Unique>1</Unique>
     </index>
-    <key id="25" parent="9" name="CONSTRAINT_1">
+    <index id="22" parent="9" name="FKOMNJAV6JU3OGPGYS7A878USU_INDEX_D">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>EMPLOYEE_ID</ColNames>
+      <ColNames>DEPARTMENT_ID</ColNames>
+    </index>
+    <key id="23" parent="9" name="CONSTRAINT_D">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>POSITION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="26" parent="9" name="FKGQYO1DB6GYHISO0QW55M90HIB">
+    <foreign-key id="24" parent="9" name="FKOMNJAV6JU3OGPGYS7A878USU">
+      <ColNames>DEPARTMENT_ID</ColNames>
+      <RefTableName>DEPARTMENTS</RefTableName>
+      <RefKeyName>CONSTRAINT_9</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="25" parent="9" name="FKJ8T8Y31WN1ASJPQGWIJIW647O">
       <ColNames>POSITION_ID</ColNames>
       <RefTableName>POSITIONS</RefTableName>
       <RefKeyName>CONSTRAINT_B</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="27" parent="9" name="FKGWR3K9ASE8P8Q168D3VLL6HB2">
+    <column id="26" parent="10" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="10" name="BIRTHDAY">
+      <Position>2</Position>
+      <DataType>DATE(10)|91s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="10" name="EMAIL">
+      <Position>3</Position>
+      <DataType>VARCHAR(100)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="10" name="FIRST_NAME">
+      <Position>4</Position>
+      <DataType>VARCHAR(100)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="10" name="LAST_NAME">
+      <Position>5</Position>
+      <DataType>VARCHAR(100)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="10" name="PASSWORD">
+      <Position>6</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="10" name="PHONE">
+      <Position>7</Position>
+      <DataType>VARCHAR(100)|12s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="10" name="PHOTO">
+      <Position>8</Position>
+      <DataType>BLOB(max)|2004s</DataType>
+    </column>
+    <index id="34" parent="10" name="PRIMARY_KEY_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="35" parent="10" name="CONSTRAINT_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="36" parent="11" name="POSITION_ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="11" name="EMPLOYEE_ID">
+      <Position>2</Position>
+      <DataType>BIGINT(19)|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="38" parent="11" name="PRIMARY_KEY_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>EMPLOYEE_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="39" parent="11" name="FKGQYO1DB6GYHISO0QW55M90HIB_INDEX_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>POSITION_ID</ColNames>
+    </index>
+    <key id="40" parent="11" name="CONSTRAINT_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>EMPLOYEE_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="41" parent="11" name="FKGQYO1DB6GYHISO0QW55M90HIB">
+      <ColNames>POSITION_ID</ColNames>
+      <RefTableName>POSITIONS</RefTableName>
+      <RefKeyName>CONSTRAINT_B</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="42" parent="11" name="FKGWR3K9ASE8P8Q168D3VLL6HB2">
       <ColNames>EMPLOYEE_ID</ColNames>
       <RefTableName>EMPLOYEES</RefTableName>
       <RefKeyName>CONSTRAINT_4</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="28" parent="10" name="ID">
+    <column id="43" parent="12" name="ID">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="10" name="NAME">
+    <column id="44" parent="12" name="DESCRIPTION">
       <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="45" parent="12" name="NAME">
+      <Position>3</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="30" parent="10" name="PRIMARY_KEY_B">
+    <index id="46" parent="12" name="PRIMARY_KEY_B">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="31" parent="10" name="UK_3VHYOPDPF9HUQH1T67HO6NAYJ_INDEX_B">
+    <index id="47" parent="12" name="UK_3VHYOPDPF9HUQH1T67HO6NAYJ_INDEX_B">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>NAME</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="32" parent="10" name="CONSTRAINT_B">
+    <key id="48" parent="12" name="CONSTRAINT_B">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="33" parent="10" name="UK_3VHYOPDPF9HUQH1T67HO6NAYJ_INDEX_B">
+    <key id="49" parent="12" name="UK_3VHYOPDPF9HUQH1T67HO6NAYJ_INDEX_B">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>NAME</ColNames>
     </key>

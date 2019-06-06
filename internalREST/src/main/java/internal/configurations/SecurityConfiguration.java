@@ -7,12 +7,16 @@ import internal.httpSecurity.EmployeesAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -51,11 +55,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	public Set<AuthenticationProvider> internalAuthenticationProviders(){
+		Set<AuthenticationProvider> authenticationProviders = new HashSet<>(4);
+		authenticationProviders.add(employeesAuthenticationProvider());
+		return authenticationProviders;
+	}
+	
+	@Bean
 	@Qualifier("workshopAuthenticationManager")
 	@DependsOn("employeesAuthenticationProvider")
 	public WorkshopAuthenticationManager workshopAuthenticationManager(){
 		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager();
-		authenticationManager.addAuthenticationProvider(employeesAuthenticationProvider());
+		authenticationManager.setInternalAuthenticationProviders(internalAuthenticationProviders());
 		return new WorkshopAuthenticationManager();
 	}
 	
@@ -66,11 +77,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		authenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		return authenticationFilter;
 	}
-	
-//	@Override
-//	public UserDetailsService userDetailsServiceBean() throws Exception {
-//		return super.userDetailsServiceBean();
-//	}
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder(){

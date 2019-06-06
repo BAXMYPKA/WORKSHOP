@@ -1,6 +1,5 @@
 package internal.httpSecurity;
 
-import internal.dao.DaoAbstract;
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;
 import lombok.Setter;
@@ -12,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import java.util.Collections;
+import java.util.List;
 
+/**
+ * Special class for providing the UserDetails for the Spring Security process with the help of EmployeesDao
+ */
 @Slf4j
 @Setter
 public class EmployeesDetailsService implements UserDetailsService {
@@ -33,8 +33,7 @@ public class EmployeesDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
-			//TODO: to find by email
-			Employee employee = employeesDao.findEntity(1L);
+			Employee employee = employeesDao.findEmployeeByEmail(email);
 			UserDetails userDetails = User.builder()
 				.username(employee.getEmail())
 				.password(employee.getPassword())
@@ -46,7 +45,8 @@ public class EmployeesDetailsService implements UserDetailsService {
 			return userDetails;
 			
 		} catch (PersistenceException e) {
-			log.debug("Here may be any PersistenceException causing by as an EmployeeNotFound as the JPA failure", e);
+			log.debug("In this message may be presented any PersistenceException causing by as an EmployeeNotFound " +
+				"as the JPA failure");
 			throw new UsernameNotFoundException(
 				"Such an email=(" + email + ") is not found. The message from DataBase=" + e.getMessage());
 		}

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
@@ -27,10 +28,13 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	private Class<T> entityClass;
 	private Class<K> keyClass;
 	
-	public T findEntity(K key) throws NoResultException {
+	public T findEntity(K key) throws EntityNotFoundException, IllegalArgumentException {
+		if (key == null){
+			throw new IllegalArgumentException("Key parameter is invalid!");
+		}
 		T t = entityManager.find(entityClass, key);
 		if (t == null) {
-			throw new NoResultException("No results found for " + entityClass.getSimpleName());
+			throw new EntityNotFoundException("No results found for " + entityClass.getSimpleName());
 		}
 		return t;
 	}

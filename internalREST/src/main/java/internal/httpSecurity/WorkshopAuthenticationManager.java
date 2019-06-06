@@ -1,5 +1,6 @@
 package internal.httpSecurity;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,15 +14,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
+@Getter
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
 	private Set<AuthenticationProvider> authenticationProviders = new HashSet<>(3);
 	
+	/**
+	 * @param authenticationToken Only a UsernameAuthenticationToken with a raw (non encrypted) username and password
+	 * @return fully completed Authentication object with all credentials
+	 * @throws AuthenticationException may be received from AuthenticatedProvider in case of an authentication failure
+	 */
 	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		log.trace("AUTHENTICATING");
-//		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken();
-		throw new UsernameNotFoundException("");
+	public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
+		log.trace("Receiving authenticationToken={}", authenticationToken.getName());
+		Authentication authentication;
+		for (AuthenticationProvider authProvider : authenticationProviders) {
+			authentication = authProvider.authenticate(authenticationToken);
+			if (authentication != null) {
+				return authentication;
+			}
+		}
+		throw new UsernameNotFoundException(
+			"No such a username or a password has been found in any AuthenticationProvider!");
 	}
 	
 	public void addAuthenticationProvider(AuthenticationProvider authenticationProvider) {

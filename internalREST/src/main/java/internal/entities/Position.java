@@ -4,11 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * Class also plays a role for granting access to the inner App resources by its name
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +28,7 @@ public class Position implements GrantedAuthority, Serializable {
 	private long id;
 	
 	/**
-	 * Also uses as the GrantedAuthority
+	 * Also uses as the GrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
 	private String name;

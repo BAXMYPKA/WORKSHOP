@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.formLogin()
 					.loginPage("/internal/login")
 					.failureForwardUrl("/internal/login?logged=false");
+//					.successForwardUrl("/internal/login?logged=true");
 	}
 	
 	@Bean

@@ -26,36 +26,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests()
-				.antMatchers("/internal/login")
-					.permitAll()
-				.antMatchers("/internal/**")
-					.hasAnyAuthority("Employee")
+			.antMatchers("/internal/login")
+			.permitAll()
+			.antMatchers("/internal/**")
+			.hasAnyAuthority("Employee")
 			.and()
-				.formLogin()
-					.loginPage("/internal/login")
-					.failureForwardUrl("/internal/login?logged=false");
+			.formLogin()
+			.loginPage("/internal/login")
+			.failureForwardUrl("/internal/login?logged=false");
 //					.successForwardUrl("/internal/login?logged=true");
 	}
 	
 	@Bean
 	@Qualifier("employeesDetailsService")
 	@DependsOn("employeesDao")
-	public EmployeesDetailsService employeesDetailsService(){
+	public EmployeesDetailsService employeesDetailsService() {
 		return new EmployeesDetailsService();
 	}
 	
 	@Bean
 	@Qualifier("employeesAuthenticationProvider")
 	@DependsOn("employeesDetailsService")
-	public EmployeesAuthenticationProvider employeesAuthenticationProvider(){
+	public EmployeesAuthenticationProvider employeesAuthenticationProvider() {
 		return new EmployeesAuthenticationProvider();
 	}
 	
 	@Bean
-	public Set<AuthenticationProvider> internalAuthenticationProviders(){
+	public Set<AuthenticationProvider> internalAuthenticationProviders() {
 		Set<AuthenticationProvider> authenticationProviders = new HashSet<>(4);
 		authenticationProviders.add(employeesAuthenticationProvider());
 		return authenticationProviders;
@@ -64,10 +64,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	@Qualifier("workshopAuthenticationManager")
 	@DependsOn("employeesAuthenticationProvider")
-	public WorkshopAuthenticationManager workshopAuthenticationManager(){
-		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager();
-		authenticationManager.setInternalAuthenticationProviders(internalAuthenticationProviders());
-		return new WorkshopAuthenticationManager();
+	public WorkshopAuthenticationManager workshopAuthenticationManager() {
+		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager(
+			internalAuthenticationProviders());
+		return authenticationManager;
 	}
 	
 	@Bean
@@ -79,7 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder(){
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}

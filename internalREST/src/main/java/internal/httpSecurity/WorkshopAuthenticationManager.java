@@ -19,8 +19,13 @@ import java.util.Set;
 @Setter
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
-	@Autowired
+//	@Autowired
 	private Set<AuthenticationProvider> internalAuthenticationProviders;
+	
+	@Autowired
+	public WorkshopAuthenticationManager(Set<AuthenticationProvider> internalAuthenticationProviders) {
+		this.internalAuthenticationProviders = internalAuthenticationProviders;
+	}
 	
 	/**
 	 * @param authenticationToken Only a UsernameAuthenticationToken with a raw (non encrypted) username and password
@@ -40,10 +45,4 @@ public class WorkshopAuthenticationManager implements AuthenticationManager {
 		throw new UsernameNotFoundException(
 			"No such a username or a password has been found in any AuthenticationProvider!");
 	}
-	
-/*
-	public void addAuthenticationProvider(AuthenticationProvider authenticationProvider) {
-		this.internalAuthenticationProviders.add(authenticationProvider);
-	}
-*/
 }

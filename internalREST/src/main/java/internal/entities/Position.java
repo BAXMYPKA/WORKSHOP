@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -39,20 +40,36 @@ public class Position implements GrantedAuthority, Serializable {
 	@Column(length = 255)
 	private String description;
 	
-	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "position", orphanRemoval = true)
+	@OneToMany(mappedBy = "position", orphanRemoval = false, cascade = {
+		CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH
+	})
 	private Set<Employee> employees;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.REFRESH)
-	@JoinTable(name = "Departments_to_Positions",
-		schema = "INTERNAL",
-		joinColumns = {
-			@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions")},
-		inverseJoinColumns = {
-			@JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments")})
+	@ManyToOne(optional = false, cascade = {
+		CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE
+	})
+	@JoinTable(name = "Departments_to_Positions", schema = "INTERNAL",
+		joinColumns =
+		@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
+		inverseJoinColumns =
+		@JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
 	private Department department;
 	
 	@Override
 	public String getAuthority() {
 		return getName();
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof Position)) return false;
+		return ((Position) o).getId() == id &&
+			(((Position) o).getName() != null && ((Position) o).getName().contentEquals(name));
 	}
 }

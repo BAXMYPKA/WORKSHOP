@@ -29,8 +29,8 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	 * UsernamePasswordAuthenticationToken.getCredentials() returns a password String
 	 *
 	 * @param authenticationToken Only a UsernameAuthenticationToken with a raw (non encrypted) username and password
-	 * @return
-	 * @throws AuthenticationException
+	 * @return Fully verified (by email & password) and authenticated UsernamePasswordAuthenticationToken
+	 * @throws AuthenticationException in case of authentication failure
 	 */
 	@Override
 	public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
@@ -40,19 +40,12 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 		log.debug("Employee={} is found. Proceeding with matching passwords...", user.getUsername());
 		
 		//The raw password must match an encoded one from the Employee with that email
-		if (!passwordEncoder.matches((String)authenticationToken.getCredentials(), user.getPassword())){
+		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
-		
-		//Authentication.getAuthorities is nullable so it is safe if an User has null GrantedAuthority (Position.class)
 		Authentication authentication = new UsernamePasswordAuthenticationToken(
 			user.getUsername(), "", user.getAuthorities());
-		
-		if (user.getAuthorities() == null || user.getAuthorities().isEmpty()) {
-			authentication.setAuthenticated(false);
-		} else {
-			authentication.setAuthenticated(true);
-		}
+		authentication.setAuthenticated(true);
 		return authentication;
 	}
 	

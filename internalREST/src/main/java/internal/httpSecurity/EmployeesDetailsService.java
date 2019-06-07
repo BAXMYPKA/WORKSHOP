@@ -2,6 +2,7 @@ package internal.httpSecurity;
 
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;
+import internal.entities.Position;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
-import java.util.List;
 
 /**
  * Special class for providing the UserDetails for the Spring Security process with the help of EmployeesDao
@@ -34,10 +35,11 @@ public class EmployeesDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
 			Employee employee = employeesDao.findEmployeeByEmail(email);
+			//User.builder.authorities can receive String as a name and cannot be null
 			UserDetails userDetails = User.builder()
 				.username(employee.getEmail())
 				.password(employee.getPassword())
-				.authorities(employee.getPosition())
+				.authorities(employee.getPosition() != null ? employee.getPosition().getName() : "")
 				.build();
 			log.debug("User={} is found by email and passing to the AuthenticationProvider to check the password",
 				userDetails.getUsername());

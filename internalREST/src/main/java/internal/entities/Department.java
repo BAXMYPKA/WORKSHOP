@@ -7,8 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Deleting a Department will lead to deleting all the related Positions
+ */
 @Slf4j
 @Getter
 @Setter
@@ -27,6 +31,21 @@ public class Department implements Serializable {
 	@Column(unique = true, nullable = false)
 	private String name;
 	
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = false, mappedBy = "department")
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
+		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
+	})
 	private Set<Position> positions;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof Department)) return false;
+		Department dep = (Department)o;
+		return id == dep.id && name.equals(dep.name);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name);
+	}
 }

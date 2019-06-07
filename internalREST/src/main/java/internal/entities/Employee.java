@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Description;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 @Getter
@@ -19,6 +20,8 @@ public class Employee implements Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
+	
+	//TODO: to implement sequence generator that starts from 20L otherwise there will be a collision!
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,9 +49,10 @@ public class Employee implements Serializable {
 	@Column(length = 5242880) //5Mb
 	private byte[] photo;
 	
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinTable(name = "Employees_to_Positions",
-		schema = "INTERNAL",
+	@ManyToOne(optional = true, cascade = {
+		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH
+	})
+	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	private Position position;
@@ -64,5 +68,19 @@ public class Employee implements Serializable {
 			.add("phone='" + phone + "'")
 			.add("position=" + position)
 			.toString();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Employee)) return false;
+		Employee employee = (Employee) o;
+		return id == employee.id &&
+			email.equals(employee.email);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, email);
 	}
 }

@@ -37,16 +37,15 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 		log.trace("Provide authentication...");
 		
 		User user = (User) employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
+		
 		log.debug("Employee={} is found. Proceeding with matching passwords...", user.getUsername());
 		
 		//The raw password must match an encoded one from the Employee with that email
 		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-			user.getUsername(), "", user.getAuthorities());
-		authentication.setAuthenticated(true);
-		return authentication;
+		
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), "", user.getAuthorities());
 	}
 	
 	@Override

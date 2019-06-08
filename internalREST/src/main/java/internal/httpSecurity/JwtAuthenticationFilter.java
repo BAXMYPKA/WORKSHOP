@@ -1,16 +1,16 @@
 package internal.httpSecurity;
 
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -19,63 +19,87 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Extracts only Username and raw Password from a given JwtToken out of the "Authentication" HTTP header with the help of the JWT decoder.
- * Then pass them with the UsernamePasswordAuthenticationToken to the AuthenticationManager for the further check.
- * All the possible AuthenticationExceptions thrown by involved following classes in this
- * Authentication chain will be caught in the 'doFilter' method to fail the authentication
- */
 @Slf4j
-@Setter
-@NoArgsConstructor
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 	
-	/**
-	 * If Authentication won't be put into SecurityContext following Authorization process will be failed.
-	 * All the possible AuthenticationExceptions thrown by involved following classes in this
-	 * Authentication chain will be caught in this method as the signal of the authentication failure
-	 */
+	
+	public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
+		super(defaultFilterProcessesUrl);
+	}
+	
+	@Override
+	protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
+		//May be exposed as the indicator for preventing authentication for the tests
+		return true;
+	}
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		//TODO: to implement OAuth2 JWT tokens attached by cookie. Also implement CSRF protection
-		log.trace("doFilter...");
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+		
+		if (!requiresAuthentication(request, response)) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+		//TODO: to implement OAuth2 JWT tokens attached by a cookie or a header. Also implement CSRF protection
+		log.trace("doFilter: Extracting JWT from HTTP request...");
+		
+		Authentication authResult;
 		try {
-			Authentication authentication = attemptAuthentication((HttpServletRequest) req, (HttpServletResponse) res);
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			log.debug("Authentication={} is successfully set into the SecurityContext", authentication.getName());
-			super.doFilter(req, res, chain);
-		} catch (AuthenticationException e) {
-			log.debug(e.getMessage());
-			super.doFilter(req, res, chain);
+			authResult = attemptAuthentication(request, response);
+			if (authResult == null) {
+				unsuccessfulAuthentication(request, response, new InsufficientAuthenticationException(
+					"Authentication is null"));
+				return;
+			}
+		} catch (InternalAuthenticationServiceException failed) {
+			log.error("An internal error occurred while trying to authenticate the user.", failed);
+			unsuccessfulAuthentication(request, response, failed);
+			return;
+		} catch (AuthenticationException failed) {
+			unsuccessfulAuthentication(request, response, failed);
+			return;
+		}
+		
+		// Authentication success
+		chain.doFilter(request, response);
+		
+		successfulAuthentication(request, response, chain, authResult);
+	}
+	
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+		//TODO: to implement a class for validating and returning a JWT
+		try { //Jwt exceptions may be caught to translate them into AuthenticationException
+			Map<String, Object> headers = new HashMap<>(1);
+			headers.put("Authorization", "null header");
+			Map<String, Object> claims = new HashMap<>(1);
+			claims.put("Claim", "null claim");
+			Jwt jwt = new Jwt("000", Instant.now(), Instant.now().plusSeconds(2000000), headers, claims);
+			JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(jwt);
+			log.debug("JwtToken extracted and passed to the AuthenticationManager.");
+			AuthenticationManager ddddddddddd = getAuthenticationManager();
+			Authentication authentication = getAuthenticationManager().authenticate(jwtAuthenticationToken);
+			return authentication;
+		} catch (Exception e) {
+			throw new AuthenticationCredentialsNotFoundException("");
 		}
 	}
 	
-	/**
-	 * UsernamePasswordAuthenticationToken.getPrincipal() returns a username String
-	 * UsernamePasswordAuthenticationToken.getCredentials() returns a password String
-	 */
+	
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-		log.trace("Authentication filter attempt...");
-		//TODO: if the Authentication header with credentials is not presented skip auth process up to super.doFilter
-//		String jwt = request.getHeader("Authentication");
-//		if (jwt == null || jwt.isEmpty()) {
-//			throw new AuthenticationCredentialsNotFoundException("Authentication HTTP header is not presented!");
-//		}
-//		String[] usernamePassword = obtainUsernameWithPassword(jwt);
-		String[] usernamePassword = obtainUsernameWithPassword(""); //to delete this string of code
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-			usernamePassword[0], usernamePassword[1]);
-		authenticationToken.setAuthenticated(false);
-		Authentication authentication = getAuthenticationManager().authenticate(authenticationToken);
-		// Allow subclasses to set the "details" property (given from the superclass)
-		setDetails(request, authenticationToken);
-		return authentication;
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+		super.successfulAuthentication(request, response, chain, authResult);
 	}
 	
-	private String[] obtainUsernameWithPassword(String jwt) throws BadCredentialsException {
-		//returns String[]{"username", "password"}
-		return new String[]{"administrator@workshop.pro", "12345"};
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+		super.unsuccessfulAuthentication(request, response, failed);
 	}
 }

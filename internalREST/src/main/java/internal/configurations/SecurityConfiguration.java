@@ -1,9 +1,6 @@
 package internal.configurations;
 
-import internal.httpSecurity.EmployeesDetailsService;
-import internal.httpSecurity.JwtAuthenticationFilter;
-import internal.httpSecurity.WorkshopAuthenticationManager;
-import internal.httpSecurity.EmployeesAuthenticationProvider;
+import internal.httpSecurity.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
@@ -13,6 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.HashSet;
@@ -25,20 +25,42 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.csrf().disable()
+//			.cors()
+//			.and()
 			.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
+			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+			.addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/internal/login")
+			.antMatchers("/internal/login**")
 			.permitAll()
-			.antMatchers("/internal/**")
-			.hasAnyAuthority("Employee")
+			.antMatchers("/internal/a")
+			.hasAnyAuthority("Administrator")
+//			.mvcMatchers("/internal/")
+			.antMatchers("/internal**")
+			.authenticated()
 			.and()
 			.formLogin()
 			.loginPage("/internal/login")
-			.failureForwardUrl("/internal/login?logged=false");
-//					.successForwardUrl("/internal/login?logged=true");
+			.failureForwardUrl("/internal/login");
+//			.successHandler(authenticationSuccessHandler()).permitAll();
+//			.defaultSuccessUrl("/internal/", true)
+//			.successForwardUrl("/internal/");
+//			.and()
+//			.logout()
+//			.deleteCookies("workshopJwt")
+//			.clearAuthentication(true)
+//			.logoutSuccessUrl("/internal/login?logged_out=true");
 	}
+	
+/*
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		
+		super.configure(web);
+	}
+*/
 	
 	@Bean
 	@Qualifier("employeesDetailsService")
@@ -70,12 +92,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationManager;
 	}
 	
-	@Bean
-	@DependsOn("workshopAuthenticationManager")
-	public UsernamePasswordAuthenticationFilter authenticationFilter() {
-		UsernamePasswordAuthenticationFilter authenticationFilter = new JwtAuthenticationFilter();
+//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
+	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
+		UsernamePasswordAuthenticationFilter authenticationFilter = new LoginAuthenticationFilter();
+//		authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 		authenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		return authenticationFilter;
+	}
+	
+//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
+	public JwtAuthenticationFilter jwtAuthenticationFilter(){
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter("/internal/");
+		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
+		return jwtAuthenticationFilter;
 	}
 	
 	@Bean
@@ -83,4 +112,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
+	
+//	@Bean
+//	public AuthenticationSuccessHandler authenticationSuccessHandler(){
+//		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
+//		successHandler.setDefaultTargetUrl("/internal/a");
+//		return successHandler;
+//	}
 }

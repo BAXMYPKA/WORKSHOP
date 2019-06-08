@@ -37,6 +37,11 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+		
+		if (!requiresAuthentication(request, response)){
+			chain.doFilter(request, response);
+			return;
+		}
 		log.trace("Login doFilter...");
 		try {
 			Authentication authentication = attemptAuthentication(request, response);
@@ -91,6 +96,9 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(
 				authResult, this.getClass()));
 		}
+		
+		//TODO: here the place to add the Authorization header into the response
+		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 	}
 }

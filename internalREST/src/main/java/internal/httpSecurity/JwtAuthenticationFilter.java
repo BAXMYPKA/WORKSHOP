@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import javax.servlet.FilterChain;
@@ -32,17 +31,11 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	}
 	
 	@Override
-	protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
-		//May be exposed as the indicator for preventing authentication for the tests
-		return true;
-	}
-	
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		if (!requiresAuthentication(request, response)) {
+		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
 			chain.doFilter(request, response);
 			return;
 		}

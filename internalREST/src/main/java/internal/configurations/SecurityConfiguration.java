@@ -21,6 +21,8 @@ import java.util.Set;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -31,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-			.addFilterAfter(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+			.addFilterAt(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
 			.authorizeRequests()
 			.antMatchers("/internal/login**")
 			.permitAll()
@@ -40,10 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //			.mvcMatchers("/internal/")
 			.antMatchers("/internal**")
 			.authenticated()
+			.antMatchers("/")
+			.permitAll()
 			.and()
 			.formLogin()
 			.loginPage("/internal/login")
-			.failureForwardUrl("/internal/login");
+			.failureForwardUrl("/internal/login?logged=false");
 //			.successHandler(authenticationSuccessHandler()).permitAll();
 //			.defaultSuccessUrl("/internal/", true)
 //			.successForwardUrl("/internal/");
@@ -94,10 +98,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
-		UsernamePasswordAuthenticationFilter authenticationFilter = new LoginAuthenticationFilter();
+		UsernamePasswordAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
 //		authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
-		authenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
-		return authenticationFilter;
+		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
+		return loginAuthenticationFilter;
 	}
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass

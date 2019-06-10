@@ -1,6 +1,8 @@
 package internal.configurations;
 
 import internal.httpSecurity.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
@@ -22,6 +24,10 @@ import java.util.Set;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+	//TODO: to do all the environment variables to be loaded from outside .properties (cookie name, ttl, domain etc)
+	
+	public static final String DOMAIN_NAME = "workshop.pro";
+	public static final String INTERNAL_PATH_NAME = "/internal/";
 	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
 	
 	@Override
@@ -40,7 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/internal/a")
 			.hasAnyAuthority("Administrator")
-//			.mvcMatchers("/internal/")
 			.antMatchers("/internal**")
 			.authenticated()
 			.antMatchers("/")
@@ -55,14 +60,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.clearAuthentication(true)
 			.logoutSuccessUrl("/internal/login?logged_out=true");
 	}
-	
-/*
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		
-		super.configure(web);
-	}
-*/
 	
 	@Bean
 	@Qualifier("employeesDetailsService")
@@ -104,7 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter(){
-		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter("/internal/");
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(INTERNAL_PATH_NAME);
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return jwtAuthenticationFilter;

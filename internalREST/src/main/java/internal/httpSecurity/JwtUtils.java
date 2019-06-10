@@ -1,7 +1,6 @@
 package internal.httpSecurity;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -11,12 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
-import javax.xml.bind.DatatypeConverter;
 import java.sql.Date;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 
 @Slf4j
@@ -26,7 +21,7 @@ import java.util.Arrays;
 public class JwtUtils {
 	
 	@Autowired
-	private Security security;
+	private SecurityUtils securityUtils;
 	
 	/**
 	 * Jwt token expiration time in seconds. Default = 1800 (30minutes)
@@ -63,20 +58,28 @@ public class JwtUtils {
 			.setAudience(audience)
 			.setSubject(usernameAuthenticationToken.getPrincipal().toString())
 			.claim("scope", scope)
-			.signWith(security.getKey(), security.getSignatureAlgorithm())
+			.signWith(securityUtils.getKey(), securityUtils.getSignatureAlgorithm())
 			.compact();
 		
 		return jwtoken;
 	}
 	
+	/**
+	 * @return true if JWT contains all the proprietary fields
+	 * @throws JwtException if JWT contains incorrect sign or any other fatal problems. Particularly throws
+	 *                      ExpiredJwtException if the JWT is expired.
+	 */
 	public boolean validateJwt(String jwt) throws JwtException {
 		if (jwt == null || jwt.isEmpty()) {
 			throw new IllegalArgumentException("Jwt cannot be null or empty!");
 		}
 		try {
-			Jws<Claims> claimsJws = Jwts.parser().setSigningKey(security.getKey()).parseClaimsJws(jwt);
+			Jws<Claims> claimsJws = Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt);
 			Claims claims = claimsJws.getBody();
-			return true;
+			return audience.equals(claims.getAudience()) &&
+				issuer.equals(claims.getIssuer()) &&
+				(claims.getSubject() != null && !claims.getSubject().isEmpty()) &&
+				claims.containsKey("scope");
 		} catch (ExpiredJwtException exp) {
 			log.trace(exp.getMessage());
 			throw exp;
@@ -97,7 +100,7 @@ public class JwtUtils {
 			return true;
 		}
 		//Can be modified to set a time lag
-		Jws<Claims> claimsJws = Jwts.parser().setSigningKey(security.getKey()).parseClaimsJws(jwt);
+		Jws<Claims> claimsJws = Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt);
 		Claims claims = claimsJws.getBody();
 		return claims.getExpiration().before(new java.util.Date(System.currentTimeMillis()));
 	}

@@ -3,6 +3,7 @@ package internal.httpSecurity;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +28,11 @@ import java.io.IOException;
 @Setter
 @NoArgsConstructor
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	@Autowired
+	private CookieUtils cookieUtils;
 	
 	/**
 	 * If Authentication won't be put into SecurityContext following Authorization process will be failed.
@@ -79,13 +85,15 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	}
 	
 	/**
-	 * The method is an approximate copy of same from the supeclass
+	 * The method is an approximate copy of same from the superclass
+	 * Except inserting a Cookie with a JWT into the response.
 	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request,
 											HttpServletResponse response, FilterChain chain, Authentication authResult)
 		throws IOException, ServletException {
-		log.debug("Authentication success. Updating SecurityContextHolder to contain: {}", authResult);
+		log.debug("Authentication success. Setting JWT into request and updating SecurityContextHolder to contain: {}",
+			authResult);
 		
 		SecurityContextHolder.getContext().setAuthentication(authResult);
 		
@@ -97,7 +105,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 				authResult, this.getClass()));
 		}
 		
-		//TODO: here the place to add the Authorization header into the response
+		String jwt = jwtUtils.generateJwt(authResult);
+		cookieUtils.addCookie(response, cookieUtils.getAuthenticationCookieName(), jwt, null);
 		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 	}

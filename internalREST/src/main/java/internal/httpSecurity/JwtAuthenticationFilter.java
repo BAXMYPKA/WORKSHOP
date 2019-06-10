@@ -1,12 +1,10 @@
 package internal.httpSecurity;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -47,8 +45,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		try {
 			authResult = attemptAuthentication(request, response);
 			if (authResult == null) {
-				unsuccessfulAuthentication(request, response, new InsufficientAuthenticationException(
-					"Authentication is null"));
+				// return immediately as subclass has indicated that it hasn't completed
+				// authentication
 				return;
 			}
 		} catch (InternalAuthenticationServiceException failed) {
@@ -59,10 +57,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 			unsuccessfulAuthentication(request, response, failed);
 			return;
 		}
-		
 		// Authentication success
-		chain.doFilter(request, response);
-		
 		successfulAuthentication(request, response, chain, authResult);
 	}
 	
@@ -77,22 +72,40 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 			Jwt jwt = new Jwt("000", Instant.now(), Instant.now().plusSeconds(2000000), headers, claims);
 			JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(jwt);
 			log.debug("JwtToken extracted and passed to the AuthenticationManager.");
-			AuthenticationManager ddddddddddd = getAuthenticationManager();
 			Authentication authentication = getAuthenticationManager().authenticate(jwtAuthenticationToken);
 			return authentication;
+		} catch (AuthenticationException ae) {
+			log.trace("Authentication exception is caught, email or pass is incorrect.");
+			throw ae;
 		} catch (Exception e) {
-			throw new AuthenticationCredentialsNotFoundException("");
+			log.warn("There is a possibility of an ARI error, pay attention!", e);
+			throw new AuthenticationServiceException(
+				"The error isnt directly connected with Authentication", e);
 		}
 	}
 	
+	/**
+	 * Almost a full copy of the super method
+	 */
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request,
+											  HttpServletResponse response, AuthenticationException failed)
+		throws IOException, ServletException {
+		SecurityContextHolder.clearContext();
+		
+		if (logger.isDebugEnabled()) {
+			logger.debug("Authentication request failed: " + failed.getMessage());
+			logger.debug("Updated SecurityContextHolder to contain null Authentication");
+			logger.debug("Delegating to authentication failure handler " + getFailureHandler());
+		}
+		
+		super.getRememberMeServices().loginFail(request, response);
+		
+		super.getFailureHandler().onAuthenticationFailure(request, response, failed);
+	}
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
 		super.successfulAuthentication(request, response, chain, authResult);
-	}
-	
-	@Override
-	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-		super.unsuccessfulAuthentication(request, response, failed);
 	}
 }

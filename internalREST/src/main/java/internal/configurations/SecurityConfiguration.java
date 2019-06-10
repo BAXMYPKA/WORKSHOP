@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -47,15 +48,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.formLogin()
 			.loginPage("/internal/login")
-			.failureForwardUrl("/internal/login?logged=false");
-//			.successHandler(authenticationSuccessHandler()).permitAll();
-//			.defaultSuccessUrl("/internal/", true)
-//			.successForwardUrl("/internal/");
-//			.and()
-//			.logout()
-//			.deleteCookies("workshopJwt")
-//			.clearAuthentication(true)
-//			.logoutSuccessUrl("/internal/login?logged_out=true");
+			.failureHandler(authenticationFailureHandler())
+			.and()
+			.logout()
+			.deleteCookies("workshopJwt")
+			.clearAuthentication(true)
+			.logoutSuccessUrl("/internal/login?logged_out=true");
 	}
 	
 /*
@@ -108,6 +106,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public JwtAuthenticationFilter jwtAuthenticationFilter(){
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter("/internal/");
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
+		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return jwtAuthenticationFilter;
 	}
 	
@@ -117,10 +116,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return encoder;
 	}
 	
-//	@Bean
-//	public AuthenticationSuccessHandler authenticationSuccessHandler(){
-//		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
-//		successHandler.setDefaultTargetUrl("/internal/a");
-//		return successHandler;
-//	}
+	@Bean
+	public SimpleUrlAuthenticationFailureHandler authenticationFailureHandler() {
+		SimpleUrlAuthenticationFailureHandler authenticationFailureHandler =
+			new SimpleUrlAuthenticationFailureHandler("/internal/login?login=failure");
+		return authenticationFailureHandler;
+	}
+	@Bean
+	public AuthenticationSuccessHandler authenticationSuccessHandler(){
+		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
+		successHandler.setDefaultTargetUrl("/internal/a");
+		return successHandler;
+	}
 }

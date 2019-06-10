@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST.log.2019-06-08.0.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -89,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="29" column="113" selection-start-line="29" selection-start-column="113" selection-end-line="29" selection-end-column="113" />
+            <state relative-caret-position="407">
+              <caret line="38" column="79" lean-forward="true" selection-start-line="38" selection-start-column="79" selection-end-line="38" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;field#SECRET_WORD#0;class#Security#0" expanded="true" />
@@ -102,10 +96,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="37" column="74" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="74" />
+            <state relative-caret-position="535">
+              <caret line="98" column="43" selection-start-line="98" selection-start-column="43" selection-end-line="98" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="docComment;field#expirationTime#0;class#JwtUtils#0" expanded="true" />
                 <element signature="docComment;method#generateJwt#0;class#JwtUtils#0" expanded="true" />
               </folding>
             </state>
@@ -115,8 +110,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="61" column="86" selection-start-line="61" selection-start-column="86" selection-end-line="61" selection-end-column="86" />
+            <state relative-caret-position="455">
+              <caret line="148" column="42" selection-start-line="148" selection-start-column="42" selection-end-line="148" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -198,10 +193,10 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" />
         <option value="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-dependencies/2.1.5.RELEASE/spring-boot-dependencies-2.1.5.RELEASE.pom" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java" />
       </list>
     </option>
@@ -238,9 +233,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="432" />
-    <option name="y" value="1" />
+    <option name="y" value="2" />
     <option name="width" value="1495" />
-    <option name="height" value="1058" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -407,21 +402,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.JwtUtilsTest">
-    <configuration name="InternalApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.workshop.internal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="com.workshop.internal.InternalApplicationTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="JwtUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -437,7 +417,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.generateJwt_with_null_Authentication_Parameter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JwtUtilsTest.check_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -447,13 +427,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.httpSecurity" />
       <option name="MAIN_CLASS_NAME" value="internal.httpSecurity.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="generateJwt_with_null_Authentication_Parameter" />
+      <option name="METHOD_NAME" value="check_expired_token" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JwtUtilsTest.check_non_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -463,43 +443,58 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.httpSecurity" />
       <option name="MAIN_CLASS_NAME" value="internal.httpSecurity.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException" />
+      <option name="METHOD_NAME" value="check_non_expired_token" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InternalApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+    <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.workshop.internal.*" />
+          <option name="PATTERN" value="internal.httpSecurity.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="internal.InternalApplication" />
-      <option name="HIDE_BANNER" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="PACKAGE_NAME" value="internal.httpSecurity" />
+      <option name="MAIN_CLASS_NAME" value="internal.httpSecurity.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="unsigned_or_wrong_singed_tokens_always_return_false" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtUtilsTest.valid_JWT_return_true_with_non_expired" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.httpSecurity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.httpSecurity" />
+      <option name="MAIN_CLASS_NAME" value="internal.httpSecurity.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="valid_JWT_return_true_with_non_expired" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.InternalApplicationTests" />
-      <item itemvalue="Spring Boot.InternalApp" />
-      <item itemvalue="JUnit.JwtUtilsTest.generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException" />
+      <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
+      <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
+      <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
+      <item itemvalue="JUnit.JwtUtilsTest.valid_JWT_return_true_with_non_expired" />
       <item itemvalue="JUnit.JwtUtilsTest" />
-      <item itemvalue="JUnit.JwtUtilsTest.generateJwt_with_null_Authentication_Parameter" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.JwtUtilsTest" />
-        <item itemvalue="JUnit.JwtUtilsTest.generateJwt_with_null_Authentication_Parameter" />
-        <item itemvalue="JUnit.JwtUtilsTest.generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException" />
-        <item itemvalue="Spring Boot.InternalApp" />
-        <item itemvalue="JUnit.InternalApplicationTests" />
+        <item itemvalue="JUnit.JwtUtilsTest.valid_JWT_return_true_with_non_expired" />
+        <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
+        <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
+        <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
       </list>
     </recent_temporary>
   </component>
@@ -533,51 +528,72 @@
       <workItem from="1559757258874" duration="9065000" />
       <workItem from="1559803287851" duration="91357000" />
       <workItem from="1560112705516" duration="49000" />
-      <workItem from="1560147666719" duration="12025000" />
+      <workItem from="1560147666719" duration="28048000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="InternalApplicationTests - 2019.06.02 at 16h 52m 49s.xml">
-      <configuration name="InternalApplicationTests" configurationId="JUnit" />
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 16h 51m 26s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JwtUtilsTest_generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException - 2019.06.10 at 11h 55m 07s.xml">
-      <configuration name="JwtUtilsTest.generateJwt_with_null_Authentication_parameter_throws_IllegalArgumentException" configurationId="JUnit" />
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 16h 51m 57s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JwtUtilsTest - 2019.06.10 at 12h 18m 48s.xml">
-      <configuration name="JwtUtilsTest" configurationId="JUnit" />
+    <history-entry file="JwtUtilsTest_check_non_expired_token - 2019.06.10 at 16h 52m 44s.xml">
+      <configuration name="JwtUtilsTest.check_non_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 16h 53m 13s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 16h 53m 59s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 16h 55m 15s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_check_non_expired_token - 2019.06.10 at 17h 06m 24s.xml">
+      <configuration name="JwtUtilsTest.check_non_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_check_expired_token - 2019.06.10 at 17h 06m 33s.xml">
+      <configuration name="JwtUtilsTest.check_expired_token" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_unsigned_or_wrong_singed_tokens_always_return_false - 2019.06.10 at 17h 06m 51s.xml">
+      <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JwtUtilsTest_unsigned_or_wrong_singed_tokens_always_return_false - 2019.06.10 at 17h 08m 38s.xml">
+      <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192332000" />
+    <option name="totallyTimeSpent" value="208355000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="432" y="1" width="1495" height="1058" extended-state="0" />
+    <frame x="432" y="2" width="1495" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info id="Structure" order="4" sideWeight="0.51861703" side_tool="true" visible="true" weight="0.17158546" />
+      <window_info id="Structure" order="4" sideWeight="0.42021278" side_tool="true" visible="true" weight="0.24433768" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.58153844" weight="0.24433768" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.57978725" visible="true" weight="0.24433768" />
       <window_info id="Database" order="8" sideWeight="0.49641025" weight="0.18599863" />
-      <window_info id="Maven" order="9" sideWeight="0.48138297" visible="true" weight="0.17158546" />
+      <window_info id="Maven" order="9" sideWeight="0.4800532" weight="0.17158546" />
       <window_info id="Web" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32820514" />
-      <window_info active="true" anchor="bottom" auto_hide="true" id="Run" order="2" visible="true" weight="0.22871795" />
+      <window_info active="true" anchor="bottom" auto_hide="true" id="Run" order="2" visible="true" weight="0.22792608" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.30769232" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.30698153" />
       <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.24615385" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" auto_hide="true" id="Messages" order="11" weight="0.32820514" />
+      <window_info anchor="bottom" auto_hide="true" id="Messages" order="11" weight="0.3275154" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32923076" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32923076" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
@@ -636,13 +652,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.5.RELEASE/spring-boot-autoconfigure-2.1.5.RELEASE.jar!/org/springframework/boot/autoconfigure/orm/jpa/JpaBaseConfiguration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="100" column="50" selection-start-line="100" selection-start-column="50" selection-end-line="100" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.5.RELEASE/spring-boot-autoconfigure-2.1.5.RELEASE-sources.jar!/org/springframework/boot/autoconfigure/orm/jpa/JpaBaseConfiguration.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1088,8 +1097,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="29" column="113" selection-start-line="29" selection-start-column="113" selection-end-line="29" selection-end-column="113" />
+        <state relative-caret-position="407">
+          <caret line="38" column="79" lean-forward="true" selection-start-line="38" selection-start-column="79" selection-end-line="38" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#SECRET_WORD#0;class#Security#0" expanded="true" />
@@ -1097,12 +1106,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.3.2/junit-platform-commons-1.3.2.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="298" selection-start-line="298" selection-end-line="298" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="37" column="74" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="74" />
+        <state relative-caret-position="535">
+          <caret line="98" column="43" selection-start-line="98" selection-start-column="43" selection-end-line="98" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="docComment;field#expirationTime#0;class#JwtUtils#0" expanded="true" />
             <element signature="docComment;method#generateJwt#0;class#JwtUtils#0" expanded="true" />
           </folding>
         </state>
@@ -1110,8 +1127,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="61" column="86" selection-start-line="61" selection-start-column="86" selection-end-line="61" selection-end-column="86" />
+        <state relative-caret-position="455">
+          <caret line="148" column="42" selection-start-line="148" selection-start-column="42" selection-end-line="148" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

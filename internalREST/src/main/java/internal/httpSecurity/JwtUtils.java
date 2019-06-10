@@ -1,6 +1,7 @@
 package internal.httpSecurity;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
+import javax.xml.bind.DatatypeConverter;
 import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 
 @Slf4j
@@ -23,6 +27,13 @@ public class JwtUtils {
 	
 	@Autowired
 	private Security security;
+	
+	/**
+	 * Jwt token expiration time in seconds. Default = 1800 (30minutes)
+	 */
+	private int expirationTime = 60 * 30;
+	private String issuer = "workshop.pro";
+	private String audience = "workshop.pro/internal";
 	
 	/**
 	 * @param usernameAuthenticationToken where .getPrincipal = String(Username)
@@ -37,27 +48,57 @@ public class JwtUtils {
 			usernameAuthenticationToken.getPrincipal().toString().isEmpty()) {
 			throw new BadCredentialsException("Username is null or empty!");
 		}
+		String scope;
+		if (usernameAuthenticationToken.getCredentials() == null) {
+			scope = "";
+		} else {
+			scope = Arrays.deepToString(usernameAuthenticationToken.getAuthorities().toArray());
+		}
 //		Header like {"alg": "HS256",	"typ": "JWT"} is automatically added by builder
-//		.setHeader() will overwrite the existing one!
+//		JwtBuilder.setHeader() will overwrite the existing one!
 		String jwtoken = Jwts.builder()
 			.setIssuedAt(Date.valueOf(LocalDate.now()))
-			.setExpiration(Date.valueOf(LocalDate.now().plus(Duration.ofMinutes(30))))
-			.setIssuer("workshop.pro")
-			.setAudience("workshop.pro/internal")
+			.setExpiration(new Date(System.currentTimeMillis() + 1000 * expirationTime))
+			.setIssuer(issuer)
+			.setAudience(audience)
 			.setSubject(usernameAuthenticationToken.getPrincipal().toString())
-			.claim("scope", Arrays.deepToString(usernameAuthenticationToken.getAuthorities().toArray()))
+			.claim("scope", scope)
 			.signWith(security.getKey(), security.getSignatureAlgorithm())
 			.compact();
 		
 		return jwtoken;
 	}
 	
-	public void parseJwt(String jwt) {
-		try {
-			Jwt<Header, Claims> claimsJwt = Jwts.parser().setSigningKey(security.getKey()).parseClaimsJwt(jwt);
-		} catch (JwtException e) {
-			log.error("Jwt parsing failure!", e);
+	public boolean validateJwt(String jwt) throws JwtException {
+		if (jwt == null || jwt.isEmpty()) {
+			throw new IllegalArgumentException("Jwt cannot be null or empty!");
 		}
-		return;
+		try {
+			Jws<Claims> claimsJws = Jwts.parser().setSigningKey(security.getKey()).parseClaimsJws(jwt);
+			Claims claims = claimsJws.getBody();
+			return true;
+		} catch (ExpiredJwtException exp) {
+			log.trace(exp.getMessage());
+			throw exp;
+		} catch (JwtException e) {
+			log.trace("Jwt parsing failure! Message:" + e.getMessage());
+			return false;
+		}
+	}
+	
+	public boolean isJwtExpired(String jwt) throws IllegalArgumentException, JwtException {
+		if (jwt == null || jwt.isEmpty()) {
+			throw new IllegalArgumentException("Jwt cannot be null or empty!");
+		}
+		try {
+			validateJwt(jwt);
+		} catch (ExpiredJwtException exp) {
+			log.trace(exp.getMessage());
+			return true;
+		}
+		//Can be modified to set a time lag
+		Jws<Claims> claimsJws = Jwts.parser().setSigningKey(security.getKey()).parseClaimsJws(jwt);
+		Claims claims = claimsJws.getBody();
+		return claims.getExpiration().before(new java.util.Date(System.currentTimeMillis()));
 	}
 }

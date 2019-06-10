@@ -6,9 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 @Slf4j
 @NoArgsConstructor
@@ -23,10 +26,26 @@ class Security {
 	private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	@Getter
 	private Key key;
+	private KeyGenerator keyGenerator;
+
+//	{
+//		try {
+//		} catch (NoSuchAlgorithmException e) {
+//			log.error("Fatal security initialization!", e);
+//		}
+//
+//	}
 	
 	public Security(String secretWord, SignatureAlgorithm signatureAlgorithm) {
 		this.secretWord = secretWord;
 		this.signatureAlgorithm = signatureAlgorithm;
-		key = new SecretKeySpec(secretWord.getBytes(StandardCharsets.UTF_8), signatureAlgorithm.getFamilyName());
+		try {
+			keyGenerator = KeyGenerator.getInstance(signatureAlgorithm.getJcaName());
+			keyGenerator.init(256);
+		} catch (NoSuchAlgorithmException e) {
+			log.error("Fatal security initialization!", e);
+		}
+		key = keyGenerator.generateKey();
+		
 	}
 }

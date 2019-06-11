@@ -44,15 +44,10 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		try {
-			if (!requiresAuthentication(request, response)) {
-				chain.doFilter(request, response);
-				return;
-			}
-		} catch (NullPointerException e) {
-			log.trace("Try-catch only for the testing purpose only.");
+		if (!requiresAuthentication(request, response)) {
+			chain.doFilter(request, response);
+			return;
 		}
-		
 		log.trace("Login doFilter...");
 		try {
 			Authentication authentication = attemptAuthentication(request, response);
@@ -111,7 +106,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		}
 		
 		String jwt = jwtUtils.generateJwt(authResult);
-		cookieUtils.addCookie(response, cookieUtils.getAuthenticationCookieName(), jwt, null);
+		String authenticationCookieName = cookieUtils.getAuthenticationCookieName();
+		cookieUtils.addCookie(response, authenticationCookieName, jwt, null);
 		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 	}

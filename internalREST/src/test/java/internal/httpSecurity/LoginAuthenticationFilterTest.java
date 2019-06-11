@@ -1,5 +1,6 @@
 package internal.httpSecurity;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,8 +24,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO: IN THIS TESTS I ONLY CAN REGISTER INNER METHODS INVOCATION DEPENDING ON VALID\NOT VALID AUTHENTICATION
-
 @ExtendWith(MockitoExtension.class)
 class LoginAuthenticationFilterTest {
 	
@@ -33,13 +32,15 @@ class LoginAuthenticationFilterTest {
 	@Mock
 	JwtUtils jwtUtils;
 	@Mock
-	HttpServletRequestWrapper requestWrapper;
+	HttpServletRequestWrapper request;
 	@Mock
-	HttpServletResponseWrapper responseWrapper;
+	HttpServletResponseWrapper response;
 	@Mock
 	FilterChain filterChain;
 	@Mock
 	AuthenticationManager authenticationManager;
+	@Mock
+	RequestMatcher matcher;
 	@InjectMocks
 	LoginAuthenticationFilter loginAuthenticationFilter;
 	
@@ -60,30 +61,58 @@ class LoginAuthenticationFilterTest {
 			password,
 			authorities);
 		
-		Mockito.lenient().when(requestWrapper.getContextPath()).thenReturn("/login");
-		Mockito.lenient().when(requestWrapper.getRequestURI()).thenReturn("/login");
-
-//		Mockito.lenient().when(loginAuthenticationFilter.requiresAuthentication(Mockito.any(), Mockito.any())).thenReturn(true);
+		Mockito.lenient().when(request.getContextPath()).thenReturn("workshop.pro/internal");
+		Mockito.lenient().when(request.getRequestURI()).thenReturn("/login");
+		Mockito.lenient().when(request.getMethod()).thenReturn("POST");
+		Mockito.lenient().when(request.getHeader("email")).thenReturn(email);
+		Mockito.lenient().when(request.getHeader("password")).thenReturn(password);
+		
+		Mockito.lenient().when(matcher.matches(request)).thenReturn(true);
+		
 		Mockito.lenient().when(authenticationManager.authenticate(Mockito.any(Authentication.class))).thenReturn(authentication);
-		loginAuthenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login"));
+		
+		Mockito.lenient().when(cookieUtils.getAuthenticationCookieName()).thenReturn("workshopJwt");
+		
+		loginAuthenticationFilter.setRequiresAuthenticationRequestMatcher(matcher);
 		loginAuthenticationFilter.setAuthenticationManager(authenticationManager);
 	}
 	
 	@Test
-	public void doFilterWithValidAuthenticationGeneratesCookieWithJwt() throws IOException, ServletException {
-		//GIVEN
+	public void doFilter_With_Valid_Authentication_Generates_JWT() throws IOException, ServletException {
+		//GIVEN Authentication that has to be passed into JwtUtils
 		
-		
-		Mockito.lenient().when(requestWrapper.getHeader("email")).thenReturn(email);
-		Mockito.lenient().when(requestWrapper.getHeader("password")).thenReturn(password);
-		
-		ArgumentCaptor<HttpServletResponseWrapper> responseCaptor = ArgumentCaptor.forClass(
-			HttpServletResponseWrapper.class);
+		ArgumentCaptor<Authentication> authenticationCaptor = ArgumentCaptor.forClass(
+			Authentication.class);
 		
 		//WHEN
-		loginAuthenticationFilter.doFilter(requestWrapper, responseWrapper, filterChain);
+		loginAuthenticationFilter.doFilter(request, response, filterChain);
 		
-		//THEN
+		//THEN the initial Authentication from AuthenticationManager has to be sent for generating JWT
+		Mockito.verify(jwtUtils, Mockito.atLeastOnce()).generateJwt(authenticationCaptor.capture());
+		
+		Assertions.assertSame(authentication, authenticationCaptor.getValue());
+	}
 	
+	@Test
+	public void doFilter_with_valid_Authentication_sets_Cookie_into_HttpResponse() throws IOException, ServletException {
+		//GIVEN same Response and CookieName have to be passed to CookieUtils for creating an auth Cookie
+		ArgumentCaptor<HttpServletResponseWrapper> responseCaptor = ArgumentCaptor.forClass(
+			HttpServletResponseWrapper.class);
+		ArgumentCaptor<String> cookieNameCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<String> jwtCaptor = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Integer> ttlCaptor = ArgumentCaptor.forClass(Integer.class);
+		
+		//WHEN
+		loginAuthenticationFilter.doFilter(request, response, filterChain);
+		
+		//THEN the same response and cookieName are sent into CookieUtils
+		Mockito.verify(cookieUtils, Mockito.atLeastOnce()).addCookie(
+			responseCaptor.capture(),
+			cookieNameCaptor.capture(),
+			jwtCaptor.capture(),
+			ttlCaptor.capture());
+		
+		Assertions.assertEquals(response, responseCaptor.getValue());
+		Assertions.assertEquals(cookieUtils.getAuthenticationCookieName(), cookieNameCaptor.getValue());
 	}
 }

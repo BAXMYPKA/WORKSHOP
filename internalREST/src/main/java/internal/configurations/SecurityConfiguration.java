@@ -26,8 +26,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	//TODO: to do all the environment variables to be loaded from outside .properties (cookie name, ttl, domain etc)
 	
-	public static final String DOMAIN_NAME = "workshop.pro";
-	public static final String INTERNAL_PATH_NAME = "/internal/";
+	@Getter @Setter
+	private String domainName = "workshop.pro";
+	@Getter @Setter
+	private String internalPathName = "/internal/";
 	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
 	
 	@Override
@@ -101,7 +103,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter(){
-		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(INTERNAL_PATH_NAME);
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(internalPathName);
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return jwtAuthenticationFilter;

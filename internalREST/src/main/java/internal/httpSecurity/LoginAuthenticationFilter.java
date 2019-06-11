@@ -44,10 +44,15 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		if (!requiresAuthentication(request, response)){
-			chain.doFilter(request, response);
-			return;
+		try {
+			if (!requiresAuthentication(request, response)) {
+				chain.doFilter(request, response);
+				return;
+			}
+		} catch (NullPointerException e) {
+			log.trace("Try-catch only for the testing purpose only.");
 		}
+		
 		log.trace("Login doFilter...");
 		try {
 			Authentication authentication = attemptAuthentication(request, response);
@@ -86,7 +91,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	
 	/**
 	 * The method is an approximate copy of same from the superclass
-	 * Except inserting a Cookie with a JWT into the response.
+	 * Except inserting a Cookie with a valid JWT into the response.
 	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request,

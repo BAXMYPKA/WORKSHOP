@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,8 @@ import java.util.Arrays;
 @Component
 public class CookieUtils {
 	
+	@Autowired
+	SecurityConfiguration securityConfiguration;
 	private String authenticationCookieName = "workshopAuthentication";
 	/**
 	 * In seconds. Default is 259_200 (3 days)
@@ -33,8 +36,9 @@ public class CookieUtils {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
-		cookie.setDomain(SecurityConfiguration.DOMAIN_NAME);
-		cookie.setPath(SecurityConfiguration.INTERNAL_PATH_NAME);
+		cookie.setDomain(securityConfiguration.getDomainName());
+		cookie.setPath(securityConfiguration.getInternalPathName());
+		response.addCookie(cookie);
 	}
 	
 	public void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {

@@ -34,6 +34,10 @@ public class Task implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP()")
 	private LocalDateTime created;
 	
+	private LocalDateTime modified;
+	
+	private Employee createdBy;
+	
 	@Column
 	//TODO: check the date has to be before the linked Order "finished"
 	private LocalDateTime finished;

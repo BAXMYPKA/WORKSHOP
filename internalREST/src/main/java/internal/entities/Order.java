@@ -49,4 +49,7 @@ public class Order implements Serializable {
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH	})
 	private Set<Task> tasks;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private User user;
 }

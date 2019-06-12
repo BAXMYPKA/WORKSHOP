@@ -6014,4 +6014,8 @@ INSERT INTO INTERNAL.PHONES (ID, NAME, PHONE, EMPLOYEE_ID) VALUES (11, 'Mobile',
 -59:47:537 - INFO 16080 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
 -59:51:393 - WARN 16080 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 -59:52:126 - INFO 16080 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.024 seconds (JVM running for 6.18)
+-32:04:527 - INFO 19788 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on XAOMI-AIR with PID 19788 (C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\target\classes started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP)
+-32:04:533 - INFO 19788 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-32:10:612 - WARN 19788 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-32:11:699 - INFO 19788 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 7.905 seconds (JVM running for 10.302)
 -

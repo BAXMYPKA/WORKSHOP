@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order implements Serializable {
@@ -48,8 +46,7 @@ public class Order implements Serializable {
 	@Column(nullable = false)
 	private User createdFor;
 	
-/*
-	@Column
+	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH	})
 	private Set<Task> tasks;
-*/
 }

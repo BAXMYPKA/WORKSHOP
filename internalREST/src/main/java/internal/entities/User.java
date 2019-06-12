@@ -21,5 +21,7 @@ public class User implements Serializable {
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
 	private long id;
 	
-//	private Set<Phone> phones;
+	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Phone> phones;
 }

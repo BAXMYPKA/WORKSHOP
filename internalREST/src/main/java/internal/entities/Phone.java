@@ -23,10 +23,14 @@ public class Phone implements Serializable {
 	@Column
 	private String name;
 	
-	@Column
+	@Column(unique = true, nullable = false)
 	private String phone;
 	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
 	
-//	private User user;
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@JoinColumn(name = "user_id")
+	private User user;
 }

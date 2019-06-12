@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 import java.util.StringJoiner;
 
 @Getter
@@ -42,8 +43,10 @@ public class Employee implements Serializable {
 	@Column(nullable = false, columnDefinition = "")
 	private LocalDate birthday;
 	
-	@Column(nullable = false, length = 100)
-	private String phone;
+//	@Column(nullable = false, length = 100)
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
+		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH	})
+	private Set<Phone> phones;
 	
 	@Lob
 	@Column(length = 5242880) //5Mb
@@ -65,7 +68,7 @@ public class Employee implements Serializable {
 			.add("lastName='" + lastName + "'")
 			.add("email='" + email + "'")
 			.add("birthday=" + birthday)
-			.add("phone='" + phone + "'")
+			.add("phone='" + phones.iterator().next() + "'")
 			.add("position=" + position)
 			.toString();
 	}

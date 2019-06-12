@@ -7,13 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * The Classifier for Tasks. Loads and updated directly from DB
  */
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
 public class Classifier implements Serializable {
@@ -28,4 +27,7 @@ public class Classifier implements Serializable {
 	
 	@Column(nullable = false, unique = true)
 	private String name;
+	
+	@ManyToMany(mappedBy = "classifiers", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
+	private Set<Task> tasks;
 }

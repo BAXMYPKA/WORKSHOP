@@ -37,7 +37,7 @@ public class Employee implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String email;
 	
-	@Column(nullable = false, columnDefinition = "")
+	@Column(nullable = false)
 	private LocalDate birthday;
 	
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
@@ -55,11 +55,28 @@ public class Employee implements Serializable {
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	private Position position;
 	
-	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE})
-	private Set<TrackingInfo> trackingInfoModifiedBy;
+	@OneToMany(mappedBy = "appointedTo", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	private Set<Task> appointedTasks;
 	
-	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = TrackingInfo.class)
-	private Set<TrackingInfo> trackingInfoCreatedBy;
+	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	private Set<Trackable> ordersModifiedBy;
+	
+	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	private Set<Trackable> ordersCreatedBy;
+	
+	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
+	private Set<Trackable> tasksModifiedBy;
+	
+	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
+	private Set<Trackable> tasksCreatedBy;
+
+/*
+	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE})
+	private Set<Order> modifiedBy;
+	
+	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE})
+	private Set<Order> createdBy;
+*/
 	
 	@Override
 	public String toString() {

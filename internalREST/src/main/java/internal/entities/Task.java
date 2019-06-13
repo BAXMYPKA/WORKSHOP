@@ -7,46 +7,36 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 /**
- * Creation DateTime is equal to the corresponding Order.
- * Can be appointed in creation time or self-appointed so that 'appointedTo' field can by null
+ * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
-public class Task implements Serializable {
+public class Task extends Trackable {
 	
-	@Transient
-	private static final long serialVersionUID = 1L;
-	
+/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_sequence")
 	@SequenceGenerator(name = "tasks_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
 	private long id;
+*/
+//	private LocalDateTime discharged:
 	
 	@Column
 	private String name;
-	
-	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP()")
-	private LocalDateTime created;
-	
-	private LocalDateTime modified;
-	
-	private Employee createdBy;
-	
-	@Column
-	//TODO: check the date has to be before the linked Order "finished"
-	private LocalDateTime finished;
 	
 	@Column
 	//TODO: check the date has to be before the linked Order "deadline"
 	private LocalDateTime deadline;
 	
-	@Column
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
 	
 	/**
@@ -63,4 +53,18 @@ public class Task implements Serializable {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Task)) return false;
+		if (!super.equals(o)) return false;
+		Task task = (Task) o;
+		return getCreated().equals(task.getCreated());
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), getCreated());
+	}
 }

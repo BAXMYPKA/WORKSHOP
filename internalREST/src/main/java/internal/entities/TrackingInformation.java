@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Interface for the @Embeddable TrackingInfo implementations for the Trackable Entities
+ * Interface for the @Embeddable Trackable implementations for the Trackable Entities
  */
 public interface TrackingInformation extends Serializable {
 	

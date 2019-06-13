@@ -58,7 +58,7 @@ public class User implements Serializable {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Phone> phones;
 	
-	@OneToMany(mappedBy = "user", orphanRemoval = false, cascade = {
+	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	private Set<Order> orders;
 }

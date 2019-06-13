@@ -12,9 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 public class Employee implements Serializable {
@@ -22,10 +20,9 @@ public class Employee implements Serializable {
 	@Transient
 	private static final long serialVersionUID = 1L;
 	
-	//TODO: to implement sequence generator that starts from 20L otherwise there will be a collision!
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_sequence")
+	@SequenceGenerator(name = "employees_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
 	private long id;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
@@ -43,7 +40,6 @@ public class Employee implements Serializable {
 	@Column(nullable = false, columnDefinition = "")
 	private LocalDate birthday;
 	
-//	@Column(nullable = false, length = 100)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH	})
 	private Set<Phone> phones;
@@ -53,12 +49,17 @@ public class Employee implements Serializable {
 	private byte[] photo;
 	
 	@ManyToOne(optional = true, cascade = {
-		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH
-	})
+		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	private Position position;
+	
+	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE})
+	private Set<TrackingInfo> trackingInfoModifiedBy;
+	
+	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = TrackingInfo.class)
+	private Set<TrackingInfo> trackingInfoCreatedBy;
 	
 	@Override
 	public String toString() {

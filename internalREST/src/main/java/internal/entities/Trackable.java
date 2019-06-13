@@ -1,6 +1,11 @@
 package internal.entities;
 
-public interface Trackable{
+/**
+ * Interface for the Entities which must contain TrackingInformation implementation as @Embedded
+ */
+public interface Trackable {
 	
-	public void setTrackingInfo(Trackable trackable);
+	void setTrackingInformation(TrackingInformation trackingInformation);
+	
+	TrackingInformation getTrackingInformation();
 }

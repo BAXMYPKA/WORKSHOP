@@ -13,9 +13,7 @@ import java.util.Set;
 /**
  * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
  */
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {

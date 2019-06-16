@@ -1,12 +1,15 @@
 package internal.entities;
 
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 /**
@@ -15,10 +18,11 @@ import java.util.Set;
 @Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
-public class Classifier implements Serializable {
+@AttributeOverrides(value = {})
+public class Classifier extends Trackable implements Serializable {
 	
-	@Transient
-	private static	final long serialVersionUID = 1L;
+//	@Transient
+//	private static	final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classifiers_sequence")
@@ -27,6 +31,14 @@ public class Classifier implements Serializable {
 	
 	@Column(nullable = false, unique = true)
 	private String name;
+	
+	
+	/**
+	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order
+	 * creation to fix it, because this current price can be changed further.
+	 */
+	@Column(nullable = false, scale = 2)
+	private BigDecimal price;
 	
 	@ManyToMany(mappedBy = "classifiers", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	private Set<Task> tasks;

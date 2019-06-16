@@ -14,9 +14,7 @@ import java.util.Set;
 /**
  * Class also plays a role for granting access to the inner App resources by its name
  */
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 public class Position implements GrantedAuthority, Serializable {

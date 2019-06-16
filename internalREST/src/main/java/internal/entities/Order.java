@@ -1,9 +1,6 @@
 package internal.entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order extends Trackable {
@@ -44,18 +41,4 @@ public class Order extends Trackable {
 		this.createdFor = createdFor;
 		this.tasks = tasks;
 	}
-	
-//	@Override
-//	public boolean equals(Object o) {
-//		if (this == o) return true;
-//		if (!(o instanceof Order)) return false;
-//		Order order = (Order) o;
-//		return getId() == order.getId() &&
-//			getTrackable().equals(order.getTrackable());
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(getId(), getTrackable());
-//	}
 }

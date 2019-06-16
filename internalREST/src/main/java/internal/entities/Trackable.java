@@ -1,5 +1,6 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.Objects;
  * Requires using the constructor with Employee as a single argument
  * "created" and "modified" fields are updated automatically
  */
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @EqualsAndHashCode(of = {"id", "created"})
 @MappedSuperclass
 public abstract class Trackable implements Serializable {
 	
@@ -67,6 +68,7 @@ public abstract class Trackable implements Serializable {
 		}
 	}
 	
+/*
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -79,4 +81,5 @@ public abstract class Trackable implements Serializable {
 	public int hashCode() {
 		return Objects.hash(getCreated());
 	}
+*/
 }

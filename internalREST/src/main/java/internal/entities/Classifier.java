@@ -15,15 +15,14 @@ import java.util.Set;
 /**
  * The Classifier for Tasks. Loads and updated directly from DB
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
-@AttributeOverrides(value = {})
+@AttributeOverride(name = "finished", column = @Column(name = "deleted"))
 public class Classifier extends Trackable implements Serializable {
-	
-//	@Transient
-//	private static	final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classifiers_sequence")
 	@SequenceGenerator(name = "classifiers_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
@@ -32,7 +31,6 @@ public class Classifier extends Trackable implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String name;
 	
-	
 	/**
 	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order
 	 * creation to fix it, because this current price can be changed further.
@@ -40,6 +38,6 @@ public class Classifier extends Trackable implements Serializable {
 	@Column(nullable = false, scale = 2)
 	private BigDecimal price;
 	
-	@ManyToMany(mappedBy = "classifiers", cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
+	@ManyToMany(mappedBy = "classifiers", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<Task> tasks;
 }

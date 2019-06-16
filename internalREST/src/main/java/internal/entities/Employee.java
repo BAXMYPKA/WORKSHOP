@@ -1,5 +1,6 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,18 +13,28 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
-@Getter @Setter @NoArgsConstructor
+/**
+ * Resigned employees are not deleted. They have to be moved to the Archived vesion of DataBase
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
-public class Employee implements Serializable {
-	
-	@Transient
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_sequence")
-	@SequenceGenerator(name = "employees_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	private long id;
+@AttributeOverrides({
+	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
+})
+public class Employee extends Trackable {
+
+//	@Transient
+//	private static final long serialVersionUID = 1L;
+
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_sequence")
+//	@SequenceGenerator(name = "employees_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+//	private long id;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
 	private String firstName;
@@ -41,7 +52,7 @@ public class Employee implements Serializable {
 	private LocalDate birthday;
 	
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH	})
+		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Set<Phone> phones;
 	
 	@Lob
@@ -49,7 +60,7 @@ public class Employee implements Serializable {
 	private byte[] photo;
 	
 	@ManyToOne(optional = true, cascade = {
-		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH })
+		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
@@ -78,6 +89,7 @@ public class Employee implements Serializable {
 	private Set<Order> createdBy;
 */
 	
+/*
 	@Override
 	public String toString() {
 		return new StringJoiner(", ", Employee.class.getSimpleName() + "[", "]")
@@ -104,4 +116,5 @@ public class Employee implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id, email);
 	}
+*/
 }

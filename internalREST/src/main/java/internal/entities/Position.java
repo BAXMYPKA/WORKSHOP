@@ -1,5 +1,6 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,17 +15,14 @@ import java.util.Set;
 /**
  * Class also plays a role for granting access to the inner App resources by its name
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
-public class Position implements GrantedAuthority, Serializable {
-	
-	@Transient
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+@AttributeOverride(name = "finished", column = @Column(name = "deleted"))
+public class Position extends Trackable implements GrantedAuthority {
 	
 	/**
 	 * Also uses as the GrantedAuthority name
@@ -56,18 +54,5 @@ public class Position implements GrantedAuthority, Serializable {
 	@Override
 	public String getAuthority() {
 		return getName();
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name);
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o == this) return true;
-		if (!(o instanceof Position)) return false;
-		return ((Position) o).getId() == id &&
-			(((Position) o).getName() != null && ((Position) o).getName().contentEquals(name));
 	}
 }

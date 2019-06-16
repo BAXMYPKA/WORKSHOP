@@ -1,5 +1,6 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,13 +19,16 @@ import java.util.Set;
  * Offline created Users will have a possibility to register themselves by their previously provided email or phone
  * as a login.
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"id", "created"})
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
 public class User implements Serializable {
 	
 	@Transient
-	private static	final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
@@ -59,6 +63,6 @@ public class User implements Serializable {
 	private Set<Phone> phones;
 	
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<Order> orders;
 }

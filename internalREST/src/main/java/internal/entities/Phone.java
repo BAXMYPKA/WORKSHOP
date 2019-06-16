@@ -1,5 +1,6 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +10,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(of = {"id", "phone"})
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone implements Serializable {
 	
 	@Transient
-	private static	final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")

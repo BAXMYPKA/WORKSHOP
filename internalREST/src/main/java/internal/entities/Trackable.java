@@ -38,8 +38,8 @@ public abstract class Trackable implements Serializable {
 	
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
-		optional = false)
-	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false, updatable = false)
+		optional = true)
+	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = false)
 	private Employee createdBy;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})

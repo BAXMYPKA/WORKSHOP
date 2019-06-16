@@ -1,11 +1,13 @@
 package internal.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -13,18 +15,13 @@ import java.util.Set;
 /**
  * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {
-	
-/*
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tasks_sequence")
-	@SequenceGenerator(name = "tasks_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	private long id;
-*/
-//	private LocalDateTime discharged:
 	
 	@Column
 	private String name;
@@ -52,17 +49,6 @@ public class Task extends Trackable {
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
 	
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Task)) return false;
-		if (!super.equals(o)) return false;
-		Task task = (Task) o;
-		return getCreated().equals(task.getCreated());
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(super.hashCode(), getCreated());
-	}
+	//TODO: to do!
+	private BigDecimal price;
 }

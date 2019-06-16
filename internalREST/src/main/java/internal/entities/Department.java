@@ -40,7 +40,7 @@ public class Department implements Serializable {
 	public boolean equals(Object o) {
 		if (o == this) return true;
 		if (!(o instanceof Department)) return false;
-		Department dep = (Department)o;
+		Department dep = (Department) o;
 		return id == dep.id && name.equals(dep.name);
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -34,6 +35,10 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	 */
 	@Override
 	public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
+		if (authenticationToken == null || authenticationToken.getPrincipal() == null ||
+			authenticationToken.getPrincipal().toString().isEmpty()) {
+			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
+		}
 		log.trace("Provide authentication...");
 		
 		User user = (User) employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
@@ -52,5 +57,20 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	public boolean supports(Class<?> authentication) {
 		log.trace("Check is Authentication.class supported...");
 		return authentication.isInstance(Authentication.class);
+	}
+	
+	/**
+	 * Just returns the Authentication with email and Authorities.
+	 * Use this method when prerequisites (JWT or something else) are valid and checked!
+	 * Also this method has to be supported by all the further implementations of custom Authentication providers
+	 */
+	public Authentication getAuthenticationByEmail(String email) {
+		if (email == null || email.isEmpty()) {
+			throw new BadCredentialsException("Email cannot be null or empty!");
+		}
+		log.trace("Trying to find Employee by email {}", email);
+		User user = (User) employeesDetailsService.loadUserByUsername(email);
+		log.trace("User={} is found", user.getUsername());
+		return new UsernamePasswordAuthenticationToken(user.getUsername(), "", user.getAuthorities());
 	}
 }

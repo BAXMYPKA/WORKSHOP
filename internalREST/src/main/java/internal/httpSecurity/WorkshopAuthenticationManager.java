@@ -20,8 +20,9 @@ import java.util.Set;
 @Setter
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
-//	@Autowired
 	private Set<AuthenticationProvider> internalAuthenticationProviders;
+	@Autowired
+	EmployeesAuthenticationProvider employeesAuthenticationProvider;
 	
 	@Autowired
 	public WorkshopAuthenticationManager(Set<AuthenticationProvider> internalAuthenticationProviders) {
@@ -42,6 +43,15 @@ public class WorkshopAuthenticationManager implements AuthenticationManager {
 			if (authentication != null) {
 				return authentication;
 			}
+		}
+		throw new UsernameNotFoundException(
+			"No such a username or a password has been found in any AuthenticationProvider!");
+	}
+	
+	public Authentication getAuthenticationByEmail(String email) {
+		Authentication authentication = employeesAuthenticationProvider.getAuthenticationByEmail(email);
+		if (authentication != null) {
+			return authentication;
 		}
 		throw new UsernameNotFoundException(
 			"No such a username or a password has been found in any AuthenticationProvider!");

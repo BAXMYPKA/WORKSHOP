@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -103,7 +105,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter(){
-		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(internalPathName);
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
+			new AntPathRequestMatcher(internalPathName, "POST"));
+//		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(internalPathName);
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return jwtAuthenticationFilter;

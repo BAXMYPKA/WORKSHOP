@@ -73,6 +73,7 @@ public class JwtUtils {
 		if (jwt == null || jwt.isEmpty()) {
 			throw new IllegalArgumentException("Jwt cannot be null or empty!");
 		}
+		//TODO: to check 'scope' to match workshop.pro/internal
 		try {
 			Jws<Claims> claimsJws = Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt);
 			Claims claims = claimsJws.getBody();
@@ -104,4 +105,28 @@ public class JwtUtils {
 		Claims claims = claimsJws.getBody();
 		return claims.getExpiration().before(new java.util.Date(System.currentTimeMillis()));
 	}
+	
+	//TODO: to test
+	public String getUsernameFromJwt(String jwt) throws IllegalArgumentException, JwtException {
+		if (jwt == null || jwt.isEmpty()) {
+			throw new IllegalArgumentException("Jwt cannot be null or empty!");
+		}
+		try {
+			String subject = Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt).getBody().getSubject();
+			return subject;
+		} catch (JwtException e) {
+			log.trace(e.getMessage());
+			throw  e;
+		}
+	}
+	
+//	public String getAuthiritiesFromJwt(String jwt) throws IllegalArgumentException, JwtException {
+//		if (jwt == null || jwt.isEmpty()) {
+//			throw new IllegalArgumentException("Jwt cannot be null or empty!");
+//		}
+//		try {
+//			Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt).getBody().get("scope")
+//		}
+//		return null;
+//	}
 }

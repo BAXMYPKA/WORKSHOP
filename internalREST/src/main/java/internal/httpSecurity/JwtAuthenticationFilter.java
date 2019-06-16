@@ -1,13 +1,17 @@
 package internal.httpSecurity;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -16,17 +20,34 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
+/**
+ * Inspects every incoming HttpServletRequest on the JwtAuthentication Cookie presence. If yes, attempts to
+ * authenticate
+ */
 @Slf4j
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 	
+	@Getter
+	@Setter
+	@Autowired
+	private CookieUtils cookieUtils;
+	@Setter
+	@Autowired
+	JwtUtils jwtUtils;
+	@Autowired
+	@Setter
+	WorkshopAuthenticationManager workshopAuthenticationManager;
 	
 	public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
 		super(defaultFilterProcessesUrl);
 	}
+	
+	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+		super(requiresAuthenticationRequestMatcher);
+	}
+	
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -36,9 +57,14 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
 			chain.doFilter(request, response);
 			return;
+		} else if (Arrays
+			.stream(request.getCookies())
+			.noneMatch(cookie -> cookieUtils.getAuthenticationCookieName().equals(cookie.getName()))) {
+			//Continue filtering in case the Authentication Cookie is not presented
+			chain.doFilter(request, response);
+			return;
 		}
-		
-		//TODO: to implement OAuth2 JWT tokens attached by a cookie or a header. Also implement CSRF protection
+		//TODO: Also implement CSRF protection
 		log.trace("doFilter: Extracting JWT from HTTP request...");
 		
 		Authentication authResult;
@@ -49,38 +75,40 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 				// authentication
 				return;
 			}
+			successfulAuthentication(request, response, chain, authResult);
 		} catch (InternalAuthenticationServiceException failed) {
 			log.error("An internal error occurred while trying to authenticate the user.", failed);
 			unsuccessfulAuthentication(request, response, failed);
-			return;
-		} catch (AuthenticationException failed) {
-			unsuccessfulAuthentication(request, response, failed);
-			return;
+		} catch (AuthenticationException | IllegalArgumentException failed) {
+			unsuccessfulAuthentication(request, response, new BadCredentialsException(failed.getMessage()));
 		}
-		// Authentication success
-		successfulAuthentication(request, response, chain, authResult);
 	}
 	
+	/**
+	 * 1) Gets the JWT from a Cookie
+	 * 2) Checks if the JWT is valid
+	 * 3) Derives the Email
+	 * 4) Obtains the Authentication with the Authorities
+	 * 5) Pass the Authentication back to be set into SecurityContext
+	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-		//TODO: to implement a class for validating and returning a JWT
-		try { //Jwt exceptions may be caught to translate them into AuthenticationException
-			Map<String, Object> headers = new HashMap<>(1);
-			headers.put("Authorization", "null header");
-			Map<String, Object> claims = new HashMap<>(1);
-			claims.put("Claim", "null claim");
-			Jwt jwt = new Jwt("000", Instant.now(), Instant.now().plusSeconds(2000000), headers, claims);
-			JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(jwt);
-			log.debug("JwtToken extracted and passed to the AuthenticationManager.");
-			Authentication authentication = getAuthenticationManager().authenticate(jwtAuthenticationToken);
-			return authentication;
-		} catch (AuthenticationException ae) {
-			log.trace("Authentication exception is caught, email or pass is incorrect.");
-			throw ae;
-		} catch (Exception e) {
-			log.warn("There is a possibility of an ARI error, pay attention!", e);
-			throw new AuthenticationServiceException(
-				"The error isnt directly connected with Authentication", e);
+		log.trace("Attempting to valid a JWT from a Cookie...");
+		//Gets a jwt
+		String jwtFromCookie = Arrays
+			.stream(request.getCookies())
+			.filter(cookie -> cookieUtils.getAuthenticationCookieName().equals(cookie.getName()))
+			.findFirst()
+			.orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Authentication Cookie is absent!"))
+			.getValue();
+		//Check if the JWT is valid
+		if (jwtUtils.validateJwt(jwtFromCookie)) {
+			String email = jwtUtils.getUsernameFromJwt(jwtFromCookie);
+			Authentication authenticationByEmail = workshopAuthenticationManager.getAuthenticationByEmail(email);
+			return authenticationByEmail;
+		} else { //If JWT is not valid
+			log.trace("JWT is not valid!");
+			throw new BadCredentialsException("JWT is not a valid one!");
 		}
 	}
 	
@@ -106,6 +134,11 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-		super.successfulAuthentication(request, response, chain, authResult);
+		
+		SecurityContextHolder.getContext().setAuthentication(authResult);
+		
+		getRememberMeServices().loginSuccess(request, response, authResult);
+		
+		chain.doFilter(request, response);
 	}
 }

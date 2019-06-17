@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/TrackingInformation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -81,23 +62,63 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+            <state relative-caret-position="647">
+              <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
+              <folding>
+                <element signature="docComment;class#DaoAbstract#0" expanded="true" />
+                <element signature="e#0#28#1" expanded="true" />
+                <element signature="e#0#57#1" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="25" column="71" lean-forward="true" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#759#766#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="29" column="19" lean-forward="true" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="71" column="39" lean-forward="true" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+            <state relative-caret-position="238">
+              <caret line="17" column="62" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
               <folding>
-                <element signature="docComment;class#Task#0" expanded="true" />
-                <element signature="docComment;field#price#0;class#Task#0" expanded="true" />
-                <element signature="docComment;method#preUpdate#0;class#Task#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,9 +130,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML Thymeleaf-Spring" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -144,10 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/sharedResources/src/main/resources/templates/test.html" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/resources/templates/rrr.html" />
-        <option value="$PROJECT_DIR$/sharedResources/pom.xml" />
-        <option value="$PROJECT_DIR$/internalREST/pom.xml" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/filters/JwtAuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/import1.sql" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/schema.sql" />
@@ -157,7 +174,6 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/https/JwtAuthenticationFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/WorkshopAuthenticationProvider.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/WebMvcConfiguration.java" />
@@ -195,6 +211,11 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
       </list>
     </option>
   </component>
@@ -301,7 +322,27 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -524,7 +565,7 @@
       <workItem from="1560449344368" duration="2632000" />
       <workItem from="1560586464867" duration="588000" />
       <workItem from="1560673952536" duration="18685000" />
-      <workItem from="1560752113948" duration="9199000" />
+      <workItem from="1560752113948" duration="16980000" />
     </task>
     <servers />
   </component>
@@ -561,25 +602,26 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317111000" />
+    <option name="totallyTimeSpent" value="324892000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="430" y="0" width="1495" height="1047" extended-state="1" />
+    <frame x="430" y="0" width="1495" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info id="Structure" order="4" sideWeight="0.3882979" side_tool="true" visible="true" weight="0.24090597" />
+      <window_info id="Structure" order="4" sideWeight="0.38819876" side_tool="true" visible="true" weight="0.24090597" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.61170214" visible="true" weight="0.24090597" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.61180127" visible="true" weight="0.24090597" />
       <window_info id="Database" order="8" sideWeight="0.56540084" weight="0.18599863" />
       <window_info id="Maven" order="9" sideWeight="0.4694149" weight="0.17158546" />
       <window_info id="Web" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32815734" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.22153209" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22153209" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
@@ -647,35 +689,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.5.RELEASE/spring-security-core-5.1.5.RELEASE-sources.jar!/org/springframework/security/access/vote/AffirmativeBased.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-oauth2-resource-server/5.1.5.RELEASE/spring-security-oauth2-resource-server-5.1.5.RELEASE-sources.jar!/org/springframework/security/oauth2/server/resource/web/BearerTokenAuthenticationFilter.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.19/tomcat-embed-core-9.0.19.jar!/org/apache/catalina/core/ApplicationFilterChain.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-oauth2-jose/5.1.5.RELEASE/spring-security-oauth2-jose-5.1.5.RELEASE-sources.jar!/org/springframework/security/oauth2/jwt/Jwt.java" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/idea64.exe.vmoptions">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-dependencies/2.1.5.RELEASE/spring-boot-dependencies-2.1.5.RELEASE.pom" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/SecurityUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#SECRET_WORD#0;class#Security#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/LocalesConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -967,9 +980,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="71" column="39" lean-forward="true" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+          <folding>
+            <element signature="docComment;class#Task#0" expanded="true" />
+            <element signature="docComment;field#price#0;class#Task#0" expanded="true" />
+            <element signature="docComment;method#preUpdate#0;class#Task#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="420">
           <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="4" />
           <folding>
             <element signature="docComment;class#Employee#0" expanded="true" />
@@ -977,21 +1023,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+        <state relative-caret-position="647">
+          <caret line="53" column="98" selection-start-line="53" selection-start-column="98" selection-end-line="53" selection-end-column="98" />
+          <folding>
+            <element signature="docComment;class#DaoAbstract#0" expanded="true" />
+            <element signature="e#0#28#1" expanded="true" />
+            <element signature="e#0#57#1" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="71" column="39" lean-forward="true" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+        <state relative-caret-position="154">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
           <folding>
-            <element signature="docComment;class#Task#0" expanded="true" />
-            <element signature="docComment;field#price#0;class#Task#0" expanded="true" />
-            <element signature="docComment;method#preUpdate#0;class#Task#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="25" column="71" lean-forward="true" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#759#766#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="29" column="19" lean-forward="true" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="62" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

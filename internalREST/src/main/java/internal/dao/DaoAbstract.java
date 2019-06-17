@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,8 +13,14 @@ import java.util.List;
  *
  * @param <T> Entity class
  * @param <K> Key class for the Entity class
- *
- * Subclasses are throw PersistenceContext exceptions
+ *            <p>
+ *            So every subclass must have the explicit NoArgsConstructor as:
+ *            public EntityDao() {
+ *            super.setEntityClass(Entity.class);
+ *            super.setKeyClass(Key.class);
+ *            }
+ *            <p>
+ *            Subclasses are throw PersistenceContext exceptions
  */
 @Getter
 @Setter
@@ -30,7 +33,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	private Class<T> entityClass;
 	private Class<K> keyClass;
 	
-	public T findOne(K key) throws EntityNotFoundException, IllegalArgumentException {
+	public T findById(K key) throws PersistenceException, IllegalArgumentException {
 		if (key == null) {
 			throw new IllegalArgumentException("Key parameter is invalid!");
 		}
@@ -42,8 +45,24 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	public List<T> findAll() {
-		TypedQuery<T> selectAll = entityManager.createQuery("SELECT t FROM "+entityClass.getSimpleName()+" t", entityClass);
+		TypedQuery<T> selectAll = entityManager.createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass);
 		List<T> entities = selectAll.getResultList();
 		return entities;
+	}
+	
+	/**
+	 * @param stringToMatch The part of the text to be presented in the 'name' field of the Entity
+	 * @throws PersistenceException When nothing found or in case of some DB problems
+	 * @throws IllegalArgumentException if 'stringToMatch' is null or empty
+	 */
+	public T findByNameCoincidence(String stringToMatch) throws PersistenceException, IllegalArgumentException{
+		if (stringToMatch == null || stringToMatch.isEmpty()) {
+			throw new IllegalArgumentException("Name cannot be null or empty!");
+		}
+		TypedQuery<T> typedQuery = entityManager.createQuery(
+			"SELECT e FROM "+ entityClass +" e WHERE e.getName LIKE %:name%",
+			entityClass);
+		typedQuery.setParameter("name", stringToMatch);
+		return typedQuery.getSingleResult();
 	}
 }

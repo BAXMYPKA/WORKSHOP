@@ -15,12 +15,15 @@ import java.util.Objects;
  * Requires using the constructor with Employee as a single argument
  * "created" and "modified" fields are updated automatically
  */
-@Getter @Setter @NoArgsConstructor @EqualsAndHashCode(of = {"id", "created"})
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"id", "created"})
 @MappedSuperclass
 public abstract class Trackable implements Serializable {
 	
 	@Transient
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
@@ -67,19 +70,4 @@ public abstract class Trackable implements Serializable {
 				"An Employee in 'modifiedBy' field must be presented! Please add that one who's applied for modifying!");
 		}
 	}
-	
-/*
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Trackable)) return false;
-		Trackable that = (Trackable) o;
-		return getCreated().equals(that.getCreated());
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(getCreated());
-	}
-*/
 }

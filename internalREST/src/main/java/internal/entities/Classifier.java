@@ -9,15 +9,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Set;
 
 /**
- * The Classifier for Tasks. Loads and updated directly from DB
+ * The Classifier for the Tasks. Each Classifier contains the price for its kind of work.
+ * Loads and updated directly from DB
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))

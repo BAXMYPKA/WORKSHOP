@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -49,6 +50,46 @@ public class Task extends Trackable {
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
 	
-	//TODO: to do!
+	/**
+	 * The sum of all Classifiers
+	 */
+	@Column(scale = 2)
 	private BigDecimal price;
+	
+	
+	public void addClassifier(Classifier classifier) throws IllegalArgumentException {
+		if (classifier == null) {
+			throw new IllegalArgumentException("Classifier cannot be null!");
+		}
+		if (classifiers == null) {
+			classifiers = new HashSet<>(3);
+		}
+		classifiers.add(classifier);
+		setPrice(price == null ? classifier.getPrice() : price.add(classifier.getPrice()));
+	}
+	
+	/**
+	 * Also sets the price for the Task
+	 */
+	public void setClassifiers(Set<Classifier> classifiers) {
+		this.classifiers = classifiers;
+		price = new BigDecimal(0);
+		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));
+	}
+	
+	/**
+	 * Before being updated the Task recalculates its price according to all Classifiers the Task consists of.
+	 */
+	@PreUpdate
+	@Override
+	public void preUpdate() {
+		super.preUpdate();
+		if (classifiers == null || classifiers.isEmpty()) {
+			price = new BigDecimal(0);
+		} else {
+			price = new BigDecimal(0);
+			setPrice(classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal::add).orElseThrow(
+				() -> new IllegalArgumentException("One or more Classifiers don't contain the price!")));
+		}
+	}
 }

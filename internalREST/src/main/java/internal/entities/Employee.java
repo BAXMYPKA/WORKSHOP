@@ -27,14 +27,6 @@ import java.util.StringJoiner;
 	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
 })
 public class Employee extends Trackable {
-
-//	@Transient
-//	private static final long serialVersionUID = 1L;
-
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_sequence")
-//	@SequenceGenerator(name = "employees_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-//	private long id;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
 	private String firstName;

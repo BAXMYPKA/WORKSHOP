@@ -28908,4 +28908,12 @@ VALUES (22, 12) [23506-199]
 -47:02:426 - INFO 9616 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
 -47:07:974 - WARN 9616 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 -47:08:871 - INFO 9616 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 7.007 seconds (JVM running for 9.653)
+-17:28:099 - INFO 4144 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 4144 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-17:28:102 - INFO 4144 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-17:35:213 - WARN 4144 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-17:36:302 - INFO 4144 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 8.918 seconds (JVM running for 11.483)
+-20:05:730 - INFO 18528 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 18528 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-20:05:733 - INFO 18528 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-20:09:905 - WARN 18528 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-20:10:605 - INFO 18528 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.448 seconds (JVM running for 6.635)
 -

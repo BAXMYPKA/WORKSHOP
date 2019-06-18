@@ -1,8 +1,6 @@
 package internal.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -17,9 +15,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id", "name"})
+@ToString(of = {"id", "name"})
 @Entity
 @Table(name = "Departments", schema = "INTERNAL")
-public class Department implements Serializable {
+public class Department implements WorkshopEntity, Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -35,17 +35,4 @@ public class Department implements Serializable {
 		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
 	})
 	private Set<Position> positions;
-	
-	@Override
-	public boolean equals(Object o) {
-		if (o == this) return true;
-		if (!(o instanceof Department)) return false;
-		Department dep = (Department) o;
-		return id == dep.id && name.equals(dep.name);
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name);
-	}
 }

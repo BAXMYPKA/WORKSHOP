@@ -3,6 +3,7 @@ package internal.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +12,9 @@ import java.io.Serializable;
 @Setter
 @Entity
 @EqualsAndHashCode(of = {"id", "phone"})
+@ToString(of = {"id", "phone"})
 @Table(name = "Phones", schema = "INTERNAL")
-public class Phone implements Serializable {
+public class Phone implements WorkshopEntity, Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;

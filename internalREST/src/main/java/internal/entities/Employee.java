@@ -1,9 +1,8 @@
 package internal.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import org.springframework.context.annotation.Description;
 
 import javax.persistence.*;
@@ -20,6 +19,7 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, of = {"email"})
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
@@ -34,6 +34,11 @@ public class Employee extends Trackable {
 	@Column(name = "last_name", nullable = false, length = 100)
 	private String lastName;
 	
+	/**
+	 * To exclude original password from DB to be included in JSON
+	 * Setter, in the contrary, is intended to add a raw password input from User to be compared
+	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, length = 255) //Uses for storing BCrypt encoded passwords with the min length = 60
 	private String password;
 	
@@ -47,6 +52,7 @@ public class Employee extends Trackable {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Set<Phone> phones;
 	
+	@JsonIgnore
 	@Lob
 	@Column(length = 5242880) //5Mb
 	private byte[] photo;
@@ -72,41 +78,4 @@ public class Employee extends Trackable {
 	
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Set<Trackable> tasksCreatedBy;
-
-/*
-	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE})
-	private Set<Order> modifiedBy;
-	
-	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE})
-	private Set<Order> createdBy;
-*/
-	
-/*
-	@Override
-	public String toString() {
-		return new StringJoiner(", ", Employee.class.getSimpleName() + "[", "]")
-			.add("id=" + id)
-			.add("firstName='" + firstName + "'")
-			.add("lastName='" + lastName + "'")
-			.add("email='" + email + "'")
-			.add("birthday=" + birthday)
-			.add("phone='" + phones.iterator().next() + "'")
-			.add("position=" + position)
-			.toString();
-	}
-	
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Employee)) return false;
-		Employee employee = (Employee) o;
-		return id == employee.id &&
-			email.equals(employee.email);
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, email);
-	}
-*/
 }

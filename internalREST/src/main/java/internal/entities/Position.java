@@ -1,9 +1,7 @@
 package internal.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -19,6 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, of = {"name", "department"})
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
@@ -51,6 +50,7 @@ public class Position extends Trackable implements GrantedAuthority {
 		@JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
 	private Department department;
 	
+	@JsonIgnore
 	@Override
 	public String getAuthority() {
 		return getName();

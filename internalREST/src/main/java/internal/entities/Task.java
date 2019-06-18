@@ -1,9 +1,6 @@
 package internal.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, of = {"price", "appointedTo"})
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {
@@ -72,6 +70,9 @@ public class Task extends Trackable {
 	 * Also sets the price for the Task
 	 */
 	public void setClassifiers(Set<Classifier> classifiers) {
+		if (classifiers == null || classifiers.isEmpty()){
+			return;
+		}
 		this.classifiers = classifiers;
 		price = new BigDecimal(0);
 		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));

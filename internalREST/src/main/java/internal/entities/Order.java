@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, of = {"createdFor"})
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order extends Trackable {

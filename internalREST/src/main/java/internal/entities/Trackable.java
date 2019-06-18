@@ -1,14 +1,12 @@
 package internal.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 /**
  * Class to be only extended by Entities in the 'INTERNAL' schema
@@ -20,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id", "created"})
 @MappedSuperclass
-public abstract class Trackable implements Serializable {
+public abstract class Trackable implements WorkshopEntity, Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 3L;
@@ -69,5 +67,10 @@ public abstract class Trackable implements Serializable {
 			throw new IllegalArgumentException(
 				"An Employee in 'modifiedBy' field must be presented! Please add that one who's applied for modifying!");
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "id=" + id;
 	}
 }

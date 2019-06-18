@@ -1,9 +1,7 @@
 package internal.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,9 +21,10 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id", "created"})
+@ToString(of = {"id", "email", "firstName"})
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
-public class User implements Serializable {
+public class User implements WorkshopEntity, Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -41,6 +40,11 @@ public class User implements Serializable {
 	@Column
 	private String lastName;
 	
+	/**
+	 * Can be written from JSON to the User.class as a raw password.
+	 * But cannot be serialized as an encoded password from DB while serializing
+	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	private String password;
 	
@@ -48,11 +52,11 @@ public class User implements Serializable {
 	private String email;
 	
 	@Column(nullable = false)
-	//TODO: EntityListener will record this
+	//TODO: possible to exclude similar fields from serialization as useless for Users
 	private LocalDateTime created;
 	
 	@Column
-	//TODO: EntityListener
+	//TODO: possible to exclude similar fields from serialization as useless for Users
 	private LocalDateTime modified;
 	
 	@Column

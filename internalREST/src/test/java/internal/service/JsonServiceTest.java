@@ -223,10 +223,11 @@ class JsonServiceTest {
 		);
 	}
 	
-	@Test
-	public void no_Infinite_Recursion_With_Valid_Included_Objects() throws JsonProcessingException {
+	@ParameterizedTest
+	@MethodSource("entitiesStream")
+	public void no_Infinite_Recursion_With_Valid_Included_Objects(WorkshopEntity originalEntity) throws JsonProcessingException {
 		//GIVEN
-		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+//		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
 		
 		//WHEN
 		String departmentWithPositions = jsonService.convertToJson(department);

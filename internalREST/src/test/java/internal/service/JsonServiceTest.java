@@ -10,15 +10,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,8 +61,8 @@ class JsonServiceTest {
 		// 2) PositionOne
 		
 		//WHEN
-		String jsonedDepartment = jsonService.convertToJson(department);
-		String jsonedPosition = jsonService.convertToJson(positionOne);
+		String jsonedDepartment = jsonService.convertEntityToJson(department);
+		String jsonedPosition = jsonService.convertEntityToJson(positionOne);
 		
 		//THEN
 		// 1) check properties as valid JSON
@@ -104,8 +101,8 @@ class JsonServiceTest {
 		//GIVEN incoming Stream.of Entities from "entitiesStream" method
 		
 		//WHEN convert Entity to JSON and back
-		String jsonedEntity = jsonService.convertToJson(originalEntity);
-		WorkshopEntity deserializedEntity = jsonService.convertFromJson(jsonedEntity, originalEntity.getClass());
+		String jsonedEntity = jsonService.convertEntityToJson(originalEntity);
+		WorkshopEntity deserializedEntity = jsonService.convertEntityFromJson(jsonedEntity, originalEntity.getClass());
 		
 		//THEN
 		// 1) no exceptions were thrown previously
@@ -189,8 +186,8 @@ class JsonServiceTest {
 		employee.setPassword("12345");
 		
 		//WHEN
-		String jsonedUser = jsonService.convertToJson(user);
-		String jsonedEmployee = jsonService.convertToJson(employee);
+		String jsonedUser = jsonService.convertEntityToJson(user);
+		String jsonedEmployee = jsonService.convertEntityToJson(employee);
 		
 		//THEN
 		assertFalse(jsonedUser.contains("\"password\":"));
@@ -208,8 +205,8 @@ class JsonServiceTest {
 			"\"finished\":null,\"createdBy\":null,\"modifiedBy\":null,\"firstName\":\"FName\",\"lastName\":null,\"email\":\"email@workshop.pro\",\"birthday\":null,\"phones\":null,\"position\":null,\"appointedTasks\":null,\"ordersModifiedBy\":null,\"ordersCreatedBy\":null,\"tasksModifiedBy\":null,\"tasksCreatedBy\":null}";
 		
 		//WHEN
-		User deserializedUser = jsonService.convertFromJson(jsonedUserWithPassword, User.class);
-		Employee deserializedEmployee = jsonService.convertFromJson(jsonedEmployeeWithPassword, Employee.class);
+		User deserializedUser = jsonService.convertEntityFromJson(jsonedUserWithPassword, User.class);
+		Employee deserializedEmployee = jsonService.convertEntityFromJson(jsonedEmployeeWithPassword, Employee.class);
 		
 		//THEN
 		assertEquals("12345", deserializedUser.getPassword());
@@ -226,8 +223,8 @@ class JsonServiceTest {
 		positionOne.setModified(LocalDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0));
 		
 		//WHEN convert Entity to JSON and back
-		String jsonedPosition = jsonService.convertToJson(positionOne);
-		Position position = jsonService.convertFromJson(jsonedPosition, Position.class);
+		String jsonedPosition = jsonService.convertEntityToJson(positionOne);
+		Position position = jsonService.convertEntityFromJson(jsonedPosition, Position.class);
 		
 		//THEN
 		assertAll(
@@ -240,7 +237,7 @@ class JsonServiceTest {
 	
 	@Test
 	@DisplayName("Related Entitites dont have to throw 'Intinite loop' Exception with StackOverFlow")
-	public void no_Infinite_Recursion_With_Valid_Included_Objects() throws JsonProcessingException {
+	public void no_Infinite_Recursion_With_Included_Objects() throws JsonProcessingException {
 		//GIVEN
 		Classifier classifier = new Classifier();
 		classifier.setId(144);
@@ -289,14 +286,53 @@ class JsonServiceTest {
 		//WHEN
 		
 		//THEN
-		assertDoesNotThrow(() -> jsonService.convertToJson(department));
-		assertDoesNotThrow(() -> jsonService.convertToJson(positionOne));
-		assertDoesNotThrow(() -> jsonService.convertToJson(positionTwo));
-		assertDoesNotThrow(() -> jsonService.convertToJson(classifier));
-		assertDoesNotThrow(() -> jsonService.convertToJson(task));
-		assertDoesNotThrow(() -> jsonService.convertToJson(phone));
-		assertDoesNotThrow(() -> jsonService.convertToJson(user));
-		assertDoesNotThrow(() -> jsonService.convertToJson(order));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(department));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(positionOne));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(positionTwo));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(classifier));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(task));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(phone));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(user));
+		assertDoesNotThrow(() -> jsonService.convertEntityToJson(order));
+	}
+	
+	@Test
+	public void collection_Of_Entities_Returns_Valid_Json() throws JsonProcessingException {
+		//GIVEN Positions and Department from init method
+		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+		
+		//WHEN
+		String positions = jsonService.convertEntitiesToJson(Arrays.asList(positionOne, positionTwo));
+		
+		System.out.println(positions);
+		
+		//THEN
+		assertAll(
+			() -> assertTrue(positions.startsWith("[{") && positions.endsWith("}]")),
+			() -> assertTrue(positions.contains("\"id\":222") && positions.contains("\"id\":333"))
+		);
+	}
+	
+	@Test
+	public void collection_Of_Entities_Serializes_And_Deserializes_Properly() throws IOException, ClassNotFoundException {
+		//GIVEN Positions and Department from init method
+		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+		
+		//WHEN
+		String jsonPositions = jsonService.convertEntitiesToJson(Arrays.asList(positionOne, positionTwo));
+//		List<Task> positions = (List<Task>)jsonService.convertJsonToEntities(jsonPositions, Task.class);
+		List<Position> positions = jsonService.convertJsonToEntities(jsonPositions, Position.class);
+		System.out.println(positions.size());
+		System.out.println(positions.get(0));
+//		System.out.println(positions);
+		//THEN
+/*
+		assertAll(
+			() -> assertTrue(() -> positions.size() == 2),
+			() -> assertTrue(() -> positions.get(0).getId() == 222 && positions.get(0).getName().equals("The Position One")),
+			() -> assertTrue(() -> positions.get(1).getId() == 333 && positions.get(1).getName().equals("The Position Two"))
+		);
+*/
 	}
 	
 	private static Stream<Arguments> entitiesStream() {

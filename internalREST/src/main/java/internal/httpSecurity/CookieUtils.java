@@ -29,7 +29,7 @@ public class CookieUtils {
 	 */
 	private int authenticationCookieTtl = 60 * 60 * 24 * 3;
 	
-	public void addCookie(HttpServletResponse response, String cookieName, String cookieValue, @Nullable Integer ttl) {
+	public void addCookieToResponse(HttpServletResponse response, String cookieName, String cookieValue, @Nullable Integer ttl) {
 		if (response == null || cookieName == null || cookieName.isEmpty() || cookieValue == null || cookieValue.isEmpty()) {
 			throw new IllegalArgumentException("Response, CookieName or Cookie value is null or empty!");
 		}
@@ -41,7 +41,7 @@ public class CookieUtils {
 		response.addCookie(cookie);
 	}
 	
-	public void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+	public void deleteCookieFromResponse(HttpServletRequest request, HttpServletResponse response, String cookieName) {
 		if (request == null || response == null || cookieName == null || cookieName.isEmpty()) {
 			throw new IllegalArgumentException("Request or CookieName is null or empty!");
 		}

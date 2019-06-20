@@ -107,7 +107,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		
 		String jwt = jwtUtils.generateJwt(authResult);
 		String authenticationCookieName = cookieUtils.getAuthenticationCookieName();
-		cookieUtils.addCookie(response, authenticationCookieName, jwt, null);
+		cookieUtils.addCookieToResponse(response, authenticationCookieName, jwt, null);
 		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
 	}

@@ -2,27 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/CookieUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/LoginAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/LoginAuthenticationFilterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -82,22 +70,31 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="280">
+              <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="323" selection-start-line="323" selection-end-line="323" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state relative-caret-position="759">
+              <caret line="72" column="5" lean-forward="true" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -159,12 +156,10 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/WebMvcConfiguration.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/Security.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/SecurityUtils.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/CookieUtilsTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/data.sql" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java" />
@@ -184,12 +179,10 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-dependencies/2.1.5.RELEASE/spring-boot-dependencies-2.1.5.RELEASE.pom" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" />
@@ -199,7 +192,11 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
       </list>
     </option>
   </component>
@@ -251,7 +248,7 @@
   <component name="MavenRunner">
     <option name="vmOptions" value="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="430" />
     <option name="width" value="1495" />
     <option name="height" value="1047" />
@@ -317,7 +314,27 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="httpSecurity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -402,6 +419,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last.edited.regexp" value="idid" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -439,7 +457,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JsonServiceTest">
+  <component name="RunManager" selected="JUnit.JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly">
     <configuration name="JsonServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -455,7 +473,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonServiceTest.collection_Of_Entities_Returns_Valid_Json" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -465,7 +483,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.service" />
       <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back(internal.entities.WorkshopEntity)" />
+      <option name="METHOD_NAME" value="collection_Of_Entities_Returns_Valid_Json" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.service" />
+      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
+      <option name="METHOD_NAME" value="collection_Of_Entities_Serializes_And_Deserializes_Properly" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -503,22 +537,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonServiceTest.simple_Entities_Return_Valid_Json" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.service" />
-      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="simple_Entities_Return_Valid_Json" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Internal" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="internalREST" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="internal.InternalApplication" />
@@ -531,19 +549,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects (1)" />
-      <item itemvalue="JUnit.JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" />
-      <item itemvalue="JUnit.JsonServiceTest.simple_Entities_Return_Valid_Json" />
       <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" />
       <item itemvalue="JUnit.JsonServiceTest" />
+      <item itemvalue="JUnit.JsonServiceTest.collection_Of_Entities_Returns_Valid_Json" />
+      <item itemvalue="JUnit.JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" />
+        <item itemvalue="JUnit.JsonServiceTest.collection_Of_Entities_Returns_Valid_Json" />
         <item itemvalue="JUnit.JsonServiceTest" />
         <item itemvalue="JUnit.JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" />
         <item itemvalue="JUnit.JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects (1)" />
-        <item itemvalue="JUnit.JsonServiceTest.simple_Entities_Return_Valid_Json" />
-        <item itemvalue="JUnit.JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" />
       </list>
     </recent_temporary>
   </component>
@@ -592,70 +610,69 @@
       <workItem from="1560961895777" duration="2085000" />
       <workItem from="1560966782570" duration="1610000" />
       <workItem from="1560968432544" duration="1091000" />
-      <workItem from="1561011177325" duration="9596000" />
+      <workItem from="1561011177325" duration="25930000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 00m 46s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 40m 11s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 01m 51s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 42m 18s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 01m 56s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 44m 36s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 02m 00s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 46m 39s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 03m 03s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 47m 07s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 03m 44s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 53m 53s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 03m 54s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 54m 42s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_no_Infinite_Recursion_With_Valid_Included_Objects - 2019.06.20 at 12h 04m 04s.xml">
-      <configuration name="JsonServiceTest.no_Infinite_Recursion_With_Valid_Included_Objects" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 57m 06s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest - 2019.06.20 at 12h 04m 13s.xml">
-      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 17h 59m 34s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest - 2019.06.20 at 12h 05m 01s.xml">
-      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    <history-entry file="JsonServiceTest_collection_Of_Entities_Serializes_And_Deserializes_Properly - 2019.06.20 at 18h 01m 08s.xml">
+      <configuration name="JsonServiceTest.collection_Of_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="360490000" />
+    <option name="totallyTimeSpent" value="376824000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="430" y="0" width="1495" height="1047" extended-state="1" />
-    <editor active="true" />
+    <frame x="430" y="0" width="1495" height="1047" extended-state="0" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info id="Structure" order="4" sideWeight="0.49810845" side_tool="true" visible="true" weight="0.24090597" />
+      <window_info id="Structure" order="4" sideWeight="0.4979296" side_tool="true" visible="true" weight="0.24090597" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.50189155" visible="true" weight="0.24090597" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.50207037" visible="true" weight="0.24090597" />
       <window_info id="Database" order="8" sideWeight="0.56540084" weight="0.18599863" />
       <window_info id="Maven" order="9" sideWeight="0.4627995" weight="0.16266301" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3271605" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17908902" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.17908902" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.26086956" />
-      <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.19958848" />
+      <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.19875777" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" auto_hide="true" id="Messages" order="11" weight="0.19875777" />
@@ -712,6 +729,18 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java</url>
+          <line>323</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -722,67 +751,8 @@
     </SUITE>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="25" column="69" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#authenticationCookieTtl#0;class#CookieUtils#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-492">
-          <caret line="46" column="46" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#EmployeesDetailsService#0" expanded="true" />
-            <element signature="docComment;method#loadUserByUsername#0;class#EmployeesDetailsService#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="747">
-          <caret line="114" column="22" selection-start-line="114" selection-start-column="22" selection-end-line="114" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#expirationTime#0;class#JwtUtils#0" expanded="true" />
-            <element signature="docComment;method#generateJwt#0;class#JwtUtils#0" expanded="true" />
-            <element signature="docComment;method#validateJwt#0;class#JwtUtils#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.1.5.RELEASE/spring-security-web-5.1.5.RELEASE-sources.jar!/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.1.5.RELEASE/spring-security-web-5.1.5.RELEASE-sources.jar!/org/springframework/security/web/authentication/rememberme/AbstractRememberMeServices.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="29" column="69" lean-forward="true" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
-          <folding>
-            <element signature="docComment;class#LoginAuthenticationFilter#0" expanded="true" />
-            <element signature="docComment;method#doFilter#0;class#LoginAuthenticationFilter#0" expanded="true" />
-            <element signature="docComment;method#attemptAuthentication#0;class#LoginAuthenticationFilter#0" expanded="true" />
-            <element signature="docComment;method#successfulAuthentication#0;class#LoginAuthenticationFilter#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.1.5.RELEASE/spring-security-web-5.1.5.RELEASE-sources.jar!/org/springframework/security/web/authentication/RememberMeServices.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-web/5.1.5.RELEASE/spring-security-web-5.1.5.RELEASE-sources.jar!/org/springframework/security/web/authentication/AbstractAuthenticationProcessingFilter.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java">
@@ -879,13 +849,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/TrackingInformation.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -894,20 +857,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/EntityTrackingListener.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.3.2/junit-platform-commons-1.3.2.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
           <caret line="299" selection-start-line="299" selection-end-line="299" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -968,16 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1072,10 +1017,82 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="43" column="40" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/LoginAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-263">
+          <caret line="34" column="18" lean-forward="true" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
+          <folding>
+            <element signature="docComment;class#LoginAuthenticationFilter#0" expanded="true" />
+            <element signature="docComment;method#doFilter#0;class#LoginAuthenticationFilter#0" expanded="true" />
+            <element signature="docComment;method#attemptAuthentication#0;class#LoginAuthenticationFilter#0" expanded="true" />
+            <element signature="docComment;method#successfulAuthentication#0;class#LoginAuthenticationFilter#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="297" selection-start-line="297" selection-end-line="297" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="630" selection-start-line="630" selection-end-line="630" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state relative-caret-position="221">
+          <caret line="323" selection-start-line="323" selection-end-line="323" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="72" column="5" lean-forward="true" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

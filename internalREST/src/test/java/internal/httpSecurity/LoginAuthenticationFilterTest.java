@@ -106,7 +106,7 @@ class LoginAuthenticationFilterTest {
 		loginAuthenticationFilter.doFilter(request, response, filterChain);
 		
 		//THEN the same response and cookieName are sent into CookieUtils
-		Mockito.verify(cookieUtils, Mockito.atLeastOnce()).addCookie(
+		Mockito.verify(cookieUtils, Mockito.atLeastOnce()).addCookieToResponse(
 			responseCaptor.capture(),
 			cookieNameCaptor.capture(),
 			jwtCaptor.capture(),

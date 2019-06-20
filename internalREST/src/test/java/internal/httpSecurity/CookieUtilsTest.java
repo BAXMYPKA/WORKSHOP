@@ -40,7 +40,7 @@ class CookieUtilsTest {
 		ArgumentCaptor<Cookie> argumentCaptor = ArgumentCaptor.forClass(Cookie.class);
 		
 		//WHEN
-		cookieUtils.addCookie(responseWrapper, "CookieToAdd", "CookieValue", 100);
+		cookieUtils.addCookieToResponse(responseWrapper, "CookieToAdd", "CookieValue", 100);
 		
 		//THEN
 		Mockito.verify(responseWrapper).addCookie(argumentCaptor.capture());
@@ -69,7 +69,7 @@ class CookieUtilsTest {
 		ArgumentCaptor<Cookie> argumentCaptor = ArgumentCaptor.forClass(Cookie.class);
 		
 		//WHEN
-		cookieUtils.deleteCookie(requestWrapper, responseWrapper, "CookieSecond");
+		cookieUtils.deleteCookieFromResponse(requestWrapper, responseWrapper, "CookieSecond");
 		
 		//THEN the method adds the definite cookie with 0 age
 		Mockito.verify(responseWrapper, Mockito.never()).addCookie(cookie1);

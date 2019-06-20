@@ -1,6 +1,7 @@
 package internal.controllers;
 
 import internal.entities.Order;
+import internal.service.JsonService;
 import internal.service.OrdersService;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,11 +23,15 @@ import java.util.Set;
 public class OrdersController {
 	
 	@Autowired
-	public OrdersService ordersService;
+	private OrdersService ordersService;
+	
+	@Autowired
+	private JsonService jsonService;
 	
 	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public Set<Order> getAll() {
+	public List<Order> getAll() {
 		List<Order> allOrders = ordersService.findAllOrders();
-		return null;
+		
+		return allOrders;
 	}
 }

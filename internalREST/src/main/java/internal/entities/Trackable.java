@@ -1,5 +1,7 @@
 package internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ import java.util.StringJoiner;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id", "created"})
+@EqualsAndHashCode(of = {"id"})
 @MappedSuperclass
 public abstract class Trackable implements WorkshopEntity, Serializable {
 	
@@ -37,12 +39,13 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Column
 	private LocalDateTime finished;
 	
-	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = false)
 	private Employee createdBy;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	private Employee modifiedBy;

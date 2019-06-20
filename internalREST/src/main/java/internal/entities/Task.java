@@ -1,5 +1,7 @@
 package internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +18,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, of = {"price", "appointedTo"})
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
@@ -29,6 +30,7 @@ public class Task extends Trackable {
 	//TODO: check the date has to be before the linked Order "deadline"
 	private LocalDateTime deadline;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
@@ -36,6 +38,7 @@ public class Task extends Trackable {
 	/**
 	 * One Task can have a number of Classifiers
 	 */
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
@@ -43,6 +46,7 @@ public class Task extends Trackable {
 		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<Classifier> classifiers;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -75,7 +79,9 @@ public class Task extends Trackable {
 		}
 		this.classifiers = classifiers;
 		price = new BigDecimal(0);
-		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));
+		classifiers.forEach(classifier -> this.setPrice(
+			classifier.getPrice() != null ? classifier.getPrice() : new BigDecimal("0.0")));
+//		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));
 	}
 	
 	/**

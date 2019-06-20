@@ -1,6 +1,8 @@
 package internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +22,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id", "created"})
+@EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "email", "firstName"})
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
@@ -41,8 +43,8 @@ public class User implements WorkshopEntity, Serializable {
 	private String lastName;
 	
 	/**
-	 * Can be written from JSON to the User.class as a raw password.
-	 * But cannot be serialized as an encoded password from DB while serializing
+	 * Can be written from JSON to the User.class as a raw password to math with encoded one from DB
+	 * But must not be serialized as an encoded password from DB while serializing!
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
@@ -62,10 +64,12 @@ public class User implements WorkshopEntity, Serializable {
 	@Column
 	private LocalDate birthday;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Phone> phones;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<Order> orders;

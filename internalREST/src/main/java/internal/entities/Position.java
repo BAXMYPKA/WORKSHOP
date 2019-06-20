@@ -1,6 +1,8 @@
 package internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +18,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true, of = {"name", "department"})
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
@@ -35,14 +36,14 @@ public class Position extends Trackable implements GrantedAuthority {
 	@Column(length = 255)
 	private String description;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "position", orphanRemoval = false, cascade = {
-		CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH
-	})
+		CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
 	private Set<Employee> employees;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = false, cascade = {
-		CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE
-	})
+		CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Departments_to_Positions", schema = "INTERNAL",
 		joinColumns =
 		@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),

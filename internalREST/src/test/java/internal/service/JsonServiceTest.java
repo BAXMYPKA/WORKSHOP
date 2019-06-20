@@ -10,12 +10,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
@@ -38,7 +40,7 @@ class JsonServiceTest {
 		department.setName("The Department");
 		
 		positionOne = new Position();
-		positionOne.setId(2);
+		positionOne.setId(222);
 		positionOne.setName("The Position One");
 		positionOne.setDescription("The description");
 		positionOne.setCreated(LocalDateTime.of(2019, 6, 15, 12, 35, 45, 0));
@@ -46,7 +48,7 @@ class JsonServiceTest {
 		positionOne.setDepartment(department);
 		
 		positionTwo = new Position();
-		positionTwo.setId(3);
+		positionTwo.setId(333);
 		positionTwo.setName("The Position Two");
 		positionTwo.setDescription("The second description");
 		positionTwo.setCreated(LocalDateTime.of(2019, 7, 20, 14, 40, 55, 0));
@@ -105,10 +107,21 @@ class JsonServiceTest {
 		String jsonedEntity = jsonService.convertToJson(originalEntity);
 		WorkshopEntity deserializedEntity = jsonService.convertFromJson(jsonedEntity, originalEntity.getClass());
 		
-		//THEN 1) no exceptions were thrown previously 2) asserts
+		//THEN
+		// 1) no exceptions were thrown previously
+		// 2) Compare original classes properties to same properties after double conversion
 		assertEquals(originalEntity.getId(), deserializedEntity.getId());
 		
-		if ("Department".equals(originalEntity.getClass().getSimpleName())) {
+		if ("Classifier".equals(originalEntity.getClass().getSimpleName())) {
+			assertAll(
+				() -> assertEquals(
+					((Classifier) originalEntity).getName(), ((Classifier) deserializedEntity).getName()
+				),
+				() -> assertEquals(
+					((Classifier) originalEntity).getCreated(), ((Classifier) deserializedEntity).getCreated()
+				)
+			);
+		} else if ("Department".equals(originalEntity.getClass().getSimpleName())) {
 			assertEquals(
 				((Department) originalEntity).getName(), ((Department) deserializedEntity).getName());
 		} else if ("Position".equals(originalEntity.getClass().getSimpleName())) {
@@ -159,11 +172,11 @@ class JsonServiceTest {
 		}
 	}
 	
-	@DisplayName("Raw Passwords have to be read from User input but not given back from DB as encoded originals")
 	@Test
+	@DisplayName("Raw Passwords have to be read from User input but not given back from DB as encoded originals")
 	public void passwords_Dont_Have_To_Be_Serialized_From_DataBase_To_Outside() throws JsonProcessingException {
 		
-		//GIVEN
+		//GIVEN entitites from DataBase
 		User user = new User();
 		user.setId(100);
 		user.setFirstName("First User Name");
@@ -185,9 +198,10 @@ class JsonServiceTest {
 	}
 	
 	@Test
+	@DisplayName("Raw Passwords have to be read from User input but not given back from DB as encoded originals")
 	public void passwords_Have_To_Be_Deserialized_From_JSON_To_User_or_Employee_From_Outside() throws IOException {
 		
-		//GIVEN User and Employee from Input with passwords
+		//GIVEN User and Employee from outside Input with raw passwords
 		String jsonedUserWithPassword = "{\"id\":100,\"password\":\"12345\",\"firstName\":\"First User Name\"," +
 			"\"lastName\":null,\"email\":null,\"created\":null,\"modified\":null,\"birthday\":null,\"phones\":null,\"orders\":null}";
 		String jsonedEmployeeWithPassword = "{\"id\":23,\"password\":\"54321\",\"created\":null,\"modified\":null," +
@@ -203,6 +217,7 @@ class JsonServiceTest {
 	}
 	
 	@Test
+	@DisplayName("LocalDateTime has to be converted to JSON and back without issues")
 	public void LocalDateTime_converts_vise_versa() throws IOException {
 		//GIVEN
 		positionOne = new Position();
@@ -223,21 +238,74 @@ class JsonServiceTest {
 		);
 	}
 	
-	@ParameterizedTest
-	@MethodSource("entitiesStream")
-	public void no_Infinite_Recursion_With_Valid_Included_Objects(WorkshopEntity originalEntity) throws JsonProcessingException {
+	@Test
+	@DisplayName("Related Entitites dont have to throw 'Intinite loop' Exception with StackOverFlow")
+	public void no_Infinite_Recursion_With_Valid_Included_Objects() throws JsonProcessingException {
 		//GIVEN
-//		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+		Classifier classifier = new Classifier();
+		classifier.setId(144);
+		
+		Employee employee = new Employee();
+		employee.setId(456);
+		
+		Task task = new Task();
+		task.setId(578);
+		
+		User user = new User();
+		user.setId(231);
+		
+		Order order = new Order();
+		order.setId(591);
+		
+		Phone phone = new Phone();
+		phone.setId(523);
+		
+		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
+		
+		positionOne.setDepartment(department);
+		positionOne.setEmployees(new HashSet<Employee>(Collections.singleton(employee)));
+		
+		positionTwo.setDepartment(department);
+		positionTwo.setEmployees(new HashSet<Employee>(Collections.singleton(employee)));
+		
+		classifier.setTasks(new HashSet<Task>(Collections.singletonList(task)));
+		classifier.setCreatedBy(employee);
+		
+		task.setAppointedTo(employee);
+		task.setClassifiers(new HashSet<>(Collections.singleton(classifier)));
+		task.setOrder(order);
+		task.setModifiedBy(employee);
+		
+		phone.setUser(user);
+		
+		user.setOrders(new HashSet<>(Collections.singleton(order)));
+		user.setPhones(new HashSet<>(Collections.singleton(phone)));
+		
+		order.setCreatedFor(user);
+		order.setTasks(new HashSet<>(Collections.singleton(task)));
+		order.setCreatedBy(employee);
+		order.setModifiedBy(employee);
 		
 		//WHEN
-		String departmentWithPositions = jsonService.convertToJson(department);
 		
 		//THEN
-		System.out.println(departmentWithPositions);
-		String twoDepartmentsObjects = "";
+		assertDoesNotThrow(() -> jsonService.convertToJson(department));
+		assertDoesNotThrow(() -> jsonService.convertToJson(positionOne));
+		assertDoesNotThrow(() -> jsonService.convertToJson(positionTwo));
+		assertDoesNotThrow(() -> jsonService.convertToJson(classifier));
+		assertDoesNotThrow(() -> jsonService.convertToJson(task));
+		assertDoesNotThrow(() -> jsonService.convertToJson(phone));
+		assertDoesNotThrow(() -> jsonService.convertToJson(user));
+		assertDoesNotThrow(() -> jsonService.convertToJson(order));
 	}
 	
 	private static Stream<Arguments> entitiesStream() {
+		Classifier classifier = new Classifier();
+		classifier.setId(65);
+		classifier.setName("The Classifier");
+		classifier.setPrice(new BigDecimal("45.25"));
+		classifier.setCreated(LocalDateTime.now().minusMonths(5));
+		
 		Department department = new Department();
 		department.setId(38);
 		department.setName("The Department");

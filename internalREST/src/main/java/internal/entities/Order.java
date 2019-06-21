@@ -6,12 +6,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -36,13 +32,13 @@ public class Order extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<Task> tasks;
+	private Set<Task> tasks;
 	
 	@Column(scale = 2)
 	private BigDecimal overallPrice;
 	
 	@Builder
-	public Order(Employee createdBy, LocalDateTime deadline, String description, User createdFor, Collection<Task> tasks) {
+	public Order(Employee createdBy, LocalDateTime deadline, String description, User createdFor, Set<Task> tasks) {
 		super(createdBy);
 		this.deadline = deadline;
 		this.description = description;

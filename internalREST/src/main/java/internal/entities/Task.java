@@ -9,10 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
@@ -47,7 +44,7 @@ public class Task extends Trackable {
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
 		joinColumns = {@JoinColumn(name = "task_id")},
 		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
-	private Collection<Classifier> classifiers;
+	private Set<Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = false, cascade = {

@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -71,20 +65,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+            <state relative-caret-position="182">
+              <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+              <folding>
+                <element signature="e#1226#1227#0" expanded="true" />
+                <element signature="e#1258#1259#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="73" column="78" lean-forward="true" selection-start-line="73" selection-start-column="78" selection-end-line="73" selection-end-column="78" />
+            <state relative-caret-position="84">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -92,20 +90,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="58" column="79" selection-start-line="58" selection-start-column="79" selection-end-line="58" selection-end-column="79" />
+            <state relative-caret-position="266">
+              <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -196,18 +185,18 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/CookieUtils.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
       </list>
     </option>
   </component>
@@ -229,37 +218,14 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="WORKSHOP" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="WORKSHOP" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="WORKSHOP" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="WORKSHOP" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-          <item name="com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-          <item name="com.fasterxml.jackson.core:jackson-databind:2.9.8" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
   <component name="MavenRunner">
     <option name="vmOptions" value="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="430" />
     <option name="width" value="1495" />
     <option name="height" value="1047" />
@@ -622,26 +588,11 @@
       <workItem from="1560966782570" duration="1610000" />
       <workItem from="1560968432544" duration="1091000" />
       <workItem from="1561011177325" duration="25930000" />
-      <workItem from="1561097160742" duration="12799000" />
+      <workItem from="1561097160742" duration="16917000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 33m 19s.xml">
-      <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 36m 11s.xml">
-      <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 37m 26s.xml">
-      <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 37m 40s.xml">
-      <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 39m 38s.xml">
-      <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="JsonServiceTest_collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly - 2019.06.21 at 12h 40m 36s.xml">
       <configuration name="JsonServiceTest.collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly" configurationId="JUnit" />
     </history-entry>
@@ -657,9 +608,24 @@
     <history-entry file="JsonServiceTest_simple_Entities_Return_Valid_Json - 2019.06.21 at 13h 14m 14s.xml">
       <configuration name="JsonServiceTest.simple_Entities_Return_Valid_Json" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="JsonServiceTest_simple_Entities_Return_Valid_Json - 2019.06.21 at 13h 14m 49s.xml">
+      <configuration name="JsonServiceTest.simple_Entities_Return_Valid_Json" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonServiceTest_simple_Entities_Return_Valid_Json - 2019.06.21 at 13h 15m 26s.xml">
+      <configuration name="JsonServiceTest.simple_Entities_Return_Valid_Json" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonServiceTest - 2019.06.21 at 13h 15m 36s.xml">
+      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonServiceTest - 2019.06.21 at 14h 47m 44s.xml">
+      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonServiceTest - 2019.06.21 at 15h 03m 19s.xml">
+      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="389623000" />
+    <option name="totallyTimeSpent" value="393741000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="430" y="0" width="1495" height="1047" extended-state="0" />
@@ -669,12 +635,12 @@
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info id="Structure" order="4" sideWeight="0.49936947" side_tool="true" visible="true" weight="0.24090597" />
+      <window_info id="Structure" order="4" sideWeight="0.5031526" side_tool="true" visible="true" weight="0.24090597" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.5006305" visible="true" weight="0.24090597" />
-      <window_info id="Database" order="8" sideWeight="0.56540084" weight="0.18599863" />
-      <window_info id="Maven" order="9" sideWeight="0.4627995" weight="0.16266301" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.49684742" visible="true" weight="0.24090597" />
+      <window_info id="Database" order="8" sideWeight="0.56442577" weight="0.18599863" />
+      <window_info id="Maven" order="9" sideWeight="0.46078432" weight="0.16266301" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -961,13 +927,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/org/junit/platform/commons/util/ReflectionUtils.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -975,27 +934,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="630" selection-start-line="630" selection-end-line="630" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="58" column="79" selection-start-line="58" selection-start-column="79" selection-end-line="58" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1022,17 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="20" column="74" selection-start-line="20" selection-start-column="74" selection-end-line="20" selection-end-column="74" />
-          <folding>
-            <element signature="docComment;method#prePersist#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#preUpdate#0;class#Order#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1044,19 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="48" column="16" lean-forward="true" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="23" column="90" selection-start-line="23" selection-start-column="90" selection-end-line="23" selection-end-column="90" />
-          <folding>
-            <element signature="docComment;class#Task#0" expanded="true" />
-            <element signature="docComment;field#price#0;class#Task#0" expanded="true" />
-            <element signature="docComment;method#setClassifiers#0;class#Task#0" expanded="true" />
-            <element signature="docComment;method#preUpdate#0;class#Task#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1090,10 +1008,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
+          <folding>
+            <element signature="docComment;class#Task#0" expanded="true" />
+            <element signature="docComment;field#price#0;class#Task#0" expanded="true" />
+            <element signature="docComment;method#setClassifiers#0;class#Task#0" expanded="true" />
+            <element signature="docComment;method#preUpdate#0;class#Task#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="34" column="12" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+          <folding>
+            <element signature="docComment;method#prePersist#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#preUpdate#0;class#Order#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="73" column="78" lean-forward="true" selection-start-line="73" selection-start-column="78" selection-end-line="73" selection-end-column="78" />
+        <state relative-caret-position="14">
+          <caret line="37" column="8" lean-forward="true" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+          <folding>
+            <element signature="e#1226#1227#0" expanded="true" />
+            <element signature="e#1258#1259#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,14 +1,12 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Deleting a Department will lead to deleting all the related Positions
@@ -19,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id", "name"})
 @ToString(of = {"id", "name"})
+@JsonIgnoreProperties(value = {"positions"})
 @Entity
 @Table(name = "Departments", schema = "INTERNAL")
 public class Department implements WorkshopEntity, Serializable {
@@ -37,5 +36,5 @@ public class Department implements WorkshopEntity, Serializable {
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
 		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
 	})
-	private Set<Position> positions;
+	private Collection<Position> positions;
 }

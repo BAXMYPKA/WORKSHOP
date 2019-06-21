@@ -1,6 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @EqualsAndHashCode(of = {"id", "phone"})
 @ToString(of = {"id", "phone"})
+@JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone implements WorkshopEntity, Serializable {
 	

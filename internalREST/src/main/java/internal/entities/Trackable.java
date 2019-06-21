@@ -1,6 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -19,6 +20,7 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
+@JsonIgnoreProperties(value = {"createdBy", "modifiedBy"}, allowGetters = true)
 @MappedSuperclass
 public abstract class Trackable implements WorkshopEntity, Serializable {
 	

@@ -56,7 +56,7 @@ public class JsonService {
 		return convertedEntity;
 	}
 	
-	public String convertEntitiesToJson(Collection<WorkshopEntity> entities) throws JsonProcessingException {
+	public <T extends WorkshopEntity> String convertEntitiesToJson(Collection<T> entities) throws JsonProcessingException {
 		String values = objectMapper.writeValueAsString(entities);
 		return values;
 	}

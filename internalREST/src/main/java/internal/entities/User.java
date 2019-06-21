@@ -1,15 +1,13 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Users of 2 types can be persisted from online and created by manager.
@@ -24,6 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "email", "firstName"})
+@JsonIgnoreProperties(value = {"phones"}, allowGetters = true)
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
 public class User implements WorkshopEntity, Serializable {
@@ -67,10 +66,11 @@ public class User implements WorkshopEntity, Serializable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Phone> phones;
+	private Collection<Phone> phones;
 	
+	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Set<Order> orders;
+	private Collection<Order> orders;
 }

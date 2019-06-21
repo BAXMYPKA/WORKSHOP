@@ -71,7 +71,7 @@ class JsonServiceTest {
 		assertAll(
 			() -> assertTrue(jsonedDepartment.contains("\"id\":1")),
 			() -> assertTrue(jsonedDepartment.contains("\"name\":\"The Department\"")),
-			() -> assertTrue(jsonedDepartment.contains("\"positions\":null"))
+			() -> assertFalse(jsonedDepartment.contains("\"positions\":null"))
 		);
 		
 		String departmentInPosition = "\"department\":" +
@@ -85,7 +85,7 @@ class JsonServiceTest {
 			() -> assertTrue(jsonedPosition.contains("\"description\":\"The description\"")),
 			() -> assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45\"")),
 			() -> assertTrue(jsonedPosition.contains("\"finished\":null")),
-			() -> assertTrue(jsonedPosition.contains(departmentInPosition)),
+			() -> assertFalse(jsonedPosition.contains(departmentInPosition)),
 			() -> assertFalse(jsonedPosition.contains("\"authority\":\"The Position One\""))
 		);
 	}
@@ -257,7 +257,7 @@ class JsonServiceTest {
 		Phone phone = new Phone();
 		phone.setId(523);
 		
-		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
+		department.setPositions(new ArrayList<>(Arrays.asList(positionOne, positionTwo)));
 		
 		positionOne.setDepartment(department);
 		positionOne.setEmployees(new HashSet<Employee>(Collections.singleton(employee)));
@@ -299,7 +299,7 @@ class JsonServiceTest {
 	@Test
 	public void collection_Of_Entities_Returns_Valid_Json() throws JsonProcessingException {
 		//GIVEN Positions and Department from init method
-		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
 		
 		//WHEN
 		String positions = jsonService.convertEntitiesToJson(Arrays.asList(positionOne, positionTwo));
@@ -314,25 +314,154 @@ class JsonServiceTest {
 	}
 	
 	@Test
-	public void collection_Of_Entities_Serializes_And_Deserializes_Properly() throws IOException, ClassNotFoundException {
-		//GIVEN Positions and Department from init method
-		department.setPositions(new HashSet<Position>(Arrays.asList(positionOne, positionTwo)));
+	public void collection_Of_Simple_Entities_Serializes_And_Deserializes_Properly() throws IOException, ClassNotFoundException {
 		
-		//WHEN
-		String jsonPositions = jsonService.convertEntitiesToJson(Arrays.asList(positionOne, positionTwo));
-//		List<Task> positions = (List<Task>)jsonService.convertJsonToEntities(jsonPositions, Task.class);
-		List<Position> positions = jsonService.convertJsonToEntities(jsonPositions, Position.class);
-		System.out.println(positions.size());
-		System.out.println(positions.get(0));
-//		System.out.println(positions);
+		//GIVEN a list of simple Entities without nested ones
+		
+		department.setPositions(null);
+		
+		Department department1 = new Department();
+		department1.setId(100);
+		department1.setName("The Department 1");
+		
+		Department department2 = new Department();
+		department2.setId(101);
+		department2.setName("The Department 2");
+		
+		Position position1 = new Position();
+		position1.setId(200);
+		position1.setName("The Position 1");
+		position1.setDescription("The description 1");
+		position1.setCreated(LocalDateTime.of(2017, 6, 15, 12, 35, 45, 0));
+		position1.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		Position position2 = new Position();
+		position2.setId(201);
+		position2.setName("The Position 2");
+		position2.setDescription("The description 2");
+		position2.setCreated(LocalDateTime.of(2018, 6, 15, 12, 35, 45, 0));
+		position2.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		Position position3 = new Position();
+		position3.setId(202);
+		position3.setName("The Position 3");
+		position3.setDescription("The description 3");
+		position3.setCreated(LocalDateTime.of(2016, 6, 15, 12, 35, 45, 0));
+		position3.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		
+		//WHEN serialize and deserialize back
+		
+		String jsonDepartments = jsonService.convertEntitiesToJson(
+			new ArrayList<Department>(Arrays.asList(department, department1, department2)));
+		String jsonPositions = jsonService.convertEntitiesToJson(
+			new ArrayList<Position>(Arrays.asList(position1, position2, position3)));
+		
+		List<Department> departments = Arrays.asList(
+			jsonService.getObjectMapper().readValue(jsonDepartments, Department[].class));
+		List<Position> positions = Arrays.asList(
+			jsonService.getObjectMapper().readValue(jsonPositions, Position[].class));
+		
+		System.out.println("JSON: " + jsonDepartments);
+		System.out.println("OBJ: " + departments);
+		
 		//THEN
-/*
+		
 		assertAll(
-			() -> assertTrue(() -> positions.size() == 2),
-			() -> assertTrue(() -> positions.get(0).getId() == 222 && positions.get(0).getName().equals("The Position One")),
-			() -> assertTrue(() -> positions.get(1).getId() == 333 && positions.get(1).getName().equals("The Position Two"))
+			() -> assertTrue(() -> departments.size() == 3),
+			() -> assertTrue(() -> departments.get(0).getId() == 1 && departments.get(0).getName().equals("The Department")),
+			() -> assertTrue(() -> departments.get(1).getId() == 100 && departments.get(1).getName().equals("The Department 1")),
+			() -> assertTrue(() -> departments.get(2).getId() == 101 && departments.get(2).getName().equals("The Department 2"))
 		);
-*/
+		assertAll(
+			() -> assertTrue(() -> positions.get(0).getId() == 200 &&
+				positions.get(0).getName().equals("The Position 1") &&
+				positions.get(0).getCreated().getMonthValue() == 6),
+			() -> assertTrue(() -> positions.get(1).getId() == 201 &&
+				positions.get(1).getName().equals("The Position 2") &&
+				positions.get(1).getCreated().getMinute() == 35),
+			() -> assertTrue(positions.get(2).getId() == 202 &&
+				positions.get(2).getCreated().getYear() == 2016)
+		);
+	}
+	
+	@Test
+	public void collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly() throws IOException {
+		
+		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from init
+		
+		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
+		positionOne.setDepartment(department);
+		positionTwo.setDepartment(department);
+		
+		Department department1 = new Department();
+		department1.setId(100);
+		department1.setName("The Department 1");
+		
+		Department department2 = new Department();
+		department2.setId(101);
+		department2.setName("The Department 2");
+		
+		Position position1 = new Position();
+		position1.setId(200);
+		position1.setName("The Position 1");
+		position1.setDescription("The description 1");
+		position1.setCreated(LocalDateTime.of(2017, 6, 15, 12, 35, 45, 0));
+		position1.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		Position position2 = new Position();
+		position2.setId(201);
+		position2.setName("The Position 2");
+		position2.setDescription("The description 2");
+		position2.setCreated(LocalDateTime.of(2018, 6, 15, 12, 35, 45, 0));
+		position2.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		Position position3 = new Position();
+		position3.setId(202);
+		position3.setName("The Position 3");
+		position3.setDescription("The description 3");
+		position3.setCreated(LocalDateTime.of(2016, 6, 15, 12, 35, 45, 0));
+		position3.setModified(LocalDateTime.now().minusMinutes(5));
+		
+		department1.setPositions(new ArrayList<Position>(Arrays.asList(position1, position2)));
+		department2.setPositions(new ArrayList<Position>(Arrays.asList(position3)));
+		position1.setDepartment(department1);
+		position2.setDepartment(department1);
+		position3.setDepartment(department2);
+		
+		//WHEN serialize and deserialize back
+		
+		String jsonDepartments = jsonService.convertEntitiesToJson(
+			new ArrayList<Department>(Arrays.asList(department, department1, department2)));
+		String jsonPositions = jsonService.convertEntitiesToJson(
+			new ArrayList<Position>(Arrays.asList(positionOne, positionTwo, position1, position2, position3)));
+		
+		System.out.println(jsonDepartments);
+		System.out.println(jsonPositions);
+		
+		List<Department> departments = Arrays.asList(
+			jsonService.getObjectMapper().readValue(jsonDepartments, Department[].class));
+		List<Position> positions = Arrays.asList(
+			jsonService.getObjectMapper().readValue(jsonPositions, Position[].class));
+		
+		//THEN
+		
+		assertAll(
+			() -> assertTrue(() -> departments.get(0).getId() == 1 && departments.get(0).getName().equals("The Department")),
+			() -> assertTrue(() -> departments.get(1).getId() == 100 && departments.get(1).getName().equals("The Department 1")),
+			() -> assertTrue(() -> departments.get(2).getId() == 101 && departments.get(2).getName().equals("The Department 2")),
+			() -> assertNull(departments.get(0).getPositions()),
+			() -> assertNull(departments.get(1).getPositions()),
+			() -> assertNull(departments.get(2).getPositions())
+		);
+		
+		assertAll(
+			() -> assertTrue(() -> positions.get(0).getId() == 222 && positions.get(0).getCreated().getMinute() == 35),
+			() -> assertTrue(() -> positions.get(2).getId() == 200 && positions.get(2).getDescription().equals("The description 1")),
+			() -> assertNull(positions.get(1).getDepartment()),
+			() -> assertNull(positions.get(2).getDepartment()),
+			() -> assertNull(positions.get(3).getDepartment())
+		);
 	}
 	
 	private static Stream<Arguments> entitiesStream() {

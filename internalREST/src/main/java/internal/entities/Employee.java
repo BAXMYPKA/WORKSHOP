@@ -1,18 +1,11 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-import org.springframework.context.annotation.Description;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Set;
-import java.util.StringJoiner;
+import java.util.Collection;
 
 /**
  * Resigned employees are not deleted. They have to be moved to the Archived vesion of DataBase
@@ -21,6 +14,7 @@ import java.util.StringJoiner;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"email"})
+@JsonIgnoreProperties(value = {"appointedTasks", "ordersModifiedBy", "ordersCreatedBy", "tasksModifiedBy", "tasksCreatedBy"})
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
@@ -49,16 +43,18 @@ public class Employee extends Trackable {
 	@Column(nullable = false)
 	private LocalDate birthday;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	private Set<Phone> phones;
+	private Collection<Phone> phones;
 	
 	@JsonIgnore
 	@Lob
 	@Column(length = 5242880) //5Mb
 	private byte[] photo;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = true, cascade = {
 		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
@@ -69,21 +65,21 @@ public class Employee extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "appointedTo", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Set<Task> appointedTasks;
+	private Collection<Task> appointedTasks;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
-	private Set<Trackable> ordersModifiedBy;
+	private Collection<Trackable> ordersModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
-	private Set<Trackable> ordersCreatedBy;
+	private Collection<Trackable> ordersCreatedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
-	private Set<Trackable> tasksModifiedBy;
+	private Collection<Trackable> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
-	private Set<Trackable> tasksCreatedBy;
+	private Collection<Trackable> tasksCreatedBy;
 }

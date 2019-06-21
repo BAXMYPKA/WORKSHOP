@@ -1,6 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,6 +21,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"price", "appointedTo"})
+@JsonIgnoreProperties(value = {"order", "classifiers", "appointedTo"}, allowGetters = true)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {
@@ -44,7 +47,7 @@ public class Task extends Trackable {
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
 		joinColumns = {@JoinColumn(name = "task_id")},
 		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
-	private Set<Classifier> classifiers;
+	private Collection<Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = false, cascade = {

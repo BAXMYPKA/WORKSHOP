@@ -1,16 +1,11 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
@@ -19,6 +14,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"name", "department"})
+@JsonIgnoreProperties(value = {"department"}, allowGetters = true)
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
@@ -36,10 +32,11 @@ public class Position extends Trackable implements GrantedAuthority {
 	@Column(length = 255)
 	private String description;
 	
+	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@OneToMany(mappedBy = "position", orphanRemoval = false, cascade = {
 		CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-	private Set<Employee> employees;
+	private Collection<Employee> employees;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	@ManyToOne(optional = false, cascade = {

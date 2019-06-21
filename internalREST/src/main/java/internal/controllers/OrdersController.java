@@ -13,6 +13,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
@@ -33,15 +34,17 @@ public class OrdersController {
 	private JsonService jsonService;
 	private ObjectMapper objectMapper;
 	
-	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String getAll() throws JsonProcessingException {
+	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, params = {"size", "page", "sort"})
+	public String getAll(@RequestParam("size") int size,
+						 @RequestParam("page") int page,
+						 @RequestParam(name = "sort", required = false) String sortBy) throws JsonProcessingException {
 		List<Order> allOrders = ordersService.findAllOrders();
 		String jsonOrders = jsonService.convertEntitiesToJson(allOrders);
 		return jsonOrders;
 	}
 	
 	@PostConstruct
-	private void afterPropsSet(){
+	private void afterPropsSet() {
 		objectMapper = jsonService.getObjectMapper();
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 
@@ -34,11 +35,11 @@ public class OrdersController {
 	private JsonService jsonService;
 	private ObjectMapper objectMapper;
 	
-	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, params = {"size", "page", "sort"})
-	public String getAll(@RequestParam("size") int size,
-						 @RequestParam("page") int page,
+	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, params = {"size", "page"})
+	public String getAll(@RequestParam(value = "size") Integer size,
+						 @RequestParam(value = "page") Integer page,
 						 @RequestParam(name = "sort", required = false) String sortBy) throws JsonProcessingException {
-		List<Order> allOrders = ordersService.findAllOrders();
+		List<Order> allOrders = ordersService.findAllOrders(size, page);
 		String jsonOrders = jsonService.convertEntitiesToJson(allOrders);
 		return jsonOrders;
 	}

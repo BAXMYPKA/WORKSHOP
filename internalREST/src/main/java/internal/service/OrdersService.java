@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,28 +25,47 @@ public class OrdersService {
 	public OrdersDao ordersDao;
 	
 	/**
-	 * @param size     min = 1, max = 50
-	 * @param page     min = 1
-	 * @param sortBy   If "default" of empty a List will be ordered by CreationDate
-	 * @param ordering May by empty of "default"
+	 * @param size    min = 1, max = 50. In case of incorrect values the size will be set in between min and max
+	 * @param page    min = 1, max = 100. In case of incorrect values the page will be set in between min and max
+	 * @param sortBy  If "default" or empty - a List will be ordered by CreationDate
+	 * @param ascDesc May by empty of "default"
 	 * @return
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Order> findAllOrders(int size, int page, String sortBy, String ordering) throws IllegalArgumentException {
-		if (size == 0 || size > 50 || page == 0 || sortBy == null || ordering == null) {
-			throw new IllegalArgumentException("Size, Page or SortBy contain wrong values!");
+	public List<Order> findAllOrders(int size, int page, String sortBy, String ascDesc)
+		throws IllegalArgumentException {
+		
+		int correctSize = size <= 0 ? 1 : size > 50 ? 50 : 1;
+		int correctPage = page <= 0 ? 1 : page > 100 ? 50 : page;
+		
+		try {
+			List<Order> orders = ordersDao.findAll(
+				correctSize,
+				correctPage,
+				sortBy == null ? "" : sortBy,
+				ascDesc == null ? "desc" : "asc".equalsIgnoreCase(ascDesc) ? "asc" : "desc");
+			return orders;
+		} catch (PersistenceException e) {
+			log.trace("No Orders found.");
+			return Collections.<Order>emptyList();
 		}
-		if ((!ordering.isEmpty() && ("asc".equalsIgnoreCase(ordering) || "desc".equalsIgnoreCase(ordering)))) {
-			
+/*
+		if (!sortBy.isEmpty() && (!ascDesc.isEmpty() && ("asc".equalsIgnoreCase(ascDesc) || "desc".equalsIgnoreCase(ascDesc)))) {
 			try {
-				List<Order> orders = ordersDao.findAll(size, page, sortBy, ordering);
+				List<Order> orders = ordersDao.findAll(correctSize, correctPage, sortBy, ascDesc);
 				return orders;
 			} catch (PersistenceException e) {
 				log.trace("No Orders found.");
 				return Collections.<Order>emptyList();
 			}
 		} else {
-			throw new IllegalArgumentException("Ordering must contain 'ASC' or 'DESC' values!");
+			try {
+				List<Order> orders = ordersDao.findAll(correctSize, correctPage, "", "");
+				return orders;
+			} catch (PersistenceException e) {
+				return Collections.<Order>emptyList();
+			}
 		}
+*/
 	}
 }

@@ -1,5 +1,6 @@
 package internal.dao;
 
+import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
@@ -46,17 +47,18 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
-	 * @param limit   Limits the number of results at once. Max = 50. Default = 50
+	 * @param limit   Limits the number of results given at once. Max = 50. Default = 50
 	 * @param offset  Offset (page number). When limit=10 and offset=3 the result will return from 30 to 40 entities
-	 * @param orderBy The name of the field the sorting will happened by
-	 * @param sorting "ASC" or "DESC" type
+	 * @param orderBy The name of the field the ascDesc will be happened by.
+	 *                   When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
+	 *                   'created' field, otherwise no ordering will happened.
+	 * @param ascDesc "ASC" or "DESC" type
 	 * @return
 	 */
-	public List<T> findAll(int limit, int offset, String orderBy, String sorting) {
+	public List<T> findAll(int limit, int offset, String orderBy, String ascDesc) {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
-		
 		
 		TypedQuery<T> select = entityManager.createQuery(query);
 		
@@ -69,20 +71,26 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		if (offset > 0) {
 			select.setFirstResult(limit * offset);
 		}
-		
+		//If 'orderBy' is used we use it in conjunction with ascDesc
 		if (orderBy != null && !orderBy.isEmpty()) {
-			if ("asc".equalsIgnoreCase(sorting)){
+			if ("asc".equalsIgnoreCase(ascDesc)) {
 				query.orderBy(cb.asc(root.get(orderBy)));
-			} else if ("desc".equalsIgnoreCase(sorting)){
+			} else {
 				query.orderBy(cb.desc(root.get(orderBy)));
 			}
-//			query./
+			//Otherwise we try to use 'created' field
+		} else if (entityClass.isInstance(WorkshopEntity.class)) {
+			query.orderBy(cb.desc(root.get("created")));
 		}
 		
+		List<T> entities = select.getResultList();
+
+/*
 		List<T> resultList = select.getResultList();
-		//
 		TypedQuery<T> selectAll = entityManager.createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass);
 		List<T> entities = selectAll.getResultList();
+*/
+		
 		return entities;
 	}
 	

@@ -38,8 +38,15 @@ public class OrdersController {
 	@GetMapping(path = "/all", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, params = {"size", "page"})
 	public String getAll(@RequestParam(value = "size") Integer size,
 						 @RequestParam(value = "page") Integer page,
-						 @RequestParam(name = "sort", required = false) String sortBy) throws JsonProcessingException {
-		List<Order> allOrders = ordersService.findAllOrders(size, page);
+						 @RequestParam(name = "sort", required = false) String orderBy,
+						 @RequestParam(name = "asc-desc", required = false) String ascDesc) throws JsonProcessingException {
+		
+		List<Order> allOrders = ordersService.findAllOrders(
+			size,
+			page,
+			(orderBy != null && !orderBy.isEmpty()) ? orderBy : "",
+			"asc".equalsIgnoreCase(ascDesc) ? ascDesc : "desc");
+		
 		String jsonOrders = jsonService.convertEntitiesToJson(allOrders);
 		return jsonOrders;
 	}

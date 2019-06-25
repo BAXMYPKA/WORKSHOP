@@ -56,10 +56,14 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 		this.createdBy = createdBy;
 	}
 	
+	/**
+	 * Only 'Employee' entities can't contain 'createdBy' field as they can create each other
+	 * @throws IllegalArgumentException
+	 */
 	@PrePersist
 	public void prePersist() throws IllegalArgumentException {
 		this.created = LocalDateTime.now();
-		if (this.createdBy == null) {
+		if (!"Employee".equals(this.getClass().getSimpleName()) && this.createdBy == null) {
 			throw new IllegalArgumentException(
 				"An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
 		}

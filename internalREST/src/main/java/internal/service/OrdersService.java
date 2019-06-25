@@ -49,23 +49,5 @@ public class OrdersService {
 			log.trace("No Orders found.");
 			return Collections.<Order>emptyList();
 		}
-/*
-		if (!sortBy.isEmpty() && (!ascDesc.isEmpty() && ("asc".equalsIgnoreCase(ascDesc) || "desc".equalsIgnoreCase(ascDesc)))) {
-			try {
-				List<Order> orders = ordersDao.findAll(correctSize, correctPage, sortBy, ascDesc);
-				return orders;
-			} catch (PersistenceException e) {
-				log.trace("No Orders found.");
-				return Collections.<Order>emptyList();
-			}
-		} else {
-			try {
-				List<Order> orders = ordersDao.findAll(correctSize, correctPage, "", "");
-				return orders;
-			} catch (PersistenceException e) {
-				return Collections.<Order>emptyList();
-			}
-		}
-*/
 	}
 }

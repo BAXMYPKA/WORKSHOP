@@ -59,6 +59,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
+	 * Page formula is: limit * offset -1
 	 * @param limit   Limits the number of results given at once. Max = 50. Default = 50
 	 * @param offset  Offset (page number). When limit=10 and offset=3 the result will return from 30 to 40 entities
 	 * @param orderBy The name of the field the ascDesc will be happened by.
@@ -81,7 +82,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		}
 		
 		if (offset > 0) {
-			select.setFirstResult(limit * offset);
+			select.setFirstResult(limit * offset - 1); //PAGE FORMULA
 		}
 		//If 'orderBy' is used we use it in conjunction with ascDesc
 		if (orderBy != null && !orderBy.isEmpty()) {
@@ -137,7 +138,8 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
-	 * Batch insertion into the DataBase
+	 * Batch insertion into the DataBase. Also clears Hibernate cache (to save memory) so after the batch inserting
+	 * you have to refresh those entities you need from the batch further.
 	 * @param entities Collection of entities to be batch inserted
 	 */
 	public void persistEntities(Collection<T> entities){
@@ -155,17 +157,45 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 			}
 		}
 	}
+	
+	/**
+	 * Pull any database changes into the managed Entity
+	 */
+	public void refreshEntity(T entity) throws IllegalArgumentException {
+		if (entity == null){
+			throw new IllegalArgumentException("Entity cannot be null!");
+		}
+		entityManager.refresh(entity);
+	}
+	
+	/**
+	 * Pull any database changes into the managed Entities
+	 */
+	public void refreshEntities(Collection<T> entities) throws IllegalArgumentException {
+		if (entities == null){
+			throw new IllegalArgumentException("Entities Collection cannot be null!");
+		}
+		entities.iterator().forEachRemaining(this::refreshEntity);
+	}
+	
 	/**
 	 * Flush all the changed properties of the detached Entity to the DataBase and returns a managed one.
 	 *
 	 * @param entity Entity to be merge with existing one
 	 * @return A managed copy of the Entity
 	 */
-	public T mergeEntity(T entity) {
+	public T mergeEntity(T entity) throws IllegalArgumentException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		return entityManager.merge(entity);
-		
+	}
+	
+	public Collection<T> mergeEntities(Collection<T> entities) throws IllegalArgumentException {
+		if (entities == null) {
+			throw new IllegalArgumentException("Entities collection cannot be null!");
+		}
+		entities.iterator().forEachRemaining(this::mergeEntity);
+		return entities;
 	}
 }

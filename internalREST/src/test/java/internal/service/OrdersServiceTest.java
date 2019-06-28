@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,7 +51,10 @@ class OrdersServiceTest {
 		//WHEN
 		
 		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", ""))
-			.thenReturn(Collections.<Order>emptyList());
+			.thenReturn(Optional.empty());
+		
+		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", ""))
+			.thenReturn(Optional.empty());
 		
 		ordersService.findAllOrders(sizeAndPage, sizeAndPage, "", "");
 		
@@ -81,7 +85,7 @@ class OrdersServiceTest {
 		//WHEN
 		
 		Mockito.lenient().when(ordersDao.findAll(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString()))
-			.thenReturn(Collections.<Order>emptyList());
+			.thenReturn(Optional.empty());
 		
 		ordersService.findAllOrders(1, 1, variable, variable);
 		

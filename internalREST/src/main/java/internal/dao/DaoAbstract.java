@@ -3,7 +3,6 @@ package internal.dao;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +10,9 @@ import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The following parameters are obligatory to be set.
@@ -47,43 +47,42 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	@Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
 	int batchSize;
 	
-	public T findById(K key) throws PersistenceException, IllegalArgumentException {
+	public Optional<T> findById(K key) throws PersistenceException, IllegalArgumentException {
 		if (key == null) {
 			throw new IllegalArgumentException("Key parameter is invalid!");
 		}
-		T t = entityManager.find(entityClass, key);
-		if (t == null) {
-			throw new EntityNotFoundException("No results found for " + entityClass.getSimpleName());
-		}
+		Optional<T> t = Optional.ofNullable(entityManager.find(entityClass, key));
+//		T t = entityManager.find(entityClass, key);
+//		if (t == null) {
+//			throw new EntityNotFoundException("No results found for " + entityClass.getSimpleName());
+//		}
 		return t;
 	}
 	
 	/**
-	 * Page formula is: limit * offset -1
-	 * @param limit   Limits the number of results given at once. Max = 50. Default = 50
-	 * @param offset  Offset (page number). When limit=10 and offset=3 the result will return from 30 to 40 entities
-	 * @param orderBy The name of the field the ascDesc will be happened by.
-	 *                When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
-	 *                'created' field, otherwise no ordering will happened.
-	 * @param ascDesc "ASC" or "DESC" type
+	 * Page formula is: (pageNum -1)*pageSize
+	 *
+	 * @param pageSize Limits the number of results given at once. Min = 1, Max = 15000. Default = 15000
+	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
+	 * @param orderBy  The name of the field the ascDesc will be happened by.
+	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
+	 *                 'created' field, otherwise no ordering will happened.
+	 * @param ascDesc  "ASC" or "DESC" type
 	 * @return
 	 */
-	public List<T> findAll(int limit, int offset, String orderBy, String ascDesc) {
+	public Optional<List<T>> findAll(int pageSize, int pageNum, String orderBy, String ascDesc) {
+		//TODO: to realize estimating the whole quantity with max pageNum
+		pageSize = (pageSize <= 0 || pageSize > 15000) ? 15000 : pageSize;
+		pageNum = pageNum <= 0 ? 1 : pageNum;
+		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
 		
 		TypedQuery<T> select = entityManager.createQuery(query);
+		select.setFirstResult((pageNum - 1) * pageSize); //Page formula
+		select.setMaxResults(pageSize);
 		
-		if (limit > 0 && limit <= 50) { //If the 'limit' set
-			select.setMaxResults(limit);
-		} else {
-			select.setMaxResults(50);
-		}
-		
-		if (offset > 0) {
-			select.setFirstResult(limit * offset - 1); //PAGE FORMULA
-		}
 		//If 'orderBy' is used we use it in conjunction with ascDesc
 		if (orderBy != null && !orderBy.isEmpty()) {
 			if ("asc".equalsIgnoreCase(ascDesc)) {
@@ -96,13 +95,8 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 			query.orderBy(cb.desc(root.get("created")));
 		}
 		
-		List<T> entities = select.getResultList();
-
-/*
-		List<T> resultList = select.getResultList();
-		TypedQuery<T> selectAll = entityManager.createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t", entityClass);
-		List<T> entities = selectAll.getResultList();
-*/
+//		List<T> entities = select.getResultList();
+		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
 		
 		return entities;
 	}
@@ -138,31 +132,45 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
-	 * Batch insertion into the DataBase. Also clears Hibernate cache (to save memory) so after the batch inserting
+	 * Batch insertion into the DataBase.
+	 * Persists all the given Entities from Collection parameter from 0 to 'batchSize';
+	 * every Entity above 'batchSize' in the given Collection have to be returned in the managed state manually.
+	 * Also clears Hibernate cache (to save memory) so after the batch inserting
 	 * you have to refresh those entities you need from the batch further.
+	 *
 	 * @param entities Collection of entities to be batch inserted
 	 */
-	public void persistEntities(Collection<T> entities){
-		if (entities == null){
+	public void persistEntities(Collection<T> entities) {
+		if (entities == null) {
 			throw new IllegalArgumentException("Entities Collection cannot be null!");
 		}
-		Iterator<T> iterator = entities.iterator();
-		int counter = 0;
-		while (iterator.hasNext()){
-			persistEntity(iterator.next());
-			counter++;
-			if (counter % batchSize == 0){
+//		Iterator<T> iterator = entities.iterator();
+		AtomicInteger counter = new AtomicInteger();
+		
+//		while (iterator.hasNext()) {
+//			persistEntity(iterator.next());
+//			counter.getAndIncrement();
+//			if (counter.get() % batchSize == 0) {
+//				entityManager.flush();
+//				entityManager.clear();
+//			}
+//		}
+		
+		entities.stream().forEachOrdered(entity -> {
+			counter.getAndIncrement();
+			entity = persistEntity(entity);
+			if (counter.get() % batchSize == 0){
 				entityManager.flush();
 				entityManager.clear();
 			}
-		}
+		});
 	}
 	
 	/**
 	 * Pull any database changes into the managed Entity
 	 */
 	public void refreshEntity(T entity) throws IllegalArgumentException {
-		if (entity == null){
+		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		entityManager.refresh(entity);
@@ -172,7 +180,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * Pull any database changes into the managed Entities
 	 */
 	public void refreshEntities(Collection<T> entities) throws IllegalArgumentException {
-		if (entities == null){
+		if (entities == null) {
 			throw new IllegalArgumentException("Entities Collection cannot be null!");
 		}
 		entities.iterator().forEachRemaining(this::refreshEntity);
@@ -197,5 +205,27 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		}
 		entities.iterator().forEachRemaining(this::mergeEntity);
 		return entities;
+	}
+	
+	public void removeEntity(T entity) throws IllegalArgumentException, TransactionRequiredException {
+		if (entity == null) {
+			throw new IllegalArgumentException("Entity cannot be null!");
+		}
+		entityManager.remove(entity);
+	}
+	
+	public void removeEntities(Collection<T> entities) {
+		if (entities == null) {
+			throw new IllegalArgumentException("Entities collection cannot be null!");
+		}
+		entities.forEach(this::removeEntity);
+	}
+	
+	public long countAllEntities() {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		cq.select(cb.count(cq.from(entityClass)));
+		Long count = entityManager.createQuery(cq).getSingleResult();
+		return count;
 	}
 }

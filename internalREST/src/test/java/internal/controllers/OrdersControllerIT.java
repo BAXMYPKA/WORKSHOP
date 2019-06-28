@@ -51,7 +51,7 @@ class OrdersControllerIT {
 	
 	
 	@Test
-	public void spring_Boot_Test_Sees_The_Application_Context() {
+	public void init_Context() {
 		assertAll(
 			() -> assertNotNull(mockMvc),
 			() -> assertNotNull(ordersService),
@@ -82,7 +82,7 @@ class OrdersControllerIT {
 		//GIVEN
 		
 		Mockito.when(ordersService.findAllOrders(3, 2, "", "desc"))
-			.thenReturn(orders);
+			.thenReturn(java.util.Optional.ofNullable(orders));
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
@@ -106,7 +106,7 @@ class OrdersControllerIT {
 		//GIVEN
 		
 		Mockito.when(ordersService.findAllOrders(3, 2, "created", "asc"))
-			.thenReturn(orders);
+			.thenReturn(java.util.Optional.ofNullable(orders));
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		

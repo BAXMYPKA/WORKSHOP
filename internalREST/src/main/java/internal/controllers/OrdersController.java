@@ -10,16 +10,18 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Getter
@@ -34,21 +36,40 @@ public class OrdersController {
 	@Autowired
 	private JsonService jsonService;
 	private ObjectMapper objectMapper;
+	private final int PAGE_SIZE = OrdersService.PAGE_SIZE;
+	private final int MAX_PAGE_NUM = OrdersService.MAX_PAGE_NUM;
 	
 	@GetMapping(path = "/all", params = {"size", "page"})
 	public ResponseEntity<String> getAll(@RequestParam(value = "size") Integer size,
 										 @RequestParam(value = "page") Integer page,
-										 @RequestParam(name = "sort", required = false) String orderBy,
-										 @RequestParam(name = "asc-desc", required = false) String ascDesc)
+										 @RequestParam(name = "order-by", required = false) String orderBy,
+										 @RequestParam(name = "order", required = false) String order)
 		throws JsonProcessingException {
 		
+/*
+		Sort.Direction direction = null;
+		if (order != null && !order.isEmpty()) {
+			try {
+				direction = Sort.Direction.valueOf(order);
+			} catch (IllegalArgumentException e) {
+				throw new IllegalArgumentException("'Order' parameter must be equals 'asc' or 'desc' value!");
+			}
+		} else {
+			direction = Sort.Direction.DESC;
+		}
+*/
+/*
 		Optional<List<Order>> allOrders = ordersService.findAllOrders(
 			size,
 			page,
 			(orderBy != null && !orderBy.isEmpty()) ? orderBy : "",
-			"asc".equalsIgnoreCase(ascDesc) ? ascDesc : "desc");
-		if (allOrders.isPresent() && !allOrders.get().isEmpty()) {
-			String jsonOrders = jsonService.convertEntitiesToJson(allOrders.get());
+			direction);
+*/
+		Pageable pageable = getPageable(size, page, orderBy, order);
+		Page<Order> ordersPage = ordersService.findAllOrders(pageable, orderBy);
+		
+		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
+			String jsonOrders = jsonService.convertEntitiesToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Orders found!");
@@ -74,5 +95,27 @@ public class OrdersController {
 	@PostConstruct
 	private void afterPropsSet() {
 		objectMapper = jsonService.getObjectMapper();
+	}
+	
+	private Pageable getPageable(int size, int page, String orderBy, String order) {
+		Sort.Direction direction = null;
+		if (order != null && !order.isEmpty()) { //'Order' param is set in the Request
+			try {
+				direction = Sort.Direction.fromString(order);
+			} catch (IllegalArgumentException e) {
+				throw new IllegalArgumentException("'Order' parameter must be equals 'asc' or 'desc' value!");
+			}
+		} else { //DESC is the default value if 'order' param is not presented in the Request
+			direction = Sort.Direction.DESC;
+		}
+		//PageRequest doesn't allow empty parameters strings, so "created" as the default is used
+		orderBy = orderBy == null || orderBy.isEmpty() ? "created" : orderBy;
+		int pageSize = size <= 0 || size > PAGE_SIZE ? PAGE_SIZE : size;
+		int pageNum = page <= 0 || page > MAX_PAGE_NUM ? 1 : page;
+		
+		return PageRequest.of(
+			pageNum,
+			pageSize,
+			new Sort(direction, orderBy));
 	}
 }

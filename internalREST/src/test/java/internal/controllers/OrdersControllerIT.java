@@ -14,6 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -29,6 +33,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -81,8 +86,13 @@ class OrdersControllerIT {
 		
 		//GIVEN
 		
-		Mockito.when(ordersService.findAllOrders(3, 2, "", "desc"))
-			.thenReturn(java.util.Optional.ofNullable(orders));
+//		Mockito.when(ordersService.findAllOrders(3, 2, "", Sort.Direction.ASC))
+//			.thenReturn(java.util.Optional.ofNullable(orders));
+		PageRequest created = PageRequest.of(2, 3, new Sort(Sort.Direction.ASC, "created"));
+		
+		Mockito.when(ordersService.findAllOrders(Mockito.any(Pageable.class), Mockito.any()))
+			.thenReturn(new PageImpl<Order>(orders));
+		
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
@@ -105,8 +115,11 @@ class OrdersControllerIT {
 		
 		//GIVEN
 		
-		Mockito.when(ordersService.findAllOrders(3, 2, "created", "asc"))
+		Mockito.when(ordersService.findAllOrders(3, 2, "created", Sort.Direction.ASC))
 			.thenReturn(java.util.Optional.ofNullable(orders));
+		Mockito.when(ordersService.findAllOrders(
+			PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
+			.thenReturn(new PageImpl<Order>(orders));
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
@@ -118,8 +131,8 @@ class OrdersControllerIT {
 			(MockMvcRequestBuilders.get("/internal/orders/all"))
 				.param("size", "3")
 				.param("page", "2")
-				.param("sort", "created")
-				.param("asc-desc", "asc"))
+				.param("order-by", "created")
+				.param("order", "asc"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().is(200))
 			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))

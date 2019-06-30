@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -67,8 +68,8 @@ class DaoIT {
 	@DisplayName("Employees are deleting one by one, Orders are deleting a batch way")
 	public void deleting_Entities_By_One_And_By_Collection() {
 		//GIVEN
-		Optional<List<Employee>> persistedEmployees = employeesDao.findAll(0, 0, "", "");
-		Optional<List<Order>> persistedOrders = ordersDao.findAll(0, 0, "", "");
+		Optional<List<Employee>> persistedEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Order>> persistedOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
 		
 		assertFalse(persistedEmployees.get().isEmpty());
 		assertFalse(persistedOrders.get().isEmpty());
@@ -78,8 +79,8 @@ class DaoIT {
 		ordersDao.removeEntities(persistedOrders.get());
 
 		//THEN
-		Optional<List<Employee>> emptyEmployees = employeesDao.findAll(0, 0, "", "");
-		Optional<List<Order>> emptyOrders = ordersDao.findAll(0, 0, "", "");
+		Optional<List<Employee>> emptyEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Order>> emptyOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
 		
 		assertTrue(emptyEmployees.get().isEmpty());
 		assertTrue(emptyOrders.get().isEmpty());
@@ -180,7 +181,7 @@ class DaoIT {
 		employeesDao.persistEntities(employees);
 		ordersDao.persistEntities(orders);
 		//Get all Orders preloaded before and from the 'import.sql'
-		Optional<List<Order>> allOrders = ordersDao.findAll(0, 0, "", "");
+		Optional<List<Order>> allOrders = ordersDao.findAll(0, 0, "", Sort.Direction.DESC);
 		//By default Dao sorts Entities by 'createdBy' field
 		allOrders.get().sort((ord1, ord2) -> ord1.getCreated().compareTo(ord2.getCreated()));
 		
@@ -190,7 +191,7 @@ class DaoIT {
 		
 		//WHEN
 		
-		Optional<List<Order>> page = ordersDao.findAll(pageSize, pageNum, "", "");
+		Optional<List<Order>> page = ordersDao.findAll(pageSize, pageNum, "", Sort.Direction.DESC);
 		
 		//THEN
 		

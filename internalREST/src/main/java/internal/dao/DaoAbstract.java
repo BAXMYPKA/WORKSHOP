@@ -4,6 +4,7 @@ import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -67,10 +68,10 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * @param orderBy  The name of the field the ascDesc will be happened by.
 	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
 	 *                 'created' field, otherwise no ordering will happened.
-	 * @param ascDesc  "ASC" or "DESC" type
+	 * @param order  "ASC" or "DESC" types from Sort.Order ENUM
 	 * @return
 	 */
-	public Optional<List<T>> findAll(int pageSize, int pageNum, String orderBy, String ascDesc) {
+	public Optional<List<T>> findAll(int pageSize, int pageNum, String orderBy, Sort.Direction order) {
 		//TODO: to realize estimating the whole quantity with max pageNum
 		pageSize = (pageSize <= 0 || pageSize > 15000) ? 15000 : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
@@ -83,9 +84,9 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		select.setFirstResult((pageNum - 1) * pageSize); //Page formula
 		select.setMaxResults(pageSize);
 		
-		//If 'orderBy' is used we use it in conjunction with ascDesc
+		//If 'orderBy' is used we use it in conjunction with order
 		if (orderBy != null && !orderBy.isEmpty()) {
-			if ("asc".equalsIgnoreCase(ascDesc)) {
+			if (order.isAscending()) {
 				query.orderBy(cb.asc(root.get(orderBy)));
 			} else {
 				query.orderBy(cb.desc(root.get(orderBy)));

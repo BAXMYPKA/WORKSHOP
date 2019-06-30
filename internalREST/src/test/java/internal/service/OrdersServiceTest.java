@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -42,31 +43,33 @@ class OrdersServiceTest {
 	public void regardless_Of_Input_Size_And_Page_All_Of_Them_Should_Be_Set_Between_Their_Min_Max(int sizeAndPage) {
 		
 		//GIVEN
+		int maxPageSize = OrdersService.PAGE_SIZE;
+		int matPageNum = OrdersService.MAX_PAGE_NUM;
 		
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<Integer> pageCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<String> sortByCaptured = ArgumentCaptor.forClass(String.class);
-		ArgumentCaptor<String> ascDescCaptured = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Sort.Direction> sortCaptured = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		//WHEN
 		
-		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", ""))
+		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", ""))
+		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		ordersService.findAllOrders(sizeAndPage, sizeAndPage, "", "");
+		ordersService.findAllOrders(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);
 		
 		//THEN
 		
 		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAll(
-			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), ascDescCaptured.capture());
+			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), sortCaptured.capture());
 		
 		System.out.println("Size=" + sizeCaptured.getValue() + " Page=" + pageCaptured.getValue());
 		
-		assertTrue(sizeCaptured.getValue() > 0 && sizeCaptured.getValue() <= 50);
-		assertTrue(pageCaptured.getValue() >= 1 && pageCaptured.getValue() <= 100);
+		assertTrue(sizeCaptured.getValue() > 0 && sizeCaptured.getValue() <= maxPageSize);
+		assertTrue(pageCaptured.getValue() >= 1 && pageCaptured.getValue() <= matPageNum);
 	}
 	
 	@ParameterizedTest
@@ -80,27 +83,30 @@ class OrdersServiceTest {
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<Integer> pageCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<String> sortByCaptured = ArgumentCaptor.forClass(String.class);
-		ArgumentCaptor<String> ascDescCaptured = ArgumentCaptor.forClass(String.class);
+		ArgumentCaptor<Sort.Direction> directionCaptured = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		//WHEN
 		
-		Mockito.lenient().when(ordersDao.findAll(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString()))
+		Mockito.lenient()
+			.when(ordersDao.findAll(
+				Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any(Sort.Direction.class)))
 			.thenReturn(Optional.empty());
 		
-		ordersService.findAllOrders(1, 1, variable, variable);
+		ordersService.findAllOrders(1, 1, variable, Sort.Direction.DESC);
 		
 		//THEN
 		
 		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAll(
-			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), ascDescCaptured.capture());
+			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), directionCaptured.capture());
 		
-		System.out.println("SortBy=" + sortByCaptured.getValue() + " || AscDesc=" + ascDescCaptured.getValue());
+		System.out.println("SortBy=" + sortByCaptured.getValue() + " || AscDesc=" + directionCaptured.getValue());
 		
 		//'SortBy' should be either empty or equals to input value
 		assertTrue(sortByCaptured.getValue() != null &&
 			(sortByCaptured.getValue().isEmpty() || sortByCaptured.getValue().equals(variable)));
 		
-		assertTrue(ascDescCaptured.getValue() != null &&
-			("asc".equals(ascDescCaptured.getValue()) || "desc".equals(ascDescCaptured.getValue())));
+		assertTrue(directionCaptured.getValue() != null &&
+			("asc".equalsIgnoreCase(directionCaptured.getValue().name()) ||
+				"desc".equalsIgnoreCase(directionCaptured.getValue().name())));
 	}
 }

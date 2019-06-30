@@ -40,7 +40,7 @@ public class OrdersController {
 	private final int MAX_PAGE_NUM = OrdersService.MAX_PAGE_NUM;
 	
 	@GetMapping(path = "/all", params = {"size", "page"})
-	public ResponseEntity<String> getAll(@RequestParam(value = "size") Integer size,
+	public ResponseEntity<String> getOrders(@RequestParam(value = "size") Integer size,
 										 @RequestParam(value = "page") Integer page,
 										 @RequestParam(name = "order-by", required = false) String orderBy,
 										 @RequestParam(name = "order", required = false) String order)

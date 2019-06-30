@@ -88,9 +88,9 @@ class DaoIT {
 	
 	@ParameterizedTest
 	@MethodSource("entitiesFactory")
-	@DisplayName("Test DaoAbstract to be able to perform all the basic operations with EntityManager")
+	@DisplayName("Test DaoAbstract for being able to persist Entities with ID and Management check")
 	@Transactional
-	public void persist_Simple_Entities_By_EntityManager_With_Id_And_Management_Check(WorkshopEntity entity) {
+	public void persist_Simple_Entities(WorkshopEntity entity) {
 		
 		if ("Employee".equals(entity.getClass().getSimpleName())) {
 			
@@ -175,19 +175,23 @@ class DaoIT {
 	public void pagination_With_Limits_And_Offsets_Works_Properly(int source) {
 		
 		//GIVEN
+		//Clear the InMemory DataBase and reinit all the Entities for the test
 		deleting_Entities_By_One_And_By_Collection();
 		init();
 		//Load some new test Entities
 		employeesDao.persistEntities(employees);
 		ordersDao.persistEntities(orders);
-		//Get all Orders preloaded before and from the 'import.sql'
+		
+		//Get all the preloaded Orders
 		Optional<List<Order>> allOrders = ordersDao.findAll(0, 0, "", Sort.Direction.DESC);
-		//By default Dao sorts Entities by 'createdBy' field
+		
+		//By default Dao sorts Entities by 'created' field
 		allOrders.get().sort((ord1, ord2) -> ord1.getCreated().compareTo(ord2.getCreated()));
 		
 		int pageSize = source;
 		int pageNum = source;
-		int itemNumToStartPageWith = (pageNum - 1) * pageSize; //Item num the page has to start with
+		//Page formula to count the number of item from a Global ordered list the current Page has to start with
+		int itemNumToStartPageWith = (pageNum - 1) * pageSize;
 		
 		//WHEN
 		
@@ -208,6 +212,27 @@ class DaoIT {
 		init();
 		ordersDao.persistEntities(orders);
 		employeesDao.persistEntities(employees);
+		//Take the first persisted Order
+		Order persistedOrder = orders.get(0);
+		
+		//WHEN
+		Optional<Order> foundByIdOrder = ordersDao.findById(persistedOrder.getId());
+		
+		//THEN
+		assertNotNull(foundByIdOrder.get());
+		assertTrue(entityManager.contains(foundByIdOrder.get()));
+		assertEquals(persistedOrder.getId(), foundByIdOrder.get().getId());
+		assertEquals(persistedOrder.getCreated(), foundByIdOrder.get().getCreated());
+	}
+	
+	@AfterEach
+	public void tearDown() {
+		init();
+	}
+	
+	public static Stream<? extends Arguments> entitiesFactory() {
+		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
+			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}
 	
 	@BeforeAll
@@ -234,12 +259,13 @@ class DaoIT {
 		employee3.setPassword("12345");
 		
 		Order order1 = new Order();
-		order1.setDescription("Description");
+		order1.setDescription("Description one");
 		order1.setCreated(LocalDateTime.of(2018, 11, 20, 9, 35, 45));
 		order1.setCreatedBy(employee1);
 		
 		Order order2 = new Order();
 		order2.setCreatedBy(employee1);
+		order2.setDescription("Description two");
 		order2.setCreated(LocalDateTime.of(2018, 11, 20, 9, 35, 45));
 		
 		Order order3 = new Order();
@@ -305,15 +331,5 @@ class DaoIT {
 		orders = new ArrayList<Order>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
 			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
 		
-	}
-	
-	@AfterEach
-	public void tearDown() {
-		init();
-	}
-	
-	public static Stream<? extends Arguments> entitiesFactory() {
-		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
-			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}
 }

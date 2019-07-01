@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -33,21 +36,29 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
+	//TODO: validation message
+	@PastOrPresent(groups = {CreationCheck.class})
 	private LocalDateTime created;
 	
 	@Column
 	private LocalDateTime modified;
 	
 	@Column
+	//TODO: validation international message
+	@FutureOrPresent(groups = {UpdationCheck.class})
 	private LocalDateTime finished;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//TODO: message
+	@NotNull(groups = {CreationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//TODO: message
+	@NotNull(groups = {UpdationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	private Employee modifiedBy;
@@ -72,10 +83,13 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@PreUpdate
 	public void preUpdate() throws IllegalArgumentException {
 		this.modified = LocalDateTime.now();
-		if (this.modifiedBy == null) {
+		//TODO: to realize createdBy check and insertion implementation
+/*
+		if (!"Employee".equals(this.getClass().getSimpleName()) && this.modifiedBy == null) {
 			throw new IllegalArgumentException(
 				"An Employee in 'modifiedBy' field must be presented! Please add that one who's applied for modifying!");
 		}
+*/
 	}
 	
 	@Override

@@ -95,4 +95,13 @@ public class OrdersService {
 		Optional<Order> order = ordersDao.findById(id);
 		return order;
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Optional<Order> persistOrder(Order order) throws IllegalArgumentException {
+		if (order == null){
+			throw new IllegalArgumentException("Order cannot by null!");
+		}
+		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistEntity(order));
+		return persistedOrder;
+	}
 }

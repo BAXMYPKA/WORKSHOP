@@ -17,9 +17,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +89,18 @@ public class OrdersController {
 			return ResponseEntity.ok(jsonOrder);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Order with id=" + id + " not found!");
+		}
+	}
+	
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order)
+		throws JsonProcessingException, HttpMessageNotReadableException {
+		Optional<Order> persistedOrder = ordersService.persistOrder(order);
+		if (persistedOrder.isPresent()){
+			String jsonOrder = jsonService.convertEntityToJson(persistedOrder.get());
+			return ResponseEntity.ok(jsonOrder);
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The Order creation failure!");
 		}
 	}
 	

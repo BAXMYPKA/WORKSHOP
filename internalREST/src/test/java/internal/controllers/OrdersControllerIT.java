@@ -6,7 +6,10 @@ import internal.service.JsonService;
 import internal.service.OrdersService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -47,7 +51,7 @@ class OrdersControllerIT {
 	
 	@Autowired
 	MockMvc mockMvc;
-//	MockMvc mockMvc = MockMvcBuilders.standaloneSetup(OrdersController.class).build();
+	//	MockMvc mockMvc = MockMvcBuilders.standaloneSetup(OrdersController.class).build();
 	@MockBean
 	OrdersService ordersService;
 	@MockBean
@@ -85,7 +89,7 @@ class OrdersControllerIT {
 	public void on_Simple_Request_Returns_Orders_List_With_Ok_Status_And_Json_ContentType() throws Exception {
 		
 		//GIVEN
-		
+
 //		Mockito.when(ordersService.findAllOrders(3, 2, "", Sort.Direction.ASC))
 //			.thenReturn(java.util.Optional.ofNullable(orders));
 		PageRequest created = PageRequest.of(2, 3, new Sort(Sort.Direction.ASC, "created"));
@@ -137,6 +141,23 @@ class OrdersControllerIT {
 			.andExpect(MockMvcResultMatchers.status().is(200))
 			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))
 			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"", ""})
+	@DisplayName("ControllerAdvice with ExceptionHandler test")
+	public void post_Incorrect_or_Empty_Order_Produces_Bad_Request_Response_With_Predefined_Message() throws Exception {
+		//GIVEN
+//		String
+		mockMvc.perform(
+			MockMvcRequestBuilders
+				.post("/internal/orders")
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content(""))
+			.andExpect(
+				MockMvcResultMatchers.status().isOk())
+			.andDo(MockMvcResultHandlers.print());
 	}
 	
 	@BeforeEach

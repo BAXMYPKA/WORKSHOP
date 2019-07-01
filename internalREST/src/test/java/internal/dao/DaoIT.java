@@ -14,15 +14,19 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,7 +69,7 @@ class DaoIT {
 	@org.junit.jupiter.api.Order(1)
 	@Test
 	@Transactional
-	@DisplayName("Employees are deleting one by one, Orders are deleting a batch way")
+	@DisplayName("Employees are deleting one by one, Orders are deleting in a batch way")
 	public void deleting_Entities_By_One_And_By_Collection() {
 		//GIVEN
 		Optional<List<Employee>> persistedEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
@@ -77,7 +81,7 @@ class DaoIT {
 		//WHEN
 		persistedEmployees.get().forEach(employee -> employeesDao.removeEntity(employee));
 		ordersDao.removeEntities(persistedOrders.get());
-
+		
 		//THEN
 		Optional<List<Employee>> emptyEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
 		Optional<List<Order>> emptyOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
@@ -86,12 +90,52 @@ class DaoIT {
 		assertTrue(emptyOrders.get().isEmpty());
 	}
 	
+	
+	@Test
+	@org.junit.jupiter.api.Order(2)
+	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
+	@Transactional
+	public void batch_Persisting_Collections() {
+		
+		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
+		init();
+		clearContext();
+		orders.forEach(order -> assertFalse(entityManager.contains(order)));
+		employees.forEach(employee -> assertFalse(entityManager.contains(employee)));
+		
+		//WHEN
+		
+		employeesDao.persistEntities(employees);
+		ordersDao.persistEntities(orders);
+		
+		//THEN all entities are managed and have an id
+		
+		employees.forEach(employee -> assertTrue(employee.getId() > 0));
+		employees.forEach(employee -> assertNotNull(employee.getCreated()));
+		
+		orders.forEach(order -> assertNotNull(order.getCreated()));
+		orders.forEach(order -> assertTrue(order.getId() > 0));
+		
+		//Return them all to the managed state if Collection.size exceeds batchSize
+/*
+		for (int i = 0; i < employees.size(); i++) {
+			employees.set(i, employeesDao.mergeEntity(employees.get(i)));
+		}
+		for (int i = 0; i < orders.size(); i++) {
+			orders.set(i, ordersDao.mergeEntity(orders.get(i)));
+		}
+*/
+		
+		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
+		orders.forEach(order -> assertTrue(entityManager.contains(order)));
+	}
+	
 	@ParameterizedTest
 	@MethodSource("entitiesFactory")
 	@DisplayName("Test DaoAbstract for being able to persist Entities with ID and Management check")
 	@Transactional
 	public void persist_Simple_Entities(WorkshopEntity entity) {
-		
+//		clearContext();
 		if ("Employee".equals(entity.getClass().getSimpleName())) {
 			
 			//GIVEN
@@ -129,45 +173,6 @@ class DaoIT {
 		}
 	}
 	
-	@Test
-	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
-	@Transactional
-	public void batch_Persisting_Collections() {
-		
-		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
-		
-//		ordersDao.setBatchSize(3);
-		
-		orders.forEach(order -> assertFalse(entityManager.contains(order)));
-		employees.forEach(employee -> assertFalse(entityManager.contains(employee)));
-		
-		//WHEN
-		
-		employeesDao.persistEntities(employees);
-		ordersDao.persistEntities(orders);
-		
-		//THEN all entities are managed and have an id
-		
-		employees.forEach(employee -> assertTrue(employee.getId() > 0));
-		employees.forEach(employee -> assertNotNull(employee.getCreated()));
-		
-		orders.forEach(order -> assertNotNull(order.getCreated()));
-		orders.forEach(order -> assertTrue(order.getId() > 0));
-		
-		//Return them all to the managed state if Collection.size exceeds batchSize
-/*
-		for (int i = 0; i < employees.size(); i++) {
-			employees.set(i, employeesDao.mergeEntity(employees.get(i)));
-		}
-		for (int i = 0; i < orders.size(); i++) {
-			orders.set(i, ordersDao.mergeEntity(orders.get(i)));
-		}
-*/
-		
-		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
-		orders.forEach(order -> assertTrue(entityManager.contains(order)));
-	}
-	
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 4})
 	@DisplayName("The test doesn't consider any page num that exceeds the Entities quantity")
@@ -176,7 +181,10 @@ class DaoIT {
 		
 		//GIVEN
 		//Clear the InMemory DataBase and reinit all the Entities for the test
+/*
 		deleting_Entities_By_One_And_By_Collection();
+		init();
+*/
 		init();
 		//Load some new test Entities
 		employeesDao.persistEntities(employees);
@@ -208,31 +216,42 @@ class DaoIT {
 	@Test
 	public void find_Entity_By_Id_Email() {
 		//GIVEN
-		deleting_Entities_By_One_And_By_Collection();
 		init();
+		clearContext();
+		
 		ordersDao.persistEntities(orders);
 		employeesDao.persistEntities(employees);
-		//Take the first persisted Order
-		Order persistedOrder = orders.get(0);
+		
+		//Take the first non-persisted Order
+		Order nonPersistedOrder = orders.get(0);
+		long nonPersistedOrderId = nonPersistedOrder.getId();
+		
+		//Take the first non-persisted Employee
+		Employee nonPersistedEmployee = employees.get(0);
+		String nonPersistedEmail = nonPersistedEmployee.getEmail();
 		
 		//WHEN
-		Optional<Order> foundByIdOrder = ordersDao.findById(persistedOrder.getId());
+		//Try to found persisted Order by id
+		Optional<Order> foundByIdOrder = ordersDao.findById(nonPersistedOrderId);
+		//Try to found persisted Employee by email
+		Employee persistedEmployee = employeesDao.findEmployeeByEmail(nonPersistedEmail);
 		
 		//THEN
+		//Order has to be found
 		assertNotNull(foundByIdOrder.get());
 		assertTrue(entityManager.contains(foundByIdOrder.get()));
-		assertEquals(persistedOrder.getId(), foundByIdOrder.get().getId());
-		assertEquals(persistedOrder.getCreated(), foundByIdOrder.get().getCreated());
+		assertEquals(nonPersistedOrder.getId(), foundByIdOrder.get().getId());
+		assertEquals(nonPersistedOrder.getCreated(), foundByIdOrder.get().getCreated());
+		//Employee has to be found
+		assertNotNull(persistedEmployee);
+		assertEquals(nonPersistedEmail, persistedEmployee.getEmail());
 	}
 	
 	@AfterEach
 	public void tearDown() {
-		init();
-	}
-	
-	public static Stream<? extends Arguments> entitiesFactory() {
-		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
-			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
+//		init();
+//		deleting_Entities_By_One_And_By_Collection();
+//		clearContext();
 	}
 	
 	@BeforeAll
@@ -330,6 +349,24 @@ class DaoIT {
 		employees = new ArrayList<>(Arrays.asList(employee1, employee2, employee3));
 		orders = new ArrayList<Order>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
 			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
-		
+	}
+	
+	@Transactional
+	public void persistEntities() {
+		employeesDao.persistEntities(employees);
+		ordersDao.persistEntities(orders);
+	}
+	
+//	@Transactional
+	public void clearContext(){
+		Optional<List<Employee>> employeesFound = employeesDao.findAll(0, 0, null, null);
+		employeesDao.removeEntities(employeesFound.get());
+		Optional<List<Order>> ordersFound = ordersDao.findAll(0, 0, null, null);
+		ordersDao.removeEntities(ordersFound.get());
+	}
+	
+	public static Stream<? extends Arguments> entitiesFactory() {
+		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
+			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}
 }

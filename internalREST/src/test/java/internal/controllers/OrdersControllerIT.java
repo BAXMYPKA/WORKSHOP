@@ -25,13 +25,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.*;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
@@ -62,9 +61,9 @@ class OrdersControllerIT {
 	@Test
 	public void init_Context() {
 		assertAll(
-			() -> assertNotNull(mockMvc),
-			() -> assertNotNull(ordersService),
-			() -> assertNotNull(jsonService)
+			  () -> assertNotNull(mockMvc),
+			  () -> assertNotNull(ordersService),
+			  () -> assertNotNull(jsonService)
 		);
 	}
 	
@@ -78,11 +77,11 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			(MockMvcRequestBuilders.get("/internal/orders/all"))
+			  (MockMvcRequestBuilders.get("/internal/orders/all"))
 //				.param("size", "3")
-				.param("page", "2"))
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().is(400));
+					.param("page", "2"))
+			  .andDo(MockMvcResultHandlers.print())
+			  .andExpect(MockMvcResultMatchers.status().is(400));
 	}
 	
 	@Test
@@ -95,7 +94,7 @@ class OrdersControllerIT {
 		PageRequest created = PageRequest.of(2, 3, new Sort(Sort.Direction.ASC, "created"));
 		
 		Mockito.when(ordersService.findAllOrders(Mockito.any(Pageable.class), Mockito.any()))
-			.thenReturn(new PageImpl<Order>(orders));
+			  .thenReturn(new PageImpl<Order>(orders));
 		
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
@@ -105,13 +104,13 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			(MockMvcRequestBuilders.get("/internal/orders/all"))
-				.param("size", "3")
-				.param("page", "2"))
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().is(200))
-			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))
-			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+			  (MockMvcRequestBuilders.get("/internal/orders/all"))
+					.param("size", "3")
+					.param("page", "2"))
+			  .andDo(MockMvcResultHandlers.print())
+			  .andExpect(MockMvcResultMatchers.status().is(200))
+			  .andExpect(MockMvcResultMatchers.content().string(jsonOrders))
+			  .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
 	@Test
@@ -120,10 +119,10 @@ class OrdersControllerIT {
 		//GIVEN
 		
 		Mockito.when(ordersService.findAllOrders(3, 2, "created", Sort.Direction.ASC))
-			.thenReturn(java.util.Optional.ofNullable(orders));
+			  .thenReturn(java.util.Optional.ofNullable(orders));
 		Mockito.when(ordersService.findAllOrders(
-			PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
-			.thenReturn(new PageImpl<Order>(orders));
+			  PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
+			  .thenReturn(new PageImpl<Order>(orders));
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
@@ -132,32 +131,65 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			(MockMvcRequestBuilders.get("/internal/orders/all"))
-				.param("size", "3")
-				.param("page", "2")
-				.param("order-by", "created")
-				.param("order", "asc"))
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().is(200))
-			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))
-			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+			  (MockMvcRequestBuilders.get("/internal/orders/all"))
+					.param("size", "3")
+					.param("page", "2")
+					.param("order-by", "created")
+					.param("order", "asc"))
+			  .andDo(MockMvcResultHandlers.print())
+			  .andExpect(MockMvcResultMatchers.status().is(200))
+			  .andExpect(MockMvcResultMatchers.content().string(jsonOrders))
+			  .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"", ""})
-	@DisplayName("ControllerAdvice with ExceptionHandler test")
-	public void post_Incorrect_or_Empty_Order_Produces_Bad_Request_Response_With_Predefined_Message() throws Exception {
+	@ValueSource(strings = {"", "{\"null\",\"name\":\"Name\"}"})
+	@DisplayName("ControllerAdvice with ExceptionHandler test with no JSON inside a Request body")
+	public void post_Empty_or_Corrupted_JSON_Produces_Bad_Request_Response_With_Predefined_Message(String requestBody)
+		  throws Exception {
 		//GIVEN
-//		String
-		mockMvc.perform(
-			MockMvcRequestBuilders
-				.post("/internal/orders")
-				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content(""))
-			.andExpect(
-				MockMvcResultMatchers.status().isOk())
-			.andDo(MockMvcResultHandlers.print());
+		//RequestBody input strings
+		ResultActions resultActions = null;
+		
+		//WHEN
+		resultActions = mockMvc.perform(
+			  MockMvcRequestBuilders
+					.post("/internal/orders")
+					.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+					.content(requestBody));
+		
+		//THEN
+		resultActions
+			  .andExpect(MockMvcResultMatchers.status().isBadRequest())
+			  .andExpect(MockMvcResultMatchers.content().string("Incorrect request body!"))
+			  .andDo(MockMvcResultHandlers.print());
+	}
+	
+	@ParameterizedTest
+	@DisplayName("ControllerAdvice test with incorrect JSON as an Order inside a Request body")
+	@ValueSource(strings = {
+		  "{\"id\":1,\"description\":\"The Descr\"}"})
+	public void post_Incorrect_JSON_as_Order_Body_Produces_422UnprocessableEntity_Http_Status(String incorrectJson)
+		  throws Exception {
+		//GIVEN
+		//Incorrect jsoned Orders
+		ResultActions resultActions = null;
+		
+		//WHEN
+		resultActions = mockMvc.perform(
+			  MockMvcRequestBuilders
+					.post("/internal/orders")
+					.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+					.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+					.content(incorrectJson));
+		
+		//THEN
+		resultActions
+			  .andDo(MockMvcResultHandlers.print())
+			  .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+			  .andExpect(MockMvcResultMatchers.content()
+					.string("The Server hasn't been able to tread JSON from a request!"));
 	}
 	
 	@BeforeEach

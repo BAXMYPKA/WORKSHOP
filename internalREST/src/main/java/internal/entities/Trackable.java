@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -33,11 +31,15 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	//TODO: message
+	@Null(groups = {CreationCheck.class})
+	@NotNull(groups = {UpdationCheck.class})
+	@Min(groups = {UpdationCheck.class}, value = 1)
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	//TODO: validation message
-	@PastOrPresent(groups = {CreationCheck.class})
+	@PastOrPresent(groups = {UpdationCheck.class})
 	private LocalDateTime created;
 	
 	@Column

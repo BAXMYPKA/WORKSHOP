@@ -99,8 +99,9 @@ public class OrdersController {
 	}
 	
 	/**
-	 * Order may contain Tasks and User objects - any included object without 'id' will be treated as new ones
+	 * Order may contain a new single Task and a new single User object without 'id' - they will be treated as new ones
 	 * and persisted in the DataBase.
+	 * If Order has to contain a few new Tasks - they all have to be persisted BEFORE the persistence the Order.
 	 * If any of them will throw an Exception during a persistence process - the whole Order won't be saved!
 	 * @param order Order object as JSON
 	 * @param authentication The Employee to save in Order.createdBy field

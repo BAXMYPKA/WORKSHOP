@@ -283,12 +283,14 @@ class OrdersControllerIT {
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
+		task2ForOrder1.setId(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
 		task2ForOrder1.setDeadline(LocalDateTime.of(2020, 5, 12, 12, 30));
 		task2ForOrder1.setName("Task two");
 		
 		Task task3ForOrder1 = new Task();
+		task3ForOrder1.setId(11);
 		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
 		task3ForOrder1.setAppointedTo(employee);
 		task3ForOrder1.setDeadline(LocalDateTime.of(2020, 12, 5, 15, 30));
@@ -296,6 +298,7 @@ class OrdersControllerIT {
 		
 		Order correctOrder1 = new Order();
 		correctOrder1.setDescription("The Correct Order One");
+//		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setCreatedFor(user);
 		correctOrder1.setDeadline(LocalDateTime.of(2020, 12, 12, 12, 55));

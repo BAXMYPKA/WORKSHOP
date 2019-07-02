@@ -31,7 +31,7 @@ public class Task extends Trackable {
 	private LocalDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
 	

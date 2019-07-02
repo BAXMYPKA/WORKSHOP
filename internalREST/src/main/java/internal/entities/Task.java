@@ -53,7 +53,8 @@ public class Task extends Trackable {
 	private Order order;
 	
 	/**
-	 * The sum of all Classifiers
+	 * Will be set automatically as the sum of the all included Classifiers prices.
+	 * Of course can be corrected manually.
 	 */
 	@Column(scale = 2)
 	private BigDecimal price;

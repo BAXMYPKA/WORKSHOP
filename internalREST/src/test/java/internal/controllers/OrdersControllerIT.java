@@ -1,20 +1,19 @@
 package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import internal.entities.Order;
+import internal.entities.*;
 import internal.service.JsonService;
 import internal.service.OrdersService;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
@@ -22,30 +21,27 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.*;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest(controllers = {OrdersController.class})
-//@WebAppConfiguration
 class OrdersControllerIT {
 	
 	@Autowired
@@ -61,9 +57,9 @@ class OrdersControllerIT {
 	@Test
 	public void init_Context() {
 		assertAll(
-			  () -> assertNotNull(mockMvc),
-			  () -> assertNotNull(ordersService),
-			  () -> assertNotNull(jsonService)
+			() -> assertNotNull(mockMvc),
+			() -> assertNotNull(ordersService),
+			() -> assertNotNull(jsonService)
 		);
 	}
 	
@@ -77,11 +73,11 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			  (MockMvcRequestBuilders.get("/internal/orders/all"))
+			(MockMvcRequestBuilders.get("/internal/orders/all"))
 //				.param("size", "3")
-					.param("page", "2"))
-			  .andDo(MockMvcResultHandlers.print())
-			  .andExpect(MockMvcResultMatchers.status().is(400));
+				.param("page", "2"))
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().is(400));
 	}
 	
 	@Test
@@ -94,7 +90,7 @@ class OrdersControllerIT {
 		PageRequest created = PageRequest.of(2, 3, new Sort(Sort.Direction.ASC, "created"));
 		
 		Mockito.when(ordersService.findAllOrders(Mockito.any(Pageable.class), Mockito.any()))
-			  .thenReturn(new PageImpl<Order>(orders));
+			.thenReturn(new PageImpl<Order>(orders));
 		
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
@@ -104,13 +100,13 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			  (MockMvcRequestBuilders.get("/internal/orders/all"))
-					.param("size", "3")
-					.param("page", "2"))
-			  .andDo(MockMvcResultHandlers.print())
-			  .andExpect(MockMvcResultMatchers.status().is(200))
-			  .andExpect(MockMvcResultMatchers.content().string(jsonOrders))
-			  .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+			(MockMvcRequestBuilders.get("/internal/orders/all"))
+				.param("size", "3")
+				.param("page", "2"))
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().is(200))
+			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))
+			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
 	@Test
@@ -119,10 +115,10 @@ class OrdersControllerIT {
 		//GIVEN
 		
 		Mockito.when(ordersService.findAllOrders(3, 2, "created", Sort.Direction.ASC))
-			  .thenReturn(java.util.Optional.ofNullable(orders));
+			.thenReturn(java.util.Optional.ofNullable(orders));
 		Mockito.when(ordersService.findAllOrders(
-			  PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
-			  .thenReturn(new PageImpl<Order>(orders));
+			PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
+			.thenReturn(new PageImpl<Order>(orders));
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
@@ -131,65 +127,91 @@ class OrdersControllerIT {
 		//WHEN THEN
 		
 		mockMvc.perform(
-			  (MockMvcRequestBuilders.get("/internal/orders/all"))
-					.param("size", "3")
-					.param("page", "2")
-					.param("order-by", "created")
-					.param("order", "asc"))
-			  .andDo(MockMvcResultHandlers.print())
-			  .andExpect(MockMvcResultMatchers.status().is(200))
-			  .andExpect(MockMvcResultMatchers.content().string(jsonOrders))
-			  .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+			(MockMvcRequestBuilders.get("/internal/orders/all"))
+				.param("size", "3")
+				.param("page", "2")
+				.param("order-by", "created")
+				.param("order", "asc"))
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().is(200))
+			.andExpect(MockMvcResultMatchers.content().string(jsonOrders))
+			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"", "{\"null\",\"name\":\"Name\"}"})
-	@DisplayName("ControllerAdvice with ExceptionHandler test with no JSON inside a Request body")
-	public void post_Empty_or_Corrupted_JSON_Produces_Bad_Request_Response_With_Predefined_Message(String requestBody)
-		  throws Exception {
+	@ValueSource(strings = {
+		"",
+		"{\"null\",\"name\":\"Name\"}",
+		"{\"description\":\"The Descr\", \"deadline\":\"2020-6-5\"}"})
+	@DisplayName("ControllerAdvice with ExceptionHandler test with no or corrupted JSON inside a Request body")
+	public void post_Empty_or_Incorrect_Json_Produces_Bad_Request_Response_With_Predefined_Message(String requestBody)
+		throws Exception {
 		//GIVEN
 		//RequestBody input strings
 		ResultActions resultActions = null;
 		
 		//WHEN
 		resultActions = mockMvc.perform(
-			  MockMvcRequestBuilders
-					.post("/internal/orders")
-					.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-					.contentType(MediaType.APPLICATION_JSON_UTF8)
-					.content(requestBody));
+			MockMvcRequestBuilders
+				.post("/internal/orders")
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content(requestBody));
 		
 		//THEN
 		resultActions
-			  .andExpect(MockMvcResultMatchers.status().isBadRequest())
-			  .andExpect(MockMvcResultMatchers.content().string("Incorrect request body!"))
-			  .andDo(MockMvcResultHandlers.print());
+			.andExpect(MockMvcResultMatchers.status().isBadRequest())
+			.andExpect(MockMvcResultMatchers.content().string("Incorrect request body!"))
+			.andDo(MockMvcResultHandlers.print());
 	}
 	
 	@ParameterizedTest
-	@DisplayName("ControllerAdvice test with incorrect JSON as an Order inside a Request body")
+	@DisplayName("Order may contain incorrect properties")
 	@ValueSource(strings = {
-		  "{\"id\":1,\"description\":\"The Descr\"}"})
-	public void post_Incorrect_JSON_as_Order_Body_Produces_422UnprocessableEntity_Http_Status(String incorrectJson)
-		  throws Exception {
+		"{\"id\":1,\"description\":\"The Descr\"}",
+		"{\"description\":\"The Descr\", \"createdFor\":\"2020\"}"})
+	public void post_Incorrect_Order_as_Json_Body_Produces_422UnprocessableEntity_Http_Status(String incorrectJson)
+		throws Exception {
 		//GIVEN
 		//Incorrect jsoned Orders
 		ResultActions resultActions = null;
 		
 		//WHEN
 		resultActions = mockMvc.perform(
-			  MockMvcRequestBuilders
-					.post("/internal/orders")
-					.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-					.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-					.content(incorrectJson));
+			MockMvcRequestBuilders
+				.post("/internal/orders")
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.content(incorrectJson));
 		
 		//THEN
 		resultActions
-			  .andDo(MockMvcResultHandlers.print())
-			  .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
-			  .andExpect(MockMvcResultMatchers.content()
-					.string("The Server hasn't been able to tread JSON from a request!"));
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().isInternalServerError())
+			.andExpect(MockMvcResultMatchers.content().string("The Order creation failure!"));
+	}
+	
+	@Test
+	@DisplayName("Name")
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	public void post_Correct_Order_as_Json() throws Exception {
+		//GIVEN json Order
+		String jsonOrder = getCorrectJsonOrder();
+		ResultActions resultActions = null;
+		
+		//WHEN
+		resultActions = mockMvc.perform(
+			MockMvcRequestBuilders
+				.post("/internal/orders")
+				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+				.content(jsonOrder));
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().isInternalServerError())
+			.andExpect(MockMvcResultMatchers.content().string("The Order creation failure!"));
 	}
 	
 	@BeforeEach
@@ -226,5 +248,64 @@ class OrdersControllerIT {
 		order10.setCreated(LocalDateTime.of(2010, 11, 20, 9, 35, 45));
 		
 		orders.addAll(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10));
+	}
+	
+	public String getCorrectJsonOrder() throws IOException {
+		
+		User user = new User();
+		user.setBirthday(LocalDate.of(1960, 10, 5));
+		user.setEmail("user@email.pro");
+		user.setFirstName("Ivan");
+		
+		Employee employee = new Employee();
+		employee.setId(100);
+		employee.setEmail("appointed@workshop.pro");
+		
+		Classifier classifier1 = new Classifier();
+		classifier1.setId(1);
+		classifier1.setPrice(BigDecimal.valueOf(20.20));
+		classifier1.setName("Classifier One");
+		
+		Classifier classifier2 = new Classifier();
+		classifier2.setId(2);
+		classifier2.setPrice(BigDecimal.valueOf(40.25));
+		classifier2.setName("Classifier Two");
+		
+		Classifier classifier3 = new Classifier();
+		classifier3.setId(3);
+		classifier3.setPrice(BigDecimal.valueOf(30.15));
+		classifier3.setName("Classifier Three");
+		
+		Task task1ForOrder1 = new Task();
+		task1ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier2)));
+		task1ForOrder1.setAppointedTo(employee);
+		task1ForOrder1.setDeadline(LocalDateTime.of(2020, 10, 15, 10, 30));
+		task1ForOrder1.setName("Task one");
+		
+		Task task2ForOrder1 = new Task();
+		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
+		task2ForOrder1.setAppointedTo(employee);
+		task2ForOrder1.setDeadline(LocalDateTime.of(2020, 5, 12, 12, 30));
+		task2ForOrder1.setName("Task two");
+		
+		Task task3ForOrder1 = new Task();
+		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
+		task3ForOrder1.setAppointedTo(employee);
+		task3ForOrder1.setDeadline(LocalDateTime.of(2020, 12, 5, 15, 30));
+		task3ForOrder1.setName("Task three");
+		
+		Order correctOrder1 = new Order();
+		correctOrder1.setDescription("The Correct Order One");
+		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
+		correctOrder1.setCreatedFor(user);
+		correctOrder1.setDeadline(LocalDateTime.of(2020, 12, 12, 12, 55));
+		
+		JsonService jsonService = new JsonService();
+		
+		String jsonOrder = jsonService.convertEntityToJson(correctOrder1);
+		
+		Order order = jsonService.convertEntityFromJson(jsonOrder, Order.class);
+		
+		return jsonOrder;
 	}
 }

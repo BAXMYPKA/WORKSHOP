@@ -2,6 +2,8 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import internal.dao.EmployeesDao;
+import internal.entities.Employee;
 import internal.entities.Order;
 import internal.service.JsonService;
 import internal.service.OrdersService;
@@ -18,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -36,6 +40,8 @@ public class OrdersController {
 	@Autowired
 	private OrdersService ordersService;
 	@Autowired
+	private EmployeesDao employeesDao;
+	@Autowired
 	private JsonService jsonService;
 	private ObjectMapper objectMapper;
 	private final int PAGE_SIZE = OrdersService.PAGE_SIZE;
@@ -43,9 +49,9 @@ public class OrdersController {
 	
 	@GetMapping(path = "/all", params = {"size", "page"})
 	public ResponseEntity<String> getOrders(@RequestParam(value = "size") Integer size,
-										 @RequestParam(value = "page") Integer page,
-										 @RequestParam(name = "order-by", required = false) String orderBy,
-										 @RequestParam(name = "order", required = false) String order)
+											@RequestParam(value = "page") Integer page,
+											@RequestParam(name = "order-by", required = false) String orderBy,
+											@RequestParam(name = "order", required = false) String order)
 		throws JsonProcessingException {
 		
 /*
@@ -92,13 +98,26 @@ public class OrdersController {
 		}
 	}
 	
+	/**
+	 * Order may contain Tasks and User objects - any included object without 'id' will be treated as new ones
+	 * and persisted in the DataBase.
+	 * If any of them will throw an Exception during a persistence process - the whole Order won't be saved!
+	 * @param order Order object as JSON
+	 * @param authentication The Employee to save in Order.createdBy field
+	 * @return Either persisted Order or Http error with a description
+	 * @throws JsonProcessingException
+	 * @throws HttpMessageNotReadableException
+	 */
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order)
+	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order, Authentication authentication)
 		throws JsonProcessingException, HttpMessageNotReadableException {
+		Employee createdBy = employeesDao.findEmployeeByEmail(authentication.getName());
+		order.setCreatedBy(createdBy);
+		//Validation
 		Optional<Order> persistedOrder = ordersService.persistOrder(order);
-		if (persistedOrder.isPresent()){
-			String jsonOrder = jsonService.convertEntityToJson(persistedOrder.get());
-			return ResponseEntity.ok(jsonOrder);
+		if (persistedOrder.isPresent()) {
+			String jsonPersistedOrder = jsonService.convertEntityToJson(persistedOrder.get());
+			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The Order creation failure!");
 		}

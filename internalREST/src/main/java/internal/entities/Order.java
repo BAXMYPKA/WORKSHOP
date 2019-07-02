@@ -16,7 +16,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"createdFor"})
-@JsonIgnoreProperties(value = {"tasks", "createdFor"}, allowGetters = true)
+//@JsonIgnoreProperties(value = {"tasks", "createdFor"}, allowGetters = true)
+//@JsonIgnoreProperties(value = {"tasks"}, allowGetters = true)
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order extends Trackable {
@@ -39,6 +40,10 @@ public class Order extends Trackable {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Task> tasks;
 	
+	/**
+	 * Sets automatically as the sum of the all included Tasks.
+	 * Also can be set or corrected manually.
+	 */
 	@Column(scale = 2)
 	private BigDecimal overallPrice;
 	

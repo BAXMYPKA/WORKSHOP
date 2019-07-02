@@ -50,16 +50,18 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@FutureOrPresent(groups = {UpdationCheck.class})
 	private LocalDateTime finished;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	//TODO: message
 	@NotNull(groups = {CreationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
-		optional = true)
+		  optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	private Employee createdBy;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-	//TODO: message
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+//TODO: message
 	@NotNull(groups = {UpdationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
@@ -71,6 +73,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	
 	/**
 	 * Only 'Employee' entities can't contain 'createdBy' field as they can create each other
+	 *
 	 * @throws IllegalArgumentException
 	 */
 	@PrePersist
@@ -78,7 +81,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 		this.created = LocalDateTime.now();
 		if (!"Employee".equals(this.getClass().getSimpleName()) && this.createdBy == null) {
 			throw new IllegalArgumentException(
-				"An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
+				  "An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
 		}
 	}
 	

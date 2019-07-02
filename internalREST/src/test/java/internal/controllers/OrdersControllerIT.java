@@ -267,12 +267,12 @@ class OrdersControllerIT {
 		classifier1.setName("Classifier One");
 		
 		Classifier classifier2 = new Classifier();
-		classifier2.setId(2);
+//		classifier2.setId(2);
 		classifier2.setPrice(BigDecimal.valueOf(40.25));
 		classifier2.setName("Classifier Two");
 		
 		Classifier classifier3 = new Classifier();
-		classifier3.setId(3);
+//		classifier3.setId(3);
 		classifier3.setPrice(BigDecimal.valueOf(30.15));
 		classifier3.setName("Classifier Three");
 		
@@ -283,7 +283,7 @@ class OrdersControllerIT {
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
-		task2ForOrder1.setId(10);
+//		task2ForOrder1.setId(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
 		task2ForOrder1.setDeadline(LocalDateTime.of(2020, 5, 12, 12, 30));

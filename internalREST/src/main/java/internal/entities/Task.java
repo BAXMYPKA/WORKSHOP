@@ -18,7 +18,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"price", "appointedTo"})
-@JsonIgnoreProperties(value = {"order", "classifiers", "appointedTo"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"order"}, allowGetters = true)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {
@@ -30,7 +30,8 @@ public class Task extends Trackable {
 	//TODO: check the date has to be before the linked Order "deadline"
 	private LocalDateTime deadline;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
@@ -38,17 +39,19 @@ public class Task extends Trackable {
 	/**
 	 * One Task can have a number of Classifiers
 	 */
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Classifier.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+		  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
-		joinColumns = {@JoinColumn(name = "task_id")},
-		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+		  joinColumns = {@JoinColumn(name = "task_id")},
+		  inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<Classifier> classifiers;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Order.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		  CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
 	
@@ -75,13 +78,13 @@ public class Task extends Trackable {
 	 * Also sets the price for the Task
 	 */
 	public void setClassifiers(Set<Classifier> classifiers) {
-		if (classifiers == null || classifiers.isEmpty()){
+		if (classifiers == null || classifiers.isEmpty()) {
 			return;
 		}
 		this.classifiers = classifiers;
 		price = new BigDecimal(0);
 		classifiers.forEach(classifier -> this.setPrice(
-			classifier.getPrice() != null ? classifier.getPrice() : new BigDecimal("0.0")));
+			  classifier.getPrice() != null ? classifier.getPrice() : new BigDecimal("0.0")));
 //		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));
 	}
 	
@@ -97,7 +100,7 @@ public class Task extends Trackable {
 		} else {
 			price = new BigDecimal(0);
 			setPrice(classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal::add).orElseThrow(
-				() -> new IllegalArgumentException("One or more Classifiers don't contain the price!")));
+				  () -> new IllegalArgumentException("One or more Classifiers don't contain the price!")));
 		}
 	}
 }

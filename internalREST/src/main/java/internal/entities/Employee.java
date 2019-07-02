@@ -18,8 +18,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
-	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
+	  @AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+	  @AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
 })
 public class Employee extends Trackable {
 	
@@ -44,9 +44,10 @@ public class Employee extends Trackable {
 	private LocalDate birthday;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Phone.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+		  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Collection<Phone> phones;
 	
 	@JsonIgnore
@@ -55,31 +56,37 @@ public class Employee extends Trackable {
 	private byte[] photo;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Position.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = true, cascade = {
-		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
+		  CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+		  joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+		  inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	private Position position;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "appointedTo", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<Task> appointedTasks;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
 	private Collection<Trackable> ordersModifiedBy;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
 	private Collection<Trackable> ordersCreatedBy;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksModifiedBy;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksCreatedBy;
 }

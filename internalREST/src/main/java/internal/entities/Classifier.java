@@ -26,7 +26,7 @@ import java.util.Set;
 @Table(name = "Classifiers", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
 public class Classifier extends Trackable implements Serializable {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "classifiers_sequence")
 	@SequenceGenerator(name = "classifiers_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
@@ -42,7 +42,8 @@ public class Classifier extends Trackable implements Serializable {
 	@Column(nullable = false, scale = 2)
 	private BigDecimal price;
 	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "classifiers", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<Task> tasks;
 }

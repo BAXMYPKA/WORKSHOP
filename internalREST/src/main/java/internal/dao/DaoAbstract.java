@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -64,17 +65,20 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * Page formula is: (pageNum -1)*pageSize
 	 *
 	 * @param pageSize Limits the number of results given at once. Min = 1, Max = 15000. Default = 15000
+	 *                 If 0 - will be set to default
 	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
+	 *                 If 0 - will be set to default
 	 * @param orderBy  The name of the field the ascDesc will be happened by.
 	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
 	 *                 'created' field, otherwise no ordering will happened.
 	 * @param order  "ASC" or "DESC" types from Sort.Order ENUM
 	 * @return
 	 */
-	public Optional<List<T>> findAll(int pageSize, int pageNum, String orderBy, Sort.Direction order) {
+	public Optional<List<T>> findAll(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order) {
 		//TODO: to realize estimating the whole quantity with max pageNum
 		pageSize = (pageSize <= 0 || pageSize > 15000) ? 15000 : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
+		order = order == null ? Sort.Direction.DESC : order;
 		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
@@ -128,6 +132,8 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
+//		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() <= 0){
+//		}
 		entityManager.persist(entity);
 		return entity;
 	}

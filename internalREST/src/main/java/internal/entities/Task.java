@@ -18,6 +18,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"price", "appointedTo"})
+@EqualsAndHashCode(callSuper = true, of = {"order", "name", "deadline"})
 @JsonIgnoreProperties(value = {"order"}, allowGetters = true)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")

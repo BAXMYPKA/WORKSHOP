@@ -1,9 +1,10 @@
 package internal.dao;
 
-import internal.entities.Employee;
-import internal.entities.Order;
-import internal.entities.WorkshopEntity;
-import org.junit.jupiter.api.*;
+import internal.entities.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,12 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,14 +49,27 @@ class DaoIT {
 	@Autowired
 	EmployeesDao employeesDao;
 	
+	@Autowired
+	TasksDao tasksDao;
+	
+	@Autowired
+	ClassifiersDao classifiersDao;
+	
+	@Autowired
+	UsersDao usersDao;
+	
 	@PersistenceContext
 	EntityManager entityManager;
 	
 	@Autowired
-	EntityManagerFactory emf; //To support transactions
+	EntityManagerFactory emf; //To support transactions with emf.getEntityManager();
 	
 	static List<Employee> employees;
 	static List<Order> orders;
+	static List<User> users;
+	static List<Phone> phones;
+	static List<Classifier> classifiers;
+	static List<Task> tasks;
 	
 	@Test
 	public void context_Initialization() {
@@ -132,45 +144,121 @@ class DaoIT {
 	
 	@ParameterizedTest
 	@MethodSource("entitiesFactory")
-	@DisplayName("Test DaoAbstract for being able to persist Entities with ID and Management check")
+	@DisplayName("Test DaoAbstract for being able to persist Entities without an id field")
 	@Transactional
-	public void persist_Simple_Entities(WorkshopEntity entity) {
+	public void persist_Simple_Entity(WorkshopEntity entity) {
+//		init();
 //		clearContext();
 		if ("Employee".equals(entity.getClass().getSimpleName())) {
-			
 			//GIVEN
-			
 			Employee employee = (Employee) entity;
 			
 			assertFalse(entityManager.contains(employee)); //Not managed entity
 			assertEquals(0, employee.getId());
 			
 			//WHEN
-			
 			employeesDao.persistEntity((Employee) entity);
 			
 			//THEN
-			
 			assertTrue(employee.getId() > 0); //The id has been set
 			assertTrue(entityManager.contains(employee)); //Managed entity
 		} else if ("Order".equals(entity.getClass().getSimpleName())) {
 			
 			//GIVEN
-			
 			Order order = (Order) entity;
 			
 			assertFalse(entityManager.contains(order)); //Not managed entity
 			assertEquals(0, order.getId());
 			
 			//WHEN
-			
 			ordersDao.persistEntity((Order) entity);
 			
 			//THEN
-			
 			assertTrue(order.getId() > 0);//The id has been set
 			assertTrue(entityManager.contains(order));//Managed
 		}
+	}
+	
+	@Test
+	public void persist_Entities_With_Id_0_isSuccessful() {
+		//GIVEN
+		orders.forEach(order -> order.setId(0));
+		employees.forEach(employee -> employee.setId(0));
+		
+		//WHEN
+		ordersDao.persistEntities(orders);
+		employeesDao.persistEntities(employees);
+		
+		//THEN
+		Set<Long> ids = new HashSet<>();
+		
+		orders.forEach(order -> {
+			assertTrue(order.getId() > 0);
+			assertTrue(entityManager.contains(order));
+			ids.add(order.getId());
+			
+		});
+		
+		employees.forEach(employee -> {
+			assertTrue(employee.getId() > 0);
+			assertTrue(entityManager.contains(employee));
+			ids.add(employee.getId());
+		});
+		
+		assertEquals(orders.size() + employees.size(), ids.size());
+	}
+	
+	@RepeatedTest(3)
+	@DisplayName("All the new entities tuples have to be persisted by JPA cascading by persisting a single Entity")
+	public void cascade_Persisting_New_Entities() {
+		//GIVEN all non-persisted Entities.
+		
+		//As every collection has to have at least 3 items, we can randomly use their indexes
+		int i = ((int) (Math.random() * 3));
+		int j = ((int) (Math.random() * 3));
+		
+		//Preparing tuples from new Entities
+		users.forEach(user -> {
+			user.setId(0);
+			user.setPhones(Arrays.asList(phones.get(0), phones.get(1)));
+		});
+		phones.forEach(phone -> {
+			phone.setId(0);
+		});
+		classifiers.forEach(classifier -> {
+			classifier.setId(0);
+			classifier.setCreatedBy(employees.get(j));
+		});
+		tasks.forEach(task -> {
+			task.setId(0);
+			task.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifiers.get(0), classifiers.get(1))));
+			task.setCreatedBy(employees.get(i));
+		});
+		
+		orders.forEach(order -> {
+			order.setId(0);
+			order.setCreatedFor(users.get(i));
+			order.setTasks(new HashSet<Task>(Arrays.asList(tasks.get(0), tasks.get(1))));
+		});
+		
+		//WHEN only Orders are persisted
+		
+		ordersDao.persistEntities(orders);
+		
+		//THEN all the tuples from those Orders have to be persisted either
+		
+		//Orders are persisted
+		orders.forEach(order -> {
+			entityManager.contains(order);
+		});
+		//Tasks from those Orders are persisted
+		assertTrue(entityManager.contains(tasks.get(0)) && entityManager.contains(tasks.get(1)));
+		//Classifiers from those Tasks are persisted
+		assertTrue(entityManager.contains(classifiers.get(0)) && entityManager.contains(classifiers.get(1)));
+		//User from those Orders is persisted
+		assertTrue(entityManager.contains(users.get(i)));
+		//Phones from that User are persisted
+		assertTrue(entityManager.contains(phones.get(0)) && entityManager.contains(phones.get(1)));
 	}
 	
 	@ParameterizedTest
@@ -181,10 +269,6 @@ class DaoIT {
 		
 		//GIVEN
 		//Clear the InMemory DataBase and reinit all the Entities for the test
-/*
-		deleting_Entities_By_One_And_By_Collection();
-		init();
-*/
 		init();
 		//Load some new test Entities
 		employeesDao.persistEntities(employees);
@@ -247,14 +331,8 @@ class DaoIT {
 		assertEquals(nonPersistedEmail, persistedEmployee.getEmail());
 	}
 	
-	@AfterEach
-	public void tearDown() {
-//		init();
-//		deleting_Entities_By_One_And_By_Collection();
-//		clearContext();
-	}
-	
 	@BeforeAll
+	@DisplayName("Every Collection has to contain minimum 3 items!")
 	public static void init() {
 		Employee employee1 = new Employee();
 		employee1.setEmail("firstEmployee@workshop.pro");
@@ -346,9 +424,73 @@ class DaoIT {
 		Order order21 = new Order();
 		order21.setCreatedBy(employee3);
 		
+		User user1 = new User();
+		user1.setFirstName("UserOneFirst");
+		user1.setLastName("UserOneLast");
+		user1.setEmail("userone@workshop.pro");
+		user1.setBirthday(LocalDate.now().minusYears(18));
+		user1.setPassword("12345");
+		
+		User user2 = new User();
+		user2.setFirstName("UserTwoFirst");
+		user2.setLastName("UserTwoLast");
+		user2.setEmail("usertwo@workshop.pro");
+		user2.setBirthday(LocalDate.now().minusYears(15));
+		user2.setPassword("12345");
+		
+		User user3 = new User();
+		user3.setFirstName("UserThreeFirst");
+		user3.setLastName("UserThreeLast");
+		user3.setEmail("userthree@workshop.pro");
+		user3.setBirthday(LocalDate.now().minusYears(16).minusDays(1));
+		user3.setPassword("12345");
+		
+		Phone phone1 = new Phone();
+		phone1.setName("Mobile");
+		phone1.setPhone("12345678");
+		
+		Phone phone2 = new Phone();
+		phone2.setName("Mobile");
+		phone2.setPhone("123456789");
+		
+		Phone phone3 = new Phone();
+		phone3.setName("Mobile");
+		phone3.setPhone("1234567890");
+		
+		Task task1 = new Task();
+		task1.setName("Task One");
+		task1.setDeadline(LocalDateTime.now().plusDays(5));
+		
+		Task task2 = new Task();
+		task2.setName("Task Two");
+		task2.setDeadline(LocalDateTime.now().plusDays(5));
+		
+		Task task3 = new Task();
+		task3.setName("Task Three");
+		task3.setDeadline(LocalDateTime.now().plusDays(5));
+		
+		Classifier classifier1 = new Classifier();
+		classifier1.setName("Classifier One");
+		classifier1.setPrice(new BigDecimal(20.20));
+		classifier1.setDescription("The First Classifier");
+		
+		Classifier classifier2 = new Classifier();
+		classifier2.setName("Classifier Two");
+		classifier2.setPrice(new BigDecimal(30.50));
+		classifier2.setDescription("The Second Classifier");
+		
+		Classifier classifier3 = new Classifier();
+		classifier3.setName("Classifier Three");
+		classifier3.setPrice(new BigDecimal(40.10));
+		classifier3.setDescription("The Third Classifier");
+		
 		employees = new ArrayList<>(Arrays.asList(employee1, employee2, employee3));
 		orders = new ArrayList<Order>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
 			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
+		users = new ArrayList<>(Arrays.asList(user1, user2, user3));
+		phones = new ArrayList<>(Arrays.asList(phone1, phone2, phone3));
+		tasks = new ArrayList<>(Arrays.asList(task1, task2, task3));
+		classifiers = new ArrayList<>(Arrays.asList(classifier1, classifier2, classifier3));
 	}
 	
 	@Transactional
@@ -357,15 +499,17 @@ class DaoIT {
 		ordersDao.persistEntities(orders);
 	}
 	
-//	@Transactional
-	public void clearContext(){
-		Optional<List<Employee>> employeesFound = employeesDao.findAll(0, 0, null, null);
-		employeesDao.removeEntities(employeesFound.get());
-		Optional<List<Order>> ordersFound = ordersDao.findAll(0, 0, null, null);
-		ordersDao.removeEntities(ordersFound.get());
+	@Transactional
+	public void clearContext() {
+		Optional<List<Employee>> employeesManaged = employeesDao.findAll(0, 0, null, null);
+		employeesDao.removeEntities(employeesManaged.get());
+		Optional<List<Order>> ordersManaged = ordersDao.findAll(0, 0, null, null);
+		ordersDao.removeEntities(ordersManaged.get());
+		entityManager.clear();
 	}
 	
 	public static Stream<? extends Arguments> entitiesFactory() {
+		init();
 		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
 			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}

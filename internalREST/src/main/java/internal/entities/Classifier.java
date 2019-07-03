@@ -21,6 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, of = {"name"})
 @JsonIgnoreProperties(value = {"tasks"})
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
@@ -35,6 +36,9 @@ public class Classifier extends Trackable implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String name;
 	
+	@Column
+	private String description;
+	
 	/**
 	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order
 	 * creation to fix it, because this current price can be changed further.
@@ -44,6 +48,6 @@ public class Classifier extends Trackable implements Serializable {
 	
 	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "classifiers", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToMany(mappedBy = "classifiers", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<Task> tasks;
 }

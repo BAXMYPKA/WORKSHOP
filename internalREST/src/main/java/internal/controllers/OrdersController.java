@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;
 import internal.entities.Order;
+import internal.service.EmployeesService;
 import internal.service.JsonService;
 import internal.service.OrdersService;
 import lombok.Getter;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +42,7 @@ public class OrdersController {
 	@Autowired
 	private OrdersService ordersService;
 	@Autowired
-	private EmployeesDao employeesDao;
+	private EmployeesService employeesService;
 	@Autowired
 	private JsonService jsonService;
 	private ObjectMapper objectMapper;
@@ -54,25 +56,6 @@ public class OrdersController {
 											@RequestParam(name = "order", required = false) String order)
 		throws JsonProcessingException {
 		
-/*
-		Sort.Direction direction = null;
-		if (order != null && !order.isEmpty()) {
-			try {
-				direction = Sort.Direction.valueOf(order);
-			} catch (IllegalArgumentException e) {
-				throw new IllegalArgumentException("'Order' parameter must be equals 'asc' or 'desc' value!");
-			}
-		} else {
-			direction = Sort.Direction.DESC;
-		}
-*/
-/*
-		Optional<List<Order>> allOrders = ordersService.findAllOrders(
-			size,
-			page,
-			(orderBy != null && !orderBy.isEmpty()) ? orderBy : "",
-			direction);
-*/
 		Pageable pageable = getPageable(size, page, orderBy, order);
 		Page<Order> ordersPage = ordersService.findAllOrders(pageable, orderBy);
 		
@@ -112,8 +95,12 @@ public class OrdersController {
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order, Authentication authentication)
 		throws JsonProcessingException, HttpMessageNotReadableException {
-		Employee createdBy = employeesDao.findEmployeeByEmail(authentication.getName());
-		order.setCreatedBy(createdBy);
+		
+		Optional<Employee> createdBy = employeesService.findByEmail(authentication.getName());
+		
+		order.setCreatedBy(createdBy.orElseThrow(
+			() -> new AuthenticationCredentialsNotFoundException("No Authentication found!")));
+		
 		//Validation
 		Optional<Order> persistedOrder = ordersService.persistOrder(order);
 		if (persistedOrder.isPresent()) {

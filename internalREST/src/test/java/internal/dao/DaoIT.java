@@ -128,16 +128,6 @@ class DaoIT {
 		orders.forEach(order -> assertNotNull(order.getCreated()));
 		orders.forEach(order -> assertTrue(order.getId() > 0));
 		
-		//Return them all to the managed state if Collection.size exceeds batchSize
-/*
-		for (int i = 0; i < employees.size(); i++) {
-			employees.set(i, employeesDao.mergeEntity(employees.get(i)));
-		}
-		for (int i = 0; i < orders.size(); i++) {
-			orders.set(i, ordersDao.mergeEntity(orders.get(i)));
-		}
-*/
-		
 		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
 		orders.forEach(order -> assertTrue(entityManager.contains(order)));
 	}
@@ -147,8 +137,6 @@ class DaoIT {
 	@DisplayName("Test DaoAbstract for being able to persist Entities without an id field")
 	@Transactional
 	public void persist_Simple_Entity(WorkshopEntity entity) {
-//		init();
-//		clearContext();
 		if ("Employee".equals(entity.getClass().getSimpleName())) {
 			//GIVEN
 			Employee employee = (Employee) entity;
@@ -210,7 +198,7 @@ class DaoIT {
 	
 	@RepeatedTest(3)
 	@DisplayName("All the new entities tuples have to be persisted by JPA cascading by persisting a single Entity")
-	public void cascade_Persisting_New_Entities() {
+	public void cascade_Persisting_All_New_Entities() {
 		//GIVEN all non-persisted Entities.
 		
 		//As every collection has to have at least 3 items, we can randomly use their indexes
@@ -255,6 +243,66 @@ class DaoIT {
 		assertTrue(entityManager.contains(tasks.get(0)) && entityManager.contains(tasks.get(1)));
 		//Classifiers from those Tasks are persisted
 		assertTrue(entityManager.contains(classifiers.get(0)) && entityManager.contains(classifiers.get(1)));
+		//User from those Orders is persisted
+		assertTrue(entityManager.contains(users.get(i)));
+		//Phones from that User are persisted
+		assertTrue(entityManager.contains(phones.get(0)) && entityManager.contains(phones.get(1)));
+	}
+	
+	@RepeatedTest(3)
+	@DisplayName("New entities have to be cascade persisted, but the old ones not")
+	public void cascade_Persisting_Partly_New_Entities() {
+		//GIVEN persisted and non-persisted Entities.
+		
+		init();
+		clearContext();
+		
+		//As every collection has to have at least 3 items, we can randomly use their indexes
+		int i = ((int) (Math.random() * 3));
+		int j = ((int) (Math.random() * 3));
+		
+		//Preparing tuples from new Entities
+		users.forEach(user -> {
+			user.setId(0);
+			user.setPhones(Arrays.asList(phones.get(0), phones.get(1)));
+		});
+		phones.forEach(phone -> {
+			phone.setId(0);
+		});
+		tasks.forEach(task -> {
+			task.setId(0);
+			task.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifiers.get(0), classifiers.get(1))));
+			task.setCreatedBy(employees.get(i));
+		});
+		orders.forEach(order -> {
+			order.setId(0);
+			order.setCreatedFor(users.get(i));
+			order.setTasks(new HashSet<Task>(Arrays.asList(tasks.get(0), tasks.get(1))));
+		});
+		
+		//WHEN 1) pre-persist Classifiers 2) then persist Orders
+		
+		//Here we persist Classifiers for the following check
+		classifiers.forEach(classifier -> {
+			classifier.setCreatedBy(employees.get(j));
+			classifiersDao.persistEntity(classifier);
+		});
+		//Check the Classifiers are persisted
+		classifiers.forEach(classifier -> {
+			assertTrue(entityManager.contains(classifier));
+		});
+		
+		//Then persist Orders with pre-persisted Classifiers
+		ordersDao.persistEntities(orders);
+		
+		//THEN all the tuples from those Orders have to be persisted either
+		
+		//Orders are persisted
+		orders.forEach(order -> {
+			assertTrue(entityManager.contains(order));
+		});
+		//Tasks from those Orders are persisted
+		assertTrue(entityManager.contains(tasks.get(0)) && entityManager.contains(tasks.get(1)));
 		//User from those Orders is persisted
 		assertTrue(entityManager.contains(users.get(i)));
 		//Phones from that User are persisted
@@ -503,8 +551,19 @@ class DaoIT {
 	public void clearContext() {
 		Optional<List<Employee>> employeesManaged = employeesDao.findAll(0, 0, null, null);
 		employeesDao.removeEntities(employeesManaged.get());
+		
 		Optional<List<Order>> ordersManaged = ordersDao.findAll(0, 0, null, null);
 		ordersDao.removeEntities(ordersManaged.get());
+		
+		Optional<List<Task>> tasksManaged = tasksDao.findAll(0, 0, null, null);
+		tasksDao.removeEntities(tasksManaged.get());
+		
+		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAll(0, 0, null, null);
+		classifiersDao.refreshEntities(classifiersManaged.get());
+		
+		Optional<List<User>> usersManaged = usersDao.findAll(0, 0, null, null);
+		usersDao.removeEntities(usersManaged.get());
+		
 		entityManager.clear();
 	}
 	

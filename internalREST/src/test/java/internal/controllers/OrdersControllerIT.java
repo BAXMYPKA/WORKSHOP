@@ -2,6 +2,7 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.entities.*;
+import internal.service.EmployeesService;
 import internal.service.JsonService;
 import internal.service.OrdersService;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +50,8 @@ class OrdersControllerIT {
 	//	MockMvc mockMvc = MockMvcBuilders.standaloneSetup(OrdersController.class).build();
 	@MockBean
 	OrdersService ordersService;
+	@MockBean
+	EmployeesService employeesService;
 	@MockBean
 	JsonService jsonService;
 	List<Order> orders = new ArrayList<>(10);
@@ -192,12 +195,19 @@ class OrdersControllerIT {
 	}
 	
 	@Test
-	@DisplayName("Name")
+	@DisplayName("The Json Order with included new Tasks, Users and Classifiers which have to be persisted")
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	public void post_Correct_Order_as_Json() throws Exception {
-		//GIVEN json Order
+		//GIVEN json Order with a lot of new Entities included
 		String jsonOrder = getCorrectJsonOrder();
 		ResultActions resultActions = null;
+		
+		//Employee Authentication to pass to the Controller to be saved in 'createdBy' fields
+		Employee authentication = new Employee();
+		authentication.setId(150);
+		authentication.setEmail("employee@workshop.pro");
+		
+		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authentication));
 		
 		//WHEN
 		resultActions = mockMvc.perform(

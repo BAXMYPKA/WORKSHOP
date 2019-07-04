@@ -96,13 +96,8 @@ public class OrdersController {
 	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order, Authentication authentication)
 		throws JsonProcessingException, HttpMessageNotReadableException {
 		
-		Optional<Employee> createdBy = employeesService.findByEmail(authentication.getName());
-		
-		order.setCreatedBy(createdBy.orElseThrow(
-			() -> new AuthenticationCredentialsNotFoundException("No Authentication found!")));
-		
-		//Validation
-		Optional<Order> persistedOrder = ordersService.persistOrder(order);
+		//TODO: jsr validation
+		Optional<Order> persistedOrder = ordersService.persistOrder(order, authentication);
 		if (persistedOrder.isPresent()) {
 			String jsonPersistedOrder = jsonService.convertEntityToJson(persistedOrder.get());
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);

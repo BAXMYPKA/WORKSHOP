@@ -73,6 +73,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	@DependsOn("usersDao")
+	public UsersDetailsService usersDetailsService() {
+		return new UsersDetailsService();
+	}
+	
+	@Bean
 	@Qualifier("employeesAuthenticationProvider")
 	@DependsOn("employeesDetailsService")
 	public EmployeesAuthenticationProvider employeesAuthenticationProvider() {
@@ -80,9 +86,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	@Qualifier("usersAuthenticationProvider")
+	@DependsOn("usersDetailsService")
+	public UsersAuthenticationProvider usersAuthenticationProvider() {
+		return new UsersAuthenticationProvider();
+	}
+	
+	@Bean
 	public Set<AuthenticationProvider> internalAuthenticationProviders() {
 		Set<AuthenticationProvider> authenticationProviders = new HashSet<>(4);
 		authenticationProviders.add(employeesAuthenticationProvider());
+		authenticationProviders.add(usersAuthenticationProvider());
 		return authenticationProviders;
 	}
 	

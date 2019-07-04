@@ -21,8 +21,12 @@ import java.util.Set;
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
 	private Set<AuthenticationProvider> internalAuthenticationProviders;
+	
 	@Autowired
-	EmployeesAuthenticationProvider employeesAuthenticationProvider;
+	private EmployeesAuthenticationProvider employeesAuthenticationProvider;
+	
+	@Autowired
+	private UsersAuthenticationProvider usersAuthenticationProvider;
 	
 	@Autowired
 	public WorkshopAuthenticationManager(Set<AuthenticationProvider> internalAuthenticationProviders) {

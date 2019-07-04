@@ -1,11 +1,17 @@
 package internal.dao;
 
+import internal.entities.Trackable;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -32,6 +38,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Getter
 @Setter
+@Slf4j
 @Repository
 public abstract class DaoAbstract<T extends Serializable, K> implements DaoInterface {
 	
@@ -59,6 +66,22 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 //			throw new EntityNotFoundException("No results found for " + entityClass.getSimpleName());
 //		}
 		return t;
+	}
+	
+	public Optional<T> findByEmail(String email) throws IllegalArgumentException {
+		if (email == null || email.isEmpty()){
+			throw new IllegalArgumentException("Email cannot be null or empty!");
+		}
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> root = cq.from(entityClass);
+		cq.select(root.get("email").get(email));
+		TypedQuery<T> typedQuery = entityManager.createQuery(cq);
+		try {
+			return Optional.ofNullable(typedQuery.getSingleResult());
+		} catch (PersistenceException e){
+			return Optional.empty();
+		}
 	}
 	
 	/**
@@ -128,12 +151,16 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * @throws PersistenceException
 	 * @throws IllegalArgumentException
 	 */
-	public T persistEntity(T entity) throws PersistenceException, IllegalArgumentException {
+	public T persistEntity(T entity)
+		throws PersistenceException, IllegalArgumentException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-//		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() <= 0){
-//		}
+/*
+		if (entity instanceof Trackable){
+//			((Trackable) entity).setCreatedBy();
+		}
+*/
 		entityManager.persist(entity);
 		return entity;
 	}

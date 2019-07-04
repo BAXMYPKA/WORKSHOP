@@ -7,10 +7,13 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.naming.AuthenticationNotSupportedException;
 import javax.persistence.PersistenceException;
 import java.util.Collections;
 import java.util.List;
@@ -97,10 +100,15 @@ public class OrdersService {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Optional<Order> persistOrder(Order order) throws IllegalArgumentException {
+	public Optional<Order> persistOrder(Order order, Authentication authentication)
+		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
+		//TODO: to get Authentication as an Employee or User and set to createdBy or modifiedBy
 		if (order == null){
 			throw new IllegalArgumentException("Order cannot by null!");
+		} else if (authentication == null || authentication.getPrincipal() == null){
+			throw new AuthenticationCredentialsNotFoundException("Authentication or Principal in it cannot by null!");
 		}
+		
 		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistEntity(order));
 		return persistedOrder;
 	}

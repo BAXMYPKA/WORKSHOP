@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Users of 2 types can be persisted from online and created by manager.
@@ -49,7 +50,7 @@ public class User implements WorkshopEntity, Serializable {
 	@Column
 	private String password;
 	
-	@Column
+	@Column(unique = true)
 	private String email;
 	
 	@Column(nullable = false)
@@ -67,7 +68,7 @@ public class User implements WorkshopEntity, Serializable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<Phone> phones;
+	private Set<Phone> phones;
 	
 	@JsonIgnore
 //	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Order.class)

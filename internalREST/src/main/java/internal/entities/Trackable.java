@@ -50,18 +50,19 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@FutureOrPresent(groups = {UpdationCheck.class})
 	private LocalDateTime finished;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
+	/**
+	 * Sets automatically in the DaoAbstract.persistEntity() if an Employee is presented in the SecurityContext.
+	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	//TODO: message
 	@NotNull(groups = {CreationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
-		  optional = true)
+		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	private Employee createdBy;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-//TODO: message
+	//TODO: message
 	@NotNull(groups = {UpdationCheck.class})
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
@@ -79,10 +80,12 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@PrePersist
 	public void prePersist() throws IllegalArgumentException {
 		this.created = LocalDateTime.now();
+/*
 		if (!"Employee".equals(this.getClass().getSimpleName()) && this.createdBy == null) {
 			throw new IllegalArgumentException(
-				  "An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
+				"An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
 		}
+*/
 	}
 	
 	@PreUpdate

@@ -31,7 +31,10 @@ public class Order extends Trackable {
 	@Column
 	private String description;
 	
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
+	/**
+	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistEntity()
+	 * (if an User is presented in the SecurityContext).
+	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private User createdFor;

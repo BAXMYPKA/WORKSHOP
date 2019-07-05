@@ -1,13 +1,18 @@
 package internal.dao;
 
+import internal.entities.Employee;
+import internal.entities.Order;
 import internal.entities.Trackable;
+import internal.entities.User;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.descriptor.web.ContextHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,7 +74,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	public Optional<T> findByEmail(String email) throws IllegalArgumentException {
-		if (email == null || email.isEmpty()){
+		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Email cannot be null or empty!");
 		}
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -79,7 +84,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		TypedQuery<T> typedQuery = entityManager.createQuery(cq);
 		try {
 			return Optional.ofNullable(typedQuery.getSingleResult());
-		} catch (PersistenceException e){
+		} catch (PersistenceException e) {
 			return Optional.empty();
 		}
 	}
@@ -94,7 +99,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * @param orderBy  The name of the field the ascDesc will be happened by.
 	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
 	 *                 'created' field, otherwise no ordering will happened.
-	 * @param order  "ASC" or "DESC" types from Sort.Order ENUM
+	 * @param order    "ASC" or "DESC" types from Sort.Order ENUM
 	 * @return
 	 */
 	public Optional<List<T>> findAll(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order) {
@@ -122,7 +127,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		} else if (entityClass.isInstance(WorkshopEntity.class)) {
 			query.orderBy(cb.desc(root.get("created")));
 		}
-		
+
 //		List<T> entities = select.getResultList();
 		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
 		
@@ -130,39 +135,63 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
-	 * @param stringToMatch The part of the text to be presented in the 'name' field of the Entity
+	 * @param fieldValue The part of the text to be presented in the 'name' field of the Entity
 	 * @throws PersistenceException     When nothing found or in case of some DB problems
-	 * @throws IllegalArgumentException if 'stringToMatch' is null or empty
+	 * @throws IllegalArgumentException if 'fieldValue' is null or empty
 	 */
-	public T findByNameCoincidence(String stringToMatch) throws PersistenceException, IllegalArgumentException {
-		if (stringToMatch == null || stringToMatch.isEmpty()) {
+	public Optional<T> findByNameCoincidence(String fieldName, String fieldValue) throws PersistenceException, IllegalArgumentException {
+		if (fieldValue == null || fieldValue.isEmpty()) {
 			throw new IllegalArgumentException("Name cannot be null or empty!");
 		}
 		TypedQuery<T> typedQuery = entityManager.createQuery(
 			"SELECT e FROM " + entityClass + " e WHERE e.getName LIKE %:name%",
 			entityClass);
-		typedQuery.setParameter("name", stringToMatch);
-		return typedQuery.getSingleResult();
+		typedQuery.setParameter("name", fieldValue);
+		try {
+			return Optional.ofNullable(typedQuery.getSingleResult());
+		} catch (PersistenceException e) {
+			return Optional.empty();
+		}
 	}
 	
 	/**
+	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
+	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
+	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
+	 * so the Order.setCreatedFor() is filling in.
+	 * From the SecurityContext we estimate the current Authentication - is this an Employee or User.
+	 * Employee will be found by email, User by email or phone (both fields can be used as the unique IDs).
 	 * @param entity
 	 * @return Returns a managed copy of Entity with 'id' set
 	 * @throws PersistenceException
 	 * @throws IllegalArgumentException
 	 */
-	public T persistEntity(T entity)
-		throws PersistenceException, IllegalArgumentException {
+	public T persistEntity(T entity) throws PersistenceException, IllegalArgumentException, ClassCastException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-/*
-		if (entity instanceof Trackable){
-//			((Trackable) entity).setCreatedBy();
+		if (entity instanceof Trackable) {
+			Authentication currentAuthentication = getCurrentAuthentication();
+			if (currentAuthentication != null) {
+				//Identity can be an 'email' or 'phone'
+				String identity = currentAuthentication.getName();
+				WorkshopEntity employeeOrUser =
+					findByEmail(identity).isPresent() ? (WorkshopEntity) findByEmail(identity).get() :
+						(WorkshopEntity) findByNameCoincidence("phone", identity)
+							.orElseThrow(() -> new AuthenticationCredentialsNotFoundException(
+								"Employee or User identity from current Authentication not found in the DataBase!"));
+				if (employeeOrUser instanceof Employee) {
+					Employee employee = (Employee) employeeOrUser;
+					((Trackable) entity).setCreatedBy(employee);
+				} else if (employeeOrUser instanceof User && entity instanceof Order){
+					Order order = (Order) entity;
+					User user = (User) employeeOrUser;
+					order.setCreatedFor(user);
+				}
+			}
 		}
-*/
 		entityManager.persist(entity);
-		return entity;
+		return entityManager.find(entityClass, ((WorkshopEntity)entity).getId());
 	}
 	
 	/**
@@ -180,7 +209,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		}
 //		Iterator<T> iterator = entities.iterator();
 		AtomicInteger counter = new AtomicInteger();
-		
+
 //		while (iterator.hasNext()) {
 //			persistEntity(iterator.next());
 //			counter.getAndIncrement();
@@ -193,7 +222,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		entities.stream().forEachOrdered(entity -> {
 			counter.getAndIncrement();
 			entity = persistEntity(entity);
-			if (counter.get() % batchSize == 0){
+			if (counter.get() % batchSize == 0) {
 				entityManager.flush();
 				entityManager.clear();
 			}
@@ -261,5 +290,9 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		cq.select(cb.count(cq.from(entityClass)));
 		Long count = entityManager.createQuery(cq).getSingleResult();
 		return count;
+	}
+	
+	private Authentication getCurrentAuthentication() {
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 }

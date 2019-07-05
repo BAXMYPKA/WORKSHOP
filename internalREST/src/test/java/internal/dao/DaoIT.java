@@ -208,7 +208,7 @@ class DaoIT {
 		//Preparing tuples from new Entities
 		users.forEach(user -> {
 			user.setId(0);
-			user.setPhones(Arrays.asList(phones.get(0), phones.get(1)));
+			user.setPhones(new HashSet<Phone>(Arrays.asList(phones.get(0), phones.get(1))));
 		});
 		phones.forEach(phone -> {
 			phone.setId(0);
@@ -264,7 +264,7 @@ class DaoIT {
 		//Preparing tuples from new Entities
 		users.forEach(user -> {
 			user.setId(0);
-			user.setPhones(Arrays.asList(phones.get(0), phones.get(1)));
+			user.setPhones(new HashSet<Phone>(Arrays.asList(phones.get(0), phones.get(1))));
 		});
 		phones.forEach(phone -> {
 			phone.setId(0);

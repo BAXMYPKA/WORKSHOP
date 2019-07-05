@@ -267,4 +267,8 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder '' 
 -42:27:279 - INFO 11752 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
 -42:31:454 - WARN 11752 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 -42:32:173 - INFO 11752 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.428 seconds (JVM running for 6.666)
+-48:31:990 - INFO 15984 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 15984 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-48:31:993 - INFO 15984 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-48:36:346 - WARN 15984 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-48:37:127 - INFO 15984 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.514 seconds (JVM running for 7.431)
 -

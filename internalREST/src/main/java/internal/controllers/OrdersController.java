@@ -2,9 +2,8 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import internal.dao.EmployeesDao;
-import internal.entities.Employee;
 import internal.entities.Order;
+import internal.entities.hibernateValidation.CreationCheck;
 import internal.service.EmployeesService;
 import internal.service.JsonService;
 import internal.service.OrdersService;
@@ -21,14 +20,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -87,17 +83,19 @@ public class OrdersController {
 	 * If Order has to contain a few new Tasks - they all have to be persisted BEFORE the persistence the Order.
 	 * If any of them will throw an Exception during a persistence process - the whole Order won't be saved!
 	 * @param order Order object as JSON
-	 * @param authentication The Employee to save in Order.createdBy field
 	 * @return Either persisted Order or Http error with a description
 	 * @throws JsonProcessingException
 	 * @throws HttpMessageNotReadableException
 	 */
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postOrder(@Valid @RequestBody Order order, Authentication authentication)
+	public ResponseEntity<String> postOrder(@Validated(CreationCheck.class) @RequestBody Order order,
+											BindingResult bindingResult)
 		throws JsonProcessingException, HttpMessageNotReadableException {
 		
 		//TODO: jsr validation
-		
+		if (bindingResult.hasErrors()) {
+			System.out.println("ERRORS: "+bindingResult);
+		}
 		Optional<Order> persistedOrder = ordersService.persistOrder(order);
 		if (persistedOrder.isPresent()) {
 			String jsonPersistedOrder = jsonService.convertEntityToJson(persistedOrder.get());

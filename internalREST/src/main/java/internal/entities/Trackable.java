@@ -32,14 +32,14 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
 	//TODO: message
-	@Null(groups = {CreationCheck.class})
-	@NotNull(groups = {UpdationCheck.class})
+	@Null(groups = {CreationCheck.class}, message = "{validation.mustBeNull}")
+	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
 	@Min(groups = {UpdationCheck.class}, value = 1)
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	//TODO: validation message
-	@PastOrPresent(groups = {UpdationCheck.class})
+	@PastOrPresent(groups = {UpdationCheck.class}, message = "{validation.PastOrPresent}")
 	private LocalDateTime created;
 	
 	@Column
@@ -47,7 +47,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	
 	@Column
 	//TODO: validation international message
-	@FutureOrPresent(groups = {UpdationCheck.class})
+	@FutureOrPresent(groups = {UpdationCheck.class}, message = "{validation.futureOrPresent}")
 	private LocalDateTime finished;
 	
 	/**
@@ -55,7 +55,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	//TODO: message
-	@NotNull(groups = {CreationCheck.class})
+	@NotNull(groups = {CreationCheck.class}, message = "{validation.mustBeNotNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
@@ -63,7 +63,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	//TODO: message
-	@NotNull(groups = {UpdationCheck.class})
+	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	private Employee modifiedBy;

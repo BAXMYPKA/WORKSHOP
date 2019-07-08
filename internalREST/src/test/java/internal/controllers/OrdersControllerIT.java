@@ -1,6 +1,5 @@
 package internal.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.entities.*;
 import internal.service.EmployeesService;
 import internal.service.JsonService;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -23,7 +21,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -47,7 +44,6 @@ class OrdersControllerIT {
 	
 	@Autowired
 	MockMvc mockMvc;
-	//	MockMvc mockMvc = MockMvcBuilders.standaloneSetup(OrdersController.class).build();
 	@MockBean
 	OrdersService ordersService;
 	@MockBean
@@ -67,17 +63,14 @@ class OrdersControllerIT {
 	}
 	
 	@Test
+	@DisplayName("Every Request for a List of Entities has to contain properties 'size' and 'page'")
 	public void on_Incorrect_Request_Returns_400_Status() throws Exception {
-		
 		//GIVEN
-		
-		//Request without obligatory 'size' parameter
+		//A Request without obligatory 'size' parameter
 		
 		//WHEN THEN
-		
 		mockMvc.perform(
 			(MockMvcRequestBuilders.get("/internal/orders/all"))
-//				.param("size", "3")
 				.param("page", "2"))
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().is(400));
@@ -85,11 +78,7 @@ class OrdersControllerIT {
 	
 	@Test
 	public void on_Simple_Request_Returns_Orders_List_With_Ok_Status_And_Json_ContentType() throws Exception {
-		
 		//GIVEN
-
-//		Mockito.when(ordersService.findAllOrders(3, 2, "", Sort.Direction.ASC))
-//			.thenReturn(java.util.Optional.ofNullable(orders));
 		PageRequest created = PageRequest.of(2, 3, new Sort(Sort.Direction.ASC, "created"));
 		
 		Mockito.when(ordersService.findAllOrders(Mockito.any(Pageable.class), Mockito.any()))
@@ -101,7 +90,6 @@ class OrdersControllerIT {
 		Mockito.when(jsonService.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
 		
 		//WHEN THEN
-		
 		mockMvc.perform(
 			(MockMvcRequestBuilders.get("/internal/orders/all"))
 				.param("size", "3")

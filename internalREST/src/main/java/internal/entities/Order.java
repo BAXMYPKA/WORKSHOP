@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.CreationCheck;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class Order extends Trackable {
 	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistEntity()
 	 * (if an User is presented in the SecurityContext).
 	 */
+	@CreatedBy //Only in a case when an User is a creator of the Order. Otherwise is set by hand
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private User createdFor;

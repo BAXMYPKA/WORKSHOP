@@ -97,12 +97,13 @@ public class OrdersController {
 		throws JsonProcessingException, HttpMessageNotReadableException {
 		
 		//TODO: jsr validation
-		Optional<Order> persistedOrder = ordersService.persistOrder(order, authentication);
+		
+		Optional<Order> persistedOrder = ordersService.persistOrder(order);
 		if (persistedOrder.isPresent()) {
 			String jsonPersistedOrder = jsonService.convertEntityToJson(persistedOrder.get());
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
 		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("The Order creation failure!");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect request body!");
 		}
 	}
 	

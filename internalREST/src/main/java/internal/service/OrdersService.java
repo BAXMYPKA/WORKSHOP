@@ -100,13 +100,11 @@ public class OrdersService {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Optional<Order> persistOrder(Order order, Authentication authentication)
+	public Optional<Order> persistOrder(Order order)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
 		//TODO: to get Authentication as an Employee or User and set to createdBy or modifiedBy
 		if (order == null){
 			throw new IllegalArgumentException("Order cannot by null!");
-		} else if (authentication == null || authentication.getPrincipal() == null){
-			throw new AuthenticationCredentialsNotFoundException("Authentication or Principal in it cannot by null!");
 		}
 		
 		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistEntity(order));

@@ -183,11 +183,14 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 				if (employeeOrUser instanceof Employee) {
 					Employee employee = (Employee) employeeOrUser;
 					((Trackable) entity).setCreatedBy(employee);
-				} else if (employeeOrUser instanceof User && entity instanceof Order){
+				}
+/*
+				else if (employeeOrUser instanceof User && entity instanceof Order){
 					Order order = (Order) entity;
 					User user = (User) employeeOrUser;
 					order.setCreatedFor(user);
 				}
+*/
 			}
 		}
 		entityManager.persist(entity);

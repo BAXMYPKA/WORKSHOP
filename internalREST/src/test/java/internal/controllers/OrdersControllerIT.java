@@ -12,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,8 +38,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -145,9 +145,11 @@ class OrdersControllerIT {
 	@ValueSource(strings = {
 		"",
 		"{\"null\",\"name\":\"Name\"}",
-		"{\"description\":\"The Descr\", \"deadline\":\"2020-6-5\"}"})
-	@DisplayName("ControllerAdvice with ExceptionHandler test with no or corrupted JSON inside a Request body")
-	public void post_Empty_or_Incorrect_Json_Produces_Bad_Request_Response_With_Predefined_Message(String requestBody)
+		"{\"description\":\"The Descr\", \"deadline\":\"2020-6-5\"}",
+		"{\"id\":1,\"description\":\"The Descr\"}",
+		"{\"description\":\"The Descr\", \"createdFor\":\"2020\"}"})
+	@DisplayName("ControllerAdvice with ExceptionHandler test with empty or incorrect JSON inside a Request body")
+	public void post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message(String requestBody)
 		throws Exception {
 		//GIVEN
 		//RequestBody input strings
@@ -168,48 +170,28 @@ class OrdersControllerIT {
 			.andDo(MockMvcResultHandlers.print());
 	}
 	
-	@ParameterizedTest
-	@DisplayName("Order may contain incorrect properties")
-	@ValueSource(strings = {
-		"{\"id\":1,\"description\":\"The Descr\"}",
-		"{\"description\":\"The Descr\", \"createdFor\":\"2020\"}"})
-	public void post_Incorrect_Order_as_Json_Body_Produces_422UnprocessableEntity_Http_Status(String incorrectJson)
-		throws Exception {
-		//GIVEN
-		//Incorrect jsoned Orders
-		ResultActions resultActions = null;
-		
-		//WHEN
-		resultActions = mockMvc.perform(
-			MockMvcRequestBuilders
-				.post("/internal/orders")
-				.accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-				.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-				.content(incorrectJson));
-		
-		//THEN
-		resultActions
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().isInternalServerError())
-			.andExpect(MockMvcResultMatchers.content().string("The Order creation failure!"));
-	}
-	
 	@Test
 	@DisplayName("The Json Order with included new Tasks, Users and Classifiers which have to be persisted")
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void post_Correct_Order_as_Json() throws Exception {
-		//GIVEN json Order with a lot of new Entities included
+	public void post_Correct_Order_as_Json_After_Persisting_Returns_Created201_HttpStatus() throws Exception {
+		//GIVEN
+		// Json Order with a lot of new Entities included
 		String jsonOrder = getCorrectJsonOrder();
-		ResultActions resultActions = null;
-		
+		// Order from Json passed to OrdersService
+		ArgumentCaptor<Order> orderCaptured = ArgumentCaptor.forClass(Order.class);
 		//Employee Authentication to pass to the Controller to be saved in 'createdBy' fields
 		Employee authentication = new Employee();
 		authentication.setId(150);
 		authentication.setEmail("employee@workshop.pro");
 		
-		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authentication));
+		ResultActions resultActions = null;
 		
 		//WHEN
+		//UserDetailsService has to return an Employee with @WithMockUser's credentials to be accessible from SecurityContext
+		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authentication));
+		//OrdersService has to return a "persisted" non-empty Optional<Order>
+		Mockito.when(ordersService.persistOrder(Mockito.any(Order.class))).thenReturn(Optional.of(new Order()));
+		
 		resultActions = mockMvc.perform(
 			MockMvcRequestBuilders
 				.post("/internal/orders")
@@ -218,10 +200,16 @@ class OrdersControllerIT {
 				.content(jsonOrder));
 		
 		//THEN
+		//Verify the correct Order from Json was passed to the OrdersService to be persisted
+		Mockito.verify(ordersService, Mockito.atLeastOnce()).persistOrder(orderCaptured.capture());
+		//Verify it was the same Order as in the Json from the Request
+		assertEquals("The Correct Order One", orderCaptured.getValue().getDescription());
+		
+		
 		resultActions
 			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().isInternalServerError())
-			.andExpect(MockMvcResultMatchers.content().string("The Order creation failure!"));
+			.andExpect(MockMvcResultMatchers.status().isCreated())
+			.andExpect(MockMvcResultMatchers.content().string(""));
 	}
 	
 	@BeforeEach

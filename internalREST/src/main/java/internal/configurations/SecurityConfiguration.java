@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,6 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @EnableWebSecurity
+@EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	//TODO: to do all the environment variables to be loaded from outside .properties (cookie name, ttl, domain etc)
@@ -144,5 +146,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
 		successHandler.setDefaultTargetUrl("/internal/a");
 		return successHandler;
+	}
+	
+	@Bean
+	public UserAuditorAware userAuditorAware() {
+		return new UserAuditorAware();
 	}
 }

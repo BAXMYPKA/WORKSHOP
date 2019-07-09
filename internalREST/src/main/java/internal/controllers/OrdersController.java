@@ -3,7 +3,7 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
-import internal.entities.hibernateValidation.CreationCheck;
+import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.service.EmployeesService;
 import internal.service.JsonService;
 import internal.service.OrdersService;
@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -88,13 +89,12 @@ public class OrdersController {
 	 * @throws HttpMessageNotReadableException
 	 */
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postOrder(@Validated(CreationCheck.class) @RequestBody Order order,
+	public ResponseEntity<String> postOrder(@Validated(PersistenceCheck.class) @RequestBody Order order,
 											BindingResult bindingResult)
-		throws JsonProcessingException, HttpMessageNotReadableException {
+		throws JsonProcessingException, HttpMessageNotReadableException, MethodArgumentNotValidException {
 		
-		//TODO: jsr validation
-		if (bindingResult.hasErrors()) {
-			System.out.println("ERRORS: "+bindingResult);
+		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
+			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Optional<Order> persistedOrder = ordersService.persistOrder(order);
 		if (persistedOrder.isPresent()) {
@@ -104,8 +104,6 @@ public class OrdersController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect request body!");
 		}
 	}
-	
-	//TODO: exception handler
 	
 	@PostConstruct
 	private void afterPropsSet() {

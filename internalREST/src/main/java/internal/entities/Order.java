@@ -2,15 +2,17 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.CreationCheck;
+import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -25,8 +27,7 @@ public class Order extends Trackable {
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	//TODO: to create a multilanguage validation messaging
-	@Future(groups = {CreationCheck.class})
+	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
 	private LocalDateTime deadline;
 	
 	@Column
@@ -41,7 +42,7 @@ public class Order extends Trackable {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private User createdFor;
 	
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
@@ -64,16 +65,50 @@ public class Order extends Trackable {
 	}
 	
 	/**
+	 * After creating an Order the overallPrice is fixed at that moment (as the prices may change in time)
+	 * to present a bill with the fixed overallPrice.
+	 * Inserting a new Set<Task> will recalculate an overallPrice field so that to renew it and change the previously
+	 * fixed price.
+	 * If you only want to add a new Task with an only addition its price to overallPrice, use Order.addTask() method.
+	 * To remove a one Task with proper price subtraction use Order.deleteTask()
+	 * @param tasks new Tasks to recalculate all
+	 */
+	public void setTasks(Set<@Valid Task> tasks) {
+		this.tasks = tasks;
+		recalculateOverallPrice();
+	}
+	
+	/**
+	 * Add a Task and adds its price to the Order.overallPrice
+	 * @param task
+	 */
+	//TODO: to validate child
+	public void addTask(@Valid Task task) {
+		if (tasks == null){
+			tasks = new HashSet<>(3);
+		}
+		tasks.add(task);
+		setOverallPrice(overallPrice.add(task.getPrice()));
+	}
+	
+	/**
+	 * Deletes the Task with the subtraction its price from Order.overallPrice
+	 * @param task
+	 */
+	public void deleteTask(@Valid Task task) {
+		if (task == null || tasks.isEmpty()) return;
+		tasks.remove(task);
+		setOverallPrice(overallPrice.subtract(task.getPrice()));
+	}
+	
+	/**
 	 * Before being persisted the Order recalculates overall price that depends on the price of every Task
 	 */
 	@PrePersist
 	@Override
-	public void prePersist() throws IllegalArgumentException {
+	public void prePersist(){
 		super.prePersist();
-		if (tasks != null && !tasks.isEmpty()){
-			setOverallPrice(getTasks().stream().map(Task::getPrice).reduce((a, b) -> a.add(b)).orElseThrow(
-				() -> new IllegalArgumentException("Task prices cannot be null!")));
-		}
+		recalculateOverallPrice();
 	}
 	
 	/**
@@ -83,6 +118,13 @@ public class Order extends Trackable {
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
-		prePersist();
+//		prePersist();
+	}
+	
+	private void recalculateOverallPrice() throws IllegalArgumentException {
+		if (tasks != null && !tasks.isEmpty()){ //Sets the sum of all included Task's prices
+			setOverallPrice(getTasks().stream().map(Task::getPrice).reduce((a, b) -> a.add(b)).orElseThrow(
+				() -> new IllegalArgumentException("Task prices cannot be null!")));
+		}
 	}
 }

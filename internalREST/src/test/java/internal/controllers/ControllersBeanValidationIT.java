@@ -1,17 +1,16 @@
 package internal.controllers;
 
-import internal.dao.DaoAbstract;
-import internal.dao.EmployeesDao;
 import internal.entities.*;
 import internal.service.JsonService;
-import org.junit.jupiter.api.BeforeEach;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -28,9 +27,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+//TODO: to set a localization Cookie
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -63,25 +64,80 @@ class ControllersBeanValidationIT {
 		assertNotNull(mockMvc);
 	}
 	
-	@Test
+	@ParameterizedTest
+	@MethodSource("getEntitiesToPersistWithId")
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin"})
-	public void lkjlkj() throws Exception {
+	public void persist_Entities_With_Id_Set(WorkshopEntity entity) throws Exception {
 		//GIVEN
-		Order order = new Order();
-		order.setId(3);
-		String jsonOrder = jsonService.convertEntityToJson(order);
+		Trackable trackable = null;
+		String urlToPersist = "";
+		if ("Order".equals(entity.getClass().getSimpleName())) {
+			trackable = (Order) entity;
+			urlToPersist = "/internal/orders";
+		}
+		String jsonEntity = jsonService.convertEntityToJson(trackable);
 		
 		//WHEN
 		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
-			.request(HttpMethod.POST, "/internal/orders")
+			.request(HttpMethod.POST, urlToPersist)
 			.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-			.content(jsonOrder));
+			.content(jsonEntity));
 		
 		//THEN
 		perform.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity());
+			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(MockMvcResultMatchers.jsonPath("$..id", Matchers.hasSize(1)));
 	}
 	
+	@ParameterizedTest
+	@MethodSource("getEntitiesToPersistWithErrors")
+	public void persist_Entities_With_Errors(WorkshopEntity entity, String uri) throws Exception {
+		//GIVEN
+		Trackable trackable = null;
+		if ("Order".equals(entity.getClass().getSimpleName())) {
+			trackable = (Order) entity;
+		}
+		String jsonEntity = jsonService.convertEntityToJson(trackable);
+		
+		//WHEN
+		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
+			.request(HttpMethod.POST, uri)
+			.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+			.content(jsonEntity));
+		
+		//THEN
+		perform.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			.andExpect(MockMvcResultMatchers.jsonPath("$..finished", Matchers.hasSize(1)))
+			.andExpect(MockMvcResultMatchers.jsonPath("$..modified", Matchers.hasSize(1)));
+	}
+	
+	public void update_Entities() {
+		//
+	}
+	
+	public static Stream<Arguments> getEntitiesToPersistWithId() {
+		Order order1 = new Order();
+		order1.setId(1);
+		
+		Order order2 = new Order();
+		order2.setId(2);
+		
+		//TODO: User, Task, Classifier etc...
+		
+		return Stream.of(Arguments.of(order1), Arguments.of(order2));
+	}
+	
+	public static Stream<Arguments> getEntitiesToPersistWithErrors() {
+		String ordersUri = "/internal/orders";
+		Order order = new Order();
+		order.setModified(LocalDateTime.now().minusHours(1));
+		order.setFinished(LocalDateTime.now().plusMinutes(10));
+		
+		return Stream.of(Arguments.of(order, ordersUri));
+	}
 	
 	public Order getCorrectJsonOrder() throws IOException {
 		

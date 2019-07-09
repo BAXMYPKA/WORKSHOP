@@ -3,7 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.CreationCheck;
+import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 
@@ -31,39 +31,36 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	//TODO: message
-	@Null(groups = {CreationCheck.class}, message = "{validation.mustBeNull}")
+	@Null(groups = {PersistenceCheck.class}, message = "{validation.mustBeNull}")
 	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
 	@Min(groups = {UpdationCheck.class}, value = 1)
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
-	//TODO: validation message
-	@PastOrPresent(groups = {UpdationCheck.class}, message = "{validation.PastOrPresent}")
+//	@PastOrPresent(groups = {UpdationCheck.class}, message = "{validation.pastOrPresent}")
 	private LocalDateTime created;
 	
 	@Column
+	@Null(groups = {PersistenceCheck.class}, message = "{validation.mustBeNull}")
 	private LocalDateTime modified;
 	
 	@Column
-	//TODO: validation international message
-	@FutureOrPresent(groups = {UpdationCheck.class}, message = "{validation.futureOrPresent}")
+	@PastOrPresent(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.pastOrPresent}")
 	private LocalDateTime finished;
 	
 	/**
 	 * Sets automatically in the DaoAbstract.persistEntity() if an Employee is presented in the SecurityContext.
+	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	//TODO: message
-	@NotNull(groups = {CreationCheck.class}, message = "{validation.mustBeNotNull}")
+//	@NotNull(groups = {PersistenceCheck.class}, message = "{validation.mustBeNotNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	//TODO: message
-	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
+//	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	private Employee modifiedBy;
@@ -80,24 +77,11 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@PrePersist
 	public void prePersist() throws IllegalArgumentException {
 		this.created = LocalDateTime.now();
-/*
-		if (!"Employee".equals(this.getClass().getSimpleName()) && this.createdBy == null) {
-			throw new IllegalArgumentException(
-				"An Employee in 'createdBy' field must be presented! Use proper constructor with that argument!");
-		}
-*/
 	}
 	
 	@PreUpdate
 	public void preUpdate() throws IllegalArgumentException {
 		this.modified = LocalDateTime.now();
-		//TODO: to realize createdBy check and insertion implementation
-/*
-		if (!"Employee".equals(this.getClass().getSimpleName()) && this.modifiedBy == null) {
-			throw new IllegalArgumentException(
-				"An Employee in 'modifiedBy' field must be presented! Please add that one who's applied for modifying!");
-		}
-*/
 	}
 	
 	@Override

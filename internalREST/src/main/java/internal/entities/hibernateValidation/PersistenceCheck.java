@@ -1,4 +1,4 @@
 package internal.entities.hibernateValidation;
 
-public interface CreationCheck {
+public interface PersistenceCheck {
 }

@@ -3,13 +3,16 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
@@ -28,10 +31,9 @@ public class Task extends Trackable {
 	private String name;
 	
 	@Column
-	//TODO: check the date has to be before the linked Order "deadline"
+	@FutureOrPresent(message = "{validation.futureOrPresent}")
 	private LocalDateTime deadline;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
@@ -57,13 +59,21 @@ public class Task extends Trackable {
 	private Order order;
 	
 	/**
+	 * The sum of the all included Classifiers prices.
 	 * Will be set automatically as the sum of the all included Classifiers prices.
+	 * Use Task.addClassifier() of Task.deleteClassifier() to correctly set Task.price.
 	 * Of course can be corrected manually.
 	 */
-	@Column(scale = 2)
+	@Column(scale = 2, nullable = false)
+	@NotNull(groups = PersistenceCheck.class, message = "{validation.mustBeNotNull}")
 	private BigDecimal price;
 	
 	
+	/**
+	 * ALso adds a Classifier.price to this Task.price
+	 * @param classifier
+	 * @throws IllegalArgumentException
+	 */
 	public void addClassifier(Classifier classifier) throws IllegalArgumentException {
 		if (classifier == null) {
 			throw new IllegalArgumentException("Classifier cannot be null!");
@@ -76,7 +86,28 @@ public class Task extends Trackable {
 	}
 	
 	/**
-	 * Also sets the price for the Task
+	 * ALso adds an every Classifier.price to this Task.price
+	 * @param classifier
+	 * @throws IllegalArgumentException
+	 */
+	public void addClassifiers(Classifier... classifier) throws IllegalArgumentException {
+		if (classifier == null) {
+			throw new IllegalArgumentException("Classifier cannot be null!");
+		}
+		if (classifiers == null) {
+			classifiers = new HashSet<>(3);
+		}
+		if (price == null) price = new BigDecimal(0);
+		
+		Stream.of(classifier).forEach(classifierToAdd -> {
+			classifiers.add(classifierToAdd);
+			price = price.add(classifierToAdd.getPrice());
+		});
+	}
+	
+	/**
+	 * Also recalculates the overall price of the Task! Use this with careful.
+	 * For deleting or addition the particular Tasks use Task.addClassifier() or Task.addClassifiers()
 	 */
 	public void setClassifiers(Set<Classifier> classifiers) {
 		if (classifiers == null || classifiers.isEmpty()) {
@@ -86,7 +117,6 @@ public class Task extends Trackable {
 		price = new BigDecimal(0);
 		classifiers.forEach(classifier -> this.setPrice(
 			  classifier.getPrice() != null ? classifier.getPrice() : new BigDecimal("0.0")));
-//		classifiers.forEach(classifier -> setPrice(price.add(classifier.getPrice())));
 	}
 	
 	/**

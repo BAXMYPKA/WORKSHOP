@@ -262,6 +262,14 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
+//		Set 'modifiedBy' field if an Entity instance of Trackable and the SecurityContext contains an Employee who is merging the changes
+		if (entity instanceof Trackable && getCurrentAuthentication() != null) {
+			Authentication authentication = getCurrentAuthentication();
+			Optional<T> employee = findByEmail(authentication.getName());
+			if (employee.isPresent() && employee.get() instanceof Employee){
+				((Trackable)entity).setModifiedBy((Employee)employee.get());
+			}
+		}
 		return entityManager.merge(entity);
 	}
 	

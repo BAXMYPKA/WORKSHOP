@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -52,10 +53,10 @@ public class Classifier extends Trackable implements Serializable {
 	 * Default = 0;
 	 */
 	@Column(nullable = false, scale = 2)
-	private BigDecimal price = new BigDecimal(0);
+	private BigDecimal price = BigDecimal.ZERO;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "classifiers", cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Set<Task> tasks;
+	private Set<@Valid Task> tasks;
 }

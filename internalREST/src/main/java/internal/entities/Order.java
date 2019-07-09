@@ -53,7 +53,7 @@ public class Order extends Trackable {
 	 * Also can be set or corrected manually.
 	 */
 	@Column(scale = 2)
-	private BigDecimal overallPrice;
+	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
 	@Builder
 	public Order(Employee createdBy, LocalDateTime deadline, String description, User createdFor, Set<Task> tasks) {

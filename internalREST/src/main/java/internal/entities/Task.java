@@ -7,11 +7,13 @@ import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -41,8 +43,8 @@ public class Task extends Trackable {
 	
 	/**
 	 * One Task can have a number of Classifiers
+	 * Validation note: this field is validated by setters
 	 */
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Classifier.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
 		  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
@@ -51,8 +53,8 @@ public class Task extends Trackable {
 		  inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<Classifier> classifiers;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Order.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@Valid
 	@ManyToOne(optional = false, cascade = {
 		  CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -66,7 +68,7 @@ public class Task extends Trackable {
 	 */
 	@Column(scale = 2, nullable = false)
 	@NotNull(groups = PersistenceCheck.class, message = "{validation.mustBeNotNull}")
-	private BigDecimal price;
+	private BigDecimal price = BigDecimal.ZERO;
 	
 	
 	/**
@@ -74,7 +76,7 @@ public class Task extends Trackable {
 	 * @param classifier
 	 * @throws IllegalArgumentException
 	 */
-	public void addClassifier(Classifier classifier) throws IllegalArgumentException {
+	public void addClassifier(@Valid Classifier classifier) throws IllegalArgumentException {
 		if (classifier == null) {
 			throw new IllegalArgumentException("Classifier cannot be null!");
 		}
@@ -82,6 +84,7 @@ public class Task extends Trackable {
 			classifiers = new HashSet<>(3);
 		}
 		classifiers.add(classifier);
+		setClassifiers(new HashSet<Classifier>(classifiers));
 		setPrice(price == null ? classifier.getPrice() : price.add(classifier.getPrice()));
 	}
 	
@@ -90,7 +93,7 @@ public class Task extends Trackable {
 	 * @param classifier
 	 * @throws IllegalArgumentException
 	 */
-	public void addClassifiers(Classifier... classifier) throws IllegalArgumentException {
+	public void addClassifiers(@Valid Classifier... classifier) throws IllegalArgumentException {
 		if (classifier == null) {
 			throw new IllegalArgumentException("Classifier cannot be null!");
 		}
@@ -103,29 +106,33 @@ public class Task extends Trackable {
 			classifiers.add(classifierToAdd);
 			price = price.add(classifierToAdd.getPrice());
 		});
+		setClassifiers(new HashSet<>(classifiers));
+		setPrice(new BigDecimal(price.toString()));
 	}
 	
 	/**
 	 * Also recalculates the overall price of the Task! Use this with careful.
 	 * For deleting or addition the particular Tasks use Task.addClassifier() or Task.addClassifiers()
 	 */
-	public void setClassifiers(Set<Classifier> classifiers) {
+	public void setClassifiers(Set<@Valid Classifier> classifiers) {
 		if (classifiers == null || classifiers.isEmpty()) {
 			return;
 		}
 		this.classifiers = classifiers;
-		price = new BigDecimal(0);
-		classifiers.forEach(classifier -> this.setPrice(
-			  classifier.getPrice() != null ? classifier.getPrice() : new BigDecimal("0.0")));
+		
+		BigDecimal classifiersPrices = classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+		setPrice(classifiersPrices);
+		
 	}
 	
 	/**
-	 * Before being updated the Task recalculates its price according to all Classifiers the Task consists of.
+	 * Before being updated...
 	 */
 	@PreUpdate
 	@Override
 	public void preUpdate() {
 		super.preUpdate();
+/*
 		if (classifiers == null || classifiers.isEmpty()) {
 			price = new BigDecimal(0);
 		} else {
@@ -133,5 +140,6 @@ public class Task extends Trackable {
 			setPrice(classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal::add).orElseThrow(
 				  () -> new IllegalArgumentException("One or more Classifiers don't contain the price!")));
 		}
+*/
 	}
 }

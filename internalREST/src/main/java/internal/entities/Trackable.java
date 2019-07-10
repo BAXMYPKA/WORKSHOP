@@ -32,7 +32,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
 	@Null(groups = {PersistenceCheck.class}, message = "{validation.mustBeNull}")
-	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
+	@NotNull(groups = {UpdationCheck.class}, message = "{validation.notNull}")
 	@Min(groups = {UpdationCheck.class}, value = 1)
 	private long id;
 	
@@ -53,14 +53,14 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-//	@NotNull(groups = {PersistenceCheck.class}, message = "{validation.mustBeNotNull}")
+//	@NotNull(groups = {PersistenceCheck.class}, message = "{validation.notNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-//	@NotNull(groups = {UpdationCheck.class}, message = "{validation.mustBeNotNull}")
+//	@NotNull(groups = {UpdationCheck.class}, message = "{validation.notNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	private Employee modifiedBy;

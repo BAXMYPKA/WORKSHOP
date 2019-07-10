@@ -67,7 +67,7 @@ public class Task extends Trackable {
 	 * Of course can be corrected manually.
 	 */
 	@Column(scale = 2, nullable = false)
-	@NotNull(groups = PersistenceCheck.class, message = "{validation.mustBeNotNull}")
+	@NotNull(groups = PersistenceCheck.class, message = "{validation.notNull}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	

@@ -9,7 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -34,25 +36,28 @@ public class Order extends Trackable {
 	private String description;
 	
 	/**
+	 * Enabled by @EnableJpaAudition
 	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistEntity()
 	 * (if an User is presented in the SecurityContext).
 	 */
 	@CreatedBy //Only in a case when an User is a creator of the Order. Otherwise is set by hand
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@Valid
 	private User createdFor;
 	
 	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Task> tasks;
+	private Set<@Valid Task> tasks;
 	
 	/**
 	 * Sets automatically as the sum of the all included Tasks.
 	 * Also can be set or corrected manually.
 	 */
 	@Column(scale = 2)
+	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
 	@Builder
@@ -82,7 +87,6 @@ public class Order extends Trackable {
 	 * Add a Task and adds its price to the Order.overallPrice
 	 * @param task
 	 */
-	//TODO: to validate child
 	public void addTask(@Valid Task task) {
 		if (tasks == null){
 			tasks = new HashSet<>(3);

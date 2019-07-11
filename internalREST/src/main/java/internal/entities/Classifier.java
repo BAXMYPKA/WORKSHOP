@@ -14,6 +14,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -40,7 +42,7 @@ public class Classifier extends Trackable implements Serializable {
 */
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {UpdationCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	@Column
@@ -53,6 +55,7 @@ public class Classifier extends Trackable implements Serializable {
 	 * Default = 0;
 	 */
 	@Column(nullable = false, scale = 2)
+	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

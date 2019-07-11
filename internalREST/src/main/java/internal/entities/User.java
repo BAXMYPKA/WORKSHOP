@@ -1,9 +1,13 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,6 +38,8 @@ public class User implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
+	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	private long id;
 	
 	@Column
@@ -50,30 +56,47 @@ public class User implements WorkshopEntity, Serializable {
 	@Column
 	private String password;
 	
+	/**
+	 * Can be used as a Login identity
+	 */
 	@Column(unique = true)
 	private String email;
 	
 	@Column(nullable = false)
-	//TODO: possible to exclude similar fields from serialization as useless for Users
+	@PastOrPresent(message = "{validation.pastOrPresent}")
 	private LocalDateTime created;
 	
 	@Column
-	//TODO: possible to exclude similar fields from serialization as useless for Users
+	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
 	private LocalDateTime modified;
 	
 	@Column
 	private LocalDate birthday;
 	
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Phone.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Phone> phones;
+	private Set<@Valid Phone> phones;
 	
 	@JsonIgnore
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Order.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Collection<Order> orders;
+	private Collection<@Valid Order> orders;
+	
+	
+	/**
+	 * If the creation date isn't preset, set it by now
+	 */
+	@PrePersist
+	public void setCreationDateTime() {
+		if (created == null) {
+			setCreated(LocalDateTime.now());
+		}
+	}
+	
+	@PreUpdate
+	public void updateModificationDateTime() {
+		setModified(LocalDateTime.now());
+	}
 }

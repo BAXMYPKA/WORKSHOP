@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -22,17 +23,17 @@ import java.util.Collection;
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
-	  @AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	  @AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
+	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
 })
 public class Employee extends Trackable {
 	
 	@Column(name = "first_name", nullable = false, length = 100)
-	@NotBlank(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
-	@NotBlank(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String lastName;
 	
 	/**
@@ -45,34 +46,34 @@ public class Employee extends Trackable {
 	private String password;
 	
 	@Column(nullable = false, length = 100)
-	@NotBlank(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
-	@Email(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.email}")
+	@NotBlank(message = "{validation.notBlank}")
+	@Email(message = "{validation.email}")
 	private String email;
 	
 	@Column(nullable = false)
-	@NotNull(groups = {PersistenceCheck.class}, message = "{validation.notNull}")
-	@Past(groups = {PersistenceCheck.class}, message = "{validation.past}")
+	@NotNull(message = "{validation.notNull}")
+	@Past(message = "{validation.past}")
 	private LocalDate birthday;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
-		  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Collection<@Valid Phone> phones;
 	
 	@JsonIgnore
 	@Lob
 	@Column(length = 5242880) //5Mb
-	@Size(groups = {PersistenceCheck.class, UpdationCheck.class}, max = 5242880, message = "{validation.photoSize}")
+	@Size(max = 5242880, message = "{validation.photoSize}")
 	private byte[] photo;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = true, cascade = {
-		  CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
+		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-		  joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-		  inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	@Valid
 	private Position position;
 	
@@ -95,4 +96,13 @@ public class Employee extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksCreatedBy;
+	
+	@Builder
+	public Employee(String firstName, String lastName, String password, String email, LocalDate birthday) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+		this.birthday = birthday;
+	}
 }

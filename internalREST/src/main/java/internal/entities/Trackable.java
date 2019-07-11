@@ -8,7 +8,9 @@ import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -31,21 +33,20 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@Null(groups = {PersistenceCheck.class}, message = "{validation.mustBeNull}")
-	@NotNull(groups = {UpdationCheck.class}, message = "{validation.notNull}")
-	@Min(groups = {UpdationCheck.class}, value = 1)
+	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
-//	@PastOrPresent(groups = {UpdationCheck.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
 	private LocalDateTime created;
 	
 	@Column
-	@Null(groups = {PersistenceCheck.class}, message = "{validation.mustBeNull}")
+	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
 	private LocalDateTime modified;
 	
 	@Column
-	@PastOrPresent(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(message = "{validation.pastOrPresent}")
 	private LocalDateTime finished;
 	
 	/**
@@ -53,16 +54,16 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-//	@NotNull(groups = {PersistenceCheck.class}, message = "{validation.notNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
+	@Valid
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-//	@NotNull(groups = {UpdationCheck.class}, message = "{validation.notNull}")
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
+	@Valid
 	private Employee modifiedBy;
 	
 	public Trackable(Employee createdBy) {
@@ -70,7 +71,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	}
 	
 	/**
-	 * Only 'Employee' entities can't contain 'createdBy' field as they can create each other
+	 * Only 'Employee' entities may not contain 'createdBy' field as they can create each other
 	 *
 	 * @throws IllegalArgumentException
 	 */

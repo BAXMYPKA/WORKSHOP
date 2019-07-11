@@ -210,17 +210,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		if (entities == null) {
 			throw new IllegalArgumentException("Entities Collection cannot be null!");
 		}
-//		Iterator<T> iterator = entities.iterator();
 		AtomicInteger counter = new AtomicInteger();
-
-//		while (iterator.hasNext()) {
-//			persistEntity(iterator.next());
-//			counter.getAndIncrement();
-//			if (counter.get() % batchSize == 0) {
-//				entityManager.flush();
-//				entityManager.clear();
-//			}
-//		}
 		
 		entities.stream().forEachOrdered(entity -> {
 			counter.getAndIncrement();

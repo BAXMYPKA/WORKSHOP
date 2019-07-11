@@ -3,6 +3,7 @@ package internal.controllers;
 import internal.entities.*;
 import internal.service.JsonService;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,15 +18,19 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
@@ -91,8 +96,10 @@ class ControllersBeanValidationIT {
 	}
 	
 	@ParameterizedTest
-	@MethodSource("getEntitiesToPersistWithErrors")
-	public void persist_Entities_With_Errors(WorkshopEntity entity, String uri) throws Exception {
+	@MethodSource("getSimpleEntitiesToPersistWithErrors")
+	@DisplayName("Rest controller has to return a HttpResponse with a Json body with a single" +
+		"['fieldName:fieldError'] content like")
+	public void persist_Simple_Entities_With_Errors(WorkshopEntity entity, String uri) throws Exception {
 		//GIVEN
 		Trackable trackable = null;
 		if ("Order".equals(entity.getClass().getSimpleName())) {
@@ -110,8 +117,61 @@ class ControllersBeanValidationIT {
 		perform.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
 			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			//Created has to be PastOrPresent
+			.andExpect(MockMvcResultMatchers.jsonPath("$..created", Matchers.hasSize(1)))
+			//Finished can only be PresentOrPast
 			.andExpect(MockMvcResultMatchers.jsonPath("$..finished", Matchers.hasSize(1)))
-			.andExpect(MockMvcResultMatchers.jsonPath("$..modified", Matchers.hasSize(1)));
+			//Modified must be null
+			.andExpect(MockMvcResultMatchers.jsonPath("$..modified", Matchers.hasSize(1)))
+			//Deadline can only be in the Future
+			.andExpect(MockMvcResultMatchers.jsonPath("$..deadline", Matchers.hasSize(1)))
+			//OverallPrice can be zero or greater
+			.andExpect(MockMvcResultMatchers.jsonPath("$..overallPrice", Matchers.hasSize(1)));
+	}
+	
+	@Test
+	@DisplayName("Rest controller has to return a HttpResponse with a Json body with a multiple" +
+		"['entityName[].entityFieldName:fieldError'] content like," +
+		"as included new Entities to be persisted also have same errors")
+	public void persist_New_Entities_Graph_With_Errors() throws Exception {
+		//GIVEN
+		Order orderWithGraphErrors = new Order();
+		orderWithGraphErrors.setModified(LocalDateTime.now().minusHours(1)); //Null constraint violation
+		
+		Classifier classifier = new Classifier();
+		classifier.setName(""); //NotBlank constraint violation
+		classifier.setPrice(new BigDecimal("-25.68"));//NegativeOrZero constraint violation
+		
+		Task task = new Task();
+		task.setDeadline(LocalDateTime.now()); //Future constraint violation
+		task.setCreated(LocalDateTime.now().plusMinutes(3)); //PresentOrPast constraint violation
+		
+		task.setClassifiers(Collections.singleton(classifier));
+		orderWithGraphErrors.setTasks(Collections.singleton(task));
+		
+		String json = jsonService.convertEntityToJson(orderWithGraphErrors);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(
+			MockMvcRequestBuilders
+				.request("POST", new URI("/internal/orders"))
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content(json));
+		
+		//THEN
+		resultActions.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+			//Order's not null modified
+			.andExpect(MockMvcResultMatchers.jsonPath("$..modified", Matchers.hasSize(1)))
+			//Order.Task as the FieldError 'tasks[].deadline'
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].deadline']", Matchers.hasSize(1)))
+			//Order.Task 'created' field error as 'tasks[].created'
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].created']", Matchers.hasSize(1)))
+			//Order.Task.Classifier 'name' blank value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].name']", Matchers.hasSize(1)))
+			//Order.Task.Classifier 'price' negative value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].price']", Matchers.hasSize(1)));
 	}
 	
 	public void update_Entities() {
@@ -130,11 +190,19 @@ class ControllersBeanValidationIT {
 		return Stream.of(Arguments.of(order1), Arguments.of(order2));
 	}
 	
-	public static Stream<Arguments> getEntitiesToPersistWithErrors() {
+	/**
+	 * @return Trackable entities with errors for validation.
+	 * URI = String with uri to controller which has to validate those entities.
+	 */
+	public static Stream<Arguments> getSimpleEntitiesToPersistWithErrors() {
 		String ordersUri = "/internal/orders";
 		Order order = new Order();
+		order.setCreated(LocalDateTime.now().plusMinutes(1));
 		order.setModified(LocalDateTime.now().minusHours(1));
 		order.setFinished(LocalDateTime.now().plusMinutes(10));
+		order.setDeadline(LocalDateTime.now().minusMinutes(1));
+		order.setOverallPrice(new BigDecimal("-1.2"));
+		
 		
 		return Stream.of(Arguments.of(order, ordersUri));
 	}

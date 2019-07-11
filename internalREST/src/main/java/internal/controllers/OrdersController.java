@@ -26,6 +26,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.groups.Default;
 import java.util.Optional;
 
 @Slf4j
@@ -83,13 +84,15 @@ public class OrdersController {
 	 * and persisted in the DataBase.
 	 * If Order has to contain a few new Tasks - they all have to be persisted BEFORE the persistence the Order.
 	 * If any of them will throw an Exception during a persistence process - the whole Order won't be saved!
+	 *
 	 * @param order Order object as JSON
 	 * @return Either persisted Order or Http error with a description
 	 * @throws JsonProcessingException
 	 * @throws HttpMessageNotReadableException
 	 */
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postOrder(@Validated(PersistenceCheck.class) @RequestBody Order order,
+	public ResponseEntity<String> postOrder(@Validated(value = {PersistenceCheck.class, Default.class})
+											@RequestBody Order order,
 											BindingResult bindingResult)
 		throws JsonProcessingException, HttpMessageNotReadableException, MethodArgumentNotValidException {
 		

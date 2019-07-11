@@ -1,10 +1,15 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -26,16 +31,19 @@ public class Department implements WorkshopEntity, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
+	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	private long id;
 	
 	@Column(unique = true, nullable = false)
+	@NotBlank(groups = {Default.class, PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
 	private String name;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Position.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
 		  CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
 	})
-	private Collection<Position> positions;
+	private Collection<@Valid Position> positions;
 }

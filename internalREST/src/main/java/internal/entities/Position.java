@@ -1,10 +1,14 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.groups.Default;
 import java.util.Collection;
 
 /**
@@ -24,6 +28,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	 * Also uses as the GrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
+	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	/**
@@ -33,13 +38,11 @@ public class Position extends Trackable implements GrantedAuthority {
 	private String description;
 	
 	@JsonIgnore
-//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Employee.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "position", orphanRemoval = false, cascade = {
 		  CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-	private Collection<Employee> employees;
+	private Collection<@Valid Employee> employees;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Department.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
 		  CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
@@ -48,6 +51,7 @@ public class Position extends Trackable implements GrantedAuthority {
 		  @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
 		  inverseJoinColumns =
 		  @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
+	@Valid
 	private Department department;
 	
 	@JsonIgnore

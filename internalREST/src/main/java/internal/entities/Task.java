@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -33,12 +36,13 @@ public class Task extends Trackable {
 	private String name;
 	
 	@Column
-	@FutureOrPresent(message = "{validation.futureOrPresent}")
+	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
 	private LocalDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
+	@Valid
 	private Employee appointedTo;
 	
 	/**
@@ -51,13 +55,13 @@ public class Task extends Trackable {
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
 		  joinColumns = {@JoinColumn(name = "task_id")},
 		  inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
-	private Set<Classifier> classifiers;
+	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@Valid
 	@ManyToOne(optional = false, cascade = {
 		  CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@Valid
 	private Order order;
 	
 	/**
@@ -67,7 +71,7 @@ public class Task extends Trackable {
 	 * Of course can be corrected manually.
 	 */
 	@Column(scale = 2, nullable = false)
-	@NotNull(groups = PersistenceCheck.class, message = "{validation.notNull}")
+	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	

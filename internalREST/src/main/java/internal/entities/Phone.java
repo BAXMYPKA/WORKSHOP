@@ -12,8 +12,11 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 
 @Getter
@@ -31,15 +34,17 @@ public class Phone implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	private long id;
 	
 	@Column
 	private String name;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
-	//TODO: regexp
-	@Pattern(groups = {PersistenceCheck.class, UpdationCheck.class}, regexp = "^([+(])*\\d{5,}$")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	@Pattern(groups = {PersistenceCheck.class, UpdationCheck.class},
+		regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$", message = "{validation.phone}")
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

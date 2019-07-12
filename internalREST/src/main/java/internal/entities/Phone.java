@@ -12,10 +12,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.io.Serializable;
 
@@ -34,28 +31,33 @@ public class Phone implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private long id;
 	
 	@Column
 	private String name;
 	
+	/**
+	 * Min digits = 4, Max = 15.
+	 * Can starts with '+', may contain '()', '-' and single whitespaces.
+	 */
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
-	@Pattern(groups = {PersistenceCheck.class, UpdationCheck.class},
-		regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$", message = "{validation.phone}")
+//	@NotBlank(groups = {PersistenceCheck.class}, message = "{validation.notBlank}")
+	@Pattern(regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$", message = "{validation.phone}")
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Employee.class)
 	@JoinColumn(name = "employee_id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	@JoinColumn(name = "user_id")
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;
 }

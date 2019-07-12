@@ -1,5 +1,6 @@
 package internal.controllers;
 
+import internal.dao.DaoAbstract;
 import internal.entities.*;
 import internal.service.JsonService;
 import org.hamcrest.Matchers;
@@ -9,11 +10,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +36,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -83,6 +88,9 @@ class ControllersBeanValidationIT {
 		String jsonEntity = jsonService.convertEntityToJson(trackable);
 		
 		//WHEN
+		Employee employee = Employee.builder()
+			.email("employee@workshop.pro").firstName("FN").lastName("LN").birthday(LocalDate.now().minusYears(18)).build();
+//		Mockito.when(daoAbstract.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(employee));
 		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
 			.request(HttpMethod.POST, urlToPersist)
 			.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -130,10 +138,11 @@ class ControllersBeanValidationIT {
 	}
 	
 	@Test
-	@DisplayName("Rest controller has to return a HttpResponse with a Json body with a multiple" +
-		"['entityName[].entityFieldName:fieldError'] content like," +
-		"as included new Entities to be persisted also have same errors")
-	public void persist_New_Entities_Graph_With_Errors() throws Exception {
+	@DisplayName("Expected errors during a persistence with included new Entities with a multiple included FieldErrors." +
+		"Also checks the 'PersistenceCheck.class' validation group" +
+		"Also checks CascadeType.PERSIST for all the included Entities.")
+	@WithMockUser(username = "employee@workshop.pro", roles = {"Administrator"})
+	public void persist_New_Entities_With_Errors_With_CascadeType_Persist() throws Exception {
 		//GIVEN
 		Order orderWithGraphErrors = new Order();
 		orderWithGraphErrors.setModified(LocalDateTime.now().minusHours(1)); //Null constraint violation
@@ -146,6 +155,22 @@ class ControllersBeanValidationIT {
 		task.setDeadline(LocalDateTime.now()); //Future constraint violation
 		task.setCreated(LocalDateTime.now().plusMinutes(3)); //PresentOrPast constraint violation
 		
+		Employee employee = new Employee();
+		employee.setEmail(null);
+		employee.setFirstName("");
+//		employee.setLastName(null); //Not set
+		
+		User user = new User();
+		user.setId(3); //If CascadeType.PERSIST - must be zero or null
+		user.setModified(LocalDateTime.now()); //Must by null while persisting as sets automatically
+		
+		Phone phone = new Phone();
+		phone.setId(2);
+		phone.setPhone("");
+		
+		user.setPhones(Collections.singleton(phone));
+		orderWithGraphErrors.setCreatedFor(user);
+		task.setAppointedTo(employee);
 		task.setClassifiers(Collections.singleton(classifier));
 		orderWithGraphErrors.setTasks(Collections.singleton(task));
 		
@@ -158,20 +183,36 @@ class ControllersBeanValidationIT {
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(json));
 		
-		//THEN
+		//THEN ERRORS HAVE TO BE EXPECTED
 		resultActions.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
 			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
 			//Order's not null modified
 			.andExpect(MockMvcResultMatchers.jsonPath("$..modified", Matchers.hasSize(1)))
-			//Order.Task as the FieldError 'tasks[].deadline'
+			//Order.Set<Task> as the FieldError 'tasks[].deadline'
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].deadline']", Matchers.hasSize(1)))
-			//Order.Task 'created' field error as 'tasks[].created'
+			//Order.Set<Task> 'created' field error as 'tasks[].created'
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].created']", Matchers.hasSize(1)))
-			//Order.Task.Classifier 'name' blank value
+			//Order.Task.Set<Classifier> 'name' blank value
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].name']", Matchers.hasSize(1)))
-			//Order.Task.Classifier 'price' negative value
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].price']", Matchers.hasSize(1)));
+			//Order.Task.Set<Classifier> 'price' negative value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].price']", Matchers.hasSize(1)))
+			//Order.Set<Task>.Employee 'firstName' null value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.firstName']", Matchers.hasSize(1)))
+			//Order.Set<Task>.Employee 'lastName' not set
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.lastName']", Matchers.hasSize(1)))
+			//Order.Set<Task>.Employee 'email' blank value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.email']", Matchers.hasSize(1)))
+			//Order.Set<Task>.Employee 'birthday' null value
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.birthday']", Matchers.hasSize(1)))
+			//Order.User 'modified' has to be null
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.modified']", Matchers.hasSize(1)))
+			//Order.User 'id' must be 0 while persisting
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.id']", Matchers.hasSize(1)))
+			//Order.User.Set<Phone> 'id' must be 0 while persistence
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.phones[].id']", Matchers.hasSize(1)))
+			//Order.User.Set<Phone> 'phone' min 5 max 15 digits
+			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.phones[].phone']", Matchers.hasSize(1)));
 	}
 	
 	public void update_Entities() {

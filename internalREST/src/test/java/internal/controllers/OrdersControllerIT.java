@@ -245,10 +245,13 @@ class OrdersControllerIT {
 		
 		Employee employee = new Employee();
 		employee.setId(100);
+		employee.setFirstName("forValidationPass");
+		employee.setLastName("forValidationPass");
+		employee.setBirthday(LocalDateTime.now().minusYears(50).toLocalDate());
 		employee.setEmail("appointed@workshop.pro");
 		
 		Classifier classifier1 = new Classifier();
-		classifier1.setId(1);
+//		classifier1.setId(1);
 		classifier1.setPrice(BigDecimal.valueOf(20.20));
 		classifier1.setName("Classifier One");
 		

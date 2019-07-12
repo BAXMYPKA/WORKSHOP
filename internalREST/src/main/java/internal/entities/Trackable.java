@@ -33,8 +33,9 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+	@PositiveOrZero(groups = Default.class, message = "{validation.positiveOrZero}")
 	private long id;
 	
 	@Column(nullable = false, updatable = false)

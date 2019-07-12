@@ -13,7 +13,8 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 /**
- * Resigned employees are not deleted. They have to be moved to the Archived vesion of DataBase
+ * Employee's personal data should not be exposed outside for Users
+ * Resigned employees are not deleted. They have to be moved to the Archived version of DataBase
  */
 @Getter
 @Setter
@@ -54,6 +55,9 @@ public class Employee extends Trackable {
 	@NotNull(message = "{validation.notNull}")
 	@Past(message = "{validation.past}")
 	private LocalDate birthday;
+	
+	@Column
+	private boolean isEnabled = true;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

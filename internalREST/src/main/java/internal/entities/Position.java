@@ -13,6 +13,7 @@ import java.util.Collection;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
+ * by implementing GrantedAuthority interface
  */
 @Getter
 @Setter

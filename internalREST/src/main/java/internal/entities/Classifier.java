@@ -14,6 +14,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.io.Serializable;
@@ -21,8 +22,14 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 /**
- * The Classifier for the Tasks. Each Classifier contains the price for its kind of work.
- * Loads and updated directly from DB
+ * The Classifier is the atomic description of one of the possible service to be performed for the customers.
+ * May contain the name (or not), the description (or not), and the price (or may be free).
+ * Official Classifiers are presented in the official List of possible services (price list).
+ * Non-official are those not presented in the official price list and can be created on the fly to be included in the Task.
+ * 	They wont be presented in the official price list and will be stored within their Tasks. But it is possible to
+ * 	edit them and set isOfficial = true.
+ * Classifier(s) have to be included in one Task.
+ * Task(s) have to be included in one Order. The Order summarizes the prices of the all Classifiers as the final price.
  */
 @Getter
 @Setter
@@ -47,6 +54,13 @@ public class Classifier extends Trackable implements Serializable {
 	
 	@Column
 	private String description;
+	
+	/**
+	 * Official Classifiers are presented in the official list of services.
+	 * Non-official are made up on the spot to present a kind of service out of the official price list.
+	 */
+	@Column(nullable = false)
+	private boolean isOfficial = false;
 	
 	/**
 	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order

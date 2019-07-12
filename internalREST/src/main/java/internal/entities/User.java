@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -27,7 +28,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "email", "firstName"})
-@JsonIgnoreProperties(value = {"phones"}, allowGetters = true)
+//@JsonIgnoreProperties(value = {"phones"}, allowGetters = true)
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
 public class User implements WorkshopEntity, Serializable {
@@ -38,8 +39,9 @@ public class User implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
+//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
+	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private long id;
 	
 	@Column
@@ -84,6 +86,8 @@ public class User implements WorkshopEntity, Serializable {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<@Valid Order> orders;
 	
+	
+	private Set<GrantedAuthority> grantedAuthorities;
 	
 	/**
 	 * If the creation date isn't preset, set it by now

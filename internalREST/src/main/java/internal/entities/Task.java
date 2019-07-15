@@ -42,7 +42,6 @@ public class Task extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
-	@Valid
 	private Employee appointedTo;
 	
 	/**
@@ -51,17 +50,16 @@ public class Task extends Trackable {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-		  CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
-		  joinColumns = {@JoinColumn(name = "task_id")},
-		  inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+		joinColumns = {@JoinColumn(name = "task_id")},
+		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
-		  CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	@Valid
 	private Order order;
 	
 	/**
@@ -74,9 +72,17 @@ public class Task extends Trackable {
 	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
+	public void setAppointedTo(@Valid Employee appointedTo) {
+		this.appointedTo = appointedTo;
+	}
+	
+	public void setOrder(@Valid Order order) {
+		this.order = order;
+	}
 	
 	/**
 	 * ALso adds a Classifier.price to this Task.price
+	 *
 	 * @param classifier
 	 * @throws IllegalArgumentException
 	 */
@@ -94,6 +100,7 @@ public class Task extends Trackable {
 	
 	/**
 	 * ALso adds an every Classifier.price to this Task.price
+	 *
 	 * @param classifier
 	 * @throws IllegalArgumentException
 	 */

@@ -134,7 +134,7 @@ class OrdersControllerIT {
 		"",
 		"{\"null\",\"name\":\"Name\"}",
 		"{\"description\":\"The Descr\", \"deadline\":\"2020-6-5\"}",
-		"{\"id\":1,\"description\":\"The Descr\"}",
+		"{\"name\":1,\"description\":\"The Descr\"}",
 		"{\"description\":\"The Descr\", \"createdFor\":\"2020\"}"})
 	@DisplayName("ControllerAdvice with ExceptionHandler test with empty or incorrect JSON inside a Request body")
 	public void post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message(String requestBody)
@@ -168,15 +168,19 @@ class OrdersControllerIT {
 		// Order from Json passed to OrdersService
 		ArgumentCaptor<Order> orderCaptured = ArgumentCaptor.forClass(Order.class);
 		//Employee Authentication to pass to the Controller to be saved in 'createdBy' fields
-		Employee authentication = new Employee();
-		authentication.setId(150);
-		authentication.setEmail("employee@workshop.pro");
+		Employee authenticationEmployee = new Employee();
+		authenticationEmployee.setId(150);
+		authenticationEmployee.setEmail("employee@workshop.pro");
+		authenticationEmployee.setPosition(new Position("Position one", new Department("Department one")));
+		authenticationEmployee.setBirthday(LocalDate.now().minusYears(49));
+		authenticationEmployee.setFirstName("fn");
+		authenticationEmployee.setLastName("ln");
 		
 		ResultActions resultActions = null;
 		
 		//WHEN
 		//UserDetailsService has to return an Employee with @WithMockUser's credentials to be accessible from SecurityContext
-		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authentication));
+		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authenticationEmployee));
 		//OrdersService has to return a "persisted" non-empty Optional<Order>
 		Mockito.when(ordersService.persistOrder(Mockito.any(Order.class))).thenReturn(Optional.of(new Order()));
 		
@@ -249,6 +253,7 @@ class OrdersControllerIT {
 		employee.setLastName("forValidationPass");
 		employee.setBirthday(LocalDateTime.now().minusYears(50).toLocalDate());
 		employee.setEmail("appointed@workshop.pro");
+		employee.setPosition(new Position("Position one", new Department("Department one")));
 		
 		Classifier classifier1 = new Classifier();
 //		classifier1.setId(1);

@@ -21,6 +21,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DirectFieldBindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -97,6 +100,10 @@ public class OrdersController {
 		throws JsonProcessingException, HttpMessageNotReadableException, MethodArgumentNotValidException {
 		
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
+			throw new MethodArgumentNotValidException(null, bindingResult);
+		} else if (order.getId() > 0) {
+			bindingResult.addError(
+				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Optional<Order> persistedOrder = ordersService.persistOrder(order);

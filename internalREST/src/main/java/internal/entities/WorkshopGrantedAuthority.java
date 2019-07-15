@@ -7,9 +7,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
@@ -40,6 +42,7 @@ public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthorit
 	private String authority;
 	
 	@Column
+	@Length(max = 254, message = "{validation.length}")
 	private String description;
 	
 	/**

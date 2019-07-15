@@ -57,7 +57,7 @@ public class Employee extends Trackable {
 	private LocalDate birthday;
 	
 	@Column
-	private boolean isEnabled = true;
+	private Boolean isEnabled = true;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -114,5 +114,9 @@ public class Employee extends Trackable {
 		this.email = email;
 		this.birthday = birthday;
 		this.position = position;
+	}
+	
+	public void setIsEnabled(Boolean enabled) {
+		isEnabled = enabled != null ? enabled : true;
 	}
 }

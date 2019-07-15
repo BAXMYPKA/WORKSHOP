@@ -155,6 +155,7 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	/**
+	 * If an Entity has id > 0, then this.merge() will be used.
 	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
 	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
 	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
@@ -171,6 +172,12 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
+		//With id set entity will be merged
+		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() > 0) {
+			mergeEntity(entity);
+			return entityManager.find(entityClass, ((WorkshopEntity) entity).getId());
+		}
+		
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {

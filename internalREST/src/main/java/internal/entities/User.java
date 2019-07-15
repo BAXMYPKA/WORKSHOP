@@ -3,6 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -57,12 +58,14 @@ public class User implements WorkshopEntity, Serializable {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
+	@Pattern(regexp = "^(\\w){5,36}$", message = "{validation.passwordStrength}")
 	private String password;
 	
 	/**
 	 * Can be used as a Login identity
 	 */
 	@Column(unique = true)
+	@Email(message = "{validation.email}")
 	private String email;
 	
 	@Column(nullable = false)
@@ -74,10 +77,11 @@ public class User implements WorkshopEntity, Serializable {
 	private LocalDateTime modified;
 	
 	@Column
+	@Past(message = "{validation.past}")
 	private LocalDate birthday;
 	
 	@Column(name = "enabled")
-	private boolean isEnabled = true;
+	private Boolean isEnabled = true;
 	
 	/**
 	 * One of the Phones can be used as a Login identity.
@@ -104,14 +108,18 @@ public class User implements WorkshopEntity, Serializable {
 			@JoinColumn(name = "user_id", nullable = false)},
 		inverseJoinColumns = {
 			@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
-	private Set<GrantedAuthority> grantedAuthorities;
+	private Set<@Valid GrantedAuthority> grantedAuthorities;
 	
-	public User(String email) {
+	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;
 	}
 	
 	public User(Set<@Valid Phone> phones) {
 		this.phones = phones;
+	}
+	
+	public void setIsEnabled(Boolean enabled) {
+		isEnabled = enabled != null ? enabled : true;
 	}
 	
 	public void addPhone(Phone phone) throws IllegalArgumentException {

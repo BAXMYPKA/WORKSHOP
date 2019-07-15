@@ -55,6 +55,12 @@ public class Position extends Trackable implements GrantedAuthority {
 	@Valid
 	private Department department;
 	
+	@Builder
+	public Position(@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
+		this.name = name;
+		this.department = department;
+	}
+	
 	@JsonIgnore
 	@Override
 	public String getAuthority() {

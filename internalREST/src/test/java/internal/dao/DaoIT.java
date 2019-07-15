@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -58,6 +60,12 @@ class DaoIT {
 	@Autowired
 	UsersDao usersDao;
 	
+	@Autowired
+	PositionsDao positionsDao;
+	
+	@Autowired
+	DepartmentsDao departmentsDao;
+	
 	@PersistenceContext
 	EntityManager entityManager;
 	
@@ -70,6 +78,8 @@ class DaoIT {
 	static List<Phone> phones;
 	static List<Classifier> classifiers;
 	static List<Task> tasks;
+	static List<Position> positions;
+	static List<Department> departments;
 	
 	@Test
 	public void context_Initialization() {
@@ -107,11 +117,17 @@ class DaoIT {
 	@org.junit.jupiter.api.Order(2)
 	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
 	@Transactional
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void batch_Persisting_Collections() {
 		
 		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
 		init();
 		clearContext();
+		
+		//Pre-persist Entities without CascadeType.Persist
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		
 		orders.forEach(order -> assertFalse(entityManager.contains(order)));
 		employees.forEach(employee -> assertFalse(entityManager.contains(employee)));
 		
@@ -136,7 +152,12 @@ class DaoIT {
 	@MethodSource("entitiesFactory")
 	@DisplayName("Test DaoAbstract for being able to persist Entities without an id field")
 	@Transactional
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void persist_Simple_Entity(WorkshopEntity entity) {
+		//Pre-persist Entities without CascadeType.PERSIST
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		
 		if ("Employee".equals(entity.getClass().getSimpleName())) {
 			//GIVEN
 			Employee employee = (Employee) entity;
@@ -168,8 +189,14 @@ class DaoIT {
 	}
 	
 	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void persist_Entities_With_Id_0_isSuccessful() {
 		//GIVEN
+		
+		//Pre-persist Entities which have to be persisted separately
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		
 		orders.forEach(order -> order.setId(0));
 		employees.forEach(employee -> employee.setId(0));
 		
@@ -198,6 +225,7 @@ class DaoIT {
 	
 	@RepeatedTest(3)
 	@DisplayName("All the new entities tuples have to be persisted by JPA cascading by persisting a single Entity")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void cascade_Persisting_All_New_Entities() {
 		//GIVEN all non-persisted Entities.
 		
@@ -251,6 +279,7 @@ class DaoIT {
 	
 	@RepeatedTest(3)
 	@DisplayName("New entities have to be cascade persisted, but the old ones not")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void cascade_Persisting_Partly_New_Entities() {
 		//GIVEN persisted and non-persisted Entities.
 		
@@ -313,12 +342,15 @@ class DaoIT {
 	@ValueSource(ints = {1, 2, 3, 4})
 	@DisplayName("The test doesn't consider any page num that exceeds the Entities quantity")
 	@Transactional
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Works_Properly(int source) {
 		
 		//GIVEN
 		//Clear the InMemory DataBase and reinit all the Entities for the test
 		init();
 		//Load some new test Entities
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
 		employeesDao.persistEntities(employees);
 		ordersDao.persistEntities(orders);
 		
@@ -346,11 +378,14 @@ class DaoIT {
 	}
 	
 	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void find_Entity_By_Id_Email() {
 		//GIVEN
 		init();
 		clearContext();
 		
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
 		ordersDao.persistEntities(orders);
 		employeesDao.persistEntities(employees);
 		
@@ -382,12 +417,18 @@ class DaoIT {
 	@BeforeAll
 	@DisplayName("Every Collection has to contain minimum 3 items!")
 	public static void init() {
+		Department department = new Department();
+		department.setName("Department one");
+		
+		Position position = new Position("Position one", department);
+		
 		Employee employee1 = new Employee();
 		employee1.setEmail("firstEmployee@workshop.pro");
 		employee1.setFirstName("EmployeeFirstName");
 		employee1.setLastName("StaticFirstLastName");
 		employee1.setBirthday(LocalDate.of(1968, 7, 15));
 		employee1.setPassword("12345");
+		employee1.setPosition(position);
 		
 		Employee employee2 = new Employee();
 		employee2.setEmail("secondEmployee@workshop.pro");
@@ -395,6 +436,7 @@ class DaoIT {
 		employee2.setLastName("Employee2LastName");
 		employee2.setBirthday(LocalDate.of(1967, 7, 15));
 		employee2.setPassword("12345");
+		employee2.setPosition(position);
 		
 		Employee employee3 = new Employee();
 		employee3.setEmail("thirdEmployee@workshop.pro");
@@ -402,6 +444,7 @@ class DaoIT {
 		employee3.setLastName("Employee3LastName");
 		employee3.setBirthday(LocalDate.of(1970, 7, 15));
 		employee3.setPassword("12345");
+		employee3.setPosition(position);
 		
 		Order order1 = new Order();
 		order1.setDescription("Description one");
@@ -532,7 +575,9 @@ class DaoIT {
 		classifier3.setPrice(new BigDecimal(40.10));
 		classifier3.setDescription("The Third Classifier");
 		
-		employees = new ArrayList<>(Arrays.asList(employee1, employee2, employee3));
+		departments = new ArrayList<Department>(Collections.singletonList(department));
+		positions = new ArrayList<Position>(Arrays.asList(position));
+		employees = new ArrayList<Employee>(Arrays.asList(employee1, employee2, employee3));
 		orders = new ArrayList<Order>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
 			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
 		users = new ArrayList<>(Arrays.asList(user1, user2, user3));
@@ -543,6 +588,8 @@ class DaoIT {
 	
 	@Transactional
 	public void persistEntities() {
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
 		employeesDao.persistEntities(employees);
 		ordersDao.persistEntities(orders);
 	}
@@ -563,6 +610,12 @@ class DaoIT {
 		
 		Optional<List<User>> usersManaged = usersDao.findAll(0, 0, null, null);
 		usersDao.removeEntities(usersManaged.get());
+		
+		Optional<List<Position>> positionsManaged = positionsDao.findAll(0, 0, null, null);
+		positionsDao.removeEntities(positionsManaged.get());
+		
+		Optional<List<Department>> departmentsManaged = departmentsDao.findAll(0, 0, null, null);
+		departmentsDao.removeEntities(departmentsManaged.get());
 		
 		entityManager.clear();
 	}

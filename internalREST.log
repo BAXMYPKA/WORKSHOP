@@ -2,4 +2,8 @@
 -52:43:174 - INFO 24892 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
 -52:47:643 - WARN 24892 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 -52:48:498 - INFO 24892 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.735 seconds (JVM running for 7.644)
+-25:00:049 - INFO 18032 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 18032 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-25:00:054 - INFO 18032 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-25:04:475 - WARN 18032 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-25:05:246 - INFO 18032 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.694 seconds (JVM running for 6.843)
 -

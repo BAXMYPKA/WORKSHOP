@@ -51,7 +51,7 @@ public class JwtUtils {
 			scope = Arrays.deepToString(usernameAuthenticationToken.getAuthorities().toArray());
 		}
 		
-		String subject = ""; //Employee.email either User.email or User.Set<Phones>.iterator.next
+		String subject = null; //Employee.email either User.email or User.Set<Phones>.iterator.next
 		if ("Employee".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
 			subject = ((Employee) usernameAuthenticationToken.getPrincipal()).getEmail();
 		} else if ("User".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
@@ -62,6 +62,8 @@ public class JwtUtils {
 				!((User) usernameAuthenticationToken.getPrincipal()).getEmail().isEmpty() ?
 				((User) usernameAuthenticationToken.getPrincipal()).getEmail() :
 				((User) usernameAuthenticationToken.getPrincipal()).getPhones().iterator().next().getPhone();
+		} else {
+			throw new BadCredentialsException("Principal object in the AuthenticationToken neither Employee nor User!");
 		}
 
 //		Header like {"alg": "HS256",	"typ": "JWT"} is automatically added by builder

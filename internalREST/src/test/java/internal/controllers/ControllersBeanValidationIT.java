@@ -1,6 +1,5 @@
 package internal.controllers;
 
-import internal.dao.DaoAbstract;
 import internal.entities.*;
 import internal.service.JsonService;
 import org.hamcrest.Matchers;
@@ -10,19 +9,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -30,13 +25,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -197,20 +190,8 @@ class ControllersBeanValidationIT {
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].name']", Matchers.hasSize(1)))
 			//Order.Task.Set<Classifier> 'price' negative value
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].classifiers[].price']", Matchers.hasSize(1)))
-			//Order.Set<Task>.Employee 'firstName' null value
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.firstName']", Matchers.hasSize(1)))
-			//Order.Set<Task>.Employee 'lastName' not set
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.lastName']", Matchers.hasSize(1)))
-			//Order.Set<Task>.Employee 'email' blank value
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.email']", Matchers.hasSize(1)))
-			//Order.Set<Task>.Employee 'birthday' null value
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['tasks[].appointedTo.birthday']", Matchers.hasSize(1)))
 			//Order.User 'modified' has to be null
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.modified']", Matchers.hasSize(1)))
-			//Order.User 'id' must be 0 while persisting
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.id']", Matchers.hasSize(1)))
-			//Order.User.Set<Phone> 'id' must be 0 while persistence
-			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.phones[].id']", Matchers.hasSize(1)))
 			//Order.User.Set<Phone> 'phone' min 5 max 15 digits
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.phones[].phone']", Matchers.hasSize(1)));
 	}

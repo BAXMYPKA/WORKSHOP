@@ -46,4 +46,10 @@ public class Department implements WorkshopEntity, Serializable {
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
 		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Position> positions;
+	
+	public Department(@NotBlank(
+		groups = {Default.class, PersistenceCheck.class, UpdationCheck.class},
+		message = "{validation.notBlank}") String name) {
+		this.name = name;
+	}
 }

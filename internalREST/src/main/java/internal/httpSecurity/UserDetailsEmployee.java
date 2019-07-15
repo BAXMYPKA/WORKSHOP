@@ -60,6 +60,6 @@ public class UserDetailsEmployee implements UserDetails {
 	
 	@Override
 	public boolean isEnabled() {
-		return employee.isEnabled();
+		return employee.getIsEnabled();
 	}
 }

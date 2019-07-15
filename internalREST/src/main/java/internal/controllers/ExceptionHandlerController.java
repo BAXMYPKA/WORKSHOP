@@ -31,14 +31,14 @@ public class ExceptionHandlerController {
 	@Autowired
 	private JsonService jsonService;
 	
-	@ExceptionHandler({HttpMessageNotReadableException.class})
+	@ExceptionHandler({HttpMessageNotReadableException.class}) //400
 	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, HttpServletResponse response) {
 		log.info(ex.getMessage());
 		setResponseContentType(response);
 		return ResponseEntity.badRequest().body("Incorrect request body!");
 	}
 	
-	@ExceptionHandler({JsonProcessingException.class})
+	@ExceptionHandler({JsonProcessingException.class}) //422
 	public ResponseEntity<String> jsonProcessingFailure(Exception ex, HttpServletResponse response) {
 		log.info(ex.getMessage());
 		setResponseContentType(response);
@@ -52,7 +52,7 @@ public class ExceptionHandlerController {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
 	}
 	
-	@ExceptionHandler({MethodArgumentNotValidException.class})
+	@ExceptionHandler({MethodArgumentNotValidException.class}) //422
 	@ResponseBody
 	public ResponseEntity<String> validationFailure(MethodArgumentNotValidException ex, HttpServletResponse response) {
 		BindingResult bindingResult = ex.getBindingResult();

@@ -106,7 +106,6 @@ public class OrdersService {
 		if (order == null){
 			throw new IllegalArgumentException("Order cannot by null!");
 		}
-		
 		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistEntity(order));
 		return persistedOrder;
 	}

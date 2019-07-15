@@ -1,6 +1,10 @@
 package internal.httpSecurity;
 
+import internal.entities.Department;
+import internal.entities.Employee;
+import internal.entities.Position;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,8 +44,11 @@ class JwtUtilsTest {
 	
 	@BeforeEach
 	public void methodPreparation() {
+		Position position = Position.builder().name("Position").department(new Department()).build();
+		Employee employee = new Employee("TestUser", "ln", "ppppp", "TestUser@pro.pro",
+			LocalDate.now().minusYears(17), position);
 		authentication = new UsernamePasswordAuthenticationToken(
-			"TestUser", "", Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
+			employee, employee.getPassword(), Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
 	}
 	
 	@Test
@@ -61,10 +69,11 @@ class JwtUtilsTest {
 	}
 	
 	@Test
-	@DisplayName("Has to throw BadCredentialsException with the distinct message")
-	public void generateJwt_with_empty_Authentication_parameter() {
+	@DisplayName("Authentication.Principal has to be either Employee or User." +
+		"Otherwise a BadCredentialsException with the distinct message will be thrown")
+	public void generateJwt_with_String_Authentication_parameter() {
 		//GIVEN
-		String emptyAuthenticationMessage = "Username is null or empty!";
+		String emptyAuthenticationMessage = "Principal object in the AuthenticationToken neither Employee nor User!";
 		authentication = new UsernamePasswordAuthenticationToken("", "", null);
 		
 		//WHEN
@@ -147,6 +156,10 @@ class JwtUtilsTest {
 	@DisplayName("First generate not valid JWTs")
 	public void not_valid_jwt_return_false() {
 		//GIVEN default JWT
+		authentication = new UsernamePasswordAuthenticationToken(
+			new Employee("fn", "ln", "ppppp", "email@oid.oro",
+				LocalDate.now().minusYears(17), new Position()), "",
+			Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
 		String validJwt = jwtUtils.generateJwt(authentication);
 		
 		//GIVEN changed issuer
@@ -227,9 +240,18 @@ class JwtUtilsTest {
 			authority6, authority7, authority8, authority9, authority10, authority11, authority12, authority13,
 			authority14, authority15);
 		
+		Employee employee = new Employee(
+			"FirstNameUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize",
+			"LastNameUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize",
+			"PasswordUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize",
+			"EmailUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize@gmail.mail",
+			LocalDate.now().minusYears(18), new Position(
+			"NameUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize",
+			new Department()));
+		
 		Authentication bigSizeAuthentication = new UsernamePasswordAuthenticationToken(
-			"UnbearableHugeUserEmailForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSizeLimitationYeah!#@$_",
-			"passwordWillBeOmittedAnyway",
+			employee,
+			employee.getPassword(),
 			authorities);
 		
 		//WHEN generating big JWT. 1kb = 1024b
@@ -237,6 +259,6 @@ class JwtUtilsTest {
 		int sizeInBytes = hugeJwt.getBytes(StandardCharsets.UTF_8).length;
 		
 		//THEN the JWT size doesn't exceed 4kb size
-		assertTrue(sizeInBytes < 1024*4);
+		assertTrue(sizeInBytes < 1024 * 4);
 	}
 }

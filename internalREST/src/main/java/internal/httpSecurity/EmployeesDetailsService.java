@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.PersistenceException;
+import java.security.Principal;
 import java.util.Collections;
 
 /**
@@ -27,32 +28,24 @@ public class EmployeesDetailsService implements UserDetailsService {
 	private EmployeesDao employeesDao;
 	
 	/**
-	 * @param email Employee.email will be used instead username according to application specification
+	 * @param email Employee.email will be used instead of username according to an application specification
 	 * @return UserDetailsEmployee with an encoded embedded password which has to be checked
 	 * by EmployeesAuthenticationProvider. Also includes the Employee object.
 	 * @throws UsernameNotFoundException used by inner SpringSecurity's checks for the authorization process
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UserDetailsEmployee loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
 			Employee employee = employeesDao.findEmployeeByEmail(email);
 /*
-			//User.builder.authorities can receive String as a name for an GrantedAuthority and cannot be null
+			//User.builder.authorities can receive String as a name for an WorkshopGrantedAuthority and cannot be null
 			UserDetails userDetails = User.builder()
 				.username(employee.getEmail())
 				.password(employee.getPassword())
 				.authorities(employee.getPosition() != null ? employee.getPosition().getName() : "")
 				.build();
 */
-			
-			UserDetailsEmployee userDetailsEmployee = new UserDetailsEmployee();
-			userDetailsEmployee.setEmployee(employee);
-			userDetailsEmployee.setUsername(employee.getEmail());
-			userDetailsEmployee.setPassword(employee.getPassword());
-			userDetailsEmployee.setAuthorities(
-				employee.getPosition() != null ?
-					Collections.singletonList(employee.getPosition()) :
-					Collections.singletonList(new SimpleGrantedAuthority("Default")));
+			UserDetailsEmployee userDetailsEmployee = new UserDetailsEmployee(employee);
 			
 			log.debug("User={} is found by email and passing to the AuthenticationProvider to check the password",
 				userDetailsEmployee.getUsername());

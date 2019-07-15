@@ -158,9 +158,10 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
 	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
 	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
-	 * so the Order.setCreatedFor() is filling in.
+	 * so the Order.setCreatedFor() will be filled in by Spring Auditable interface (see SecurityConfiguration).
 	 * From the SecurityContext we estimate the current Authentication - is this an Employee or User.
 	 * Employee will be found by email, User by email or phone (both fields can be used as the unique IDs).
+	 *
 	 * @param entity
 	 * @return Returns a managed copy of Entity with 'id' set
 	 * @throws PersistenceException
@@ -172,18 +173,9 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 		}
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
-			if (currentAuthentication != null) {
-				//Identity can be an 'email' or 'phone'
-				String identity = currentAuthentication.getName();
-				WorkshopEntity employeeOrUser =
-					findByEmail(identity).isPresent() ? (WorkshopEntity) findByEmail(identity).get() :
-						(WorkshopEntity) findByNameCoincidence("phone", identity)
-							.orElseThrow(() -> new AuthenticationCredentialsNotFoundException(
-								"Employee or User identity from current Authentication not found in the DataBase!"));
-				if (employeeOrUser instanceof Employee) {
-					Employee employee = (Employee) employeeOrUser;
-					((Trackable) entity).setCreatedBy(employee);
-				}
+			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
+				((Trackable) entity).setCreatedBy((Employee) currentAuthentication.getPrincipal());
+			}
 /*
 				else if (employeeOrUser instanceof User && entity instanceof Order){
 					Order order = (Order) entity;
@@ -191,10 +183,9 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 					order.setCreatedFor(user);
 				}
 */
-			}
 		}
 		entityManager.persist(entity);
-		return entityManager.find(entityClass, ((WorkshopEntity)entity).getId());
+		return entityManager.find(entityClass, ((WorkshopEntity) entity).getId());
 	}
 	
 	/**
@@ -255,9 +246,8 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 //		Set 'modifiedBy' field if an Entity instance of Trackable and the SecurityContext contains an Employee who is merging the changes
 		if (entity instanceof Trackable && getCurrentAuthentication() != null) {
 			Authentication authentication = getCurrentAuthentication();
-			Optional<T> employee = findByEmail(authentication.getName());
-			if (employee.isPresent() && employee.get() instanceof Employee){
-				((Trackable)entity).setModifiedBy((Employee)employee.get());
+			if ("Employee".equals(authentication.getPrincipal().getClass().getSimpleName())) {
+				((Trackable) entity).setModifiedBy((Employee) authentication.getPrincipal());
 			}
 		}
 		return entityManager.merge(entity);
@@ -294,6 +284,17 @@ public abstract class DaoAbstract<T extends Serializable, K> implements DaoInter
 	}
 	
 	private Authentication getCurrentAuthentication() {
-		return SecurityContextHolder.getContext().getAuthentication();
+		//Authentication.getPrincipal returns either Employee or User object
+		Authentication authentication = null;
+		try {
+			authentication = SecurityContextHolder.getContext().getAuthentication();
+		} catch (Exception e) {
+			log.error("Error while deriving Authentication from SecurityContext!", e);
+		}
+		if (authentication == null) {
+			throw new AuthenticationCredentialsNotFoundException(
+				"Employee or User identity from current Authentication not found in the DataBase!");
+		}
+		return authentication;
 	}
 }

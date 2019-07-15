@@ -1,10 +1,13 @@
 package internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,7 +15,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.Set;
 
 /**
- * GrantedAuthorities for the Users for fine tuning their permissions
+ * GrantedAuthorities for the EXTERNAL.Users for fine tuning their permissions
  */
 @Getter
 @Setter
@@ -21,7 +24,7 @@ import java.util.Set;
 @JsonIgnoreProperties(value = {"users"}, allowSetters = true)
 @Entity(name = "Granted_Authority")
 @Table(name = "Granted_Authorities", schema = "EXTERNAL")
-public class GrantedAuthority implements WorkshopEntity, org.springframework.security.core.GrantedAuthority {
+public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthority {
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -40,10 +43,12 @@ public class GrantedAuthority implements WorkshopEntity, org.springframework.sec
 	private String description;
 	
 	/**
-	 * Not serializable from GrantedAuthority object to JSON (to prevent overwhelming amount of Users).
-	 * But it is possible to deserialize from JSON to Object with the Users' set within particular GrantedAuthority.
+	 * Not serializable to JSON (to prevent huge amount of Users).
+	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
 	 */
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@ManyToMany(mappedBy = "grantedAuthorities", targetEntity = User.class, cascade = {
+		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<User> users;
 	
 	@Override

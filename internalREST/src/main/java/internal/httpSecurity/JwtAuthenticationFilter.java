@@ -117,8 +117,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	 */
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request,
-											  HttpServletResponse response, AuthenticationException failed)
-		throws IOException, ServletException {
+											  HttpServletResponse response,
+											  AuthenticationException failed) throws IOException, ServletException {
 		SecurityContextHolder.clearContext();
 		
 		if (logger.isDebugEnabled()) {

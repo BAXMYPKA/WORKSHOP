@@ -2,7 +2,6 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,11 +12,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Users of 2 types can be persisted from online and created by manager.
- * All Users must provide either their email or phone as a login and the way for the further communications.
+ * Every User must have either email or phone as a login and the way for the further communications.
  * Other fields are optional.
  * Online Users must create a password during registration.
  * Offline created Users will have a possibility to register themselves by their previously provided email or phone
@@ -28,10 +28,11 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "email", "firstName"})
-//@JsonIgnoreProperties(value = {"phones"}, allowGetters = true)
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
 public class User implements WorkshopEntity, Serializable {
+	
+	//TODO: how to determine and fix the particular phone the User is using for login? And fix it in the JwtUtils getToken method!
 	
 	@Transient
 	private static final long serialVersionUID = 1L;
@@ -75,6 +76,12 @@ public class User implements WorkshopEntity, Serializable {
 	@Column
 	private LocalDate birthday;
 	
+	@Column(name = "enabled")
+	private boolean isEnabled = true;
+	
+	/**
+	 * One of the Phones can be used as a Login identity.
+	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
@@ -86,14 +93,52 @@ public class User implements WorkshopEntity, Serializable {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<@Valid Order> orders;
 	
-	
+	/**
+	 * Available individual permissions within Workshop security realm.
+	 */
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER, cascade = {
+		CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.MERGE})
+	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
+		joinColumns = {
+			@JoinColumn(name = "user_id", nullable = false)},
+		inverseJoinColumns = {
+			@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
 	private Set<GrantedAuthority> grantedAuthorities;
 	
+	public User(String email) {
+		this.email = email;
+	}
+	
+	public User(Set<@Valid Phone> phones) {
+		this.phones = phones;
+	}
+	
+	public void addPhone(Phone phone) throws IllegalArgumentException {
+		if (phone == null) {
+			throw new IllegalArgumentException("Phone object cannot be null!");
+		}
+		if (phones == null) {
+			phones = new HashSet<>(3);
+		}
+		phones.add(phone);
+	}
+	
+	public void deletePhone(Phone phone) {
+		if (phones == null || phones.isEmpty()) return;
+		phones.remove(phone);
+	}
+	
 	/**
+	 * If User.email or User.Set<Phones> are not set - throws an exception. Email or Phone are required as an identity.
 	 * If the creation date isn't preset, set it by now
 	 */
 	@PrePersist
-	public void setCreationDateTime() {
+	public void prePersist() throws PersistenceException {
+		if ((email == null || email.isEmpty()) && (phones == null || phones.isEmpty())){
+			throw new PersistenceException(
+				"User must have either email or phone as a login to be persisted! Enter one of these field");
+		}
 		if (created == null) {
 			setCreated(LocalDateTime.now());
 		}

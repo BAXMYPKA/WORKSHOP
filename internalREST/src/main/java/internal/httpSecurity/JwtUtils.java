@@ -1,5 +1,7 @@
 package internal.httpSecurity;
 
+import internal.entities.Employee;
+import internal.entities.User;
 import io.jsonwebtoken.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,9 +41,8 @@ public class JwtUtils {
 		
 		if (usernameAuthenticationToken == null) {
 			throw new IllegalArgumentException("Authentication cannot be null!");
-		} else if (usernameAuthenticationToken.getPrincipal() == null ||
-			usernameAuthenticationToken.getPrincipal().toString().isEmpty()) {
-			throw new BadCredentialsException("Username is null or empty!");
+		} else if (usernameAuthenticationToken.getPrincipal() == null) {
+			throw new BadCredentialsException("Principal object in the AuthenticationToken is null!");
 		}
 		String scope;
 		if (usernameAuthenticationToken.getCredentials() == null) {
@@ -49,6 +50,20 @@ public class JwtUtils {
 		} else {
 			scope = Arrays.deepToString(usernameAuthenticationToken.getAuthorities().toArray());
 		}
+		
+		String subject = ""; //Employee.email either User.email or User.Set<Phones>.iterator.next
+		if ("Employee".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
+			subject = ((Employee) usernameAuthenticationToken.getPrincipal()).getEmail();
+		} else if ("User".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
+			
+			//TODO: how to distinguish a particular Phone to be used as a login???
+			
+			subject = ((User) usernameAuthenticationToken.getPrincipal()).getEmail() != null &&
+				!((User) usernameAuthenticationToken.getPrincipal()).getEmail().isEmpty() ?
+				((User) usernameAuthenticationToken.getPrincipal()).getEmail() :
+				((User) usernameAuthenticationToken.getPrincipal()).getPhones().iterator().next().getPhone();
+		}
+
 //		Header like {"alg": "HS256",	"typ": "JWT"} is automatically added by builder
 //		JwtBuilder.setHeader() will overwrite the existing one!
 		String jwtoken = Jwts.builder()
@@ -56,7 +71,7 @@ public class JwtUtils {
 			.setExpiration(new Date(System.currentTimeMillis() + 1000 * expirationTime))
 			.setIssuer(issuer)
 			.setAudience(audience)
-			.setSubject(usernameAuthenticationToken.getPrincipal().toString())
+			.setSubject(subject)
 			.claim("scope", scope)
 			.signWith(securityUtils.getKey(), securityUtils.getSignatureAlgorithm())
 			.compact();
@@ -116,10 +131,10 @@ public class JwtUtils {
 			return subject;
 		} catch (JwtException e) {
 			log.trace(e.getMessage());
-			throw  e;
+			throw e;
 		}
 	}
-	
+
 //	public String getAuthiritiesFromJwt(String jwt) throws IllegalArgumentException, JwtException {
 //		if (jwt == null || jwt.isEmpty()) {
 //			throw new IllegalArgumentException("Jwt cannot be null or empty!");

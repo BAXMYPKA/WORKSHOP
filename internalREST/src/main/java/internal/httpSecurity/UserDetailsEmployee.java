@@ -24,6 +24,10 @@ public class UserDetailsEmployee implements UserDetails {
 	
 	private Collection<GrantedAuthority> authorities;
 	
+	public UserDetailsEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Collections.singletonList(employee.getPosition());

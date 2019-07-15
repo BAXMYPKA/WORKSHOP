@@ -12,42 +12,45 @@ import java.util.Collection;
 @Getter
 public class UserDetailsUser implements UserDetails {
 	
-	//TODO: to complete the class
-	
 	private User user;
+	
+	public UserDetailsUser(User user) {
+		this.user = user;
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return user.getGrantedAuthorities();
 	}
 	
 	@Override
 	public String getPassword() {
-		return null;
+		return user.getPassword();
 	}
 	
 	@Override
 	public String getUsername() {
-		return null;
+		return (user.getEmail() != null && !user.getEmail().isEmpty()) ?
+			user.getEmail() : user.getPhones().iterator().next().getPhone();
 	}
 	
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 	
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return user.isEnabled();
 	}
 }

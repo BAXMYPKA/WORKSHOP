@@ -9,9 +9,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
@@ -20,7 +17,7 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
 	@Qualifier("employeesDetailsService")
-	private UserDetailsService employeesDetailsService;
+	private EmployeesDetailsService employeesDetailsService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -40,17 +37,17 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
 		}
 		log.trace("Provide authentication...");
+
+		UserDetailsEmployee employee = employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
 		
-		User user = (User) employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
-		
-		log.debug("Employee={} is found. Proceeding with matching passwords...", user.getUsername());
+		log.debug("Employee={} is found. Proceeding with matching passwords...", employee.getUsername());
 		
 		//The raw password must match an encoded one from the Employee with that email
-		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
+		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), employee.getPassword())) {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 		
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), "", user.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
 	}
 	
 	@Override
@@ -69,8 +66,8 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Email cannot be null or empty!");
 		}
 		log.trace("Trying to find Employee by email {}", email);
-		User user = (User) employeesDetailsService.loadUserByUsername(email);
-		log.trace("User={} is found", user.getUsername());
-		return new UsernamePasswordAuthenticationToken(user.getUsername(), "", user.getAuthorities());
+		UserDetailsEmployee employee = employeesDetailsService.loadUserByUsername(email);
+		log.trace("User={} is found", employee.getUsername());
+		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
 	}
 }

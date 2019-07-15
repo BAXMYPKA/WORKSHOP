@@ -2,23 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST.log.2019-07-08.0.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/internalREST.log.2019-07-11.0.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -77,10 +72,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
+            <state relative-caret-position="-574">
               <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
               <folding>
                 <element signature="method#getCorrectJsonOrder#0;class#ControllersBeanValidationIT#0" />
@@ -92,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="1636">
+              <caret line="295" column="100" selection-start-line="295" selection-start-column="100" selection-end-line="295" selection-end-column="100" />
               <folding>
                 <element signature="e#0#57#1" expanded="true" />
                 <element signature="docComment;method#persistEntity#0;class#DaoAbstract#0" expanded="true" />
@@ -106,7 +101,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
+            <state relative-caret-position="784">
               <caret line="93" column="64" selection-start-line="93" selection-start-column="64" selection-end-line="93" selection-end-column="64" />
             </state>
           </provider>
@@ -115,7 +110,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
+            <state relative-caret-position="448">
               <caret line="50" column="51" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
               <folding>
                 <element signature="docComment;field#createdFor#0;class#Order#0" expanded="true" />
@@ -130,13 +125,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="31" column="77" lean-forward="true" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
+            <state relative-caret-position="154">
+              <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding>
-                <element signature="e#1501#1828#0" />
+                <element signature="docComment;method#loadUserByUsername#0;class#EmployeesDetailsService#0" expanded="true" />
+                <element signature="e#1549#1876#0" />
               </folding>
             </state>
           </provider>
@@ -145,23 +141,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+            <state relative-caret-position="364">
+              <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#UserDetailsEmployee#0" expanded="true" />
-                <element signature="e#500#501#0" expanded="true" />
-                <element signature="e#518#519#0" expanded="true" />
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#580#581#0" expanded="true" />
-                <element signature="e#633#634#0" expanded="true" />
-                <element signature="e#652#653#0" expanded="true" />
-                <element signature="e#704#705#0" expanded="true" />
-                <element signature="e#723#724#0" expanded="true" />
-                <element signature="e#780#781#0" expanded="true" />
-                <element signature="e#799#800#0" expanded="true" />
-                <element signature="e#842#843#0" expanded="true" />
-                <element signature="e#861#862#0" expanded="true" />
+                <element signature="e#705#706#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -170,77 +155,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#317#318#0" expanded="true" />
-                <element signature="e#335#336#0" expanded="true" />
-                <element signature="e#379#380#0" expanded="true" />
-                <element signature="e#397#398#0" expanded="true" />
-                <element signature="e#441#442#0" expanded="true" />
-                <element signature="e#459#460#0" expanded="true" />
-                <element signature="e#512#513#0" expanded="true" />
-                <element signature="e#531#532#0" expanded="true" />
-                <element signature="e#583#584#0" expanded="true" />
-                <element signature="e#602#603#0" expanded="true" />
-                <element signature="e#659#660#0" expanded="true" />
-                <element signature="e#678#679#0" expanded="true" />
-                <element signature="e#721#722#0" expanded="true" />
-                <element signature="e#740#741#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="844">
-              <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="4" />
-              <folding>
-                <element signature="docComment;class#User#0" expanded="true" />
-                <element signature="docComment;field#email#0;class#User#0" expanded="true" />
-                <element signature="e#3111#3112#0" expanded="true" />
-                <element signature="e#3150#3151#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="628">
-              <caret line="45" column="77" lean-forward="true" selection-start-line="45" selection-start-column="77" selection-end-line="45" selection-end-column="77" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#GrantedAuthority#0" expanded="true" />
-                <element signature="docComment;field#users#0;class#GrantedAuthority#0" expanded="true" />
-                <element signature="e#422#423#0" expanded="true" />
-                <element signature="e#440#441#0" expanded="true" />
-                <element signature="e#476#477#0" expanded="true" />
-                <element signature="e#491#492#0" expanded="true" />
-                <element signature="e#1182#1183#0" expanded="true" />
-                <element signature="e#1197#1198#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="224">
-              <caret line="31" selection-start-line="29" selection-end-line="31" />
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
               <folding>
-                <element signature="docComment;class#Trackable#0" expanded="true" />
-                <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
-                <element signature="e#2599#2600#0" expanded="true" />
-                <element signature="e#2632#2633#0" expanded="true" />
-                <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-                <element signature="e#3048#3049#0" expanded="true" />
-                <element signature="e#3072#3073#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#415#416#0" expanded="true" />
+                <element signature="e#465#466#0" expanded="true" />
+                <element signature="e#483#484#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -296,10 +217,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/resources/schema.sql" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/resources/testInit.sql" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/resources/hibernate.properties" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/OrdersDaoIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/LoginControllerTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/dataTest.sql" />
@@ -328,7 +245,6 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/CreationCheck.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceCheck.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
@@ -337,23 +253,28 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java" />
       </list>
     </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$USER_HOME$/JAVA/apache-maven-3.6.1" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../JAVA/apache-maven-3.6.1" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -376,10 +297,9 @@
     <option name="vmOptions" value="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="516" />
-    <option name="y" value="1" />
-    <option name="width" value="1413" />
-    <option name="height" value="1042" />
+    <option name="x" value="-7" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -392,8 +312,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -596,6 +514,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="CatdeaLogs" />
     </panes>
   </component>
@@ -628,7 +548,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -665,7 +585,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.OrdersControllerIT">
+  <component name="RunManager" selected="Spring Boot.Internal">
     <configuration name="CookieUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -752,12 +672,12 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.LoginAuthenticationFilterTest" />
       <item itemvalue="JUnit.JwtUtilsTest" />
       <item itemvalue="JUnit.JwtAuthenticationFilterTest" />
       <item itemvalue="JUnit.CookieUtilsTest" />
       <item itemvalue="JUnit.OrdersControllerIT" />
+      <item itemvalue="Spring Boot.Internal" />
     </list>
     <recent_temporary>
       <list>
@@ -837,6 +757,7 @@
       <workItem from="1562738808136" duration="9573000" />
       <workItem from="1562824875739" duration="21445000" />
       <workItem from="1562911497234" duration="19801000" />
+      <workItem from="1563170871241" duration="12155000" />
     </task>
     <servers />
   </component>
@@ -873,7 +794,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="706352000" />
+    <option name="totallyTimeSpent" value="718507000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -885,9 +806,9 @@
       <window_info id="Structure" order="4" sideWeight="0.40620154" side_tool="true" weight="0.18756586" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.59379846" visible="true" weight="0.16754478" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.59379846" weight="0.16754478" />
       <window_info id="Database" order="8" sideWeight="0.5555556" weight="0.18559763" />
-      <window_info id="Maven" order="9" sideWeight="0.4234079" weight="0.1492205" />
+      <window_info active="true" id="Maven" order="9" sideWeight="0.4234079" visible="true" weight="0.14910433" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -966,12 +887,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java</url>
-          <line>178</line>
-          <properties />
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java</url>
           <line>76</line>
           <properties />
           <option name="timeStamp" value="7" />
@@ -989,47 +904,6 @@
     </SUITE>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserAuditorAware.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="96" selection-start-line="16" selection-start-column="96" selection-end-line="16" selection-end-column="96" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/UsersService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="29" column="23" lean-forward="true" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#findByLogin#0;class#UsersService#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="266" column="91" selection-start-line="266" selection-start-column="91" selection-end-line="266" selection-end-column="91" />
-          <folding>
-            <element signature="method#pagination_With_Limits_And_Offsets_Works_Properly#0;class#DaoIT#0" />
-            <element signature="method#find_Entity_By_Id_Email#0;class#DaoIT#0" />
-            <element signature="method#init#0;class#DaoIT#0" />
-            <element signature="method#clearContext#0;class#DaoIT#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/LoginAuthenticationFilterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="27" column="6" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/httpSecurity/JwtUtilsTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
@@ -1106,12 +980,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages_en.properties">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="ResourceBundle" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages_ru.properties">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="ResourceBundle" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/data1.sql">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1186,23 +1060,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages.properties">
-      <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="ResourceBundle" />
+      <provider editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="37" selection-start-line="37" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="35" column="60" selection-start-line="35" selection-start-column="60" selection-end-line="35" selection-end-column="60" />
-          <folding>
-            <element signature="docComment;field#phone#0;class#Phone#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,13 +1077,6 @@
           <folding>
             <element signature="method#init#0;class#OrdersControllerIT#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="93" column="64" selection-start-line="93" selection-start-column="64" selection-end-line="93" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -1237,32 +1094,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
-          <folding>
-            <element signature="method#getCorrectJsonOrder#0;class#ControllersBeanValidationIT#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
           <caret line="105" selection-start-line="105" selection-end-line="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-          <folding>
-            <element signature="e#0#57#1" expanded="true" />
-            <element signature="docComment;method#persistEntity#0;class#DaoAbstract#0" expanded="true" />
-            <element signature="e#7548#7739#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1289,22 +1124,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="50" column="51" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
-          <folding>
-            <element signature="docComment;field#createdFor#0;class#Order#0" expanded="true" />
-            <element signature="docComment;field#overallPrice#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#setTasks#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#addTask#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#deleteTask#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#prePersist#0;class#Order#0" expanded="true" />
-            <element signature="docComment;method#preUpdate#0;class#Order#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.5.RELEASE/spring-security-core-5.1.5.RELEASE.jar!/org/springframework/security/core/userdetails/UserDetails.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -1319,67 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="81" column="18" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
-          <folding>
-            <element signature="docComment;class#Employee#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
           <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="31" selection-start-line="29" selection-end-line="31" />
-          <folding>
-            <element signature="docComment;class#Trackable#0" expanded="true" />
-            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
-            <element signature="e#2599#2600#0" expanded="true" />
-            <element signature="e#2632#2633#0" expanded="true" />
-            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-            <element signature="e#3048#3049#0" expanded="true" />
-            <element signature="e#3072#3073#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="628">
-          <caret line="45" column="77" lean-forward="true" selection-start-line="45" selection-start-column="77" selection-end-line="45" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#GrantedAuthority#0" expanded="true" />
-            <element signature="docComment;field#users#0;class#GrantedAuthority#0" expanded="true" />
-            <element signature="e#422#423#0" expanded="true" />
-            <element signature="e#440#441#0" expanded="true" />
-            <element signature="e#476#477#0" expanded="true" />
-            <element signature="e#491#492#0" expanded="true" />
-            <element signature="e#1182#1183#0" expanded="true" />
-            <element signature="e#1197#1198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="844">
-          <caret line="88" column="4" selection-start-line="88" selection-start-column="4" selection-end-line="88" selection-end-column="4" />
-          <folding>
-            <element signature="docComment;class#User#0" expanded="true" />
-            <element signature="docComment;field#email#0;class#User#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3150#3151#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1393,59 +1155,177 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+        <state relative-caret-position="784">
+          <caret line="93" column="64" selection-start-line="93" selection-start-column="64" selection-end-line="93" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="49" column="87" lean-forward="true" selection-start-line="49" selection-start-column="87" selection-end-line="49" selection-end-column="87" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#317#318#0" expanded="true" />
-            <element signature="e#335#336#0" expanded="true" />
-            <element signature="e#379#380#0" expanded="true" />
-            <element signature="e#397#398#0" expanded="true" />
-            <element signature="e#441#442#0" expanded="true" />
-            <element signature="e#459#460#0" expanded="true" />
-            <element signature="e#512#513#0" expanded="true" />
-            <element signature="e#531#532#0" expanded="true" />
-            <element signature="e#583#584#0" expanded="true" />
-            <element signature="e#602#603#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#678#679#0" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
-            <element signature="e#740#741#0" expanded="true" />
+            <element signature="docComment;class#GrantedAuthority#0" expanded="true" />
+            <element signature="docComment;field#users#0;class#WorkshopGrantedAuthority#0" expanded="true" />
+            <element signature="e#1648#1649#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="true" />
+            <element signature="e#1707#1708#0" expanded="true" />
+            <element signature="e#1723#1724#0" expanded="true" />
+            <element signature="e#1766#1767#0" expanded="true" />
+            <element signature="e#1785#1786#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/WorkshopAuthenticationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="106" column="45" selection-start-line="106" selection-start-column="45" selection-end-line="106" selection-end-column="45" />
+          <folding>
+            <element signature="docComment;class#Employee#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsEmployee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+        <state relative-caret-position="364">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#UserDetailsEmployee#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-            <element signature="e#518#519#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#580#581#0" expanded="true" />
-            <element signature="e#633#634#0" expanded="true" />
-            <element signature="e#652#653#0" expanded="true" />
-            <element signature="e#704#705#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-            <element signature="e#780#781#0" expanded="true" />
-            <element signature="e#799#800#0" expanded="true" />
-            <element signature="e#842#843#0" expanded="true" />
-            <element signature="e#861#862#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+          <folding>
+            <element signature="docComment;field#phone#0;class#Phone#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="34" column="130" selection-start-line="34" selection-start-column="130" selection-end-line="34" selection-end-column="130" />
+          <folding>
+            <element signature="docComment;class#User#0" expanded="true" />
+            <element signature="docComment;field#email#0;class#User#0" expanded="true" />
+            <element signature="docComment;field#grantedAuthorities#0;class#User#0" expanded="true" />
+            <element signature="docComment;method#prePersist#0;class#User#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="124" column="32" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/JwtAuthenticationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="768">
+          <caret line="137" column="47" selection-start-line="137" selection-start-column="47" selection-end-line="137" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
+          <folding>
+            <element signature="docComment;class#Trackable#0" expanded="true" />
+            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
+            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserDetailsUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#415#416#0" expanded="true" />
+            <element signature="e#465#466#0" expanded="true" />
+            <element signature="e#483#484#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="55" column="63" lean-forward="true" selection-start-line="55" selection-start-column="63" selection-end-line="55" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="50" column="51" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
+          <folding>
+            <element signature="docComment;field#createdFor#0;class#Order#0" expanded="true" />
+            <element signature="docComment;field#overallPrice#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#setTasks#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#addTask#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#deleteTask#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#prePersist#0;class#Order#0" expanded="true" />
+            <element signature="docComment;method#preUpdate#0;class#Order#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="31" column="77" lean-forward="true" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
+        <state relative-caret-position="154">
+          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
           <folding>
-            <element signature="e#1501#1828#0" />
+            <element signature="docComment;method#loadUserByUsername#0;class#EmployeesDetailsService#0" expanded="true" />
+            <element signature="e#1549#1876#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1636">
+          <caret line="295" column="100" selection-start-line="295" selection-start-column="100" selection-end-line="295" selection-end-column="100" />
+          <folding>
+            <element signature="e#0#57#1" expanded="true" />
+            <element signature="docComment;method#persistEntity#0;class#DaoAbstract#0" expanded="true" />
+            <element signature="e#7548#7739#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-574">
+          <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
+          <folding>
+            <element signature="method#getCorrectJsonOrder#0;class#ControllersBeanValidationIT#0" />
           </folding>
         </state>
       </provider>

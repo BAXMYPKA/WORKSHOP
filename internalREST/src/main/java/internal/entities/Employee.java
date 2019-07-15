@@ -73,11 +73,12 @@ public class Employee extends Trackable {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = true, cascade = {
+	@ManyToOne(optional = false, cascade = {
 		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+	@NotNull(message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	
@@ -101,12 +102,17 @@ public class Employee extends Trackable {
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksCreatedBy;
 	
+	/**
+	 * All the arguments of this constructor are obligatory to be set!
+	 * Also you can use Builder to construct.
+	 */
 	@Builder
-	public Employee(String firstName, String lastName, String password, String email, LocalDate birthday) {
+	public Employee(String firstName, String lastName, String password, String email, LocalDate birthday, Position position) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.birthday = birthday;
+		this.position = position;
 	}
 }

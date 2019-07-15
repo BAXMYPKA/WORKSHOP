@@ -2,7 +2,6 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.deploy.net.HttpResponse;
 import internal.service.JsonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;

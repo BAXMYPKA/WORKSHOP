@@ -13,7 +13,7 @@ import java.util.Collection;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
- * by implementing GrantedAuthority interface
+ * by implementing WorkshopGrantedAuthority interface
  */
 @Getter
 @Setter
@@ -26,7 +26,7 @@ import java.util.Collection;
 public class Position extends Trackable implements GrantedAuthority {
 	
 	/**
-	 * Also uses as the GrantedAuthority name
+	 * Also uses as the WorkshopGrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")

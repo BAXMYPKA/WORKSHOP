@@ -38,7 +38,7 @@ public class OrdersService {
 	 * @param order ENUM from Sort.Direction with "ASC" or "DESC" values
 	 * @return
 	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<List<Order>> findAllOrders(int pageSize, int pageNum, String orderBy, Sort.Direction order)
 		throws IllegalArgumentException {
 		pageSize = pageSize <= 0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
@@ -64,7 +64,7 @@ public class OrdersService {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<Order> findAllOrders(Pageable pageable, String orderBy) throws IllegalArgumentException {
 		int pageSize = pageable.getPageSize() < 0 || pageable.getPageSize() > PAGE_SIZE ? PAGE_SIZE : pageable.getPageSize();
 		int pageNum = pageable.getPageNumber() <= 0 || pageable.getPageNumber() > MAX_PAGE_NUM ? 1 :
@@ -89,7 +89,7 @@ public class OrdersService {
 		}
 	}
 	
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<Order> findById(long id) {
 		if (id <= 0){
 			throw new IllegalArgumentException("id cannot by 0 or below!");
@@ -102,7 +102,6 @@ public class OrdersService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Optional<Order> persistOrder(Order order)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
-		//TODO: to get Authentication as an Employee or User and set to createdBy or modifiedBy
 		if (order == null){
 			throw new IllegalArgumentException("Order cannot by null!");
 		}

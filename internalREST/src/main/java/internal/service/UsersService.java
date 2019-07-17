@@ -26,7 +26,7 @@ public class UsersService {
 	 *                     the User by one of those fields.
 	 * @return Optional.ofNullable
 	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<User> findByLogin(String emailOrPhone) {
 		Optional user = usersDao.findByEmail(emailOrPhone).isPresent() ? usersDao.findByEmail(emailOrPhone) :
 			usersDao.findByPhone(emailOrPhone);

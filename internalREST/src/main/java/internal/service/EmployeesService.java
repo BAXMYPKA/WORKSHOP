@@ -19,7 +19,7 @@ public class EmployeesService {
 	@Autowired
 	EmployeesDao employeesDao;
 	
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<Employee> findByEmail(String email) throws IllegalArgumentException {
 		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Email cannot be null or empty!");

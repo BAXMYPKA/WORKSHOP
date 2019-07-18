@@ -138,6 +138,15 @@
 			<version>0.10.6</version>
 		</dependency>
 		
+		<!--	========== TO JCACHE WORK ============	-->
+		<!--	As hibernate 5.3... uses Ehcache 3.0... it must implement JCache java interface	-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jcache -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jcache</artifactId>
+			<version>5.3.10.Final</version>
+		</dependency>
+		
 		<!--	======== TESTS =========	-->
 		
 		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->

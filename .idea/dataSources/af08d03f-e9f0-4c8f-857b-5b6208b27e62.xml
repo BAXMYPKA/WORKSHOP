@@ -44,7 +44,7 @@
     </column>
     <column id="22" parent="7" name="DESCRIPTION">
       <Position>3</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>VARCHAR(254)|12s</DataType>
     </column>
     <index id="23" parent="7" name="PRIMARY_KEY_7">
       <NameSurrogate>1</NameSurrogate>

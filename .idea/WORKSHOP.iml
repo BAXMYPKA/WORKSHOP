@@ -54,7 +54,6 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:2.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.1.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.1.7.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.1.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-integration:2.1.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.integration:spring-integration-core:5.1.5.RELEASE" level="project" />
@@ -166,6 +165,23 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-jcache:5.3.10.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.cache:cache-api:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.ehcache.modules:ehcache-107:3.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ehcache.modules:ehcache-api:3.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache.modules:ehcache-impl:3.7.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache.modules:ehcache-core:3.7.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.terracotta:offheap-store:2.4.3" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache:sizeof:0.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ehcache.modules:ehcache-xml:3.7.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.glassfish.jaxb:txw2:2.3.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.jvnet.staxex:stax-ex:1.8" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.terracotta:statistics:2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ehcache.modules:ehcache-management:3.7.1" level="project" />
+    <orderEntry type="library" name="Maven: org.terracotta.management:management-registry:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.terracotta.management:management-model:2.5.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.1.1" level="project" />

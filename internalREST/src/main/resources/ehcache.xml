@@ -9,14 +9,28 @@
 	<service>
 		<jsr107:defaults default-template="standard-cache" enable-statistics="true"/>
 	</service>
-	<persistence directory="${java.io.tmpdir}/workshop-ehcache/" />
+	<persistence directory="${java.io.tmpdir}/workshop-ehcache/"/>
 	
 	<cache-template name="standard-cache">
 		<expiry>
-			<ttl unit="minutes">15</ttl>
+			<tti unit="minutes">15</tti>
 		</expiry>
+		
+		<listeners>
+			<listener>
+				<class>internal.entities.cache.CachesListener</class>
+				<event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+				<event-ordering-mode>UNORDERED</event-ordering-mode>
+				<events-to-fire-on>CREATED</events-to-fire-on>
+				<events-to-fire-on>UPDATED</events-to-fire-on>
+				<events-to-fire-on>REMOVED</events-to-fire-on>
+				<events-to-fire-on>EVICTED</events-to-fire-on>
+				<events-to-fire-on>EXPIRED</events-to-fire-on>
+			</listener>
+		</listeners>
+		
 		<resources>
-			<heap unit="entries" >2000</heap>
+			<heap unit="entries">2000</heap>
 			<offheap unit="MB">100</offheap>
 			<disk persistent="true" unit="MB">200</disk>
 		</resources>

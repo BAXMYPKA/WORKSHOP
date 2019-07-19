@@ -2,16 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_107_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_api_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_core_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_impl_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_management_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_xml_3_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_sizeof_0_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_offheap_store_2_4_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_statistics_2_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/testInit.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/resources/testInit.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -70,29 +87,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="12" />
+            <state relative-caret-position="740">
+              <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#EntitiesCacheIT#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="994">
-              <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+            <state relative-caret-position="70">
+              <caret line="5" column="112" selection-start-line="5" selection-start-column="112" selection-end-line="5" selection-end-column="112" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
+            <state relative-caret-position="-210">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
@@ -100,17 +121,64 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="826">
-              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="482">
+              <caret line="56" column="141" lean-forward="true" selection-start-line="56" selection-start-column="141" selection-end-line="56" selection-end-column="141" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="-392">
+              <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+              <folding>
+                <element signature="docComment;class#Trackable#0" expanded="true" />
+                <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
+                <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/cache/CachesListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+              <folding>
+                <element signature="docComment;class#CachesListener#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="28">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -118,17 +186,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1974">
-              <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="496">
+              <caret line="164" selection-start-line="158" selection-end-line="164" />
             </state>
           </provider>
         </entry>
@@ -185,11 +244,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Creation.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/CreationCheck.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/TasksService.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ClassifiersDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UsersAuthenticationProvider.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/UsersDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UsersDetailsService.java" />
@@ -198,11 +252,8 @@
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersValidationIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/messages.properties" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/CreationCheck.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceCheck.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/GrantedAuthority.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesDetailsService.java" />
@@ -230,12 +281,20 @@
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EmployeesService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/UsersService.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/AppConfiguration.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/cache/CachesListener.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/cache/CachesListener.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/resources/testInit.sql" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" />
       </list>
     </option>
   </component>
@@ -339,6 +398,37 @@
               <item name="internalREST" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+              <item name="cache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -374,6 +464,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="internal" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -408,7 +517,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/internalREST/src/test/java/resources" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -448,7 +557,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.Internal">
+  <component name="RunManager" selected="JUnit.EntitiesCacheIT.cache_Orders">
     <configuration name="ControllersBeanValidationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -464,64 +573,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DaoIT.context_Initialization" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.ControllersBeanValidationIT" />
-      <option name="METHOD_NAME" value="persist_New_Entities_With_Errors_With_CascadeType_Persist" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.DaoIT" />
+      <option name="METHOD_NAME" value="context_Initialization" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrdersControllerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.OrdersControllerIT" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesCacheIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrdersControllerIT.post_Correct_Order_as_Json_After_Persisting_Returns_Created201_HttpStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesCacheIT.cache_Orders" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.OrdersControllerIT" />
-      <option name="METHOD_NAME" value="post_Correct_Order_as_Json_After_Persisting_Returns_Created201_HttpStatus" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesCacheIT" />
+      <option name="METHOD_NAME" value="cache_Orders" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrdersControllerIT.post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesCacheIT.init" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.OrdersControllerIT" />
-      <option name="METHOD_NAME" value="post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message(java.lang.String)" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesCacheIT" />
+      <option name="METHOD_NAME" value="init" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -538,20 +647,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.OrdersControllerIT" />
-      <item itemvalue="JUnit.OrdersControllerIT.post_Correct_Order_as_Json_After_Persisting_Returns_Created201_HttpStatus" />
-      <item itemvalue="JUnit.OrdersControllerIT.post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message" />
       <item itemvalue="JUnit.ControllersBeanValidationIT" />
-      <item itemvalue="JUnit.ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.EntitiesCacheIT.init" />
+      <item itemvalue="JUnit.EntitiesCacheIT" />
+      <item itemvalue="JUnit.DaoIT.context_Initialization" />
+      <item itemvalue="JUnit.EntitiesCacheIT.cache_Orders" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EntitiesCacheIT.cache_Orders" />
+        <item itemvalue="JUnit.EntitiesCacheIT.init" />
+        <item itemvalue="JUnit.EntitiesCacheIT" />
+        <item itemvalue="JUnit.DaoIT.context_Initialization" />
         <item itemvalue="JUnit.ControllersBeanValidationIT" />
-        <item itemvalue="JUnit.ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" />
-        <item itemvalue="JUnit.OrdersControllerIT" />
-        <item itemvalue="JUnit.OrdersControllerIT.post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message" />
-        <item itemvalue="JUnit.OrdersControllerIT.post_Correct_Order_as_Json_After_Persisting_Returns_Created201_HttpStatus" />
       </list>
     </recent_temporary>
   </component>
@@ -626,48 +735,47 @@
       <workItem from="1563170871241" duration="24655000" />
       <workItem from="1563381808998" duration="4002000" />
       <workItem from="1563465569508" duration="5414000" />
-      <workItem from="1563516150820" duration="6096000" />
+      <workItem from="1563516150820" duration="23789000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="OrdersControllerIT_post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message - 2019.07.15 at 17h 23m 21s.xml">
-      <configuration name="OrdersControllerIT.post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 33m 28s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="OrdersControllerIT_post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message - 2019.07.15 at 17h 24m 03s.xml">
-      <configuration name="OrdersControllerIT.post_Empty_or_Incorrect_Json_Returns_Bad_Request_Response_With_Predefined_Message" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 34m 57s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="OrdersControllerIT - 2019.07.15 at 17h 24m 20s.xml">
-      <configuration name="OrdersControllerIT" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 37m 17s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT - 2019.07.15 at 17h 50m 26s.xml">
-      <configuration name="ControllersBeanValidationIT" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 38m 29s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT_persist_New_Entities_With_Errors_With_CascadeType_Persist - 2019.07.15 at 17h 50m 46s.xml">
-      <configuration name="ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 39m 30s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT_persist_New_Entities_With_Errors_With_CascadeType_Persist - 2019.07.15 at 17h 52m 57s.xml">
-      <configuration name="ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 42m 55s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT_persist_New_Entities_With_Errors_With_CascadeType_Persist - 2019.07.15 at 17h 53m 25s.xml">
-      <configuration name="ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 44m 22s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT_persist_New_Entities_With_Errors_With_CascadeType_Persist - 2019.07.15 at 17h 54m 15s.xml">
-      <configuration name="ControllersBeanValidationIT.persist_New_Entities_With_Errors_With_CascadeType_Persist" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 52m 55s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT - 2019.07.15 at 17h 54m 42s.xml">
-      <configuration name="ControllersBeanValidationIT" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 54m 27s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ControllersBeanValidationIT - 2019.07.17 at 19h 49m 04s.xml">
-      <configuration name="ControllersBeanValidationIT" configurationId="JUnit" />
+    <history-entry file="EntitiesCacheIT_cache_Orders - 2019.07.19 at 17h 56m 28s.xml">
+      <configuration name="EntitiesCacheIT.cache_Orders" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="746519000" />
+    <option name="totallyTimeSpent" value="764212000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
@@ -676,24 +784,24 @@
       <window_info id="Structure" order="4" sideWeight="0.40620154" side_tool="true" weight="0.18756586" />
       <window_info id="Bean Validation" order="5" sideWeight="0.50085473" side_tool="true" weight="0.32950923" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.59379846" visible="true" weight="0.1670179" />
-      <window_info id="Database" order="8" sideWeight="0.5555556" weight="0.18518518" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.59379846" visible="true" weight="0.1670179" />
+      <window_info id="Database" order="8" sideWeight="0.5555556" weight="0.1849315" />
       <window_info id="Maven" order="9" sideWeight="0.4234079" weight="0.14857745" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3251282" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49897048" visible="true" weight="0.33641025" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49897048" weight="0.33641025" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.2723962" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.2717949" />
       <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.4923077" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010295" side_tool="true" weight="0.27225673" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32923076" />
-      <window_info anchor="bottom" auto_hide="true" id="Messages" order="12" weight="0.19519301" />
+      <window_info anchor="bottom" auto_hide="true" id="Messages" order="12" weight="0.1948718" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32923076" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32712215" />
@@ -746,18 +854,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java</url>
-          <line>107</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -768,44 +864,6 @@
     </SUITE>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.7.RELEASE/spring-web-5.1.7.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_212/src.zip!/java/util/stream/ReferencePipeline.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="2" column="27" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="62" column="39" lean-forward="true" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding>
-            <element signature="docComment;class#Classifier#0" expanded="true" />
-            <element signature="e#1187#1416#0" />
-            <element signature="docComment;field#isOfficial#0;class#Classifier#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UsersDetailsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" column="50" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#loadUserByUsername#0;class#UsersDetailsService#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/5.1.5.RELEASE/spring-security-core-5.1.5.RELEASE.jar!/org/springframework/security/core/userdetails/UserDetails.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -841,18 +899,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="768">
           <caret line="137" column="47" selection-start-line="137" selection-start-column="47" selection-end-line="137" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="29" column="14" lean-forward="true" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-          <folding>
-            <element signature="docComment;class#Trackable#0" expanded="true" />
-            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
-            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -953,25 +999,6 @@
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.7.RELEASE/spring-core-5.1.7.RELEASE-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="193" selection-start-line="193" selection-end-line="193" />
-          <folding>
-            <element signature="e#0#57#1" expanded="true" />
-            <element signature="docComment;method#persistEntity#0;class#DaoAbstract#0" expanded="true" />
-            <element signature="e#7548#7739#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="532">
@@ -1106,17 +1133,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="994">
-          <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+        <state relative-caret-position="210">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1127,31 +1147,113 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="826">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="228">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+          <folding>
+            <element signature="e#0#57#1" expanded="true" />
+            <element signature="docComment;method#persistEntity#0;class#DaoAbstract#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="-210">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1974">
-          <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
+        <state relative-caret-position="496">
+          <caret line="164" selection-start-line="158" selection-end-line="164" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="28">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/cache/CachesListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="56">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+          <folding>
+            <element signature="docComment;class#CachesListener#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/testInit.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/import.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="133" column="111" selection-start-line="128" selection-end-line="133" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="5" column="112" selection-start-line="5" selection-start-column="112" selection-end-line="5" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="56" column="141" lean-forward="true" selection-start-line="56" selection-start-column="141" selection-end-line="56" selection-end-column="141" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-392">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="28" column="7" lean-forward="true" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+          <folding>
+            <element signature="docComment;class#Trackable#0" expanded="true" />
+            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
+            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#EntitiesCacheIT#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1212,6 +1314,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

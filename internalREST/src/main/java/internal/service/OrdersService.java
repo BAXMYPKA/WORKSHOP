@@ -13,7 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheResult;
 import javax.naming.AuthenticationNotSupportedException;
+import javax.persistence.Cacheable;
 import javax.persistence.PersistenceException;
 import java.util.Collections;
 import java.util.List;
@@ -98,6 +101,7 @@ public class OrdersService {
 		Optional<Order> order = ordersDao.findById(id);
 		return order;
 	}
+	
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Optional<Order> persistOrder(Order order)

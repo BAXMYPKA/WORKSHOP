@@ -138,7 +138,7 @@
 			<version>0.10.6</version>
 		</dependency>
 		
-		<!--	========== TO JCACHE WORK ============	-->
+		<!--	========== TO EHCACHE AS JCACHE AS A CACHE PROVIDER FOR HIBERNATE WORKS ============	-->
 		<!--	As hibernate 5.3... uses Ehcache 3.0... it must implement JCache java interface	-->
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jcache -->
 		<dependency>

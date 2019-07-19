@@ -19,5 +19,4 @@ public class InternalApplication {
 	public Server h2Server() throws SQLException {
 		return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9092");
 	}
-
 }

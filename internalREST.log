@@ -152,4 +152,9 @@ Caused by: java.lang.ClassNotFoundException: Could not load requested class : or
 -23:41:346 - WARN 16780 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 -23:42:269 - INFO 16780 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 5.704 seconds (JVM running for 6.717)
 -23:49:627 - WARN 16780 --- [Thread-21] org.hibernate.orm.cache                  : HHH90001002: Attempt to restop an already stopped JCacheRegionFactory.
+-43:59:111 - INFO 11704 --- [restartedMain] internal.InternalApplication             : Starting InternalApplication on HP-CZC7328ST8 with PID 11704 (started by Dmitriy.Shumarov in E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP)
+-43:59:114 - INFO 11704 --- [restartedMain] internal.InternalApplication             : No active profile set, falling back to default profiles: default
+-44:04:346 - WARN 11704 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-44:05:634 - INFO 11704 --- [restartedMain] internal.InternalApplication             : Started InternalApplication in 6.896 seconds (JVM running for 8.7)
+-44:23:418 - WARN 11704 --- [Thread-10] org.hibernate.orm.cache                  : HHH90001002: Attempt to restop an already stopped JCacheRegionFactory.
 -

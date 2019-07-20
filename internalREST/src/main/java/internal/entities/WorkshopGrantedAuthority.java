@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -24,6 +25,8 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id", "authority"})
 @JsonIgnoreProperties(value = {"users"}, allowSetters = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity(name = "Granted_Authority")
 @Table(name = "Granted_Authorities", schema = "EXTERNAL")
 public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthority {

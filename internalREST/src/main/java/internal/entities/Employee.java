@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -21,6 +22,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"email"})
 @JsonIgnoreProperties(value = {"appointedTasks", "ordersModifiedBy", "ordersCreatedBy", "tasksModifiedBy", "tasksCreatedBy"})
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({

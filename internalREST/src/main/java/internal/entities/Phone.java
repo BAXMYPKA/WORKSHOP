@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -22,6 +23,8 @@ import java.io.Serializable;
 @EqualsAndHashCode(of = {"id", "phone"})
 @ToString(of = {"id", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone implements WorkshopEntity, Serializable {
 	

@@ -5,6 +5,7 @@ import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -23,6 +24,8 @@ import java.util.Collection;
 @EqualsAndHashCode(of = {"id", "name"})
 @ToString(of = {"id", "name"})
 @JsonIgnoreProperties(value = {"positions"})
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "Departments", schema = "INTERNAL")
 public class Department implements WorkshopEntity, Serializable {

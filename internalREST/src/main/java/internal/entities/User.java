@@ -3,6 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -29,6 +30,8 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "email", "firstName"})
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
 public class User implements WorkshopEntity, Serializable {

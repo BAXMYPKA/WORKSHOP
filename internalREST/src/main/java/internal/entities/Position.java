@@ -3,6 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -20,6 +21,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"name", "department"})
 @JsonIgnoreProperties(value = {"department"}, allowGetters = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))

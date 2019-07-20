@@ -1,6 +1,5 @@
 package internal.dao;
 
-import internal.entities.Employee;
 import internal.entities.Order;
 import internal.entities.Task;
 import internal.service.OrdersService;
@@ -136,29 +135,39 @@ public class EntitiesCacheIT {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		SessionFactory sessionFactory = entityManager.getEntityManagerFactory().unwrap(SessionFactory.class);
 		Statistics statistics = sessionFactory.getStatistics();
-		//Tasks are equals as Tasks but not as Objects as they will be retrieved by different transactions
-		List<Task> tasksObjects = new ArrayList<>(4);
+		//Tasks are equals as Tasks but not as Objects as they will be retrieved by different transactions (sessions)
+		//as every transaction returns a different (!==) object. Unlike within a single Hibernate session.
+		Map<Task, Integer> tasksObjects = new IdentityHashMap<>(4);
 		
-		//WHEN create sessions 'repeat'-times, get the same Task and put in into List
+		//WHEN
+		//Create sessions 'repeat'-times, get the same Task and put in into IdentityHashMap
 		for (int count = 0; count < repeat; count++) {
 			entityManager.getTransaction().begin();
 			Task task = entityManager.find(Task.class, 10511L);
 			assertNotNull(task);
-			tasksObjects.add(task);
+			tasksObjects.put(task, repeat);
 			entityManager.getTransaction().commit();
+			//To eliminate Hibernate session first-level cache
+			entityManager.close();
+			entityManager = entityManagerFactory.createEntityManager();
 		}
 		
 		//THEN
 		//taskObjects must contain 'repeat' amount of Tasks
-		assertEquals(repeat, tasksObjects.size());
-		
-		Collections.reverse(tasksObjects);
+		Set<Task> identityTasksSet = tasksObjects.keySet();
+		assertEquals(repeat, identityTasksSet.size());
+		//Hibernate second-level cache must contain the Task region
 		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains("internal.entities.Task"));
-//		assertEquals(repeat, statistics.getSecondLevelCacheRegionNames());
+		//The Task was put in the second-level cache only once
+		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getPutCount());
+		//And only that first time there was a miss (as the cache was empty)
+		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getMissCount());
+		//And only if the repeat more than once, the subsequent transactions (sessions) hit the cache successful
+		assertEquals(repeat-1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getHitCount());
 	}
 	
 	@AfterEach
-	@DisplayName("Clears all the Database and Hibernate Sessions Statistics")
+	@DisplayName("Clears all the Database, the second-level cache and Hibernate Sessions Statistics.")
 	private void tearDownDatabase() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		

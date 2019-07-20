@@ -14,7 +14,6 @@ public class CachesListener implements CacheEventListener<Object, Object> {
 	
 	@Override
 	public void onEvent(CacheEvent<? extends Object, ? extends Object> cacheEvent) {
-		System.out.println("CACHE: "+cacheEvent.getType());
 		log.trace("Ehcache event: {}", cacheEvent.getType());
 	}
 }

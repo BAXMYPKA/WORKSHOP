@@ -62,7 +62,7 @@ public class Employee extends Trackable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<@Valid Phone> phones;
 	
 	@JsonIgnore

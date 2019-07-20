@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = {"id"})
 @JsonIgnoreProperties(value = {"createdBy", "modifiedBy"}, allowGetters = true)
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MappedSuperclass
 public abstract class Trackable implements WorkshopEntity, Serializable {
 	

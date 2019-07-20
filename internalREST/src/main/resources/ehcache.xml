@@ -9,6 +9,7 @@
 	<service>
 		<jsr107:defaults default-template="standard-cache" enable-statistics="true"/>
 	</service>
+	
 	<persistence directory="${java.io.tmpdir}/workshop-ehcache/"/>
 	
 	<cache-template name="standard-cache">

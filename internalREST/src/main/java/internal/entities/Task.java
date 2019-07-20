@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -28,6 +29,8 @@ import java.util.stream.Stream;
 @ToString(callSuper = true, of = {"price", "appointedTo"})
 @EqualsAndHashCode(callSuper = true, of = {"order", "name", "deadline"})
 @JsonIgnoreProperties(value = {"order"}, allowGetters = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {

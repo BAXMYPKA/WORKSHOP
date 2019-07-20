@@ -23,6 +23,8 @@ import java.util.Set;
 @ToString(callSuper = true, of = {"createdFor"})
 //@JsonIgnoreProperties(value = {"tasks", "createdFor"}, allowGetters = true)
 //@JsonIgnoreProperties(value = {"tasks"}, allowGetters = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order extends Trackable {

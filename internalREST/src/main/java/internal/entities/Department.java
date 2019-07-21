@@ -36,8 +36,6 @@ public class Department implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
 	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private long id;
 	
@@ -46,13 +44,12 @@ public class Department implements WorkshopEntity, Serializable {
 	private String name;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
 		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Position> positions;
 	
-	public Department(@NotBlank(
-		groups = {Default.class, PersistenceCheck.class, UpdationCheck.class},
-		message = "{validation.notBlank}") String name) {
+	public Department(String name) {
 		this.name = name;
 	}
 }

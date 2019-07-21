@@ -3,8 +3,6 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +11,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import javax.validation.groups.Default;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
 @Getter
@@ -34,8 +32,6 @@ public class Phone implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private long id;
 	
@@ -48,7 +44,6 @@ public class Phone implements WorkshopEntity, Serializable {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
-//	@NotBlank(groups = {PersistenceCheck.class}, message = "{validation.notBlank}")
 	@Pattern(regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$", message = "{validation.phone}")
 	private String phone;
 	

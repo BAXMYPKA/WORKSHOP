@@ -14,6 +14,8 @@ import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * Class to be only extended by Entities in the 'INTERNAL' schema
@@ -36,22 +38,20 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	@PositiveOrZero(groups = Default.class, message = "{validation.positiveOrZero}")
 	private long id;
 	
 	@Column(nullable = false, updatable = false)
 	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
-	private LocalDateTime created;
+	private ZonedDateTime created;
 	
 	@Column
 	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
-	private LocalDateTime modified;
+	private ZonedDateTime modified;
 	
 	@Column
 	@PastOrPresent(message = "{validation.pastOrPresent}")
-	private LocalDateTime finished;
+	private ZonedDateTime finished;
 	
 	/**
 	 * Sets automatically in the DaoAbstract.persistEntity() if an Employee is presented in the SecurityContext.
@@ -81,12 +81,12 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	 */
 	@PrePersist
 	public void prePersist() throws IllegalArgumentException {
-		this.created = LocalDateTime.now();
+		this.created = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
 	}
 	
 	@PreUpdate
 	public void preUpdate() throws IllegalArgumentException {
-		this.modified = LocalDateTime.now();
+		this.modified = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
 	}
 	
 	@Override

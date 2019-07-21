@@ -14,6 +14,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,8 +22,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"createdFor"})
-//@JsonIgnoreProperties(value = {"tasks", "createdFor"}, allowGetters = true)
-//@JsonIgnoreProperties(value = {"tasks"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -32,7 +31,7 @@ public class Order extends Trackable {
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
-	private LocalDateTime deadline;
+	private ZonedDateTime deadline;
 	
 	@Column
 	private String description;
@@ -50,6 +49,7 @@ public class Order extends Trackable {
 	
 	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Task> tasks;
@@ -63,7 +63,7 @@ public class Order extends Trackable {
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
 	@Builder
-	public Order(Employee createdBy, LocalDateTime deadline, String description, User createdFor, Set<Task> tasks) {
+	public Order(Employee createdBy, ZonedDateTime deadline, String description, User createdFor, Set<Task> tasks) {
 		super(createdBy);
 		this.deadline = deadline;
 		this.description = description;
@@ -78,6 +78,7 @@ public class Order extends Trackable {
 	 * fixed price.
 	 * If you only want to add a new Task with an only addition its price to overallPrice, use Order.addTask() method.
 	 * To remove a one Task with proper price subtraction use Order.deleteTask()
+	 *
 	 * @param tasks new Tasks to recalculate all
 	 */
 	public void setTasks(Set<@Valid Task> tasks) {
@@ -87,10 +88,11 @@ public class Order extends Trackable {
 	
 	/**
 	 * Add a Task and adds its price to the Order.overallPrice
+	 *
 	 * @param task
 	 */
 	public void addTask(@Valid Task task) {
-		if (tasks == null){
+		if (tasks == null) {
 			tasks = new HashSet<>(3);
 		}
 		tasks.add(task);
@@ -99,6 +101,7 @@ public class Order extends Trackable {
 	
 	/**
 	 * Deletes the Task with the subtraction its price from Order.overallPrice
+	 *
 	 * @param task
 	 */
 	public void deleteTask(@Valid Task task) {
@@ -112,7 +115,7 @@ public class Order extends Trackable {
 	 */
 	@PrePersist
 	@Override
-	public void prePersist(){
+	public void prePersist() {
 		super.prePersist();
 		recalculateOverallPrice();
 	}
@@ -128,7 +131,7 @@ public class Order extends Trackable {
 	}
 	
 	private void recalculateOverallPrice() throws IllegalArgumentException {
-		if (tasks != null && !tasks.isEmpty()){ //Sets the sum of all included Task's prices
+		if (tasks != null && !tasks.isEmpty()) { //Sets the sum of all included Task's prices
 			setOverallPrice(getTasks().stream().map(Task::getPrice).reduce((a, b) -> a.add(b)).orElseThrow(
 				() -> new IllegalArgumentException("Task prices cannot be null!")));
 		}

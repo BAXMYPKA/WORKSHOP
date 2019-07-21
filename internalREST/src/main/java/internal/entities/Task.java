@@ -4,20 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -40,7 +37,7 @@ public class Task extends Trackable {
 	
 	@Column
 	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
-	private LocalDateTime deadline;
+	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
@@ -52,6 +49,7 @@ public class Task extends Trackable {
 	 * Validation note: this field is validated by setters
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
@@ -146,14 +144,5 @@ public class Task extends Trackable {
 	@Override
 	public void preUpdate() {
 		super.preUpdate();
-/*
-		if (classifiers == null || classifiers.isEmpty()) {
-			price = new BigDecimal(0);
-		} else {
-			price = new BigDecimal(0);
-			setPrice(classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal::add).orElseThrow(
-				  () -> new IllegalArgumentException("One or more Classifiers don't contain the price!")));
-		}
-*/
 	}
 }

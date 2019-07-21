@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -40,16 +42,16 @@ class JsonServiceTest {
 		positionOne.setId(222);
 		positionOne.setName("The Position One");
 		positionOne.setDescription("The description");
-		positionOne.setCreated(LocalDateTime.of(2019, 6, 15, 12, 35, 45, 0));
-		positionOne.setModified(LocalDateTime.now().minusMinutes(5));
+		positionOne.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.of("UTC")));
+		positionOne.setModified(ZonedDateTime.now().minusMinutes(5).withZoneSameInstant(ZoneId.of("UTC")));
 		positionOne.setDepartment(department);
 		
 		positionTwo = new Position();
 		positionTwo.setId(333);
 		positionTwo.setName("The Position Two");
 		positionTwo.setDescription("The second description");
-		positionTwo.setCreated(LocalDateTime.of(2019, 7, 20, 14, 40, 55, 0));
-		positionTwo.setModified(LocalDateTime.now().minusMinutes(5));
+		positionTwo.setCreated(ZonedDateTime.of(2019, 7, 20, 14, 40, 55, 0, ZoneId.of("UTC")));
+		positionTwo.setModified(ZonedDateTime.now().minusMinutes(5).withZoneSameInstant(ZoneId.of("UTC")));
 		positionTwo.setDepartment(department);
 	}
 	
@@ -83,7 +85,7 @@ class JsonServiceTest {
 			() -> assertTrue(jsonedPosition.contains("\"id\":2")),
 			() -> assertTrue(jsonedPosition.contains("\"name\":\"The Position One\"")),
 			() -> assertTrue(jsonedPosition.contains("\"description\":\"The description\"")),
-			() -> assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45\"")),
+			() -> assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45Z\"")),
 			() -> assertTrue(jsonedPosition.contains("\"finished\":null")),
 			() -> assertFalse(jsonedPosition.contains(departmentInPosition)),
 			() -> assertFalse(jsonedPosition.contains("\"authority\":\"The Position One\""))
@@ -95,7 +97,9 @@ class JsonServiceTest {
 	 */
 	@ParameterizedTest
 	@MethodSource("entitiesStream")
-	@DisplayName("Every simple Entity (without deep graph) can be converted to JSON and back to the Entity")
+	@DisplayName("Every simple Entity (without deep graph) can be converted to JSON and back to the Entity"+
+		"Entities as Objects and as Jsoned Objects are save original TimeZone," +
+		"but after deserialization UTC will be returned.")
 	public void every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back(WorkshopEntity originalEntity)
 		throws IOException {
 		//GIVEN incoming Stream.of Entities from "entitiesStream" method
@@ -115,7 +119,8 @@ class JsonServiceTest {
 					((Classifier) originalEntity).getName(), ((Classifier) deserializedEntity).getName()
 				),
 				() -> assertEquals(
-					((Classifier) originalEntity).getCreated(), ((Classifier) deserializedEntity).getCreated()
+					((Classifier) originalEntity).getCreated().withZoneSameInstant(ZoneId.of("UTC")),
+					((Classifier) deserializedEntity).getCreated()
 				)
 			);
 		} else if ("Department".equals(originalEntity.getClass().getSimpleName())) {
@@ -127,7 +132,8 @@ class JsonServiceTest {
 					((Position) originalEntity).getDescription(), ((Position) deserializedEntity).getDescription()
 				),
 				() -> assertEquals(
-					((Position) originalEntity).getCreated(), ((Position) deserializedEntity).getCreated()
+					((Position) originalEntity).getCreated().withZoneSameInstant(ZoneId.of("UTC")),
+					((Position) deserializedEntity).getCreated()
 				)
 			);
 		} else if ("Task".equals(originalEntity.getClass().getSimpleName())) {
@@ -136,7 +142,8 @@ class JsonServiceTest {
 					((Task) originalEntity).getName(), ((Task) deserializedEntity).getName()
 				),
 				() -> assertEquals(
-					((Task) originalEntity).getDeadline(), ((Task) deserializedEntity).getDeadline()
+					((Task) originalEntity).getDeadline().withZoneSameInstant(ZoneId.of("UTC")),
+					((Task) deserializedEntity).getDeadline()
 				)
 			);
 		} else if ("Phone".equals(originalEntity.getClass().getSimpleName())) {
@@ -214,13 +221,14 @@ class JsonServiceTest {
 	}
 	
 	@Test
-	@DisplayName("LocalDateTime has to be converted to JSON and back without issues")
-	public void LocalDateTime_converts_vise_versa() throws IOException {
+	@DisplayName("ZonedDateTime has to be converted to JSON and back without issues."+
+		"JsonService saves original TimeZone but returns the UTC value!")
+	public void zonedDateTime_converts_vise_versa() throws IOException {
 		//GIVEN
 		positionOne = new Position();
 		positionOne.setName("PositionOne");
-		positionOne.setCreated(LocalDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0));
-		positionOne.setModified(LocalDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0));
+		positionOne.setCreated(ZonedDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.systemDefault()));
+		positionOne.setModified(ZonedDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.systemDefault()));
 		
 		//WHEN convert Entity to JSON and back
 		String jsonedPosition = jsonService.convertEntityToJson(positionOne);
@@ -229,9 +237,9 @@ class JsonServiceTest {
 		//THEN
 		assertAll(
 			() -> assertEquals(position.getCreated(),
-				LocalDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0)),
+				ZonedDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.of("UTC"))),
 			() -> assertEquals(position.getModified(),
-				LocalDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0))
+				ZonedDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.of("UTC")))
 		);
 	}
 	
@@ -332,22 +340,22 @@ class JsonServiceTest {
 		position1.setId(200);
 		position1.setName("The Position 1");
 		position1.setDescription("The description 1");
-		position1.setCreated(LocalDateTime.of(2017, 6, 15, 12, 35, 45, 0));
-		position1.setModified(LocalDateTime.now().minusMinutes(5));
+		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position1.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position2 = new Position();
 		position2.setId(201);
 		position2.setName("The Position 2");
 		position2.setDescription("The description 2");
-		position2.setCreated(LocalDateTime.of(2018, 6, 15, 12, 35, 45, 0));
-		position2.setModified(LocalDateTime.now().minusMinutes(5));
+		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position2.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position3 = new Position();
 		position3.setId(202);
 		position3.setName("The Position 3");
 		position3.setDescription("The description 3");
-		position3.setCreated(LocalDateTime.of(2016, 6, 15, 12, 35, 45, 0));
-		position3.setModified(LocalDateTime.now().minusMinutes(5));
+		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position3.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		
 		//WHEN serialize and deserialize back
@@ -406,22 +414,22 @@ class JsonServiceTest {
 		position1.setId(200);
 		position1.setName("The Position 1");
 		position1.setDescription("The description 1");
-		position1.setCreated(LocalDateTime.of(2017, 6, 15, 12, 35, 45, 0));
-		position1.setModified(LocalDateTime.now().minusMinutes(5));
+		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position1.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position2 = new Position();
 		position2.setId(201);
 		position2.setName("The Position 2");
 		position2.setDescription("The description 2");
-		position2.setCreated(LocalDateTime.of(2018, 6, 15, 12, 35, 45, 0));
-		position2.setModified(LocalDateTime.now().minusMinutes(5));
+		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position2.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position3 = new Position();
 		position3.setId(202);
 		position3.setName("The Position 3");
 		position3.setDescription("The description 3");
-		position3.setCreated(LocalDateTime.of(2016, 6, 15, 12, 35, 45, 0));
-		position3.setModified(LocalDateTime.now().minusMinutes(5));
+		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position3.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		department1.setPositions(new ArrayList<Position>(Arrays.asList(position1, position2)));
 		department2.setPositions(new ArrayList<Position>(Arrays.asList(position3)));
@@ -469,7 +477,7 @@ class JsonServiceTest {
 		classifier.setId(65);
 		classifier.setName("The Classifier");
 		classifier.setPrice(new BigDecimal("45.25"));
-		classifier.setCreated(LocalDateTime.now().minusMonths(5));
+		classifier.setCreated(ZonedDateTime.now().minusMonths(5));
 		
 		Department department = new Department();
 		department.setId(38);
@@ -479,16 +487,16 @@ class JsonServiceTest {
 		position.setId(2);
 		position.setName("The Position");
 		position.setDescription("The description");
-		position.setCreated(LocalDateTime.of(2019, 6, 15, 12, 35, 45, 0));
-		position.setModified(LocalDateTime.now().minusMinutes(5));
+		position.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Order order = new Order();
 		order.setId(10);
 		order.setDescription("Order desc");
 		order.setOverallPrice(new BigDecimal("333.22"));
-		order.setCreated(LocalDateTime.of(2019, 10, 13, 13, 45, 15));
-		order.setDeadline(LocalDateTime.now().plusDays(10));
-		order.setModified(LocalDateTime.now());
+		order.setCreated(ZonedDateTime.of(2019, 10, 13, 13, 45, 15, 0, ZoneId.systemDefault()));
+		order.setDeadline(ZonedDateTime.now().plusDays(10));
+		order.setModified(ZonedDateTime.now());
 		
 		Employee employee = new Employee();
 		employee.setId(23);
@@ -502,7 +510,7 @@ class JsonServiceTest {
 		task.setId(45);
 		task.setName("Task name");
 		task.setPrice(new BigDecimal("123.98"));
-		task.setDeadline(LocalDateTime.now().plusDays(15));
+		task.setDeadline(ZonedDateTime.now().plusDays(15));
 		
 		Phone phone = new Phone();
 		phone.setId(39);
@@ -513,8 +521,8 @@ class JsonServiceTest {
 		user.setId(100);
 		user.setEmail("user@workshop.pro");
 		user.setBirthday(LocalDate.now().minusYears(50));
-		user.setCreated(LocalDateTime.now().minusMonths(3));
-		user.setModified(LocalDateTime.now());
+		user.setCreated(ZonedDateTime.now().minusMonths(3));
+		user.setModified(ZonedDateTime.now());
 		user.setFirstName("First User Name");
 		user.setPassword("54321");
 		

@@ -27,6 +27,8 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -138,15 +140,15 @@ class ControllersBeanValidationIT {
 	public void persist_New_Entities_With_Errors_With_CascadeType_Persist() throws Exception {
 		//GIVEN
 		Order orderWithGraphErrors = new Order();
-		orderWithGraphErrors.setModified(LocalDateTime.now().minusHours(1)); //Null constraint violation
+		orderWithGraphErrors.setModified(ZonedDateTime.now().minusHours(1)); //Null constraint violation
 		
 		Classifier classifier = new Classifier();
 		classifier.setName(""); //NotBlank constraint violation
 		classifier.setPrice(new BigDecimal("-25.68"));//NegativeOrZero constraint violation
 		
 		Task task = new Task();
-		task.setDeadline(LocalDateTime.now()); //Future constraint violation
-		task.setCreated(LocalDateTime.now().plusMinutes(3)); //PresentOrPast constraint violation
+		task.setDeadline(ZonedDateTime.now()); //Future constraint violation
+		task.setCreated(ZonedDateTime.now().plusMinutes(3)); //PresentOrPast constraint violation
 		
 		Employee employee = new Employee();
 		employee.setEmail(null);
@@ -155,7 +157,7 @@ class ControllersBeanValidationIT {
 		
 		User user = new User();
 		user.setId(3); //If CascadeType.PERSIST - must be zero or null
-		user.setModified(LocalDateTime.now()); //Must by null while persisting as sets automatically
+		user.setModified(ZonedDateTime.now()); //Must by null while persisting as sets automatically
 		
 		Phone phone = new Phone();
 		phone.setId(2);
@@ -219,10 +221,10 @@ class ControllersBeanValidationIT {
 	public static Stream<Arguments> getSimpleEntitiesToPersistWithErrors() {
 		String ordersUri = "/internal/orders";
 		Order order = new Order();
-		order.setCreated(LocalDateTime.now().plusMinutes(1));
-		order.setModified(LocalDateTime.now().minusHours(1));
-		order.setFinished(LocalDateTime.now().plusMinutes(10));
-		order.setDeadline(LocalDateTime.now().minusMinutes(1));
+		order.setCreated(ZonedDateTime.now().plusMinutes(1));
+		order.setModified(ZonedDateTime.now().minusHours(1));
+		order.setFinished(ZonedDateTime.now().plusMinutes(10));
+		order.setDeadline(ZonedDateTime.now().minusMinutes(1));
 		order.setOverallPrice(new BigDecimal("-1.2"));
 		
 		
@@ -258,21 +260,21 @@ class ControllersBeanValidationIT {
 		Task task1ForOrder1 = new Task();
 		task1ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier2)));
 		task1ForOrder1.setAppointedTo(employee);
-		task1ForOrder1.setDeadline(LocalDateTime.of(2020, 10, 15, 10, 30));
+		task1ForOrder1.setDeadline(ZonedDateTime.of(2020, 10, 15, 10, 30, 0, 0, ZoneId.systemDefault()));
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
 //		task2ForOrder1.setId(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
-		task2ForOrder1.setDeadline(LocalDateTime.of(2020, 5, 12, 12, 30));
+		task2ForOrder1.setDeadline(ZonedDateTime.of(2020, 5, 12, 12, 30, 0, 0, ZoneId.systemDefault()));
 		task2ForOrder1.setName("Task two");
 		
 		Task task3ForOrder1 = new Task();
 		task3ForOrder1.setId(11);
 		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
 		task3ForOrder1.setAppointedTo(employee);
-		task3ForOrder1.setDeadline(LocalDateTime.of(2020, 12, 5, 15, 30));
+		task3ForOrder1.setDeadline(ZonedDateTime.of(2020, 12, 5, 15, 300, 0, 0, ZoneId.systemDefault()));
 		task3ForOrder1.setName("Task three");
 		
 		Order correctOrder1 = new Order();
@@ -280,7 +282,7 @@ class ControllersBeanValidationIT {
 //		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setCreatedFor(user);
-		correctOrder1.setDeadline(LocalDateTime.of(2020, 12, 12, 12, 55));
+		correctOrder1.setDeadline(ZonedDateTime.of(2020, 12, 12, 12, 550, 0, 0, ZoneId.systemDefault()));
 		
 		return correctOrder1;
 	}

@@ -43,18 +43,20 @@ public class Position extends Trackable implements GrantedAuthority {
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "position", orphanRemoval = false, cascade = {
-		  CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+		CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
 	private Collection<@Valid Employee> employees;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@ManyToOne(optional = false, cascade = {
-		  CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
+		CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Departments_to_Positions", schema = "INTERNAL",
-		  joinColumns =
-		  @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
-		  inverseJoinColumns =
-		  @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
+		joinColumns =
+		@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
+		inverseJoinColumns =
+		@JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
 	@Valid
 	private Department department;
 	

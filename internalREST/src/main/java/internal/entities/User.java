@@ -13,6 +13,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,8 +46,6 @@ public class User implements WorkshopEntity, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-//	@Max(groups = PersistenceCheck.class, value = 0, message = "{validation.max}")
-//	@Min(groups = UpdationCheck.class, value = 1, message = "{validation.minimumDigitalValue}")
 	@PositiveOrZero(message = "{validation.positiveOrZero}")
 	private long id;
 	
@@ -73,11 +73,11 @@ public class User implements WorkshopEntity, Serializable {
 	
 	@Column(nullable = false)
 	@PastOrPresent(message = "{validation.pastOrPresent}")
-	private LocalDateTime created;
+	private ZonedDateTime created;
 	
 	@Column
 	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
-	private LocalDateTime modified;
+	private ZonedDateTime modified;
 	
 	@Column
 	@Past(message = "{validation.past}")
@@ -90,12 +90,14 @@ public class User implements WorkshopEntity, Serializable {
 	 * One of the Phones can be used as a Login identity.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Phone> phones;
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<@Valid Order> orders;
@@ -104,6 +106,7 @@ public class User implements WorkshopEntity, Serializable {
 	 * Available individual permissions within Workshop security realm.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER, cascade = {
 		CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
@@ -151,12 +154,12 @@ public class User implements WorkshopEntity, Serializable {
 				"User must have either email or phone as a login to be persisted! Enter one of these field");
 		}
 		if (created == null) {
-			setCreated(LocalDateTime.now());
+			setCreated(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")));
 		}
 	}
 	
 	@PreUpdate
 	public void updateModificationDateTime() {
-		setModified(LocalDateTime.now());
+		setModified(ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")));
 	}
 }

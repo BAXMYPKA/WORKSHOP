@@ -27,6 +27,8 @@ import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -448,17 +450,17 @@ class DaoIT {
 		
 		Order order1 = new Order();
 		order1.setDescription("Description one");
-		order1.setCreated(LocalDateTime.of(2018, 11, 20, 9, 35, 45));
+		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		order1.setCreatedBy(employee1);
 		
 		Order order2 = new Order();
 		order2.setCreatedBy(employee1);
 		order2.setDescription("Description two");
-		order2.setCreated(LocalDateTime.of(2018, 11, 20, 9, 35, 45));
+		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		
 		Order order3 = new Order();
 		order3.setCreatedBy(employee1);
-		order3.setCreated(LocalDateTime.of(2017, 11, 20, 9, 35, 45));
+		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		
 		Order order4 = new Order();
 		order4.setDescription("Description");
@@ -550,15 +552,15 @@ class DaoIT {
 		
 		Task task1 = new Task();
 		task1.setName("Task One");
-		task1.setDeadline(LocalDateTime.now().plusDays(5));
+		task1.setDeadline(ZonedDateTime.now().plusDays(5));
 		
 		Task task2 = new Task();
 		task2.setName("Task Two");
-		task2.setDeadline(LocalDateTime.now().plusDays(5));
+		task2.setDeadline(ZonedDateTime.now().plusDays(5));
 		
 		Task task3 = new Task();
 		task3.setName("Task Three");
-		task3.setDeadline(LocalDateTime.now().plusDays(5));
+		task3.setDeadline(ZonedDateTime.now().plusDays(5));
 		
 		Classifier classifier1 = new Classifier();
 		classifier1.setName("Classifier One");

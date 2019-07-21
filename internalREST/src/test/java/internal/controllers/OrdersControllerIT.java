@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -208,34 +210,34 @@ class OrdersControllerIT {
 	public void init() {
 		Order order1 = new Order();
 		order1.setId(1);
-		order1.setCreated(LocalDateTime.of(2019, 10, 15, 9, 35, 45));
+		order1.setCreated(ZonedDateTime.of(2019, 10, 15, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order2 = new Order();
 		order2.setId(2);
-		order2.setCreated(LocalDateTime.of(2018, 11, 20, 9, 35, 45));
+		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order3 = new Order();
 		order3.setId(3);
-		order3.setCreated(LocalDateTime.of(2017, 11, 20, 9, 35, 45));
+		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order4 = new Order();
 		order4.setId(4);
-		order4.setCreated(LocalDateTime.of(2016, 11, 20, 9, 35, 45));
+		order4.setCreated(ZonedDateTime.of(2016, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order5 = new Order();
 		order5.setId(5);
-		order5.setCreated(LocalDateTime.of(2015, 11, 20, 9, 35, 45));
+		order5.setCreated(ZonedDateTime.of(2015, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order6 = new Order();
 		order6.setId(6);
-		order6.setCreated(LocalDateTime.of(2014, 11, 20, 9, 35, 45));
+		order6.setCreated(ZonedDateTime.of(2014, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order7 = new Order();
 		order7.setId(7);
-		order7.setCreated(LocalDateTime.of(2013, 11, 20, 9, 35, 45));
+		order7.setCreated(ZonedDateTime.of(2013, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order8 = new Order();
 		order8.setId(8);
-		order8.setCreated(LocalDateTime.of(2012, 11, 20, 9, 35, 45));
+		order8.setCreated(ZonedDateTime.of(2012, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order9 = new Order();
 		order9.setId(9);
-		order9.setCreated(LocalDateTime.of(2011, 11, 20, 9, 35, 45));
+		order9.setCreated(ZonedDateTime.of(2011, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order10 = new Order();
 		order10.setId(10);
-		order10.setCreated(LocalDateTime.of(2010, 11, 20, 9, 35, 45));
+		order10.setCreated(ZonedDateTime.of(2010, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		
 		orders.addAll(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10));
 	}
@@ -273,21 +275,21 @@ class OrdersControllerIT {
 		Task task1ForOrder1 = new Task();
 		task1ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier2)));
 		task1ForOrder1.setAppointedTo(employee);
-		task1ForOrder1.setDeadline(LocalDateTime.of(2020, 10, 15, 10, 30));
+		task1ForOrder1.setDeadline(ZonedDateTime.of(2020, 10, 15, 10, 30, 0, 0, ZoneId.systemDefault()));
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
 //		task2ForOrder1.setId(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
-		task2ForOrder1.setDeadline(LocalDateTime.of(2020, 5, 12, 12, 30));
+		task2ForOrder1.setDeadline(ZonedDateTime.of(2020, 5, 12, 12, 30, 0, 0, ZoneId.systemDefault()));
 		task2ForOrder1.setName("Task two");
 		
 		Task task3ForOrder1 = new Task();
 		task3ForOrder1.setId(11);
 		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
 		task3ForOrder1.setAppointedTo(employee);
-		task3ForOrder1.setDeadline(LocalDateTime.of(2020, 12, 5, 15, 30));
+		task3ForOrder1.setDeadline(ZonedDateTime.of(2020, 12, 5, 15, 30, 0, 0, ZoneId.systemDefault()));
 		task3ForOrder1.setName("Task three");
 		
 		Order correctOrder1 = new Order();
@@ -295,7 +297,7 @@ class OrdersControllerIT {
 //		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setTasks(new HashSet<Task>(Arrays.asList(task1ForOrder1, task2ForOrder1, task3ForOrder1)));
 		correctOrder1.setCreatedFor(user);
-		correctOrder1.setDeadline(LocalDateTime.of(2020, 12, 12, 12, 55));
+		correctOrder1.setDeadline(ZonedDateTime.of(2020, 12, 12, 12, 55, 0, 0, ZoneId.systemDefault()));
 		
 		JsonService jsonService = new JsonService();
 		

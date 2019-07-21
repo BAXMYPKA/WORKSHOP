@@ -44,6 +44,7 @@ public class EntitiesCacheIT {
 	OrdersService ordersService;
 	
 	@Test
+	@org.junit.jupiter.api.Order(1)
 	public void initTest() {
 		assertNotNull(entityManager);
 		assertNotNull(entityManagerFactory);
@@ -98,7 +99,7 @@ public class EntitiesCacheIT {
 	
 	@Test
 	@DisplayName("Check second level cache with Spring @Transactional EntityManager")
-	@Sql(scripts = {"classpath:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(scripts = {"classpath*:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional() {
 		//GIVEN
 		SessionFactory sessionFactory =

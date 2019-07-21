@@ -2,7 +2,6 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -28,8 +27,7 @@ import java.util.Collection;
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
 	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))
-})
+	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))})
 public class Employee extends Trackable {
 	
 	@Column(name = "first_name", nullable = false, length = 100)
@@ -64,10 +62,12 @@ public class Employee extends Trackable {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Collection<@Valid Phone> phones;
 	
+	//TODO: to implement a photo loader Controller method
 	@JsonIgnore
 	@Lob
 	@Column(length = 5242880) //5Mb

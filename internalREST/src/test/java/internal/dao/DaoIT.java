@@ -49,28 +49,20 @@ class DaoIT {
 	
 	@Autowired
 	OrdersDao ordersDao;
-	
 	@Autowired
 	EmployeesDao employeesDao;
-	
 	@Autowired
 	TasksDao tasksDao;
-	
 	@Autowired
 	ClassifiersDao classifiersDao;
-	
 	@Autowired
 	UsersDao usersDao;
-	
 	@Autowired
 	PositionsDao positionsDao;
-	
 	@Autowired
 	DepartmentsDao departmentsDao;
-	
 	@PersistenceContext
 	EntityManager entityManager;
-	
 	@Autowired
 	EntityManagerFactory emf; //To support transactions with emf.getEntityManager();
 	
@@ -414,6 +406,31 @@ class DaoIT {
 		//Employee has to be found
 		assertNotNull(persistedEmployee);
 		assertEquals(nonPersistedEmail, persistedEmployee.getEmail());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@DisplayName("JPA always saves and returns ZonedDateTime in UTC despite presented one.")
+	public void zonedDateTime_Saves_And_Returns_As_UTC_Despite_Preset_TimeZone() {
+		//GIVEN an Employee with Europe/Moscow (+3) TimeZone
+		ZonedDateTime europeMoscowZone = ZonedDateTime.of(
+			2019, 1, 30, 12, 30, 0, 0, ZoneId.of("Europe/Moscow"));
+		ZonedDateTime utcZone = europeMoscowZone.withZoneSameInstant(ZoneId.of("UTC"));
+		
+		Employee employee = employees.get(0);
+		employee.setFinished(europeMoscowZone);
+		//Pre persist required objects graph
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		
+		//WHEN persist and get the Entity back
+		Employee employeeFromDb = employeesDao.persistEntity(employee);
+		
+		//THEN receive the Entity with UTC-corrected ZonedDateTime
+		//Just a check that UTC zone 3 hours less
+		assertEquals(utcZone.getHour(), europeMoscowZone.minusHours(3).getHour());
+		//Persisted Entity now has the UTC-corrected field
+		assertTrue(employee.getFinished().isEqual(utcZone));
 	}
 	
 	@BeforeAll

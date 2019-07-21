@@ -3,23 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -78,11 +66,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="944">
-              <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
+            <state relative-caret-position="896">
+              <caret line="101" column="30" selection-start-line="101" selection-start-column="30" selection-end-line="101" selection-end-column="30" />
               <folding>
                 <element signature="docComment;class#EntitiesCacheIT#0" expanded="true" />
                 <element signature="e#0#34#1" expanded="true" />
@@ -92,12 +80,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+            <state relative-caret-position="352">
+              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
               <folding>
+                <element signature="docComment;class#JsonService#0" expanded="true" />
                 <element signature="docComment;method#convertEntityFromJson#0;class#JsonService#0" expanded="true" />
                 <element signature="docComment;method#convertEntitiesToJson#0;class#JsonService#0" expanded="true" />
               </folding>
@@ -106,39 +95,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2064">
-              <caret line="129" column="74" selection-start-line="129" selection-start-column="74" selection-end-line="129" selection-end-column="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="976">
+            <state relative-caret-position="616">
               <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
               <folding>
                 <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
@@ -151,8 +110,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
+            <state relative-caret-position="616">
               <caret line="54" column="58" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="186">
+              <caret line="45" column="15" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -212,8 +180,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/UserAuditorAware.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersValidationIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/messages.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/CreationCheck.java" />
@@ -258,11 +224,13 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/pom.xml" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" />
       </list>
     </option>
   </component>
@@ -307,7 +275,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -450,6 +417,7 @@
         </subPane>
       </pane>
       <pane id="CatdeaLogs" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -519,7 +487,69 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JsonServiceTest">
+  <component name="RunManager" selected="JUnit.HibernateSecondLevelCacheIT">
+    <configuration name="DaoIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.DaoIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DaoIT.pagination_With_Limits_And_Offsets_Works_Properly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.DaoIT" />
+      <option name="METHOD_NAME" value="pagination_With_Limits_And_Offsets_Works_Properly(int)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JsonServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -535,70 +565,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JsonServiceTest.LocalDateTime_converts_vise_versa" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.service" />
-      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="LocalDateTime_converts_vise_versa" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.service" />
-      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back(internal.entities.WorkshopEntity)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsonServiceTest.simple_Entities_Return_Valid_Json" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.service" />
-      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="simple_Entities_Return_Valid_Json" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JsonServiceTest.zonedDateTime_converts_vise_versa" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.service" />
-      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceTest" />
-      <option name="METHOD_NAME" value="zonedDateTime_converts_vise_versa" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Internal" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="internalREST" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="internal.InternalApplication" />
@@ -610,20 +576,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.Internal" />
-      <item itemvalue="JUnit.JsonServiceTest.simple_Entities_Return_Valid_Json" />
       <item itemvalue="JUnit.JsonServiceTest" />
-      <item itemvalue="JUnit.JsonServiceTest.LocalDateTime_converts_vise_versa" />
-      <item itemvalue="JUnit.JsonServiceTest.zonedDateTime_converts_vise_versa" />
-      <item itemvalue="JUnit.JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.DaoIT" />
+      <item itemvalue="JUnit.DaoIT.pagination_With_Limits_And_Offsets_Works_Properly" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
         <item itemvalue="JUnit.JsonServiceTest" />
-        <item itemvalue="JUnit.JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" />
-        <item itemvalue="JUnit.JsonServiceTest.zonedDateTime_converts_vise_versa" />
-        <item itemvalue="JUnit.JsonServiceTest.LocalDateTime_converts_vise_versa" />
-        <item itemvalue="JUnit.JsonServiceTest.simple_Entities_Return_Valid_Json" />
+        <item itemvalue="JUnit.DaoIT.pagination_With_Limits_And_Offsets_Works_Properly" />
+        <item itemvalue="JUnit.DaoIT" />
       </list>
     </recent_temporary>
   </component>
@@ -704,43 +670,45 @@
       <workItem from="1563629125659" duration="7746000" />
       <workItem from="1563640108378" duration="5017000" />
       <workItem from="1563697048322" duration="10023000" />
+      <workItem from="1563708665313" duration="714000" />
+      <workItem from="1563715931044" duration="5175000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="JsonServiceTest_LocalDateTime_converts_vise_versa - 2019.07.21 at 13h 21m 59s.xml">
-      <configuration name="JsonServiceTest.LocalDateTime_converts_vise_versa" configurationId="JUnit" />
+    <history-entry file="DaoIT_zonedDateTime_Saves_And_Returns_As_UTC - 2019.07.21 at 17h 22m 09s.xml">
+      <configuration name="DaoIT.zonedDateTime_Saves_And_Returns_As_UTC" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_LocalDateTime_converts_vise_versa - 2019.07.21 at 13h 23m 09s.xml">
-      <configuration name="JsonServiceTest.LocalDateTime_converts_vise_versa" configurationId="JUnit" />
+    <history-entry file="DaoIT_zonedDateTime_Saves_And_Returns_As_UTC - 2019.07.21 at 17h 25m 45s.xml">
+      <configuration name="DaoIT.zonedDateTime_Saves_And_Returns_As_UTC" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_zonedDateTime_converts_vise_versa - 2019.07.21 at 13h 45m 34s.xml">
-      <configuration name="JsonServiceTest.zonedDateTime_converts_vise_versa" configurationId="JUnit" />
+    <history-entry file="DaoIT_zonedDateTime_Saves_And_Returns_As_UTC - 2019.07.21 at 17h 28m 09s.xml">
+      <configuration name="DaoIT.zonedDateTime_Saves_And_Returns_As_UTC" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_zonedDateTime_converts_vise_versa - 2019.07.21 at 13h 46m 12s.xml">
-      <configuration name="JsonServiceTest.zonedDateTime_converts_vise_versa" configurationId="JUnit" />
+    <history-entry file="DaoIT - 2019.07.21 at 17h 30m 59s.xml">
+      <configuration name="DaoIT" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest - 2019.07.21 at 13h 46m 23s.xml">
+    <history-entry file="DaoIT_pagination_With_Limits_And_Offsets_Works_Properly - 2019.07.21 at 17h 32m 10s.xml">
+      <configuration name="DaoIT.pagination_With_Limits_And_Offsets_Works_Properly" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="JsonServiceTest - 2019.07.21 at 17h 33m 05s.xml">
       <configuration name="JsonServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back - 2019.07.21 at 13h 48m 18s.xml">
-      <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" configurationId="JUnit" />
+    <history-entry file="HibernateSecondLevelCacheIT - 2019.07.21 at 17h 37m 15s.xml">
+      <configuration name="HibernateSecondLevelCacheIT" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back - 2019.07.21 at 13h 51m 32s.xml">
-      <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" configurationId="JUnit" />
+    <history-entry file="HibernateSecondLevelCacheIT_cache_Region_Order_Works_After_Second_Transaction - 2019.07.21 at 17h 45m 19s.xml">
+      <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back - 2019.07.21 at 13h 53m 25s.xml">
-      <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" configurationId="JUnit" />
+    <history-entry file="HibernateSecondLevelCacheIT - 2019.07.21 at 17h 46m 13s.xml">
+      <configuration name="HibernateSecondLevelCacheIT" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceTest_every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back - 2019.07.21 at 13h 54m 29s.xml">
-      <configuration name="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="JsonServiceTest - 2019.07.21 at 13h 56m 59s.xml">
-      <configuration name="JsonServiceTest" configurationId="JUnit" />
+    <history-entry file="HibernateSecondLevelCacheIT - 2019.07.21 at 17h 48m 37s.xml">
+      <configuration name="HibernateSecondLevelCacheIT" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="806995000" />
+    <option name="totallyTimeSpent" value="812884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -765,7 +733,7 @@
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.40375122" />
-      <window_info active="true" anchor="bottom" auto_hide="true" id="Terminal" order="8" visible="true" weight="0.4916091" />
+      <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.4916091" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010295" side_tool="true" weight="0.27225673" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32872656" />
@@ -869,7 +837,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PositionsDao.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.7.RELEASE/spring-aop-5.1.7.RELEASE.jar!/org/springframework/aop/framework/CglibAopProxy.class">
@@ -1046,13 +1013,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2064">
-          <caret line="129" column="74" selection-start-line="129" selection-start-column="74" selection-end-line="129" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
@@ -1113,41 +1073,10 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="888">
           <caret line="94" column="20" selection-start-line="94" selection-start-column="20" selection-end-line="94" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="54" column="58" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2631">
-          <caret line="606" column="39" lean-forward="true" selection-start-line="606" selection-start-column="39" selection-end-line="606" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1168,21 +1097,17 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="976">
-          <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
-          <folding>
-            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
-            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/org/junit/jupiter/engine/execution/ExecutableInvoker.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/org/junit/jupiter/engine/descriptor/TestMethodTestDescriptor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="186" selection-start-line="186" selection-end-line="186" />
         </state>
       </provider>
     </entry>
@@ -1196,39 +1121,89 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/org/junit/jupiter/engine/descriptor/TestMethodTestDescriptor.class">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="186" selection-start-line="186" selection-end-line="186" />
+        <state relative-caret-position="4864">
+          <caret line="339" column="16" selection-start-line="339" selection-start-column="16" selection-end-line="339" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1264">
-          <caret line="101" column="56" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
+        <state relative-caret-position="1232">
+          <caret line="97" column="65" selection-start-line="97" selection-start-column="65" selection-end-line="97" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="129" column="74" selection-start-line="129" selection-start-column="74" selection-end-line="129" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="896">
+          <caret line="101" column="30" selection-start-line="101" selection-start-column="30" selection-end-line="101" selection-end-column="30" />
+          <folding>
+            <element signature="docComment;class#EntitiesCacheIT#0" expanded="true" />
+            <element signature="e#0#34#1" expanded="true" />
+            <element signature="e#0#35#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="49" column="50" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
+          <folding>
+            <element signature="docComment;field#createdBy#0;class#Trackable#0" expanded="true" />
+            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="54" column="58" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="45" column="15" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
+        <state relative-caret-position="352">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding>
+            <element signature="docComment;class#JsonService#0" expanded="true" />
             <element signature="docComment;method#convertEntityFromJson#0;class#JsonService#0" expanded="true" />
             <element signature="docComment;method#convertEntitiesToJson#0;class#JsonService#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="944">
-          <caret line="101" column="31" selection-start-line="101" selection-start-column="31" selection-end-line="101" selection-end-column="31" />
-          <folding>
-            <element signature="docComment;class#EntitiesCacheIT#0" expanded="true" />
-            <element signature="e#0#34#1" expanded="true" />
-            <element signature="e#0#35#1" expanded="true" />
           </folding>
         </state>
       </provider>

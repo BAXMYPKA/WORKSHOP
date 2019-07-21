@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestEntityManager
 //Add Hibernate statistics support during the tests
 @TestPropertySource(properties = {"spring.jpa.properties.hibernate.generate_statistics=true"})
-public class EntitiesCacheIT {
+public class HibernateSecondLevelCacheIT {
 	
 	@PersistenceContext
 	EntityManager entityManager;
@@ -93,13 +93,13 @@ public class EntitiesCacheIT {
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getPutCount());
 		//And this cache region has been retrieved only once
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getHitCount());
-		//Only the first session is missed the second level cache to derive an Order.id=501
+		//Only the first session is missed the second level cache for the first time looking up an Order.id=501
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getMissCount());
 	}
 	
 	@Test
 	@DisplayName("Check second level cache with Spring @Transactional EntityManager")
-	@Sql(scripts = {"classpath*:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(scripts = {"classpath:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional() {
 		//GIVEN
 		SessionFactory sessionFactory =
@@ -179,5 +179,4 @@ public class EntitiesCacheIT {
 		
 		entityManager.getEntityManagerFactory().unwrap(SessionFactory.class).getStatistics().clear();
 	}
-	
 }

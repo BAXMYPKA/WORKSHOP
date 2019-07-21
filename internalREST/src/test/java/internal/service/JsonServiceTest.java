@@ -92,12 +92,31 @@ class JsonServiceTest {
 		);
 	}
 	
+	@Test
+	@DisplayName("Serialized Entity must contain a custom TimeZone. Deserialized one must have only UTC-corrected.")
+	public void zonedDateTime_Properly_Converts_Vise_Versa() throws IOException {
+		//GIVEN a Position with a custom ZonedDateTime (+3 hours)
+		Position position = new Position("ZonedDateTimePosition", new Department());
+		position.setCreated(ZonedDateTime.of(2019, 1, 30, 12, 30, 0, 0, ZoneId.of("Europe/Moscow")));
+		
+		//WHEN converts vise versa
+		String serializedPosition = jsonService.convertEntityToJson(position);
+		Position deserializedPosition = jsonService.convertEntityFromJson(serializedPosition, Position.class);
+		
+		//THEN
+		//Serialized Position contains original ZonedDateTime
+		assertTrue(serializedPosition.contains("\"created\":\"2019-01-30T12:30:00+03:00\""));
+		//Deserialized one contains UTC-corrected ZonedDateTime (-3 hours)
+		assertTrue(deserializedPosition.getCreated().isEqual(ZonedDateTime.of(
+			2019, 1, 30, 9, 30, 0, 0, ZoneId.of("UTC"))));
+	}
+	
 	/**
 	 * @param originalEntity Dont forget to add every new Entity at the "entitiesStream" method to test them here
 	 */
 	@ParameterizedTest
 	@MethodSource("entitiesStream")
-	@DisplayName("Every simple Entity (without deep graph) can be converted to JSON and back to the Entity"+
+	@DisplayName("Every simple Entity (without deep graph) can be converted to JSON and back to the Entity" +
 		"Entities as Objects and as Jsoned Objects are save original TimeZone," +
 		"but after deserialization UTC will be returned.")
 	public void every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back(WorkshopEntity originalEntity)
@@ -221,24 +240,25 @@ class JsonServiceTest {
 	}
 	
 	@Test
-	@DisplayName("ZonedDateTime has to be converted to JSON and back without issues."+
+	@DisplayName("ZonedDateTime has to be converted to JSON and back without issues." +
 		"JsonService saves original TimeZone but returns the UTC value!")
 	public void zonedDateTime_converts_vise_versa() throws IOException {
 		//GIVEN
 		positionOne = new Position();
 		positionOne.setName("PositionOne");
+		//ZonedDateTime in the local TimeZone of current JVM
 		positionOne.setCreated(ZonedDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.systemDefault()));
 		positionOne.setModified(ZonedDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.systemDefault()));
 		
 		//WHEN convert Entity to JSON and back
 		String jsonedPosition = jsonService.convertEntityToJson(positionOne);
-		Position position = jsonService.convertEntityFromJson(jsonedPosition, Position.class);
+		Position positionFromJson = jsonService.convertEntityFromJson(jsonedPosition, Position.class);
 		
 		//THEN
 		assertAll(
-			() -> assertEquals(position.getCreated(),
+			() -> assertEquals(positionFromJson.getCreated(),
 				ZonedDateTime.now().minusHours(1).withMinute(10).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.of("UTC"))),
-			() -> assertEquals(position.getModified(),
+			() -> assertEquals(positionFromJson.getModified(),
 				ZonedDateTime.now().minusDays(3).withMinute(10).withHour(3).withSecond(0).withNano(0).withZoneSameInstant(ZoneId.of("UTC")))
 		);
 	}

@@ -56,7 +56,7 @@ class OrdersServiceTest {
 		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		ordersService.findAllOrders(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);
+		ordersService.findAllEntities(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);
 		
 		//THEN
 		
@@ -89,7 +89,7 @@ class OrdersServiceTest {
 				Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any(Sort.Direction.class)))
 			.thenReturn(Optional.empty());
 		
-		ordersService.findAllOrders(1, 1, variable, Sort.Direction.DESC);
+		ordersService.findAllEntities(1, 1, variable, Sort.Direction.DESC);
 		
 		//THEN
 		

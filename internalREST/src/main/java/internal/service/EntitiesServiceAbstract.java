@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ import java.util.Optional;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	//TODO: to turn into configurable from properties
 	public static final int PAGE_SIZE = 150;
@@ -33,6 +34,12 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	private EntitiesDaoAbstract<T, Long> entitiesDaoAbstract;
 	private Class<T> entityClass;
 	
+	/**
+	 * @param entitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
+	 *                            implementation of this EntitiesServiceAbstract<T>.
+	 *                            To be injected to all the superclasses.
+	 *                            For instance, 'public OrdersService(OrdersDao ordersDao)'
+	 */
 	public EntitiesServiceAbstract(EntitiesDaoAbstract<T, Long> entitiesDaoAbstract) {
 		this.entitiesDaoAbstract = entitiesDaoAbstract;
 		setEntityClass(entitiesDaoAbstract.getEntityClass());
@@ -43,18 +50,37 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (id <= 0) {
 			throw new IllegalArgumentException("The ID to be found cannot be 0 or even lower!");
 		}
-		Optional<T> entity = entitiesDaoAbstract.findById(id);
-		return entity;
+		return entitiesDaoAbstract.findById(id);
 	}
 	
+	/**
+	 * AKA 'persistOrUpdate'
+	 *
+	 * @param entity If an Entity.id = 0 it will be persisted. If an Entity.id > 0 it will be merged (updated into DB)
+	 * @return Persisted (or merged) managed copy of the Entity.
+	 * @throws IllegalArgumentException                   If an Entity == null
+	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
+	 *                                                    Authentication within the Spring's SecurityContext.
+	 */
 	public Optional<T> persistOrMergeEntity(T entity)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
 		if (entity == null) {
-			throw new IllegalArgumentException("The "+entityClass.getSimpleName()+" cannot by null!");
+			throw new IllegalArgumentException("The " + entityClass.getSimpleName() + " cannot by null!");
 		}
-		Optional<T> persistedEntity = Optional.ofNullable(entitiesDaoAbstract.persistEntity(entity));
-		return persistedEntity;
+		return entitiesDaoAbstract.persistOrMergeEntity(entity);
 	}
+	
+	/**
+	 * @param entities {@link EntitiesServiceAbstract#persistOrMergeEntities(Collection)}
+	 * @return {@link EntitiesServiceAbstract#persistOrMergeEntities(Collection)}
+	 */
+	public Optional<Collection<T>> persistOrMergeEntities(Collection<T> entities) {
+		if (entities == null || entities.size() == 0) {
+			log.warn("Wrong Entity!", new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!"));
+		}
+		return entitiesDaoAbstract.persistEntities(entities);
+	}
+	
 	
 	/**
 	 * @param pageable Must contain Sort.by(Sort.Direction, orderBy) or Sort.of(Sort.Direction, "created") property!
@@ -83,6 +109,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			return new PageImpl<T>(Collections.<T>emptyList());
 		}
 	}
+	
 	/**
 	 * @param pageSize min = 1, max = this.PAGE_SIZE In case of incorrect values the size will be set in between min and max
 	 * @param pageNum  min = 1, max = 100. In case of incorrect values the page will be set in between min and max

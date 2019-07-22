@@ -6,36 +6,34 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.PersistenceException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
-public class OrdersService {
+public class OrdersService extends EntitiesServiceAbstract<Order> {
 	
 	@Getter
 	@Setter
 	@Autowired
 	public OrdersDao ordersDao;
 	
+	public OrdersService(OrdersDao entitiesDaoAbstract) {
+		super(entitiesDaoAbstract);
+	}
+	
+/*
 	public static final int PAGE_SIZE = 150;
 	public static final int MAX_PAGE_NUM = 5000;
 	
-	/**
+	*/
+/**
 	 * @param pageSize min = 1, max = this.PAGE_SIZE In case of incorrect values the size will be set in between min and max
 	 * @param pageNum  min = 1, max = 100. In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values
 	 * @return
-	 */
+	 *//*
+
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<List<Order>> findAllOrders(int pageSize, int pageNum, String orderBy, Sort.Direction order)
 		throws IllegalArgumentException {
@@ -54,12 +52,14 @@ public class OrdersService {
 		}
 	}
 	
-	/**
+	*/
+/**
 	 * @param pageable Must contain Sort.by(Sort.Direction, orderBy) or Sort.of(Sort.Direction, "created") property!
 	 * @param orderBy
 	 * @return
 	 * @throws IllegalArgumentException
-	 */
+	 *//*
+
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<Order> findAllOrders(Pageable pageable, String orderBy) throws IllegalArgumentException {
 		int pageSize = pageable.getPageSize() < 0 || pageable.getPageSize() > PAGE_SIZE ? PAGE_SIZE : pageable.getPageSize();
@@ -98,7 +98,8 @@ public class OrdersService {
 		if (order == null) {
 			throw new IllegalArgumentException("Order cannot by null!");
 		}
-		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistEntity(order));
+		Optional<Order> persistedOrder = Optional.ofNullable(ordersDao.persistOrMergeEntity(order));
 		return persistedOrder;
 	}
+*/
 }

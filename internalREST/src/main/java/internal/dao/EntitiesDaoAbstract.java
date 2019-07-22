@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
 	
 	@PersistenceContext
 	public EntityManager entityManager;
@@ -49,7 +50,8 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	private Class<K> keyClass;
 	
 	/**
-	 * Automatically set from application.properties but getter and setter are for the testing purposes
+	 * Automatically set from application.properties 'spring.jpa.properties.hibernate.jdbc.batch_size=2000'
+	 * Getter and setter are for the testing purposes.
 	 */
 	@Getter
 	@Setter
@@ -61,10 +63,6 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			throw new IllegalArgumentException("Key parameter is invalid!");
 		}
 		Optional<T> t = Optional.ofNullable(entityManager.find(entityClass, key));
-//		T t = entityManager.find(entityClass, key);
-//		if (t == null) {
-//			throw new EntityNotFoundException("No results found for " + entityClass.getSimpleName());
-//		}
 		return t;
 	}
 	
@@ -150,7 +148,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	}
 	
 	/**
-	 * If an Entity has id > 0, then this.merge() will be used.
+	 * If an Entity.id == 0 it will be persisted, if Entity.id > 0 it will be merged (will update an entry in the DB).
 	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
 	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
 	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
@@ -161,16 +159,20 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 * @param entity
 	 * @return Returns a managed copy of Entity with 'id' set
 	 * @throws PersistenceException
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException If a given Entity is null or its id < 0.
 	 */
-	public T persistEntity(T entity) throws PersistenceException, IllegalArgumentException, ClassCastException {
+	public Optional<T> persistOrMergeEntity(T entity) throws PersistenceException, IllegalArgumentException, ClassCastException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		//With id set entity will be merged
+		//When id is set and id > 0 entity will be merged
 		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() > 0) {
 			return mergeEntity(entity);
+		} else if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() < 0) {
+			//If id is wrong (<0)
+			log.warn("Entity.id below zero!", new IllegalArgumentException("Entity.id cannot be below zero!"));
 		}
+		//When Entity.id == 0
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
@@ -178,7 +180,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			}
 		}
 		entityManager.persist(entity);
-		return entityManager.find(entityClass, ((WorkshopEntity) entity).getId());
+		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getId()));
 	}
 	
 	/**
@@ -188,22 +190,34 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 * Also clears Hibernate cache (to save memory) so after the batch inserting
 	 * you have to refresh those entities you need from the batch further.
 	 *
-	 * @param entities Collection of entities to be batch inserted
+	 * @param entities Collection of entities to be batch inserted. It is preferable not to exceed {@link #batchSize}
+	 *                 to be able to get a Collection of persisted and managed Entities.
+	 * @return If the Collection.size doesn't exceed the batchSize {@link #batchSize} a collection of copied and managed
+	 * Entities will be returned.
+	 * Otherwise the Optional.empty() will be returned (not to overload JPA first-level cache and RAM memory)
+	 * and you will have to get managed copies of Entities by another way.
 	 */
-	public void persistEntities(Collection<T> entities) {
+	public Optional<Collection<T>> persistEntities(Collection<T> entities) {
 		if (entities == null) {
 			throw new IllegalArgumentException("Entities Collection cannot be null!");
 		}
+		//Context wont be cleared and this method will return a managed copy of Entities collection if entities.size <= batchSize
+		Collection<T> persistedEntities = entities.size() <= batchSize ? new ArrayList<>(entities.size()) : null;
+		
 		AtomicInteger counter = new AtomicInteger();
 		
-		entities.stream().forEachOrdered(entity -> {
+		entities.forEach(entity -> {
 			counter.getAndIncrement();
-			entity = persistEntity(entity);
+			Optional<T> persistedEntity = persistOrMergeEntity(entity);
+			if (persistedEntities != null && persistedEntity.isPresent()) {
+				persistedEntities.add(persistedEntity.get());
+			}
 			if (counter.get() % batchSize == 0) {
 				entityManager.flush();
 				entityManager.clear();
 			}
 		});
+		return persistedEntities != null ? Optional.of(persistedEntities) : Optional.empty();
 	}
 	
 	/**
@@ -232,7 +246,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 * @param entity Entity to be merge with existing one
 	 * @return A managed copy of the Entity
 	 */
-	public T mergeEntity(T entity) throws IllegalArgumentException {
+	public Optional<T> mergeEntity(T entity) throws IllegalArgumentException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
@@ -243,7 +257,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 				((Trackable) entity).setModifiedBy((Employee) authentication.getPrincipal());
 			}
 		}
-		return entityManager.merge(entity);
+		return Optional.ofNullable(entityManager.merge(entity));
 	}
 	
 	public Collection<T> mergeEntities(Collection<T> entities) throws IllegalArgumentException {

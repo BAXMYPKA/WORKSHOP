@@ -14,10 +14,14 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class EmployeesService {
+public class EmployeesService extends EntitiesServiceAbstract <Employee> {
 	
 	@Autowired
-	EmployeesDao employeesDao;
+	private EmployeesDao employeesDao;
+	
+	public EmployeesService(EmployeesDao employeesDao) {
+		super(employeesDao);
+	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<Employee> findByEmail(String email) throws IllegalArgumentException {

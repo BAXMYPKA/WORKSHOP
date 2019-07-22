@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.*;
-import internal.service.JsonServiceUtils;
+import internal.service.serviceUtils.JsonServiceUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;

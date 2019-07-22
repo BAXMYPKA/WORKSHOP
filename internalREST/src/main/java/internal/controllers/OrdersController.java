@@ -6,7 +6,7 @@ import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import internal.service.EmployeesService;
-import internal.service.JsonServiceUtils;
+import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.PersistenceException;
 import javax.validation.groups.Default;
 import java.util.Optional;
 
@@ -66,7 +65,7 @@ public class OrdersController {
 		throws JsonProcessingException {
 		
 		Pageable pageable = getPageable(size, page, orderBy, order);
-		Page<Order> ordersPage = ordersService.findAllOrders(pageable, orderBy);
+		Page<Order> ordersPage = ordersService.findAllEntities(pageable, orderBy);
 		
 		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
 			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
@@ -114,7 +113,7 @@ public class OrdersController {
 				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		Optional<Order> persistedOrder = ordersService.persistOrMergeOrder(order);
+		Optional<Order> persistedOrder = ordersService.persistOrMergeEntity(order);
 		if (persistedOrder.isPresent()) {
 			String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder.get());
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
@@ -130,7 +129,7 @@ public class OrdersController {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		Optional<Order> mergedOrder = ordersService.persistOrMergeOrder(order);
+		Optional<Order> mergedOrder = ordersService.persistOrMergeEntity(order);
 //		ordersService.persistOrMergeOrder(order).orElseThrow(PersistenceException::new)
 		return null;
 	}

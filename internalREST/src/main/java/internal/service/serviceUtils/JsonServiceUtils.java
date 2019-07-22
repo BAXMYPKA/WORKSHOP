@@ -1,4 +1,4 @@
-package internal.service;
+package internal.service.serviceUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

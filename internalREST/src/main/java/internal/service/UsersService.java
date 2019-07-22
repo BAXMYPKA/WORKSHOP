@@ -2,8 +2,6 @@ package internal.service;
 
 import internal.dao.UsersDao;
 import internal.entities.User;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Slf4j
-@Setter
-@Getter
 @Service
-public class UsersService {
+public class UsersService extends EntitiesServiceAbstract<User> {
 	
 	@Autowired
 	private UsersDao usersDao;
+	
+	/**
+	 * @param usersDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
+	 *                            implementation of this EntitiesServiceAbstract<T>.
+	 *                            To be injected to all the superclasses.
+	 *                            For instance, 'public OrdersService(OrdersDao ordersDao)'
+	 */
+	public UsersService(UsersDao usersDao) {
+		super(usersDao);
+	}
 	
 	/**
 	 * @param emailOrPhone User can by logged by email or phone that's why this method will sequentially look for

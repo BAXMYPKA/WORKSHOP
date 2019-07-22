@@ -38,7 +38,7 @@ public class Order extends Trackable {
 	
 	/**
 	 * Enabled by @EnableJpaAudition
-	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistEntity()
+	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistOrMergeEntity()
 	 * (if an User is presented in the SecurityContext).
 	 */
 	@CreatedBy //Only in a case when an User is a creator of the Order. Otherwise is set by hand

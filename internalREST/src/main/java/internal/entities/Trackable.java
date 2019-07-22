@@ -60,7 +60,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	private ZonedDateTime finished;
 	
 	/**
-	 * Sets automatically in the DaoAbstract.persistEntity() if an Employee is presented in the SecurityContext.
+	 * Sets automatically in the DaoAbstract.persistOrMergeEntity() if an Employee is presented in the SecurityContext.
 	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

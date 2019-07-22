@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.*;
-import internal.service.JsonService;
+import internal.service.JsonServiceUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class ControllersBeanValidationIT {
 	private MockMvc mockMvc;
 	
 	@Autowired
-	private JsonService jsonService;
+	private JsonServiceUtils jsonServiceUtils;
 	
 /*
 	@MockBean
@@ -80,7 +80,7 @@ class ControllersBeanValidationIT {
 			trackable = (Order) entity;
 			urlToPersist = "/internal/orders";
 		}
-		String jsonEntity = jsonService.convertEntityToJson(trackable);
+		String jsonEntity = jsonServiceUtils.convertEntityToJson(trackable);
 		
 		//WHEN
 		Employee employee = Employee.builder()
@@ -108,7 +108,7 @@ class ControllersBeanValidationIT {
 		if ("Order".equals(entity.getClass().getSimpleName())) {
 			trackable = (Order) entity;
 		}
-		String jsonEntity = jsonService.convertEntityToJson(trackable);
+		String jsonEntity = jsonServiceUtils.convertEntityToJson(trackable);
 		
 		//WHEN
 		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
@@ -169,7 +169,7 @@ class ControllersBeanValidationIT {
 		task.setClassifiers(Collections.singleton(classifier));
 		orderWithGraphErrors.setTasks(Collections.singleton(task));
 		
-		String json = jsonService.convertEntityToJson(orderWithGraphErrors);
+		String json = jsonServiceUtils.convertEntityToJson(orderWithGraphErrors);
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(

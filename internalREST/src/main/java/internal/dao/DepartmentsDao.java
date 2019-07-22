@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Setter
 @Getter
 @Repository
-public class DepartmentsDao extends DaoAbstract<Department, Long> {
+public class DepartmentsDao extends EntitiesDaoAbstract<Department, Long> {
 	
 	public DepartmentsDao() {
 		this.setEntityClass(Department.class);

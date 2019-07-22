@@ -8,15 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.cache.annotation.CacheDefaults;
-import javax.cache.annotation.CacheResult;
-import javax.naming.AuthenticationNotSupportedException;
-import javax.persistence.Cacheable;
 import javax.persistence.PersistenceException;
 import java.util.Collections;
 import java.util.List;
@@ -98,7 +93,7 @@ public class OrdersService {
 	
 	
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Optional<Order> persistOrder(Order order)
+	public Optional<Order> persistOrMergeOrder(Order order)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
 		if (order == null) {
 			throw new IllegalArgumentException("Order cannot by null!");

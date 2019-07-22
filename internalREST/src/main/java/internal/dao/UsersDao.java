@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public class UsersDao extends DaoAbstract<User, Long> {
+public class UsersDao extends EntitiesDaoAbstract<User, Long> {
 	
 	public UsersDao() {
 		setEntityClass(User.class);

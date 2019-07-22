@@ -4,7 +4,7 @@ import internal.entities.Task;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class TasksDao extends DaoAbstract<Task, Long> {
+public class TasksDao extends EntitiesDaoAbstract<Task, Long> {
 	
 	public TasksDao(){
 		setEntityClass(Task.class);

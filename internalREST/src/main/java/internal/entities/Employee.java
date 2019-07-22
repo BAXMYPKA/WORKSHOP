@@ -27,7 +27,8 @@ import java.util.Collection;
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
 	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true))})
+	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
+	@AttributeOverride(name = "created", column = @Column(name = "employed"))})
 public class Employee extends Trackable {
 	
 	@Column(name = "first_name", nullable = false, length = 100)

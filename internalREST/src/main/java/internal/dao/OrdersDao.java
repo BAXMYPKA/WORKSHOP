@@ -4,7 +4,7 @@ import internal.entities.Order;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OrdersDao extends DaoAbstract <Order, Long> {
+public class OrdersDao extends EntitiesDaoAbstract<Order, Long> {
 	
 	public OrdersDao() {
 		super.setEntityClass(Order.class);

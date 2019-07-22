@@ -2,7 +2,7 @@ package internal.controllers;
 
 import internal.entities.*;
 import internal.service.EmployeesService;
-import internal.service.JsonService;
+import internal.service.JsonServiceUtils;
 import internal.service.OrdersService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -51,7 +51,7 @@ class OrdersControllerIT {
 	@MockBean
 	EmployeesService employeesService;
 	@MockBean
-	JsonService jsonService;
+	JsonServiceUtils jsonServiceUtils;
 	List<Order> orders = new ArrayList<>(10);
 	
 	
@@ -60,7 +60,7 @@ class OrdersControllerIT {
 		assertAll(
 			() -> assertNotNull(mockMvc),
 			() -> assertNotNull(ordersService),
-			() -> assertNotNull(jsonService)
+			() -> assertNotNull(jsonServiceUtils)
 		);
 	}
 	
@@ -89,7 +89,7 @@ class OrdersControllerIT {
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
-		Mockito.when(jsonService.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
+		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
 		
 		//WHEN THEN
 		mockMvc.perform(
@@ -115,7 +115,7 @@ class OrdersControllerIT {
 		
 		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
 		
-		Mockito.when(jsonService.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
+		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
 		
 		//WHEN THEN
 		
@@ -184,7 +184,7 @@ class OrdersControllerIT {
 		//UserDetailsService has to return an Employee with @WithMockUser's credentials to be accessible from SecurityContext
 		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authenticationEmployee));
 		//OrdersService has to return a "persisted" non-empty Optional<Order>
-		Mockito.when(ordersService.persistOrder(Mockito.any(Order.class))).thenReturn(Optional.of(new Order()));
+		Mockito.when(ordersService.persistOrMergeOrder(Mockito.any(Order.class))).thenReturn(Optional.of(new Order()));
 		
 		resultActions = mockMvc.perform(
 			MockMvcRequestBuilders
@@ -195,7 +195,7 @@ class OrdersControllerIT {
 		
 		//THEN
 		//Verify the correct Order from Json was passed to the OrdersService to be persisted
-		Mockito.verify(ordersService, Mockito.atLeastOnce()).persistOrder(orderCaptured.capture());
+		Mockito.verify(ordersService, Mockito.atLeastOnce()).persistOrMergeOrder(orderCaptured.capture());
 		//Verify it was the same Order as in the Json from the Request
 		assertEquals("The Correct Order One", orderCaptured.getValue().getDescription());
 		
@@ -299,11 +299,11 @@ class OrdersControllerIT {
 		correctOrder1.setCreatedFor(user);
 		correctOrder1.setDeadline(ZonedDateTime.of(2020, 12, 12, 12, 55, 0, 0, ZoneId.systemDefault()));
 		
-		JsonService jsonService = new JsonService();
+		JsonServiceUtils jsonServiceUtils = new JsonServiceUtils();
 		
-		String jsonOrder = jsonService.convertEntityToJson(correctOrder1);
+		String jsonOrder = jsonServiceUtils.convertEntityToJson(correctOrder1);
 		
-		Order order = jsonService.convertEntityFromJson(jsonOrder, Order.class);
+		Order order = jsonServiceUtils.convertEntityFromJson(jsonOrder, Order.class);
 		
 		return jsonOrder;
 	}

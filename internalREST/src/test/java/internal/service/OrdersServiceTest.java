@@ -1,8 +1,7 @@
 package internal.service;
 
-import internal.dao.DaoAbstract;
+import internal.dao.EntitiesDaoAbstract;
 import internal.dao.OrdersDao;
-import internal.entities.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Sort;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,7 +26,7 @@ class OrdersServiceTest {
 	OrdersDao ordersDao;
 	
 	@Mock
-	DaoAbstract daoAbstract;
+	EntitiesDaoAbstract entitiesDao;
 	
 	@InjectMocks
 	OrdersService ordersService;
@@ -53,10 +50,10 @@ class OrdersServiceTest {
 		
 		//WHEN
 		
-		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		Mockito.lenient().when(daoAbstract.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
 		ordersService.findAllOrders(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);

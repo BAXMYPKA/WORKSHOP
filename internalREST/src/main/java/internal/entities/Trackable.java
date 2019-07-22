@@ -3,6 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import internal.entities.hibernateValidation.PersistEmployeeCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
@@ -41,8 +42,13 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	@PositiveOrZero(groups = Default.class, message = "{validation.positiveOrZero}")
 	private long id;
 	
+	/**
+	 * @AttributeOverrided as 'employed' for Employee.
+	 * Also for this entity can be set manually with PersistEmployeeCheck.class validation group to be set.
+	 */
 	@Column(nullable = false, updatable = false)
-	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {PersistEmployeeCheck.class}, message = "{validation.pastOrPresent}")
+	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
 	private ZonedDateTime created;
 	
 	@Column
@@ -75,17 +81,17 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	}
 	
 	/**
-	 * Only 'Employee' entities may not contain 'createdBy' field as they can create each other
-	 *
-	 * @throws IllegalArgumentException
+	 * 'Employee' entities persist this field as 'employed'. For them can be set manually.*
 	 */
 	@PrePersist
-	public void prePersist() throws IllegalArgumentException {
-		this.created = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
+	public void prePersist() {
+		if (this.created == null) {
+			this.created = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
+		}
 	}
 	
 	@PreUpdate
-	public void preUpdate() throws IllegalArgumentException {
+	public void preUpdate() {
 		this.modified = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
 	}
 	

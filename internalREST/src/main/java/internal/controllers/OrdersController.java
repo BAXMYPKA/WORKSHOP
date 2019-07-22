@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import internal.service.EmployeesService;
-import internal.service.JsonService;
+import internal.service.JsonServiceUtils;
 import internal.service.OrdersService;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,14 +22,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DirectFieldBindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.PersistenceException;
 import javax.validation.groups.Default;
 import java.util.Optional;
 
@@ -45,14 +45,22 @@ public class OrdersController {
 	@Autowired
 	private EmployeesService employeesService;
 	@Autowired
-	private JsonService jsonService;
+	private JsonServiceUtils jsonServiceUtils;
 	private ObjectMapper objectMapper;
 	private final int PAGE_SIZE = OrdersService.PAGE_SIZE;
 	private final int MAX_PAGE_NUM = OrdersService.MAX_PAGE_NUM;
 	
-	@GetMapping(path = "/all", params = {"size", "page"})
-	public ResponseEntity<String> getOrders(@RequestParam(value = "size") Integer size,
-											@RequestParam(value = "page") Integer page,
+	/**
+	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.PAGE_SIZE
+	 * @param page    Number of page with the list of Orders. One page contains 'size' amount of Orders.
+	 * @param orderBy The property of Order all the Orders have to be ordered by.
+	 * @param order   Ascending or descending order.
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	@GetMapping(path = "/all")
+	public ResponseEntity<String> getOrders(@RequestParam(value = "size", required = false) Integer size,
+											@RequestParam(value = "page", required = false) Integer page,
 											@RequestParam(name = "order-by", required = false) String orderBy,
 											@RequestParam(name = "order", required = false) String order)
 		throws JsonProcessingException {
@@ -61,7 +69,7 @@ public class OrdersController {
 		Page<Order> ordersPage = ordersService.findAllOrders(pageable, orderBy);
 		
 		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
-			String jsonOrders = jsonService.convertEntitiesToJson(ordersPage.getContent());
+			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Orders found!");
@@ -75,7 +83,7 @@ public class OrdersController {
 		}
 		Optional<Order> order = ordersService.findById(id);
 		if (order.isPresent()) {
-			String jsonOrder = jsonService.convertEntityToJson(order.get());
+			String jsonOrder = jsonServiceUtils.convertEntityToJson(order.get());
 			return ResponseEntity.ok(jsonOrder);
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Order with id=" + id + " not found!");
@@ -106,18 +114,30 @@ public class OrdersController {
 				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		Optional<Order> persistedOrder = ordersService.persistOrder(order);
+		Optional<Order> persistedOrder = ordersService.persistOrMergeOrder(order);
 		if (persistedOrder.isPresent()) {
-			String jsonPersistedOrder = jsonService.convertEntityToJson(persistedOrder.get());
+			String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder.get());
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect request body!");
 		}
 	}
 	
+	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> putOrder(@Validated({UpdationCheck.class, Default.class})
+										   @RequestBody Order order,
+										   BindingResult bindingResult) throws MethodArgumentNotValidException {
+		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
+			throw new MethodArgumentNotValidException(null, bindingResult);
+		}
+		Optional<Order> mergedOrder = ordersService.persistOrMergeOrder(order);
+//		ordersService.persistOrMergeOrder(order).orElseThrow(PersistenceException::new)
+		return null;
+	}
+	
 	@PostConstruct
 	private void afterPropsSet() {
-		objectMapper = jsonService.getObjectMapper();
+		objectMapper = jsonServiceUtils.getObjectMapper();
 	}
 	
 	private Pageable getPageable(int size, int page, String orderBy, String order) {

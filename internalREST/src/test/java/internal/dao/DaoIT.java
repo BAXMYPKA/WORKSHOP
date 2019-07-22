@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -26,7 +25,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -44,7 +42,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @EnableTransactionManagement
 @Transactional
 @TestPropertySource(properties = {""})
-//@Sql(scripts = {"classpath:data1.sql"})
 class DaoIT {
 	
 	@Autowired
@@ -338,7 +335,6 @@ class DaoIT {
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Works_Properly(int source) {
-		
 		//GIVEN
 		//Clear the InMemory DataBase and reinit all the Entities for the test
 		init();

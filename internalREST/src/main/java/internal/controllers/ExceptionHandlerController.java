@@ -2,7 +2,7 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import internal.service.JsonService;
+import internal.service.JsonServiceUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class ExceptionHandlerController {
 	
 	@Autowired
-	private JsonService jsonService;
+	private JsonServiceUtils jsonServiceUtils;
 	
 	@ExceptionHandler({HttpMessageNotReadableException.class}) //400
 	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, HttpServletResponse response) {

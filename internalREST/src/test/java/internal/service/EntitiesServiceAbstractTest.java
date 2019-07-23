@@ -1,6 +1,7 @@
 package internal.service;
 
 import internal.entities.Department;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureTestEntityManager
+@Slf4j
 class EntitiesServiceAbstractTest {
 	
 	@Autowired

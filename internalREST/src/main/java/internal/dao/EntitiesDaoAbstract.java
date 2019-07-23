@@ -15,8 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,12 +63,19 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	
 	public Optional<T> findById(K key) throws PersistenceException, IllegalArgumentException {
 		if (key == null) {
-			throw new IllegalArgumentException("Key parameter is invalid!");
+			throw new IllegalArgumentException("Key parameter is null!");
 		}
-		Optional<T> t = Optional.ofNullable(entityManager.find(entityClass, key));
-		return t;
+		Optional<T> entity = Optional.ofNullable(entityManager.find(entityClass, key));
+		log.debug("{} with id={} is found? = {}", entityClass.getSimpleName(), key, entity.isPresent());
+		return entity;
 	}
 	
+	/**
+	 * As a quite common method it is placed in the superclass
+	 *
+	 * @param email For instance Employee.email or User.email can be found
+	 * @throws IllegalArgumentException If an email.isEmpty or null
+	 */
 	public Optional<T> findByEmail(String email) throws IllegalArgumentException {
 		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Email cannot be null or empty!");
@@ -76,8 +86,14 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		cq.select(root.get("email").get(email));
 		TypedQuery<T> typedQuery = entityManager.createQuery(cq);
 		try {
-			return Optional.ofNullable(typedQuery.getSingleResult());
+			Optional<T> entity = Optional.ofNullable(typedQuery.getSingleResult());
+			log.debug("{} with email={} is found? = {}", entityClass.getSimpleName(), email, entity.isPresent());
+			return entity;
+		} catch (NoResultException e) {
+			log.debug("No {} with email={} was found. (NoResultException is omitted)", entityClass.getSimpleName(), email);
+			return Optional.empty();
 		} catch (PersistenceException e) {
+			log.info("No {} with email={} was found with the PersistenceException", entityClass.getSimpleName(), email, e);
 			return Optional.empty();
 		}
 	}
@@ -120,29 +136,49 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		} else if (entityClass.isInstance(WorkshopEntity.class)) {
 			query.orderBy(cb.desc(root.get("created")));
 		}
-
-//		List<T> entities = select.getResultList();
-		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
 		
+		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
+		log.debug("{}s with pageSize={}, pageNum={}, orderBy={}, order={} is found? = {}",
+			entityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
 		return entities;
 	}
 	
 	/**
-	 * @param fieldValue The part of the text to be presented in the 'name' field of the Entity
+	 * The search by a value of the particular property of ${@link this#getClass()} (if the Entity has such a property).
+	 *
+	 * @param propertyName  The name of the ${@link this#getClass()} property.
+	 * @param propertyValue The value to be found.
 	 * @throws PersistenceException     When nothing found or in case of some DB problems
-	 * @throws IllegalArgumentException if 'fieldValue' is null or empty
+	 * @throws IllegalArgumentException If 'propertyName' or 'propertyValue' is null or empty.
+	 *                                  Or ${@link this#getClass()} doesn't have such a property!
 	 */
-	public Optional<T> findByNameCoincidence(String fieldName, String fieldValue) throws PersistenceException, IllegalArgumentException {
-		if (fieldValue == null || fieldValue.isEmpty()) {
-			throw new IllegalArgumentException("Name cannot be null or empty!");
+	public Optional<T> findByProperty(String propertyName, String propertyValue) throws PersistenceException, IllegalArgumentException {
+		if (propertyValue == null || propertyName == null || propertyName.isEmpty() || propertyValue.isEmpty()) {
+			throw new IllegalArgumentException("Name or value is null or empty!");
+		}
+		try {
+			Field property = entityClass.getField(propertyName);
+			log.debug("{} has the {} property to find a value='{}' from",
+				entityClass.getSimpleName(), property.getName(), propertyValue);
+		} catch (NoSuchFieldException e) {
+			throw new IllegalArgumentException(
+				entityClass.getSimpleName() + " doesn't have such a " + propertyName + " property!", e);
 		}
 		TypedQuery<T> typedQuery = entityManager.createQuery(
 			"SELECT e FROM " + entityClass + " e WHERE e.getName LIKE %:name%",
 			entityClass);
-		typedQuery.setParameter("name", fieldValue);
+		typedQuery.setParameter("name", propertyValue);
 		try {
-			return Optional.ofNullable(typedQuery.getSingleResult());
-		} catch (PersistenceException e) {
+			Optional<T> entity = Optional.ofNullable(typedQuery.getSingleResult());
+			log.debug("{} with property={} and propertyValue={} is found? = {}",
+				entityClass.getSimpleName(), propertyName, propertyValue, entity.isPresent());
+			return entity;
+		} catch (NoResultException e) {
+			log.info("No {} with property={} and propertyValue={} was found.",
+				entityClass.getSimpleName(), propertyName, propertyValue);
+			return Optional.empty();
+		} catch (PersistenceException ep) {
+			log.warn(ep.getMessage(), ep);
 			return Optional.empty();
 		}
 	}
@@ -167,19 +203,22 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		}
 		//When id is set and id > 0 entity will be merged
 		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() > 0) {
+			log.debug("{}.id > 0, so it will be merged.", entity.getClass().getSimpleName());
 			return mergeEntity(entity);
 		} else if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() < 0) {
-			//If id is wrong (<0)
-			log.warn("Entity.id below zero!", new IllegalArgumentException("Entity.id cannot be below zero!"));
+			//If id is wrong (< 0)
+			throw new IllegalArgumentException("Entity.id=" + ((WorkshopEntity) entity).getId() + " cannot be below zero!");
 		}
 		//When Entity.id == 0
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
 				((Trackable) entity).setCreatedBy((Employee) currentAuthentication.getPrincipal());
+				log.debug("{}.createdBy set to {}", entityClass.getSimpleName(), currentAuthentication.getName());
 			}
 		}
 		entityManager.persist(entity);
+		log.info("{} has been persisted.", entity.getClass().getSimpleName());
 		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getId()));
 	}
 	
@@ -198,12 +237,13 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	 * and you will have to get managed copies of Entities by another way.
 	 */
 	public Optional<Collection<T>> persistEntities(Collection<T> entities) {
-		if (entities == null) {
-			throw new IllegalArgumentException("Entities Collection cannot be null!");
+		if (entities == null || entities.size() == 0) {
+			throw new IllegalArgumentException("Entities Collection cannot be null or zero size!");
 		}
 		//Context wont be cleared and this method will return a managed copy of Entities collection if entities.size <= batchSize
 		Collection<T> persistedEntities = entities.size() <= batchSize ? new ArrayList<>(entities.size()) : null;
-		
+		log.debug("Will a new collection of the managed {}s be returned? = {}",
+			entityClass.getSimpleName(), entities.size() <= batchSize);
 		AtomicInteger counter = new AtomicInteger();
 		
 		entities.forEach(entity -> {
@@ -217,6 +257,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 				entityManager.clear();
 			}
 		});
+		log.info("{}s collection is persisted.", entityClass.getSimpleName());
 		return persistedEntities != null ? Optional.of(persistedEntities) : Optional.empty();
 	}
 	
@@ -228,6 +269,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		entityManager.refresh(entity);
+		log.debug("{} properties have been refreshed in the DataBase.", entity.getClass().getSimpleName());
 	}
 	
 	/**
@@ -238,6 +280,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			throw new IllegalArgumentException("Entities Collection cannot be null!");
 		}
 		entities.iterator().forEachRemaining(this::refreshEntity);
+		log.debug("{}s all the properties have been refreshed in the DataBase.", entityClass.getSimpleName());
 	}
 	
 	/**
@@ -255,17 +298,26 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			Authentication authentication = getCurrentAuthentication();
 			if ("Employee".equals(authentication.getPrincipal().getClass().getSimpleName())) {
 				((Trackable) entity).setModifiedBy((Employee) authentication.getPrincipal());
+				log.debug("{}.createdBy set to '{}'", entityClass.getSimpleName(), authentication.getName());
 			}
 		}
-		return Optional.ofNullable(entityManager.merge(entity));
+		Optional<T> mergedEntity = Optional.ofNullable(entityManager.merge(entity));
+		log.debug("{} is merged? = {}", entity.getClass().getSimpleName(), mergedEntity.isPresent());
+		return mergedEntity;
 	}
 	
-	public Collection<T> mergeEntities(Collection<T> entities) throws IllegalArgumentException {
-		if (entities == null) {
-			throw new IllegalArgumentException("Entities collection cannot be null!");
+	public Optional<Collection<T>> mergeEntities(Collection<T> entities) throws IllegalArgumentException {
+		if (entities == null || entities.size() == 0) {
+			throw new IllegalArgumentException("Entities collection cannot be null or be zero size!");
 		}
-		entities.iterator().forEachRemaining(this::mergeEntity);
-		return entities;
+		Collection<T> mergedEntities = new ArrayList<>(entities.size());
+		
+		entities.iterator().forEachRemaining(entityToBeMerged -> {
+			Optional<T> mergedEntity = mergeEntity(entityToBeMerged);
+			mergedEntity.ifPresent(mergedEntities::add);
+		});
+		log.debug("Has the {}s collection been successfully merged? = {}", entityClass.getSimpleName(), mergedEntities.isEmpty());
+		return Optional.of(mergedEntities);
 	}
 	
 	public void removeEntity(T entity) throws IllegalArgumentException, TransactionRequiredException {
@@ -273,6 +325,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		entityManager.remove(entity);
+		log.debug("{} successfully removed", entityClass.getSimpleName());
 	}
 	
 	public void removeEntities(Collection<T> entities) {
@@ -280,6 +333,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			throw new IllegalArgumentException("Entities collection cannot be null!");
 		}
 		entities.forEach(this::removeEntity);
+		log.debug("All the {}s entities have been removed.", entityClass.getSimpleName());
 	}
 	
 	public long countAllEntities() {
@@ -287,6 +341,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		cq.select(cb.count(cq.from(entityClass)));
 		Long count = entityManager.createQuery(cq).getSingleResult();
+		log.debug("All the counted {} ={}", entityClass.getSimpleName(), count);
 		return count;
 	}
 	
@@ -295,12 +350,9 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		Authentication authentication = null;
 		try {
 			authentication = SecurityContextHolder.getContext().getAuthentication();
+			log.info("Authentication={} is found", authentication.getName());
 		} catch (Exception e) {
-			log.error("Error while deriving Authentication from SecurityContext!", e);
-		}
-		if (authentication == null) {
-			throw new AuthenticationCredentialsNotFoundException(
-				"Employee or User identity from current Authentication not found in the DataBase!");
+			throw new AuthenticationCredentialsNotFoundException("Authentication not found in the SecurityContext!", e);
 		}
 		return authentication;
 	}

@@ -1,6 +1,7 @@
 package internal.dao;
 
 import internal.entities.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
@@ -42,6 +43,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @EnableTransactionManagement
 @Transactional
 @TestPropertySource(properties = {""})
+@Slf4j
 class DaoIT {
 	
 	@Autowired
@@ -102,7 +104,6 @@ class DaoIT {
 		assertTrue(emptyEmployees.get().isEmpty());
 		assertTrue(emptyOrders.get().isEmpty());
 	}
-	
 	
 	@Test
 	@org.junit.jupiter.api.Order(2)

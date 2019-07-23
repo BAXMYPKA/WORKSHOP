@@ -46,6 +46,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
 	
+	@Value("${default.page.size}")
+	private int PAGE_SIZE;
+	@Value("${default.page.max_num}")
+	private int MAX_PAGE_NUM;
+	
 	@PersistenceContext
 	public EntityManager entityManager;
 	
@@ -101,19 +106,19 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	/**
 	 * Page formula is: (pageNum -1)*pageSize
 	 *
-	 * @param pageSize Limits the number of results given at once. Min = 1, Max = 15000. Default = 15000
-	 *                 If 0 - will be set to default
+	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#PAGE_SIZE}
+	 *                 If 0 - will be set to default (max).
 	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
-	 *                 If 0 - will be set to default
+	 *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#MAX_PAGE_NUM}
 	 * @param orderBy  The name of the field the ascDesc will be happened by.
 	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
 	 *                 'created' field, otherwise no ordering will happened.
 	 * @param order    "ASC" or "DESC" types from Sort.Order ENUM
-	 * @return
+	 * @return If nothing found an Optional.empty() will be returned.
 	 */
 	public Optional<List<T>> findAll(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order) {
 		//TODO: to realize estimating the whole quantity with max pageNum
-		pageSize = (pageSize <= 0 || pageSize > 15000) ? 15000 : pageSize;
+		pageSize = (pageSize <= 0 || pageSize > PAGE_SIZE) ? PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
 		order = order == null ? Sort.Direction.DESC : order;
 		

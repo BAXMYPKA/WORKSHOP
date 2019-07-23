@@ -5,6 +5,7 @@ import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +28,10 @@ import java.util.Optional;
 @Repository
 public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	
-	//TODO: to turn into configurable from properties
-	public static final int PAGE_SIZE = 150;
-	public static final int MAX_PAGE_NUM = 5000;
+	@Value("${default.page.size}")
+	private int PAGE_SIZE;
+	@Value("${default.page.max_num}")
+	private int MAX_PAGE_NUM;
 	
 	private EntitiesDaoAbstract<T, Long> entitiesDaoAbstract;
 	private Class<T> entityClass;
@@ -43,6 +45,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	public EntitiesServiceAbstract(EntitiesDaoAbstract<T, Long> entitiesDaoAbstract) {
 		this.entitiesDaoAbstract = entitiesDaoAbstract;
 		setEntityClass(entitiesDaoAbstract.getEntityClass());
+		log.trace("{} initialized successfully", entityClass.getSimpleName());
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -65,7 +68,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	public Optional<T> persistOrMergeEntity(T entity)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
 		if (entity == null) {
-			throw new IllegalArgumentException("The " + entityClass.getSimpleName() + " cannot by null!");
+			throw new IllegalArgumentException("The entity argument cannot by null!");
 		}
 		return entitiesDaoAbstract.persistOrMergeEntity(entity);
 	}
@@ -76,7 +79,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	 */
 	public Optional<Collection<T>> persistOrMergeEntities(Collection<T> entities) {
 		if (entities == null || entities.size() == 0) {
-			log.warn("Wrong Entity!", new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!"));
+			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
 		return entitiesDaoAbstract.persistEntities(entities);
 	}
@@ -102,10 +105,10 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			long total = entitiesDaoAbstract.countAllEntities();
 			
 			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, total);
-			
+			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
 			return page;
 		} catch (PersistenceException e) {
-			log.trace("No {} found.", entityClass.getSimpleName());
+			log.debug("No {} found. A Page with a Collections.EMPTY_LIST will be returned.", entityClass.getSimpleName());
 			return new PageImpl<T>(Collections.<T>emptyList());
 		}
 	}
@@ -121,16 +124,17 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	public Optional<List<T>> findAllEntities(int pageSize, int pageNum, String orderBy, Sort.Direction order)
 		throws IllegalArgumentException {
 		pageSize = pageSize <= 0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
-		pageNum = pageNum <= 0 || pageNum > 5000 ? 1 : pageNum;
+		pageNum = pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		try {
 			Optional<List<T>> entities = entitiesDaoAbstract.findAll(
 				pageSize,
 				pageNum,
 				orderBy == null ? "" : orderBy,
 				order);
+			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
 			return entities;
 		} catch (PersistenceException e) {
-			log.trace("No {} found.", entityClass.getSimpleName());
+			log.trace("No {} found. See the included PersistenceException stack trace.", entityClass.getSimpleName(), e);
 			return Optional.of(Collections.<T>emptyList());
 		}
 	}

@@ -1,6 +1,9 @@
 package internal.service;
 
+import internal.entities.Classifier;
 import internal.entities.Department;
+import internal.entities.Position;
+import internal.entities.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -23,12 +26,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestEntityManager
 @Slf4j
-class EntitiesServiceAbstractTest {
+class EntitiesServiceAbstractIT {
 	
 	@Autowired
-	TestEntityManager entityManager;
+	private TestEntityManager entityManager;
 	@Autowired
-	DepartmentsService departmentsService;
+	private DepartmentsService departmentsService;
+	@Autowired
+	private TasksService tasksService;
 	
 	@Test
 	@Order(1)
@@ -41,8 +46,8 @@ class EntitiesServiceAbstractTest {
 	}
 	
 	@Test
-	@Order(2)
-	public void departmentsService_Persists() {
+	@Order(3)
+	public void departmentsService_Will_Persist_Departments() {
 		//GIVEN
 		Department departmentToPersist = new Department("The Department to be stored");
 		
@@ -53,4 +58,38 @@ class EntitiesServiceAbstractTest {
 		assertTrue(departmentPersisted.isPresent());
 		assertEquals("The Department to be stored", departmentPersisted.get().getName());
 	}
+	
+	@Test
+	@Order(4)
+	public void task_Service_Will_Find_Task_By_Id() {
+		//GIVEN a Task to be persisted
+		Task taskToPersist = new Task();
+		taskToPersist.setName("Task name");
+		
+		//WHEN persist the Task by EntityManager and obtain its id
+		Task taskPersisted = entityManager.persist(taskToPersist);
+		long id = taskPersisted.getId();
+		//TaskService will find that Task by its new id
+		Optional<Task> taskFoundById = tasksService.findById(id);
+		
+		//THEN TaskService will find that Task by its new id
+		assertTrue(taskFoundById.isPresent());
+	}
+	
+	@Test
+	@Order(4)
+	public void departments_Service_Will_Persist_Department_With_Objects_Graph() {
+		//GIVEN
+		Department departmentToPersist = new Department("Department one");
+		Position positionToPersist = new Position("Position name", departmentToPersist);
+		positionToPersist.setDepartment(departmentToPersist);
+		
+		//WHEN
+		Optional<Department> departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
+		
+		//THEN
+		
+		//TODO: to complete
+	}
+	
 }

@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,8 +47,10 @@ public class OrdersController {
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	private ObjectMapper objectMapper;
-	private final int PAGE_SIZE = OrdersService.PAGE_SIZE;
-	private final int MAX_PAGE_NUM = OrdersService.MAX_PAGE_NUM;
+	@Value("${default.page.size}")
+	private int PAGE_SIZE;
+	@Value("${default.page.max_num}")
+	private int MAX_PAGE_NUM;
 	
 	/**
 	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.PAGE_SIZE

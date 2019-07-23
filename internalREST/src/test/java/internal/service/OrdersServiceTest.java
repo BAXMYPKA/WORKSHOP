@@ -3,6 +3,7 @@ package internal.service;
 import internal.dao.EntitiesDaoAbstract;
 import internal.dao.OrdersDao;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,6 +20,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled
+@DisplayName("To be redesigned in the EntitiesServiceAbstractTest")
 @ExtendWith(MockitoExtension.class)
 class OrdersServiceTest {
 	
@@ -33,6 +36,8 @@ class OrdersServiceTest {
 	
 	@BeforeEach
 	public void init() {
+		ordersDao = new OrdersDao();
+		ordersService = new OrdersService(ordersDao);
 	}
 	
 	@ParameterizedTest
@@ -40,8 +45,15 @@ class OrdersServiceTest {
 	public void regardless_Of_Input_Size_And_Page_All_Of_Them_Should_Be_Set_Between_Their_Min_Max(int sizeAndPage) {
 		
 		//GIVEN
-		int maxPageSize = OrdersService.PAGE_SIZE;
-		int matPageNum = OrdersService.MAX_PAGE_NUM;
+		int maxPageSize = 10;
+		int maxPageNum = 20;
+		
+		ordersService.setPAGE_SIZE(maxPageSize);
+		ordersService.setMAX_PAGE_NUM(maxPageNum);
+		entitiesDao.setPAGE_SIZE(maxPageSize);
+		entitiesDao.setMAX_PAGE_NUM(maxPageNum);
+		ordersDao.setPAGE_SIZE(maxPageSize);
+		ordersDao.setMAX_PAGE_NUM(maxPageNum);
 		
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<Integer> pageCaptured = ArgumentCaptor.forClass(Integer.class);
@@ -49,7 +61,6 @@ class OrdersServiceTest {
 		ArgumentCaptor<Sort.Direction> sortCaptured = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		//WHEN
-		
 		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
@@ -66,7 +77,7 @@ class OrdersServiceTest {
 		System.out.println("Size=" + sizeCaptured.getValue() + " Page=" + pageCaptured.getValue());
 		
 		assertTrue(sizeCaptured.getValue() > 0 && sizeCaptured.getValue() <= maxPageSize);
-		assertTrue(pageCaptured.getValue() >= 1 && pageCaptured.getValue() <= matPageNum);
+		assertTrue(pageCaptured.getValue() >= 1 && pageCaptured.getValue() <= maxPageNum);
 	}
 	
 	@ParameterizedTest

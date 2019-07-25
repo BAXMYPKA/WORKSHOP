@@ -12,7 +12,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Deleting a Department will lead to deleting all the related Positions
@@ -51,5 +54,16 @@ public class Department implements WorkshopEntity, Serializable {
 	
 	public Department(String name) {
 		this.name = name;
+	}
+	
+	public void addPosition(@Valid Position position) {
+		if (position == null) {
+			throw new IllegalArgumentException("Method argument Position cannot be null!");
+		}
+		if (getPositions() == null) {
+			setPositions(new HashSet<Position>(Collections.singletonList(position)));
+		} else {
+			getPositions().add(position);
+		}
 	}
 }

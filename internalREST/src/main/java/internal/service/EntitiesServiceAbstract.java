@@ -2,6 +2,7 @@ package internal.service;
 
 import internal.dao.EntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
+import internal.exceptions.PersistenceFailed;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,10 +28,16 @@ import java.util.Optional;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	
+	/**
+	 * Default size of results on one page
+	 */
 	@Value("${default.page.size}")
-	private int PAGE_SIZE;
+	private int DEFAULT_PAGE_SIZE;
+	/**
+	 * Maximum available page number
+	 */
 	@Value("${default.page.max_num}")
 	private int MAX_PAGE_NUM;
 	
@@ -57,7 +65,8 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	}
 	
 	/**
-	 * AKA 'persistOrUpdate'
+	 * AKA 'persistOrUpdate'. If an Entity doesn't presented in the DataBase it will be persisted.
+	 * Otherwise it will update its properties in the DataBase.
 	 *
 	 * @param entity If an Entity.id = 0 it will be persisted. If an Entity.id > 0 it will be merged (updated into DB)
 	 * @return Persisted (or merged) managed copy of the Entity.
@@ -70,7 +79,26 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 		if (entity == null) {
 			throw new IllegalArgumentException("The entity argument cannot by null!");
 		}
-		return entitiesDaoAbstract.persistOrMergeEntity(entity);
+		return entitiesDaoAbstract.persistEntity(entity);
+	}
+	
+	public Optional<T> persistEntity(T entity) throws IllegalArgumentException, EntityExistsException {
+		if (entity == null) {
+			throw new IllegalArgumentException("Entity cannot be null!");
+		}
+		Optional<T> persistedEntity = entitiesDaoAbstract.persistEntity(entity);
+		log.debug("An {} is persisted? = {}", entityClass.getSimpleName(), persistedEntity.isPresent());
+		return persistedEntity;
+	}
+	
+	//TODO: to make a mergeEntity() method
+	
+	public void deleteEntity(T entity) {
+		if (entity == null) {
+			throw new IllegalArgumentException("Entity cannot be null!");
+		}
+		entitiesDaoAbstract.removeEntity(entity);
+		log.debug("{} successfully removed", entityClass.getSimpleName());
 	}
 	
 	/**
@@ -93,7 +121,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<T> findAllEntities(Pageable pageable, String orderBy) throws IllegalArgumentException {
-		int pageSize = pageable.getPageSize() < 0 || pageable.getPageSize() > PAGE_SIZE ? PAGE_SIZE : pageable.getPageSize();
+		int pageSize = pageable.getPageSize() < 0 || pageable.getPageSize() > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageable.getPageSize();
 		int pageNum = pageable.getPageNumber() <= 0 || pageable.getPageNumber() > MAX_PAGE_NUM ? 1 :
 			pageable.getPageNumber();
 		try {
@@ -114,7 +142,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	}
 	
 	/**
-	 * @param pageSize min = 1, max = this.PAGE_SIZE In case of incorrect values the size will be set in between min and max
+	 * @param pageSize min = 1, max = this.DEFAULT_PAGE_SIZE In case of incorrect values the size will be set in between min and max
 	 * @param pageNum  min = 1, max = 100. In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values
@@ -123,7 +151,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Optional<List<T>> findAllEntities(int pageSize, int pageNum, String orderBy, Sort.Direction order)
 		throws IllegalArgumentException {
-		pageSize = pageSize <= 0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
+		pageSize = pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		try {
 			Optional<List<T>> entities = entitiesDaoAbstract.findAll(

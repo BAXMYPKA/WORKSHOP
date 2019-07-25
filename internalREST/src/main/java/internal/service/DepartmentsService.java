@@ -2,6 +2,8 @@ package internal.service;
 
 import internal.dao.DepartmentsDao;
 import internal.entities.Department;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DepartmentsService extends EntitiesServiceAbstract <Department> {
 	
+	@Setter
+	@Getter
 	@Autowired
 	private DepartmentsDao departmentsDao;
 	

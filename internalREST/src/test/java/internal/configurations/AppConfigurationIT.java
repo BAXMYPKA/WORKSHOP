@@ -30,7 +30,7 @@ class AppConfigurationIT {
 		//A workshop.properties from SharedResources/properties/configs to be loaded by Spring in AppConfiguration settings
 		
 		//WHEN a bean is initialized and got injected values from properties
-		int pageSize = departmentsService.getPAGE_SIZE();
+		int pageSize = departmentsService.getDEFAULT_PAGE_SIZE();
 		int maxPageNum = departmentsService.getMAX_PAGE_NUM();
 		
 		//THEN properties is set

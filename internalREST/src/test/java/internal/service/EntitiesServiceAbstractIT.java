@@ -1,6 +1,5 @@
 package internal.service;
 
-import internal.entities.Classifier;
 import internal.entities.Department;
 import internal.entities.Position;
 import internal.entities.Task;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -46,8 +46,8 @@ class EntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@Order(3)
-	public void departmentsService_Will_Persist_Departments() {
+	@Order(2)
+	public void departmentsService_Should_Persist_Departments() {
 		//GIVEN
 		Department departmentToPersist = new Department("The Department to be stored");
 		
@@ -60,8 +60,9 @@ class EntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@Order(4)
-	public void task_Service_Will_Find_Task_By_Id() {
+	@Order(3)
+	@Transactional
+	public void taskService_Should_Find_Task_By_Id() {
 		//GIVEN a Task to be persisted
 		Task taskToPersist = new Task();
 		taskToPersist.setName("Task name");
@@ -78,18 +79,22 @@ class EntitiesServiceAbstractIT {
 	
 	@Test
 	@Order(4)
-	public void departments_Service_Will_Persist_Department_With_Objects_Graph() {
+	public void departmentsService_Should_Persist_Department_With_Attached_New_Objects_Graph() {
 		//GIVEN
 		Department departmentToPersist = new Department("Department one");
 		Position positionToPersist = new Position("Position name", departmentToPersist);
-		positionToPersist.setDepartment(departmentToPersist);
+		
+		departmentToPersist.addPosition(positionToPersist);
 		
 		//WHEN
 		Optional<Department> departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
 		
 		//THEN
-		
-		//TODO: to complete
+		assertTrue(departmentPersisted.isPresent());
+		//Position has been persisted
+		assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0);
+		//Position is same
+		assertEquals(departmentPersisted.get().getPositions().iterator().next().getName(), positionToPersist.getName());
 	}
 	
 }

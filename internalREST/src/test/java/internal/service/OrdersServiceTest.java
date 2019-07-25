@@ -21,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Disabled
-@DisplayName("To be redesigned in the EntitiesServiceAbstractTest")
+@DisplayName("To be redesigned in the EntitiesServiceAbstractImplementationsTest")
 @ExtendWith(MockitoExtension.class)
 class OrdersServiceTest {
 	
@@ -48,11 +48,11 @@ class OrdersServiceTest {
 		int maxPageSize = 10;
 		int maxPageNum = 20;
 		
-		ordersService.setPAGE_SIZE(maxPageSize);
+		ordersService.setDEFAULT_PAGE_SIZE(maxPageSize);
 		ordersService.setMAX_PAGE_NUM(maxPageNum);
-		entitiesDao.setPAGE_SIZE(maxPageSize);
+		entitiesDao.setDEFAULT_PAGE_SIZE(maxPageSize);
 		entitiesDao.setMAX_PAGE_NUM(maxPageNum);
-		ordersDao.setPAGE_SIZE(maxPageSize);
+		ordersDao.setDEFAULT_PAGE_SIZE(maxPageSize);
 		ordersDao.setMAX_PAGE_NUM(maxPageNum);
 		
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);

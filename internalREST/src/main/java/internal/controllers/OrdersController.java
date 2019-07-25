@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
+import internal.exceptions.EntityNotFound;
+import internal.exceptions.PersistenceFailed;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
@@ -14,10 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +57,7 @@ public class OrdersController {
 	private int MAX_PAGE_NUM;
 	
 	/**
-	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.PAGE_SIZE
+	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.DEFAULT_PAGE_SIZE
 	 * @param page    Number of page with the list of Orders. One page contains 'size' amount of Orders.
 	 * @param orderBy The property of Order all the Orders have to be ordered by.
 	 * @param order   Ascending or descending order.
@@ -116,7 +120,7 @@ public class OrdersController {
 				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		Optional<Order> persistedOrder = ordersService.persistOrMergeEntity(order);
+		Optional<Order> persistedOrder = ordersService.persistEntity(order);
 		if (persistedOrder.isPresent()) {
 			String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder.get());
 			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
@@ -128,13 +132,26 @@ public class OrdersController {
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<String> putOrder(@Validated({UpdationCheck.class, Default.class})
 										   @RequestBody Order order,
-										   BindingResult bindingResult) throws MethodArgumentNotValidException {
+										   BindingResult bindingResult) throws MethodArgumentNotValidException, JsonProcessingException {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
+		//TODO: to make a mergeEntity() method!
 		Optional<Order> mergedOrder = ordersService.persistOrMergeEntity(order);
-//		ordersService.persistOrMergeOrder(order).orElseThrow(PersistenceException::new)
-		return null;
+		String serializedOrder = jsonServiceUtils.convertEntityToJson(mergedOrder.orElseThrow(() ->
+			new PersistenceFailed("Server could not update Order with ID = " + order.getId())));
+		return ResponseEntity.ok(serializedOrder);
+	}
+	
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) {
+		if (id == null || id <= 0) {
+			throw new EntityNotFound("Order id have to be above zero!");
+		}
+		Optional<Order> orderFound = ordersService.findById(id);
+		ordersService.deleteEntity(orderFound.orElseThrow(
+			() -> new EntityNotFound("No Order with id = " + id + " is found!")));
+		return ResponseEntity.status(HttpStatus.OK).body("Order " + id + " has been successfully deleted!");
 	}
 	
 	@PostConstruct

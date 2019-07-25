@@ -158,7 +158,7 @@ class DaoIT {
 			assertEquals(0, employee.getId());
 			
 			//WHEN
-			employeesDao.persistOrMergeEntity((Employee) entity);
+			employeesDao.persistEntity((Employee) entity);
 			
 			//THEN
 			assertTrue(employee.getId() > 0); //The id has been set
@@ -172,7 +172,7 @@ class DaoIT {
 			assertEquals(0, order.getId());
 			
 			//WHEN
-			ordersDao.persistOrMergeEntity((Order) entity);
+			ordersDao.persistEntity((Order) entity);
 			
 			//THEN
 			assertTrue(order.getId() > 0);//The id has been set
@@ -306,7 +306,7 @@ class DaoIT {
 		//Here we persist Classifiers for the following check
 		classifiers.forEach(classifier -> {
 			classifier.setCreatedBy(employees.get(j));
-			classifiersDao.persistOrMergeEntity(classifier);
+			classifiersDao.persistEntity(classifier);
 		});
 		//Check the Classifiers are persisted
 		classifiers.forEach(classifier -> {
@@ -421,7 +421,7 @@ class DaoIT {
 		positionsDao.persistEntities(positions);
 		
 		//WHEN persist and get the Entity back
-		Optional<Employee> employeeFromDb = employeesDao.persistOrMergeEntity(employee);
+		Optional<Employee> employeeFromDb = employeesDao.persistEntity(employee);
 		
 		//THEN receive the Entity with UTC-corrected ZonedDateTime
 		//Just a check that UTC zone 3 hours less

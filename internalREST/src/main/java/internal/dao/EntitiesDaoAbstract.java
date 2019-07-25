@@ -44,10 +44,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
 	
 	@Value("${default.page.size}")
-	private int PAGE_SIZE;
+	private int DEFAULT_PAGE_SIZE;
 	@Value("${default.page.max_num}")
 	private int MAX_PAGE_NUM;
 	
@@ -106,7 +106,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	/**
 	 * Page formula is: (pageNum -1)*pageSize
 	 *
-	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#PAGE_SIZE}
+	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#DEFAULT_PAGE_SIZE}
 	 *                 If 0 - will be set to default (max).
 	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
 	 *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#MAX_PAGE_NUM}
@@ -118,7 +118,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	 */
 	public Optional<List<T>> findAll(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order) {
 		//TODO: to realize estimating the whole quantity with max pageNum
-		pageSize = (pageSize <= 0 || pageSize > PAGE_SIZE) ? PAGE_SIZE : pageSize;
+		pageSize = (pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
 		order = order == null ? Sort.Direction.DESC : order;
 		
@@ -189,7 +189,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	}
 	
 	/**
-	 * If an Entity.id == 0 it will be persisted, if Entity.id > 0 it will be merged (will update an entry in the DB).
+	 * Only if an Entity.id == 0 or null it will be persisted.
 	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
 	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
 	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
@@ -202,19 +202,13 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	 * @throws PersistenceException
 	 * @throws IllegalArgumentException If a given Entity is null or its id < 0.
 	 */
-	public Optional<T> persistOrMergeEntity(T entity) throws PersistenceException, IllegalArgumentException, ClassCastException {
+	public Optional<T> persistEntity(T entity)
+		throws EntityExistsException, PersistenceException, IllegalArgumentException, ClassCastException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
-		}
-		//When id is set and id > 0 entity will be merged
-		if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() > 0) {
-			log.debug("{}.id > 0, so it will be merged.", entity.getClass().getSimpleName());
-			return mergeEntity(entity);
 		} else if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() < 0) {
-			//If id is wrong (< 0)
 			throw new IllegalArgumentException("Entity.id=" + ((WorkshopEntity) entity).getId() + " cannot be below zero!");
 		}
-		//When Entity.id == 0
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
@@ -253,7 +247,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		
 		entities.forEach(entity -> {
 			counter.getAndIncrement();
-			Optional<T> persistedEntity = persistOrMergeEntity(entity);
+			Optional<T> persistedEntity = persistEntity(entity);
 			if (persistedEntities != null && persistedEntity.isPresent()) {
 				persistedEntities.add(persistedEntity.get());
 			}
@@ -339,6 +333,24 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		}
 		entities.forEach(this::removeEntity);
 		log.debug("All the {}s entities have been removed.", entityClass.getSimpleName());
+	}
+	
+	public boolean isExist(long id) {
+		if (id <= 0) {
+			throw new IllegalArgumentException("ID cannot be zero or below!");
+		}
+		TypedQuery<Long> entityId = entityManager.createQuery(
+			"SELECT id FROM " + entityClass + " id WHERE id.id= :id", Long.class);
+		entityId.setParameter("id", id);
+		Long idFound = null;
+		try {
+			idFound = entityId.getSingleResult();
+			log.debug("Entity.id={} is found.", id);
+			return true;
+		} catch (NoResultException nre) {
+			log.debug("Entity.id={} is not found!", id);
+			return false;
+		}
 	}
 	
 	public long countAllEntities() {

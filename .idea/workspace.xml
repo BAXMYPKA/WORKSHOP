@@ -2,28 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/DepartmentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/DepartmentsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/AppConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/AppConfigurationIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/DaoIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -86,8 +70,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="138" column="47" selection-start-line="138" selection-start-column="47" selection-end-line="138" selection-end-column="47" />
+            <state relative-caret-position="532">
+              <caret line="141" column="56" selection-start-line="141" selection-start-column="56" selection-end-line="141" selection-end-column="56" />
+              <folding>
+                <element signature="docComment;method#deleteOrder#0;class#OrdersController#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="54" column="104" selection-start-line="54" selection-start-column="104" selection-end-line="54" selection-end-column="104" />
             </state>
           </provider>
         </entry>
@@ -95,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="764">
-              <caret line="106" column="108" selection-start-line="106" selection-start-column="108" selection-end-line="106" selection-end-column="108" />
+            <state relative-caret-position="396">
+              <caret line="97" column="59" selection-start-line="97" selection-start-column="59" selection-end-line="97" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,14 +100,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="93" column="42" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
+            <state relative-caret-position="188">
+              <caret line="115" column="67" selection-start-line="115" selection-start-column="67" selection-end-line="115" selection-end-column="67" />
               <folding>
                 <element signature="docComment;field#DEFAULT_PAGE_SIZE#0;class#EntitiesServiceAbstract#0" expanded="true" />
                 <element signature="docComment;field#MAX_PAGE_NUM#0;class#EntitiesServiceAbstract#0" expanded="true" />
+                <element signature="docComment;method#findById#0;class#EntitiesServiceAbstract#0" expanded="true" />
+                <element signature="docComment;method#persistOrMergeEntity#0;class#EntitiesServiceAbstract#0" expanded="true" />
+                <element signature="docComment;method#removeEntity#1;class#EntitiesServiceAbstract#0" expanded="true" />
+                <element signature="docComment;method#findAllEntities#0;class#EntitiesServiceAbstract#0" expanded="true" />
+                <element signature="docComment;method#findAllEntities#1;class#EntitiesServiceAbstract#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,11 +121,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="652">
-              <caret line="326" selection-start-line="326" selection-end-line="327" />
+            <state relative-caret-position="-3492">
+              <caret line="71" column="54" selection-start-line="71" selection-start-column="54" selection-end-line="71" selection-end-column="54" />
               <folding>
+                <element signature="docComment;class#EntitiesDaoAbstract#0" expanded="true" />
+                <element signature="docComment;method#findAll#0;class#EntitiesDaoAbstract#0" expanded="true" />
                 <element signature="e#0#57#1" expanded="true" />
-                <element signature="e#0#14#0" expanded="true" />
+                <element signature="docComment;method#persistEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
+                <element signature="docComment;method#mergeEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
+                <element signature="docComment;method#removeEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
                 <element signature="e#0#47#1" expanded="true" />
               </folding>
             </state>
@@ -186,7 +191,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/JsonService.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesCacheIT.java" />
@@ -231,12 +235,13 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/WorkshopException.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/OperationFailed.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistanceFailed.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/EntityNotFound.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/RemovingFailed.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
       </list>
     </option>
   </component>
@@ -281,8 +286,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="CatdeaLogs" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -333,24 +338,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -477,7 +464,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="CatdeaLogs" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -639,11 +626,11 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.EntitiesServiceAbstractImplementationsTest" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.EntitiesServiceAbstractImplementationsTest.init_Test" />
       <item itemvalue="JUnit.EntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" />
       <item itemvalue="JUnit.EntitiesServiceAbstractIT" />
       <item itemvalue="JUnit.EntitiesServiceAbstractIT.taskService_Should_Find_Task_By_Id" />
+      <item itemvalue="Spring Boot.Internal" />
     </list>
     <recent_temporary>
       <list>
@@ -740,6 +727,7 @@
       <workItem from="1563904810007" duration="590000" />
       <workItem from="1563957299831" duration="5447000" />
       <workItem from="1564040033219" duration="14596000" />
+      <workItem from="1564067402337" duration="10777000" />
     </task>
     <servers />
   </component>
@@ -776,7 +764,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="883349000" />
+    <option name="totallyTimeSpent" value="894126000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -785,12 +773,12 @@
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.36525172" side_tool="true" weight="0.16174921" />
+      <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.4254689" side_tool="true" weight="0.16174921" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.6347483" weight="0.16174921" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.5745311" weight="0.16174921" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
-      <window_info active="true" id="Maven" order="9" sideWeight="0.41743588" visible="true" weight="0.10695469" />
+      <window_info id="Maven" order="9" sideWeight="0.5320829" visible="true" weight="0.10695469" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -906,13 +894,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="812">
@@ -1193,13 +1174,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="80" column="12" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/WorkshopException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16">
@@ -1211,21 +1185,6 @@ System.out.println(contains);</expression-string>
             <element signature="e#254#255#0" expanded="true" />
             <element signature="e#301#302#0" expanded="true" />
             <element signature="e#320#321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-          <folding>
-            <element signature="e#180#181#0" expanded="true" />
-            <element signature="e#201#202#0" expanded="true" />
-            <element signature="e#262#263#0" expanded="true" />
-            <element signature="e#290#291#0" expanded="true" />
-            <element signature="e#335#336#0" expanded="true" />
-            <element signature="e#354#355#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1245,43 +1204,84 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/RemovingFailed.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="106" column="108" selection-start-line="106" selection-start-column="108" selection-end-line="106" selection-end-column="108" />
+        <state relative-caret-position="48">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#125#126#0" expanded="true" />
+            <element signature="e#146#147#0" expanded="true" />
+            <element signature="e#206#207#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#297#298#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="326" selection-start-line="326" selection-end-line="327" />
+        <state relative-caret-position="-3492">
+          <caret line="71" column="54" selection-start-line="71" selection-start-column="54" selection-end-line="71" selection-end-column="54" />
           <folding>
+            <element signature="docComment;class#EntitiesDaoAbstract#0" expanded="true" />
+            <element signature="docComment;method#findAll#0;class#EntitiesDaoAbstract#0" expanded="true" />
             <element signature="e#0#57#1" expanded="true" />
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="docComment;method#persistEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
+            <element signature="docComment;method#mergeEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
+            <element signature="docComment;method#removeEntity#0;class#EntitiesDaoAbstract#0" expanded="true" />
             <element signature="e#0#47#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="25" lean-forward="true" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="97" column="59" selection-start-line="97" selection-start-column="59" selection-end-line="97" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="115" column="67" selection-start-line="115" selection-start-column="67" selection-end-line="115" selection-end-column="67" />
+          <folding>
+            <element signature="docComment;field#DEFAULT_PAGE_SIZE#0;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;field#MAX_PAGE_NUM#0;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;method#findById#0;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;method#persistOrMergeEntity#0;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;method#removeEntity#1;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;method#findAllEntities#0;class#EntitiesServiceAbstract#0" expanded="true" />
+            <element signature="docComment;method#findAllEntities#1;class#EntitiesServiceAbstract#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="138" column="47" selection-start-line="138" selection-start-column="47" selection-end-line="138" selection-end-column="47" />
+        <state relative-caret-position="532">
+          <caret line="141" column="56" selection-start-line="141" selection-start-column="56" selection-end-line="141" selection-end-column="56" />
+          <folding>
+            <element signature="docComment;method#deleteOrder#0;class#OrdersController#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="93" column="42" selection-start-line="93" selection-start-column="42" selection-end-line="93" selection-end-column="42" />
-          <folding>
-            <element signature="docComment;field#DEFAULT_PAGE_SIZE#0;class#EntitiesServiceAbstract#0" expanded="true" />
-            <element signature="docComment;field#MAX_PAGE_NUM#0;class#EntitiesServiceAbstract#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="332">
+          <caret line="54" column="104" selection-start-line="54" selection-start-column="104" selection-end-line="54" selection-end-column="104" />
         </state>
       </provider>
     </entry>

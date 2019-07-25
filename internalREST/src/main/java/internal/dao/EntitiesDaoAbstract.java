@@ -66,7 +66,12 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	@Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
 	int batchSize;
 	
-	public Optional<T> findById(K key) throws PersistenceException, IllegalArgumentException {
+	/**
+	 * @param key
+	 * @return The found entity instance or Optional.empty() if the entity does not exist
+	 * @throws IllegalArgumentException if key is null
+	 */
+	public Optional<T> findById(K key) throws IllegalArgumentException {
 		if (key == null) {
 			throw new IllegalArgumentException("Key parameter is null!");
 		}
@@ -115,8 +120,13 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 *                 'created' field, otherwise no ordering will happened.
 	 * @param order    "ASC" or "DESC" types from Sort.Order ENUM
 	 * @return If nothing found an Optional.empty() will be returned.
+	 * @throws PersistenceException In case of timeout, non-transactional operation, lock-failure etc.
 	 */
-	public Optional<List<T>> findAll(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order) {
+	public Optional<List<T>> findAll(
+		int pageSize,
+		int pageNum,
+		@Nullable String orderBy,
+		@Nullable Sort.Direction order) throws PersistenceException {
 		//TODO: to realize estimating the whole quantity with max pageNum
 		pageSize = (pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
@@ -199,16 +209,16 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 *
 	 * @param entity
 	 * @return Returns a managed copy of Entity with 'id' set
-	 * @throws PersistenceException
-	 * @throws IllegalArgumentException If a given Entity is null or its id < 0.
+	 * @throws EntityExistsException        Throws by the EntityManager itself if such an Entity extsts.
+	 * @throws TransactionRequiredException Throws by the EntityManager itself if it is performing not in a transaction
+	 * @throws IllegalArgumentException     If a given Entity is not an entity either is null or its id != 0.
 	 */
 	public Optional<T> persistEntity(T entity)
-		throws EntityExistsException, PersistenceException, IllegalArgumentException, ClassCastException {
+		throws EntityExistsException, TransactionRequiredException, IllegalArgumentException, ClassCastException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
-		} else if (entity instanceof WorkshopEntity && ((WorkshopEntity) entity).getId() < 0) {
-			throw new IllegalArgumentException("Entity.id=" + ((WorkshopEntity) entity).getId() + " cannot be below zero!");
 		}
+		//Set Trackable.createdBy(Employee employee)
 		if (entity instanceof Trackable) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
@@ -286,7 +296,8 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 * Flush all the changed properties of the detached Entity to the DataBase and returns a managed one.
 	 *
 	 * @param entity Entity to be merge with existing one
-	 * @return A managed copy of the Entity
+	 * @return A managed copy of the Optional<Entity> or Optional.empty() if the given entity is the removed one.
+	 * @throws IllegalArgumentException If Entity is null or if instance is a removed entity
 	 */
 	public Optional<T> mergeEntity(T entity) throws IllegalArgumentException {
 		if (entity == null) {
@@ -300,8 +311,14 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 				log.debug("{}.createdBy set to '{}'", entityClass.getSimpleName(), authentication.getName());
 			}
 		}
-		Optional<T> mergedEntity = Optional.ofNullable(entityManager.merge(entity));
-		log.debug("{} is merged? = {}", entity.getClass().getSimpleName(), mergedEntity.isPresent());
+		Optional<T> mergedEntity;
+		try {
+			mergedEntity = Optional.of(entityManager.merge(entity));
+		} catch (IllegalArgumentException ex) { //Could be thrown by EntityManager if it is a removed entity
+			log.info(ex.getMessage(), ex);
+			return Optional.empty();
+		}
+		log.debug("{} is merged", entity.getClass().getSimpleName());
 		return mergedEntity;
 	}
 	
@@ -319,6 +336,11 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		return Optional.of(mergedEntities);
 	}
 	
+	/**
+	 * @throws IllegalArgumentException     If a given entity is null either the instance is not an entity or is a detached
+	 *                                      entity
+	 * @throws TransactionRequiredException This method has to be performed within a Transaction.
+	 */
 	public void removeEntity(T entity) throws IllegalArgumentException, TransactionRequiredException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");

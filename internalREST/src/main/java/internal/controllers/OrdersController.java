@@ -16,12 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -87,13 +85,9 @@ public class OrdersController {
 		if (id <= 0) {
 			return new ResponseEntity<>("The 'id' parameter has to be above zero!", HttpStatus.BAD_REQUEST);
 		}
-		Optional<Order> order = ordersService.findById(id);
-		if (order.isPresent()) {
-			String jsonOrder = jsonServiceUtils.convertEntityToJson(order.get());
-			return ResponseEntity.ok(jsonOrder);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Order with id=" + id + " not found!");
-		}
+		Order order = ordersService.findById(id);
+		String jsonOrder = jsonServiceUtils.convertEntityToJson(order);
+		return ResponseEntity.ok(jsonOrder);
 	}
 	
 	/**
@@ -120,13 +114,9 @@ public class OrdersController {
 				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		Optional<Order> persistedOrder = ordersService.persistEntity(order);
-		if (persistedOrder.isPresent()) {
-			String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder.get());
-			return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
-		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect request body!");
-		}
+		Order persistedOrder = ordersService.persistEntity(order);
+		String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
 	}
 	
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -136,21 +126,23 @@ public class OrdersController {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
-		//TODO: to make a mergeEntity() method!
-		Optional<Order> mergedOrder = ordersService.persistOrMergeEntity(order);
-		String serializedOrder = jsonServiceUtils.convertEntityToJson(mergedOrder.orElseThrow(() ->
-			new PersistenceFailed("Server could not update Order with ID = " + order.getId())));
+		Order mergedOrder = ordersService.mergeEntity(order);
+		String serializedOrder = jsonServiceUtils.convertEntityToJson(mergedOrder);
 		return ResponseEntity.ok(serializedOrder);
 	}
 	
+	/**
+	 * @param id Long.class
+	 * @return HttpStatus 200 with a successful message.
+	 * If no Entity for such an id will be found the HttpStatus 404 'NotFound' will be returned.
+	 */
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) {
 		if (id == null || id <= 0) {
+			//TODO: to complete and revise this throwing
 			throw new EntityNotFound("Order id have to be above zero!");
 		}
-		Optional<Order> orderFound = ordersService.findById(id);
-		ordersService.deleteEntity(orderFound.orElseThrow(
-			() -> new EntityNotFound("No Order with id = " + id + " is found!")));
+		ordersService.removeEntity(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Order " + id + " has been successfully deleted!");
 	}
 	

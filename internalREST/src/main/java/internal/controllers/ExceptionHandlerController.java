@@ -98,7 +98,7 @@ public class ExceptionHandlerController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No result!");
 		} else if (exception instanceof RollbackException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body("The operation is rolled back!");
+			return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(exception.getMessage());
 		} else if (exception instanceof NonUniqueResultException) {
 			log.debug(exception.getMessage(), exception);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("The result is not unique!");

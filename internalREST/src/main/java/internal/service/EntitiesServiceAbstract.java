@@ -2,7 +2,8 @@ package internal.service;
 
 import internal.dao.EntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
-import internal.exceptions.PersistenceFailed;
+import internal.exceptions.EntityNotFound;
+import internal.exceptions.PersistenceFailure;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +30,7 @@ import java.util.Optional;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	/**
 	 * Default size of results on one page
@@ -61,15 +62,15 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	 * @param id
 	 * @return A found Entity or throws javax.persistence.NoResultException
 	 * @throws IllegalArgumentException If id <= 0 or not the key type for the Entity
-	 * @throws NoResultException        If nothing were found
+	 * @throws EntityNotFound           If nothing were found
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public T findById(long id) throws IllegalArgumentException, NoResultException {
+	public T findById(long id) throws IllegalArgumentException, EntityNotFound {
 		if (id <= 0) {
 			throw new IllegalArgumentException("The ID to be found cannot be 0 or even lower!");
 		}
 		return entitiesDaoAbstract.findById(id).orElseThrow(() ->
-			new NoResultException("No " + entityClass.getSimpleName() + " with id=" + id + " was found!"));
+			new EntityNotFound("No " + entityClass.getSimpleName() + " with id=" + id + " was found!"));
 	}
 	
 	/**
@@ -94,11 +95,11 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			log.debug("{} exists, trying to merge it...", entityClass.getSimpleName(), ex);
 			persistedEntity = entitiesDaoAbstract.mergeEntity(entity);
 		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
-			log.info("Could not merge {} with id={}", entityClass.getSimpleName(), entity.getId(), ie);
-			throw new PersistenceFailed(
-				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties.");
+			throw new EntityNotFound(
+				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties.",
+				HttpStatus.GONE, ie);
 		}
-		return persistedEntity.orElseThrow(() -> new PersistenceFailed(
+		return persistedEntity.orElseThrow(() -> new PersistenceFailure(
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
 	}
 	
@@ -106,22 +107,23 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		return entitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailed(
-			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties."));
+		return entitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
+			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.", HttpStatus.CONFLICT));
 	}
 	
 	/**
 	 * @param entity Entity to be merged (updated) in the DataBase
 	 * @return An updated managed copy of the entity.
 	 * @throws IllegalArgumentException If the given entity = null.
-	 * @throws PersistenceFailed If the given entity is in the removed state (not found in the DataBase).
+	 * @throws PersistenceFailure       If the given entity is in the removed state (not found in the DataBase).
 	 */
-	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailed {
+	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailure {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		return entitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailed(
-			"Updating the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be updated!"));
+		return entitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailure(
+			"Updating the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be updated!",
+			HttpStatus.GONE));
 	}
 	
 	public void removeEntity(T entity) {
@@ -132,8 +134,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			entitiesDaoAbstract.removeEntity(entity);
 			log.debug("{} successfully removed.", entityClass.getSimpleName());
 		} catch (IllegalArgumentException ex) {
-			log.debug(ex.getMessage(), ex);
-			throw new PersistenceFailed("Removing the " + entityClass.getSimpleName() + " is failed!" +
+			throw new EntityNotFound("Removing the " + entityClass.getSimpleName() + " is failed!" +
 				"Such an object wasn't found to be removed!", ex);
 		}
 	}
@@ -146,20 +147,39 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id cannot be equal zero or below!");
 		}
-		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new PersistenceFailed(
-			"No " + entityClass.getSimpleName() + " for id=" + id + " is found to be deleted!"));
+		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
+			"No " + entityClass.getSimpleName() + " for id=" + id + " was found to be deleted!"));
 		entitiesDaoAbstract.removeEntity(foundBiId);
 	}
 	
 	/**
-	 * @param entities {@link EntitiesServiceAbstract#persistOrMergeEntities(Collection)}
-	 * @return {@link EntitiesServiceAbstract#persistOrMergeEntities(Collection)}
+	 * @param entities
+	 * @return {@link EntitiesServiceAbstract#persistEntities(Collection)} If the given collection doesn't exceed
+	 * the {@link EntitiesDaoAbstract#getBatchSize()} a collection of persisted and managed copy of entities will be returned.
+	 * Otherwise an Collections.emptyList() will be returned (not to overload the memory and JPA first-level cache) and you
+	 * will have to get entities from your collection yourself.
 	 */
-	public Optional<Collection<T>> persistOrMergeEntities(Collection<T> entities) {
+	public Collection<T> persistEntities(Collection<T> entities) {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
-		return entitiesDaoAbstract.persistEntities(entities);
+		return entitiesDaoAbstract.persistEntities(entities).orElse(Collections.emptyList());
+	}
+	
+	/**
+	 * @param entities {@link EntitiesServiceAbstract#persistEntities(Collection)}
+	 * @return A collection of only those entities which were able to be persisted.
+	 * If the given collection doesn't exceed the {@link EntitiesDaoAbstract#getBatchSize()} a collection of
+	 * persisted and managed copy of entities will be returned.
+	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
+	 * and you will have to get entities from your collection yourself.
+	 */
+	public Collection<T> mergeEntities(Collection<T> entities) {
+		if (entities == null || entities.size() == 0) {
+			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
+		}
+		return entitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFound(
+			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR));
 	}
 	
 	
@@ -186,7 +206,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
 			return page;
 		} catch (PersistenceException e) {
-			log.error(e.getMessage(), e);
+			log.info(e.getMessage(), e);
 			return new PageImpl<T>(Collections.<T>emptyList());
 		}
 	}
@@ -214,7 +234,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
 			return entities.orElse(Collections.<T>emptyList());
 		} catch (PersistenceException e) {
-			log.error(e.getMessage(), e);
+			log.info(e.getMessage(), e);
 			return Collections.<T>emptyList();
 		}
 	}

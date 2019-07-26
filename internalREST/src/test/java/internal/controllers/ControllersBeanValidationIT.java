@@ -48,21 +48,6 @@ class ControllersBeanValidationIT {
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	
-/*
-	@MockBean
-	private EmployeesDao employeesDao;
-	@MockBean
-	private DaoAbstract daoAbstract;
-	
-	@BeforeEach
-	private void init() {
-		Employee employee = new Employee();
-		employee.setId(500);
-		employee.setEmail("employee@workshop.pro");
-		Mockito.lenient().when(daoAbstract.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(employee));
-	}
-*/
-	
 	@Test
 	public void testInit() {
 		assertNotNull(mockMvc);
@@ -71,7 +56,7 @@ class ControllersBeanValidationIT {
 	@ParameterizedTest
 	@MethodSource("getEntitiesToPersistWithId")
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin"})
-	public void persist_Entities_With_Id_Set(WorkshopEntity entity) throws Exception {
+	public void persist_Entities_With_Id_Set_Should_Return_UnprocessableEntity_HttpCode(WorkshopEntity entity) throws Exception {
 		//GIVEN
 		Trackable trackable = null;
 		String urlToPersist = "";
@@ -84,7 +69,6 @@ class ControllersBeanValidationIT {
 		//WHEN
 		Employee employee = Employee.builder()
 			.email("employee@workshop.pro").firstName("FN").lastName("LN").birthday(LocalDate.now().minusYears(18)).build();
-//		Mockito.when(daoAbstract.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(employee));
 		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
 			.request(HttpMethod.POST, urlToPersist)
 			.contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -99,9 +83,10 @@ class ControllersBeanValidationIT {
 	
 	@ParameterizedTest
 	@MethodSource("getSimpleEntitiesToPersistWithErrors")
-	@DisplayName("Rest controller has to return a HttpResponse with a Json body with a single" +
+	@DisplayName("Controller should return the HttpStatusCode 422 with a Json body with exact FieldError name and value as:" +
 		"['fieldName:fieldError'] content like")
-	public void persist_Simple_Entities_With_Errors(WorkshopEntity entity, String uri) throws Exception {
+	public void persist_Simple_Entities_With_Errors_Should_Return_UnprocessableEntity_HttpStatusCode(WorkshopEntity entity, String uri)
+		throws Exception {
 		//GIVEN
 		Trackable trackable = null;
 		if ("Order".equals(entity.getClass().getSimpleName())) {
@@ -132,7 +117,8 @@ class ControllersBeanValidationIT {
 	}
 	
 	@Test
-	@DisplayName("Expected errors during a persistence with included new Entities with a multiple included FieldErrors." +
+	@DisplayName("Controller should return the HttpStatusCode 422 with the Json body with multiple included FieldErrors" +
+		"for cascading persistence of including entities graph." +
 		"Also checks the 'PersistenceCheck.class' validation group" +
 		"Also checks CascadeType.PERSIST for all the included Entities.")
 	@WithMockUser(username = "employee@workshop.pro", roles = {"Administrator"})
@@ -195,10 +181,6 @@ class ControllersBeanValidationIT {
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.modified']", Matchers.hasSize(1)))
 			//Order.User.Set<Phone> 'phone' min 5 max 15 digits
 			.andExpect(MockMvcResultMatchers.jsonPath("$..['createdFor.phones[].phone']", Matchers.hasSize(1)));
-	}
-	
-	public void update_Entities() {
-		//
 	}
 	
 	public static Stream<Arguments> getEntitiesToPersistWithId() {

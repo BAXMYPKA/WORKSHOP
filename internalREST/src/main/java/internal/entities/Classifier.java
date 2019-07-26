@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -69,4 +66,15 @@ public class Classifier extends Trackable implements Serializable {
 	@ManyToMany(mappedBy = "classifiers", cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Task> tasks;
+	
+	@Builder
+	public Classifier(@NotBlank(groups = {UpdationCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}") String name,
+					  String description,
+					  boolean isOfficial,
+					  @PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+		this.name = name;
+		this.description = description;
+		this.isOfficial = isOfficial;
+		this.price = price;
+	}
 }

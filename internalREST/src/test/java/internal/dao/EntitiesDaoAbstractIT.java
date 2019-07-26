@@ -1,14 +1,11 @@
 package internal.dao;
 
 import internal.entities.*;
+import internal.entities.Order;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @TestPropertySource(properties = {""})
 @Slf4j
-class DaoIT {
+class EntitiesDaoAbstractIT {
 	
 	@Autowired
 	OrdersDao ordersDao;
@@ -75,29 +72,108 @@ class DaoIT {
 	static List<Department> departments;
 	
 	@Test
+	@org.junit.jupiter.api.Order(1)
 	public void context_Initialization() {
 		assertNotNull(ordersDao);
 		assertNotNull(ordersDao.getEntityManager());
 		assertNotNull(entityManager);
 	}
 	
-	@org.junit.jupiter.api.Order(1)
 	@Test
+	@org.junit.jupiter.api.Order(2)
 	@Transactional
-	@DisplayName("Employees are deleting one by one, Orders are deleting in a batch way")
-	public void deleting_Entities_By_One_And_By_Collection() {
+	@DisplayName("The persisting simple entities without id (id=0) one by one should be successful")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void persist_Simple_Entities_One_By_One_Should_Be_Successful() {
 		//GIVEN
-		Optional<List<Employee>> persistedEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
-		Optional<List<Order>> persistedOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
+		//New entities
+		Department department1 = new Department("Department one");
+		Department department2 = new Department("Department two");
+		Classifier classifier1 = Classifier.builder().name("Classifier one").description("").isOfficial(true)
+			.price(BigDecimal.valueOf(20.20)).build();
+		Classifier classifier2 = Classifier.builder().name("Classifier two").description("").isOfficial(true)
+			.price(BigDecimal.valueOf(30.35)).build();
 		
-		assertFalse(persistedEmployees.get().isEmpty());
-		assertFalse(persistedOrders.get().isEmpty());
+		//WHEN Persist entities one by one
+		Optional<Department> departmentOne = departmentsDao.persistEntity(department1);
+		Optional<Department> departmentTwo = departmentsDao.persistEntity(department2);
+		Optional<Classifier> classifierOne = classifiersDao.persistEntity(classifier1);
+		Optional<Classifier> classifierTwo = classifiersDao.persistEntity(classifier2);
+		
+		//THEN all of them got their ids
+		assertAll(
+			() -> assertTrue(departmentOne.get().getId() > 0),
+			() -> assertTrue(departmentTwo.get().getId() > 0),
+			() -> assertTrue(classifierOne.get().getId() > 0),
+			() -> assertTrue(classifierTwo.get().getId() > 0)
+		);
+	}
+	
+	@Test
+	@org.junit.jupiter.api.Order(3)
+	@Transactional
+	@DisplayName("Entities should be removed one by one.")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void remove_Entities_One_By_One() {
+		//GIVEN
+		//New entities
+		Department department1 = new Department("Department one");
+		Department department2 = new Department("Department two");
+		Position position1 = new Position("Position one", department1);
+		Position position2 = new Position("Position two", department2);
+		//Persisted entities
+		Optional<Department> departmentOne = departmentsDao.persistEntity(department1);
+		Optional<Department> departmentTwo = departmentsDao.persistEntity(department2);
+		Optional<Position> positionOne = positionsDao.persistEntity(position1);
+		Optional<Position> positionTwo = positionsDao.persistEntity(position2);
+		//Is persistence successful (just a check)
+		assertAll(
+			() -> assertTrue(departmentOne.get().getId() > 0),
+			() -> assertTrue(departmentTwo.get().getId() > 0),
+			() -> assertTrue(positionOne.get().getId() > 0),
+			() -> assertTrue(positionTwo.get().getId() > 0)
+		);
 		
 		//WHEN
-		persistedEmployees.get().forEach(employee -> employeesDao.removeEntity(employee));
-		ordersDao.removeEntities(persistedOrders.get());
+		//Remove one by one
+		positionsDao.removeEntity(positionOne.get());
+		positionsDao.removeEntity(positionTwo.get());
+		departmentsDao.removeEntity(departmentOne.get());
+		//Try to get the removed entities
+		Optional<Position> positionOneById = positionsDao.findById(departmentOne.get().getId());
+		Optional<Position> positionTwoById = positionsDao.findById(departmentOne.get().getId());
+		Optional<Position> departmentOneId = positionsDao.findById(departmentOne.get().getId());
 		
 		//THEN
+		assertAll(
+			() -> assertFalse(positionOneById.isPresent()),
+			() -> assertFalse(positionTwoById.isPresent()),
+			() -> assertFalse(departmentOneId.isPresent())
+		);
+	}
+	
+	@Test
+	@org.junit.jupiter.api.Order(4)
+	@Transactional
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void batch_remove_Entities_By_Collection() {
+		//GIVEN
+		removeAllPersistedEntities();
+//		initNewEntities();
+		//Persisted entities collections
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		Optional<Collection<Employee>> employeesPersisted = employeesDao.persistEntities(EntitiesDaoAbstractIT.employees);
+		Optional<Collection<Order>> ordersPersisted = ordersDao.persistEntities(EntitiesDaoAbstractIT.orders);
+		//Check is the persistence successful
+		assertTrue(employeesPersisted.isPresent());
+		assertTrue(ordersPersisted.isPresent());
+		
+		//WHEN Batch total remove some kind of entities
+		employeesDao.removeEntities(employeesPersisted.get());
+		ordersDao.removeEntities(ordersPersisted.get());
+		
+		//THEN No entities of that kind should be found
 		Optional<List<Employee>> emptyEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
 		Optional<List<Order>> emptyOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
 		
@@ -106,15 +182,15 @@ class DaoIT {
 	}
 	
 	@Test
-	@org.junit.jupiter.api.Order(2)
+	@org.junit.jupiter.api.Order(5)
 	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void batch_Persisting_Collections() {
 		
 		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
-		init();
-		clearContext();
+		initNewEntities();
+		removeAllPersistedEntities();
 		
 		//Pre-persist Entities without CascadeType.Persist
 		departmentsDao.persistEntities(departments);
@@ -140,194 +216,44 @@ class DaoIT {
 		orders.forEach(order -> assertTrue(entityManager.contains(order)));
 	}
 	
-	@ParameterizedTest
-	@MethodSource("entitiesFactory")
-	@DisplayName("Test DaoAbstract for being able to persist Entities without an id field")
-	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void persist_Simple_Entity(WorkshopEntity entity) {
-		//Pre-persist Entities without CascadeType.PERSIST
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		
-		if ("Employee".equals(entity.getClass().getSimpleName())) {
-			//GIVEN
-			Employee employee = (Employee) entity;
-			
-			assertFalse(entityManager.contains(employee)); //Not managed entity
-			assertEquals(0, employee.getId());
-			
-			//WHEN
-			employeesDao.persistEntity((Employee) entity);
-			
-			//THEN
-			assertTrue(employee.getId() > 0); //The id has been set
-			assertTrue(entityManager.contains(employee)); //Managed entity
-		} else if ("Order".equals(entity.getClass().getSimpleName())) {
-			
-			//GIVEN
-			Order order = (Order) entity;
-			
-			assertFalse(entityManager.contains(order)); //Not managed entity
-			assertEquals(0, order.getId());
-			
-			//WHEN
-			ordersDao.persistEntity((Order) entity);
-			
-			//THEN
-			assertTrue(order.getId() > 0);//The id has been set
-			assertTrue(entityManager.contains(order));//Managed
-		}
-	}
 	
 	@Test
+	@DisplayName("New entity with including new entities graph should all be persisted")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void persist_Entities_With_Id_0_isSuccessful() {
-		//GIVEN
-		
-		//Pre-persist Entities which have to be persisted separately
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		
-		orders.forEach(order -> order.setId(0));
-		employees.forEach(employee -> employee.setId(0));
+	public void cascade_Persisting_New_Entities_Graph() {
+		//GIVEN entities with CascadeType.PERSIST allowed
+		//First pair to be cascade-persisted
+		Department department1 = new Department("Department one");
+		Position position1 = new Position("Position one", department1);
+		department1.setPositions(Collections.singleton(position1));
+		//Second pair to be cascade-persisted
+		Order order1 = new Order();
+		Classifier classifier1 = new Classifier("Classifier one", "", true, BigDecimal.ONE);
+		Classifier classifier2 = new Classifier("Classifier two", "", true, BigDecimal.TEN);
+		Task task1 = Task.builder().name("Task one").build();
+		task1.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2)));
+		task1.setOrder(order1);
+		order1.setTasks(new HashSet<>(Collections.singleton(task1)));
 		
 		//WHEN
-		ordersDao.persistEntities(orders);
-		employeesDao.persistEntities(employees);
+		Optional<Order> orderPersisted = ordersDao.persistEntity(order1);
+		Optional<Department> departmentPersisted = departmentsDao.persistEntity(department1);
 		
 		//THEN
-		Set<Long> ids = new HashSet<>();
-		
-		orders.forEach(order -> {
-			assertTrue(order.getId() > 0);
-			assertTrue(entityManager.contains(order));
-			ids.add(order.getId());
-			
-		});
-		
-		employees.forEach(employee -> {
-			assertTrue(employee.getId() > 0);
-			assertTrue(entityManager.contains(employee));
-			ids.add(employee.getId());
-		});
-		
-		assertEquals(orders.size() + employees.size(), ids.size());
-	}
-	
-	@RepeatedTest(3)
-	@DisplayName("All the new entities tuples have to be persisted by JPA cascading by persisting a single Entity")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void cascade_Persisting_All_New_Entities() {
-		//GIVEN all non-persisted Entities.
-		
-		//As every collection has to have at least 3 items, we can randomly use their indexes
-		int i = ((int) (Math.random() * 3));
-		int j = ((int) (Math.random() * 3));
-		
-		//Preparing tuples from new Entities
-		users.forEach(user -> {
-			user.setId(0);
-			user.setPhones(new HashSet<Phone>(Arrays.asList(phones.get(0), phones.get(1))));
-		});
-		phones.forEach(phone -> {
-			phone.setId(0);
-		});
-		classifiers.forEach(classifier -> {
-			classifier.setId(0);
-			classifier.setCreatedBy(employees.get(j));
-		});
-		tasks.forEach(task -> {
-			task.setId(0);
-			task.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifiers.get(0), classifiers.get(1))));
-			task.setCreatedBy(employees.get(i));
-		});
-		
-		orders.forEach(order -> {
-			order.setId(0);
-			order.setCreatedFor(users.get(i));
-			order.setTasks(new HashSet<Task>(Arrays.asList(tasks.get(0), tasks.get(1))));
-		});
-		
-		//WHEN only Orders are persisted
-		
-		ordersDao.persistEntities(orders);
-		
-		//THEN all the tuples from those Orders have to be persisted either
-		
-		//Orders are persisted
-		orders.forEach(order -> {
-			entityManager.contains(order);
-		});
-		//Tasks from those Orders are persisted
-		assertTrue(entityManager.contains(tasks.get(0)) && entityManager.contains(tasks.get(1)));
-		//Classifiers from those Tasks are persisted
-		assertTrue(entityManager.contains(classifiers.get(0)) && entityManager.contains(classifiers.get(1)));
-		//User from those Orders is persisted
-		assertTrue(entityManager.contains(users.get(i)));
-		//Phones from that User are persisted
-		assertTrue(entityManager.contains(phones.get(0)) && entityManager.contains(phones.get(1)));
-	}
-	
-	@RepeatedTest(3)
-	@DisplayName("New entities have to be cascade persisted, but the old ones not")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void cascade_Persisting_Partly_New_Entities() {
-		//GIVEN persisted and non-persisted Entities.
-		
-		init();
-		clearContext();
-		
-		//As every collection has to have at least 3 items, we can randomly use their indexes
-		int i = ((int) (Math.random() * 3));
-		int j = ((int) (Math.random() * 3));
-		
-		//Preparing tuples from new Entities
-		users.forEach(user -> {
-			user.setId(0);
-			user.setPhones(new HashSet<Phone>(Arrays.asList(phones.get(0), phones.get(1))));
-		});
-		phones.forEach(phone -> {
-			phone.setId(0);
-		});
-		tasks.forEach(task -> {
-			task.setId(0);
-			task.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifiers.get(0), classifiers.get(1))));
-			task.setCreatedBy(employees.get(i));
-		});
-		orders.forEach(order -> {
-			order.setId(0);
-			order.setCreatedFor(users.get(i));
-			order.setTasks(new HashSet<Task>(Arrays.asList(tasks.get(0), tasks.get(1))));
-		});
-		
-		//WHEN 1) pre-persist Classifiers 2) then persist Orders
-		
-		//Here we persist Classifiers for the following check
-		classifiers.forEach(classifier -> {
-			classifier.setCreatedBy(employees.get(j));
-			classifiersDao.persistEntity(classifier);
-		});
-		//Check the Classifiers are persisted
-		classifiers.forEach(classifier -> {
-			assertTrue(entityManager.contains(classifier));
-		});
-		
-		//Then persist Orders with pre-persisted Classifiers
-		ordersDao.persistEntities(orders);
-		
-		//THEN all the tuples from those Orders have to be persisted either
-		
-		//Orders are persisted
-		orders.forEach(order -> {
-			assertTrue(entityManager.contains(order));
-		});
-		//Tasks from those Orders are persisted
-		assertTrue(entityManager.contains(tasks.get(0)) && entityManager.contains(tasks.get(1)));
-		//User from those Orders is persisted
-		assertTrue(entityManager.contains(users.get(i)));
-		//Phones from that User are persisted
-		assertTrue(entityManager.contains(phones.get(0)) && entityManager.contains(phones.get(1)));
+		assertAll(
+			() -> assertTrue(orderPersisted.get().getId() > 0)
+		);
+		//The Department has been persisted with the appropriate Position
+		assertAll(
+			() -> assertTrue(departmentPersisted.get().getId() > 0),
+			() -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0)
+		);
+		//The Task has been persisted with appropriate new Classifiers
+		assertAll(
+			() -> assertFalse(orderPersisted.get().getTasks().isEmpty()),
+			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getId() > 0),
+			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getId() > 0)
+		);
 	}
 	
 	@ParameterizedTest
@@ -336,73 +262,42 @@ class DaoIT {
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Works_Properly(int source) {
+		//TODO: to be done
 		//GIVEN
-		//Clear the InMemory DataBase and reinit all the Entities for the test
-		init();
-		//Load some new test Entities
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		employeesDao.persistEntities(employees);
-		ordersDao.persistEntities(orders);
-		
-		//Get all the preloaded Orders
-		Optional<List<Order>> allOrders = ordersDao.findAll(0, 0, "", Sort.Direction.DESC);
-		
-		//By default Dao sorts Entities by 'created' field
-		allOrders.get().sort((ord1, ord2) -> ord1.getCreated().compareTo(ord2.getCreated()));
-		
-		int pageSize = source;
-		int pageNum = source;
-		//Page formula to count the number of item from a Global ordered list the current Page has to start with
-		int itemNumToStartPageWith = (pageNum - 1) * pageSize;
 		
 		//WHEN
 		
-		Optional<List<Order>> page = ordersDao.findAll(pageSize, pageNum, "", Sort.Direction.DESC);
-		
 		//THEN
-		
-		//The result size may by less than the pageSize
-		assertTrue(page.get().size() <= pageSize);
-		//Depending on pageSize every page starts with the proper item
-		assertSame(page.get().get(0), allOrders.get().get(itemNumToStartPageWith));
 	}
 	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void find_Entity_By_Id_Email() {
+	public void find_Entities_By_Email_Should_Return_Entities_With_Emails() {
 		//GIVEN
-		init();
-		clearContext();
-		
+		//Pre-persist necessary entities
 		departmentsDao.persistEntities(departments);
 		positionsDao.persistEntities(positions);
-		ordersDao.persistEntities(orders);
-		employeesDao.persistEntities(employees);
 		
-		//Take the first non-persisted Order
-		Order nonPersistedOrder = orders.get(0);
-		long nonPersistedOrderId = nonPersistedOrder.getId();
-		
-		//Take the first non-persisted Employee
-		Employee nonPersistedEmployee = employees.get(0);
-		String nonPersistedEmail = nonPersistedEmployee.getEmail();
+		String employeeEmail = "employeeToBeFoune@workshop.pro";
+		String userEmail = "userToBeFound@user.com";
+		//Entities to be persisted
+		Employee employee = new Employee("fn", "ln", "12345", employeeEmail,
+			LocalDate.now().minusYears(50), positions.get(0));
+		User user = new User(userEmail);
+		//Persisting
+		employeesDao.persistEntity(employee);
+		usersDao.persistEntity(user);
 		
 		//WHEN
-		//Try to found persisted Order by id
-		Optional<Order> foundByIdOrder = ordersDao.findById(nonPersistedOrderId);
-		//Try to found persisted Employee by email
-		Employee persistedEmployee = employeesDao.findEmployeeByEmail(nonPersistedEmail);
+		Employee employeeByEmail = employeesDao.findEmployeeByEmail(employeeEmail);
+		Optional<User> userByEmail = usersDao.findByEmail(userEmail);
 		
 		//THEN
-		//Order has to be found
-		assertNotNull(foundByIdOrder.get());
-		assertTrue(entityManager.contains(foundByIdOrder.get()));
-		assertEquals(nonPersistedOrder.getId(), foundByIdOrder.get().getId());
-		assertEquals(nonPersistedOrder.getCreated(), foundByIdOrder.get().getCreated());
-		//Employee has to be found
-		assertNotNull(persistedEmployee);
-		assertEquals(nonPersistedEmail, persistedEmployee.getEmail());
+		assertAll(
+			() -> assertEquals(employeeEmail, employeeByEmail.getEmail()),
+			() -> assertTrue(userByEmail.isPresent()),
+			() -> assertEquals(userEmail, userByEmail.get().getEmail())
+		);
 	}
 	
 	@Test
@@ -430,9 +325,9 @@ class DaoIT {
 		assertTrue(employeeFromDb.get().getFinished().isEqual(utcZone));
 	}
 	
-	@BeforeAll
+	@BeforeEach
 	@DisplayName("Every Collection has to contain minimum 3 items!")
-	public static void init() {
+	public void initNewEntities() {
 		Department department = new Department();
 		department.setName("Department one");
 		
@@ -602,42 +497,50 @@ class DaoIT {
 		classifiers = new ArrayList<>(Arrays.asList(classifier1, classifier2, classifier3));
 	}
 	
+	/**
+	 * Remove all the entities from the current DataBase
+	 */
+	@AfterEach
 	@Transactional
-	public void persistEntities() {
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		employeesDao.persistEntities(employees);
-		ordersDao.persistEntities(orders);
-	}
-	
-	@Transactional
-	public void clearContext() {
+	public void removeAllPersistedEntities() {
 		Optional<List<Employee>> employeesManaged = employeesDao.findAll(0, 0, null, null);
-		employeesDao.removeEntities(employeesManaged.get());
-		
-		Optional<List<Order>> ordersManaged = ordersDao.findAll(0, 0, null, null);
-		ordersDao.removeEntities(ordersManaged.get());
+		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Task>> tasksManaged = tasksDao.findAll(0, 0, null, null);
-		tasksDao.removeEntities(tasksManaged.get());
+		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
+		
+		Optional<List<Order>> ordersManaged = ordersDao.findAll(0, 0, null, null);
+		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAll(0, 0, null, null);
-		classifiersDao.refreshEntities(classifiersManaged.get());
+		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<User>> usersManaged = usersDao.findAll(0, 0, null, null);
-		usersDao.removeEntities(usersManaged.get());
+		usersDao.removeEntities(usersManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Position>> positionsManaged = positionsDao.findAll(0, 0, null, null);
-		positionsDao.removeEntities(positionsManaged.get());
+		positionsDao.removeEntities(positionsManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Department>> departmentsManaged = departmentsDao.findAll(0, 0, null, null);
-		departmentsDao.removeEntities(departmentsManaged.get());
+		departmentsDao.removeEntities(departmentsManaged.orElse(Collections.emptyList()));
 		
 		entityManager.clear();
 	}
 	
+	/**
+	 * Persist all the entities to the current DataBase
+	 */
+	@Transactional
+	public void persistAllEntities() {
+		departmentsDao.persistEntities(departments);
+		positionsDao.persistEntities(positions);
+		employeesDao.persistEntities(employees);
+		ordersDao.persistEntities(orders);
+		classifiersDao.persistEntities(classifiers);
+	}
+	
+	
 	public static Stream<? extends Arguments> entitiesFactory() {
-		init();
 		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
 			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}

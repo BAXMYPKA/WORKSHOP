@@ -52,11 +52,11 @@ class EntitiesServiceAbstractIT {
 		Department departmentToPersist = new Department("The Department to be stored");
 		
 		//WHEN
-		Optional<Department> departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
+		Department departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
 		
 		//THEN
-		assertTrue(departmentPersisted.isPresent());
-		assertEquals("The Department to be stored", departmentPersisted.get().getName());
+		assertNotNull(departmentPersisted);
+		assertEquals("The Department to be stored", departmentPersisted.getName());
 	}
 	
 	@Test
@@ -71,10 +71,10 @@ class EntitiesServiceAbstractIT {
 		Task taskPersisted = entityManager.persist(taskToPersist);
 		long id = taskPersisted.getId();
 		//TaskService will find that Task by its new id
-		Optional<Task> taskFoundById = tasksService.findById(id);
+		Task taskFoundById = tasksService.findById(id);
 		
 		//THEN TaskService will find that Task by its new id
-		assertTrue(taskFoundById.isPresent());
+		assertNotNull(taskFoundById);
 	}
 	
 	@Test
@@ -87,14 +87,14 @@ class EntitiesServiceAbstractIT {
 		departmentToPersist.addPosition(positionToPersist);
 		
 		//WHEN
-		Optional<Department> departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
+		Department departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
 		
 		//THEN
-		assertTrue(departmentPersisted.isPresent());
+		assertNotNull(departmentPersisted);
 		//Position has been persisted
-		assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0);
+		assertTrue(departmentPersisted.getPositions().iterator().next().getId() > 0);
 		//Position is same
-		assertEquals(departmentPersisted.get().getPositions().iterator().next().getName(), positionToPersist.getName());
+		assertEquals(departmentPersisted.getPositions().iterator().next().getName(), positionToPersist.getName());
 	}
 	
 }

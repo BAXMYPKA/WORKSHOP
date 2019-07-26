@@ -84,7 +84,7 @@ class JwtAuthenticationFilterTest {
 	@Test
 	public void valid_JWT_with_valid_email_will_invoke_successfulAuthentication_and_further_filterChain()
 		throws IOException, ServletException {
-		//GIVEN all inputs are valid from init method
+		//GIVEN all inputs are valid from initNewEntities method
 		
 		//WHEN
 		jwtAuthenticationFilter.doFilter(request, response, filterChain);

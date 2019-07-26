@@ -107,14 +107,14 @@ public class HibernateSecondLevelCacheIT {
 		Statistics statistics = sessionFactory.getStatistics();
 		
 		//WHEN two different transactions are used to derive a single Order
-		Optional<Order> orderFromDb = ordersService.findById(10501L);
-		Optional<Order> orderFromCache = ordersService.findById(10501L);
+		Order orderFromDb = ordersService.findById(10501L);
+		Order orderFromCache = ordersService.findById(10501L);
 		
 		//THEN
 		//Two different Order objects must be got from two different transactions
 		assertAll(
-			() -> assertTrue(orderFromDb.isPresent()),
-			() -> assertTrue(orderFromCache.isPresent()),
+			() -> assertNotNull(orderFromDb),
+			() -> assertNotNull(orderFromCache),
 			() -> assertNotSame(orderFromDb, orderFromCache)
 		);
 		//The cache region Order is presented

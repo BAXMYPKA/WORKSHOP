@@ -17,13 +17,11 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -44,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
 	
 	@Value("${default.page.size}")
 	private int DEFAULT_PAGE_SIZE;
@@ -84,6 +82,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	 * As a quite common method it is placed in the superclass
 	 *
 	 * @param email For instance Employee.email or User.email can be found
+	 * @return Optional<Entity> or Optional.empty() if nothing was found.
 	 * @throws IllegalArgumentException If an email.isEmpty or null
 	 */
 	public Optional<T> findByEmail(String email) throws IllegalArgumentException {
@@ -93,7 +92,10 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(entityClass);
 		Root<T> root = cq.from(entityClass);
-		cq.select(root.get("email").get(email));
+		
+		Predicate emailPredicate = cb.equal(root.get("email"), email);
+		cq.where(emailPredicate);
+//		cq.select(root.get("email").get(email));
 		TypedQuery<T> typedQuery = entityManager.createQuery(cq);
 		try {
 			Optional<T> entity = Optional.ofNullable(typedQuery.getSingleResult());
@@ -322,6 +324,12 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		return mergedEntity;
 	}
 	
+	/**
+	 * @param entities Entities to be merged into the DataBase.
+	 * @return A collection of only managed entities which were merged successfully. If the collection to be returned
+	 * exceeds the {@link EntitiesDaoAbstract#getBatchSize()} this collection will contain only detached entities.
+	 * @throws IllegalArgumentException If a given collection == null or isEmpty().
+	 */
 	public Optional<Collection<T>> mergeEntities(Collection<T> entities) throws IllegalArgumentException {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Entities collection cannot be null or be zero size!");
@@ -332,6 +340,10 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			Optional<T> mergedEntity = mergeEntity(entityToBeMerged);
 			mergedEntity.ifPresent(mergedEntities::add);
 		});
+		if (mergedEntities.size() > batchSize) {
+			entityManager.flush();
+			entityManager.clear();
+		}
 		log.debug("Has the {}s collection been successfully merged? = {}", entityClass.getSimpleName(), mergedEntities.isEmpty());
 		return Optional.of(mergedEntities);
 	}

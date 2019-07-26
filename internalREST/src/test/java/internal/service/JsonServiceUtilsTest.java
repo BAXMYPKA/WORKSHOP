@@ -326,7 +326,7 @@ class JsonServiceUtilsTest {
 	
 	@Test
 	public void collection_Of_Entities_Returns_Valid_Json() throws JsonProcessingException {
-		//GIVEN Positions and Department from init method
+		//GIVEN Positions and Department from initNewEntities method
 		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
 		
 		//WHEN
@@ -416,7 +416,7 @@ class JsonServiceUtilsTest {
 	@Test
 	public void collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly() throws IOException {
 		
-		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from init
+		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from initNewEntities
 		
 		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
 		positionOne.setDepartment(department);

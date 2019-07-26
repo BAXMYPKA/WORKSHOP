@@ -110,7 +110,7 @@ class OrdersControllerIT {
 		//GIVEN
 		
 		Mockito.when(ordersService.findAllEntities(3, 2, "created", Sort.Direction.ASC))
-			.thenReturn(java.util.Optional.ofNullable(orders));
+			.thenReturn(orders);
 		Mockito.when(ordersService.findAllEntities(
 			PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
 			.thenReturn(new PageImpl<Order>(orders));
@@ -186,7 +186,7 @@ class OrdersControllerIT {
 		//UserDetailsService has to return an Employee with @WithMockUser's credentials to be accessible from SecurityContext
 		Mockito.lenient().when(employeesService.findByEmail("employee@workshop.pro")).thenReturn(Optional.of(authenticationEmployee));
 		//OrdersService has to return a "persisted" non-empty Optional<Order>
-		Mockito.when(ordersService.persistOrMergeEntity(Mockito.any(Order.class))).thenReturn(Optional.of(new Order()));
+		Mockito.when(ordersService.persistEntity(Mockito.any(Order.class))).thenReturn(new Order());
 		
 		resultActions = mockMvc.perform(
 			MockMvcRequestBuilders
@@ -197,7 +197,7 @@ class OrdersControllerIT {
 		
 		//THEN
 		//Verify the correct Order from Json was passed to the OrdersService to be persisted
-		Mockito.verify(ordersService, Mockito.atLeastOnce()).persistOrMergeEntity(orderCaptured.capture());
+		Mockito.verify(ordersService, Mockito.atLeastOnce()).persistEntity(orderCaptured.capture());
 		//Verify it was the same Order as in the Json from the Request
 		assertEquals("The Correct Order One", orderCaptured.getValue().getDescription());
 		

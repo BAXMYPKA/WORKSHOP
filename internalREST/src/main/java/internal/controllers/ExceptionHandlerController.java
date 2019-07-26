@@ -3,7 +3,7 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.exceptions.EntityNotFound;
-import internal.exceptions.PersistenceFailed;
+import internal.exceptions.PersistenceFailure;
 import internal.exceptions.WorkshopException;
 import internal.service.serviceUtils.JsonServiceUtils;
 import lombok.Getter;
@@ -76,13 +76,43 @@ public class ExceptionHandlerController {
 		}
 	}
 	
-	@ExceptionHandler({PersistenceFailed.class})
+	/**
+	 * Instanceof check is only for logging the exact subclass of WorkshopException.
+	 *
+	 * @param wx
+	 * @return
+	 */
+	@ExceptionHandler({WorkshopException.class})
 	@ResponseBody
 	public ResponseEntity<String> persistenceFailed(WorkshopException wx) {
 		log.error(wx.getMessage(), wx);
+		if (wx instanceof EntityNotFound) {
+			EntityNotFound enf = (EntityNotFound) wx;
+			log.error(enf.getMessage(), enf);
+			return ResponseEntity.status(
+				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND).body(wx.getMessage());
+		} else if (wx instanceof PersistenceFailure) {
+			PersistenceFailure pf = (PersistenceFailure) wx;
+			log.error(pf.getMessage(), pf);
+			return ResponseEntity.status(
+				pf.getHttpStatus() != null ? pf.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY).body(pf.getMessage());
+		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(wx.getMessage());
 	}
 	
+	@ExceptionHandler({EntityNotFound.class})
+	@ResponseBody
+	public ResponseEntity<String> entityNotFoundFailed(WorkshopException wx) {
+		log.error(wx.getMessage(), wx);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(wx.getMessage());
+	}
+	
+	/**
+	 * Instanceof check is only for logging the exact subclass of WorkshopException.
+	 *
+	 * @param exception PersistenceException or any subclass.
+	 * @return
+	 */
 	@ExceptionHandler({PersistenceException.class})
 	@ResponseBody
 	public ResponseEntity<String> persistenceFailed(PersistenceException exception) {

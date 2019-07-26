@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
-import internal.exceptions.EntityNotFound;
-import internal.exceptions.PersistenceFailed;
+import internal.exceptions.PersistenceFailure;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
@@ -32,7 +31,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.groups.Default;
-import java.util.Optional;
 
 @Slf4j
 @Getter
@@ -76,7 +74,7 @@ public class OrdersController {
 			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Orders found!");
+			throw new PersistenceFailure("No Orders found!", HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -139,8 +137,7 @@ public class OrdersController {
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) {
 		if (id == null || id <= 0) {
-			//TODO: to complete and revise this throwing
-			throw new EntityNotFound("Order id have to be above zero!");
+			throw new IllegalArgumentException("Order id has to be above zero!");
 		}
 		ordersService.removeEntity(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Order " + id + " has been successfully deleted!");

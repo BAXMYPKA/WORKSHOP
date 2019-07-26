@@ -17,7 +17,7 @@ public class UsersDao extends EntitiesDaoAbstract<User, Long> {
 		if (phone == null || phone.isEmpty()){
 			throw new IllegalArgumentException("User phone cannot be null or empty!");
 		}
-		
+		//TODO: to complete with Dao method find by property
 		return null;
 	}
 }

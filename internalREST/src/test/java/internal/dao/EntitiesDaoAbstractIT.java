@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -73,7 +76,7 @@ class EntitiesDaoAbstractIT {
 	
 	@Test
 	@org.junit.jupiter.api.Order(1)
-	public void context_Initialization() {
+	public void context_Should_Be_Initialized() {
 		assertNotNull(ordersDao);
 		assertNotNull(ordersDao.getEntityManager());
 		assertNotNull(entityManager);
@@ -90,9 +93,9 @@ class EntitiesDaoAbstractIT {
 		Department department1 = new Department("Department one");
 		Department department2 = new Department("Department two");
 		Classifier classifier1 = Classifier.builder().name("Classifier one").description("").isOfficial(true)
-			.price(BigDecimal.valueOf(20.20)).build();
+			  .price(BigDecimal.valueOf(20.20)).build();
 		Classifier classifier2 = Classifier.builder().name("Classifier two").description("").isOfficial(true)
-			.price(BigDecimal.valueOf(30.35)).build();
+			  .price(BigDecimal.valueOf(30.35)).build();
 		
 		//WHEN Persist entities one by one
 		Optional<Department> departmentOne = departmentsDao.persistEntity(department1);
@@ -102,10 +105,10 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN all of them got their ids
 		assertAll(
-			() -> assertTrue(departmentOne.get().getId() > 0),
-			() -> assertTrue(departmentTwo.get().getId() > 0),
-			() -> assertTrue(classifierOne.get().getId() > 0),
-			() -> assertTrue(classifierTwo.get().getId() > 0)
+			  () -> assertTrue(departmentOne.get().getId() > 0),
+			  () -> assertTrue(departmentTwo.get().getId() > 0),
+			  () -> assertTrue(classifierOne.get().getId() > 0),
+			  () -> assertTrue(classifierTwo.get().getId() > 0)
 		);
 	}
 	
@@ -128,10 +131,10 @@ class EntitiesDaoAbstractIT {
 		Optional<Position> positionTwo = positionsDao.persistEntity(position2);
 		//Is persistence successful (just a check)
 		assertAll(
-			() -> assertTrue(departmentOne.get().getId() > 0),
-			() -> assertTrue(departmentTwo.get().getId() > 0),
-			() -> assertTrue(positionOne.get().getId() > 0),
-			() -> assertTrue(positionTwo.get().getId() > 0)
+			  () -> assertTrue(departmentOne.get().getId() > 0),
+			  () -> assertTrue(departmentTwo.get().getId() > 0),
+			  () -> assertTrue(positionOne.get().getId() > 0),
+			  () -> assertTrue(positionTwo.get().getId() > 0)
 		);
 		
 		//WHEN
@@ -146,9 +149,9 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN
 		assertAll(
-			() -> assertFalse(positionOneById.isPresent()),
-			() -> assertFalse(positionTwoById.isPresent()),
-			() -> assertFalse(departmentOneId.isPresent())
+			  () -> assertFalse(positionOneById.isPresent()),
+			  () -> assertFalse(positionTwoById.isPresent()),
+			  () -> assertFalse(departmentOneId.isPresent())
 		);
 	}
 	
@@ -241,21 +244,22 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN
 		assertAll(
-			() -> assertTrue(orderPersisted.get().getId() > 0)
+			  () -> assertTrue(orderPersisted.get().getId() > 0)
 		);
 		//The Department has been persisted with the appropriate Position
 		assertAll(
-			() -> assertTrue(departmentPersisted.get().getId() > 0),
-			() -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0)
+			  () -> assertTrue(departmentPersisted.get().getId() > 0),
+			  () -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0)
 		);
 		//The Task has been persisted with appropriate new Classifiers
 		assertAll(
-			() -> assertFalse(orderPersisted.get().getTasks().isEmpty()),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getId() > 0),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getId() > 0)
+			  () -> assertFalse(orderPersisted.get().getTasks().isEmpty()),
+			  () -> assertTrue(orderPersisted.get().getTasks().iterator().next().getId() > 0),
+			  () -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getId() > 0)
 		);
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 4})
 	@DisplayName("The test doesn't consider any page num that exceeds the Entities quantity")
@@ -263,11 +267,15 @@ class EntitiesDaoAbstractIT {
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Works_Properly(int source) {
 		//TODO: to be done
-		//GIVEN
+		//GIVEN 21 pre-persisted Orders
+		persistAllOrders();
 		
 		//WHEN
 		
 		//THEN
+		
+		//To clear the DataBase
+		removeAllOrders();
 	}
 	
 	@Test
@@ -282,7 +290,7 @@ class EntitiesDaoAbstractIT {
 		String userEmail = "userToBeFound@user.com";
 		//Entities to be persisted
 		Employee employee = new Employee("fn", "ln", "12345", employeeEmail,
-			LocalDate.now().minusYears(50), positions.get(0));
+			  LocalDate.now().minusYears(50), positions.get(0));
 		User user = new User(userEmail);
 		//Persisting
 		employeesDao.persistEntity(employee);
@@ -294,19 +302,19 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN
 		assertAll(
-			() -> assertEquals(employeeEmail, employeeByEmail.getEmail()),
-			() -> assertTrue(userByEmail.isPresent()),
-			() -> assertEquals(userEmail, userByEmail.get().getEmail())
+			  () -> assertEquals(employeeEmail, employeeByEmail.getEmail()),
+			  () -> assertTrue(userByEmail.isPresent()),
+			  () -> assertEquals(userEmail, userByEmail.get().getEmail())
 		);
 	}
 	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	@DisplayName("JPA always saves and returns ZonedDateTime in UTC despite presented one.")
-	public void zonedDateTime_Saves_And_Returns_As_UTC_Despite_Preset_TimeZone() {
+	@DisplayName("JPA should persist and return ZonedDateTime in UTC despite a set one.")
+	public void zonedDateTime_Should_Be_Saved_And_Returned_In_UTC_TimeZone() {
 		//GIVEN an Employee with Europe/Moscow (+3) TimeZone
 		ZonedDateTime europeMoscowZone = ZonedDateTime.of(
-			2019, 1, 30, 12, 30, 0, 0, ZoneId.of("Europe/Moscow"));
+			  2019, 1, 30, 12, 30, 0, 0, ZoneId.of("Europe/Moscow"));
 		ZonedDateTime utcZone = europeMoscowZone.withZoneSameInstant(ZoneId.of("UTC"));
 		
 		Employee employee = employees.get(0);
@@ -323,6 +331,63 @@ class EntitiesDaoAbstractIT {
 		assertEquals(utcZone.getHour(), europeMoscowZone.minusHours(3).getHour());
 		//Persisted Entity now has the UTC-corrected field
 		assertTrue(employeeFromDb.get().getFinished().isEqual(utcZone));
+	}
+	
+	@Test
+	@DisplayName("CreatedBy should by automatically set from the SecurityContext")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void createdBy_Should_Be_Automatically_Persisted_From_SecurityContext() {
+		//GIVEN
+		//Pre persist entities.
+		Department department = new Department("Department");
+		Position position = new Position("Position", department);
+		Employee employeeToBeCreatedBy = new Employee("Admin", "ln", "54321",
+			  "admin@workshop.pro", LocalDate.now().minusYears(50), position);
+		Employee employeeNotToBeCreatedBy = new Employee("Employee", "ln", "12345",
+			  "employee@workshop.pro", LocalDate.now().minusYears(55), position);
+		
+		departmentsDao.persistEntity(department);
+		positionsDao.persistEntity(position);
+		employeesDao.persistEntities(new ArrayList<Employee>(Arrays.asList(employeeToBeCreatedBy, employeeNotToBeCreatedBy)));
+		//This Employee has to be automatically got from SecurityContext
+		SecurityContextHolder.getContext().setAuthentication(
+			  new UsernamePasswordAuthenticationToken(employeeToBeCreatedBy, "",
+					new ArrayList<>(Collections.singletonList(new SimpleGrantedAuthority("Admin")))));
+		
+		//The given Classifier without createdBy
+		Classifier classifier = new Classifier("Classifier", "Descr", true, BigDecimal.TEN);
+		
+		//WHEN
+		Optional<Classifier> classifierPersisted = classifiersDao.persistEntity(classifier);
+		
+		//THEN
+		assertEquals(employeeToBeCreatedBy, classifierPersisted.get().getCreatedBy());
+	}
+	
+	@Test
+	@DisplayName("Manually set 'createdBy' property should be persisted")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void createdBy_Set_Manually_Should_Be_Persisted() {
+		//GIVEN
+		//Pre persist entities
+		Department department = new Department("Department");
+		Position position = new Position("Position", department);
+		Employee employeeToBeCreatedBy = new Employee("fn", "ln", "12345", "employee@workshop.pro",
+			  LocalDate.now().minusYears(50), position);
+		
+		departmentsDao.persistEntity(department);
+		positionsDao.persistEntity(position);
+		employeesDao.persistEntity(employeeToBeCreatedBy);
+		
+		//The given Classifier with createdBy preset
+		Classifier classifier = new Classifier("Classifier", "Descr", true, BigDecimal.TEN);
+		classifier.setCreatedBy(employeeToBeCreatedBy);
+		
+		//WHEN
+		Optional<Classifier> classifierPersisted = classifiersDao.persistEntity(classifier);
+		
+		//THEN
+		assertEquals(employeeToBeCreatedBy, classifierPersisted.get().getCreatedBy());
 	}
 	
 	@BeforeEach
@@ -490,7 +555,7 @@ class EntitiesDaoAbstractIT {
 		positions = new ArrayList<Position>(Arrays.asList(position));
 		employees = new ArrayList<Employee>(Arrays.asList(employee1, employee2, employee3));
 		orders = new ArrayList<Order>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
-			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
+			  order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
 		users = new ArrayList<>(Arrays.asList(user1, user2, user3));
 		phones = new ArrayList<>(Arrays.asList(phone1, phone2, phone3));
 		tasks = new ArrayList<>(Arrays.asList(task1, task2, task3));
@@ -500,7 +565,7 @@ class EntitiesDaoAbstractIT {
 	/**
 	 * Remove all the entities from the current DataBase
 	 */
-	@AfterEach
+//	@AfterEach
 	@Transactional
 	public void removeAllPersistedEntities() {
 		Optional<List<Employee>> employeesManaged = employeesDao.findAll(0, 0, null, null);
@@ -527,21 +592,49 @@ class EntitiesDaoAbstractIT {
 		entityManager.clear();
 	}
 	
-	/**
-	 * Persist all the entities to the current DataBase
-	 */
 	@Transactional
-	public void persistAllEntities() {
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		employeesDao.persistEntities(employees);
+	public void persistAllOrders() {
+		Order order1 = new Order();
+		order1.setDescription("Description one");
+		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		Order order2 = new Order();
+		order2.setDescription("Description two");
+		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		Order order3 = new Order();
+		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		Order order4 = new Order();
+		order4.setDescription("Description");
+		Order order5 = new Order();
+		Order order6 = new Order();
+		Order order7 = new Order();
+		Order order8 = new Order();
+		Order order9 = new Order();
+		Order order10 = new Order();
+		Order order11 = new Order();
+		Order order12 = new Order();
+		Order order13 = new Order();
+		Order order14 = new Order();
+		Order order15 = new Order();
+		Order order16 = new Order();
+		Order order17 = new Order();
+		Order order18 = new Order();
+		Order order19 = new Order();
+		Order order20 = new Order();
+		Order order21 = new Order();
+		
+		orders = new ArrayList<>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
+			  order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
+		
 		ordersDao.persistEntities(orders);
-		classifiersDao.persistEntities(classifiers);
 	}
 	
+	@Transactional
+	public void removeAllOrders() {
+		ordersDao.refreshEntities(orders);
+	}
 	
 	public static Stream<? extends Arguments> entitiesFactory() {
 		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
-			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
+			  Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}
 }

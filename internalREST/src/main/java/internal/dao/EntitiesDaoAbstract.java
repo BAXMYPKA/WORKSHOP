@@ -42,10 +42,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
 	
-	@Value("${default.page.size}")
-	private int DEFAULT_PAGE_SIZE;
+	@Value("${default.page.max.size}")
+	private int MAX_PAGE_SIZE;
 	@Value("${default.page.max_num}")
 	private int MAX_PAGE_NUM;
 	
@@ -113,7 +113,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	/**
 	 * Page formula is: (pageNum -1)*pageSize
 	 *
-	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#DEFAULT_PAGE_SIZE}
+	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#MAX_PAGE_SIZE}
 	 *                 If 0 - will be set to default (max).
 	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
 	 *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#MAX_PAGE_NUM}
@@ -129,11 +129,10 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		int pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order) throws PersistenceException {
-		//TODO: to realize estimating the whole quantity with max pageNum
-		pageSize = (pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize;
+		pageSize = (pageSize <= 0 || pageSize > MAX_PAGE_SIZE) ? MAX_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
 		order = order == null ? Sort.Direction.DESC : order;
-		
+		//TODO: to realize estimating the whole quantity with max pageNum
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> query = cb.createQuery(entityClass);
 		Root<T> root = query.from(entityClass);
@@ -158,6 +157,25 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		log.debug("{}s with pageSize={}, pageNum={}, orderBy={}, order={} is found? = {}",
 			entityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
 		return entities;
+	}
+	
+	public Optional<List<T>> findAllPaged(
+		int pageSize,
+		int pageNum,
+		@Nullable String orderBy,
+		@Nullable Sort.Direction order
+	) throws IllegalArgumentException {
+		if (pageSize <= 0 || pageNum <= 0) {
+			throw new IllegalArgumentException("Page size or page number cannot be = 0 or below!");
+		} else if (pageSize > MAX_PAGE_SIZE || pageNum > MAX_PAGE_NUM) {
+			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
+				" exceeds the max page size=" + MAX_PAGE_SIZE + " or max page num=" + MAX_PAGE_NUM);
+		}
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> entityRoot = cq.from(entityClass);
+		//TODO: to complete
+		return null;
 	}
 	
 	/**

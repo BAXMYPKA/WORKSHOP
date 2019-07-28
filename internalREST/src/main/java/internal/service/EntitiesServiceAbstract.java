@@ -35,7 +35,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	/**
 	 * Default size of results on one page
 	 */
-	@Value("${default.page.size}")
+	@Value("${default.page.max.size}")
 	private int DEFAULT_PAGE_SIZE;
 	/**
 	 * Maximum available page number

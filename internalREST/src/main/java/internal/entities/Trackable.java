@@ -31,7 +31,7 @@ import java.time.ZonedDateTime;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MappedSuperclass
-public abstract class Trackable implements WorkshopEntity, Serializable {
+public abstract class Trackable implements WorkshopEntity, Serializable, Comparable {
 	
 	@Transient
 	private static final long serialVersionUID = 3L;
@@ -99,4 +99,18 @@ public abstract class Trackable implements WorkshopEntity, Serializable {
 	public String toString() {
 		return "id=" + id;
 	}
+	
+	@Override
+	public int compareTo(Object o) {
+		Trackable obj = (Trackable) o;
+		if (this.id > obj.getId()) {
+			return 1;
+		} else if (this.id < obj.getId()) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
+	
+	
 }

@@ -50,9 +50,9 @@ class OrdersServiceTest {
 		
 		ordersService.setDEFAULT_PAGE_SIZE(maxPageSize);
 		ordersService.setMAX_PAGE_NUM(maxPageNum);
-		entitiesDao.setDEFAULT_PAGE_SIZE(maxPageSize);
+		entitiesDao.setMAX_PAGE_SIZE(maxPageSize);
 		entitiesDao.setMAX_PAGE_NUM(maxPageNum);
-		ordersDao.setDEFAULT_PAGE_SIZE(maxPageSize);
+		ordersDao.setMAX_PAGE_SIZE(maxPageSize);
 		ordersDao.setMAX_PAGE_NUM(maxPageNum);
 		
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);

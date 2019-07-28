@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-25.0.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-23.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-24.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -80,12 +68,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="344" selection-start-line="344" selection-end-line="344" />
+            <state relative-caret-position="590">
+              <caret line="350" column="97" selection-start-line="350" selection-start-column="97" selection-end-line="350" selection-end-column="97" />
               <folding>
                 <element signature="method#initNewEntities#0;class#EntitiesDaoAbstractIT#0" />
-                <element signature="e#24107#24108#0" expanded="true" />
-                <element signature="e#24147#24148#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,8 +80,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="176" column="27" selection-start-line="176" selection-start-column="27" selection-end-line="176" selection-end-column="27" />
+            <state relative-caret-position="320">
+              <caret line="177" column="8" selection-start-line="177" selection-start-column="8" selection-end-line="177" selection-end-column="8" />
               <folding>
                 <element signature="e#0#57#1" expanded="true" />
                 <element signature="e#0#47#1" expanded="true" />
@@ -116,13 +102,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
+            <state relative-caret-position="1248">
               <caret line="112" selection-start-line="112" selection-end-line="112" />
               <folding>
                 <element signature="docComment;field#created#0;class#Trackable#0" expanded="true" />
                 <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-                <element signature="e#3475#3476#0" expanded="true" />
-                <element signature="e#3499#3500#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -241,8 +225,8 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/UsersDao.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" />
         <option value="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" />
       </list>
     </option>
@@ -603,10 +587,10 @@
     <list>
       <item itemvalue="JUnit.EntitiesDaoAbstractIT" />
       <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Works_Properly" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Works_Properly" />
       <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" />
       <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly" />
+      <item itemvalue="Spring Boot.Internal" />
     </list>
     <recent_temporary>
       <list>
@@ -707,6 +691,7 @@
       <workItem from="1564121476388" duration="22663000" />
       <workItem from="1564160386726" duration="5322000" />
       <workItem from="1564307666751" duration="10856000" />
+      <workItem from="1564330437732" duration="2420000" />
     </task>
     <servers />
   </component>
@@ -743,7 +728,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="932967000" />
+    <option name="totallyTimeSpent" value="935387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -825,18 +810,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java</url>
-          <line>344</line>
-          <properties />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1137,6 +1110,13 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
@@ -1146,33 +1126,12 @@ System.out.println(contains);</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
+        <state relative-caret-position="1248">
           <caret line="112" selection-start-line="112" selection-end-line="112" />
           <folding>
             <element signature="docComment;field#created#0;class#Trackable#0" expanded="true" />
             <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-            <element signature="e#3475#3476#0" expanded="true" />
-            <element signature="e#3499#3500#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="344" selection-start-line="344" selection-end-line="344" />
-          <folding>
-            <element signature="method#initNewEntities#0;class#EntitiesDaoAbstractIT#0" />
-            <element signature="e#24107#24108#0" expanded="true" />
-            <element signature="e#24147#24148#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -1183,10 +1142,20 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="590">
+          <caret line="350" column="97" selection-start-line="350" selection-start-column="97" selection-end-line="350" selection-end-column="97" />
+          <folding>
+            <element signature="method#initNewEntities#0;class#EntitiesDaoAbstractIT#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="176" column="27" selection-start-line="176" selection-start-column="27" selection-end-line="176" selection-end-column="27" />
+        <state relative-caret-position="320">
+          <caret line="177" column="8" selection-start-line="177" selection-start-column="8" selection-end-line="177" selection-end-column="8" />
           <folding>
             <element signature="e#0#57#1" expanded="true" />
             <element signature="e#0#47#1" expanded="true" />

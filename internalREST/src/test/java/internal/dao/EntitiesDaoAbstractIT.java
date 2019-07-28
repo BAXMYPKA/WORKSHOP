@@ -340,6 +340,18 @@ class EntitiesDaoAbstractIT {
 		//THEN
 		assertEquals(5, ordersPageDescendingDefault.size());
 		assertEquals(5, ordersPageAscending.size());
+		assertAll(
+			() -> assertEquals(
+				ordersPageDescendingDefault.get(0).getDescription(),
+				ordersPageAscending.get(ordersPageAscending.size()-1).getDescription(),
+				"The last item from one page has to be equals to the first one from another page"),
+			() -> assertEquals(
+				ordersPageDescendingDefault.get(ordersPageDescendingDefault.size()-1).getDescription(),
+				ordersPageAscending.get(0).getDescription(),
+				"The first item from one page has to be equals to the last one from another page.")
+			
+			
+			);
 		
 		//To clear the DataBase
 		removeAllOrders();

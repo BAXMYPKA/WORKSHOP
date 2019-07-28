@@ -174,7 +174,9 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(entityClass);
 		Root<T> entityRoot = cq.from(entityClass);
+		
 		//TODO: to complete
+		
 		return null;
 	}
 	

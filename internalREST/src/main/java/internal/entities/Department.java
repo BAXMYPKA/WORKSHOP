@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,6 +47,9 @@ public class Department implements WorkshopEntity, Serializable {
 	@NotBlank(groups = {Default.class, PersistenceCheck.class, UpdationCheck.class}, message = "{validation.notBlank}")
 	private String name;
 	
+	@Column(updatable = false)
+	private ZonedDateTime created;
+	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
@@ -64,6 +68,13 @@ public class Department implements WorkshopEntity, Serializable {
 			setPositions(new HashSet<Position>(Collections.singletonList(position)));
 		} else {
 			getPositions().add(position);
+		}
+	}
+	
+	@PrePersist
+	public void prePersist(){
+		if (created == null) {
+			created = ZonedDateTime.now();
 		}
 	}
 }

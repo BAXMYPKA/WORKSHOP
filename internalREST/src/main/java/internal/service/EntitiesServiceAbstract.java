@@ -35,12 +35,12 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	/**
 	 * Default size of results on one page
 	 */
-	@Value("${default.page.max.size}")
+	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
 	/**
 	 * Maximum available page number
 	 */
-	@Value("${default.page.max_num}")
+	@Value("${page.max_num}")
 	private int MAX_PAGE_NUM;
 	
 	private EntitiesDaoAbstract<T, Long> entitiesDaoAbstract;
@@ -195,7 +195,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 		int pageNum = pageable.getPageNumber() <= 0 || pageable.getPageNumber() > MAX_PAGE_NUM ? 1 :
 			pageable.getPageNumber();
 		try {
-			Optional<List<T>> entities = entitiesDaoAbstract.findAll(
+			Optional<List<T>> entities = entitiesDaoAbstract.findAllPaged(
 				pageSize,
 				pageNum,
 				orderBy == null ? "" : orderBy,
@@ -226,7 +226,7 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 		pageSize = pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		try {
-			Optional<List<T>> entities = entitiesDaoAbstract.findAll(
+			Optional<List<T>> entities = entitiesDaoAbstract.findAllPaged(
 				pageSize,
 				pageNum,
 				orderBy == null ? "" : orderBy,

@@ -47,13 +47,13 @@ public class OrdersController {
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	private ObjectMapper objectMapper;
-	@Value("${default.page.max.size}")
+	@Value("${page.size.default}")
 	private int PAGE_SIZE;
-	@Value("${default.page.max_num}")
+	@Value("${page.max_num}")
 	private int MAX_PAGE_NUM;
 	
 	/**
-	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.MAX_PAGE_SIZE
+	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.PAGE_SIZE_DEFAULT
 	 * @param page    Number of page with the list of Orders. One page contains 'size' amount of Orders.
 	 * @param orderBy The property of Order all the Orders have to be ordered by.
 	 * @param order   Ascending or descending order.

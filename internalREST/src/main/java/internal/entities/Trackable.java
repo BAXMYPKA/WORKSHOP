@@ -34,7 +34,7 @@ import java.time.ZonedDateTime;
 public abstract class Trackable implements WorkshopEntity, Serializable, Comparable {
 	
 	@Transient
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")

@@ -15,10 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -44,10 +41,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
 	
-	@Value("${default.page.max.size}")
-	private int MAX_PAGE_SIZE;
-	@Value("${default.page.max_num}")
-	private int MAX_PAGE_NUM;
+	@Value("${page.size.default}")
+	private int PAGE_SIZE_DEFAULT;
+	@Value("${page.size.max}")
+	private int PAGE_SIZE_MAX;
+	@Value("${page.max_num}")
+	private int PAGE_NUM_MAX;
 	
 	@PersistenceContext
 	public EntityManager entityManager;
@@ -110,26 +109,29 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		}
 	}
 	
-	/**
-	 * Page formula is: (pageNum -1)*pageSize
-	 *
-	 * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#MAX_PAGE_SIZE}
-	 *                 If 0 - will be set to default (max).
-	 * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
-	 *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#MAX_PAGE_NUM}
-	 * @param orderBy  The name of the field the ascDesc will be happened by.
-	 *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
-	 *                 'created' field, otherwise no ordering will happened.
-	 * @param order    "ASC" or "DESC" types from Sort.Order ENUM
-	 * @return If nothing found an Optional.empty() will be returned.
-	 * @throws PersistenceException In case of timeout, non-transactional operation, lock-failure etc.
+	/*
 	 */
+/**
+ * Page formula is: (pageNum -1)*pageSize
+ *
+ * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#PAGE_SIZE_DEFAULT}
+ *                 If 0 - will be set to default (max).
+ * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
+ *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#PAGE_NUM_MAX}
+ * @param orderBy  The name of the field the ascDesc will be happened by.
+ *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
+ *                 'created' field, otherwise no ordering will happened.
+ * @param order    "ASC" or "DESC" types from Sort.Order ENUM
+ * @return If nothing found an Optional.empty() will be returned.
+ * @throws PersistenceException In case of timeout, non-transactional operation, lock-failure etc.
+ *//*
+
 	public Optional<List<T>> findAll(
 		int pageSize,
 		int pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order) throws PersistenceException {
-		pageSize = (pageSize <= 0 || pageSize > MAX_PAGE_SIZE) ? MAX_PAGE_SIZE : pageSize;
+		pageSize = (pageSize <= 0 || pageSize > PAGE_SIZE_DEFAULT) ? PAGE_SIZE_DEFAULT : pageSize;
 		pageNum = pageNum <= 0 ? 1 : pageNum;
 		order = order == null ? Sort.Direction.DESC : order;
 		//TODO: to realize estimating the whole quantity with max pageNum
@@ -158,26 +160,59 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			entityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
 		return entities;
 	}
+*/
 	
+	/**
+	 * Page formula is: (pageNum -1)*pageSize
+	 *
+	 * @param pageSize The maximum amount of entities at once (on one page).
+	 *                 0 = default ({@link EntitiesDaoAbstract#PAGE_SIZE_DEFAULT}),
+	 *                 Max = {@link EntitiesDaoAbstract#PAGE_SIZE_MAX}
+	 * @param pageNum  Number of desired page to be given.
+	 *                 0 = default (1),
+	 *                 Max = {@link EntitiesDaoAbstract#PAGE_NUM_MAX}.
+	 * @param orderBy  The name of the field (property) to order by. If null, 'created' field will be used by default.
+	 * @param order    {@link Sort.Direction} Ascending or Descending order. Default is Descending.
+	 * @return Optional<List < T>>. If nothing was foung, Optional.empty() will be returned.
+	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
+	 * @throws PersistenceException     If an Entity doesn't have 'orderBy' field name.
+	 */
 	public Optional<List<T>> findAllPaged(
 		int pageSize,
 		int pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order
-	) throws IllegalArgumentException {
-		if (pageSize <= 0 || pageNum <= 0) {
-			throw new IllegalArgumentException("Page size or page number cannot be = 0 or below!");
-		} else if (pageSize > MAX_PAGE_SIZE || pageNum > MAX_PAGE_NUM) {
+	) throws IllegalArgumentException, PersistenceException {
+		if (pageSize < 0 || pageNum < 0) {
+			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
+		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
 			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
-				" exceeds the max page size=" + MAX_PAGE_SIZE + " or max page num=" + MAX_PAGE_NUM);
+				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
 		}
+		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+		pageNum = pageNum == 0 ? 1 : pageNum;
+		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : "created"; //Set presented or default
+		order = order != null ? order : Sort.Direction.DESC; //Set presented of default
+		
+		log.debug("Paged query with pageSize={}, pageNum={}, orderBy={}, order={} will be performed",
+			pageSize, pageNum, orderBy, order);
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(entityClass);
-		Root<T> entityRoot = cq.from(entityClass);
+		Root<T> root = cq.from(entityClass);
+		cq.select(root);
 		
-		//TODO: to complete
+		if (order.isDescending()) {
+			cq.orderBy(cb.desc(root.get(orderBy)));
+		} else {
+			cq.orderBy(cb.asc(root.get(orderBy)));
+		}
+		TypedQuery<T> query = entityManager.createQuery(cq);
+		query.setFirstResult((pageNum - 1) * pageSize); //Offset (page number)
+		query.setMaxResults(pageSize); //Limit (page size)
 		
-		return null;
+		Optional<List<T>> resultList = Optional.ofNullable(query.getResultList());
+		log.debug("Was the result found? = {}", resultList.isPresent());
+		return resultList;
 	}
 	
 	/**
@@ -194,7 +229,7 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			throw new IllegalArgumentException("Name or value is null or empty!");
 		}
 		try {
-			Field property = entityClass.getField(propertyName);
+			Field property = entityClass.getDeclaredField(propertyName);
 			log.debug("{} has the {} property to find a value='{}' from",
 				entityClass.getSimpleName(), property.getName(), propertyValue);
 		} catch (NoSuchFieldException e) {

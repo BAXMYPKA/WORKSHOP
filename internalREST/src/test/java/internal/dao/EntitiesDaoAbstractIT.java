@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,8 +178,8 @@ class EntitiesDaoAbstractIT {
 		ordersDao.removeEntities(ordersPersisted.get());
 		
 		//THEN No entities of that kind should be found
-		Optional<List<Employee>> emptyEmployees = employeesDao.findAll(0, 0, "", Sort.Direction.ASC);
-		Optional<List<Order>> emptyOrders = ordersDao.findAll(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Employee>> emptyEmployees = employeesDao.findAllPaged(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Order>> emptyOrders = ordersDao.findAllPaged(0, 0, "", Sort.Direction.ASC);
 		
 		assertTrue(emptyEmployees.get().isEmpty());
 		assertTrue(emptyOrders.get().isEmpty());
@@ -261,7 +262,7 @@ class EntitiesDaoAbstractIT {
 	
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 4})
-	@DisplayName("Check pagination within limits")
+	@DisplayName("Check default pagination within limit and offsets")
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Should_Work_Properly(int pageNum) {
@@ -269,50 +270,12 @@ class EntitiesDaoAbstractIT {
 		// 21 pre-persisted Orders from order1 to order21
 		persistAllOrders();
 		int customPageSize = 5;
-		//All existing Orders to compare with
-		List<Order> allExistingOrders = ordersDao.findAll(100, 1, null, null).get();
 		
 		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAll(customPageSize, pageNum, null, null).get();
+		List<Order> ordersPageFromExisting = ordersDao.findAllPaged(customPageSize, pageNum, null, null).get();
 		
 		//THEN
 		assertEquals(customPageSize, ordersPageFromExisting.size());
-		//e.g if pageSize=5 so the Page (collection) 1 must contain Orders from 0 (pageSize*pageNum-pageSize) to 4
-		// Page (collection) 2 from 5 (pageSize*pageNum-pageSize) to 9 etc...
-		assertEquals(
-			allExistingOrders.get(customPageSize * pageNum - customPageSize).getDescription(),
-			ordersPageFromExisting.get(0).getDescription(),
-			"First Order from the Page to compare");
-		assertEquals(
-			allExistingOrders.get(customPageSize * pageNum - 1).getDescription(),
-			ordersPageFromExisting.get(ordersPageFromExisting.size() - 1).getDescription(),
-			"Last Order from the Page to compare");
-		
-		//To clear the DataBase
-		removeAllOrders();
-	}
-	
-	@ParameterizedTest
-	@ValueSource(ints = {5})
-	@DisplayName("Check pagination with the last partial filled page")
-	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly(int pageNum) {
-		//GIVEN
-		// 21 pre-persisted Orders from order1 to order21
-		persistAllOrders();
-		int customPageSize = 5;
-		//All existing Orders to compare with
-		List<Order> allExistingOrders = ordersDao.findAll(100, 1, null, null).get();
-		
-		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAll(customPageSize, pageNum, null, null).get();
-		
-		//THEN the last fifth page should contain only the one last Order
-		assertEquals(1, ordersPageFromExisting.size());
-		assertEquals(
-			allExistingOrders.get(allExistingOrders.size() - 1).getDescription(),
-			ordersPageFromExisting.get(0).getDescription());
 		
 		//To clear the DataBase
 		removeAllOrders();
@@ -328,34 +291,70 @@ class EntitiesDaoAbstractIT {
 		persistAllOrders();
 		int pageNum = 1;
 		int pageSize = 5;
-		//All existing Orders to compare with
-		List<Order> allExistingOrders = ordersDao.findAll(100, 1, null, null).get();
 		
 		//WHEN get a page with the descending order by default
-		List<Order> ordersPageDescendingDefault = ordersDao.findAll(
-			pageSize, pageNum, "description", null).get();
-		List<Order> ordersPageAscending = ordersDao.findAll(
+		List<Order> ordersPageDescendingDefault = ordersDao.findAllPaged(
+			pageSize, pageNum, "overallPrice", null).get();
+		List<Order> ordersPageAscending = ordersDao.findAllPaged(
 			pageSize, pageNum, "description", Sort.Direction.ASC).get();
 		
 		//THEN
 		assertEquals(5, ordersPageDescendingDefault.size());
 		assertEquals(5, ordersPageAscending.size());
+		
 		assertAll(
 			() -> assertEquals(
-				ordersPageDescendingDefault.get(0).getDescription(),
-				ordersPageAscending.get(ordersPageAscending.size()-1).getDescription(),
-				"The last item from one page has to be equals to the first one from another page"),
+				1,
+				ordersPageDescendingDefault.get(0).getOverallPrice().compareTo(ordersPageDescendingDefault.get(1).getOverallPrice())),
 			() -> assertEquals(
-				ordersPageDescendingDefault.get(ordersPageDescendingDefault.size()-1).getDescription(),
-				ordersPageAscending.get(0).getDescription(),
-				"The first item from one page has to be equals to the last one from another page.")
-			
-			
-			);
+				1,
+				ordersPageDescendingDefault.get(1).getOverallPrice().compareTo(ordersPageDescendingDefault.get(2).getOverallPrice())),
+			() -> assertEquals(
+				1,
+				ordersPageDescendingDefault.get(3).getOverallPrice().compareTo(ordersPageDescendingDefault.get(4).getOverallPrice()))
+		);
+		assertAll(
+			() -> assertEquals(
+				-1,
+				ordersPageAscending.get(0).getOverallPrice().compareTo(ordersPageAscending.get(1).getOverallPrice())),
+			() -> assertEquals(
+				-1,
+				ordersPageAscending.get(1).getOverallPrice().compareTo(ordersPageAscending.get(2).getOverallPrice())),
+			() -> assertEquals(
+				-1,
+				ordersPageAscending.get(3).getOverallPrice().compareTo(ordersPageAscending.get(4).getOverallPrice()))
+		);
 		
 		//To clear the DataBase
 		removeAllOrders();
 	}
+	
+	@Test
+	@DisplayName("Check pagination with the last partial filled page")
+	@Transactional
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly() {
+		//GIVEN
+		// 21 pre-persisted Orders from order1 to order21
+		persistAllOrders();
+		int customPageSize = 5;
+		int lastPage = 5;
+		//All existing Orders to compare with
+		List<Order> allPersistedOrders = ordersDao.findAllPaged(0, 0, null, null).get();
+		
+		//WHEN
+		List<Order> ordersPageFromExisting = ordersDao.findAllPaged(customPageSize, lastPage, null, null).get();
+		
+		//THEN the last fifth page should contain only the one last Order
+		assertEquals(1, ordersPageFromExisting.size());
+		assertEquals(
+			allPersistedOrders.get(allPersistedOrders.size() - 1).getDescription(),
+			ordersPageFromExisting.get(0).getDescription());
+		
+		//To clear the DataBase
+		removeAllOrders();
+	}
+	
 	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
@@ -415,7 +414,7 @@ class EntitiesDaoAbstractIT {
 	@Test
 	@DisplayName("CreatedBy should by automatically set from the SecurityContext")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void createdBy_Should_Be_Automatically_Persisted_From_SecurityContext() {
+	public void createdBy_Property_Should_Be_Automatically_Persisted_From_SecurityContext() {
 		//GIVEN
 		//Pre persist entities.
 		Department department = new Department("Department");
@@ -446,7 +445,7 @@ class EntitiesDaoAbstractIT {
 	@Test
 	@DisplayName("Manually set 'createdBy' property should be persisted")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void createdBy_Set_Manually_Should_Be_Persisted() {
+	public void createdBy_Property_If_Set_Manually_Should_Be_Persisted() {
 		//GIVEN
 		//Pre persist entities
 		Department department = new Department("Department");
@@ -467,6 +466,41 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN
 		assertEquals(employeeToBeCreatedBy, classifierPersisted.get().getCreatedBy());
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"overallPrice, 10.11"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void findByProperty_Should_Return_Proper_Results(String propertyName, String propertyValue) {
+		//GIVEN 21 pre-persisted Orders
+		persistAllOrders();
+		
+		//WHEN
+		Optional<Order> orderByProperty = ordersDao.findByProperty(propertyName, propertyValue);
+		
+		//THEN
+		assertTrue(orderByProperty.isPresent());
+		
+		//To clear the database
+		removeAllOrders();
+		
+		//TODO: to check the exception if such a property doesn't exist
+	}
+	
+	@Disabled
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void criteriaAPI_Test() {
+		//GIVEN 21 Orders
+		persistAllOrders();
+		
+		//WHEN
+		List<Order> pagedOrders = ordersDao.findAllPaged(20, 1, "overallPrice", Sort.Direction.ASC).get();
+		
+		//THEN
+		System.out.println(pagedOrders);
+		assertEquals(20, pagedOrders.size());
+		
 	}
 	
 	@BeforeEach
@@ -650,25 +684,25 @@ class EntitiesDaoAbstractIT {
 	 */
 	@Transactional
 	public void removeAllPersistedEntities() {
-		Optional<List<Employee>> employeesManaged = employeesDao.findAll(0, 0, null, null);
+		Optional<List<Employee>> employeesManaged = employeesDao.findAllPaged(0, 0, null, null);
 		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Task>> tasksManaged = tasksDao.findAll(0, 0, null, null);
+		Optional<List<Task>> tasksManaged = tasksDao.findAllPaged(0, 0, null, null);
 		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Order>> ordersManaged = ordersDao.findAll(0, 0, null, null);
+		Optional<List<Order>> ordersManaged = ordersDao.findAllPaged(0, 0, null, null);
 		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAll(0, 0, null, null);
+		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllPaged(0, 0, null, null);
 		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<User>> usersManaged = usersDao.findAll(0, 0, null, null);
+		Optional<List<User>> usersManaged = usersDao.findAllPaged(0, 0, null, null);
 		usersDao.removeEntities(usersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Position>> positionsManaged = positionsDao.findAll(0, 0, null, null);
+		Optional<List<Position>> positionsManaged = positionsDao.findAllPaged(0, 0, null, null);
 		positionsDao.removeEntities(positionsManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Department>> departmentsManaged = departmentsDao.findAll(0, 0, null, null);
+		Optional<List<Department>> departmentsManaged = departmentsDao.findAllPaged(0, 0, null, null);
 		departmentsDao.removeEntities(departmentsManaged.orElse(Collections.emptyList()));
 		
 		entityManager.clear();
@@ -678,30 +712,51 @@ class EntitiesDaoAbstractIT {
 	public void persistAllOrders() {
 		Order order1 = new Order();
 		order1.setDescription("Order1");
+		order1.setOverallPrice(BigDecimal.valueOf(10.01));
 		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order2 = new Order();
+		order2.setOverallPrice(BigDecimal.valueOf(10.02));
 		order2.setDescription("Order2");
 		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order3 = Order.builder().description("Order3").build();
 		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		order3.setOverallPrice(BigDecimal.valueOf(10.03));
 		Order order4 = Order.builder().description("Order4").build();
+		order4.setOverallPrice(BigDecimal.valueOf(10.04));
 		Order order5 = Order.builder().description("Order5").build();
+		order5.setOverallPrice(BigDecimal.valueOf(10.05));
 		Order order6 = Order.builder().description("Order6").build();
+		order6.setOverallPrice(BigDecimal.valueOf(10.06));
 		Order order7 = Order.builder().description("Order7").build();
+		order7.setOverallPrice(BigDecimal.valueOf(10.07));
 		Order order8 = Order.builder().description("Order8").build();
+		order8.setOverallPrice(BigDecimal.valueOf(10.08));
 		Order order9 = Order.builder().description("Order9").build();
+		order9.setOverallPrice(BigDecimal.valueOf(10.09));
 		Order order10 = Order.builder().description("Order10").build();
+		order10.setOverallPrice(BigDecimal.valueOf(10.10));
 		Order order11 = Order.builder().description("Order11").build();
+		order11.setOverallPrice(BigDecimal.valueOf(10.11));
 		Order order12 = Order.builder().description("Order12").build();
+		order12.setOverallPrice(BigDecimal.valueOf(10.12));
 		Order order13 = Order.builder().description("Order13").build();
+		order13.setOverallPrice(BigDecimal.valueOf(10.13));
 		Order order14 = Order.builder().description("Order14").build();
+		order14.setOverallPrice(BigDecimal.valueOf(10.14));
 		Order order15 = Order.builder().description("Order15").build();
+		order15.setOverallPrice(BigDecimal.valueOf(10.15));
 		Order order16 = Order.builder().description("Order16").build();
+		order16.setOverallPrice(BigDecimal.valueOf(10.16));
 		Order order17 = Order.builder().description("Order17").build();
+		order17.setOverallPrice(BigDecimal.valueOf(10.17));
 		Order order18 = Order.builder().description("Order18").build();
+		order18.setOverallPrice(BigDecimal.valueOf(10.18));
 		Order order19 = Order.builder().description("Order19").build();
+		order19.setOverallPrice(BigDecimal.valueOf(10.19));
 		Order order20 = Order.builder().description("Order20").build();
+		order20.setOverallPrice(BigDecimal.valueOf(10.20));
 		Order order21 = Order.builder().description("Order21").build();
+		order21.setOverallPrice(BigDecimal.valueOf(10.21));
 		
 		orders = new ArrayList<>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
 			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));

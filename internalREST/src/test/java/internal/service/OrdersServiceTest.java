@@ -50,10 +50,10 @@ class OrdersServiceTest {
 		
 		ordersService.setDEFAULT_PAGE_SIZE(maxPageSize);
 		ordersService.setMAX_PAGE_NUM(maxPageNum);
-		entitiesDao.setMAX_PAGE_SIZE(maxPageSize);
-		entitiesDao.setMAX_PAGE_NUM(maxPageNum);
-		ordersDao.setMAX_PAGE_SIZE(maxPageSize);
-		ordersDao.setMAX_PAGE_NUM(maxPageNum);
+		entitiesDao.setPAGE_SIZE_DEFAULT(maxPageSize);
+		entitiesDao.setPAGE_NUM_MAX(maxPageNum);
+		ordersDao.setPAGE_SIZE_DEFAULT(maxPageSize);
+		ordersDao.setPAGE_NUM_MAX(maxPageNum);
 		
 		ArgumentCaptor<Integer> sizeCaptured = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<Integer> pageCaptured = ArgumentCaptor.forClass(Integer.class);
@@ -61,17 +61,17 @@ class OrdersServiceTest {
 		ArgumentCaptor<Sort.Direction> sortCaptured = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		//WHEN
-		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAllPaged(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		Mockito.lenient().when(entitiesDao.findAll(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAllPaged(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
 		ordersService.findAllEntities(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);
 		
 		//THEN
 		
-		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAll(
+		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllPaged(
 			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), sortCaptured.capture());
 		
 		System.out.println("Size=" + sizeCaptured.getValue() + " Page=" + pageCaptured.getValue());
@@ -96,7 +96,7 @@ class OrdersServiceTest {
 		//WHEN
 		
 		Mockito.lenient()
-			.when(ordersDao.findAll(
+			.when(ordersDao.findAllPaged(
 				Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any(Sort.Direction.class)))
 			.thenReturn(Optional.empty());
 		
@@ -104,7 +104,7 @@ class OrdersServiceTest {
 		
 		//THEN
 		
-		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAll(
+		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllPaged(
 			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), directionCaptured.capture());
 		
 		System.out.println("SortBy=" + sortByCaptured.getValue() + " || AscDesc=" + directionCaptured.getValue());

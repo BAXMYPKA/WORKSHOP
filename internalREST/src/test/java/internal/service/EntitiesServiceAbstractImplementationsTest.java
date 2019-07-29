@@ -59,7 +59,7 @@ class EntitiesServiceAbstractImplementationsTest {
 		ArgumentCaptor<String> capturedOrderBy = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<Sort.Direction> capturedDirection = ArgumentCaptor.forClass(Sort.Direction.class);
 		
-		Mockito.when(departmentsDao.findAll(
+		Mockito.when(departmentsDao.findAllPaged(
 			capturedPageSize.capture(), capturedPageNum.capture(), capturedOrderBy.capture(), capturedDirection.capture()))
 			.thenReturn(Optional.empty());
 		
@@ -68,7 +68,7 @@ class EntitiesServiceAbstractImplementationsTest {
 		
 		//THEN
 		Mockito.verify(departmentsDao, Mockito.times(1))
-			.findAll(capturedPageSize.getValue(), capturedPageNum.getValue(), orderBy, Sort.Direction.DESC);
+			.findAllPaged(capturedPageSize.getValue(), capturedPageNum.getValue(), orderBy, Sort.Direction.DESC);
 		
 		assertTrue(capturedPageSize.getValue() <= defaultPageSize);
 		assertTrue(capturedPageNum.getValue() <= maxPageNum);

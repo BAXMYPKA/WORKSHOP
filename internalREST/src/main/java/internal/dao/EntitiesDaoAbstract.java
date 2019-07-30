@@ -18,6 +18,11 @@ import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.Temporal;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -39,7 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -216,43 +221,44 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 	}
 	
 	/**
-	 * The search by a value of the particular property of ${@link this#getClass()} (if the Entity has such a property).
+	 * The search by manually entered Entity.property name and its value.
+	 * Also accepts ZonedDateTime, LocalDateTime and LocalDate to be parsed if Entity.property instanceof Temporal.class.
 	 *
-	 * @param propertyName  The name of the ${@link this#getClass()} property.
-	 * @param propertyValue The value to be found.
+	 * @param propertyName  The name of the ${@link #getClass()} and its superclass property.
+	 *                      If the propertyName class is matching any instance of ZonedDateTime, LocalDateTime or LocalDate
+	 *                      so its 'propertyValue' will be parsed accordingly and may throw the parsing exception.
+	 * @param propertyValue The value to be found. It it is the ZonedDateTime, LocalDate value,
+	 *                      it is will be parsed accordingly.
+	 * @return Optional<List<T>> with the found entities or Optional.ofNullable() if nothing was found.
 	 * @throws PersistenceException     When nothing found or in case of some DB problems
-	 * @throws IllegalArgumentException If 'propertyName' or 'propertyValue' is null or empty.
-	 *                                  Or ${@link this#getClass()} doesn't have such a property!
+	 * @throws IllegalArgumentException If 'propertyName' or 'propertyValue' is either null, or empty,
+	 *                                  or neither ${@link #getClass()} or nor of its superclasses don't have such a property,
+	 *                                  or parsing the 'propertyName' to the instanceof Temporal is failed.
 	 */
-	public Optional<T> findByProperty(String propertyName, String propertyValue) throws PersistenceException, IllegalArgumentException {
+	public Optional<List<T>> findByProperty(String propertyName, String propertyValue) throws PersistenceException, IllegalArgumentException {
 		if (propertyValue == null || propertyName == null || propertyName.isEmpty() || propertyValue.isEmpty()) {
 			throw new IllegalArgumentException("Name or value is null or empty!");
 		}
-		try {
-			Field property = entityClass.getDeclaredField(propertyName);
-			log.debug("{} has the {} property to find a value='{}' from",
-				entityClass.getSimpleName(), property.getName(), propertyValue);
-		} catch (NoSuchFieldException e) {
-			throw new IllegalArgumentException(
-				entityClass.getSimpleName() + " doesn't have such a " + propertyName + " property!", e);
+		//Try to find such a property by name in this class and its superclasses; otherwise an IllegalArgsException will be thrown
+		Field propertyFound = findPropertyOfThisEntityClass(propertyName);
+		//propertyValue can be both String.class and Temporal.class to be used as argument for CriteriaQuery
+		Object parsedPropertyValue = propertyValue;
+		//If entityClass.property instance of Temporal.class so its value has to be the instance of the corresponding class
+		if (Temporal.class.isAssignableFrom(propertyFound.getType())) {
+			parsedPropertyValue = parseTemporal(propertyFound, propertyValue);
 		}
-		TypedQuery<T> typedQuery = entityManager.createQuery(
-			"SELECT e FROM " + entityClass + " e WHERE e.getName LIKE %:name%",
-			entityClass);
-		typedQuery.setParameter("name", propertyValue);
-		try {
-			Optional<T> entity = Optional.ofNullable(typedQuery.getSingleResult());
-			log.debug("{} with property={} and propertyValue={} is found? = {}",
-				entityClass.getSimpleName(), propertyName, propertyValue, entity.isPresent());
-			return entity;
-		} catch (NoResultException e) {
-			log.info("No {} with property={} and propertyValue={} was found.",
-				entityClass.getSimpleName(), propertyName, propertyValue);
-			return Optional.empty();
-		} catch (PersistenceException ep) {
-			log.warn(ep.getMessage(), ep);
-			return Optional.empty();
-		}
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> root = cq.from(entityClass);
+		Path<Object> property = root.get(propertyName);
+		Predicate predicate = cb.equal(property, parsedPropertyValue);
+		
+		cq.select(root).where(predicate);
+		
+		TypedQuery<T> query = entityManager.createQuery(cq);
+		List<T> resultList = query.getResultList();
+		log.debug("The result by property={} with value={} is found? = {}", propertyName, parsedPropertyValue, resultList != null);
+		return (resultList != null && !resultList.isEmpty()) ? Optional.of(resultList) : Optional.empty();
 	}
 	
 	/**
@@ -442,6 +448,9 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 		}
 	}
 	
+	/**
+	 * @return The whole amount of {@link #entityClass} available in DataBase.
+	 */
 	public long countAllEntities() {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
@@ -461,5 +470,51 @@ public abstract class EntitiesDaoAbstract<T extends Serializable, K> implements 
 			throw new AuthenticationCredentialsNotFoundException("Authentication not found in the SecurityContext!", e);
 		}
 		return authentication;
+	}
+	
+	private Field findPropertyOfThisEntityClass(String fieldName) throws IllegalArgumentException {
+		//Try to find such a field in this class...
+		List<Field> allFields = new ArrayList<>(Arrays.asList(entityClass.getDeclaredFields()));
+		// ...and in its all the superclasses
+		Class superClass = entityClass.getSuperclass();
+		while (superClass != null) {
+			allFields.addAll(Arrays.asList(superClass.getDeclaredFields()));
+			superClass = superClass.getSuperclass();
+		}
+		
+		Optional<Field> fieldFound = allFields.stream().filter(field -> fieldName.equals(field.getName())).findFirst();
+		
+		log.debug("Is the property(field)={} presented in {} and its superclasses? = {}",
+			fieldName, entityClass.getSimpleName(), fieldFound.isPresent());
+		
+		return fieldFound.orElseThrow(() -> new IllegalArgumentException(
+			entityClass.getSimpleName() + " doesn't have such a '" + fieldName + "' property!"));
+		
+	}
+	
+	private Temporal parseTemporal(Field temporalClass, String temporalValue) {
+		Temporal temporalParsed;
+		try {
+			if (ZonedDateTime.class.isAssignableFrom(temporalClass.getType())) {
+				temporalParsed = ZonedDateTime.parse(temporalValue);
+				log.debug("{} parsed as ZonedDateTime", temporalValue);
+			} else if (LocalDate.class.isAssignableFrom(temporalClass.getType())) {
+				temporalParsed = LocalDate.parse(temporalValue);
+				log.debug("{} parsed as LocalDate", temporalValue);
+			} else if (LocalDateTime.class.isAssignableFrom(temporalClass.getType())) {
+				temporalParsed = LocalDateTime.parse(temporalValue);
+				log.debug("{} parsed as LocalDateTime", temporalValue);
+			} else {
+				throw new DateTimeParseException(
+					"The property temporal class must be the instance of either ZonedDateTime or LocalDateTime or LocalDate!",
+					temporalValue, 0);
+			}
+		} catch (DateTimeParseException e) {
+			throw new IllegalArgumentException("Impossible to parse the given '" + temporalValue +
+				"' value as ZonedDateTime, LocalDateTime or LocalDate!" +
+				"The proper template must correspond: yyyy-MM-ddT00:00:00+00:00" +
+				"e.g.: 2020-10-5T13:50:45:00+00.01, 2017-11-20T09:35:45+03:00[Europe/Moscow] ect", e);
+		}
+		return temporalParsed;
 	}
 }

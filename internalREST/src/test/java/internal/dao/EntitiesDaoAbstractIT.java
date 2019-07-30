@@ -469,28 +469,82 @@ class EntitiesDaoAbstractIT {
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"overallPrice, 10.11"})
+	@ValueSource(strings = {"property", "anotherProperty"})
+	@DisplayName("FindByProperty should throw IllegalArgExc with exact message if Entity doesn't have such a property")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void findByProperty_Should_Return_Proper_Results(String propertyName, String propertyValue) {
+	public void findByProperty_Should_Throw_IllegalArgsEx_If_Entity_Doesnt_Have_Such_Property(String propertyName) {
+		//GIVEN
+		
+		//WHEN
+		IllegalArgumentException exceptionMessage = assertThrows(IllegalArgumentException.class,
+			() -> departmentsDao.findByProperty(propertyName, "value"));
+		
+		assertEquals(
+			Department.class.getSimpleName() + " doesn't have such a '" + propertyName + "' property!",
+			exceptionMessage.getMessage());
+		
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"overallPrice, 10.11", "overallPrice, 10.21", "description, Order3", "description, Order11"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void findByProperty_Should_Return_Proper_String_Result(String propertyName, String propertyValue) {
 		//GIVEN 21 pre-persisted Orders
 		persistAllOrders();
 		
 		//WHEN
-		Optional<Order> orderByProperty = ordersDao.findByProperty(propertyName, propertyValue);
+		Optional<List<Order>> orderByProperty = ordersDao.findByProperty(propertyName, propertyValue);
+		
+		//THEN
+		assertTrue(orderByProperty.isPresent());
+		if ("overallPrice".equals(propertyName)) {
+			assertEquals(new BigDecimal(propertyValue), orderByProperty.get().get(0).getOverallPrice());
+		} else if ("description".equals(propertyName)) {
+			assertEquals(propertyValue, orderByProperty.get().get(0).getDescription());
+		} else if ("deadline".equals(propertyName)) {
+			System.out.println(orderByProperty.get().get(0).getDeadline());
+		}
+		
+		//To clear the database
+		removeAllOrders();
+	}
+	
+	@ParameterizedTest
+	@CsvSource({"created, 2017-11-20T09:35:45+03:00", "deadline, 2020-12-30T12:00:00+00:00"})
+	@DisplayName("FindByProperty should parse Temporal and return more than one result if they are")
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void findByProperty_Should_Return_Proper_ZonedDateTime_Results(String propertyName, String propertyValue) {
+		//GIVEN 21 pre-persisted Orders
+		persistAllOrders();
+		
+		ZonedDateTime expectedCreatedInOrder2 = ZonedDateTime.of(
+			2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault());
+		
+		ZonedDateTime expectedDeadline = ZonedDateTime.of(
+			2020, 12, 30, 12, 0, 0, 0, ZoneId.of("UTC"));
+		
+		//WHEN
+		Optional<List<Order>> orderByProperty = ordersDao.findByProperty(propertyName, propertyValue);
 		
 		//THEN
 		assertTrue(orderByProperty.isPresent());
 		
+		if ("created".equals(propertyName)) {
+			assertEquals(expectedCreatedInOrder2, orderByProperty.get().get(0).getCreated());
+		} else if ("deadline".equals(propertyName)) {
+			//We have 2 Orders with deadline=2020-12-30T12:00:00+00:00
+			assertEquals(2, orderByProperty.get().size());
+			assertEquals(expectedDeadline, orderByProperty.get().get(0).getDeadline());
+		}
+		
 		//To clear the database
 		removeAllOrders();
-		
-		//TODO: to check the exception if such a property doesn't exist
 	}
 	
 	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void criteriaAPI_Test() {
+	public void criteriaAPI_Junk_Test() {
 		//GIVEN 21 Orders
 		persistAllOrders();
 		
@@ -710,23 +764,26 @@ class EntitiesDaoAbstractIT {
 	
 	@Transactional
 	public void persistAllOrders() {
+		//DO NOT CHANGE OR OVERWRITE THESE INSTANCES WITHOUT CHECK (!) THEIR VALUES ARE USED ACROSS this.getMethods()
 		Order order1 = new Order();
 		order1.setDescription("Order1");
 		order1.setOverallPrice(BigDecimal.valueOf(10.01));
-		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
 		Order order2 = new Order();
 		order2.setOverallPrice(BigDecimal.valueOf(10.02));
 		order2.setDescription("Order2");
-		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		order2.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
 		Order order3 = Order.builder().description("Order3").build();
-		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
+		order3.setCreated(ZonedDateTime.of(2016, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
 		order3.setOverallPrice(BigDecimal.valueOf(10.03));
 		Order order4 = Order.builder().description("Order4").build();
 		order4.setOverallPrice(BigDecimal.valueOf(10.04));
 		Order order5 = Order.builder().description("Order5").build();
 		order5.setOverallPrice(BigDecimal.valueOf(10.05));
+		order5.setDeadline(ZonedDateTime.of(2020, 12, 30, 12, 0, 0, 0, ZoneId.of("UTC")));
 		Order order6 = Order.builder().description("Order6").build();
 		order6.setOverallPrice(BigDecimal.valueOf(10.06));
+		order6.setDeadline(ZonedDateTime.of(2020, 12, 30, 12, 0, 0, 0, ZoneId.of("UTC")));
 		Order order7 = Order.builder().description("Order7").build();
 		order7.setOverallPrice(BigDecimal.valueOf(10.07));
 		Order order8 = Order.builder().description("Order8").build();

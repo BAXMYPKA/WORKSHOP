@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-28.0.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-26.0.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-25.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractImplementationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -80,12 +78,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="478" selection-start-line="478" selection-end-line="478" />
+            <state relative-caret-position="1061">
+              <caret line="765" column="35" selection-start-line="765" selection-start-column="35" selection-end-line="765" selection-end-column="35" />
               <folding>
                 <element signature="method#initNewEntities#0;class#EntitiesDaoAbstractIT#0" />
-                <element signature="docComment;method#removeAllPersistedEntities#0;class#EntitiesDaoAbstractIT#0" expanded="true" />
                 <element signature="method#removeAllPersistedEntities#0;class#EntitiesDaoAbstractIT#0" />
+                <element signature="method#persistAllOrders#0;class#EntitiesDaoAbstractIT#0" />
               </folding>
             </state>
           </provider>
@@ -94,16 +92,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="231" column="58" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="58" />
+            <state relative-caret-position="350">
+              <caret line="243" column="108" lean-forward="true" selection-start-line="243" selection-start-column="108" selection-end-line="243" selection-end-column="108" />
               <folding>
-                <element signature="e#1461#1483#1" expanded="true" />
-                <element signature="e#1525#1543#1" expanded="true" />
-                <element signature="e#3928#3934#0" />
-                <element signature="docComment;method#findAll#0;class#EntitiesDaoAbstract#0" expanded="true" />
-                <element signature="docComment;method#findAllPaged#0;class#EntitiesDaoAbstract#0" expanded="true" />
-                <element signature="e#0#57#1" expanded="true" />
+                <element signature="docComment;method#findByProperty#0;class#EntitiesDaoAbstract#0" expanded="true" />
                 <element signature="e#0#47#1" expanded="true" />
+                <element signature="docComment;method#countAllEntities#0;class#EntitiesDaoAbstract#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,7 +106,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="474">
+            <state relative-caret-position="403">
               <caret line="227" column="13" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
             </state>
           </provider>
@@ -121,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+            <state relative-caret-position="304">
+              <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -130,12 +124,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-58">
-              <caret line="36" column="50" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-              <folding>
-                <element signature="docComment;field#created#0;class#Trackable#0" expanded="true" />
-                <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="336">
+              <caret line="59" column="30" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -143,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
+            <state relative-caret-position="84">
+              <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -152,7 +142,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
+            <state relative-caret-position="448">
               <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
             </state>
           </provider>
@@ -273,7 +263,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="C:/WORKSPACE/JAVA/apache-maven-3.6.1" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../JAVA/apache-maven-3.6.1" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -311,7 +301,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="CatdeaLogs" />
       <pane id="ProjectPane">
         <subPane>
@@ -361,15 +350,6 @@
               <item name="internalREST" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -404,15 +384,6 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="internal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -462,6 +433,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -533,7 +505,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results">
+  <component name="RunManager" selected="JUnit.EntitiesDaoAbstractIT">
     <configuration name="EntitiesDaoAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -565,7 +537,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -575,13 +547,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.dao" />
       <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="pagination_With_Custom_Sorting_Should_Sort_Properly" />
+      <option name="METHOD_NAME" value="findByProperty_Should_Return_Proper_ZonedDateTime_Result(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Results" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -591,13 +563,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.dao" />
       <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly(int)" />
+      <option name="METHOD_NAME" value="findByProperty_Should_Return_Proper_ZonedDateTime_Results(java.lang.String,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Should_Work_Properly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Throw_IllegalArgEx_If_Entity_Doesnt_Have_Such_Property" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -607,7 +579,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.dao" />
       <option name="MAIN_CLASS_NAME" value="internal.dao.EntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="pagination_With_Limits_And_Offsets_Should_Work_Properly(int)" />
+      <option name="METHOD_NAME" value="findByProperty_Should_Throw_IllegalArgEx_If_Entity_Doesnt_Have_Such_Property(java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -625,19 +597,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.EntitiesDaoAbstractIT" />
-      <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" />
-      <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly" />
-      <item itemvalue="Spring Boot.Internal" />
-      <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Should_Work_Properly" />
       <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Throw_IllegalArgEx_If_Entity_Doesnt_Have_Such_Property" />
+      <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" />
+      <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Results" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" />
         <item itemvalue="JUnit.EntitiesDaoAbstractIT" />
-        <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly" />
-        <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" />
-        <item itemvalue="JUnit.EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Should_Work_Properly" />
+        <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Results" />
+        <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" />
+        <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" />
+        <item itemvalue="JUnit.EntitiesDaoAbstractIT.findByProperty_Should_Throw_IllegalArgEx_If_Entity_Doesnt_Have_Such_Property" />
       </list>
     </recent_temporary>
   </component>
@@ -732,46 +704,47 @@
       <workItem from="1564307666751" duration="10856000" />
       <workItem from="1564330437732" duration="2420000" />
       <workItem from="1564384454653" duration="16914000" />
+      <workItem from="1564467102041" duration="22160000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="EntitiesDaoAbstractIT_pagination_With_Custom_Sorting_Should_Sort_Properly - 2019.07.29 at 14h 57m 28s.xml">
-      <configuration name="EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" configurationId="JUnit" />
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 24m 15s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_pagination_With_Custom_Sorting_Should_Sort_Properly - 2019.07.29 at 15h 04m 58s.xml">
-      <configuration name="EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" configurationId="JUnit" />
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 24m 50s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_pagination_With_Custom_Sorting_Should_Sort_Properly - 2019.07.29 at 15h 08m 06s.xml">
-      <configuration name="EntitiesDaoAbstractIT.pagination_With_Custom_Sorting_Should_Sort_Properly" configurationId="JUnit" />
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 25m 50s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly - 2019.07.29 at 15h 08m 54s.xml">
-      <configuration name="EntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly" configurationId="JUnit" />
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 33m 36s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT - 2019.07.29 at 15h 29m 45s.xml">
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 34m 09s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 35m 17s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 41m 38s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Result - 2019.07.30 at 16h 41m 55s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Result" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_ZonedDateTime_Results - 2019.07.30 at 16h 50m 05s.xml">
+      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_ZonedDateTime_Results" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="EntitiesDaoAbstractIT - 2019.07.30 at 16h 50m 38s.xml">
       <configuration name="EntitiesDaoAbstractIT" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_Results - 2019.07.29 at 15h 44m 20s.xml">
-      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_Results - 2019.07.29 at 15h 47m 47s.xml">
-      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_Results - 2019.07.29 at 15h 48m 58s.xml">
-      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_Results - 2019.07.29 at 15h 51m 31s.xml">
-      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="EntitiesDaoAbstractIT_findByProperty_Should_Return_Proper_Results - 2019.07.29 at 15h 53m 02s.xml">
-      <configuration name="EntitiesDaoAbstractIT.findByProperty_Should_Return_Proper_Results" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="952301000" />
+    <option name="totallyTimeSpent" value="974461000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
@@ -780,24 +753,24 @@
       <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.46938777" side_tool="true" weight="0.16122234" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" sideWeight="0.4674221" side_tool="true" weight="0.16174921" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.53061223" visible="true" weight="0.16122234" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.53061223" visible="true" weight="0.16122234" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
       <window_info id="Maven" order="9" sideWeight="0.5320829" weight="0.10642782" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32181638" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49897048" weight="0.2744324" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49897048" weight="0.27384615" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.3632774" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.36307693" />
       <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.4916091" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010295" side_tool="true" weight="0.27225673" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32872656" />
-      <window_info anchor="bottom" auto_hide="true" id="Messages" order="12" weight="0.19151036" />
+      <window_info anchor="bottom" auto_hide="true" id="Messages" order="12" weight="0.19076923" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32923076" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32712215" />
@@ -1056,8 +1029,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.7.RELEASE/spring-core-5.1.7.RELEASE-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -1142,72 +1113,78 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="36" column="50" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
-          <folding>
-            <element signature="docComment;field#created#0;class#Trackable#0" expanded="true" />
-            <element signature="docComment;method#prePersist#0;class#Trackable#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.7.RELEASE/spring-core-5.1.7.RELEASE-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+        <state relative-caret-position="212">
+          <caret line="220" selection-start-line="220" selection-end-line="220" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+        <state relative-caret-position="198">
+          <caret line="630" selection-start-line="630" selection-end-line="630" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/EntitiesServiceAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
+        <state relative-caret-position="403">
           <caret line="227" column="13" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="231" column="58" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="58" />
+        <state relative-caret-position="350">
+          <caret line="243" column="108" lean-forward="true" selection-start-line="243" selection-start-column="108" selection-end-line="243" selection-end-column="108" />
           <folding>
-            <element signature="e#1461#1483#1" expanded="true" />
-            <element signature="e#1525#1543#1" expanded="true" />
-            <element signature="e#3928#3934#0" />
-            <element signature="docComment;method#findAll#0;class#EntitiesDaoAbstract#0" expanded="true" />
-            <element signature="docComment;method#findAllPaged#0;class#EntitiesDaoAbstract#0" expanded="true" />
-            <element signature="e#0#57#1" expanded="true" />
+            <element signature="docComment;method#findByProperty#0;class#EntitiesDaoAbstract#0" expanded="true" />
             <element signature="e#0#47#1" expanded="true" />
+            <element signature="docComment;method#countAllEntities#0;class#EntitiesDaoAbstract#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="53" column="13" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="59" column="30" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/httpSecurity/EmployeesAuthenticationProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="478" selection-start-line="478" selection-end-line="478" />
+        <state relative-caret-position="1061">
+          <caret line="765" column="35" selection-start-line="765" selection-start-column="35" selection-end-line="765" selection-end-column="35" />
           <folding>
             <element signature="method#initNewEntities#0;class#EntitiesDaoAbstractIT#0" />
-            <element signature="docComment;method#removeAllPersistedEntities#0;class#EntitiesDaoAbstractIT#0" expanded="true" />
             <element signature="method#removeAllPersistedEntities#0;class#EntitiesDaoAbstractIT#0" />
+            <element signature="method#persistAllOrders#0;class#EntitiesDaoAbstractIT#0" />
           </folding>
         </state>
       </provider>
@@ -1276,7 +1253,7 @@ System.out.println(contains);</expression-string>
       </state>
       <state key="ProjectJDKs.UI">
         <settings>
-          <last-edited>1.8</last-edited>
+          <last-edited>1.8.0_212</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

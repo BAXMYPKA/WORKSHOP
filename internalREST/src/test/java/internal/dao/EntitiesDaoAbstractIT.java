@@ -772,7 +772,7 @@ class EntitiesDaoAbstractIT {
 		Order order2 = new Order();
 		order2.setOverallPrice(BigDecimal.valueOf(10.02));
 		order2.setDescription("Order2");
-		order2.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
+		order2.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order3 = Order.builder().description("Order3").build();
 		order3.setCreated(ZonedDateTime.of(2016, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
 		order3.setOverallPrice(BigDecimal.valueOf(10.03));

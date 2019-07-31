@@ -10,12 +10,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpMediaTypeException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,9 +27,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.*;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Returns MediaType.APPLICATION_JSON_UTF8 with a JsonObject as:
+ * {"errorMessage":"Localized exception message text."}
+ */
 @Slf4j
 @Getter
 @Setter
@@ -33,32 +42,65 @@ import java.util.stream.Collectors;
 public class ExceptionHandlerController {
 	
 	@Autowired
+	private MessageSource messageSource;
+	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	
-	@ExceptionHandler({HttpMessageNotReadableException.class}) //400
-	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, HttpServletResponse response) {
-		log.info(ex.getMessage());
-		setResponseContentType(response);
-		return ResponseEntity.badRequest().body("Incorrect request body!");
+	@ExceptionHandler({HttpMessageConversionException.class})
+	@ResponseBody
+	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, Locale locale) {
+		if (ex.getClass().isAssignableFrom(HttpMessageNotReadableException.class)) {
+			//400
+			log.info(ex.getMessage());
+			return getResponseEntity(
+				HttpStatus.BAD_REQUEST,
+				messageSource.getMessage("httpStatus.badRequest", null, locale));
+		} else {
+			// ex = HttpMessageNotWritableException.class, 422
+			log.error(ex.getMessage());
+			return getResponseEntity(
+				HttpStatus.UNPROCESSABLE_ENTITY,
+				messageSource.getMessage("httpStatus.unprocessableEntity.HttpMessageNotWritable", null, locale));
+		}
+	}
+	
+	@ExceptionHandler({HttpMediaTypeException.class})
+	@ResponseBody
+	public ResponseEntity<String> httpMediaTypeFailure(Exception ex, Locale locale) {
+		if (ex.getClass().isAssignableFrom(HttpMediaTypeNotSupportedException.class)) {
+			//415
+			log.debug(ex.getMessage(), ex);
+			return getResponseEntity(
+				HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+				messageSource.getMessage("httpStatus.unsupportedMediaType", null, locale));
+		} else {
+			//MediaTypeNotAcceptable.class 406 Not Acceptable 
+			log.debug(ex.getMessage(), ex);
+			return getResponseEntity(
+				HttpStatus.NOT_ACCEPTABLE,
+				messageSource.getMessage("httpStatus.notAcceptable.mediaType", null, locale));
+		}
 	}
 	
 	@ExceptionHandler({JsonProcessingException.class}) //422
-	public ResponseEntity<String> jsonProcessingFailure(Exception ex, HttpServletResponse response) {
+	public ResponseEntity<String> jsonProcessingFailure(Exception ex, Locale locale) {
 		log.info(ex.getMessage());
-		setResponseContentType(response);
-		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("The Server hasn't been able to tread JSON from a request!");
+		return getResponseEntity(
+			HttpStatus.UNPROCESSABLE_ENTITY,
+			messageSource.getMessage("httpStatus.unprocessableEntity.JsonException", null, locale));
 	}
 	
 	@ExceptionHandler({AuthenticationCredentialsNotFoundException.class})
-	public ResponseEntity<String> authenticationFailure(Exception ex, HttpServletResponse response) {
+	public ResponseEntity<String> authenticationFailure(Exception ex) {
 		log.info(ex.getMessage());
-		setResponseContentType(response);
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+		return getResponseEntity(HttpStatus.UNAUTHORIZED, ex.getMessage());
+		//TODO: to manage the translation for exceptions messages
 	}
 	
 	@ExceptionHandler({MethodArgumentNotValidException.class}) //422
 	@ResponseBody
-	public ResponseEntity<String> validationFailure(MethodArgumentNotValidException ex, HttpServletResponse response) {
+	public ResponseEntity<String> validationFailure(
+		MethodArgumentNotValidException ex, HttpServletResponse response, Locale locale) {
 		BindingResult bindingResult = ex.getBindingResult();
 		Map<String, String> fieldErrors = bindingResult
 			.getFieldErrors()
@@ -67,12 +109,10 @@ public class ExceptionHandlerController {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			String jsonedFieldErrors = objectMapper.writeValueAsString(fieldErrors);
-			setResponseContentType(response);
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(jsonedFieldErrors);
+			return getResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY, jsonedFieldErrors);
 		} catch (JsonProcessingException e) {
 			log.error(e.getMessage());
-			setResponseContentType(response);
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(fieldErrors.toString());
+			return getResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY, fieldErrors.toString());
 		}
 	}
 	
@@ -84,27 +124,30 @@ public class ExceptionHandlerController {
 	 */
 	@ExceptionHandler({WorkshopException.class})
 	@ResponseBody
-	public ResponseEntity<String> persistenceFailed(WorkshopException wx) {
+	public ResponseEntity<String> persistenceFailed(WorkshopException wx, Locale locale) {
 		log.error(wx.getMessage(), wx);
 		if (wx instanceof EntityNotFound) {
 			EntityNotFound enf = (EntityNotFound) wx;
 			log.error(enf.getMessage(), enf);
-			return ResponseEntity.status(
-				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND).body(wx.getMessage());
+			return getResponseEntity(
+				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND,
+				wx.getLocalizedMessage() != null ? wx.getLocalizedMessage() : wx.getMessage());
+			//TODO: to translate Workshop exceptions
 		} else if (wx instanceof PersistenceFailure) {
 			PersistenceFailure pf = (PersistenceFailure) wx;
 			log.error(pf.getMessage(), pf);
-			return ResponseEntity.status(
-				pf.getHttpStatus() != null ? pf.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY).body(pf.getMessage());
+			return getResponseEntity(
+				pf.getHttpStatus() != null ? pf.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY,
+				pf.getMessage());
 		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(wx.getMessage());
+		return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, wx.getMessage());
 	}
 	
 	@ExceptionHandler({EntityNotFound.class})
 	@ResponseBody
 	public ResponseEntity<String> entityNotFoundFailed(WorkshopException wx) {
 		log.error(wx.getMessage(), wx);
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(wx.getMessage());
+		return getResponseEntity(HttpStatus.NOT_FOUND, wx.getMessage());
 	}
 	
 	/**
@@ -118,23 +161,23 @@ public class ExceptionHandlerController {
 	public ResponseEntity<String> persistenceFailed(PersistenceException exception) {
 		if (exception instanceof EntityExistsException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(
+			return getResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY,
 				"The Entity with the same ID is already exist!");
 		} else if (exception instanceof EntityNotFoundException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The Entity is not found!");
+			return getResponseEntity(HttpStatus.NOT_FOUND, "The Entity is not found!");
 		} else if (exception instanceof NoResultException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No result!");
+			return getResponseEntity(HttpStatus.NOT_FOUND, "No result!");
 		} else if (exception instanceof RollbackException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).body(exception.getMessage());
+			return getResponseEntity(HttpStatus.FAILED_DEPENDENCY, exception.getMessage());
 		} else if (exception instanceof NonUniqueResultException) {
 			log.debug(exception.getMessage(), exception);
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("The result is not unique!");
+			return getResponseEntity(HttpStatus.CONFLICT, "The result is not unique!");
 		} else {
 			log.warn(exception.getMessage(), exception);
-			return ResponseEntity.status(520).body("Unknown error is occurred while performing the operation!");
+			return getResponseEntity(520, "Unknown error is occurred while performing the operation!");
 		}
 	}
 	
@@ -142,17 +185,31 @@ public class ExceptionHandlerController {
 	@ResponseBody
 	public ResponseEntity<String> illegalArgumentsFailure(IllegalArgumentException iex) {
 		log.warn(iex.getMessage(), iex);
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(iex.getMessage());
+		return getResponseEntity(HttpStatus.NOT_ACCEPTABLE, iex.getMessage());
 	}
 	
 	@ExceptionHandler({Throwable.class})
 	@ResponseBody
 	public ResponseEntity<String> commonFailure(Throwable throwable) {
 		log.error(throwable.getMessage(), throwable);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected internal error occurred!");
+		return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected internal error occurred!");
 	}
 	
-	private void setResponseContentType(HttpServletResponse response) {
-		response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+	private ResponseEntity<String> getResponseEntity(HttpStatus httpStatus, String messageBody) throws IllegalArgumentException {
+		if (httpStatus == null) {
+			throw new IllegalArgumentException("HttpStatus cannot be null!");
+		} else if (messageBody == null){
+			messageBody = "";
+		}
+		messageBody = "{\"errorMessage\":\"" + messageBody + "\"}";
+		return ResponseEntity.status(httpStatus).contentType(MediaType.APPLICATION_JSON_UTF8).body(messageBody);
+	}
+	
+	private ResponseEntity<String> getResponseEntity(int httpStatus, String messageBody) throws IllegalArgumentException {
+		if (httpStatus <= 0) {
+			throw new IllegalArgumentException("HttpStatus '" + httpStatus + "' cannot be 0 or below!");
+		}
+		messageBody = messageBody == null ? "" : messageBody;
+		return ResponseEntity.status(httpStatus).contentType(MediaType.APPLICATION_JSON_UTF8).body(messageBody);
 	}
 }

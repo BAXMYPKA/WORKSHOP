@@ -24,6 +24,10 @@ public class EntityNotFound extends WorkshopException {
 		super(message, httpStatusCode);
 	}
 	
+	public EntityNotFound(String message, String messageSourceProperty, org.springframework.http.HttpStatus httpStatusCode, Throwable cause) {
+		super(message, messageSourceProperty, httpStatusCode, cause);
+	}
+	
 	public EntityNotFound(String message, org.springframework.http.HttpStatus httpStatusCode, Throwable cause) {
 		super(message, httpStatusCode, cause);
 	}

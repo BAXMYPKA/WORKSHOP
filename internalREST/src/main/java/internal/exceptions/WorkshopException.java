@@ -1,15 +1,17 @@
 package internal.exceptions;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 /**
- * Runtime exceptions family to be used as the final exceptions to be logged {@link #getMessage()}
- * before exposing {@link #getLocalizedMessage()} or give the {@link #getMessageSourceKey()} for its localized value
- * for the end User according their Locales.
- * Constructor with parameters (String message, String messageSourceKey, HttpStatus httpStatusCode, Throwable cause)
- * is highly recommended.
+ * Final frontier exceptions.
+ * {@link #getMessage()} first is used for the logging purposes. Second, can be exposed to the end Users.
+ * {@link #getLocalizedMessage()} is used as the ready to be shown to the end Users according their Locales
+ * {@link #getMessageSourceKey()} is the key into the Spring MessageSource localization messages for the end Users
+ * according their Locales.
+ * {@link #getHttpStatus()} is used to determine a special HttpStatus to be sent with a response to the end Users.
  */
 public abstract class WorkshopException extends RuntimeException {
 	
@@ -21,16 +23,19 @@ public abstract class WorkshopException extends RuntimeException {
 	@Setter
 	private String messageSourceKey;
 	
+	public WorkshopException(String message, Throwable cause, org.springframework.http.HttpStatus httpStatus, String localizedMessage, String messageSourceKey) {
+		super(message, cause);
+		HttpStatus = httpStatus;
+		this.localizedMessage = localizedMessage;
+		this.messageSourceKey = messageSourceKey;
+	}
+	
 	public WorkshopException(String message) {
 		super(message);
 	}
 	
 	public WorkshopException(String message, Throwable cause) {
 		super(message, cause);
-	}
-	
-	public WorkshopException(Throwable cause) {
-		super(cause);
 	}
 	
 	/**
@@ -64,23 +69,17 @@ public abstract class WorkshopException extends RuntimeException {
 		this.HttpStatus = httpStatusCode;
 		this.messageSourceKey = messageSourceKey;
 	}
-
-//	/**
-//	 * @param message This message will be exposed to a final client with a response.
-//	 * @param localizedMessage This can be used for exposing the localized message to the end user according to their Locales
-//	 * @param httpStatusCode To indicate the desirable HttpStatus code for this kind of exception to be returned to a client
-//	 * @param cause Only for inner logging use.
-//	 */
-/*
-	public WorkshopException(String message, String localizedMessage, HttpStatus httpStatusCode, Throwable cause) {
-		super(message, cause);
+	
+	public WorkshopException(String message, HttpStatus httpStatusCode, String localizedMessage) {
+		super(message);
 		this.HttpStatus = httpStatusCode;
 		this.localizedMessage = localizedMessage;
 	}
-*/
 	
-	public WorkshopException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
+	public WorkshopException(String message, HttpStatus httpStatusCode, String localizedMessage, Throwable cause) {
+		super(message, cause);
+		this.HttpStatus = httpStatusCode;
+		this.localizedMessage = localizedMessage;
 	}
 	
 	@Override

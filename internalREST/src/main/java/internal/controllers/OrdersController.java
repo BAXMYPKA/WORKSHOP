@@ -14,6 +14,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.groups.Default;
+import java.util.Locale;
 
 @Slf4j
 @Getter
@@ -40,6 +42,8 @@ import javax.validation.groups.Default;
 @RequestMapping(path = "/internal/orders", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class OrdersController {
 	
+	@Autowired
+	private MessageSource messageSource;
 	@Autowired
 	private OrdersService ordersService;
 	@Autowired
@@ -53,35 +57,47 @@ public class OrdersController {
 	private int MAX_PAGE_NUM;
 	
 	/**
-	 * @param size    Non-required amount of Orders on one page. Default is OrdersService.PAGE_SIZE_DEFAULT
-	 * @param page    Number of page with the list of Orders. One page contains 'size' amount of Orders.
+	 * @param pageSize    Non-required amount of Orders on one pageNum. Default is OrdersService.PAGE_SIZE_DEFAULT
+	 * @param pageNum    Number of pageNum with the list of Orders. One pageNum contains 'pageSize' amount of Orders.
 	 * @param orderBy The property of Order all the Orders have to be ordered by.
 	 * @param order   Ascending or descending order.
 	 * @return
 	 * @throws JsonProcessingException
 	 */
 	@GetMapping(path = "/all")
-	public ResponseEntity<String> getOrders(@RequestParam(value = "size", required = false) Integer size,
-											@RequestParam(value = "page", required = false) Integer page,
+	public ResponseEntity<String> getOrders(@RequestParam(value = "pageSize", required = false) Integer pageSize,
+											@RequestParam(value = "pageNum", required = false) Integer pageNum,
 											@RequestParam(name = "order-by", required = false) String orderBy,
-											@RequestParam(name = "order", required = false) String order)
+											@RequestParam(name = "order", required = false) String order,
+											Locale locale)
 		throws JsonProcessingException {
 		
-		Pageable pageable = getPageable(size, page, orderBy, order);
+//		pageSize = pageSize <=0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
+//		pageNum = pageNum <=0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
+//		orderBy = orderBy == null ? "" : orderBy;
+//		order = order == null ? Sort.Direction.DESC : order;
+		
+		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersPage = ordersService.findAllEntities(pageable, orderBy);
 		
 		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
 			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
-			throw new PersistenceFailure("No Orders found!", HttpStatus.NOT_FOUND);
+			String message = messageSource.getMessage("message.notFoundWithProps", new Object[]{"Order"}, locale);
+			PersistenceFailure pf = new PersistenceFailure("No Orders found!", HttpStatus.NOT_FOUND);
+			pf.setLocalizedMessage(message);
+			throw pf;
 		}
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<String> getOrder(@PathVariable("id") long id) throws JsonProcessingException {
+	public ResponseEntity<String> getOrder(@PathVariable("id") long id,
+										   Locale locale) throws JsonProcessingException {
 		if (id <= 0) {
-			return new ResponseEntity<>("The 'id' parameter has to be above zero!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(
+				messageSource.getMessage("error.fieldHasToBeWIthProps2", new Object[]{"id", " > 0"}, locale),
+				HttpStatus.BAD_REQUEST);
 		}
 		Order order = ordersService.findById(id);
 		String jsonOrder = jsonServiceUtils.convertEntityToJson(order);
@@ -102,14 +118,16 @@ public class OrdersController {
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<String> postOrder(@Validated(value = {PersistenceCheck.class, Default.class})
 											@RequestBody Order order,
-											BindingResult bindingResult)
+											BindingResult bindingResult,
+											Locale locale)
 		throws JsonProcessingException, HttpMessageNotReadableException, MethodArgumentNotValidException {
 		
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		} else if (order.getId() > 0) {
 			bindingResult.addError(
-				new FieldError("Order.id", "id", "'id' field for the new Order has to be zero!"));
+				new FieldError("Order.id", "id", messageSource.getMessage(
+					"error.fieldHasToBeWIthProps2", new Object[]{"id", "0"}, locale)));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Order persistedOrder = ordersService.persistEntity(order);
@@ -120,7 +138,9 @@ public class OrdersController {
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<String> putOrder(@Validated({UpdationCheck.class, Default.class})
 										   @RequestBody Order order,
-										   BindingResult bindingResult) throws MethodArgumentNotValidException, JsonProcessingException {
+										   BindingResult bindingResult,
+										   Locale locale)
+		throws MethodArgumentNotValidException, JsonProcessingException {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
@@ -135,12 +155,13 @@ public class OrdersController {
 	 * If no Entity for such an id will be found the HttpStatus 404 'NotFound' will be returned.
 	 */
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) {
+	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id, Locale locale) {
 		if (id == null || id <= 0) {
 			throw new IllegalArgumentException("Order id has to be above zero!");
 		}
 		ordersService.removeEntity(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Order " + id + " has been successfully deleted!");
+		return ResponseEntity.status(HttpStatus.OK).body(
+			messageSource.getMessage("message.deletedSuccessfullyWithProps", new Object[]{"Order id=" + id}, locale));
 	}
 	
 	@PostConstruct
@@ -148,7 +169,7 @@ public class OrdersController {
 		objectMapper = jsonServiceUtils.getObjectMapper();
 	}
 	
-	private Pageable getPageable(int size, int page, String orderBy, String order) {
+	private Pageable getPageable(Integer pageSize, Integer pageNum, String orderBy, String order) {
 		Sort.Direction direction = null;
 		if (order != null && !order.isEmpty()) { //'Order' param is set in the Request
 			try {
@@ -161,8 +182,8 @@ public class OrdersController {
 		}
 		//PageRequest doesn't allow empty parameters strings, so "created" as the default is used
 		orderBy = orderBy == null || orderBy.isEmpty() ? "created" : orderBy;
-		int pageSize = size <= 0 || size > PAGE_SIZE ? PAGE_SIZE : size;
-		int pageNum = page <= 0 || page > MAX_PAGE_NUM ? 1 : page;
+		pageSize = pageSize == null || pageSize <= 0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
+		pageNum = pageNum == null || pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		
 		return PageRequest.of(
 			pageNum,

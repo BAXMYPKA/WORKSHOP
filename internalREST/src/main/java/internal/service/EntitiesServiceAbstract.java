@@ -2,12 +2,16 @@ package internal.service;
 
 import internal.dao.EntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
+import internal.exceptions.IllegalArguments;
 import internal.exceptions.EntityNotFound;
 import internal.exceptions.PersistenceFailure;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +29,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class also intended to throw WorkshopException with fully localized messages with appropriate HttpStatus codes
+ * to be shown to the end Users.
+ *
+ * @param <T> The class type of the Entity its instance will be serving to.
+ */
 @Getter
 @Setter
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	/**
 	 * Default size of results on one page
@@ -42,7 +52,8 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	 */
 	@Value("${page.max_num}")
 	private int MAX_PAGE_NUM;
-	
+	@Autowired
+	private MessageSource messageSource;
 	private EntitiesDaoAbstract<T, Long> entitiesDaoAbstract;
 	private Class<T> entityClass;
 	
@@ -67,10 +78,16 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public T findById(long id) throws IllegalArgumentException, EntityNotFound {
 		if (id <= 0) {
-			throw new IllegalArgumentException("The ID to be found cannot be 0 or even lower!");
+			throw new IllegalArguments("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
+				messageSource.getMessage("error.fieldHasToBeWIthProps2",
+					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
 		}
 		return entitiesDaoAbstract.findById(id).orElseThrow(() ->
-			new EntityNotFound("No " + entityClass.getSimpleName() + " with id=" + id + " was found!"));
+			new EntityNotFound("No " + entityClass.getSimpleName() + " with id=" + id + " was found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.notFoundWithProps2",
+					new Object[]{entityClass.getSimpleName(), "id=" + id},
+					LocaleContextHolder.getLocale())));
 	}
 	
 	/**
@@ -96,8 +113,11 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			persistedEntity = entitiesDaoAbstract.mergeEntity(entity);
 		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
 			throw new EntityNotFound(
-				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties.",
-				HttpStatus.GONE, ie);
+				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties",
+				HttpStatus.GONE,
+				messageSource.getMessage("error.saveOrUpdateWithProps", new Object[]{entityClass.getSimpleName()},
+					LocaleContextHolder.getLocale()),
+				ie);
 		}
 		return persistedEntity.orElseThrow(() -> new PersistenceFailure(
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
@@ -108,7 +128,10 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		return entitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
-			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.", HttpStatus.CONFLICT));
+			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.",
+			HttpStatus.CONFLICT,
+			messageSource.getMessage("error.saveFailureWithProps", new Object[]{entityClass.getSimpleName()},
+				LocaleContextHolder.getLocale())));
 	}
 	
 	/**
@@ -134,8 +157,15 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			entitiesDaoAbstract.removeEntity(entity);
 			log.debug("{} successfully removed.", entityClass.getSimpleName());
 		} catch (IllegalArgumentException ex) {
-			throw new EntityNotFound("Removing the " + entityClass.getSimpleName() + " is failed!" +
-				"Such an object wasn't found to be removed!", ex);
+			throw new EntityNotFound(
+				"Removing the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be " +
+					"removed!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage(
+					"error.removingFailureWithProps",
+					new Object[]{entityClass.getSimpleName()},
+					LocaleContextHolder.getLocale()),
+				ex);
 		}
 	}
 	
@@ -148,7 +178,10 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			throw new IllegalArgumentException("Id cannot be equal zero or below!");
 		}
 		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
-			"No " + entityClass.getSimpleName() + " for id=" + id + " was found to be deleted!"));
+			"No " + entityClass.getSimpleName() + " for id=" + id + " was found to be deleted!",
+			HttpStatus.NOT_FOUND,
+			messageSource.getMessage("error.removingFailureWithProps2",
+				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));
 		entitiesDaoAbstract.removeEntity(foundBiId);
 	}
 	
@@ -179,7 +212,8 @@ public abstract class EntitiesServiceAbstract <T extends WorkshopEntity> {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
 		return entitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFound(
-			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR));
+			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
+			"error.unknownError", null, LocaleContextHolder.getLocale())));
 	}
 	
 	

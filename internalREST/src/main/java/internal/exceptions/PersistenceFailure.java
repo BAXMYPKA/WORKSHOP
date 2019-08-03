@@ -1,7 +1,5 @@
 package internal.exceptions;
 
-import org.springframework.http.HttpStatus;
-
 /**
  * The common exception for passing the i118n of unsuccessful DELETE-UPDATE-CREATE to the end users of the Workshop
  * for any CRUD failures.
@@ -9,16 +7,16 @@ import org.springframework.http.HttpStatus;
  */
 public class PersistenceFailure extends WorkshopException {
 	
+	public PersistenceFailure(String message, Throwable cause, org.springframework.http.HttpStatus httpStatus, String localizedMessage, String messageSourceKey) {
+		super(message, cause, httpStatus, localizedMessage, messageSourceKey);
+	}
+	
 	public PersistenceFailure(String message) {
 		super(message);
 	}
 	
 	public PersistenceFailure(String message, Throwable cause) {
 		super(message, cause);
-	}
-	
-	public PersistenceFailure(Throwable cause) {
-		super(cause);
 	}
 	
 	public PersistenceFailure(String message, org.springframework.http.HttpStatus httpStatusCode) {
@@ -29,11 +27,15 @@ public class PersistenceFailure extends WorkshopException {
 		super(message, httpStatusCode, cause);
 	}
 	
-	public PersistenceFailure(String message, String messageSourceProperty, org.springframework.http.HttpStatus httpStatusCode, Throwable cause) {
-		super(message, messageSourceProperty, httpStatusCode, cause);
+	public PersistenceFailure(String message, String messageSourceKey, org.springframework.http.HttpStatus httpStatusCode, Throwable cause) {
+		super(message, messageSourceKey, httpStatusCode, cause);
 	}
 	
-	public PersistenceFailure(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
+	public PersistenceFailure(String message, org.springframework.http.HttpStatus httpStatusCode, String localizedMessage) {
+		super(message, httpStatusCode, localizedMessage);
+	}
+	
+	public PersistenceFailure(String message, org.springframework.http.HttpStatus httpStatusCode, String localizedMessage, Throwable cause) {
+		super(message, httpStatusCode, localizedMessage, cause);
 	}
 }

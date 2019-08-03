@@ -54,13 +54,13 @@ public class ExceptionHandlerController {
 			log.info(ex.getMessage());
 			return getResponseEntity(
 				HttpStatus.BAD_REQUEST,
-				messageSource.getMessage("httpStatus.badRequest", null, locale));
+				messageSource.getMessage("httpStatusWithProps.badRequest", null, locale));
 		} else {
 			// ex = HttpMessageNotWritableException.class, 422
 			log.error(ex.getMessage());
 			return getResponseEntity(
 				HttpStatus.UNPROCESSABLE_ENTITY,
-				messageSource.getMessage("httpStatus.unprocessableEntity.HttpMessageNotWritable", null, locale));
+				messageSource.getMessage("httpStatusWithProps.unprocessableEntity.HttpMessageNotWritable", null, locale));
 		}
 	}
 	
@@ -72,13 +72,13 @@ public class ExceptionHandlerController {
 			log.debug(ex.getMessage(), ex);
 			return getResponseEntity(
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-				messageSource.getMessage("httpStatus.unsupportedMediaType", null, locale));
+				messageSource.getMessage("httpStatusWithProps.unsupportedMediaType", null, locale));
 		} else {
 			//MediaTypeNotAcceptable.class 406 Not Acceptable 
 			log.debug(ex.getMessage(), ex);
 			return getResponseEntity(
 				HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("httpStatus.notAcceptable.mediaType", null, locale));
+				messageSource.getMessage("httpStatusWithProps.notAcceptable.mediaType", null, locale));
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class ExceptionHandlerController {
 		log.info(ex.getMessage());
 		return getResponseEntity(
 			HttpStatus.UNPROCESSABLE_ENTITY,
-			messageSource.getMessage("httpStatus.unprocessableEntity.JsonException", null, locale));
+			messageSource.getMessage("httpStatusWithProps.unprocessableEntity.JsonException", null, locale));
 	}
 	
 	@ExceptionHandler({AuthenticationCredentialsNotFoundException.class})
@@ -117,7 +117,10 @@ public class ExceptionHandlerController {
 	}
 	
 	/**
-	 * Instanceof check is only for logging the exact subclass of WorkshopException.
+	 * 1) First if WorhshopException.getLocalizedMessage() != null it will be used to be shown to the end Users.
+	 * 2) Second if WorkshopException.getMessageSourceKey() != null the messageSource will be obtained by this key to
+	 * be shown to the end Users according their Locales.
+	 * 3) Last, WorkshopException.getMessage will be used for such a purpose.
 	 *
 	 * @param wx
 	 * @return
@@ -125,29 +128,31 @@ public class ExceptionHandlerController {
 	@ExceptionHandler({WorkshopException.class})
 	@ResponseBody
 	public ResponseEntity<String> persistenceFailed(WorkshopException wx, Locale locale) {
-		log.error(wx.getMessage(), wx);
+		log.info(wx.getMessage(), wx);
+		
+		String message;
+		if (wx.getLocalizedMessage() != null) {
+			message = wx.getLocalizedMessage();
+		} else if (wx.getMessageSourceKey() != null) {
+			message = messageSource.getMessage(wx.getMessageSourceKey(), null, locale);
+		} else {
+			message = wx.getMessage();
+		}
+		
 		if (wx instanceof EntityNotFound) {
 			EntityNotFound enf = (EntityNotFound) wx;
 			log.error(enf.getMessage(), enf);
 			return getResponseEntity(
 				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND,
-				wx.getLocalizedMessage() != null ? wx.getLocalizedMessage() : wx.getMessage());
-			//TODO: to translate Workshop exceptions
+				message);
 		} else if (wx instanceof PersistenceFailure) {
 			PersistenceFailure pf = (PersistenceFailure) wx;
 			log.error(pf.getMessage(), pf);
 			return getResponseEntity(
 				pf.getHttpStatus() != null ? pf.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY,
-				pf.getMessage());
+				message);
 		}
 		return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, wx.getMessage());
-	}
-	
-	@ExceptionHandler({EntityNotFound.class})
-	@ResponseBody
-	public ResponseEntity<String> entityNotFoundFailed(WorkshopException wx) {
-		log.error(wx.getMessage(), wx);
-		return getResponseEntity(HttpStatus.NOT_FOUND, wx.getMessage());
 	}
 	
 	/**
@@ -158,26 +163,30 @@ public class ExceptionHandlerController {
 	 */
 	@ExceptionHandler({PersistenceException.class})
 	@ResponseBody
-	public ResponseEntity<String> persistenceFailed(PersistenceException exception) {
+	public ResponseEntity<String> persistenceFailed(PersistenceException exception, Locale locale) {
 		if (exception instanceof EntityExistsException) {
 			log.debug(exception.getMessage(), exception);
 			return getResponseEntity(HttpStatus.UNPROCESSABLE_ENTITY,
-				"The Entity with the same ID is already exist!");
+				messageSource.getMessage("error.entityIdExists", null, locale));
 		} else if (exception instanceof EntityNotFoundException) {
 			log.debug(exception.getMessage(), exception);
-			return getResponseEntity(HttpStatus.NOT_FOUND, "The Entity is not found!");
+			return getResponseEntity(HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.entityNotFound", null, locale));
 		} else if (exception instanceof NoResultException) {
 			log.debug(exception.getMessage(), exception);
-			return getResponseEntity(HttpStatus.NOT_FOUND, "No result!");
+			return getResponseEntity(HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.noResult", null, locale));
 		} else if (exception instanceof RollbackException) {
 			log.debug(exception.getMessage(), exception);
 			return getResponseEntity(HttpStatus.FAILED_DEPENDENCY, exception.getMessage());
 		} else if (exception instanceof NonUniqueResultException) {
 			log.debug(exception.getMessage(), exception);
-			return getResponseEntity(HttpStatus.CONFLICT, "The result is not unique!");
+			return getResponseEntity(HttpStatus.CONFLICT,
+				messageSource.getMessage("warning.resultNonUnique", null, locale));
 		} else {
 			log.warn(exception.getMessage(), exception);
-			return getResponseEntity(520, "Unknown error is occurred while performing the operation!");
+			return getResponseEntity(520,
+				messageSource.getMessage("error.unknownError", null, locale));
 		}
 	}
 	
@@ -198,7 +207,7 @@ public class ExceptionHandlerController {
 	private ResponseEntity<String> getResponseEntity(HttpStatus httpStatus, String messageBody) throws IllegalArgumentException {
 		if (httpStatus == null) {
 			throw new IllegalArgumentException("HttpStatus cannot be null!");
-		} else if (messageBody == null){
+		} else if (messageBody == null) {
 			messageBody = "";
 		}
 		messageBody = "{\"errorMessage\":\"" + messageBody + "\"}";

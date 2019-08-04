@@ -1,11 +1,15 @@
 package internal.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
+import internal.entities.hateoasResources.WorkshopEntityResource;
 import internal.service.EntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.Resource;
+import org.springframework.http.ResponseEntity;
 
 import javax.annotation.PostConstruct;
 
@@ -20,9 +24,9 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	void setMessageSource(MessageSource messageSource);
 	
-	EntitiesServiceAbstract<T> getEntitiesServiceAbstract();
+	EntitiesServiceAbstract<T> getEntitiesService();
 	
-	void setEntitiesServiceAbstract(EntitiesServiceAbstract<T> entitiesServiceAbstract);
+//	void setEntitiesService(EntitiesServiceAbstract<T> entitiesService);
 	
 	int getDEFAULT_PAGE_SIZE();
 	
@@ -44,17 +48,21 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	ObjectMapper getObjectMapper();
 	
+//	Class getEntityClass();
+	
+//	void setEntityClass(Class entityClass);
+	
 	//The controller methods are the following...
 	
-	WorkshopEntity getAll();
+	ResponseEntity<String> getAll();
 	
-	WorkshopEntity getOne(long id);
+	ResponseEntity<String> getOne(long id) throws Throwable;
 	
-	WorkshopEntity postOne(WorkshopEntity workshopEntity);
+	ResponseEntity<String> postOne(WorkshopEntity workshopEntity);
 	
-	WorkshopEntity putOne(WorkshopEntity workshopEntity);
+	ResponseEntity<String> putOne(WorkshopEntity workshopEntity);
 	
-	String deleteOne(long id);
+	ResponseEntity<String> deleteOne(long id);
 	
 	Pageable getPageable(Integer pageSize, Integer pageNum, String orderBy, String order);
 	

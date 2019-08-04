@@ -159,4 +159,9 @@ public class Task extends Trackable {
 	public void preUpdate() {
 		super.preUpdate();
 	}
+	
+	@Override
+	public long getId() {
+		return super.getId();
+	}
 }

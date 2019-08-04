@@ -13,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -127,7 +128,11 @@ public class Order extends Trackable {
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
-//		prePersist();
+	}
+	
+	@Override
+	public long getId() {
+		return super.getId();
 	}
 	
 	private void recalculateOverallPrice() throws IllegalArgumentException {

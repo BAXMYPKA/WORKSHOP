@@ -1,7 +1,9 @@
 package internal.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
+import internal.entities.hateoasResources.WorkshopEntityResource;
 import internal.exceptions.IllegalArguments;
 import internal.service.EntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
@@ -13,11 +15,19 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 
+import static org.springframework.http.ResponseEntity.ok;
+
+/**
+ * Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
+ * so that to get the concrete type of WorkshopEntity to operate with.
+ * That's why the constructor with EntitiesServiceAbstract<T> parameter is obligatory!
+ *
+ * @param <T>
+ */
 @Getter
 @Setter
-@RestController
 public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> implements WorkshopController {
 	
 	@Value("${page.size.default}")
@@ -29,33 +39,47 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
-	private EntitiesServiceAbstract<T> entitiesServiceAbstract;
+	private EntitiesServiceAbstract<T> entitiesService;
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
-	ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
+	private Class<T> entityClass;
+	
+	/**
+	 * @param entitiesService By this instance we set the concrete instance of WorkshopServiceAbstract
+	 *                                and through it set the concrete type of WorkshopEntity as {@link #getEntityClass()}
+	 *                                to operate with.
+	 */
+	public WorkshopControllerAbstract(EntitiesServiceAbstract<T> entitiesService) {
+		this.entitiesService = entitiesService;
+		setEntityClass(entitiesService.getEntityClass());
+	}
 	
 	@Override
-	public WorkshopEntity getAll() {
+	public ResponseEntity<String> getAll() {
 		return null;
 	}
 	
 	@Override
-	public WorkshopEntity getOne(long id) {
+	public ResponseEntity<String> getOne(long id) throws JsonProcessingException {
+		T entity = entityClass.cast(entitiesService.findById(id));
+		WorkshopEntityResource<T> resource;
+		String entityToJson = jsonServiceUtils.convertEntityToJson(entity);
+		return ResponseEntity.ok(entityToJson);
+	}
+	
+	@Override
+	public ResponseEntity<String> postOne(WorkshopEntity workshopEntity) {
 		return null;
 	}
 	
 	@Override
-	public WorkshopEntity postOne(WorkshopEntity workshopEntity) {
+	public ResponseEntity<String> putOne(WorkshopEntity workshopEntity) {
 		return null;
 	}
 	
 	@Override
-	public WorkshopEntity putOne(WorkshopEntity workshopEntity) {
-		return null;
-	}
-	
-	@Override
-	public String deleteOne(long id) {
+	public ResponseEntity<String> deleteOne(long id) {
 		return null;
 	}
 	
@@ -81,17 +105,4 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			pageSize,
 			new Sort(direction, orderBy));
 	}
-	
-	@Override
-	public void setEntitiesServiceAbstract(EntitiesServiceAbstract entitiesServiceAbstract) {
-		this.entitiesServiceAbstract = entitiesServiceAbstract;
-	}
-	
-	/*
-	@PostConstruct
-	@Override
-	public void afterPropsSet() {
-		setObjectMapper(getJsonServiceUtils().getObjectMapper());
-	}
-*/
 }

@@ -1,7 +1,10 @@
 package internal.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import internal.controllers.DepartmentsController;
+import internal.dao.DepartmentsDao;
 import internal.entities.*;
+import internal.entities.hateoasResources.DepartmentResource;
 import internal.service.serviceUtils.JsonServiceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +30,7 @@ class JsonServiceUtilsTest {
 	
 	JsonServiceUtils jsonServiceUtils;
 	Department department;
+	DepartmentsController departmentsController;
 	Position positionOne;
 	Position positionTwo;
 	
@@ -490,6 +494,27 @@ class JsonServiceUtilsTest {
 			() -> assertNull(positions.get(2).getDepartment()),
 			() -> assertNull(positions.get(3).getDepartment())
 		);
+	}
+	
+	@Test
+	public void simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links() throws Throwable {
+		//GIVEN
+		departmentsController = new DepartmentsController(new DepartmentsService(new DepartmentsDao()));
+		Department department = new Department("DepartmentResource");
+		DepartmentResource departmentResource = new DepartmentResource(department, departmentsController);
+		
+		//WHEN
+		String jsonDepartmentResource = jsonServiceUtils.convertEntityResourceToJson(departmentResource);
+		
+		//THEN
+		System.out.println(jsonDepartmentResource);
+		assertNotNull(jsonDepartmentResource);
+		assertTrue(jsonDepartmentResource.contains("{\"id\":0"));
+		assertTrue(jsonDepartmentResource.contains("\"links\""));
+		assertTrue(jsonDepartmentResource.contains("\"rel\":\"self\""));
+		assertTrue(jsonDepartmentResource.contains("\"rel\":\"all\""));
+		assertTrue(jsonDepartmentResource.contains("\"href\":\"/internal/departments/0\""));
+		assertTrue(jsonDepartmentResource.contains("\"href\":\"/internal/departments\""));
 	}
 	
 	private static Stream<Arguments> entitiesStream() {

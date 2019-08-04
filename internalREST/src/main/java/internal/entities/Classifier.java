@@ -77,4 +77,9 @@ public class Classifier extends Trackable implements Serializable {
 		this.isOfficial = isOfficial;
 		this.price = price;
 	}
+	
+	@Override
+	public long getId() {
+		return super.getId();
+	}
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import internal.entities.WorkshopEntity;
+import internal.entities.hateoasResources.WorkshopEntityResource;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,6 @@ public class JsonServiceUtils {
 	}
 	
 	/**
-	 *
 	 * @param jsonEntity JSON string with an Entity
 	 * @param entity     An exact Entity.class
 	 * @param <T>
@@ -66,5 +66,19 @@ public class JsonServiceUtils {
 	public <T extends WorkshopEntity> String convertEntitiesToJson(Collection<T> entities) throws JsonProcessingException {
 		String values = objectMapper.writeValueAsString(entities);
 		return values;
+	}
+	
+	public String convertEntityResourceToJson(WorkshopEntityResource entityResource) throws JsonProcessingException {
+		String value = objectMapper.writeValueAsString(entityResource);
+		log.debug("WorkshopResourceEntity successfully converted to JSON.");
+		return value;
+	}
+	
+	public WorkshopEntityResource<WorkshopEntity> convertEntityResourceFromJson(String jsonResourceEntity,
+																				Class<WorkshopEntityResource> resourceEntity)
+		throws IOException {
+		WorkshopEntityResource workshopEntityResource = objectMapper.readValue(jsonResourceEntity, resourceEntity);
+		log.debug("WorkshopResourceEntity successfully converted from JSON.");
+		return workshopEntityResource;
 	}
 }

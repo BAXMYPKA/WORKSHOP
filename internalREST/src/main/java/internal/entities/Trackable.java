@@ -37,6 +37,14 @@ public abstract class Trackable implements WorkshopEntity, Serializable, Compara
 	@Transient
 	private static final long serialVersionUID = 4L;
 	
+	/**
+	 * Every instance has to
+	 * '@Override
+	 * public long getId() {
+	 * 		return super.getId();
+	 * 	}'
+	 * 	method so that not to clash ResourceSupport.getId() with WorkshopEntity.getId()
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
@@ -113,5 +121,7 @@ public abstract class Trackable implements WorkshopEntity, Serializable, Compara
 		}
 	}
 	
-	
+	public long getId() {
+		return id;
+	}
 }

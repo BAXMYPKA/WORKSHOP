@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
+import internal.exceptions.EntityNotFound;
 import internal.exceptions.PersistenceFailure;
+import internal.exceptions.WorkshopException;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
@@ -52,7 +54,7 @@ public class OrdersController {
 	private JsonServiceUtils jsonServiceUtils;
 	private ObjectMapper objectMapper;
 	@Value("${page.size.default}")
-	private int PAGE_SIZE;
+	private int DEFAULT_PAGE_SIZE;
 	@Value("${page.max_num}")
 	private int MAX_PAGE_NUM;
 	
@@ -72,11 +74,6 @@ public class OrdersController {
 											Locale locale)
 		throws JsonProcessingException {
 		
-//		pageSize = pageSize <=0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
-//		pageNum = pageNum <=0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
-//		orderBy = orderBy == null ? "" : orderBy;
-//		order = order == null ? Sort.Direction.DESC : order;
-		
 		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersPage = ordersService.findAllEntities(pageable, orderBy);
 		
@@ -84,7 +81,7 @@ public class OrdersController {
 			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
-			String message = messageSource.getMessage("message.notFoundWithProps", new Object[]{"Order"}, locale);
+			String message = messageSource.getMessage("message.notFound(1)", new Object[]{"Order"}, locale);
 			PersistenceFailure pf = new PersistenceFailure("No Orders found!", HttpStatus.NOT_FOUND);
 			pf.setLocalizedMessage(message);
 			throw pf;
@@ -96,7 +93,7 @@ public class OrdersController {
 										   Locale locale) throws JsonProcessingException {
 		if (id <= 0) {
 			return new ResponseEntity<>(
-				messageSource.getMessage("error.fieldHasToBeWIthProps2", new Object[]{"id", " > 0"}, locale),
+				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", " > 0"}, locale),
 				HttpStatus.BAD_REQUEST);
 		}
 		Order order = ordersService.findById(id);
@@ -127,7 +124,7 @@ public class OrdersController {
 		} else if (order.getId() > 0) {
 			bindingResult.addError(
 				new FieldError("Order.id", "id", messageSource.getMessage(
-					"error.fieldHasToBeWIthProps2", new Object[]{"id", "0"}, locale)));
+					"error.propertyHasToBe(2)", new Object[]{"id", "0"}, locale)));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Order persistedOrder = ordersService.persistEntity(order);
@@ -161,7 +158,7 @@ public class OrdersController {
 		}
 		ordersService.removeEntity(id);
 		return ResponseEntity.status(HttpStatus.OK).body(
-			messageSource.getMessage("message.deletedSuccessfullyWithProps", new Object[]{"Order id=" + id}, locale));
+			messageSource.getMessage("message.deletedSuccessfully(1)", new Object[]{"Order id=" + id}, locale));
 	}
 	
 	@PostConstruct
@@ -182,7 +179,7 @@ public class OrdersController {
 		}
 		//PageRequest doesn't allow empty parameters strings, so "created" as the default is used
 		orderBy = orderBy == null || orderBy.isEmpty() ? "created" : orderBy;
-		pageSize = pageSize == null || pageSize <= 0 || pageSize > PAGE_SIZE ? PAGE_SIZE : pageSize;
+		pageSize = pageSize == null || pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum == null || pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		
 		return PageRequest.of(

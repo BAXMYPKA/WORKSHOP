@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.Valid;

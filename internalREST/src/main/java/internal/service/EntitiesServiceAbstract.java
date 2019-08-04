@@ -79,13 +79,13 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	public T findById(long id) throws IllegalArgumentException, EntityNotFound {
 		if (id <= 0) {
 			throw new IllegalArguments("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("error.fieldHasToBeWIthProps2",
+				messageSource.getMessage("error.propertyHasToBe(2)",
 					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
 		}
 		return entitiesDaoAbstract.findById(id).orElseThrow(() ->
 			new EntityNotFound("No " + entityClass.getSimpleName() + " with id=" + id + " was found!",
 				HttpStatus.NOT_FOUND,
-				messageSource.getMessage("message.notFoundWithProps2",
+				messageSource.getMessage("message.notFound(2)",
 					new Object[]{entityClass.getSimpleName(), "id=" + id},
 					LocaleContextHolder.getLocale())));
 	}
@@ -115,7 +115,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			throw new EntityNotFound(
 				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties",
 				HttpStatus.GONE,
-				messageSource.getMessage("error.saveOrUpdateWithProps", new Object[]{entityClass.getSimpleName()},
+				messageSource.getMessage("error.saveOrUpdate(1)", new Object[]{entityClass.getSimpleName()},
 					LocaleContextHolder.getLocale()),
 				ie);
 		}
@@ -130,7 +130,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		return entitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
 			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.",
 			HttpStatus.CONFLICT,
-			messageSource.getMessage("error.saveFailureWithProps", new Object[]{entityClass.getSimpleName()},
+			messageSource.getMessage("error.saveFailure(1)", new Object[]{entityClass.getSimpleName()},
 				LocaleContextHolder.getLocale())));
 	}
 	
@@ -162,7 +162,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 					"removed!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage(
-					"error.removingFailureWithProps",
+					"error.removingFailure(1)",
 					new Object[]{entityClass.getSimpleName()},
 					LocaleContextHolder.getLocale()),
 				ex);
@@ -180,7 +180,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
 			"No " + entityClass.getSimpleName() + " for id=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
-			messageSource.getMessage("error.removingFailureWithProps2",
+			messageSource.getMessage("error.removingFailure(2)",
 				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));
 		entitiesDaoAbstract.removeEntity(foundBiId);
 	}

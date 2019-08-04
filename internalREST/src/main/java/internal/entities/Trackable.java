@@ -8,6 +8,7 @@ import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.Valid;

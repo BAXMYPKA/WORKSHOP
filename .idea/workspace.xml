@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-03.0.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-07-29.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
@@ -82,28 +71,14 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+            <state relative-caret-position="572">
+              <caret line="56" column="36" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#WorkshopController#0" expanded="true" />
                 <element signature="docComment;method#afterPropsSet#0;class#WorkshopController#0" expanded="true" />
-                <element signature="e#1916#1917#0" expanded="true" />
-                <element signature="e#1979#1980#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,51 +87,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="49" column="121" selection-start-line="49" selection-start-column="121" selection-end-line="49" selection-end-column="121" />
+            <state relative-caret-position="599">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#WorkshopControllerAbstract#0" expanded="true" />
-                <element signature="e#809#831#1" expanded="true" />
-                <element signature="e#873#890#1" expanded="true" />
-                <element signature="e#927#945#1" expanded="true" />
-                <element signature="e#1252#1253#0" expanded="true" />
-                <element signature="e#1270#1271#0" expanded="true" />
-                <element signature="e#1419#1420#0" expanded="true" />
-                <element signature="e#1437#1438#0" expanded="true" />
-                <element signature="e#1513#1514#0" expanded="true" />
-                <element signature="e#1531#1532#0" expanded="true" />
-                <element signature="e#1416#1417#0" expanded="true" />
-                <element signature="e#1434#1435#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="32" column="75" selection-start-line="32" selection-start-column="75" selection-end-line="32" selection-end-column="75" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;method#DepartmentsController#0;class#DepartmentsController#0" expanded="true" />
-                <element signature="e#681#682#0" expanded="true" />
-                <element signature="e#718#719#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="46" column="55" lean-forward="true" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#WorkshopEntityResource#0" expanded="true" />
-                <element signature="docComment;method#WorkshopEntityResource#0;class#WorkshopEntityResource#0" expanded="true" />
+                <element signature="docComment;method#WorkshopControllerAbstract#0;class#WorkshopControllerAbstract#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,12 +102,11 @@
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="320">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#EmployeesController#0;class#EmployeesController#0" expanded="true" />
-                <element signature="e#535#536#0" expanded="true" />
-                <element signature="e#564#565#0" expanded="true" />
+                <element signature="e#852#853#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -180,7 +115,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-176">
+            <state relative-caret-position="16">
               <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
               <folding>
                 <element signature="docComment;field#id#0;class#Trackable#0" expanded="true" />
@@ -190,10 +125,17 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="26" column="21" lean-forward="true" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+            <state relative-caret-position="288">
+              <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#WorkshopEntityResource#0" expanded="true" />
+                <element signature="docComment;method#WorkshopEntityResource#0;class#WorkshopEntityResource#0" expanded="true" />
+                <element signature="e#992#993#0" expanded="true" />
+                <element signature="e#1035#1036#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -201,8 +143,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="509" column="35" selection-start-line="509" selection-start-column="35" selection-end-line="509" selection-end-column="35" />
+            <state relative-caret-position="839">
+              <caret line="583" column="83" selection-start-line="583" selection-start-column="83" selection-end-line="583" selection-end-column="83" />
               <folding>
                 <element signature="method#entitiesStream#0;class#JsonServiceUtilsTest#0" />
               </folding>
@@ -211,13 +153,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-              <folding>
-                <element signature="docComment;method#DepartmentResource#0;class#DepartmentResource#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="407">
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
             </state>
           </provider>
         </entry>
@@ -280,7 +219,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/RemovingFailed.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailed.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractIT.java" />
@@ -291,7 +229,6 @@
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/EntitiesServiceAbstractImplementationsTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" />
         <option value="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EntitiesDaoAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/EntitiesDaoAbstractIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java" />
@@ -315,7 +252,6 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailure.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/IllegalArguments.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopContollerAbstract.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
@@ -325,12 +261,15 @@
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResource.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" />
       </list>
     </option>
   </component>
@@ -375,7 +314,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -426,15 +365,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -608,8 +538,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="CatdeaLogs" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -680,7 +610,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.JsonServiceUtilsTest.simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links">
+  <component name="RunManager" selected="JUnit.JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links">
     <configuration name="JsonServiceUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -692,6 +622,22 @@
       <option name="PACKAGE_NAME" value="internal.service" />
       <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceUtilsTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.service" />
+      <option name="MAIN_CLASS_NAME" value="internal.service.JsonServiceUtilsTest" />
+      <option name="METHOD_NAME" value="complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -728,22 +674,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllerAbstractIT.init_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="METHOD_NAME" value="init_Test" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WorkshopControllerAbstractIT.response_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -771,20 +701,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.Internal" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT.init_Test" />
       <item itemvalue="JUnit.WorkshopControllerAbstractIT.response_Test" />
       <item itemvalue="JUnit.JsonServiceUtilsTest" />
       <item itemvalue="JUnit.JsonServiceUtilsTest.lll" />
       <item itemvalue="JUnit.JsonServiceUtilsTest.simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" />
         <item itemvalue="JUnit.JsonServiceUtilsTest.simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links" />
         <item itemvalue="JUnit.JsonServiceUtilsTest.lll" />
         <item itemvalue="JUnit.JsonServiceUtilsTest" />
         <item itemvalue="JUnit.WorkshopControllerAbstractIT.response_Test" />
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT.init_Test" />
       </list>
     </recent_temporary>
   </component>
@@ -883,43 +813,44 @@
       <workItem from="1564555862477" duration="25558000" />
       <workItem from="1564819958601" duration="19604000" />
       <workItem from="1564908536837" duration="30417000" />
+      <workItem from="1565098510787" duration="14271000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="LocalesConfigurationIT_request_With_RU_Cookie_Should_Response_With_RU_Language - 2019.08.03 at 16h 46m 41s.xml">
-      <configuration name="LocalesConfigurationIT.request_With_RU_Cookie_Should_Response_With_RU_Language" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 24m 57s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LocalesConfigurationIT - 2019.08.03 at 16h 47m 14s.xml">
-      <configuration name="LocalesConfigurationIT" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 27m 48s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_init_Test - 2019.08.04 at 19h 33m 43s.xml">
-      <configuration name="WorkshopControllerAbstractIT.init_Test" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 28m 38s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_response_Test - 2019.08.04 at 19h 40m 10s.xml">
-      <configuration name="WorkshopControllerAbstractIT.response_Test" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 34m 33s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_response_Test - 2019.08.04 at 19h 42m 40s.xml">
-      <configuration name="WorkshopControllerAbstractIT.response_Test" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 35m 15s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_response_Test - 2019.08.04 at 19h 53m 19s.xml">
-      <configuration name="WorkshopControllerAbstractIT.response_Test" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 36m 06s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceUtilsTest - 2019.08.04 at 21h 39m 30s.xml">
-      <configuration name="JsonServiceUtilsTest" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 36m 25s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceUtilsTest_lll - 2019.08.04 at 21h 50m 10s.xml">
-      <configuration name="JsonServiceUtilsTest.lll" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 37m 05s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceUtilsTest_simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links - 2019.08.04 at 21h 59m 54s.xml">
-      <configuration name="JsonServiceUtilsTest.simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 39m 24s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="JsonServiceUtilsTest_simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links - 2019.08.04 at 22h 06m 21s.xml">
-      <configuration name="JsonServiceUtilsTest.simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links" configurationId="JUnit" />
+    <history-entry file="JsonServiceUtilsTest_complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links - 2019.08.06 at 21h 40m 01s.xml">
+      <configuration name="JsonServiceUtilsTest.complex_WorkshopEntityResource_With_Included_Entities_Should_Return_Json_With_WorkshopEntities_And_Links" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1050040000" />
+    <option name="totallyTimeSpent" value="1064311000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -931,9 +862,9 @@
       <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.46938777" side_tool="true" weight="0.16122234" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" sideWeight="0.4674221" side_tool="true" weight="0.16174921" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.53061223" weight="0.16122234" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.53061223" visible="true" weight="0.16122234" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
-      <window_info active="true" id="Maven" order="9" sideWeight="0.5320829" visible="true" weight="0.10642782" />
+      <window_info id="Maven" order="9" sideWeight="0.5320829" weight="0.10642782" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -943,13 +874,13 @@
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" />
       <window_info anchor="bottom" id="Spring" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.36229023" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.3514314" />
       <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.4916091" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010295" side_tool="true" weight="0.27225673" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32872656" />
       <window_info anchor="bottom" auto_hide="true" id="Messages" order="12" weight="0.19052319" />
-      <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32923076" />
+      <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32872656" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32712215" />
       <window_info anchor="bottom" id="Inspection Results" order="16" weight="0.32923076" />
@@ -1020,14 +951,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/i18nMessages/testMessages_ru.properties">
-      <provider editor-type-id="ResourceBundle" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/resources/i18nMessages/testMessages_en.properties">
-      <provider selected="true" editor-type-id="ResourceBundle" />
-      <provider editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1329,16 +1252,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding>
-            <element signature="docComment;class#WorkshopEntity#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -1350,46 +1263,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="29" column="30" lean-forward="true" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="509" column="35" selection-start-line="509" selection-start-column="35" selection-end-line="509" selection-end-column="35" />
-          <folding>
-            <element signature="method#entitiesStream#0;class#JsonServiceUtilsTest#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="32" column="75" selection-start-line="32" selection-start-column="75" selection-end-line="32" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#DepartmentsController#0;class#DepartmentsController#0" expanded="true" />
-            <element signature="e#681#682#0" expanded="true" />
-            <element signature="e#718#719#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -1397,46 +1270,35 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-176">
-          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+        <state relative-caret-position="528">
+          <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
           <folding>
-            <element signature="docComment;field#id#0;class#Trackable#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="46" column="55" lean-forward="true" selection-start-line="46" selection-start-column="55" selection-end-line="46" selection-end-column="55" />
+        <state relative-caret-position="224">
+          <caret line="32" column="75" selection-start-line="32" selection-start-column="75" selection-end-line="32" selection-end-column="75" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#WorkshopEntityResource#0" expanded="true" />
-            <element signature="docComment;method#WorkshopEntityResource#0;class#WorkshopEntityResource#0" expanded="true" />
+            <element signature="docComment;method#DepartmentsController#0;class#DepartmentsController#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="49" column="121" selection-start-line="49" selection-start-column="121" selection-end-line="49" selection-end-column="121" />
+        <state relative-caret-position="572">
+          <caret line="56" column="36" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#WorkshopControllerAbstract#0" expanded="true" />
-            <element signature="e#809#831#1" expanded="true" />
-            <element signature="e#873#890#1" expanded="true" />
-            <element signature="e#927#945#1" expanded="true" />
-            <element signature="e#1252#1253#0" expanded="true" />
-            <element signature="e#1270#1271#0" expanded="true" />
-            <element signature="e#1419#1420#0" expanded="true" />
-            <element signature="e#1437#1438#0" expanded="true" />
-            <element signature="e#1513#1514#0" expanded="true" />
-            <element signature="e#1531#1532#0" expanded="true" />
-            <element signature="e#1416#1417#0" expanded="true" />
-            <element signature="e#1434#1435#0" expanded="true" />
+            <element signature="docComment;class#WorkshopController#0" expanded="true" />
+            <element signature="docComment;method#afterPropsSet#0;class#WorkshopController#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1444,44 +1306,112 @@ System.out.println(contains);</expression-string>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#EmployeesController#0;class#EmployeesController#0" expanded="true" />
-            <element signature="e#535#536#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="56" column="36" lean-forward="true" selection-start-line="56" selection-start-column="36" selection-end-line="56" selection-end-column="36" />
+        <state relative-caret-position="599">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#WorkshopController#0" expanded="true" />
-            <element signature="docComment;method#afterPropsSet#0;class#WorkshopController#0" expanded="true" />
-            <element signature="e#1916#1917#0" expanded="true" />
-            <element signature="e#1979#1980#0" expanded="true" />
+            <element signature="docComment;class#WorkshopControllerAbstract#0" expanded="true" />
+            <element signature="docComment;method#WorkshopControllerAbstract#0;class#WorkshopControllerAbstract#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="docComment;class#WorkshopEntity#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.3.2/junit-platform-commons-1.3.2-sources.jar!/org/junit/platform/commons/util/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="630" selection-start-line="630" selection-end-line="630" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        <state relative-caret-position="144">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
           <folding>
             <element signature="docComment;method#DepartmentResource#0;class#DepartmentResource#0" expanded="true" />
+            <element signature="e#340#341#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+          <folding>
+            <element signature="docComment;method#PositionResource#0;class#PositionResource#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#340#341#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+          <folding>
+            <element signature="docComment;field#id#0;class#Trackable#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="58" column="44" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="26" column="21" lean-forward="true" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        <state relative-caret-position="407">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="839">
+          <caret line="583" column="83" selection-start-line="583" selection-start-column="83" selection-end-line="583" selection-end-column="83" />
+          <folding>
+            <element signature="method#entitiesStream#0;class#JsonServiceUtilsTest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#WorkshopEntityResource#0" expanded="true" />
+            <element signature="docComment;method#WorkshopEntityResource#0;class#WorkshopEntityResource#0" expanded="true" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1035#1036#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

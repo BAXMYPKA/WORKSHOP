@@ -1,11 +1,17 @@
 package internal.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.util.JSONObjectUtils;
 import internal.controllers.DepartmentsController;
+import internal.controllers.WorkshopControllerAbstract;
 import internal.dao.DepartmentsDao;
 import internal.entities.*;
 import internal.entities.hateoasResources.DepartmentResource;
+import internal.entities.hateoasResources.PositionResource;
 import internal.service.serviceUtils.JsonServiceUtils;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +20,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.UriTemplate;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -21,6 +31,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -501,14 +512,18 @@ class JsonServiceUtilsTest {
 		//GIVEN
 		departmentsController = new DepartmentsController(new DepartmentsService(new DepartmentsDao()));
 		Department department = new Department("DepartmentResource");
-		DepartmentResource departmentResource = new DepartmentResource(department, departmentsController);
+		DepartmentResource departmentResource = new DepartmentResource(department);
+		
+		Link selfLink = new Link(new UriTemplate("/internal/departments/0"), "self").withHreflang("ru");
+		Link allLink = new Link("/internal/departments").withRel("all").withHreflang("ru");
+		
+		departmentResource.add(selfLink, allLink);
 		
 		//WHEN
 		String jsonDepartmentResource = jsonServiceUtils.convertEntityResourceToJson(departmentResource);
 		
 		//THEN
-		System.out.println(jsonDepartmentResource);
-		assertNotNull(jsonDepartmentResource);
+		assertTrue(jsonDepartmentResource.contains("\"name\":\"DepartmentResource\""));
 		assertTrue(jsonDepartmentResource.contains("{\"id\":0"));
 		assertTrue(jsonDepartmentResource.contains("\"links\""));
 		assertTrue(jsonDepartmentResource.contains("\"rel\":\"self\""));
@@ -516,6 +531,81 @@ class JsonServiceUtilsTest {
 		assertTrue(jsonDepartmentResource.contains("\"href\":\"/internal/departments/0\""));
 		assertTrue(jsonDepartmentResource.contains("\"href\":\"/internal/departments\""));
 	}
+	
+	@Test
+	public void complex_WorkshopEntityResource_With_Included_WorkshopEntities_Should_Return_Json_With_WorkshopEntities_And_Links()
+		throws Throwable {
+		//GIVEN
+		Department department = new Department("DepartmentResource");
+		department.setId(1);
+		department.setCreated(ZonedDateTime.of(2019, 1, 10, 10, 10, 10, 0, ZoneId.of("UTC")));
+		Position position = new Position("PositionResource", department);
+		position.setId(2);
+		position.setDepartment(department);
+		department.addPosition(position);
+		
+		PositionResource positionResource = new PositionResource(position);
+		
+		Link selfLink = new Link(new UriTemplate("/internal/departments/0"), "self").withHreflang("ru");
+		Link allLink = new Link("/internal/departments").withRel("all").withHreflang("ru");
+
+		positionResource.add(selfLink, allLink);
+		
+		//WHEN
+		String jsonPositionResource = jsonServiceUtils.convertEntityResourceToJson(positionResource);
+		System.out.println(jsonPositionResource);
+		
+		//THEN
+		assertTrue(jsonPositionResource.contains("\"name\":\"PositionResource\""));
+		assertTrue(jsonPositionResource.contains("{\"id\":2"));
+		assertTrue(jsonPositionResource.contains("\"name\":\"DepartmentResource\""));
+		assertTrue(jsonPositionResource.contains("\"id\":1"));
+		assertTrue(jsonPositionResource.contains("\"created\":\"2019-01-10T10:10:10Z\""));
+		assertTrue(jsonPositionResource.contains("\"links\":[{"));
+		assertTrue(jsonPositionResource.contains("\"rel\":\"self\""));
+		assertTrue(jsonPositionResource.contains("\"rel\":\"all\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments/0\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments\""));
+	}
+	
+	@Test
+	public void complex_WorkshopEntityResource_With_Included_WorkshopEntityResources_Should_Return_Json_With_WorkshopEntities_And_Links()
+		throws Throwable {
+		//GIVEN
+		Department department = new Department("DepartmentResource");
+		department.setId(1);
+		department.setCreated(ZonedDateTime.of(2019, 1, 10, 10, 10, 10, 0, ZoneId.of("UTC")));
+		Position position = new Position("PositionResource", department);
+		position.setId(2);
+		position.setDepartment(department);
+		department.addPosition(position);
+		
+		PositionResource positionResource = new PositionResource(position);
+		DepartmentResource departmentResource = new DepartmentResource(department);
+		//TODO: to complete...
+		
+		Link selfLink = new Link(new UriTemplate("/internal/departments/0"), "self").withHreflang("ru");
+		Link allLink = new Link("/internal/departments").withRel("all").withHreflang("ru");
+		
+		positionResource.add(selfLink, allLink);
+		
+		//WHEN
+		String jsonPositionResource = jsonServiceUtils.convertEntityResourceToJson(positionResource);
+		System.out.println(jsonPositionResource);
+		
+		//THEN
+		assertTrue(jsonPositionResource.contains("\"name\":\"PositionResource\""));
+		assertTrue(jsonPositionResource.contains("{\"id\":2"));
+		assertTrue(jsonPositionResource.contains("\"name\":\"DepartmentResource\""));
+		assertTrue(jsonPositionResource.contains("\"id\":1"));
+		assertTrue(jsonPositionResource.contains("\"created\":\"2019-01-10T10:10:10Z\""));
+		assertTrue(jsonPositionResource.contains("\"links\":[{"));
+		assertTrue(jsonPositionResource.contains("\"rel\":\"self\""));
+		assertTrue(jsonPositionResource.contains("\"rel\":\"all\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments/0\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments\""));
+	}
+	
 	
 	private static Stream<Arguments> entitiesStream() {
 		Classifier classifier = new Classifier();

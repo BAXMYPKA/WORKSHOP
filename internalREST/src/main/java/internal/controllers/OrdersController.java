@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
-import internal.exceptions.EntityNotFound;
 import internal.exceptions.PersistenceFailure;
-import internal.exceptions.WorkshopException;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
@@ -93,7 +91,7 @@ public class OrdersController {
 										   Locale locale) throws JsonProcessingException {
 		if (id <= 0) {
 			return new ResponseEntity<>(
-				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", " > 0"}, locale),
+				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"identifier", " > 0"}, locale),
 				HttpStatus.BAD_REQUEST);
 		}
 		Order order = ordersService.findById(id);
@@ -102,7 +100,7 @@ public class OrdersController {
 	}
 	
 	/**
-	 * Order may contain a new single Task and a new single User object without 'id' - they will be treated as new ones
+	 * Order may contain a new single Task and a new single User object without 'identifier' - they will be treated as new ones
 	 * and persisted in the DataBase.
 	 * If Order has to contain a few new Tasks - they all have to be persisted BEFORE the persistence the Order.
 	 * If any of them will throw an Exception during a persistence process - the whole Order won't be saved!
@@ -121,10 +119,10 @@ public class OrdersController {
 		
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new MethodArgumentNotValidException(null, bindingResult);
-		} else if (order.getId() > 0) {
+		} else if (order.getIdentifier() > 0) {
 			bindingResult.addError(
-				new FieldError("Order.id", "id", messageSource.getMessage(
-					"error.propertyHasToBe(2)", new Object[]{"id", "0"}, locale)));
+				new FieldError("Order.identifier", "identifier", messageSource.getMessage(
+					"error.propertyHasToBe(2)", new Object[]{"identifier", "0"}, locale)));
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Order persistedOrder = ordersService.persistEntity(order);
@@ -149,16 +147,16 @@ public class OrdersController {
 	/**
 	 * @param id Long.class
 	 * @return HttpStatus 200 with a successful message.
-	 * If no Entity for such an id will be found the HttpStatus 404 'NotFound' will be returned.
+	 * If no Entity for such an identifier will be found the HttpStatus 404 'NotFound' will be returned.
 	 */
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id, Locale locale) {
 		if (id == null || id <= 0) {
-			throw new IllegalArgumentException("Order id has to be above zero!");
+			throw new IllegalArgumentException("Order identifier has to be above zero!");
 		}
 		ordersService.removeEntity(id);
 		return ResponseEntity.status(HttpStatus.OK).body(
-			messageSource.getMessage("message.deletedSuccessfully(1)", new Object[]{"Order id=" + id}, locale));
+			messageSource.getMessage("message.deletedSuccessfully(1)", new Object[]{"Order identifier=" + id}, locale));
 	}
 	
 	@PostConstruct

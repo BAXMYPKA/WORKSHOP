@@ -240,7 +240,7 @@
 			<!--				<version>1.5.3</version>-->
 			<!--				<executions>-->
 			<!--					<execution>-->
-			<!--						<id>generate-docs</id>-->
+			<!--						<identifier>generate-docs</identifier>-->
 			<!--						<phase>prepare-package</phase>-->
 			<!--						<goals>-->
 			<!--							<goal>process-asciidoc</goal>-->

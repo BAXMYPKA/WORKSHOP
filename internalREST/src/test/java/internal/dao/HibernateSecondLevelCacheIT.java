@@ -93,7 +93,7 @@ public class HibernateSecondLevelCacheIT {
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getPutCount());
 		//And this cache region has been retrieved only once
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getHitCount());
-		//Only the first session is missed the second level cache for the first time looking up an Order.id=501
+		//Only the first session is missed the second level cache for the first time looking up an Order.identifier=501
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getMissCount());
 	}
 	
@@ -119,11 +119,11 @@ public class HibernateSecondLevelCacheIT {
 		);
 		//The cache region Order is presented
 		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains("internal.entities.Order"));
-		//The Order.id=501 has been put only once
+		//The Order.identifier=501 has been put only once
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getPutCount());
-		//The Order.id=501 has been successfully got from the cache once
+		//The Order.identifier=501 has been successfully got from the cache once
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getHitCount());
-		//Only the first transaction is missed the second level cache to derive an Order.id=501
+		//Only the first transaction is missed the second level cache to derive an Order.identifier=501
 		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getMissCount());
 	}
 	

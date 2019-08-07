@@ -1,17 +1,12 @@
 package internal.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.util.JSONObjectUtils;
 import internal.controllers.DepartmentsController;
-import internal.controllers.WorkshopControllerAbstract;
 import internal.dao.DepartmentsDao;
 import internal.entities.*;
 import internal.entities.hateoasResources.DepartmentResource;
 import internal.entities.hateoasResources.PositionResource;
 import internal.service.serviceUtils.JsonServiceUtils;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,9 +16,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.UriTemplate;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,7 +25,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,11 +43,11 @@ class JsonServiceUtilsTest {
 		jsonServiceUtils = new JsonServiceUtils();
 		
 		department = new Department();
-		department.setId(1);
+		department.setIdentifier(1L);
 		department.setName("The Department");
 		
 		positionOne = new Position();
-		positionOne.setId(222);
+		positionOne.setIdentifier(222);
 		positionOne.setName("The Position One");
 		positionOne.setDescription("The description");
 		positionOne.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.of("UTC")));
@@ -62,7 +55,7 @@ class JsonServiceUtilsTest {
 		positionOne.setDepartment(department);
 		
 		positionTwo = new Position();
-		positionTwo.setId(333);
+		positionTwo.setIdentifier(333);
 		positionTwo.setName("The Position Two");
 		positionTwo.setDescription("The second description");
 		positionTwo.setCreated(ZonedDateTime.of(2019, 7, 20, 14, 40, 55, 0, ZoneId.of("UTC")));
@@ -86,18 +79,18 @@ class JsonServiceUtilsTest {
 		// 2) one included Department object as JSON
 		// 3) LocalDateTime readable format
 		assertAll(
-			() -> assertTrue(jsonedDepartment.contains("\"id\":1")),
+			() -> assertTrue(jsonedDepartment.contains("\"identifier\":1")),
 			() -> assertTrue(jsonedDepartment.contains("\"name\":\"The Department\"")),
 			() -> assertFalse(jsonedDepartment.contains("\"positions\":null"))
 		);
 		
 		String departmentInPosition = "\"department\":" +
-			"{\"id\":1," +
+			"{\"identifier\":1," +
 			"\"name\":\"The Department\"," +
 			"\"positions\":null}";
 		
 		assertAll(
-			() -> assertTrue(jsonedPosition.contains("\"id\":2")),
+			() -> assertTrue(jsonedPosition.contains("\"identifier\":2")),
 			() -> assertTrue(jsonedPosition.contains("\"name\":\"The Position One\"")),
 			() -> assertTrue(jsonedPosition.contains("\"description\":\"The description\"")),
 			() -> assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45Z\"")),
@@ -145,7 +138,7 @@ class JsonServiceUtilsTest {
 		//THEN
 		// 1) no exceptions were thrown previously
 		// 2) Compare original classes properties to same properties after double conversion
-		assertEquals(originalEntity.getId(), deserializedEntity.getId());
+		assertEquals(originalEntity.getIdentifier(), deserializedEntity.getIdentifier());
 		
 		if ("Classifier".equals(originalEntity.getClass().getSimpleName())) {
 			assertAll(
@@ -216,12 +209,12 @@ class JsonServiceUtilsTest {
 		
 		//GIVEN entitites from DataBase
 		User user = new User();
-		user.setId(100);
+		user.setIdentifier(100L);
 		user.setFirstName("First User Name");
 		user.setPassword("54321");
 		
 		Employee employee = new Employee();
-		employee.setId(23);
+		employee.setIdentifier(23);
 		employee.setFirstName("FName");
 		employee.setEmail("email@workshop.pro");
 		employee.setPassword("12345");
@@ -240,9 +233,9 @@ class JsonServiceUtilsTest {
 	public void passwords_Have_To_Be_Deserialized_From_JSON_To_User_or_Employee_From_Outside() throws IOException {
 		
 		//GIVEN User and Employee from outside Input with raw passwords
-		String jsonedUserWithPassword = "{\"id\":100,\"password\":\"12345\",\"firstName\":\"First User Name\"," +
+		String jsonedUserWithPassword = "{\"identifier\":100,\"password\":\"12345\",\"firstName\":\"First User Name\"," +
 			"\"lastName\":null,\"email\":null,\"created\":null,\"modified\":null,\"birthday\":null,\"phones\":null,\"orders\":null}";
-		String jsonedEmployeeWithPassword = "{\"id\":23,\"password\":\"54321\",\"created\":null,\"modified\":null," +
+		String jsonedEmployeeWithPassword = "{\"identifier\":23,\"password\":\"54321\",\"created\":null,\"modified\":null," +
 			"\"finished\":null,\"createdBy\":null,\"modifiedBy\":null,\"firstName\":\"FName\",\"lastName\":null,\"email\":\"email@workshop.pro\",\"birthday\":null,\"phones\":null,\"position\":null,\"appointedTasks\":null,\"ordersModifiedBy\":null,\"ordersCreatedBy\":null,\"tasksModifiedBy\":null,\"tasksCreatedBy\":null}";
 		
 		//WHEN
@@ -283,22 +276,22 @@ class JsonServiceUtilsTest {
 	public void no_Infinite_Recursion_With_Included_Objects() throws JsonProcessingException {
 		//GIVEN
 		Classifier classifier = new Classifier();
-		classifier.setId(144);
+		classifier.setIdentifier(144);
 		
 		Employee employee = new Employee();
-		employee.setId(456);
+		employee.setIdentifier(456);
 		
 		Task task = new Task();
-		task.setId(578);
+		task.setIdentifier(578);
 		
 		User user = new User();
-		user.setId(231);
+		user.setIdentifier(231L);
 		
 		Order order = new Order();
-		order.setId(591);
+		order.setIdentifier(591);
 		
 		Phone phone = new Phone();
-		phone.setId(523);
+		phone.setIdentifier(523L);
 		
 		department.setPositions(new ArrayList<>(Arrays.asList(positionOne, positionTwo)));
 		
@@ -352,7 +345,7 @@ class JsonServiceUtilsTest {
 		//THEN
 		assertAll(
 			() -> assertTrue(positions.startsWith("[{") && positions.endsWith("}]")),
-			() -> assertTrue(positions.contains("\"id\":222") && positions.contains("\"id\":333"))
+			() -> assertTrue(positions.contains("\"identifier\":222") && positions.contains("\"identifier\":333"))
 		);
 	}
 	
@@ -364,29 +357,29 @@ class JsonServiceUtilsTest {
 		department.setPositions(null);
 		
 		Department department1 = new Department();
-		department1.setId(100);
+		department1.setIdentifier(100L);
 		department1.setName("The Department 1");
 		
 		Department department2 = new Department();
-		department2.setId(101);
+		department2.setIdentifier(101L);
 		department2.setName("The Department 2");
 		
 		Position position1 = new Position();
-		position1.setId(200);
+		position1.setIdentifier(200);
 		position1.setName("The Position 1");
 		position1.setDescription("The description 1");
 		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position1.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position2 = new Position();
-		position2.setId(201);
+		position2.setIdentifier(201);
 		position2.setName("The Position 2");
 		position2.setDescription("The description 2");
 		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position2.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position3 = new Position();
-		position3.setId(202);
+		position3.setIdentifier(202);
 		position3.setName("The Position 3");
 		position3.setDescription("The description 3");
 		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
@@ -412,18 +405,18 @@ class JsonServiceUtilsTest {
 		
 		assertAll(
 			() -> assertTrue(() -> departments.size() == 3),
-			() -> assertTrue(() -> departments.get(0).getId() == 1 && departments.get(0).getName().equals("The Department")),
-			() -> assertTrue(() -> departments.get(1).getId() == 100 && departments.get(1).getName().equals("The Department 1")),
-			() -> assertTrue(() -> departments.get(2).getId() == 101 && departments.get(2).getName().equals("The Department 2"))
+			() -> assertTrue(() -> departments.get(0).getIdentifier() == 1 && departments.get(0).getName().equals("The Department")),
+			() -> assertTrue(() -> departments.get(1).getIdentifier() == 100 && departments.get(1).getName().equals("The Department 1")),
+			() -> assertTrue(() -> departments.get(2).getIdentifier() == 101 && departments.get(2).getName().equals("The Department 2"))
 		);
 		assertAll(
-			() -> assertTrue(() -> positions.get(0).getId() == 200 &&
+			() -> assertTrue(() -> positions.get(0).getIdentifier() == 200 &&
 				positions.get(0).getName().equals("The Position 1") &&
 				positions.get(0).getCreated().getMonthValue() == 6),
-			() -> assertTrue(() -> positions.get(1).getId() == 201 &&
+			() -> assertTrue(() -> positions.get(1).getIdentifier() == 201 &&
 				positions.get(1).getName().equals("The Position 2") &&
 				positions.get(1).getCreated().getMinute() == 35),
-			() -> assertTrue(positions.get(2).getId() == 202 &&
+			() -> assertTrue(positions.get(2).getIdentifier() == 202 &&
 				positions.get(2).getCreated().getYear() == 2016)
 		);
 	}
@@ -438,29 +431,29 @@ class JsonServiceUtilsTest {
 		positionTwo.setDepartment(department);
 		
 		Department department1 = new Department();
-		department1.setId(100);
+		department1.setIdentifier(100L);
 		department1.setName("The Department 1");
 		
 		Department department2 = new Department();
-		department2.setId(101);
+		department2.setIdentifier(101L);
 		department2.setName("The Department 2");
 		
 		Position position1 = new Position();
-		position1.setId(200);
+		position1.setIdentifier(200);
 		position1.setName("The Position 1");
 		position1.setDescription("The description 1");
 		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position1.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position2 = new Position();
-		position2.setId(201);
+		position2.setIdentifier(201);
 		position2.setName("The Position 2");
 		position2.setDescription("The description 2");
 		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position2.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Position position3 = new Position();
-		position3.setId(202);
+		position3.setIdentifier(202);
 		position3.setName("The Position 3");
 		position3.setDescription("The description 3");
 		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
@@ -490,17 +483,17 @@ class JsonServiceUtilsTest {
 		//THEN
 		
 		assertAll(
-			() -> assertTrue(() -> departments.get(0).getId() == 1 && departments.get(0).getName().equals("The Department")),
-			() -> assertTrue(() -> departments.get(1).getId() == 100 && departments.get(1).getName().equals("The Department 1")),
-			() -> assertTrue(() -> departments.get(2).getId() == 101 && departments.get(2).getName().equals("The Department 2")),
+			() -> assertTrue(() -> departments.get(0).getIdentifier() == 1 && departments.get(0).getName().equals("The Department")),
+			() -> assertTrue(() -> departments.get(1).getIdentifier() == 100 && departments.get(1).getName().equals("The Department 1")),
+			() -> assertTrue(() -> departments.get(2).getIdentifier() == 101 && departments.get(2).getName().equals("The Department 2")),
 			() -> assertNull(departments.get(0).getPositions()),
 			() -> assertNull(departments.get(1).getPositions()),
 			() -> assertNull(departments.get(2).getPositions())
 		);
 		
 		assertAll(
-			() -> assertTrue(() -> positions.get(0).getId() == 222 && positions.get(0).getCreated().getMinute() == 35),
-			() -> assertTrue(() -> positions.get(2).getId() == 200 && positions.get(2).getDescription().equals("The description 1")),
+			() -> assertTrue(() -> positions.get(0).getIdentifier() == 222 && positions.get(0).getCreated().getMinute() == 35),
+			() -> assertTrue(() -> positions.get(2).getIdentifier() == 200 && positions.get(2).getDescription().equals("The description 1")),
 			() -> assertNull(positions.get(1).getDepartment()),
 			() -> assertNull(positions.get(2).getDepartment()),
 			() -> assertNull(positions.get(3).getDepartment())
@@ -524,7 +517,7 @@ class JsonServiceUtilsTest {
 		
 		//THEN
 		assertTrue(jsonDepartmentResource.contains("\"name\":\"DepartmentResource\""));
-		assertTrue(jsonDepartmentResource.contains("{\"id\":0"));
+		assertTrue(jsonDepartmentResource.contains("{\"identifier\":null"));
 		assertTrue(jsonDepartmentResource.contains("\"links\""));
 		assertTrue(jsonDepartmentResource.contains("\"rel\":\"self\""));
 		assertTrue(jsonDepartmentResource.contains("\"rel\":\"all\""));
@@ -537,19 +530,25 @@ class JsonServiceUtilsTest {
 		throws Throwable {
 		//GIVEN
 		Department department = new Department("DepartmentResource");
-		department.setId(1);
+		department.setIdentifier(1L);
 		department.setCreated(ZonedDateTime.of(2019, 1, 10, 10, 10, 10, 0, ZoneId.of("UTC")));
 		Position position = new Position("PositionResource", department);
-		position.setId(2);
+		position.setIdentifier(2);
 		position.setDepartment(department);
 		department.addPosition(position);
 		
 		PositionResource positionResource = new PositionResource(position);
 		
-		Link selfLink = new Link(new UriTemplate("/internal/departments/0"), "self").withHreflang("ru");
-		Link allLink = new Link("/internal/departments").withRel("all").withHreflang("ru");
-
-		positionResource.add(selfLink, allLink);
+		Link selfLink = new Link(new UriTemplate("/internal/positions/2"), "self").withHreflang("ru");
+		Link allLink = new Link("/internal/positions").withRel("all").withHreflang("ru");
+		Link dumbLink = new Link("/internal/dummyLink").withRel("dummy").withHreflang("ru");
+		
+//		department.setLinks(Collections.singletonList(dumbLink));
+//		Resource<Department> departmentResource = new Resource<>(department,selfLink);
+//		departmentResource.
+		
+		position.add(selfLink, allLink);
+		department.add(dumbLink);
 		
 		//WHEN
 		String jsonPositionResource = jsonServiceUtils.convertEntityResourceToJson(positionResource);
@@ -557,15 +556,15 @@ class JsonServiceUtilsTest {
 		
 		//THEN
 		assertTrue(jsonPositionResource.contains("\"name\":\"PositionResource\""));
-		assertTrue(jsonPositionResource.contains("{\"id\":2"));
+		assertTrue(jsonPositionResource.contains("{\"identifier\":2"));
 		assertTrue(jsonPositionResource.contains("\"name\":\"DepartmentResource\""));
-		assertTrue(jsonPositionResource.contains("\"id\":1"));
+		assertTrue(jsonPositionResource.contains("\"identifier\":1"));
 		assertTrue(jsonPositionResource.contains("\"created\":\"2019-01-10T10:10:10Z\""));
 		assertTrue(jsonPositionResource.contains("\"links\":[{"));
 		assertTrue(jsonPositionResource.contains("\"rel\":\"self\""));
 		assertTrue(jsonPositionResource.contains("\"rel\":\"all\""));
-		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments/0\""));
-		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/departments\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/positions/2\""));
+		assertTrue(jsonPositionResource.contains("\"href\":\"/internal/positions\""));
 	}
 	
 	@Test
@@ -573,10 +572,10 @@ class JsonServiceUtilsTest {
 		throws Throwable {
 		//GIVEN
 		Department department = new Department("DepartmentResource");
-		department.setId(1);
+		department.setIdentifier(1L);
 		department.setCreated(ZonedDateTime.of(2019, 1, 10, 10, 10, 10, 0, ZoneId.of("UTC")));
 		Position position = new Position("PositionResource", department);
-		position.setId(2);
+		position.setIdentifier(2);
 		position.setDepartment(department);
 		department.addPosition(position);
 		
@@ -595,9 +594,9 @@ class JsonServiceUtilsTest {
 		
 		//THEN
 		assertTrue(jsonPositionResource.contains("\"name\":\"PositionResource\""));
-		assertTrue(jsonPositionResource.contains("{\"id\":2"));
+		assertTrue(jsonPositionResource.contains("{\"identifier\":2"));
 		assertTrue(jsonPositionResource.contains("\"name\":\"DepartmentResource\""));
-		assertTrue(jsonPositionResource.contains("\"id\":1"));
+		assertTrue(jsonPositionResource.contains("\"identifier\":1"));
 		assertTrue(jsonPositionResource.contains("\"created\":\"2019-01-10T10:10:10Z\""));
 		assertTrue(jsonPositionResource.contains("\"links\":[{"));
 		assertTrue(jsonPositionResource.contains("\"rel\":\"self\""));
@@ -609,24 +608,24 @@ class JsonServiceUtilsTest {
 	
 	private static Stream<Arguments> entitiesStream() {
 		Classifier classifier = new Classifier();
-		classifier.setId(65);
+		classifier.setIdentifier(65);
 		classifier.setName("The Classifier");
 		classifier.setPrice(new BigDecimal("45.25"));
 		classifier.setCreated(ZonedDateTime.now().minusMonths(5));
 		
 		Department department = new Department();
-		department.setId(38);
+		department.setIdentifier(38L);
 		department.setName("The Department");
 		
 		Position position = new Position();
-		position.setId(2);
+		position.setIdentifier(2);
 		position.setName("The Position");
 		position.setDescription("The description");
 		position.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position.setModified(ZonedDateTime.now().minusMinutes(5));
 		
 		Order order = new Order();
-		order.setId(10);
+		order.setIdentifier(10);
 		order.setDescription("Order desc");
 		order.setOverallPrice(new BigDecimal("333.22"));
 		order.setCreated(ZonedDateTime.of(2019, 10, 13, 13, 45, 15, 0, ZoneId.systemDefault()));
@@ -634,7 +633,7 @@ class JsonServiceUtilsTest {
 		order.setModified(ZonedDateTime.now());
 		
 		Employee employee = new Employee();
-		employee.setId(23);
+		employee.setIdentifier(23);
 		employee.setFirstName("FName");
 		employee.setLastName("LName");
 		employee.setBirthday(LocalDate.now().minusYears(45));
@@ -642,18 +641,18 @@ class JsonServiceUtilsTest {
 		employee.setPassword("12345");
 		
 		Task task = new Task();
-		task.setId(45);
+		task.setIdentifier(45);
 		task.setName("Task name");
 		task.setPrice(new BigDecimal("123.98"));
 		task.setDeadline(ZonedDateTime.now().plusDays(15));
 		
 		Phone phone = new Phone();
-		phone.setId(39);
+		phone.setIdentifier(39L);
 		phone.setName("Phone name");
 		phone.setPhone("98765");
 		
 		User user = new User();
-		user.setId(100);
+		user.setIdentifier(100L);
 		user.setEmail("user@workshop.pro");
 		user.setBirthday(LocalDate.now().minusYears(50));
 		user.setCreated(ZonedDateTime.now().minusMonths(3));

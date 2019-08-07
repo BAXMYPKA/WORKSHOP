@@ -79,7 +79,7 @@ public class Classifier extends Trackable implements Serializable {
 	}
 	
 	@Override
-	public long getId() {
-		return super.getId();
+	public Long getIdentifier() {
+		return super.getIdentifier();
 	}
 }

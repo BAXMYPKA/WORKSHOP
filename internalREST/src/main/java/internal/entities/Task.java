@@ -161,7 +161,7 @@ public class Task extends Trackable {
 	}
 	
 	@Override
-	public long getId() {
-		return super.getId();
+	public Long getIdentifier() {
+		return super.getIdentifier();
 	}
 }

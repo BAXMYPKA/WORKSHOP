@@ -1,5 +1,6 @@
 package internal.entities.hateoasResources;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
@@ -17,11 +18,13 @@ public abstract class WorkshopEntityResource<T extends WorkshopEntity> extends R
 	@JsonUnwrapped
 	@Getter
 	private final T workshopEntity;
+	private final String entityName;
 	
 	/**
 	 * @param workshopEntity     The concrete instance of the WorkshopEntity to be the HATEOAS Resource.
 	 */
 	public WorkshopEntityResource(T workshopEntity) {
 		this.workshopEntity = workshopEntity;
+		entityName = workshopEntity.getClass().getSimpleName();
 	}
 }

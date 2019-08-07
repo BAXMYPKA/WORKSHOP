@@ -1,5 +1,6 @@
 package internal.service.serviceUtils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -39,6 +40,7 @@ public class JsonServiceUtils {
 		objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.setTimeZone(TimeZone.getTimeZone("UTC"));
+		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 	}
 	
 	public String convertEntityToJson(WorkshopEntity entity) throws JsonProcessingException {

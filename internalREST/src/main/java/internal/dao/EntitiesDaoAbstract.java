@@ -78,7 +78,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 			throw new IllegalArgumentException("Key parameter is null!");
 		}
 		Optional<T> entity = Optional.ofNullable(entityManager.find(entityClass, key));
-		log.debug("{} with id={} is found? = {}", entityClass.getSimpleName(), key, entity.isPresent());
+		log.debug("{} with identifier={} is found? = {}", entityClass.getSimpleName(), key, entity.isPresent());
 		return entity;
 	}
 	
@@ -262,7 +262,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	}
 	
 	/**
-	 * Only if an Entity.id == 0 or null it will be persisted.
+	 * Only if an Entity.identifier == 0 or null it will be persisted.
 	 * If an Entity argument extends Trackable and persisting is performing on behalf of an Employee,
 	 * Trackable.setCreatedBy() is filling in with an Employee from current SecurityContext.
 	 * If the persisting is performing on behalf of an User and the Entity argument is instance of Order,
@@ -271,10 +271,10 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	 * Employee will be found by email, User by email or phone (both fields can be used as the unique IDs).
 	 *
 	 * @param entity
-	 * @return Returns a managed copy of Entity with 'id' set
+	 * @return Returns a managed copy of Entity with 'identifier' set
 	 * @throws EntityExistsException        Throws by the EntityManager itself if such an Entity extsts.
 	 * @throws TransactionRequiredException Throws by the EntityManager itself if it is performing not in a transaction
-	 * @throws IllegalArgumentException     If a given Entity is not an entity either is null or its id != 0.
+	 * @throws IllegalArgumentException     If a given Entity is not an entity either is null or its identifier != 0.
 	 */
 	public Optional<T> persistEntity(T entity)
 		throws EntityExistsException, TransactionRequiredException, IllegalArgumentException, ClassCastException {
@@ -291,7 +291,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		}
 		entityManager.persist(entity);
 		log.info("{} has been persisted.", entity.getClass().getSimpleName());
-		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getId()));
+		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getIdentifier()));
 	}
 	
 	/**
@@ -440,10 +440,10 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 		Long idFound = null;
 		try {
 			idFound = entityId.getSingleResult();
-			log.debug("Entity.id={} is found.", id);
+			log.debug("Entity.identifier={} is found.", id);
 			return true;
 		} catch (NoResultException nre) {
-			log.debug("Entity.id={} is not found!", id);
+			log.debug("Entity.identifier={} is not found!", id);
 			return false;
 		}
 	}

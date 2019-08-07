@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.net.URI;
 
@@ -42,7 +41,7 @@ class WorkshopControllerAbstractIT {
 	@Test
 	public void response_Test() throws Exception {
 		//GIVEN
-		long departmentId = department.getId();
+		long departmentId = department.getIdentifier();
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/departments/" + departmentId));
 		
 		//WHEN

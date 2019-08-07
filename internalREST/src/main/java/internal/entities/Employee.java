@@ -123,9 +123,4 @@ public class Employee extends Trackable {
 	public void setIsEnabled(Boolean enabled) {
 		isEnabled = enabled != null ? enabled : true;
 	}
-	
-	@Override
-	public long getId() {
-		return super.getId();
-	}
 }

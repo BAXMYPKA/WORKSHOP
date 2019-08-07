@@ -22,7 +22,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id", "authority"})
+@EqualsAndHashCode(of = {"identifier", "authority"})
 @JsonIgnoreProperties(value = {"users"}, allowSetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -37,7 +37,7 @@ public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthorit
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")
 	@SequenceGenerator(name = "authorities_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
 	@PositiveOrZero(message = "{validation.positiveOrZero}")
-	private long id;
+	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
 	@NotBlank(message = "{validation.notBlank}")
@@ -61,13 +61,15 @@ public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthorit
 		return authority;
 	}
 	
+/*
 	@Override
-	public long getId() {
-		return id;
+	public Long getIdentifier() {
+		return identifier;
 	}
 	
 	@Override
-	public void setId(long id) {
-		this.id = id;
+	public void setIdentifier(Long identifier) {
+		this.identifier = identifier;
 	}
+*/
 }

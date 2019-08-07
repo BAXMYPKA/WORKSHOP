@@ -72,7 +72,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	/**
 	 * @param id
 	 * @return A found Entity or throws javax.persistence.NoResultException
-	 * @throws IllegalArgumentException If id <= 0 or not the key type for the Entity
+	 * @throws IllegalArgumentException If identifier <= 0 or not the key type for the Entity
 	 * @throws EntityNotFound           If nothing were found
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -83,10 +83,10 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
 		}
 		return entitiesDaoAbstract.findById(id).orElseThrow(() ->
-			new EntityNotFound("No " + entityClass.getSimpleName() + " with id=" + id + " was found!",
+			new EntityNotFound("No " + entityClass.getSimpleName() + " with identifier=" + id + " was found!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage("message.notFound(2)",
-					new Object[]{entityClass.getSimpleName(), "id=" + id},
+					new Object[]{entityClass.getSimpleName(), "identifier=" + id},
 					LocaleContextHolder.getLocale())));
 	}
 	
@@ -94,7 +94,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	 * AKA 'persistOrUpdate'. If an Entity doesn't presented in the DataBase it will be persisted.
 	 * Otherwise it will update its properties in the DataBase.
 	 *
-	 * @param entity If an Entity.id = 0 it will be persisted. If an Entity.id > 0 it will be merged (updated into DB)
+	 * @param entity If an Entity.identifier = 0 it will be persisted. If an Entity.identifier > 0 it will be merged (updated into DB)
 	 * @return Persisted (or merged) managed copy of the Entity.
 	 * @throws IllegalArgumentException                   If an Entity == null
 	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
@@ -171,14 +171,14 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	/**
 	 * @param id Accepts only above zero values.
-	 * @throws IllegalArgumentException If the given id <= 0.
+	 * @throws IllegalArgumentException If the given identifier <= 0.
 	 */
 	public void removeEntity(long id) throws IllegalArgumentException {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id cannot be equal zero or below!");
 		}
 		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
-			"No " + entityClass.getSimpleName() + " for id=" + id + " was found to be deleted!",
+			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
 			messageSource.getMessage("error.removingFailure(2)",
 				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));

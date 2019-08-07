@@ -86,7 +86,7 @@ class EntitiesDaoAbstractIT {
 	@Test
 	@org.junit.jupiter.api.Order(2)
 	@Transactional
-	@DisplayName("The persisting simple entities without id (id=0) one by one should be successful")
+	@DisplayName("The persisting simple entities without identifier (identifier=0) one by one should be successful")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void persist_Simple_Entities_One_By_One_Should_Be_Successful() {
 		//GIVEN
@@ -106,10 +106,10 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN all of them got their ids
 		assertAll(
-			() -> assertTrue(departmentOne.get().getId() > 0),
-			() -> assertTrue(departmentTwo.get().getId() > 0),
-			() -> assertTrue(classifierOne.get().getId() > 0),
-			() -> assertTrue(classifierTwo.get().getId() > 0)
+			() -> assertTrue(departmentOne.get().getIdentifier() > 0),
+			() -> assertTrue(departmentTwo.get().getIdentifier() > 0),
+			() -> assertTrue(classifierOne.get().getIdentifier() > 0),
+			() -> assertTrue(classifierTwo.get().getIdentifier() > 0)
 		);
 	}
 	
@@ -132,10 +132,10 @@ class EntitiesDaoAbstractIT {
 		Optional<Position> positionTwo = positionsDao.persistEntity(position2);
 		//Is persistence successful (just a check)
 		assertAll(
-			() -> assertTrue(departmentOne.get().getId() > 0),
-			() -> assertTrue(departmentTwo.get().getId() > 0),
-			() -> assertTrue(positionOne.get().getId() > 0),
-			() -> assertTrue(positionTwo.get().getId() > 0)
+			() -> assertTrue(departmentOne.get().getIdentifier() > 0),
+			() -> assertTrue(departmentTwo.get().getIdentifier() > 0),
+			() -> assertTrue(positionOne.get().getIdentifier() > 0),
+			() -> assertTrue(positionTwo.get().getIdentifier() > 0)
 		);
 		
 		//WHEN
@@ -144,9 +144,9 @@ class EntitiesDaoAbstractIT {
 		positionsDao.removeEntity(positionTwo.get());
 		departmentsDao.removeEntity(departmentOne.get());
 		//Try to get the removed entities
-		Optional<Position> positionOneById = positionsDao.findById(departmentOne.get().getId());
-		Optional<Position> positionTwoById = positionsDao.findById(departmentOne.get().getId());
-		Optional<Position> departmentOneId = positionsDao.findById(departmentOne.get().getId());
+		Optional<Position> positionOneById = positionsDao.findById(departmentOne.get().getIdentifier());
+		Optional<Position> positionTwoById = positionsDao.findById(departmentOne.get().getIdentifier());
+		Optional<Position> departmentOneId = positionsDao.findById(departmentOne.get().getIdentifier());
 		
 		//THEN
 		assertAll(
@@ -208,13 +208,13 @@ class EntitiesDaoAbstractIT {
 		employeesDao.persistEntities(employees);
 		ordersDao.persistEntities(orders);
 		
-		//THEN all entities are managed and have an id
+		//THEN all entities are managed and have an identifier
 		
-		employees.forEach(employee -> assertTrue(employee.getId() > 0));
+		employees.forEach(employee -> assertTrue(employee.getIdentifier() > 0));
 		employees.forEach(employee -> assertNotNull(employee.getCreated()));
 		
 		orders.forEach(order -> assertNotNull(order.getCreated()));
-		orders.forEach(order -> assertTrue(order.getId() > 0));
+		orders.forEach(order -> assertTrue(order.getIdentifier() > 0));
 		
 		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
 		orders.forEach(order -> assertTrue(entityManager.contains(order)));
@@ -245,18 +245,18 @@ class EntitiesDaoAbstractIT {
 		
 		//THEN
 		assertAll(
-			() -> assertTrue(orderPersisted.get().getId() > 0)
+			() -> assertTrue(orderPersisted.get().getIdentifier() > 0)
 		);
 		//The Department has been persisted with the appropriate Position
 		assertAll(
-			() -> assertTrue(departmentPersisted.get().getId() > 0),
-			() -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getId() > 0)
+			() -> assertTrue(departmentPersisted.get().getIdentifier() > 0),
+			() -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getIdentifier() > 0)
 		);
 		//The Task has been persisted with appropriate new Classifiers
 		assertAll(
 			() -> assertFalse(orderPersisted.get().getTasks().isEmpty()),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getId() > 0),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getId() > 0)
+			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getIdentifier() > 0),
+			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getIdentifier() > 0)
 		);
 	}
 	

@@ -12,14 +12,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(of = {"id", "phone"})
-@ToString(of = {"id", "phone"})
+@EqualsAndHashCode(of = {"identifier", "phone"})
+@ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -30,10 +29,10 @@ public class Phone implements WorkshopEntity, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@PositiveOrZero(message = "{validation.positiveOrZero}")
-	private long id;
+	private Long identifier;
 	
 	@Column
 	private String name;

@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public interface WorkshopEntity extends Serializable {
 	
-	long getId();
+	Long getIdentifier();
 	
-	void setId(long id);
+	void setIdentifier(Long id);
 }

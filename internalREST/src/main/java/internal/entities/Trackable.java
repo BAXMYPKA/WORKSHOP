@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistEmployeeCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.hateoas.ResourceSupport;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -27,12 +25,12 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = {"identifier"})
 @JsonIgnoreProperties(value = {"createdBy", "modifiedBy"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MappedSuperclass
-public abstract class Trackable implements WorkshopEntity, Serializable, Comparable {
+public abstract class Trackable extends ResourceSupport implements WorkshopEntity, Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 4L;
@@ -40,16 +38,17 @@ public abstract class Trackable implements WorkshopEntity, Serializable, Compara
 	/**
 	 * Every instance has to
 	 * '@Override
-	 * public long getId() {
-	 * 		return super.getId();
+	 * public long getIdentifier() {
+	 * 		return super.getIdentifier();
 	 * 	}'
-	 * 	method so that not to clash ResourceSupport.getId() with WorkshopEntity.getId()
+	 * 	method so that not to clash ResourceSupport.getIdentifier() with WorkshopEntity.getIdentifier()
 	 */
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
 	@PositiveOrZero(groups = Default.class, message = "{validation.positiveOrZero}")
-	private long id;
+	private Long identifier;
 	
 	/**
 	 * @AttributeOverrided as 'employed' for Employee.
@@ -106,22 +105,34 @@ public abstract class Trackable implements WorkshopEntity, Serializable, Compara
 	
 	@Override
 	public String toString() {
-		return "id=" + id;
+		return "identifier=" + identifier;
 	}
 	
-	@Override
-	public int compareTo(Object o) {
+	public int compareTo(Trackable o) {
 		Trackable obj = (Trackable) o;
-		if (this.id > obj.getId()) {
+		if (this.identifier > obj.getIdentifier()) {
 			return 1;
-		} else if (this.id < obj.getId()) {
+		} else if (this.identifier < obj.getIdentifier()) {
 			return -1;
 		} else {
 			return 0;
 		}
 	}
 	
-	public long getId() {
-		return id;
+//	@Override
+//	public int compareTo(WorkshopEntity o) {
+//		return 0;
+//	}
+	
+	@Override
+	public void setIdentifier(Long identifier) {
+		this.identifier = identifier;
+	}
+	
+	/**
+	 * @param identifier Primitive parameter just to simplify setting without adding 'L' suffix
+	 */
+	public void setIdentifier(long identifier) {
+		this.identifier = identifier;
 	}
 }

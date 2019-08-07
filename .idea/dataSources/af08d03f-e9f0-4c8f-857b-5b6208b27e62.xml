@@ -32,7 +32,7 @@
     <table id="17" parent="5" name="POSITIONS"/>
     <table id="18" parent="5" name="TASKS"/>
     <table id="19" parent="5" name="TASKS_TO_CLASSIFIERS"/>
-    <column id="20" parent="7" name="ID">
+    <column id="20" parent="7" name="IDENTIFIER">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5s</DataType>
       <NotNull>1</NotNull>
@@ -48,7 +48,7 @@
     </column>
     <index id="23" parent="7" name="PRIMARY_KEY_7">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
+      <ColNames>IDENTIFIER</ColNames>
       <Unique>1</Unique>
     </index>
     <index id="24" parent="7" name="UK_CGFFGW24OJV4O1OE9CPGDY60K_INDEX_7">
@@ -58,7 +58,7 @@
     </index>
     <key id="25" parent="7" name="CONSTRAINT_7">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
+      <ColNames>IDENTIFIER</ColNames>
       <Primary>1</Primary>
     </key>
     <key id="26" parent="7" name="UK_CGFFGW24OJV4O1OE9CPGDY60K_INDEX_7">
@@ -162,7 +162,7 @@ WORKSHOP_GRANTED_AUTHORITY_ID</ColNames>
       <ColNames>WORKSHOP_GRANTED_AUTHORITY_ID</ColNames>
       <RefTableName>GRANTED_AUTHORITIES</RefTableName>
       <RefKeyName>CONSTRAINT_7</RefKeyName>
-      <RefColNames>ID</RefColNames>
+      <RefColNames>IDENTIFIER</RefColNames>
     </foreign-key>
     <column id="48" parent="10" name="ID">
       <Position>1</Position>

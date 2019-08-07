@@ -7,13 +7,11 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -48,7 +46,7 @@ public class Order extends Trackable {
 	@Valid
 	private User createdFor;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Task.class)
+	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "identifier", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
@@ -128,11 +126,6 @@ public class Order extends Trackable {
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
-	}
-	
-	@Override
-	public long getId() {
-		return super.getId();
 	}
 	
 	private void recalculateOverallPrice() throws IllegalArgumentException {

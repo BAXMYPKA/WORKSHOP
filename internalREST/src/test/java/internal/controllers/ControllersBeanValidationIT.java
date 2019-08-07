@@ -78,7 +78,7 @@ class ControllersBeanValidationIT {
 		perform.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
 			.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
-			.andExpect(MockMvcResultMatchers.jsonPath("$..id", Matchers.hasSize(1)));
+			.andExpect(MockMvcResultMatchers.jsonPath("$..identifier", Matchers.hasSize(1)));
 	}
 	
 	@ParameterizedTest
@@ -141,11 +141,11 @@ class ControllersBeanValidationIT {
 //		employee.setLastName(null); //Not set
 		
 		User user = new User();
-		user.setId(3); //If CascadeType.PERSIST - must be zero or null
+		user.setIdentifier(3L); //If CascadeType.PERSIST - must be zero or null
 		user.setModified(ZonedDateTime.now()); //Must by null while persisting as sets automatically
 		
 		Phone phone = new Phone();
-		phone.setId(2);
+		phone.setIdentifier(2L);
 		phone.setPhone("");
 		
 		user.setPhones(Collections.singleton(phone));
@@ -185,10 +185,10 @@ class ControllersBeanValidationIT {
 	
 	public static Stream<Arguments> getEntitiesToPersistWithId() {
 		Order order1 = new Order();
-		order1.setId(1);
+		order1.setIdentifier(1);
 		
 		Order order2 = new Order();
-		order2.setId(2);
+		order2.setIdentifier(2);
 		
 		//TODO: User, Task, Classifier etc...
 		
@@ -220,21 +220,21 @@ class ControllersBeanValidationIT {
 		user.setFirstName("Ivan");
 		
 		Employee employee = new Employee();
-		employee.setId(100);
+		employee.setIdentifier(100);
 		employee.setEmail("appointed@workshop.pro");
 		
 		Classifier classifier1 = new Classifier();
-		classifier1.setId(1);
+		classifier1.setIdentifier(1);
 		classifier1.setPrice(BigDecimal.valueOf(20.20));
 		classifier1.setName("Classifier One");
 		
 		Classifier classifier2 = new Classifier();
-//		classifier2.setId(2);
+//		classifier2.setIdentifier(2);
 		classifier2.setPrice(BigDecimal.valueOf(40.25));
 		classifier2.setName("Classifier Two");
 		
 		Classifier classifier3 = new Classifier();
-//		classifier3.setId(3);
+//		classifier3.setIdentifier(3);
 		classifier3.setPrice(BigDecimal.valueOf(30.15));
 		classifier3.setName("Classifier Three");
 		
@@ -245,14 +245,14 @@ class ControllersBeanValidationIT {
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
-//		task2ForOrder1.setId(10);
+//		task2ForOrder1.setIdentifier(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
 		task2ForOrder1.setDeadline(ZonedDateTime.of(2020, 5, 12, 12, 30, 0, 0, ZoneId.systemDefault()));
 		task2ForOrder1.setName("Task two");
 		
 		Task task3ForOrder1 = new Task();
-		task3ForOrder1.setId(11);
+		task3ForOrder1.setIdentifier(11);
 		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
 		task3ForOrder1.setAppointedTo(employee);
 		task3ForOrder1.setDeadline(ZonedDateTime.of(2020, 12, 5, 15, 300, 0, 0, ZoneId.systemDefault()));

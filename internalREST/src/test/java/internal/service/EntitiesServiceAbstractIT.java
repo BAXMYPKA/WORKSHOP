@@ -15,8 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -67,13 +65,13 @@ class EntitiesServiceAbstractIT {
 		Task taskToPersist = new Task();
 		taskToPersist.setName("Task name");
 		
-		//WHEN persist the Task by EntityManager and obtain its id
+		//WHEN persist the Task by EntityManager and obtain its identifier
 		Task taskPersisted = entityManager.persist(taskToPersist);
-		long id = taskPersisted.getId();
-		//TaskService will find that Task by its new id
+		long id = taskPersisted.getIdentifier();
+		//TaskService will find that Task by its new identifier
 		Task taskFoundById = tasksService.findById(id);
 		
-		//THEN TaskService will find that Task by its new id
+		//THEN TaskService will find that Task by its new identifier
 		assertNotNull(taskFoundById);
 	}
 	
@@ -92,7 +90,7 @@ class EntitiesServiceAbstractIT {
 		//THEN
 		assertNotNull(departmentPersisted);
 		//Position has been persisted
-		assertTrue(departmentPersisted.getPositions().iterator().next().getId() > 0);
+		assertTrue(departmentPersisted.getPositions().iterator().next().getIdentifier() > 0);
 		//Position is same
 		assertEquals(departmentPersisted.getPositions().iterator().next().getName(), positionToPersist.getName());
 	}

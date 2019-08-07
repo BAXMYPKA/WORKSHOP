@@ -15,7 +15,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -69,6 +71,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	}
 	
 	@Override
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<String> postOne(WorkshopEntity workshopEntity) {
 		return null;
 	}

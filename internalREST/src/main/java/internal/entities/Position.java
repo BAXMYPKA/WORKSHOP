@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.util.Collection;
 
@@ -74,7 +73,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	}
 	
 	@Override
-	public long getId() {
-		return super.getId();
+	public Long getIdentifier() {
+		return super.getIdentifier();
 	}
 }

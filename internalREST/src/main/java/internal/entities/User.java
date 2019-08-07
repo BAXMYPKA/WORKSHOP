@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.*;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -12,7 +11,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collection;
@@ -30,8 +28,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
-@ToString(of = {"id", "email", "firstName"})
+@EqualsAndHashCode(of = {"identifier"})
+@ToString(of = {"identifier", "email", "firstName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -44,10 +42,10 @@ public class User implements WorkshopEntity, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@PositiveOrZero(message = "{validation.positiveOrZero}")
-	private long id;
+	private Long identifier;
 	
 	@Column
 	private String firstName;

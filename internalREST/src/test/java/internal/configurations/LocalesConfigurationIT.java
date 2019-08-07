@@ -58,7 +58,7 @@ class LocalesConfigurationIT {
 		assertNotNull(mockMvc);
 	}
 	
-	@Disabled("The test id suited only for AcceptLanguageLocaleResolver")
+	@Disabled("The test identifier suited only for AcceptLanguageLocaleResolver")
 	@Test
 	public void messageSource_Should_Support_Locales() {
 		//GIVEN
@@ -268,7 +268,7 @@ class LocalesConfigurationIT {
 		resultActions
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isNotFound())
-			.andExpect(MockMvcResultMatchers.content().json("{\"errorMessage\":\"Ничего из Order с id=100500 не было найдено!\"}"));
+			.andExpect(MockMvcResultMatchers.content().json("{\"errorMessage\":\"Ничего из Order с identifier=100500 не было найдено!\"}"));
 	}
 	
 	@Test
@@ -290,7 +290,7 @@ class LocalesConfigurationIT {
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.status().isNotFound())
 			.andExpect(MockMvcResultMatchers.content().json(
-				"{\"errorMessage\":\"No Order with id=100500 was found!\"}"));
+				"{\"errorMessage\":\"No Order with identifier=100500 was found!\"}"));
 	}
 	
 	@BeforeEach

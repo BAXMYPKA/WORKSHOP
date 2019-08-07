@@ -89,7 +89,7 @@ class OrdersControllerIT {
 			.thenReturn(new PageImpl<Order>(orders));
 		
 		
-		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
+		String jsonOrders = "[{\"identifier\":1},{\"identifier\":2}]";
 		
 		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
 		
@@ -115,7 +115,7 @@ class OrdersControllerIT {
 			PageRequest.of(2, 3, Sort.by(Sort.Direction.ASC, "created")), "created"))
 			.thenReturn(new PageImpl<Order>(orders));
 		
-		String jsonOrders = "[{\"id\":1},{\"id\":2}]";
+		String jsonOrders = "[{\"identifier\":1},{\"identifier\":2}]";
 		
 		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
 		
@@ -173,7 +173,7 @@ class OrdersControllerIT {
 		ArgumentCaptor<Order> orderCaptured = ArgumentCaptor.forClass(Order.class);
 		//Employee Authentication to pass to the Controller to be saved in 'createdBy' fields
 		Employee authenticationEmployee = new Employee();
-		authenticationEmployee.setId(150);
+		authenticationEmployee.setIdentifier(150L);
 		authenticationEmployee.setEmail("employee@workshop.pro");
 		authenticationEmployee.setPosition(new Position("Position one", new Department("Department one")));
 		authenticationEmployee.setBirthday(LocalDate.now().minusYears(49));
@@ -211,34 +211,34 @@ class OrdersControllerIT {
 	@BeforeEach
 	public void init() {
 		Order order1 = new Order();
-		order1.setId(1);
+		order1.setIdentifier(1L);
 		order1.setCreated(ZonedDateTime.of(2019, 10, 15, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order2 = new Order();
-		order2.setId(2);
+		order2.setIdentifier(2L);
 		order2.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order3 = new Order();
-		order3.setId(3);
+		order3.setIdentifier(3L);
 		order3.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order4 = new Order();
-		order4.setId(4);
+		order4.setIdentifier(4);
 		order4.setCreated(ZonedDateTime.of(2016, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order5 = new Order();
-		order5.setId(5);
+		order5.setIdentifier(5);
 		order5.setCreated(ZonedDateTime.of(2015, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order6 = new Order();
-		order6.setId(6);
+		order6.setIdentifier(6);
 		order6.setCreated(ZonedDateTime.of(2014, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order7 = new Order();
-		order7.setId(7);
+		order7.setIdentifier(7);
 		order7.setCreated(ZonedDateTime.of(2013, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order8 = new Order();
-		order8.setId(8);
+		order8.setIdentifier(8);
 		order8.setCreated(ZonedDateTime.of(2012, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order9 = new Order();
-		order9.setId(9);
+		order9.setIdentifier(9);
 		order9.setCreated(ZonedDateTime.of(2011, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		Order order10 = new Order();
-		order10.setId(10);
+		order10.setIdentifier(10);
 		order10.setCreated(ZonedDateTime.of(2010, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
 		
 		orders.addAll(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10));
@@ -252,7 +252,7 @@ class OrdersControllerIT {
 		user.setFirstName("Ivan");
 		
 		Employee employee = new Employee();
-		employee.setId(100);
+		employee.setIdentifier(100);
 		employee.setFirstName("forValidationPass");
 		employee.setLastName("forValidationPass");
 		employee.setBirthday(LocalDateTime.now().minusYears(50).toLocalDate());
@@ -260,17 +260,17 @@ class OrdersControllerIT {
 		employee.setPosition(new Position("Position one", new Department("Department one")));
 		
 		Classifier classifier1 = new Classifier();
-//		classifier1.setId(1);
+//		classifier1.setIdentifier(1);
 		classifier1.setPrice(BigDecimal.valueOf(20.20));
 		classifier1.setName("Classifier One");
 		
 		Classifier classifier2 = new Classifier();
-//		classifier2.setId(2);
+//		classifier2.setIdentifier(2);
 		classifier2.setPrice(BigDecimal.valueOf(40.25));
 		classifier2.setName("Classifier Two");
 		
 		Classifier classifier3 = new Classifier();
-//		classifier3.setId(3);
+//		classifier3.setIdentifier(3);
 		classifier3.setPrice(BigDecimal.valueOf(30.15));
 		classifier3.setName("Classifier Three");
 		
@@ -281,14 +281,14 @@ class OrdersControllerIT {
 		task1ForOrder1.setName("Task one");
 		
 		Task task2ForOrder1 = new Task();
-//		task2ForOrder1.setId(10);
+//		task2ForOrder1.setIdentifier(10);
 		task2ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier2, classifier3)));
 		task2ForOrder1.setAppointedTo(employee);
 		task2ForOrder1.setDeadline(ZonedDateTime.of(2020, 5, 12, 12, 30, 0, 0, ZoneId.systemDefault()));
 		task2ForOrder1.setName("Task two");
 		
 		Task task3ForOrder1 = new Task();
-		task3ForOrder1.setId(11);
+		task3ForOrder1.setIdentifier(11);
 		task3ForOrder1.setClassifiers(new HashSet<Classifier>(Arrays.asList(classifier1, classifier3)));
 		task3ForOrder1.setAppointedTo(employee);
 		task3ForOrder1.setDeadline(ZonedDateTime.of(2020, 12, 5, 15, 30, 0, 0, ZoneId.systemDefault()));

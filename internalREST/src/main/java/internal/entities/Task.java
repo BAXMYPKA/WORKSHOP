@@ -158,6 +158,7 @@ public class Task extends Trackable {
 	@Override
 	public void preUpdate() {
 		super.preUpdate();
+		getOrder().preUpdate();
 	}
 	
 	@Override

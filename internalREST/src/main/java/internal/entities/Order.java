@@ -46,7 +46,6 @@ public class Order extends Trackable {
 	@Valid
 	private User createdFor;
 	
-	//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "identifier", scope = Task.class)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {

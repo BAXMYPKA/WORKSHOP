@@ -22,11 +22,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.Locale;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -103,8 +108,22 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 		
 		if (entitiesPage != null && entitiesPage.getContent().size() > 0) {
 			addSelfLinks(entitiesPage);
-			String jsonPageEntities = jsonServiceUtils.convertEntitiesToJson(entitiesPage.getContent());
-			return ResponseEntity.ok(jsonPageEntities);
+			
+			Link testLink = entityLinks.linkToCollectionResource(entityClass).withSelfRel();
+			
+			Resources<T> resources = new Resources<>(entitiesPage.getContent(), testLink);
+			
+			String pagedResourcesToJson = jsonServiceUtils.convertEntitiesResourcesToJson(resources);
+			
+			
+			System.out.println("TOTAL ELEMENTS: "+entitiesPage.getTotalElements());
+			System.out.println("TOTAL PAGES: "+entitiesPage.getTotalPages());
+			System.out.println("NUMBER: "+entitiesPage.getNumber());
+			System.out.println(".getPageable().getPageNumber(): "+entitiesPage.getPageable().getPageNumber());
+			System.out.println(".getPageable().getPageSize(): "+entitiesPage.getPageable().getPageSize());
+			System.out.println(".getPageable().next(): "+entitiesPage.getPageable().next());
+			
+			return ResponseEntity.ok(pagedResourcesToJson);
 		} else {
 			String localizedMessage =
 				messageSource.getMessage("message.notFound(1)", new Object[]{workshopEntityName}, locale);
@@ -119,8 +138,7 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 	@GetMapping("/{id}")
 	public ResponseEntity<String> getOne(@PathVariable("id") long id) throws JsonProcessingException {
 		T entity = entityClass.cast(entitiesService.findById(id));
-		Link linkToSingleResource = entityLinks.linkToSingleResource(entityClass, id);
-		entity.add(linkToSingleResource);
+		addSelfLink(entity);
 		String entityToJson = jsonServiceUtils.convertEntityToJson(entity);
 		return ResponseEntity.ok(entityToJson);
 	}
@@ -178,8 +196,14 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 		page.get().forEach(this::addSelfLink);
 	}
 	
-	private void addSelfLink(T workshopEntity){
+	private void addSelfLink(T workshopEntity) {
 		Link selfLink = entityLinks.linkToSingleResource(workshopEntity.getClass(), workshopEntity.getIdentifier());
 		workshopEntity.add(selfLink);
+	}
+	
+	@Override
+	@PostConstruct
+	public void postConstruct() {
+		setObjectMapper(getJsonServiceUtils().getObjectMapper());
 	}
 }

@@ -69,9 +69,5 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	 * "@PostConstruct"
 	 * setObjectMapper(getJsonServiceUtils().getObjectMapper());
 	 */
-	@PostConstruct
-	default void afterPropsSet() {
-		setObjectMapper(getJsonServiceUtils().getObjectMapper());
-	}
-	
+	void postConstruct();
 }

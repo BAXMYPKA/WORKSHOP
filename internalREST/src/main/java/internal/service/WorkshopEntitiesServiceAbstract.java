@@ -24,10 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * This class also intended to throw WorkshopException with fully localized messages with appropriate HttpStatus codes
@@ -236,7 +234,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 				pageable.getSort().getOrderFor(orderBy == null || orderBy.isEmpty() ? "created" : orderBy).getDirection());
 			long total = workshopEntitiesDaoAbstract.countAllEntities();
 			
-			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, total);
+			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, 0);
 			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
 			return page;
 		} catch (PersistenceException e) {

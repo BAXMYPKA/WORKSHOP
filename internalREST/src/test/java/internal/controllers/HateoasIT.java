@@ -84,6 +84,8 @@ class HateoasIT {
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	public void all_WorkshopEntities_Should_Contain_SelfLinks_And_AllLink() throws Exception {
 		//GIVEN
+		positionsController.setDEFAULT_PAGE_SIZE(2);
+		
 		positionOne = new Position("Position unique one", departmentOne);
 		positionTwo = new Position("Position unique two", departmentOne);
 		

@@ -6,11 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import internal.entities.WorkshopEntity;
+import internal.entities.WorkshopEntityAbstract;
 import internal.entities.hateoasResources.WorkshopEntityResource;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resources;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -70,6 +73,20 @@ public class JsonServiceUtils {
 	public <T extends WorkshopEntity> String convertEntitiesToJson(Collection<T> entities) throws JsonProcessingException {
 		String values = objectMapper.writeValueAsString(entities);
 		return values;
+	}
+	
+	/**
+	 * @param resources Resources<T extends WorkshopEntityAbstract> - the Resources with a Collection of WorkshopEntities
+	 *                  with embedded self Links. The collection itself contains Links (prevPage, nexPage, LastPage etc).
+	 * @param <T>       <T extends WorkshopEntityAbstract>
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	public <T extends WorkshopEntityAbstract> String convertEntitiesResourcesToJson(Resources<T> resources)
+		throws JsonProcessingException {
+		String workshopEntitiesResources = objectMapper.writeValueAsString(resources);
+		log.debug("WorkshopEntitiesResources successfully converted to JSON.");
+		return workshopEntitiesResources;
 	}
 	
 	public String convertEntityResourceToJson(WorkshopEntityResource entityResource) throws JsonProcessingException {

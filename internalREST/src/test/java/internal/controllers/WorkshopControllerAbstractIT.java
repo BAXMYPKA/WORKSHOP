@@ -6,6 +6,7 @@ import internal.service.DepartmentsService;
 import internal.service.PositionsService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,7 +79,7 @@ class WorkshopControllerAbstractIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void inherited_Method_getAll_Should_Return_All_Paged_WorkshopEntities() throws Exception {
+	public void inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities() throws Exception {
 		//GIVEN
 		positionOne = new Position("Position unique one", departmentOne);
 		positionTwo = new Position("Position unique two", departmentOne);
@@ -99,4 +100,30 @@ class WorkshopControllerAbstractIT {
 			.andExpect(MockMvcResultMatchers
 				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
 	}
+	
+	@Disabled
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	public void aVoidinherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities() throws Exception {
+		//GIVEN
+		positionOne = new Position("Position unique one", departmentOne);
+		positionTwo = new Position("Position unique two", departmentOne);
+		
+		positionOne = positionsService.persistEntity(positionOne);
+		positionTwo = positionsService.persistEntity(positionTwo);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions/"));
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique one\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
+	}
+	
 }

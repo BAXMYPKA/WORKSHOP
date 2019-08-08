@@ -37,10 +37,10 @@ import java.util.List;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "Departments", schema = "INTERNAL")
-public class Department extends ResourceSupport implements WorkshopEntity, Serializable {
+public class Department extends WorkshopEntityAbstract {
 	
-	@Transient
-	private static final long serialVersionUID = 1L;
+//	@Transient
+//	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id")

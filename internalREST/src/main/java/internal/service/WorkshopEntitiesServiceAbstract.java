@@ -1,6 +1,6 @@
 package internal.service;
 
-import internal.dao.EntitiesDaoAbstract;
+import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
 import internal.exceptions.IllegalArguments;
 import internal.exceptions.EntityNotFound;
@@ -40,7 +40,7 @@ import java.util.Optional;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	/**
 	 * Default size of results on one page
@@ -54,18 +54,18 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	private int MAX_PAGE_NUM;
 	@Autowired
 	private MessageSource messageSource;
-	private EntitiesDaoAbstract<T, Long> entitiesDaoAbstract;
+	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
 	private Class<T> entityClass;
 	
 	/**
-	 * @param entitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
+	 * @param workshopEntitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
 	 *                            implementation of this EntitiesServiceAbstract<T>.
 	 *                            To be injected to all the superclasses.
 	 *                            For instance, 'public OrdersService(OrdersDao ordersDao)'
 	 */
-	public EntitiesServiceAbstract(EntitiesDaoAbstract<T, Long> entitiesDaoAbstract) {
-		this.entitiesDaoAbstract = entitiesDaoAbstract;
-		setEntityClass(entitiesDaoAbstract.getEntityClass());
+	public WorkshopEntitiesServiceAbstract(WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract) {
+		this.workshopEntitiesDaoAbstract = workshopEntitiesDaoAbstract;
+		setEntityClass(workshopEntitiesDaoAbstract.getEntityClass());
 		log.trace("{} initialized successfully", entityClass.getSimpleName());
 	}
 	
@@ -82,7 +82,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 				messageSource.getMessage("error.propertyHasToBe(2)",
 					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
 		}
-		return entitiesDaoAbstract.findById(id).orElseThrow(() ->
+		return workshopEntitiesDaoAbstract.findById(id).orElseThrow(() ->
 			new EntityNotFound("No " + entityClass.getSimpleName() + " with identifier=" + id + " was found!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage("message.notFound(2)",
@@ -107,10 +107,10 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		}
 		Optional<T> persistedEntity;
 		try {
-			persistedEntity = entitiesDaoAbstract.persistEntity(entity);
+			persistedEntity = workshopEntitiesDaoAbstract.persistEntity(entity);
 		} catch (EntityExistsException ex) {
 			log.debug("{} exists, trying to merge it...", entityClass.getSimpleName(), ex);
-			persistedEntity = entitiesDaoAbstract.mergeEntity(entity);
+			persistedEntity = workshopEntitiesDaoAbstract.mergeEntity(entity);
 		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
 			throw new EntityNotFound(
 				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties",
@@ -127,7 +127,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		return entitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
+		return workshopEntitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
 			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.",
 			HttpStatus.CONFLICT,
 			messageSource.getMessage("error.saveFailure(1)", new Object[]{entityClass.getSimpleName()},
@@ -144,7 +144,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		return entitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailure(
+		return workshopEntitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailure(
 			"Updating the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be updated!",
 			HttpStatus.GONE));
 	}
@@ -154,7 +154,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		try {
-			entitiesDaoAbstract.removeEntity(entity);
+			workshopEntitiesDaoAbstract.removeEntity(entity);
 			log.debug("{} successfully removed.", entityClass.getSimpleName());
 		} catch (IllegalArgumentException ex) {
 			throw new EntityNotFound(
@@ -177,18 +177,18 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id cannot be equal zero or below!");
 		}
-		T foundBiId = entitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
+		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
 			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
 			messageSource.getMessage("error.removingFailure(2)",
 				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));
-		entitiesDaoAbstract.removeEntity(foundBiId);
+		workshopEntitiesDaoAbstract.removeEntity(foundBiId);
 	}
 	
 	/**
 	 * @param entities
-	 * @return {@link EntitiesServiceAbstract#persistEntities(Collection)} If the given collection doesn't exceed
-	 * the {@link EntitiesDaoAbstract#getBatchSize()} a collection of persisted and managed copy of entities will be returned.
+	 * @return {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)} If the given collection doesn't exceed
+	 * the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of persisted and managed copy of entities will be returned.
 	 * Otherwise an Collections.emptyList() will be returned (not to overload the memory and JPA first-level cache) and you
 	 * will have to get entities from your collection yourself.
 	 */
@@ -196,13 +196,13 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
-		return entitiesDaoAbstract.persistEntities(entities).orElse(Collections.emptyList());
+		return workshopEntitiesDaoAbstract.persistEntities(entities).orElse(Collections.emptyList());
 	}
 	
 	/**
-	 * @param entities {@link EntitiesServiceAbstract#persistEntities(Collection)}
+	 * @param entities {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)}
 	 * @return A collection of only those entities which were able to be persisted.
-	 * If the given collection doesn't exceed the {@link EntitiesDaoAbstract#getBatchSize()} a collection of
+	 * If the given collection doesn't exceed the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of
 	 * persisted and managed copy of entities will be returned.
 	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
 	 * and you will have to get entities from your collection yourself.
@@ -211,7 +211,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
-		return entitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFound(
+		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFound(
 			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
 			"error.unknownError", null, LocaleContextHolder.getLocale())));
 	}
@@ -229,12 +229,12 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		int pageNum = pageable.getPageNumber() <= 0 || pageable.getPageNumber() > MAX_PAGE_NUM ? 1 :
 			pageable.getPageNumber();
 		try {
-			Optional<List<T>> entities = entitiesDaoAbstract.findAllPaged(
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(
 				pageSize,
 				pageNum,
 				orderBy == null ? "" : orderBy,
 				pageable.getSort().getOrderFor(orderBy == null || orderBy.isEmpty() ? "created" : orderBy).getDirection());
-			long total = entitiesDaoAbstract.countAllEntities();
+			long total = workshopEntitiesDaoAbstract.countAllEntities();
 			
 			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, total);
 			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
@@ -248,7 +248,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 	/**
 	 * @param pageSize min = 1, max = {@link this#getDEFAULT_PAGE_SIZE()} In case of incorrect values the size
 	 *                 will be set in between min and max.
-	 * @param pageNum  min = 1, max = {@link EntitiesServiceAbstract#getMAX_PAGE_NUM()}.
+	 * @param pageNum  min = 1, max = {@link WorkshopEntitiesServiceAbstract#getMAX_PAGE_NUM()}.
 	 *                 In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values
@@ -260,7 +260,7 @@ public abstract class EntitiesServiceAbstract<T extends WorkshopEntity> {
 		pageSize = pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
 		try {
-			Optional<List<T>> entities = entitiesDaoAbstract.findAllPaged(
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(
 				pageSize,
 				pageNum,
 				orderBy == null ? "" : orderBy,

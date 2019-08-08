@@ -34,12 +34,12 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Users", schema = "EXTERNAL")
-public class User implements WorkshopEntity, Serializable {
+public class User extends WorkshopEntityAbstract {
 	
 	//TODO: how to determine and fix the particular phone the User is using for login? And fix it in the JwtUtils getToken method!
 	
-	@Transient
-	private static final long serialVersionUID = 1L;
+//	@Transient
+//	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id")

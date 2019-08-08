@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class OrdersService extends EntitiesServiceAbstract<Order> {
+public class OrdersService extends WorkshopEntitiesServiceAbstract<Order> {
 	
 	@Getter
 	@Setter

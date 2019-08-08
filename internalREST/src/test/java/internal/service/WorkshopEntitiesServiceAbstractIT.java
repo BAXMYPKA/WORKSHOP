@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestEntityManager
 @Slf4j
-class EntitiesServiceAbstractIT {
+class WorkshopEntitiesServiceAbstractIT {
 	
 	@Autowired
 	private TestEntityManager entityManager;

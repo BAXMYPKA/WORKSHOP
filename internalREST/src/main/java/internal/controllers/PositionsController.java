@@ -1,0 +1,23 @@
+package internal.controllers;
+
+import internal.entities.Position;
+import internal.service.PositionsService;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@ExposesResourceFor(Position.class)
+@RestController
+@RequestMapping(path = "/internal/positions", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+public class PositionsController extends WorkshopControllerAbstract<Position> {
+
+	/**
+	 * @param positionsService By this instance we set the concrete instance of WorkshopServiceAbstract
+	 *                         and through it set the concrete type of WorkshopEntity as {@link #getEntityClass()}
+	 *                         to operate with.
+	 */
+	public PositionsController(PositionsService positionsService) {
+		super(positionsService);
+	}
+}

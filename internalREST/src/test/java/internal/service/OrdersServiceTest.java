@@ -1,6 +1,6 @@
 package internal.service;
 
-import internal.dao.EntitiesDaoAbstract;
+import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.dao.OrdersDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -29,7 +29,7 @@ class OrdersServiceTest {
 	OrdersDao ordersDao;
 	
 	@Mock
-	EntitiesDaoAbstract entitiesDao;
+	WorkshopEntitiesDaoAbstract entitiesDao;
 	
 	@InjectMocks
 	OrdersService ordersService;

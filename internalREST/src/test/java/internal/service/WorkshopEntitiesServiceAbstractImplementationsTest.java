@@ -19,7 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class EntitiesServiceAbstractImplementationsTest {
+class WorkshopEntitiesServiceAbstractImplementationsTest {
 	
 	@Mock
 	DepartmentsDao departmentsDao;
@@ -36,7 +36,7 @@ class EntitiesServiceAbstractImplementationsTest {
 	@Test
 	public void init_Test() {
 		assertNotNull(departmentsService);
-		assertNotNull(departmentsService.getEntitiesDaoAbstract());
+		assertNotNull(departmentsService.getWorkshopEntitiesDaoAbstract());
 		assertEquals(Department.class, departmentsDao.getEntityClass());
 	}
 	

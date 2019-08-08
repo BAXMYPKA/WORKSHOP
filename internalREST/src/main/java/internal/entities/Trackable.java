@@ -30,10 +30,10 @@ import java.time.ZonedDateTime;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MappedSuperclass
-public abstract class Trackable extends ResourceSupport implements WorkshopEntity, Serializable {
+public abstract class Trackable extends WorkshopEntityAbstract {
 	
-	@Transient
-	private static final long serialVersionUID = 4L;
+//	@Transient
+//	private static final long serialVersionUID = 4L;
 	
 	/**
 	 * Every instance has to

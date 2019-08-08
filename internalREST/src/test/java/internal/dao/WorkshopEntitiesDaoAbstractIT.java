@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @TestPropertySource(properties = {""})
 @Slf4j
-class EntitiesDaoAbstractIT {
+class WorkshopEntitiesDaoAbstractIT {
 	
 	@Autowired
 	OrdersDao ordersDao;
@@ -167,8 +167,8 @@ class EntitiesDaoAbstractIT {
 		//Persisted entities collections
 		departmentsDao.persistEntities(departments);
 		positionsDao.persistEntities(positions);
-		Optional<Collection<Employee>> employeesPersisted = employeesDao.persistEntities(EntitiesDaoAbstractIT.employees);
-		Optional<Collection<Order>> ordersPersisted = ordersDao.persistEntities(EntitiesDaoAbstractIT.orders);
+		Optional<Collection<Employee>> employeesPersisted = employeesDao.persistEntities(WorkshopEntitiesDaoAbstractIT.employees);
+		Optional<Collection<Order>> ordersPersisted = ordersDao.persistEntities(WorkshopEntitiesDaoAbstractIT.orders);
 		//Check is the persistence successful
 		assertTrue(employeesPersisted.isPresent());
 		assertTrue(ordersPersisted.isPresent());

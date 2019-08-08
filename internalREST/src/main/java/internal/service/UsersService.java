@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UsersService extends EntitiesServiceAbstract<User> {
+public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	
 	@Autowired
 	private UsersDao usersDao;

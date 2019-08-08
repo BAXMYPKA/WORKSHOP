@@ -28,10 +28,10 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity(name = "Granted_Authority")
 @Table(name = "Granted_Authorities", schema = "EXTERNAL")
-public class WorkshopGrantedAuthority implements WorkshopEntity, GrantedAuthority {
+public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements GrantedAuthority {
 	
-	@Transient
-	private static final long serialVersionUID = 1L;
+//	@Transient
+//	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")

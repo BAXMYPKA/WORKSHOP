@@ -23,10 +23,10 @@ import java.io.Serializable;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
-public class Phone implements WorkshopEntity, Serializable {
+public class Phone extends WorkshopEntityAbstract {
 	
-	@Transient
-	private static final long serialVersionUID = 1L;
+//	@Transient
+//	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name = "id")

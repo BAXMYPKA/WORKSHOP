@@ -3,7 +3,8 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.entities.Department;
 import internal.service.DepartmentsService;
-import internal.service.EntitiesServiceAbstract;
+import internal.service.WorkshopEntitiesServiceAbstract;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -14,20 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Locale;
-
+@ExposesResourceFor(Department.class)
 @RestController
 @RequestMapping(path = "/internal/departments", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
 	
 	/**
-	 * @see WorkshopControllerAbstract#WorkshopControllerAbstract(EntitiesServiceAbstract)
+	 * @see WorkshopControllerAbstract#WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract)
 	 */
 	public DepartmentsController(DepartmentsService departmentsService) {
 		super(departmentsService);
 	}
 	
+/*
 	@Override
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<String> getOne(@PathVariable(name = "id") long id) throws JsonProcessingException {
@@ -38,14 +39,5 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		String json = getJsonServiceUtils().convertEntityToJson(department);
 		return ResponseEntity.ok(json);
 	}
-	
-	@Override
-	public void setEntityClass(Class entityClass) {
-	
-	}
-	
-	@Override
-	public void afterPropsSet() {
-	
-	}
+*/
 }

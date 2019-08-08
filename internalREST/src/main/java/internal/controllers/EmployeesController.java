@@ -2,7 +2,6 @@ package internal.controllers;
 
 import internal.entities.Employee;
 import internal.service.EmployeesService;
-import internal.service.EntitiesServiceAbstract;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

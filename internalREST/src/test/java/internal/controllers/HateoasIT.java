@@ -5,7 +5,6 @@ import internal.entities.Position;
 import internal.service.DepartmentsService;
 import internal.service.PositionsService;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class WorkshopControllerAbstractIT {
+class HateoasIT {
 	
 	@Autowired
 	DepartmentsController departmentsController;
@@ -58,7 +57,7 @@ class WorkshopControllerAbstractIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void inherited_Method_getOne_Should_Return_One_WorkshopEntity() throws Exception {
+	public void single_WorkshopEntity_Should_Contain_SelfLink() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique one");
 		departmentOne = departmentsService.persistEntity(departmentOne);
@@ -73,18 +72,26 @@ class WorkshopControllerAbstractIT {
 		resultActions
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Department unique one\"")));
+				.content().string(Matchers.containsString("\"name\":\"Department unique one\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"links\":[{\"rel\":\"self\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString(
+					"\"href\":\"http://localhost/internal/departments/" + departmentId)));
 	}
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void inherited_Method_getAll_Should_Return_All_Paged_WorkshopEntities() throws Exception {
+	public void all_WorkshopEntities_Should_Contain_SelfLinks_And_AllLink() throws Exception {
 		//GIVEN
 		positionOne = new Position("Position unique one", departmentOne);
 		positionTwo = new Position("Position unique two", departmentOne);
 		
 		positionOne = positionsService.persistEntity(positionOne);
 		positionTwo = positionsService.persistEntity(positionTwo);
+		
+		long positionOneId = positionOne.getIdentifier();
+		long positionTwoId = positionTwo.getIdentifier();
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions/"));
 		
@@ -97,6 +104,12 @@ class WorkshopControllerAbstractIT {
 			.andExpect(MockMvcResultMatchers
 				.content().string(Matchers.containsString("\"name\":\"Position unique one\"")))
 			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
+				.content().string(Matchers.containsString(
+					"\"rel\":\"self\",\"href\":\"http://localhost/internal/positions/"+positionOneId)))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString(
+					"\"rel\":\"self\",\"href\":\"http://localhost/internal/positions/"+positionTwoId)));
 	}
 }

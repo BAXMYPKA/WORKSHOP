@@ -15,7 +15,7 @@ import javax.persistence.criteria.Root;
 @Slf4j
 @Repository
 @Qualifier("employeesDao")
-public class EmployeesDao extends EntitiesDaoAbstract<Employee, Long> {
+public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 	
 	public EmployeesDao() {
 		setKeyClass(Long.class);

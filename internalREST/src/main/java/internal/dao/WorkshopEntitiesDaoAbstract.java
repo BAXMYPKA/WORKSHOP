@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements EntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> implements WorkshopEntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -119,10 +119,10 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 /**
  * Page formula is: (pageNum -1)*pageSize
  *
- * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link EntitiesDaoAbstract#PAGE_SIZE_DEFAULT}
+ * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_DEFAULT}
  *                 If 0 - will be set to default (max).
  * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
- *                 If 0 - will be set to default. Max amount of given pages is ${@link EntitiesDaoAbstract#PAGE_NUM_MAX}
+ *                 If 0 - will be set to default. Max amount of given pages is ${@link WorkshopEntitiesDaoAbstract#PAGE_NUM_MAX}
  * @param orderBy  The name of the field the ascDesc will be happened by.
  *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
  *                 'created' field, otherwise no ordering will happened.
@@ -171,11 +171,11 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	 * Page formula is: (pageNum -1)*pageSize
 	 *
 	 * @param pageSize The maximum amount of entities at once (on one page).
-	 *                 0 = default ({@link EntitiesDaoAbstract#PAGE_SIZE_DEFAULT}),
-	 *                 Max = {@link EntitiesDaoAbstract#PAGE_SIZE_MAX}
+	 *                 0 = default ({@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_DEFAULT}),
+	 *                 Max = {@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_MAX}
 	 * @param pageNum  Number of desired page to be given.
 	 *                 0 = default (1),
-	 *                 Max = {@link EntitiesDaoAbstract#PAGE_NUM_MAX}.
+	 *                 Max = {@link WorkshopEntitiesDaoAbstract#PAGE_NUM_MAX}.
 	 * @param orderBy  The name of the field (property) to order by. If null, 'created' field will be used by default.
 	 * @param order    {@link Sort.Direction} Ascending or Descending order. Default is Descending.
 	 * @return Optional<List < T>>. If nothing was foung, Optional.empty() will be returned.
@@ -388,7 +388,7 @@ public abstract class EntitiesDaoAbstract <T extends Serializable, K> implements
 	/**
 	 * @param entities Entities to be merged into the DataBase.
 	 * @return A collection of only managed entities which were merged successfully. If the collection to be returned
-	 * exceeds the {@link EntitiesDaoAbstract#getBatchSize()} this collection will contain only detached entities.
+	 * exceeds the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} this collection will contain only detached entities.
 	 * @throws IllegalArgumentException If a given collection == null or isEmpty().
 	 */
 	public Optional<Collection<T>> mergeEntities(Collection<T> entities) throws IllegalArgumentException {

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class EmployeesService extends EntitiesServiceAbstract <Employee> {
+public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> {
 	
 	@Autowired
 	private EmployeesDao employeesDao;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class TasksService extends EntitiesServiceAbstract<Task> {
+public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	
 	@Autowired
 	private TasksDao tasksDao;

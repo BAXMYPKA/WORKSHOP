@@ -29,7 +29,10 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
@@ -93,7 +96,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	
 	/**
 	 * @param pageSize Non-required amount of Orders on one pageNum. Default is OrdersService.PAGE_SIZE_DEFAULT
-	 * @param pageNum  Number of pageNum with the list of Orders. One pageNum contains 'pageSize' amount of Orders.
+	 * @param pageNum  Number of page desires page. From 1 to max.
+	 *                 (!) Spring Page interface internally starts page count from 0 so to adapt it to more convenient
+	 *                 count from 1 we do 'pageNum--' and '++pageNum' when return pageNum back to the end User.
 	 * @param orderBy  The property of Order all the Orders have to be ordered by.
 	 * @param order    Ascending or descending order.
 	 * @return
@@ -116,23 +121,27 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 			String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(resources);
 			
 			System.out.println("TOTAL ELEMENTS: " + entitiesPage.getTotalElements());
+			System.out.println("NUMBER ELEMENTS: " + entitiesPage.getNumberOfElements());
 			System.out.println("TOTAL PAGES: " + entitiesPage.getTotalPages());
 			System.out.println("NUMBER: " + entitiesPage.getNumber());
-			System.out.println(".getPageable().getPageNumber(): " + entitiesPage.getPageable().getPageNumber());
-			System.out.println(".getPageable().getPageSize(): " + entitiesPage.getPageable().getPageSize());
-			System.out.println(".getPageable().next(): " + entitiesPage.getPageable().next());
+//			System.out.println("getPageNumber(): " + entitiesPage.getPageable().getPageNumber());
+//			System.out.println("getPageSize(): " + entitiesPage.getPageable().getPageSize());
+			System.out.println("next(): " + entitiesPage.getPageable().next());
+			System.out.println("next().next(): " + entitiesPage.getPageable().next().next());
+			System.out.println(".getPageable().next().next().next()': " + entitiesPage.getPageable().next().next().next().toOptional().isPresent());
+			System.out.println("hasNext: " + entitiesPage.hasNext());
+			System.out.println("hasPrevious: " + entitiesPage.hasPrevious());
+			
 			
 			log.debug("{}s Page found for pageNumber={}, with pageSize={} and written as JSON", workshopEntityClassName,
-				entitiesPage.getPageable().getPageNumber(), entitiesPage.getPageable().getPageSize());
+				entitiesPage.getNumber(), entitiesPage.getSize());
 			
 			return ResponseEntity.ok(pagedResourcesToJson);
 		} else {
-			String localizedMessage =
-				messageSource.getMessage("message.notFound(1)", new Object[]{workshopEntityClassName}, locale);
-			PersistenceFailure persistenceFailure =
-				new PersistenceFailure("No " + workshopEntityClassName + "s found!", HttpStatus.NOT_FOUND);
-			persistenceFailure.setLocalizedMessage(localizedMessage);
-			throw persistenceFailure;
+			throw new PersistenceFailure("No " + workshopEntityClassName + "s found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.notFound(1)", new Object[]{workshopEntityClassName + "s"},
+					LocaleContextHolder.getLocale()));
 		}
 	}
 	
@@ -171,6 +180,18 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 		return null;
 	}
 	
+	/**
+	 * This method sets originally passed parameters to defaults if they are wrong
+	 * so that they subsequently could be passed into {@link #getPagedLinks)}
+	 *
+	 * @param pageSize Will be set to default if it wrong.
+	 * @param pageNum  Will be set to default if it wrong.
+	 *                 Spring Page interface internally starts page count from 0 so to adapt it to more convenient
+	 *                 count from 1 we do '--pageNum' and '++pageNum' when return pageNum back to the end User.
+	 * @param orderBy  Will be set to default if it wrong.
+	 * @param order    Will be set to default if it wrong.
+	 * @return A current Page with the WorkshopEntities collection.
+	 */
 	@Override
 	public Pageable getPageable(Integer pageSize, Integer pageNum, String orderBy, String order) {
 		Sort.Direction direction = null;
@@ -178,15 +199,16 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 			try {
 				direction = Sort.Direction.fromString(order);
 			} catch (IllegalArgumentException e) { //If 'order' doesn't math asc or desc
-				throw new IllegalArguments("'Order' parameter must be equal 'asc' or 'desc' value!", e);
+				throw new IllegalArguments("'order' parameter must be equal 'asc' or 'desc' value!", e);
 			}
 		} else { //DESC is the default value if 'order' param is not presented in the Request
 			direction = Sort.Direction.DESC;
+			order = DEFAULT_ORDER;
 		}
 		//PageRequest doesn't allow empty parameters strings, so "created" as the default is used
-		orderBy = orderBy == null || orderBy.isEmpty() ? "created" : orderBy;
-		pageSize = pageSize == null || pageSize <= 0 || pageSize > getDEFAULT_PAGE_SIZE() ? getDEFAULT_PAGE_SIZE() : pageSize;
-		pageNum = pageNum == null || pageNum <= 0 || pageNum > getMAX_PAGE_NUM() ? 1 : pageNum;
+		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
+		pageSize = (pageSize == null || pageSize <= 0 || pageSize > MAX_PAGE_SIZE) ? DEFAULT_PAGE_SIZE : pageSize;
+		pageNum = pageNum == null || pageNum < 0 || pageNum > MAX_PAGE_NUM ? 0 : --pageNum;
 		
 		return PageRequest.of(
 			pageNum,
@@ -194,7 +216,43 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 			new Sort(direction, orderBy));
 	}
 	
-	private Link getPagedLinks(int pageSize, int pageNum, String orderBy, String order) {
+	private Collection<Link> getPagedLinks(Page page, String orderBy, String order) {
+		Collection<Link> pagedLinks = new ArrayList<>(7);
+		
+		String currentPageRel = "currentPage";
+		String previousPageRel = "previousPage";
+		String nexPageRel = "nexPage";
+		String firstPageRel = "firstPage";
+		String lastPageRel = "lastPage";
+		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
+		String media = "json";
+		String currentPageTitle = "Page " + page.getNumber() + " of " + page.getTotalPages() + " pages total with " +
+			page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
+		
+		Link currentPageLink =
+			ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(this.getClass())
+					.getAll(page.getSize(), page.getNumber(), orderBy, order))
+				.withRel(currentPageRel)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(currentPageTitle);
+		
+		pagedLinks.add(currentPageLink);
+		
+		if (page.getTotalPages() == 1) {
+			return pagedLinks;
+		}
+		if (page.hasPrevious()) {
+//			Pageable previousOrFirstPage = pageable.previousOrFirst();
+//			Link previousOrFirstPageLink =
+//				ControllerLinkBuilder.linkTo(
+//					ControllerLinkBuilder.methodOn(this.getClass())
+//						.getAll(page.getSize(), previousOrFirstPage.getPageNumber(), orderBy, order))
+//					.withRel("previousPage");
+//			pagedLinks.add(previousOrFirstPageLink);
+		}
+//		if (pageable.next() != null)
 		return null;
 	}
 	

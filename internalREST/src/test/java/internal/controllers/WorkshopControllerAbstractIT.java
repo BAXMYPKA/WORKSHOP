@@ -89,7 +89,8 @@ class WorkshopControllerAbstractIT {
 		positionOne = positionsService.persistEntity(positionOne);
 		positionTwo = positionsService.persistEntity(positionTwo);
 		
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions/"));
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions" +
+			"/?pageSize=3&pageNum=2"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);

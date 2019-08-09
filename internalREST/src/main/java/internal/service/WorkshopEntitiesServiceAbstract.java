@@ -4,18 +4,19 @@ import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
 import internal.exceptions.IllegalArguments;
 import internal.exceptions.EntityNotFound;
+import internal.exceptions.InternalServerError;
 import internal.exceptions.PersistenceFailure;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.beans.support.SortDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -38,18 +39,18 @@ import java.util.function.Supplier;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Repository
-public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
-	/**
-	 * Default size of results on one page
-	 */
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
-	/**
-	 * Maximum available page number
-	 */
 	@Value("${page.max_num}")
 	private int MAX_PAGE_NUM;
+	@Value("${page.size.max}")
+	private int MAX_PAGE_SIZE;
+	@Value("${default.orderBy}")
+	private String DEFAULT_ORDER_BY;
+	@Value("${default.order}")
+	private String DEFAULT_ORDER;
 	@Autowired
 	private MessageSource messageSource;
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
@@ -57,9 +58,9 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	
 	/**
 	 * @param workshopEntitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
-	 *                            implementation of this EntitiesServiceAbstract<T>.
-	 *                            To be injected to all the superclasses.
-	 *                            For instance, 'public OrdersService(OrdersDao ordersDao)'
+	 *                                    implementation of this EntitiesServiceAbstract<T>.
+	 *                                    To be injected to all the superclasses.
+	 *                                    For instance, 'public OrdersService(OrdersDao ordersDao)'
 	 */
 	public WorkshopEntitiesServiceAbstract(WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract) {
 		this.workshopEntitiesDaoAbstract = workshopEntitiesDaoAbstract;
@@ -216,30 +217,38 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	
 	
 	/**
-	 * @param pageable Must contain Sort.by(Sort.Direction, orderBy) or Sort.of(Sort.Direction, "created") property!
-	 * @param orderBy  The property for ordering the result list by.
+	 * @param pageable Should contain 'Sort.by(Sort.Direction, orderBy)'.
+	 *                 Otherwise {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
+	 * @param orderBy  Nullable. The property for ordering the result list by. If null {@link #DEFAULT_ORDER_BY} will
+	 *                 be used.
 	 * @return A Page<Entity> with a collection of Entities or with an Collection.empty() if nothing found or
 	 * something went wrong during the search.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public Page<T> findAllEntities(Pageable pageable, String orderBy) throws IllegalArgumentException {
-		int pageSize = pageable.getPageSize() < 0 || pageable.getPageSize() > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageable.getPageSize();
-		int pageNum = pageable.getPageNumber() <= 0 || pageable.getPageNumber() > MAX_PAGE_NUM ? 1 :
-			pageable.getPageNumber();
+		if (pageable == null) {
+			throw new InternalServerError("Pageable cannot by null!");
+		}
+		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
+			: pageable.getPageSize();
+		int pageNum = pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber();
+		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
+		Sort.Direction order =
+			pageable.getSort().isUnsorted() || pageable.getSort().getOrderFor(orderBy).getDirection() == null ?
+				Sort.Direction.DESC : pageable.getSort().getOrderFor(orderBy).getDirection();
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(
-				pageSize,
-				pageNum,
-				orderBy == null ? "" : orderBy,
-				pageable.getSort().getOrderFor(orderBy == null || orderBy.isEmpty() ? "created" : orderBy).getDirection());
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(pageSize, pageNum, orderBy, order);
 			long total = workshopEntitiesDaoAbstract.countAllEntities();
 			
-			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, 0);
+			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, total);
+			
 			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
 			return page;
 		} catch (PersistenceException e) {
 			log.info(e.getMessage(), e);
-			return new PageImpl<T>(Collections.<T>emptyList());
+			throw new EntityNotFound(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
+				LocaleContextHolder.getLocale()), e);
 		}
 	}
 	

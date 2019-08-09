@@ -2,10 +2,7 @@ package internal.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.controllers.DepartmentsController;
-import internal.dao.DepartmentsDao;
 import internal.entities.*;
-import internal.entities.hateoasResources.DepartmentResource;
-import internal.entities.hateoasResources.PositionResource;
 import internal.service.serviceUtils.JsonServiceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +12,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.UriTemplate;
 
 import java.io.IOException;
 import java.math.BigDecimal;

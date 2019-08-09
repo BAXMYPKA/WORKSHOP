@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@ExposesResourceFor(Department.class)
 @RestController
 @RequestMapping(path = "/internal/departments", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@ExposesResourceFor(Department.class)
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
 	
@@ -32,11 +32,11 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	@Override
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<String> getOne(@PathVariable(name = "id") long id) throws JsonProcessingException {
-		Department department = getEntitiesService().findById(id);
+		Department department = getWorkshopEntitiesService().findById(id);
 		Link link = (ControllerLinkBuilder.linkTo(this.getClass()).withRel("testRel"));
 		Resource<Department> departmentResource = new Resource<>(department, link);
 		System.out.println(departmentResource.getLinks());
-		String json = getJsonServiceUtils().convertEntityToJson(department);
+		String json = getJsonServiceUtils().workshopEntityObjectsToJson(department);
 		return ResponseEntity.ok(json);
 	}
 */

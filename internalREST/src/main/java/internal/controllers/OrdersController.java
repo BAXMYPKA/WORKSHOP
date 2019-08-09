@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,7 @@ import java.util.Locale;
 @DependsOn("ordersService")
 @RestController
 @RequestMapping(path = "/internal/orders", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@ExposesResourceFor(Order.class)
 public class OrdersController {
 	
 	@Autowired
@@ -76,7 +78,7 @@ public class OrdersController {
 		Page<Order> ordersPage = ordersService.findAllEntities(pageable, orderBy);
 		
 		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
-			String jsonOrders = jsonServiceUtils.convertEntitiesToJson(ordersPage.getContent());
+			String jsonOrders = jsonServiceUtils.workshopEntityObjectsToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
 			String message = messageSource.getMessage("message.notFound(1)", new Object[]{"Order"}, locale);
@@ -95,7 +97,7 @@ public class OrdersController {
 				HttpStatus.BAD_REQUEST);
 		}
 		Order order = ordersService.findById(id);
-		String jsonOrder = jsonServiceUtils.convertEntityToJson(order);
+		String jsonOrder = jsonServiceUtils.workshopEntityObjectsToJson(order);
 		return ResponseEntity.ok(jsonOrder);
 	}
 	
@@ -126,7 +128,7 @@ public class OrdersController {
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Order persistedOrder = ordersService.persistEntity(order);
-		String jsonPersistedOrder = jsonServiceUtils.convertEntityToJson(persistedOrder);
+		String jsonPersistedOrder = jsonServiceUtils.workshopEntityObjectsToJson(persistedOrder);
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedOrder);
 	}
 	
@@ -140,7 +142,7 @@ public class OrdersController {
 			throw new MethodArgumentNotValidException(null, bindingResult);
 		}
 		Order mergedOrder = ordersService.mergeEntity(order);
-		String serializedOrder = jsonServiceUtils.convertEntityToJson(mergedOrder);
+		String serializedOrder = jsonServiceUtils.workshopEntityObjectsToJson(mergedOrder);
 		return ResponseEntity.ok(serializedOrder);
 	}
 	

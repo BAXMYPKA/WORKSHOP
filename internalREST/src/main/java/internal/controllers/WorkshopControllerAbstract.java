@@ -2,16 +2,15 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import internal.entities.Order;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
-import internal.entities.hateoasResources.WorkshopEntityResource;
 import internal.exceptions.IllegalArguments;
 import internal.exceptions.PersistenceFailure;
 import internal.service.WorkshopEntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
@@ -22,38 +21,34 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.Locale;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
  * so that to get the concrete type of WorkshopEntity to operate with.
- * <p>
  * 2. Every REST controller has to be annotated with:
  * a. "@RequestMapping(path = "/internal/<workshop_entities>", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})"
  * b. "@RestController"
- * <p>
- * 3. To be Spring EntityLinks capable controller every instance has to be annotated with
- * '@ExposesResourcesFor(WorkshopEntity.class)' and has the method kind of:
+ * c. '@ExposesResourcesFor(WorkshopEntity.class)' To be Spring EntityLinks capable controller every instance has to be
+ * annotated with it and has the method kind of:
  * "@RequestMapping("/{id}")
  * ResponseEntity getOne(@PathVariable("id") … ) { … }"
  *
- * @param <T> WorkshopEntity type
+ * @param <T> WorkshopEntity classType
  */
 @Getter
 @Setter
-public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstract> implements WorkshopController {
+@Slf4j
+@RestController
+public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstract> implements WorkshopController {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -61,30 +56,39 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 	private int MAX_PAGE_NUM;
 	@Value("${page.size.max}")
 	private int MAX_PAGE_SIZE;
+	@Value("${default.orderBy}")
+	private String DEFAULT_ORDER_BY;
+	@Value("${default.order}")
+	private String DEFAULT_ORDER;
 	@Autowired
 	private EntityLinks entityLinks;
 	@Autowired
 	private MessageSource messageSource;
 	@Autowired
-	private WorkshopEntitiesServiceAbstract<T> entitiesService;
-	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	private ObjectMapper objectMapper;
-	private Class<T> entityClass;
+	@Autowired
+	private WorkshopEntitiesServiceAbstract<T> workshopEntitiesService;
+	private Class<T> workshopEntityClass;
 	/**
-	 * Just a simple name for simplified "entityClass.getSimpleName()"
+	 * Just a simple name for simplified "workshopEntityClass.getSimpleName()"
 	 */
-	private final String workshopEntityName;
+	private String workshopEntityClassName;
+	/**
+	 * "rel:getAllWorkshopEntityClassName(s), href:/internal/workshopEntities
+	 */
+	private Link allWorkshopEntitiesLink;
 	
 	/**
-	 * @param entitiesService By this instance we set the concrete instance of WorkshopServiceAbstract
-	 *                        and through it set the concrete type of WorkshopEntity as {@link #getEntityClass()}
-	 *                        to operate with.
+	 * @param workshopEntitiesService By this instance we set the concrete instance of WorkshopServiceAbstract
+	 *                                and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
+	 *                                to operate with.
 	 */
-	public WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract<T> entitiesService) {
-		this.entitiesService = entitiesService;
-		setEntityClass(entitiesService.getEntityClass());
-		workshopEntityName = entityClass.getSimpleName();
+	@Autowired
+	public WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract<T> workshopEntitiesService) {
+		this.workshopEntitiesService = workshopEntitiesService;
+		this.workshopEntityClass = workshopEntitiesService.getEntityClass();
+		workshopEntityClassName = workshopEntityClass.getSimpleName();
 	}
 	
 	/**
@@ -97,38 +101,36 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 	 */
 	@Override
 	@GetMapping
-	public ResponseEntity<String> getAll(@RequestParam(value = "pageSize", required = false) Integer pageSize,
-										 @RequestParam(value = "pageNum", required = false) Integer pageNum,
-										 @RequestParam(name = "order-by", required = false) String orderBy,
-										 @RequestParam(name = "order", required = false) String order)
-		throws JsonProcessingException {
+	public ResponseEntity<String> getAll(@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+										 @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+										 @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+										 @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		Locale locale = LocaleContextHolder.getLocale();
 		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
-		Page<T> entitiesPage = entitiesService.findAllEntities(pageable, orderBy);
+		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageable, orderBy);
 		
 		if (entitiesPage != null && entitiesPage.getContent().size() > 0) {
-			addSelfLinks(entitiesPage);
 			
-			Link testLink = entityLinks.linkToCollectionResource(entityClass).withSelfRel();
+			Resources<T> resources = new Resources<>(entitiesPage.getContent());
+			addResourcesLinks(resources);
+			String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(resources);
 			
-			Resources<T> resources = new Resources<>(entitiesPage.getContent(), testLink);
+			System.out.println("TOTAL ELEMENTS: " + entitiesPage.getTotalElements());
+			System.out.println("TOTAL PAGES: " + entitiesPage.getTotalPages());
+			System.out.println("NUMBER: " + entitiesPage.getNumber());
+			System.out.println(".getPageable().getPageNumber(): " + entitiesPage.getPageable().getPageNumber());
+			System.out.println(".getPageable().getPageSize(): " + entitiesPage.getPageable().getPageSize());
+			System.out.println(".getPageable().next(): " + entitiesPage.getPageable().next());
 			
-			String pagedResourcesToJson = jsonServiceUtils.convertEntitiesResourcesToJson(resources);
-			
-			
-			System.out.println("TOTAL ELEMENTS: "+entitiesPage.getTotalElements());
-			System.out.println("TOTAL PAGES: "+entitiesPage.getTotalPages());
-			System.out.println("NUMBER: "+entitiesPage.getNumber());
-			System.out.println(".getPageable().getPageNumber(): "+entitiesPage.getPageable().getPageNumber());
-			System.out.println(".getPageable().getPageSize(): "+entitiesPage.getPageable().getPageSize());
-			System.out.println(".getPageable().next(): "+entitiesPage.getPageable().next());
+			log.debug("{}s Page found for pageNumber={}, with pageSize={} and written as JSON", workshopEntityClassName,
+				entitiesPage.getPageable().getPageNumber(), entitiesPage.getPageable().getPageSize());
 			
 			return ResponseEntity.ok(pagedResourcesToJson);
 		} else {
 			String localizedMessage =
-				messageSource.getMessage("message.notFound(1)", new Object[]{workshopEntityName}, locale);
+				messageSource.getMessage("message.notFound(1)", new Object[]{workshopEntityClassName}, locale);
 			PersistenceFailure persistenceFailure =
-				new PersistenceFailure("No " + workshopEntityName + "s found!", HttpStatus.NOT_FOUND);
+				new PersistenceFailure("No " + workshopEntityClassName + "s found!", HttpStatus.NOT_FOUND);
 			persistenceFailure.setLocalizedMessage(localizedMessage);
 			throw persistenceFailure;
 		}
@@ -136,10 +138,10 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 	
 	@Override
 	@GetMapping("/{id}")
-	public ResponseEntity<String> getOne(@PathVariable("id") long id) throws JsonProcessingException {
-		T entity = entityClass.cast(entitiesService.findById(id));
+	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
+		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
 		addSelfLink(entity);
-		String entityToJson = jsonServiceUtils.convertEntityToJson(entity);
+		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entity);
 		return ResponseEntity.ok(entityToJson);
 	}
 	
@@ -192,18 +194,39 @@ public abstract class WorkshopControllerAbstract <T extends WorkshopEntityAbstra
 			new Sort(direction, orderBy));
 	}
 	
+	private Link getPagedLinks(int pageSize, int pageNum, String orderBy, String order) {
+		return null;
+	}
+	
 	private void addSelfLinks(Page<T> page) {
 		page.get().forEach(this::addSelfLink);
 	}
 	
 	private void addSelfLink(T workshopEntity) {
-		Link selfLink = entityLinks.linkToSingleResource(workshopEntity.getClass(), workshopEntity.getIdentifier());
+		Link selfLink = entityLinks
+			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier()).withSelfRel()
+			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("json");
 		workshopEntity.add(selfLink);
+	}
+	
+	/**
+	 * Ass self-links to all included WorkshopEntities and Link to their full collection
+	 */
+	private void addResourcesLinks(Resources<T> resources) {
+		resources.getContent().forEach(this::addSelfLink);
+//		resources.add(getPagedLinks());
+		resources.add(allWorkshopEntitiesLink);
 	}
 	
 	@Override
 	@PostConstruct
 	public void postConstruct() {
 		setObjectMapper(getJsonServiceUtils().getObjectMapper());
+		allWorkshopEntitiesLink = ControllerLinkBuilder.linkTo(
+			ControllerLinkBuilder.methodOn(this.getClass()).getAll(getDEFAULT_PAGE_SIZE(), 1, DEFAULT_ORDER_BY, DEFAULT_ORDER)
+		).withRel("getAll" + workshopEntityClassName + "s");
+//		allWorkshopEntitiesLink = entityLinks.linkToCollectionResource(workshopEntityClass)
+//			.withRel("getAll" + workshopEntityClassName + "s")
+//			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("json");
 	}
 }

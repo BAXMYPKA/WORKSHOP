@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *            <p>
  *            So every subclass must have the explicit NoArgsConstructor as:
  *            public EntityDao() {
- *            super.setEntityClass(Entity.class);
+ *            super.setWorkshopEntityClass(Entity.class);
  *            super.setKeyClass(Key.class);
  *            }
  *            <p>
@@ -141,8 +141,8 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 		order = order == null ? Sort.Direction.DESC : order;
 		//TODO: to realize estimating the whole quantity with max pageNum
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> query = cb.createQuery(entityClass);
-		Root<T> root = query.from(entityClass);
+		CriteriaQuery<T> query = cb.createQuery(workshopEntityClass);
+		Root<T> root = query.from(workshopEntityClass);
 		
 		TypedQuery<T> select = entityManager.createQuery(query);
 		select.setFirstResult((pageNum - 1) * pageSize); //Page formula
@@ -156,13 +156,13 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 				query.orderBy(cb.desc(root.get(orderBy)));
 			}
 			//Otherwise we try to use 'created' field
-		} else if (entityClass.isInstance(WorkshopEntity.class)) {
+		} else if (workshopEntityClass.isInstance(WorkshopEntity.class)) {
 			query.orderBy(cb.desc(root.get("created")));
 		}
 		
 		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
 		log.debug("{}s with pageSize={}, pageNum={}, orderBy={}, order={} is found? = {}",
-			entityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
+			workshopEntityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
 		return entities;
 	}
 */
@@ -243,7 +243,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 		Field propertyFound = findPropertyOfThisEntityClass(propertyName);
 		//propertyValue can be both String.class and Temporal.class to be used as argument for CriteriaQuery
 		Object parsedPropertyValue = propertyValue;
-		//If entityClass.property instance of Temporal.class so its value has to be the instance of the corresponding class
+		//If workshopEntityClass.property instance of Temporal.class so its value has to be the instance of the corresponding class
 		if (Temporal.class.isAssignableFrom(propertyFound.getType())) {
 			parsedPropertyValue = parseTemporal(propertyFound, propertyValue);
 		}

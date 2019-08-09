@@ -8,12 +8,15 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
 import internal.entities.hateoasResources.WorkshopEntityResource;
+import internal.exceptions.InternalServerError;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -46,11 +49,6 @@ public class JsonServiceUtils {
 		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 	}
 	
-	public String convertEntityToJson(WorkshopEntity entity) throws JsonProcessingException {
-		String value = objectMapper.writeValueAsString(entity);
-		return value;
-	}
-	
 	/**
 	 * @param jsonEntity JSON string with an Entity
 	 * @param entity     An exact Entity.class
@@ -58,9 +56,19 @@ public class JsonServiceUtils {
 	 * @return An Entity with all the ZonedDateTime fields set to UTC value.
 	 * @throws IOException
 	 */
-	public <T extends WorkshopEntity> T convertEntityFromJson(String jsonEntity, Class<T> entity) throws IOException {
-		T convertedEntity = objectMapper.readValue(jsonEntity, entity);
-		return convertedEntity;
+	public <T extends WorkshopEntity> T workshopEntityObjectsFromJson(String jsonEntity, Class<T> entity) {
+		try {
+			T convertedEntity = objectMapper.readValue(jsonEntity, entity);
+			log.debug("Received JSON successfully converted to {}", entity.getSimpleName());
+			return convertedEntity;
+		} catch (IOException e) {
+			throw new InternalServerError(e.getMessage(), "error.jsonUnprocessable",
+				HttpStatus.UNPROCESSABLE_ENTITY, e);
+		}
+	}
+	
+	public String workshopEntityObjectsToJson(WorkshopEntity entity) {
+		return getJson(entity);
 	}
 	
 	/**
@@ -70,36 +78,34 @@ public class JsonServiceUtils {
 	 * Timezone), but during deserialization all those fields will be converted to the UTC Timezone.
 	 * @throws JsonProcessingException
 	 */
-	public <T extends WorkshopEntity> String convertEntitiesToJson(Collection<T> entities) throws JsonProcessingException {
-		String values = objectMapper.writeValueAsString(entities);
-		return values;
+	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Collection<T> entities) {
+		return getJson(entities);
 	}
 	
 	/**
-	 * @param resources Resources<T extends WorkshopEntityAbstract> - the Resources with a Collection of WorkshopEntities
-	 *                  with embedded self Links. The collection itself contains Links (prevPage, nexPage, LastPage etc).
-	 * @param <T>       <T extends WorkshopEntityAbstract>
+	 * @param resource Resource<T extends WorkshopEntityAbstract> - the Resources with a Collection of WorkshopEntities
+	 *                 with embedded self Links. The collection itself contains Links (prevPage, nexPage, LastPage etc).
+	 * @param <T>      <T extends WorkshopEntityAbstract>
 	 * @return
 	 * @throws JsonProcessingException
 	 */
-	public <T extends WorkshopEntityAbstract> String convertEntitiesResourcesToJson(Resources<T> resources)
-		throws JsonProcessingException {
-		String workshopEntitiesResources = objectMapper.writeValueAsString(resources);
-		log.debug("WorkshopEntitiesResources successfully converted to JSON.");
-		return workshopEntitiesResources;
+	public <T extends WorkshopEntityAbstract> String workshopEntityObjectsToJson(Resource<T> resource) {
+		return getJson(resource);
 	}
 	
-	public String convertEntityResourceToJson(WorkshopEntityResource entityResource) throws JsonProcessingException {
-		String value = objectMapper.writeValueAsString(entityResource);
-		log.debug("WorkshopResourceEntity successfully converted to JSON.");
-		return value;
+	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Resources<T> resources) {
+		return getJson(resources);
 	}
 	
-	public WorkshopEntityResource<WorkshopEntity> convertEntityResourceFromJson(String jsonResourceEntity,
-																				Class<WorkshopEntityResource> resourceEntity)
-		throws IOException {
-		WorkshopEntityResource workshopEntityResource = objectMapper.readValue(jsonResourceEntity, resourceEntity);
-		log.debug("WorkshopResourceEntity successfully converted from JSON.");
-		return workshopEntityResource;
+	private String getJson(Object o) {
+		try {
+			String value = objectMapper.writeValueAsString(o);
+			log.debug("{} successfully converted to JSON.", o.getClass().getSimpleName());
+			return value;
+		} catch (JsonProcessingException e) {
+			throw new InternalServerError(e.getMessage(), "error.jsonInternalError",
+				HttpStatus.INTERNAL_SERVER_ERROR, e);
+		}
+		
 	}
 }

@@ -3,6 +3,7 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.exceptions.EntityNotFound;
+import internal.exceptions.InternalServerError;
 import internal.exceptions.PersistenceFailure;
 import internal.exceptions.WorkshopException;
 import internal.service.serviceUtils.JsonServiceUtils;
@@ -141,15 +142,21 @@ public class ExceptionHandlerController {
 		
 		if (wx instanceof EntityNotFound) {
 			EntityNotFound enf = (EntityNotFound) wx;
-			log.error(enf.getMessage(), enf);
+			log.info(enf.getMessage(), enf);
 			return getResponseEntity(
 				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND,
 				message);
 		} else if (wx instanceof PersistenceFailure) {
 			PersistenceFailure pf = (PersistenceFailure) wx;
-			log.error(pf.getMessage(), pf);
+			log.info(pf.getMessage(), pf);
 			return getResponseEntity(
 				pf.getHttpStatus() != null ? pf.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY,
+				message);
+		} else if (wx instanceof InternalServerError) {
+			InternalServerError ise = (InternalServerError) wx;
+			log.error(ise.getMessage(), ise);
+			return getResponseEntity(
+				ise.getHttpStatus() != null ? ise.getHttpStatus() : HttpStatus.INTERNAL_SERVER_ERROR,
 				message);
 		}
 		return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, wx.getMessage());

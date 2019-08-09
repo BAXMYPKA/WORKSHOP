@@ -91,7 +91,7 @@ class OrdersControllerIT {
 		
 		String jsonOrders = "[{\"identifier\":1},{\"identifier\":2}]";
 		
-		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
+		Mockito.when(jsonServiceUtils.workshopEntityObjectsToJson(orders)).thenReturn(jsonOrders);
 		
 		//WHEN THEN
 		mockMvc.perform(
@@ -117,7 +117,7 @@ class OrdersControllerIT {
 		
 		String jsonOrders = "[{\"identifier\":1},{\"identifier\":2}]";
 		
-		Mockito.when(jsonServiceUtils.convertEntitiesToJson(orders)).thenReturn(jsonOrders);
+		Mockito.when(jsonServiceUtils.workshopEntityObjectsToJson(orders)).thenReturn(jsonOrders);
 		
 		//WHEN THEN
 		
@@ -303,9 +303,9 @@ class OrdersControllerIT {
 		
 		JsonServiceUtils jsonServiceUtils = new JsonServiceUtils();
 		
-		String jsonOrder = jsonServiceUtils.convertEntityToJson(correctOrder1);
+		String jsonOrder = jsonServiceUtils.workshopEntityObjectsToJson(correctOrder1);
 		
-		Order order = jsonServiceUtils.convertEntityFromJson(jsonOrder, Order.class);
+		Order order = jsonServiceUtils.workshopEntityObjectsFromJson(jsonOrder, Order.class);
 		
 		return jsonOrder;
 	}

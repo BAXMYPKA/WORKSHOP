@@ -64,7 +64,7 @@ class ControllersBeanValidationIT {
 			trackable = (Order) entity;
 			urlToPersist = "/internal/orders";
 		}
-		String jsonEntity = jsonServiceUtils.convertEntityToJson(trackable);
+		String jsonEntity = jsonServiceUtils.workshopEntityObjectsToJson(trackable);
 		
 		//WHEN
 		Employee employee = Employee.builder()
@@ -92,7 +92,7 @@ class ControllersBeanValidationIT {
 		if ("Order".equals(entity.getClass().getSimpleName())) {
 			trackable = (Order) entity;
 		}
-		String jsonEntity = jsonServiceUtils.convertEntityToJson(trackable);
+		String jsonEntity = jsonServiceUtils.workshopEntityObjectsToJson(trackable);
 		
 		//WHEN
 		ResultActions perform = mockMvc.perform(MockMvcRequestBuilders
@@ -154,7 +154,7 @@ class ControllersBeanValidationIT {
 		task.setClassifiers(Collections.singleton(classifier));
 		orderWithGraphErrors.setTasks(Collections.singleton(task));
 		
-		String json = jsonServiceUtils.convertEntityToJson(orderWithGraphErrors);
+		String json = jsonServiceUtils.workshopEntityObjectsToJson(orderWithGraphErrors);
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(

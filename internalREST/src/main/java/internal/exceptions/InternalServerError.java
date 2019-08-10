@@ -13,6 +13,13 @@ public class InternalServerError extends WorkshopException {
 	
 	public InternalServerError(String message, Throwable cause) {
 		super(message, cause);
+		
+	}
+	/**
+	 * @see WorkshopException#WorkshopException(String, String, HttpStatus)
+	 */
+	public InternalServerError(String message, String messageSourceKey, HttpStatus httpStatusCode) {
+		super(message, messageSourceKey, httpStatusCode);
 	}
 	
 	public InternalServerError(String message, org.springframework.http.HttpStatus httpStatusCode) {
@@ -23,6 +30,10 @@ public class InternalServerError extends WorkshopException {
 		super(message, httpStatusCode, cause);
 	}
 	
+	
+	/**
+	 * @see WorkshopException#WorkshopException(String, String, org.springframework.http.HttpStatus, Throwable)
+	 */
 	public InternalServerError(String message, String messageSourceKey, org.springframework.http.HttpStatus httpStatusCode, Throwable cause) {
 		super(message, messageSourceKey, httpStatusCode, cause);
 	}

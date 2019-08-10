@@ -55,13 +55,13 @@ public class ExceptionHandlerController {
 			log.info(ex.getMessage());
 			return getResponseEntity(
 				HttpStatus.BAD_REQUEST,
-				messageSource.getMessage("httpStatus(1).badRequest", null, locale));
+				messageSource.getMessage("httpStatus.badRequest", null, locale));
 		} else {
 			// ex = HttpMessageNotWritableException.class, 422
 			log.error(ex.getMessage());
 			return getResponseEntity(
 				HttpStatus.UNPROCESSABLE_ENTITY,
-				messageSource.getMessage("httpStatus(1).unprocessableEntity.HttpMessageNotWritable", null, locale));
+				messageSource.getMessage("httpStatus.unprocessableEntity.HttpMessageNotWritable", null, locale));
 		}
 	}
 	
@@ -73,13 +73,13 @@ public class ExceptionHandlerController {
 			log.debug(ex.getMessage(), ex);
 			return getResponseEntity(
 				HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-				messageSource.getMessage("httpStatus(1).unsupportedMediaType", null, locale));
+				messageSource.getMessage("httpStatus.unsupportedMediaType", null, locale));
 		} else {
 			//MediaTypeNotAcceptable.class 406 Not Acceptable 
 			log.debug(ex.getMessage(), ex);
 			return getResponseEntity(
 				HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("httpStatus(1).notAcceptable.mediaType", null, locale));
+				messageSource.getMessage("httpStatus.notAcceptable.mediaType", null, locale));
 		}
 	}
 	
@@ -88,7 +88,7 @@ public class ExceptionHandlerController {
 		log.info(ex.getMessage());
 		return getResponseEntity(
 			HttpStatus.UNPROCESSABLE_ENTITY,
-			messageSource.getMessage("httpStatus(1).unprocessableEntity.JsonException", null, locale));
+			messageSource.getMessage("httpStatus.unprocessableEntity.JsonException", null, locale));
 	}
 	
 	@ExceptionHandler({AuthenticationCredentialsNotFoundException.class})

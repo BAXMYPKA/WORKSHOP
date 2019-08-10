@@ -26,6 +26,13 @@ public class IllegalArguments extends WorkshopException {
 	}
 	
 	/**
+	 * @see WorkshopException#WorkshopException(String, String, org.springframework.http.HttpStatus)
+	 */
+	public IllegalArguments(String message, String messageSourceKey, HttpStatus httpStatusCode) {
+		super(message, messageSourceKey, httpStatusCode);
+	}
+	
+	/**
 	 * @see WorkshopException#WorkshopException(String, HttpStatus, Throwable)
 	 */
 	public IllegalArguments(String message, HttpStatus httpStatusCode, Throwable cause) {

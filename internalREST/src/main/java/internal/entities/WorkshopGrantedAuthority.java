@@ -3,6 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 /**
@@ -29,7 +33,7 @@ import java.util.Set;
 @Entity(name = "Granted_Authority")
 @Table(name = "Granted_Authorities", schema = "EXTERNAL")
 public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements GrantedAuthority {
-	
+
 //	@Transient
 //	private static final long serialVersionUID = 1L;
 	
@@ -47,6 +51,10 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	@Length(max = 254, message = "{validation.length}")
 	private String description;
 	
+	@Column(updatable = false)
+	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
+	private ZonedDateTime created;
+	
 	/**
 	 * Not serializable to JSON (to prevent huge amount of Users).
 	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
@@ -61,15 +69,10 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 		return authority;
 	}
 	
-/*
-	@Override
-	public Long getIdentifier() {
-		return identifier;
+	@PrePersist
+	public void prePersist() {
+		if (created == null) {
+			created = ZonedDateTime.now();
+		}
 	}
-	
-	@Override
-	public void setIdentifier(Long identifier) {
-		this.identifier = identifier;
-	}
-*/
 }

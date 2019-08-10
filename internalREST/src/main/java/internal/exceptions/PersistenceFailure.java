@@ -38,6 +38,13 @@ public class PersistenceFailure extends WorkshopException {
 	}
 	
 	/**
+	 * @see WorkshopException#WorkshopException(String, String, HttpStatus)
+	 */
+	public PersistenceFailure(String message, String messageSourceKey, HttpStatus httpStatusCode) {
+		super(message, messageSourceKey, httpStatusCode);
+	}
+	
+	/**
 	 * @see WorkshopException#WorkshopException(String, String, HttpStatus, Throwable)
 	 */
 	public PersistenceFailure(String message, String messageSourceKey, HttpStatus httpStatusCode, Throwable cause) {

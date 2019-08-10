@@ -89,41 +89,9 @@ class WorkshopControllerAbstractIT {
 		positionOne = positionsService.persistEntity(positionOne);
 		positionTwo = positionsService.persistEntity(positionTwo);
 		
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions" +
-			"/?pageSize=3&pageNum=2"));
-		
-		//WHEN
-		ResultActions resultActions = mockMvc.perform(request);
-		
-		//THEN
-		EntityLinks entityLinks = departmentsController.getEntityLinks();
-		Link link =
-			entityLinks.linkFor(Department.class, "?page=56", "size=22").withSelfRel().withHreflang("ru").withMedia(
-			"json").expand("rjs", "dsfa;");
-		System.out.println(link);
-		System.out.println(departmentsController.getAllWorkshopEntitiesLink());
-		System.out.println(departmentsController.getEntityLinks().supports(User.class));
-		
-		resultActions
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique one\"")))
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
-	}
-	
-	@Disabled
-	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void aVoidinherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities() throws Exception {
-		//GIVEN
-		positionOne = new Position("Position unique one", departmentOne);
-		positionTwo = new Position("Position unique two", departmentOne);
-		
-		positionOne = positionsService.persistEntity(positionOne);
-		positionTwo = positionsService.persistEntity(positionTwo);
-		
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions/"));
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET",
+			URI.create("/internal/positions"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -136,5 +104,4 @@ class WorkshopControllerAbstractIT {
 			.andExpect(MockMvcResultMatchers
 				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
 	}
-	
 }

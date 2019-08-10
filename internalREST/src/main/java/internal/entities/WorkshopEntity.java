@@ -1,8 +1,7 @@
 package internal.entities;
 
-import org.springframework.hateoas.Link;
-
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 /**
  * Interface as the marker for implementing classes that they are from Workshop Entities factory.
@@ -23,4 +22,15 @@ public interface WorkshopEntity extends Serializable {
 	 * @param id
 	 */
 	void setIdentifier(Long id);
+	
+	
+	/**
+	 * @param created The obligatory property for being used for ordering by default.
+	 */
+	void setCreated(ZonedDateTime created);
+	
+	/**
+	 * @return The obligatory property for being used for ordering by default.
+	 */
+	ZonedDateTime getCreated();
 }

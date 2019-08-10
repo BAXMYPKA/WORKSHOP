@@ -3,6 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +13,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -37,6 +43,10 @@ public class Phone extends WorkshopEntityAbstract {
 	@Column
 	private String name;
 	
+	@Column(updatable = false)
+	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
+	private ZonedDateTime created;
+	
 	/**
 	 * Min digits = 4, Max = 15.
 	 * Can starts with '+', may contain '()', '-' and single whitespaces.
@@ -57,4 +67,11 @@ public class Phone extends WorkshopEntityAbstract {
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;
+	
+	@PrePersist
+	public void prePersist() {
+		if (created == null) {
+			created = ZonedDateTime.now();
+		}
+	}
 }

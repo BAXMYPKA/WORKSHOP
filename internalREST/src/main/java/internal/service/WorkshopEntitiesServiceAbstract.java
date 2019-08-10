@@ -18,6 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -185,6 +186,20 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
+	 * @throws IllegalArguments If a given Collection is null it will be thrown with HttpStatus.NOT_ACCEPTABLE
+	 */
+	public void removeEntities(Collection<T> entities) throws IllegalArguments {
+		if (entities == null) {
+			throw new IllegalArguments("Entities collection cannot be null!",
+				"httpStatus.notAcceptable.null",
+				HttpStatus.NOT_ACCEPTABLE);
+		} else if (entities.isEmpty()) {
+			return;
+		}
+		entities.forEach(this::removeEntity);
+	}
+	
+	/**
 	 * @param entities
 	 * @return {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)} If the given collection doesn't exceed
 	 * the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of persisted and managed copy of entities will be returned.
@@ -221,11 +236,14 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                 Otherwise {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
 	 * @param orderBy  Nullable. The property for ordering the result list by. If null {@link #DEFAULT_ORDER_BY} will
 	 *                 be used.
-	 * @return A Page<Entity> with a collection of Entities or with an Collection.empty() if nothing found or
+	 * @return A Page<WorkshopEntity> with a collection of Entities or {@link EntityNotFound} will be thrown if nothing found or
 	 * something went wrong during the search.
+	 * @throws EntityNotFound If nothing was found or 'orderBy' property isn't presented among {@link #entityClass}
+	 * properties.
+	 * @throws InternalServerError If Pageable argument is null.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public Page<T> findAllEntities(Pageable pageable, String orderBy) throws IllegalArgumentException {
+	public Page<T> findAllEntities(Pageable pageable, @Nullable String orderBy) throws InternalServerError, EntityNotFound {
 		if (pageable == null) {
 			throw new InternalServerError("Pageable cannot by null!");
 		}
@@ -240,12 +258,17 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(pageSize, pageNum, orderBy, order);
 			long total = workshopEntitiesDaoAbstract.countAllEntities();
 			
-			Page<T> page = new PageImpl<T>(entities.orElse(Collections.<T>emptyList()), pageable, total);
+			Page<T> page = new PageImpl<T>(entities.orElseThrow(() ->
+				new EntityNotFound("No " + entityClass.getSimpleName() + "s were found!",
+					HttpStatus.NOT_FOUND,
+					messageSource.getMessage("message.notFound(1)",
+						new Object[]{entityClass.getSimpleName() + "s"},
+						LocaleContextHolder.getLocale()))),
+				pageable, total);
 			
-			log.debug("A Page with the collection of {}s is found? = {}", entityClass.getSimpleName(), page.isEmpty());
+			log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
 			return page;
 		} catch (PersistenceException e) {
-			log.info(e.getMessage(), e);
 			throw new EntityNotFound(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
 				LocaleContextHolder.getLocale()), e);
@@ -253,30 +276,34 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @param pageSize min = 1, max = {@link this#getDEFAULT_PAGE_SIZE()} In case of incorrect values the size
+	 * @param pageSize min = 1, max = {@link #MAX_PAGE_SIZE} In case of incorrect values the size
 	 *                 will be set in between min and max.
-	 * @param pageNum  min = 1, max = {@link WorkshopEntitiesServiceAbstract#getMAX_PAGE_NUM()}.
+	 * @param pageNum  min = 1, max = {@link #MAX_PAGE_NUM}.
 	 *                 In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values
-	 * @return List of Entities or Collections.emptyList() if either nothing was found or a PersistenceException occurred.
+	 * @return List of Entities or throws EntityNotFound if either nothing was found or a PersistenceException occurred.
+	 * @throws EntityNotFound If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public List<T> findAllEntities(int pageSize, int pageNum, String orderBy, Sort.Direction order)
-		throws IllegalArgumentException {
-		pageSize = pageSize <= 0 || pageSize > DEFAULT_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
-		pageNum = pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 1 : pageNum;
+	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, Sort.Direction order)
+		throws EntityNotFound {
+		pageSize = pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
+		pageNum = pageNum < 0 || pageNum > MAX_PAGE_NUM ? 0 : pageNum;
+		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
+		order = order.isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(
-				pageSize,
-				pageNum,
-				orderBy == null ? "" : orderBy,
-				order);
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(pageSize,	pageNum, orderBy, order);
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
-			return entities.orElse(Collections.<T>emptyList());
+			return entities.orElseThrow(() -> new EntityNotFound(
+				"No "+entityClass.getSimpleName()+"s was found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.notFound(1)", new Object[]{entityClass.getSimpleName()+"s"},
+					LocaleContextHolder.getLocale())));
 		} catch (PersistenceException e) {
-			log.info(e.getMessage(), e);
-			return Collections.<T>emptyList();
+			throw new EntityNotFound(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
+				LocaleContextHolder.getLocale()), e);
 		}
 	}
 }

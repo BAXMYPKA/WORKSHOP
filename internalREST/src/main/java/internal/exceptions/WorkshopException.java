@@ -53,6 +53,20 @@ public abstract class WorkshopException extends RuntimeException {
 	}
 	
 	/**
+	 * @param message          First is used for the logging purposes. Second, can be exposed to the end Users.
+	 * @param messageSourceKey The key from messages.properties to be used for exposing its localized value
+	 *                         (along with Locale.class) to the end User.
+	 *                         If presented, it will be automatically translated according end User's Locale and
+	 *                         inserted into the HttpResponse.
+	 * @param httpStatusCode   To indicate the desirable HttpStatus code for this kind of exception to be returned to a client
+	 */
+	public WorkshopException(String message, String messageSourceKey, HttpStatus httpStatusCode) {
+		super(message);
+		this.HttpStatus = httpStatusCode;
+		this.messageSourceKey = messageSourceKey;
+	}
+	
+	/**
 	 * @param message        First is used for the logging purposes. Second, can be exposed to the end Users.
 	 * @param httpStatusCode To indicate the desirable HttpStatus code for this kind of exception to be returned to a client
 	 * @param cause          Only for inner logging use.

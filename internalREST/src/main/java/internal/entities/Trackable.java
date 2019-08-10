@@ -32,8 +32,8 @@ import java.time.ZonedDateTime;
 @MappedSuperclass
 public abstract class Trackable extends WorkshopEntityAbstract {
 	
-//	@Transient
-//	private static final long serialVersionUID = 4L;
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	/**
 	 * Every instance has to
@@ -107,22 +107,6 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	public String toString() {
 		return "identifier=" + identifier;
 	}
-	
-	public int compareTo(Trackable o) {
-		Trackable obj = (Trackable) o;
-		if (this.identifier > obj.getIdentifier()) {
-			return 1;
-		} else if (this.identifier < obj.getIdentifier()) {
-			return -1;
-		} else {
-			return 0;
-		}
-	}
-	
-//	@Override
-//	public int compareTo(WorkshopEntity o) {
-//		return 0;
-//	}
 	
 	@Override
 	public void setIdentifier(Long identifier) {

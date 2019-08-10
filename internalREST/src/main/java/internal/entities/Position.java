@@ -28,6 +28,9 @@ import java.util.Collection;
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
 public class Position extends Trackable implements GrantedAuthority {
 	
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	/**
 	 * Also uses as the WorkshopGrantedAuthority name
 	 */

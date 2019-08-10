@@ -31,6 +31,9 @@ import java.util.Collection;
 	@AttributeOverride(name = "created", column = @Column(name = "employed"))})
 public class Employee extends Trackable {
 	
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	@Column(name = "first_name", nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String firstName;

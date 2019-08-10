@@ -3,6 +3,7 @@ package internal.dao;
 import internal.entities.Employee;
 import internal.entities.Trackable;
 import internal.entities.WorkshopEntity;
+import internal.exceptions.InternalServerError;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> implements WorkshopEntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -114,80 +114,29 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 		}
 	}
 	
-	/*
-	 */
-/**
- * Page formula is: (pageNum -1)*pageSize
- *
- * @param pageSize Limits the number of results given at once. Min = 1, Max = ${@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_DEFAULT}
- *                 If 0 - will be set to default (max).
- * @param pageNum  Offset (page number). When pageSize=10 and pageNum=3 the result will return from 30 to 40 entities
- *                 If 0 - will be set to default. Max amount of given pages is ${@link WorkshopEntitiesDaoAbstract#PAGE_NUM_MAX}
- * @param orderBy  The name of the field the ascDesc will be happened by.
- *                 When empty, if the Entity is instance of WorkshopEntity.class the list will be ordered by
- *                 'created' field, otherwise no ordering will happened.
- * @param order    "ASC" or "DESC" types from Sort.Order ENUM
- * @return If nothing found an Optional.empty() will be returned.
- * @throws PersistenceException In case of timeout, non-transactional operation, lock-failure etc.
- *//*
-
-	public Optional<List<T>> findAll(
-		int pageSize,
-		int pageNum,
-		@Nullable String orderBy,
-		@Nullable Sort.Direction order) throws PersistenceException {
-		pageSize = (pageSize <= 0 || pageSize > PAGE_SIZE_DEFAULT) ? PAGE_SIZE_DEFAULT : pageSize;
-		pageNum = pageNum <= 0 ? 1 : pageNum;
-		order = order == null ? Sort.Direction.DESC : order;
-		//TODO: to realize estimating the whole quantity with max pageNum
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> query = cb.createQuery(workshopEntityClass);
-		Root<T> root = query.from(workshopEntityClass);
-		
-		TypedQuery<T> select = entityManager.createQuery(query);
-		select.setFirstResult((pageNum - 1) * pageSize); //Page formula
-		select.setMaxResults(pageSize);
-		
-		//If 'orderBy' is used we use it in conjunction with order
-		if (orderBy != null && !orderBy.isEmpty()) {
-			if (order.isAscending()) {
-				query.orderBy(cb.asc(root.get(orderBy)));
-			} else {
-				query.orderBy(cb.desc(root.get(orderBy)));
-			}
-			//Otherwise we try to use 'created' field
-		} else if (workshopEntityClass.isInstance(WorkshopEntity.class)) {
-			query.orderBy(cb.desc(root.get("created")));
-		}
-		
-		Optional<List<T>> entities = Optional.ofNullable(select.getResultList());
-		log.debug("{}s with pageSize={}, pageNum={}, orderBy={}, order={} is found? = {}",
-			workshopEntityClass.getSimpleName(), pageSize, pageNum, orderBy, order, entities.isPresent());
-		return entities;
-	}
-*/
-	
 	/**
-	 * Page formula is: (pageNum -1)*pageSize
+	 * Spring Page interface starts count pages from 0.
+	 * Page formula is: (pageNum)*pageSize
 	 *
 	 * @param pageSize The maximum amount of entities at once (on one page).
-	 *                 0 = default ({@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_DEFAULT}),
-	 *                 Max = {@link WorkshopEntitiesDaoAbstract#PAGE_SIZE_MAX}
+	 *                 May be 0.
+	 *                 Default = ({@link #PAGE_SIZE_DEFAULT}),
+	 *                 Max = {@link #PAGE_SIZE_MAX}
 	 * @param pageNum  Number of desired page to be given.
-	 *                 0 = default (1),
-	 *                 Max = {@link WorkshopEntitiesDaoAbstract#PAGE_NUM_MAX}.
+	 *                 Default = 0,
+	 *                 Max = {@link #PAGE_NUM_MAX}.
 	 * @param orderBy  The name of the field (property) to order by. If null, 'created' field will be used by default.
 	 * @param order    {@link Sort.Direction} Ascending or Descending order. Default is Descending.
-	 * @return Optional<List < T>>. If nothing was foung, Optional.empty() will be returned.
+	 * @return 'Optional<List <T>>' sorted by property name and according to Sort.Direction.
+	 * If nothing was found Optional.empty() will be returned.
 	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
 	 * @throws PersistenceException     If an Entity doesn't have 'orderBy' field name.
 	 */
-	public Optional<List<T>> findAllPaged(
+	public Optional<List<T>> findAllPagedAndSorted(
 		int pageSize,
 		int pageNum,
 		@Nullable String orderBy,
-		@Nullable Sort.Direction order
-	) throws IllegalArgumentException, PersistenceException {
+		@Nullable Sort.Direction order) throws IllegalArgumentException, PersistenceException {
 		if (pageSize < 0 || pageNum < 0) {
 			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
 		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
@@ -195,7 +144,6 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
 		}
 		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-		pageNum = pageNum == 0 ? 1 : pageNum;
 		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : "created"; //Set presented or default
 		order = order != null ? order : Sort.Direction.DESC; //Set presented of default
 		
@@ -212,12 +160,26 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 			cq.orderBy(cb.asc(root.get(orderBy)));
 		}
 		TypedQuery<T> query = entityManager.createQuery(cq);
-		query.setFirstResult((pageNum - 1) * pageSize); //Offset (page number)
+		query.setFirstResult(pageNum * pageSize); //Offset (page number)
 		query.setMaxResults(pageSize); //Limit (page size)
 		
-		Optional<List<T>> resultList = Optional.ofNullable(query.getResultList());
-		log.debug("Was the result found? = {}", resultList.isPresent());
-		return resultList;
+		List<T> resultList = query.getResultList();
+		
+		if (!resultList.isEmpty()) {
+			//Sorting
+			String finalOrderBy = orderBy;
+			if (order.isDescending()) { //Descending order
+				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
+			} else { //Ascending order
+				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()));
+			}
+			log.debug("{}s were found and sorted {} according to {}",
+				entityClass.getSimpleName(), order.name(), orderBy);
+			return Optional.of(resultList);
+		} else {
+			log.debug("{}s were not found", entityClass.getSimpleName());
+			return Optional.empty();
+		}
 	}
 	
 	/**
@@ -229,7 +191,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 	 *                      so its 'propertyValue' will be parsed accordingly and may throw the parsing exception.
 	 * @param propertyValue The value to be found. It it is the ZonedDateTime, LocalDate value,
 	 *                      it is will be parsed accordingly.
-	 * @return Optional<List<T>> with the found entities or Optional.ofNullable() if nothing was found.
+	 * @return Optional<List < T>> with the found entities or Optional.ofNullable() if nothing was found.
 	 * @throws PersistenceException     When nothing found or in case of some DB problems
 	 * @throws IllegalArgumentException If 'propertyName' or 'propertyValue' is either null, or empty,
 	 *                                  or neither ${@link #getClass()} or nor of its superclasses don't have such a property,
@@ -516,5 +478,25 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends Serializable, K> im
 				"e.g.: 2020-10-5T13:50:45:00+00.01, 2017-11-20T09:35:45+03:00[Europe/Moscow] ect", e);
 		}
 		return temporalParsed;
+	}
+	
+	private Optional<Comparable> getComparablePropertyValue(String propertyName, Object objectToGetValueFrom) {
+		Class entityClazz = entityClass;
+		while (entityClazz != null) {
+			Field[] declaredFields = entityClazz.getDeclaredFields();
+			for (Field f : declaredFields) {
+				if (f.getName().equals(propertyName)) {
+					try {
+						f.setAccessible(true);
+						return Optional.of((Comparable) f.get(objectToGetValueFrom));
+					} catch (IllegalAccessException e) {
+						log.error(e.getMessage(), e);
+						return Optional.empty();
+					}
+				}
+			}
+			entityClazz = entityClass.getSuperclass();
+		}
+		return Optional.empty();
 	}
 }

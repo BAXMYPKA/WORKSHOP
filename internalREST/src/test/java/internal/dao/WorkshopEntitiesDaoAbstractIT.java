@@ -178,11 +178,11 @@ class WorkshopEntitiesDaoAbstractIT {
 		ordersDao.removeEntities(ordersPersisted.get());
 		
 		//THEN No entities of that kind should be found
-		Optional<List<Employee>> emptyEmployees = employeesDao.findAllPaged(0, 0, "", Sort.Direction.ASC);
-		Optional<List<Order>> emptyOrders = ordersDao.findAllPaged(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Employee>> emptyEmployees = employeesDao.findAllPagedAndSorted(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Order>> emptyOrders = ordersDao.findAllPagedAndSorted(0, 0, "", Sort.Direction.ASC);
 		
-		assertTrue(emptyEmployees.get().isEmpty());
-		assertTrue(emptyOrders.get().isEmpty());
+		assertFalse(emptyEmployees.isPresent());
+		assertFalse(emptyOrders.isPresent());
 	}
 	
 	@Test
@@ -266,13 +266,13 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Should_Work_Properly(int pageNum) {
-		//GIVEN
+		//GIVEN DAO layer with Spring Page starts pages count from 0
 		// 21 pre-persisted Orders from order1 to order21
 		persistAllOrders();
-		int customPageSize = 5;
+		int customPageSize = 4;
 		
 		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAllPaged(customPageSize, pageNum, null, null).get();
+		List<Order> ordersPageFromExisting = ordersDao.findAllPagedAndSorted(customPageSize, pageNum, null, null).get();
 		
 		//THEN
 		assertEquals(customPageSize, ordersPageFromExisting.size());
@@ -293,9 +293,9 @@ class WorkshopEntitiesDaoAbstractIT {
 		int pageSize = 5;
 		
 		//WHEN get a page with the descending order by default
-		List<Order> ordersPageDescendingDefault = ordersDao.findAllPaged(
+		List<Order> ordersPageDescendingDefault = ordersDao.findAllPagedAndSorted(
 			pageSize, pageNum, "overallPrice", null).get();
-		List<Order> ordersPageAscending = ordersDao.findAllPaged(
+		List<Order> ordersPageAscending = ordersDao.findAllPagedAndSorted(
 			pageSize, pageNum, "description", Sort.Direction.ASC).get();
 		
 		//THEN
@@ -334,16 +334,16 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Transactional
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly() {
-		//GIVEN
+		//GIVEN DAO layer starts pages count from 0
 		// 21 pre-persisted Orders from order1 to order21
 		persistAllOrders();
 		int customPageSize = 5;
-		int lastPage = 5;
+		int lastPage = 4; //DAO layer starts pages count from 0
 		//All existing Orders to compare with
-		List<Order> allPersistedOrders = ordersDao.findAllPaged(0, 0, null, null).get();
+		List<Order> allPersistedOrders = ordersDao.findAllPagedAndSorted(0, 0, null, null).get();
 		
 		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAllPaged(customPageSize, lastPage, null, null).get();
+		List<Order> ordersPageFromExisting = ordersDao.findAllPagedAndSorted(customPageSize, lastPage, null, null).get();
 		
 		//THEN the last fifth page should contain only the one last Order
 		assertEquals(1, ordersPageFromExisting.size());
@@ -549,7 +549,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		persistAllOrders();
 		
 		//WHEN
-		List<Order> pagedOrders = ordersDao.findAllPaged(20, 1, "overallPrice", Sort.Direction.ASC).get();
+		List<Order> pagedOrders = ordersDao.findAllPagedAndSorted(20, 1, "overallPrice", Sort.Direction.ASC).get();
 		
 		//THEN
 		System.out.println(pagedOrders);
@@ -738,25 +738,25 @@ class WorkshopEntitiesDaoAbstractIT {
 	 */
 	@Transactional
 	public void removeAllPersistedEntities() {
-		Optional<List<Employee>> employeesManaged = employeesDao.findAllPaged(0, 0, null, null);
+		Optional<List<Employee>> employeesManaged = employeesDao.findAllPagedAndSorted(0, 0, null, null);
 		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Task>> tasksManaged = tasksDao.findAllPaged(0, 0, null, null);
+		Optional<List<Task>> tasksManaged = tasksDao.findAllPagedAndSorted(0, 0, null, null);
 		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Order>> ordersManaged = ordersDao.findAllPaged(0, 0, null, null);
+		Optional<List<Order>> ordersManaged = ordersDao.findAllPagedAndSorted(0, 0, null, null);
 		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllPaged(0, 0, null, null);
+		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllPagedAndSorted(0, 0, null, null);
 		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<User>> usersManaged = usersDao.findAllPaged(0, 0, null, null);
+		Optional<List<User>> usersManaged = usersDao.findAllPagedAndSorted(0, 0, null, null);
 		usersDao.removeEntities(usersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Position>> positionsManaged = positionsDao.findAllPaged(0, 0, null, null);
+		Optional<List<Position>> positionsManaged = positionsDao.findAllPagedAndSorted(0, 0, null, null);
 		positionsDao.removeEntities(positionsManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Department>> departmentsManaged = departmentsDao.findAllPaged(0, 0, null, null);
+		Optional<List<Department>> departmentsManaged = departmentsDao.findAllPagedAndSorted(0, 0, null, null);
 		departmentsDao.removeEntities(departmentsManaged.orElse(Collections.emptyList()));
 		
 		entityManager.clear();

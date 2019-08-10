@@ -11,9 +11,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.beans.support.SortDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.*;
@@ -27,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import java.util.*;
-import java.util.function.Supplier;
 
 /**
  * This class also intended to throw WorkshopException with fully localized messages with appropriate HttpStatus codes
@@ -254,9 +250,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		Sort.Direction order =
 			pageable.getSort().isUnsorted() || pageable.getSort().getOrderFor(orderBy).getDirection() == null ?
 				Sort.Direction.DESC : pageable.getSort().getOrderFor(orderBy).getDirection();
+		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(pageSize, pageNum, orderBy, order);
-			long total = workshopEntitiesDaoAbstract.countAllEntities();
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize, pageNum, orderBy, order);
 			
 			Page<T> page = new PageImpl<T>(entities.orElseThrow(() ->
 				new EntityNotFound("No " + entityClass.getSimpleName() + "s were found!",
@@ -264,7 +260,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 					messageSource.getMessage("message.notFound(1)",
 						new Object[]{entityClass.getSimpleName() + "s"},
 						LocaleContextHolder.getLocale()))),
-				pageable, total);
+				pageable, totalEntities);
 			
 			log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
 			return page;
@@ -293,7 +289,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
 		order = order.isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPaged(pageSize,	pageNum, orderBy, order);
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize,	pageNum, orderBy, order);
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
 			return entities.orElseThrow(() -> new EntityNotFound(
 				"No "+entityClass.getSimpleName()+"s was found!",

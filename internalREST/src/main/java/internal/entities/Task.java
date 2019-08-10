@@ -32,6 +32,9 @@ import java.util.stream.Stream;
 @Table(name = "Tasks", schema = "INTERNAL")
 public class Task extends Trackable {
 	
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	@Column
 	private String name;
 	

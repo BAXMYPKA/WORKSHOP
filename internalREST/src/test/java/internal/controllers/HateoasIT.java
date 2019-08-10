@@ -125,7 +125,7 @@ class HateoasIT {
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
 	public void firstPage_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink() throws Exception {
-		//GIVEN
+		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve first page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
@@ -163,9 +163,9 @@ class HateoasIT {
 	@Transactional
 	public void secondPage_Should_Contain_CurrentPageLink_PreviousPageLink_NextPageLink_LastPageLink_FirstPageLink()
 		throws Exception {
-		//GIVEN
+		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
-		//Retrieve first page of 4 with 3 elements of 10 total elements
+		//Retrieve second page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
 			"GET", URI.create("/internal/positions?pageSize=3&pageNum=2"));
 		
@@ -201,9 +201,9 @@ class HateoasIT {
 	@Transactional
 	public void lastPage_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()
 		throws Exception {
-		//GIVEN
+		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
-		//Retrieve first page of 4 with 3 elements of 10 total elements
+		//Retrieve last page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
 			"GET", URI.create("/internal/positions?pageSize=3&pageNum=4"));
 		
@@ -227,23 +227,22 @@ class HateoasIT {
 				.content().string(Matchers.containsString(
 					"\"rel\":\"firstPage\",\"href\":\"http://localhost/internal/positions?pageSize=3&pageNum=1")))
 			
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.not
-					(Matchers.containsString("\"rel\":\"lastPage\""))))
-			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.not(Matchers.containsString("\"rel\":\"nextPage\""))));
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
+				Matchers.containsString("\"rel\":\"lastPage\""))))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
+				Matchers.containsString("\"rel\":\"nextPage\""))));
 	}
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void lastPage_Should_Contain_Single_WorkshopEntity()
+	public void exceedingLastPage_Should_Return_HttpStatus404_NotFound()
 		throws Exception {
-		//GIVEN
+		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
-		//Retrieve first page of 4 with 3 elements of 10 total elements
+		//Retrieve non-existing 5th page
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=4"));
+			"GET", URI.create("/internal/positions?pageSize=3&pageNum=5"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -255,27 +254,96 @@ class HateoasIT {
 		
 		resultActions
 			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.status().isNotFound());
+	}
+	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@Transactional
+	public void orderBy_PropertyName_With_Default_Desc_Order()
+		throws Exception {
+		//GIVEN 10 elements by 3 on a page = 4 pages
+		int totalPersisted = totalPersistedPositionsForPaginationTests();
+		//Retrieve first page of 4 with 3 elements of 10 total elements.
+		//The request with orderBy 'name' property
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1&order-by=name"));
+		
+		//WHEN
+		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
+		
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		assertEquals(totalPersisted, totalRetrieved);
+		
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 10\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 09\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 08\"")))
 			
 			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.not
-					(Matchers.containsString("\"rel\":\"lastPage\""))))
-			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.not(Matchers.containsString("\"rel\":\"nextPage\""))));
+				.content().string(Matchers.not(
+					Matchers.containsString("\"name\":\"Position unique 07\""))))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.not(
+					Matchers.containsString("\"name\":\"Position unique 01\""))));
+	}
+	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@Transactional
+	public void orderBy_PropertyName_With_Asc_Order()
+		throws Exception {
+		//GIVEN 10 elements by 3 on a page = 4 pages
+		int totalPersisted = totalPersistedPositionsForPaginationTests();
+		//Retrieve first page of 4 with 3 elements of 10 total elements.
+		//The request with orderBy 'name' property with ascending order
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1&order-by=name&order=asc"));
+		
+		//WHEN
+		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
+		
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		assertEquals(totalPersisted, totalRetrieved);
+		
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 01\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 02\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Position unique 03\"")))
+			
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.not(
+					Matchers.containsString("\"name\":\"Position unique 04\""))))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.not(
+					Matchers.containsString("\"name\":\"Position unique 10\""))));
 	}
 	
 	private int totalPersistedPositionsForPaginationTests() {
 		//DO NOT ADD NEW POSITIONS!
 		positionsService.removeEntities(positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC));
 		
-		positionOne = new Position("Position unique 1", departmentOne);
-		positionTwo = new Position("Position unique 2", departmentOne);
-		Position position3 = new Position("Position unique 3", departmentOne);
-		Position position4 = new Position("Position unique 4", departmentOne);
-		Position position5 = new Position("Position unique 5", departmentOne);
-		Position position6 = new Position("Position unique 6", departmentOne);
-		Position position7 = new Position("Position unique 7", departmentOne);
-		Position position8 = new Position("Position unique 8", departmentOne);
-		Position position9 = new Position("Position unique 9", departmentOne);
+		positionOne = new Position("Position unique 01", departmentOne);
+		positionTwo = new Position("Position unique 02", departmentOne);
+		Position position3 = new Position("Position unique 03", departmentOne);
+		Position position4 = new Position("Position unique 04", departmentOne);
+		Position position5 = new Position("Position unique 05", departmentOne);
+		Position position6 = new Position("Position unique 06", departmentOne);
+		Position position7 = new Position("Position unique 07", departmentOne);
+		Position position8 = new Position("Position unique 08", departmentOne);
+		Position position9 = new Position("Position unique 09", departmentOne);
 		Position position10 = new Position("Position unique 10", departmentOne);
 		
 		return positionsService.persistEntities(Arrays.asList(positionOne, positionTwo, position3,

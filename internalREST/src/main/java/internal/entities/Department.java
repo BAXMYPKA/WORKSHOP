@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
+import internal.exceptions.WorkshopException;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -39,8 +40,8 @@ import java.util.List;
 @Table(name = "Departments", schema = "INTERNAL")
 public class Department extends WorkshopEntityAbstract {
 	
-//	@Transient
-//	private static final long serialVersionUID = 1L;
+	@Transient
+	private static long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Id
 	@Column(name = "id")

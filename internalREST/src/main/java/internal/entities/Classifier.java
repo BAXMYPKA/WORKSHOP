@@ -38,6 +38,9 @@ import java.util.Set;
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
 public class Classifier extends Trackable implements Serializable {
 	
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	@Column(nullable = false, unique = true)
 	@NotBlank(groups = {UpdationCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}")
 	private String name;

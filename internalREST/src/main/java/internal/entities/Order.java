@@ -27,6 +27,9 @@ import java.util.Set;
 @Table(name = "Orders", schema = "INTERNAL")
 public class Order extends Trackable {
 	
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")

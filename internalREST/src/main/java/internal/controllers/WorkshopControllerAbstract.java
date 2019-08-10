@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
 import internal.exceptions.IllegalArguments;
-import internal.exceptions.PersistenceFailure;
 import internal.service.WorkshopEntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import lombok.Getter;
@@ -94,41 +93,42 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	}
 	
 	/**
-	 * @param pageSize Non-required amount of Orders on one pageNum. Default is OrdersService.PAGE_SIZE_DEFAULT. @Nullable
-	 * @param pageNum  Number of page desires page. From 1 to max.
-	 *                 (!) Spring Page interface internally starts page count from 0 so to adapt it to more convenient
-	 *                 count from 1 we do 'pageNum--' and '++pageNum' when return pageNum back to the end User. @Nullable
-	 * @param orderBy  The property of Order all the Orders have to be ordered by. @Nullable
-	 * @param order    'asc' or 'desc' (ascending or descending) order. @Nullable
-	 * @return The paged WorkshopEntities collection with embedded navigation Links through it (prevPage, nextPage etc).
-	 * Every WorkshopEntity has its own self-link to obtain.
+	 * @param pageSize @Nullable. Amount of WorkshopEntities on one page (at once).
+	 *                 Default = {@link #DEFAULT_PAGE_SIZE}.
+	 * @param pageNum  @Nullable. Number of desires page.
+	 *                 Default = 1.
+	 *                 (!) Spring Page interface and WorkshopDaoAbstract accordingly both internally starts page count
+	 *                 from 0 so to adapt it to more convenient count from 1 for the end Users we do '--pageNum'
+	 *                 before passing it into domain logic and then '++pageNum' when returning pageNum back to the end
+	 *                 User.
+	 * @param orderBy  @Nullable The name of property the WorkshopEntities have to be ordered by.
+	 *                 Default = {@link #DEFAULT_ORDER_BY}
+	 * @param order    @Nullable. 'asc' or 'desc' (ascending or descending) order.
+	 *                 Default = {@link #DEFAULT_ORDER}
+	 * @return Paged and sorted WorkshopEntities collection with embedded navigation Links through it (i.e. prevPage,
+	 * nextPage etc). Also every WorkshopEntity has its own self-link to be obtained as a HATEOAS resource.
 	 */
 	@Override
 	@GetMapping
-	public ResponseEntity<String> getAll(@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
-										 @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-										 @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-										 @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+	public ResponseEntity<String> getAll(
+		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		
 		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageable, orderBy);
 		
 		Resources<T> resources = new Resources<>(entitiesPage.getContent());
-		//The following are preparing paged Links for this resources (nextPage, previousPage etc)
+		//The following are preparing paged Links for this resources (i.e. nextPage, previousPage etc)
 		Collection<Link> pagedLinks = getPagedLinks(entitiesPage, orderBy, order);
-		//Here all the included WorkshopEntities obtain self-Links and paged Links are being added to the collection
-		addResourcesLinks(resources, pagedLinks);
+		//Here is all the included WorkshopEntities obtain self-Links and paged Links are being added to the Resources
+		addLinksToResources(resources, pagedLinks);
 		
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(resources);
 		
-		System.out.println("TOTAL ELEMENTS: " + entitiesPage.getTotalElements());
-		System.out.println("PAGE NUMBER ELEMENTS: " + entitiesPage.getNumberOfElements());
-		System.out.println("TOTAL PAGES: " + entitiesPage.getTotalPages());
-		System.out.println("NUMBER: " + entitiesPage.getNumber());
-		System.out.println("hasNext: " + entitiesPage.hasNext());
-		System.out.println("hasPrevious: " + entitiesPage.hasPrevious());
-		
-		log.debug("{}s Page found for pageNumber={}, with pageSize={} and written as JSON", workshopEntityClassName,
-			entitiesPage.getNumber(), entitiesPage.getSize());
+		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
+			workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		
 		return ResponseEntity.ok(pagedResourcesToJson);
 	}
@@ -289,7 +289,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	/**
 	 * Ass self-links to the all included WorkshopEntities and set of paged Links to this full collection.
 	 */
-	private void addResourcesLinks(Resources<T> resources, Collection<Link> pageableLinks) {
+	private void addLinksToResources(Resources<T> resources, Collection<Link> pageableLinks) {
 		resources.getContent().forEach(this::addSelfLink);
 		resources.add(pageableLinks);
 	}

@@ -38,8 +38,8 @@ public class User extends WorkshopEntityAbstract {
 	
 	//TODO: how to determine and fix the particular phone the User is using for login? And fix it in the JwtUtils getToken method!
 	
-//	@Transient
-//	private static final long serialVersionUID = 1L;
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Id
 	@Column(name = "id")

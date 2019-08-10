@@ -31,8 +31,8 @@ import java.time.ZonedDateTime;
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone extends WorkshopEntityAbstract {
 	
-//	@Transient
-//	private static final long serialVersionUID = 1L;
+	@Transient
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Id
 	@Column(name = "id")

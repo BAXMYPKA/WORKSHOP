@@ -14,9 +14,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
@@ -40,7 +39,8 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")
 	@SequenceGenerator(name = "authorities_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@PositiveOrZero(message = "{validation.positiveOrZero}")
+	@Positive(groups = Default.class, message = "{validation.positive}")
+	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)

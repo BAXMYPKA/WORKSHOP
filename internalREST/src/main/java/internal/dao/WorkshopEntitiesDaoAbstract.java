@@ -3,7 +3,6 @@ package internal.dao;
 import internal.entities.Employee;
 import internal.entities.Trackable;
 import internal.entities.WorkshopEntity;
-import internal.exceptions.InternalServerError;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +51,10 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	private int PAGE_SIZE_MAX;
 	@Value("${page.max_num}")
 	private int PAGE_NUM_MAX;
+	@Value("${default.orderBy}")
+	private String DEFAULT_ORDER_BY;
+	@Value("${default.order}")
+	private String DEFAULT_ORDER;
 	
 	@PersistenceContext
 	public EntityManager entityManager;
@@ -119,15 +122,15 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * Page formula is: (pageNum)*pageSize
 	 *
 	 * @param pageSize The maximum amount of entities at once (on one page).
-	 *                 May be 0.
 	 *                 Default = ({@link #PAGE_SIZE_DEFAULT}),
 	 *                 Max = {@link #PAGE_SIZE_MAX}
 	 * @param pageNum  Number of desired page to be given.
 	 *                 Default = 0,
-	 *                 Max = {@link #PAGE_NUM_MAX}.
-	 * @param orderBy  The name of the field (property) to order by. If null, 'created' field will be used by default.
-	 * @param order    {@link Sort.Direction} Ascending or Descending order. Default is Descending.
-	 * @return 'Optional<List <T>>' sorted by property name and according to Sort.Direction.
+	 * @param orderBy  @Nullable. The name of the property to order by.
+	 *                 Default = {@link #DEFAULT_ORDER_BY}
+	 * @param order    {@link Sort.Direction} 'asc' or 'desc' (Ascending or Descending) order.
+	 *                 Default = {@link #DEFAULT_ORDER}
+	 * @return 'Optional<List <T>>' sorted by property name according to Sort.Direction.
 	 * If nothing was found Optional.empty() will be returned.
 	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
 	 * @throws PersistenceException     If an Entity doesn't have 'orderBy' field name.
@@ -137,6 +140,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		int pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order) throws IllegalArgumentException, PersistenceException {
+		
 		if (pageSize < 0 || pageNum < 0) {
 			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
 		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
@@ -144,11 +148,12 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
 		}
 		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : "created"; //Set presented or default
-		order = order != null ? order : Sort.Direction.DESC; //Set presented of default
+		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
+		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
 		
 		log.debug("Paged query with pageSize={}, pageNum={}, orderBy={}, order={} will be performed",
 			pageSize, pageNum, orderBy, order);
+		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(entityClass);
 		Root<T> root = cq.from(entityClass);

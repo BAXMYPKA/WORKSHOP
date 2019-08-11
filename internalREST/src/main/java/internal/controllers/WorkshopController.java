@@ -3,19 +3,23 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
+import internal.entities.WorkshopEntityAbstract;
 import internal.service.WorkshopEntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
 
 /**
- * To be inherited by all the REST Controllers to work with WokrshopEntities.
+ * Spring specified controllers contract.
+ * To be inherited by all the REST Controllers to work with WorkshopEntities.
  *
  * @param <T> Every implementation must be typed with WorkshopEntity of internal domain.
  */
@@ -45,9 +49,9 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	JsonServiceUtils getJsonServiceUtils();
 	
-	void setObjectMapper(ObjectMapper objectMapper);
+//	void setObjectMapper(ObjectMapper objectMapper);
 	
-	ObjectMapper getObjectMapper();
+//	ObjectMapper getObjectMapper();
 	
 //	Class getWorkshopEntityClass();
 	
@@ -59,9 +63,9 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	ResponseEntity<String> getOne(long id);
 	
-	ResponseEntity<String> postOne(WorkshopEntity workshopEntity);
+	ResponseEntity<String> postOne(T workshopEntity, BindingResult bindingResult);
 	
-	ResponseEntity<String> putOne(WorkshopEntity workshopEntity);
+	ResponseEntity<String> putOne(T workshopEntity, BindingResult bindingResult);
 	
 	ResponseEntity<String> deleteOne(long id);
 	

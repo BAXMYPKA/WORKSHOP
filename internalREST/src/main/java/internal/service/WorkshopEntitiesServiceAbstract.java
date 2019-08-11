@@ -2,10 +2,10 @@ package internal.service;
 
 import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
-import internal.exceptions.IllegalArguments;
-import internal.exceptions.EntityNotFound;
-import internal.exceptions.InternalServerError;
-import internal.exceptions.PersistenceFailure;
+import internal.exceptions.EntityNotFoundException;
+import internal.exceptions.IllegalArgumentsException;
+import internal.exceptions.InternalServerErrorException;
+import internal.exceptions.PersistenceFailureException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -69,17 +69,17 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @param id
 	 * @return A found Entity or throws javax.persistence.NoResultException
 	 * @throws IllegalArgumentException If identifier <= 0 or not the key type for the Entity
-	 * @throws EntityNotFound           If nothing were found
+	 * @throws EntityNotFoundException  If nothing were found
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public T findById(long id) throws IllegalArgumentException, EntityNotFound {
+	public T findById(long id) throws IllegalArgumentException, EntityNotFoundException {
 		if (id <= 0) {
-			throw new IllegalArguments("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
+			throw new IllegalArgumentsException("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
 				messageSource.getMessage("error.propertyHasToBe(2)",
 					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
 		}
 		return workshopEntitiesDaoAbstract.findById(id).orElseThrow(() ->
-			new EntityNotFound("No " + entityClass.getSimpleName() + " with identifier=" + id + " was found!",
+			new EntityNotFoundException("No " + entityClass.getSimpleName() + " with identifier=" + id + " was found!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage("message.notFound(2)",
 					new Object[]{entityClass.getSimpleName(), "identifier=" + id},
@@ -108,22 +108,39 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			log.debug("{} exists, trying to merge it...", entityClass.getSimpleName(), ex);
 			persistedEntity = workshopEntitiesDaoAbstract.mergeEntity(entity);
 		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
-			throw new EntityNotFound(
+			throw new EntityNotFoundException(
 				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties",
 				HttpStatus.GONE,
 				messageSource.getMessage("error.saveOrUpdate(1)", new Object[]{entityClass.getSimpleName()},
 					LocaleContextHolder.getLocale()),
 				ie);
 		}
-		return persistedEntity.orElseThrow(() -> new PersistenceFailure(
+		return persistedEntity.orElseThrow(() -> new PersistenceFailureException(
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
 	}
 	
-	public T persistEntity(T entity) throws IllegalArgumentException, EntityExistsException {
+	/**
+	 * @param entity WorkshopEntity instance. Has to have 'identifier' property == null or 0.
+	 * @return Persisted and managed copy of a given WorkshopEntity with the Identifier.
+	 * @throws IllegalArgumentsException   with 422 HttpStatus.UNPROCESSABLE_ENTITY in a given WorkshopEntity is null!
+	 * @throws EntityExistsException       If such a WorkshopEntity is already exists.
+	 * @throws IllegalArgumentException    If a given Entity is not an entity either is null or its identifier != 0
+	 * @throws PersistenceFailureException 1) With 409 HttpStatus.CONFLICT in case of persistence failure.
+	 *                                     It may happen due to wrong properties.
+	 *                                     2) With 422 HttpStatus.UNPROCESSABLE_ENTITY if its 'identifier' not null
+	 *                                     and > 0. As to be persisted Entities dont't have to have their own ids.
+	 */
+	public T persistEntity(T entity)
+		throws IllegalArgumentException, IllegalArgumentsException, EntityExistsException, PersistenceFailureException {
 		if (entity == null) {
-			throw new IllegalArgumentException("Entity cannot be null!");
+			throw new IllegalArgumentsException("Entity cannot be null!", "httpStatus.notAcceptable.null",
+				HttpStatus.UNPROCESSABLE_ENTITY);
+		} else if (entity.getIdentifier() != null && entity.getIdentifier() > 0){
+			throw new PersistenceFailureException("Id (identifier) must by null or zero!",
+				HttpStatus.UNPROCESSABLE_ENTITY, messageSource.getMessage(
+				"error.propertyHasToBe(2)", new Object[]{"id", "empty (null) or 0"}, LocaleContextHolder.getLocale()));
 		}
-		return workshopEntitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailure(
+		return workshopEntitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailureException(
 			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.",
 			HttpStatus.CONFLICT,
 			messageSource.getMessage("error.saveFailure(1)", new Object[]{entityClass.getSimpleName()},
@@ -133,14 +150,14 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	/**
 	 * @param entity Entity to be merged (updated) in the DataBase
 	 * @return An updated managed copy of the entity.
-	 * @throws IllegalArgumentException If the given entity = null.
-	 * @throws PersistenceFailure       If the given entity is in the removed state (not found in the DataBase).
+	 * @throws IllegalArgumentException    If the given entity = null.
+	 * @throws PersistenceFailureException If the given entity is in the removed state (not found in the DataBase).
 	 */
-	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailure {
+	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailureException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
-		return workshopEntitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailure(
+		return workshopEntitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailureException(
 			"Updating the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be updated!",
 			HttpStatus.GONE));
 	}
@@ -153,7 +170,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			workshopEntitiesDaoAbstract.removeEntity(entity);
 			log.debug("{} successfully removed.", entityClass.getSimpleName());
 		} catch (IllegalArgumentException ex) {
-			throw new EntityNotFound(
+			throw new EntityNotFoundException(
 				"Removing the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be " +
 					"removed!",
 				HttpStatus.NOT_FOUND,
@@ -173,7 +190,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id cannot be equal zero or below!");
 		}
-		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFound(
+		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFoundException(
 			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
 			messageSource.getMessage("error.removingFailure(2)",
@@ -182,11 +199,11 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @throws IllegalArguments If a given Collection is null it will be thrown with HttpStatus.NOT_ACCEPTABLE
+	 * @throws IllegalArgumentsException If a given Collection is null it will be thrown with HttpStatus.NOT_ACCEPTABLE
 	 */
-	public void removeEntities(Collection<T> entities) throws IllegalArguments {
+	public void removeEntities(Collection<T> entities) throws IllegalArgumentsException {
 		if (entities == null) {
-			throw new IllegalArguments("Entities collection cannot be null!",
+			throw new IllegalArgumentsException("Entities collection cannot be null!",
 				"httpStatus.notAcceptable.null",
 				HttpStatus.NOT_ACCEPTABLE);
 		} else if (entities.isEmpty()) {
@@ -221,7 +238,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
-		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFound(
+		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFoundException(
 			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
 			"error.unknownError", null, LocaleContextHolder.getLocale())));
 	}
@@ -232,16 +249,16 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                 Otherwise {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
 	 * @param orderBy  Nullable. The property for ordering the result list by. If null {@link #DEFAULT_ORDER_BY} will
 	 *                 be used.
-	 * @return A Page<WorkshopEntity> with a collection of Entities or {@link EntityNotFound} will be thrown if nothing found or
+	 * @return A Page<WorkshopEntity> with a collection of Entities or {@link EntityNotFoundException} will be thrown if nothing found or
 	 * something went wrong during the search.
-	 * @throws EntityNotFound If nothing was found or 'orderBy' property isn't presented among {@link #entityClass}
-	 * properties.
-	 * @throws InternalServerError If Pageable argument is null.
+	 * @throws EntityNotFoundException      If nothing was found or 'orderBy' property isn't presented among {@link #entityClass}
+	 *                                      properties.
+	 * @throws InternalServerErrorException If Pageable argument is null.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public Page<T> findAllEntities(Pageable pageable, @Nullable String orderBy) throws InternalServerError, EntityNotFound {
+	public Page<T> findAllEntities(Pageable pageable, @Nullable String orderBy) throws InternalServerErrorException, EntityNotFoundException {
 		if (pageable == null) {
-			throw new InternalServerError("Pageable cannot by null!");
+			throw new InternalServerErrorException("Pageable cannot by null!");
 		}
 		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
 			: pageable.getPageSize();
@@ -255,7 +272,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize, pageNum, orderBy, order);
 			
 			Page<T> page = new PageImpl<T>(entities.orElseThrow(() ->
-				new EntityNotFound("No " + entityClass.getSimpleName() + "s were found!",
+				new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",
 					HttpStatus.NOT_FOUND,
 					messageSource.getMessage("message.notFound(1)",
 						new Object[]{entityClass.getSimpleName() + "s"},
@@ -265,7 +282,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
 			return page;
 		} catch (PersistenceException e) {
-			throw new EntityNotFound(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
 				LocaleContextHolder.getLocale()), e);
 		}
@@ -278,26 +295,26 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                 In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values
-	 * @return List of Entities or throws EntityNotFound if either nothing was found or a PersistenceException occurred.
-	 * @throws EntityNotFound If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
+	 * @return List of Entities or throws EntityNotFoundException if either nothing was found or a PersistenceException occurred.
+	 * @throws EntityNotFoundException If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
 	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, Sort.Direction order)
-		throws EntityNotFound {
+		throws EntityNotFoundException {
 		pageSize = pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum < 0 || pageNum > MAX_PAGE_NUM ? 0 : pageNum;
 		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
 		order = order.isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize,	pageNum, orderBy, order);
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize, pageNum, orderBy, order);
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
-			return entities.orElseThrow(() -> new EntityNotFound(
-				"No "+entityClass.getSimpleName()+"s was found!",
+			return entities.orElseThrow(() -> new EntityNotFoundException(
+				"No " + entityClass.getSimpleName() + "s was found!",
 				HttpStatus.NOT_FOUND,
-				messageSource.getMessage("message.notFound(1)", new Object[]{entityClass.getSimpleName()+"s"},
+				messageSource.getMessage("message.notFound(1)", new Object[]{entityClass.getSimpleName() + "s"},
 					LocaleContextHolder.getLocale())));
 		} catch (PersistenceException e) {
-			throw new EntityNotFound(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
 				LocaleContextHolder.getLocale()), e);
 		}

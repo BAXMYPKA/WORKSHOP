@@ -4,7 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
-import internal.exceptions.IllegalArguments;
+import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.UpdationCheck;
+import internal.exceptions.IllegalArgumentsException;
+import internal.exceptions.InvalidMethodArgumentsException;
 import internal.service.WorkshopEntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import lombok.Getter;
@@ -23,9 +26,13 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -49,7 +56,7 @@ import java.util.Collection;
 @Setter
 @Slf4j
 @RestController
-public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstract> implements WorkshopController {
+public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> implements WorkshopController {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -67,7 +74,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	private MessageSource messageSource;
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
-	private ObjectMapper objectMapper;
 	@Autowired
 	private WorkshopEntitiesServiceAbstract<T> workshopEntitiesService;
 	private Class<T> workshopEntityClass;
@@ -116,14 +122,16 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
-		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
-		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageable, orderBy);
+		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
+		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
+		//Add a self-Link to every WorkshopEntity to be a Resource
+		entitiesPage.get().forEach(this::addSelfLink);
 		
 		Resources<T> resources = new Resources<>(entitiesPage.getContent());
 		//The following are preparing paged Links for this resources (i.e. nextPage, previousPage etc)
 		Collection<Link> pagedLinks = getPagedLinks(entitiesPage, orderBy, order);
-		//Here is all the included WorkshopEntities obtain self-Links and paged Links are being added to the Resources
-		addLinksToResources(resources, pagedLinks);
+		
+		resources.add(pagedLinks);
 		
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(resources);
 		
@@ -148,18 +156,35 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	 * If any of them will throw an Exception during a persistence process - the whole WorkshopEntity won't be saved!
 	 *
 	 * @param workshopEntity WorkshopEntity object as JSON
-	 * @return Either persisted WorkshopEntity with the 'identifier' set or an HttpStatus error with a description
-	 * @throws JsonProcessingException
-	 * @throws HttpMessageNotReadableException
+	 * @return Either persisted WorkshopEntity as a HATEOAS resource with a self-obtainable Link and the
+	 * 'identifier' (id) set or a HttpStatus error with its description.
 	 */
 	@Override
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<String> postOne(WorkshopEntity workshopEntity) {
-		return null;
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<String> postOne(@Validated(value = {PersistenceCheck.class})
+										  @RequestBody WorkshopEntity workshopEntity,
+										  BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
+			throw new InvalidMethodArgumentsException(
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+		}
+		
+		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
+		addSelfLink(persistedWorkshopEntity);
+		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntity);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedWorkshopEntity);
 	}
 	
 	@Override
-	public ResponseEntity<String> putOne(WorkshopEntity workshopEntity) {
+	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<String> putOne(@Validated(value = {UpdationCheck.class})
+										 @RequestBody WorkshopEntity workshopEntity,
+										 BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			throw new InvalidMethodArgumentsException(
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+		}
 		return null;
 	}
 	
@@ -167,6 +192,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	public ResponseEntity<String> deleteOne(long id) {
 		return null;
 	}
+	
+	//TODO: to Hateoas service class to pass all the following methods in it
 	
 	/**
 	 * This method sets originally passed parameters to defaults if they are wrong
@@ -188,7 +215,10 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 			try {
 				direction = Sort.Direction.fromString(order);
 			} catch (IllegalArgumentException e) { //If 'order' doesn't math asc or desc
-				throw new IllegalArguments("'order' parameter must be equal 'asc' or 'desc' value!", e);
+				throw new IllegalArgumentsException("'order' parameter must be equal 'asc' or 'desc' value!",
+					HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
+					"error.propertyHasToBe(2)", new Object[]{"order", "'asc' || 'desc'"},
+					LocaleContextHolder.getLocale()), e);
 			}
 		} else { //'desc' is the default value if 'order' param is not presented in the Request
 			direction = Sort.Direction.DESC;
@@ -280,26 +310,19 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntityAbstrac
 	}
 	
 	private void addSelfLink(T workshopEntity) {
+		WorkshopEntityAbstract workshopEntityAbstract = (WorkshopEntityAbstract) workshopEntity;
 		Link selfLink = entityLinks
 			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier()).withSelfRel()
 			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("json");
-		workshopEntity.add(selfLink);
-	}
-	
-	/**
-	 * Ass self-links to the all included WorkshopEntities and set of paged Links to this full collection.
-	 */
-	private void addLinksToResources(Resources<T> resources, Collection<Link> pageableLinks) {
-		resources.getContent().forEach(this::addSelfLink);
-		resources.add(pageableLinks);
+		workshopEntityAbstract.add(selfLink);
 	}
 	
 	@Override
 	@PostConstruct
 	public void postConstruct() {
-		setObjectMapper(getJsonServiceUtils().getObjectMapper());
 		allWorkshopEntitiesLink = ControllerLinkBuilder.linkTo(
-			ControllerLinkBuilder.methodOn(this.getClass()).getAll(getDEFAULT_PAGE_SIZE(), 1, DEFAULT_ORDER_BY, DEFAULT_ORDER)
+			ControllerLinkBuilder.methodOn(
+				this.getClass()).getAll(DEFAULT_PAGE_SIZE, 1, DEFAULT_ORDER_BY, DEFAULT_ORDER)
 		).withRel("getAll" + workshopEntityClassName + "s");
 	}
 }

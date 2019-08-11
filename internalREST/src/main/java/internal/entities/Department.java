@@ -16,6 +16,8 @@ import org.springframework.hateoas.ResourceSupport;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Positive;
 import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -47,6 +49,8 @@ public class Department extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
 	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@Positive(groups = Default.class, message = "{validation.positive}")
+	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)

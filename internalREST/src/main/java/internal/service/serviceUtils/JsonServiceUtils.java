@@ -7,22 +7,17 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
-import internal.entities.hateoasResources.WorkshopEntityResource;
-import internal.exceptions.InternalServerError;
+import internal.exceptions.InternalServerErrorException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.time.ZoneId;
 import java.util.Collection;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -62,7 +57,7 @@ public class JsonServiceUtils {
 			log.debug("Received JSON successfully converted to {}", entity.getSimpleName());
 			return convertedEntity;
 		} catch (IOException e) {
-			throw new InternalServerError(e.getMessage(), "error.jsonUnprocessable",
+			throw new InternalServerErrorException(e.getMessage(), "error.jsonUnprocessable",
 				HttpStatus.UNPROCESSABLE_ENTITY, e);
 		}
 	}
@@ -103,7 +98,7 @@ public class JsonServiceUtils {
 			log.debug("{} successfully converted to JSON.", o.getClass().getSimpleName());
 			return value;
 		} catch (JsonProcessingException e) {
-			throw new InternalServerError(e.getMessage(), "error.jsonInternalError",
+			throw new InternalServerErrorException(e.getMessage(), "error.jsonInternalError",
 				HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 		

@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -45,6 +46,8 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
+	@Positive(groups = Default.class, message = "{validation.positive}")
+	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column

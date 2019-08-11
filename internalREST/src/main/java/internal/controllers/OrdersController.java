@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import internal.entities.hibernateValidation.UpdationCheck;
-import internal.exceptions.PersistenceFailure;
+import internal.exceptions.PersistenceFailureException;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
 import internal.service.OrdersService;
@@ -82,7 +82,7 @@ public class OrdersController {
 			return ResponseEntity.ok(jsonOrders);
 		} else {
 			String message = messageSource.getMessage("message.notFound(1)", new Object[]{"Order"}, locale);
-			PersistenceFailure pf = new PersistenceFailure("No Orders found!", HttpStatus.NOT_FOUND);
+			PersistenceFailureException pf = new PersistenceFailureException("No Orders found!", HttpStatus.NOT_FOUND);
 			pf.setLocalizedMessage(message);
 			throw pf;
 		}

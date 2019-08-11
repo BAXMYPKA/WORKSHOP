@@ -9,6 +9,7 @@ import internal.service.serviceUtils.JsonServiceUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * Spring specified controllers contract.
@@ -49,12 +51,7 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	JsonServiceUtils getJsonServiceUtils();
 	
-//	void setObjectMapper(ObjectMapper objectMapper);
-	
-//	ObjectMapper getObjectMapper();
-	
 //	Class getWorkshopEntityClass();
-	
 //	void setWorkshopEntityClass(Class workshopEntityClass);
 	
 	//The controller methods are the following...

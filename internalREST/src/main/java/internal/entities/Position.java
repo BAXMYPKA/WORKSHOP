@@ -1,6 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import internal.entities.hibernateValidation.MergingCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,13 +36,13 @@ public class Position extends Trackable implements GrantedAuthority {
 	 * Also uses as the WorkshopGrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	/**
 	 * Contains Russian translation with a little description of the Position
 	 */
-	@Column(length = 255)
+	@Column
 	private String description;
 	
 	@JsonIgnore

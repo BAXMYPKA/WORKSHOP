@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
+import internal.entities.hibernateValidation.MergingCheck;
 import internal.exceptions.PersistenceFailureException;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
@@ -133,7 +133,7 @@ public class OrdersController {
 	}
 	
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> putOrder(@Validated({UpdationCheck.class, Default.class})
+	public ResponseEntity<String> putOrder(@Validated({MergingCheck.class, Default.class})
 										   @RequestBody Order order,
 										   BindingResult bindingResult,
 										   Locale locale)

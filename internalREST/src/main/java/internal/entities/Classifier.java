@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
+import internal.entities.hibernateValidation.MergingCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -42,7 +44,7 @@ public class Classifier extends Trackable implements Serializable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {UpdationCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {MergingCheck.class, PersistenceCheck.class, Default.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	@Column
@@ -51,6 +53,7 @@ public class Classifier extends Trackable implements Serializable {
 	/**
 	 * Official Classifiers are presented in the official list of services.
 	 * Non-official are made up on the spot to present a kind of service out of the official price list.
+	 * Default = false (as Java primitive fields initialized by default)
 	 */
 	@Column(nullable = false)
 	private boolean isOfficial = false;
@@ -59,10 +62,11 @@ public class Classifier extends Trackable implements Serializable {
 	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order
 	 * creation to fix it, because this current price can be changed further.
 	 * May be = 0 (some work for free, for instance).
-	 * Default = 0;
+	 * Default = 0.00;
 	 */
 	@Column(nullable = false, scale = 2)
-	@PositiveOrZero(message = "{validation.positiveOrZero}")
+	@PositiveOrZero(groups = {PersistenceCheck.class, MergingCheck.class, Default.class},
+		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -71,10 +75,12 @@ public class Classifier extends Trackable implements Serializable {
 	private Set<@Valid Task> tasks;
 	
 	@Builder
-	public Classifier(@NotBlank(groups = {UpdationCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}") String name,
+	public Classifier(@NotBlank(groups = {MergingCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+						  String name,
 					  String description,
 					  boolean isOfficial,
-					  @PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+					  @PositiveOrZero(message = "{validation.positiveOrZero}")
+						  BigDecimal price) {
 		this.name = name;
 		this.description = description;
 		this.isOfficial = isOfficial;

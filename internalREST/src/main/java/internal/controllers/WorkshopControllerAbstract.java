@@ -1,11 +1,9 @@
 package internal.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
 import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.UpdationCheck;
+import internal.entities.hibernateValidation.MergingCheck;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InvalidMethodArgumentsException;
 import internal.service.WorkshopEntitiesServiceAbstract;
@@ -25,19 +23,14 @@ import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
@@ -85,6 +78,10 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 * "rel:getAllWorkshopEntityClassName(s), href:/internal/workshopEntities
 	 */
 	private Link allWorkshopEntitiesLink;
+	/**
+	 * Http header 'Allow:' with set of HttpMethods allowed within this controller (GET, PUT, DELETE etc)
+	 */
+	private Set<HttpMethod> httpAllowedMethods;
 	
 	/**
 	 * @param workshopEntitiesService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -96,6 +93,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		this.workshopEntitiesService = workshopEntitiesService;
 		this.workshopEntityClass = workshopEntitiesService.getEntityClass();
 		workshopEntityClassName = workshopEntityClass.getSimpleName();
+		httpAllowedMethods = new HashSet<>(8);
+		httpAllowedMethods.addAll(Arrays.asList(HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE));
 	}
 	
 	/**
@@ -138,7 +137,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
 			workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		
-		return ResponseEntity.ok(pagedResourcesToJson);
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
+		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+		return responseEntity;
 	}
 	
 	@Override
@@ -147,7 +148,10 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
 		addSelfLink(entity);
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entity);
-		return ResponseEntity.ok(entityToJson);
+		
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
+		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+		return responseEntity;
 	}
 	
 	/**
@@ -173,27 +177,44 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		addSelfLink(persistedWorkshopEntity);
 		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntity);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPersistedWorkshopEntity);
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
+		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+		return responseEntity;
 	}
 	
 	@Override
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> putOne(@Validated(value = {UpdationCheck.class})
+	public ResponseEntity<String> putOne(@Validated(value = {MergingCheck.class})
 										 @RequestBody WorkshopEntity workshopEntity,
 										 BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidMethodArgumentsException(
 				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
-		return null;
+		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
+		addSelfLink(mergedWorkshopEntity);
+		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntity);
+		
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
+		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+		return responseEntity;
 	}
 	
 	@Override
-	public ResponseEntity<String> deleteOne(long id) {
-		return null;
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<String> deleteOne(@PathVariable(name = "id") long id) {
+		workshopEntitiesService.removeEntity(id);
+		
+		String localizedMessage = messageSource.getMessage(
+			"message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
+			LocaleContextHolder.getLocale());
+		
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(localizedMessage, HttpStatus.NO_CONTENT);
+		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+		return responseEntity;
 	}
 	
-	//TODO: to Hateoas service class to pass all the following methods in it
+	//TODO: to do a separate Hateoas service class to pass all the following methods in it
 	
 	/**
 	 * This method sets originally passed parameters to defaults if they are wrong
@@ -249,7 +270,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		String firstPageRel = "firstPage";
 		String lastPageRel = "lastPage";
 		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
-		String media = "json";
+		String media = "application/json; charset=utf-8";
 		String lastPageTitle = "Page " + (page.getTotalPages());
 		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 			"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
@@ -311,10 +332,13 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	
 	private void addSelfLink(T workshopEntity) {
 		WorkshopEntityAbstract workshopEntityAbstract = (WorkshopEntityAbstract) workshopEntity;
-		Link selfLink = entityLinks
+		
+		Link selfGetLink = entityLinks
 			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier()).withSelfRel()
-			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("json");
-		workshopEntityAbstract.add(selfLink);
+			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("application/json; charset=utf-8")
+			.withTitle("title");
+		
+		workshopEntityAbstract.add(selfGetLink);
 	}
 	
 	@Override

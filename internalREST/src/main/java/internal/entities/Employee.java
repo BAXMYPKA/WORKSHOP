@@ -1,6 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import internal.entities.hibernateValidation.MergingCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,14 +36,15 @@ public class Employee extends Trackable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
 	private String lastName;
 	
 	/**
+	 * May be presented or not as Employee might have been created by another one.
 	 * To exclude original password from DB to be included in JSON
 	 * Setter, in the contrary, is intended to add a raw password input from User to be compared
 	 */
@@ -52,15 +54,21 @@ public class Employee extends Trackable {
 	private String password;
 	
 	@Column(nullable = false, length = 100)
-	@NotBlank(message = "{validation.notBlank}")
-	@Email(message = "{validation.email}")
+	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
+	@Email(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.email}")
 	private String email;
 	
 	@Column(nullable = false)
-	@NotNull(message = "{validation.notNull}")
-	@Past(message = "{validation.past}")
+	@NotNull(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notNull}")
+	@Past(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.past}")
 	private LocalDate birthday;
 	
+	//TODO: to realize custom 16years-old check
+	
+	/**
+	 * To disable Employee across a domain.
+	 * Default = true
+	 */
 	@Column
 	private Boolean isEnabled = true;
 	
@@ -72,6 +80,7 @@ public class Employee extends Trackable {
 	private Collection<@Valid Phone> phones;
 	
 	//TODO: to implement a photo loader Controller method
+	
 	@JsonIgnore
 	@Lob
 	@Column(length = 5242880) //5Mb
@@ -85,7 +94,7 @@ public class Employee extends Trackable {
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
-	@NotNull(message = "{validation.notNull}")
+	@NotNull(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	
@@ -121,9 +130,5 @@ public class Employee extends Trackable {
 		this.email = email;
 		this.birthday = birthday;
 		this.position = position;
-	}
-	
-	public void setIsEnabled(Boolean enabled) {
-		isEnabled = enabled != null ? enabled : true;
 	}
 }

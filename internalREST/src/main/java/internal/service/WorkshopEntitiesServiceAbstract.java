@@ -38,6 +38,8 @@ import java.util.*;
 @Repository
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
+	//TODO: all the methods must be in the Transactional state!!! Check if @Transaction is inheritable
+	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
 	@Value("${page.max_num}")
@@ -135,7 +137,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		if (entity == null) {
 			throw new IllegalArgumentsException("Entity cannot be null!", "httpStatus.notAcceptable.null",
 				HttpStatus.UNPROCESSABLE_ENTITY);
-		} else if (entity.getIdentifier() != null && entity.getIdentifier() > 0){
+		} else if (entity.getIdentifier() != null && entity.getIdentifier() > 0) {
 			throw new PersistenceFailureException("Id (identifier) must by null or zero!",
 				HttpStatus.UNPROCESSABLE_ENTITY, messageSource.getMessage(
 				"error.propertyHasToBe(2)", new Object[]{"id", "empty (null) or 0"}, LocaleContextHolder.getLocale()));
@@ -149,13 +151,20 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	/**
 	 * @param entity Entity to be merged (updated) in the DataBase
-	 * @return An updated managed copy of the entity.
-	 * @throws IllegalArgumentException    If the given entity = null.
-	 * @throws PersistenceFailureException If the given entity is in the removed state (not found in the DataBase).
+	 * @return An updated and managed copy of the given entity.
+	 * @throws IllegalArgumentException    If the given entity == null or its id == null or id <= 0. As to be updated
+	 *                                     (merged) this WorkshopEntity has to be exist in the DataBase.
+	 * @throws PersistenceFailureException If the given entity is in the removed state (not found in the DataBase)
+	 *                                     with 410 HttpStatus.GONE and the explicit localized message for the end User.
 	 */
 	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailureException {
 		if (entity == null) {
-			throw new IllegalArgumentException("Entity cannot be null!");
+			throw new IllegalArgumentsException("Entity cannot be null!", "httpStatus.notAcceptable.null",
+				HttpStatus.UNPROCESSABLE_ENTITY);
+		} else if (entity.getIdentifier() == null || entity.getIdentifier() <= 0) {
+			throw new PersistenceFailureException("Id (identifier) must by null or zero!",
+				HttpStatus.UNPROCESSABLE_ENTITY, messageSource.getMessage(
+				"error.propertyHasToBe(2)", new Object[]{"id", "> 0"}, LocaleContextHolder.getLocale()));
 		}
 		return workshopEntitiesDaoAbstract.mergeEntity(entity).orElseThrow(() -> new PersistenceFailureException(
 			"Updating the " + entityClass.getSimpleName() + " is failed! Such an object wasn't found to be updated!",
@@ -184,17 +193,23 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	/**
 	 * @param id Accepts only above zero values.
-	 * @throws IllegalArgumentException If the given identifier <= 0.
+	 * @throws IllegalArgumentsException If the given identifier <= 0 the 406 HttpStatus.NOT_ACCEPTABLE will be
+	 *                                   thrown with the explicit localized message to the end User.
+	 * @throws EntityNotFoundException   If no WorkshopEntity with such an ID will be found 404 NotFound Http status
+	 *                                   will
+	 *                                   be thrown.
 	 */
-	public void removeEntity(long id) throws IllegalArgumentException {
+	public void removeEntity(long id) throws IllegalArgumentException, EntityNotFoundException {
 		if (id <= 0) {
-			throw new IllegalArgumentException("Id cannot be equal zero or below!");
+			throw new IllegalArgumentsException("Id cannot be equal zero or below!", HttpStatus.NOT_ACCEPTABLE,
+				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", "> 0"}, LocaleContextHolder.getLocale()));
 		}
 		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFoundException(
 			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
 			messageSource.getMessage("error.removingFailure(2)",
 				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));
+		
 		workshopEntitiesDaoAbstract.removeEntity(foundBiId);
 	}
 	

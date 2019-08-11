@@ -5,15 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistEmployeeCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
-import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -47,8 +46,9 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@Positive(groups = Default.class, message = "{validation.positive}")
-	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
+	@NotNull(groups = {MergingCheck.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingCheck.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
 	private Long identifier;
 	
 	/**
@@ -56,7 +56,8 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 * Also for this entity can be set manually with PersistEmployeeCheck.class validation group to be set.
 	 */
 	@Column(nullable = false, updatable = false)
-	@PastOrPresent(groups = {PersistEmployeeCheck.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {PersistEmployeeCheck.class, MergingCheck.class, Default.class},
+		message = "{validation.pastOrPresent}")
 	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
 	private ZonedDateTime created;
 	

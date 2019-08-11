@@ -3,6 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import internal.entities.hibernateValidation.MergingCheck;
 import internal.entities.hibernateValidation.PersistenceCheck;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
@@ -71,9 +73,11 @@ public class Task extends Trackable {
 	 * Will be set automatically as the sum of the all included Classifiers prices.
 	 * Use Task.addClassifier() of Task.deleteClassifier() to correctly set Task.price.
 	 * Of course can be corrected manually.
+	 * Default = 0.00
 	 */
 	@Column(scale = 2, nullable = false)
-	@PositiveOrZero(message = "{validation.positiveOrZero}")
+	@PositiveOrZero(groups = {Default.class, PersistenceCheck.class, MergingCheck.class},
+		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder

@@ -3,8 +3,8 @@ package internal.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.Order;
-import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.MergingCheck;
+import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.MergingValidation;
 import internal.exceptions.PersistenceFailureException;
 import internal.service.EmployeesService;
 import internal.service.serviceUtils.JsonServiceUtils;
@@ -113,7 +113,7 @@ public class OrdersController {
 	 * @throws HttpMessageNotReadableException
 	 */
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postOrder(@Validated(value = {PersistenceCheck.class, Default.class})
+	public ResponseEntity<String> postOrder(@Validated(value = {PersistenceValidation.class, Default.class})
 											@RequestBody Order order,
 											BindingResult bindingResult,
 											Locale locale)
@@ -133,7 +133,7 @@ public class OrdersController {
 	}
 	
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE}, produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> putOrder(@Validated({MergingCheck.class, Default.class})
+	public ResponseEntity<String> putOrder(@Validated({MergingValidation.class, Default.class})
 										   @RequestBody Order order,
 										   BindingResult bindingResult,
 										   Locale locale)

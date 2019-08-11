@@ -1,4 +1,4 @@
 package internal.entities.hibernateValidation;
 
-public interface PersistenceCheck {
+public interface MergingValidation {
 }

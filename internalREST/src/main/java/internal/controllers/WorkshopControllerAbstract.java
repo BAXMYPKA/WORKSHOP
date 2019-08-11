@@ -2,8 +2,8 @@ package internal.controllers;
 
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
-import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.MergingCheck;
+import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.MergingValidation;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InvalidMethodArgumentsException;
 import internal.service.WorkshopEntitiesServiceAbstract;
@@ -26,10 +26,13 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.validation.groups.Default;
 import java.util.*;
 
 /**
@@ -165,7 +168,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 */
 	@Override
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> postOne(@Validated(value = {PersistenceCheck.class})
+	public ResponseEntity<String> postOne(@Validated(value = {PersistenceValidation.class, Default.class})
 										  @RequestBody WorkshopEntity workshopEntity,
 										  BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
@@ -183,11 +186,19 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	}
 	
 	@Override
-	@PutMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> putOne(@Validated(value = {MergingCheck.class})
+	@PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<String> putOne(@PathVariable(name = "id") long id,
+										 @Validated(value = {MergingValidation.class, Default.class})
 										 @RequestBody WorkshopEntity workshopEntity,
 										 BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
+		if (workshopEntity.getIdentifier() != id) {
+			bindingResult.addError(
+				new FieldError(workshopEntityClassName, "ID", messageSource.getMessage(
+					"error.propertyHasToBe(2)", new Object[]{workshopEntityClassName + " ID", "='/{pathVariableID}'"},
+					LocaleContextHolder.getLocale())));
+			throw new InvalidMethodArgumentsException(
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+		} else if (bindingResult.hasErrors()) {
 			throw new InvalidMethodArgumentsException(
 				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}

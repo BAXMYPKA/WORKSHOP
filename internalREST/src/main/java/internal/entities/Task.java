@@ -3,8 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -41,7 +41,7 @@ public class Task extends Trackable {
 	private String name;
 	
 	@Column
-	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
+	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
 	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -76,13 +76,13 @@ public class Task extends Trackable {
 	 * Default = 0.00
 	 */
 	@Column(scale = 2, nullable = false)
-	@PositiveOrZero(groups = {Default.class, PersistenceCheck.class, MergingCheck.class},
+	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
 		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder
 	public Task(String name,
-				@Future(groups = {PersistenceCheck.class}, message = "{validation.future}") ZonedDateTime deadline,
+				@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
 				Employee appointedTo,
 				Set<@Valid Classifier> classifiers, Order order,
 				@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {

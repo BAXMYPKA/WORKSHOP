@@ -119,7 +119,7 @@ class ControllersBeanValidationIT {
 	@Test
 	@DisplayName("Controller should return the HttpStatusCode 422 with the Json body with multiple included FieldErrors" +
 		"for cascading persistence of including entities graph." +
-		"Also checks the 'PersistenceCheck.class' validation group" +
+		"Also checks the 'PersistenceValidation.class' validation group" +
 		"Also checks CascadeType.PERSIST for all the included Entities.")
 	@WithMockUser(username = "employee@workshop.pro", roles = {"Administrator"})
 	public void persist_New_Entities_With_Errors_With_CascadeType_Persist() throws Exception {

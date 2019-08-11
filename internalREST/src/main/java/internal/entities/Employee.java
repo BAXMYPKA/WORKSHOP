@@ -1,8 +1,8 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -36,11 +36,11 @@ public class Employee extends Trackable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	private String lastName;
 	
 	/**
@@ -50,17 +50,17 @@ public class Employee extends Trackable {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, length = 255) //Uses for storing BCrypt encoded passwords with the min length = 60
-	@Pattern(groups = {PersistenceCheck.class}, regexp = "\\w{5,}", message = "{validation.passwordStrength}")
+	@Pattern(groups = {PersistenceValidation.class}, regexp = "\\w{5,}", message = "{validation.passwordStrength}")
 	private String password;
 	
 	@Column(nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
-	@Email(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.email}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@Email(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.email}")
 	private String email;
 	
 	@Column(nullable = false)
-	@NotNull(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notNull}")
-	@Past(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.past}")
+	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
+	@Past(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.past}")
 	private LocalDate birthday;
 	
 	//TODO: to realize custom 16years-old check
@@ -94,7 +94,7 @@ public class Employee extends Trackable {
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
-	@NotNull(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notNull}")
+	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	

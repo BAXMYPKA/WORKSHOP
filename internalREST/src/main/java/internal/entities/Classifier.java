@@ -3,15 +3,14 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.MergingCheck;
+import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.io.Serializable;
@@ -44,7 +43,7 @@ public class Classifier extends Trackable implements Serializable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {MergingCheck.class, PersistenceCheck.class, Default.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	@Column
@@ -65,7 +64,7 @@ public class Classifier extends Trackable implements Serializable {
 	 * Default = 0.00;
 	 */
 	@Column(nullable = false, scale = 2)
-	@PositiveOrZero(groups = {PersistenceCheck.class, MergingCheck.class, Default.class},
+	@PositiveOrZero(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
 		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
@@ -75,7 +74,7 @@ public class Classifier extends Trackable implements Serializable {
 	private Set<@Valid Task> tasks;
 	
 	@Builder
-	public Classifier(@NotBlank(groups = {MergingCheck.class, PersistenceCheck.class}, message = "{validation.notBlank}")
+	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")
 						  String name,
 					  String description,
 					  boolean isOfficial,

@@ -1,8 +1,8 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -47,9 +46,9 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingCheck.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingCheck.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column
@@ -79,7 +78,7 @@ public class User extends WorkshopEntityAbstract {
 	private ZonedDateTime created;
 	
 	@Column
-	@Null(groups = PersistenceCheck.class, message = "{validation.null}")
+	@Null(groups = PersistenceValidation.class, message = "{validation.null}")
 	private ZonedDateTime modified;
 	
 	@Column

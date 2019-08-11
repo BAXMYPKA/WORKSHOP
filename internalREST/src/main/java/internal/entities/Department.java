@@ -3,9 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.PersistEmployeeCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
-import internal.entities.hibernateValidation.MergingCheck;
+import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -42,17 +41,17 @@ public class Department extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
 	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingCheck.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingCheck.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	@Column(updatable = false)
-	@PastOrPresent(groups = {PersistenceCheck.class, Default.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {PersistenceValidation.class, Default.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

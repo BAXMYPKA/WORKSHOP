@@ -2,8 +2,8 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
@@ -34,7 +34,7 @@ public class Order extends Trackable {
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	@Future(groups = {PersistenceCheck.class}, message = "{validation.future}")
+	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
 	private ZonedDateTime deadline;
 	
 	@Column
@@ -62,7 +62,7 @@ public class Order extends Trackable {
 	 * Also can be set or corrected manually.
 	 */
 	@Column(scale = 2)
-	@PositiveOrZero(groups = {Default.class, PersistenceCheck.class, MergingCheck.class},
+	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
 		message = "{validation.positiveOrZero}")
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	

@@ -3,8 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,16 +35,16 @@ public class Phone extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingCheck.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingCheck.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceCheck.class}, message = "{validation.null}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private Long identifier;
 	
 	@Column
 	private String name;
 	
 	@Column(updatable = false)
-	@PastOrPresent(groups = {PersistenceCheck.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	/**
@@ -53,8 +53,8 @@ public class Phone extends WorkshopEntityAbstract {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
-	@NotNull(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notNull}")
-	@Pattern(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.phone}",
+	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
+	@Pattern(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.phone}",
 		regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 	private String phone;
 	

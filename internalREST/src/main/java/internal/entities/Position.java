@@ -1,8 +1,8 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.MergingCheck;
-import internal.entities.hibernateValidation.PersistenceCheck;
+import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,7 +36,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	 * Also uses as the WorkshopGrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceCheck.class, MergingCheck.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	private String name;
 	
 	/**
@@ -65,7 +65,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	private Department department;
 	
 	@Builder
-	public Position(@NotBlank(groups = {Default.class, PersistenceCheck.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
+	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
 		this.name = name;
 		this.department = department;
 	}

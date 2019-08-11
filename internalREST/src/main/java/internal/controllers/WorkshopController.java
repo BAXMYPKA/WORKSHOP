@@ -62,7 +62,7 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	ResponseEntity<String> postOne(T workshopEntity, BindingResult bindingResult);
 	
-	ResponseEntity<String> putOne(T workshopEntity, BindingResult bindingResult);
+	ResponseEntity<String> putOne(long id, T workshopEntity, BindingResult bindingResult);
 	
 	ResponseEntity<String> deleteOne(long id);
 	

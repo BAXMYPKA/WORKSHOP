@@ -84,10 +84,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 */
 	private String workshopEntityClassName;
 	/**
-	 * "rel:getAllWorkshopEntityClassName(s), href:/internal/workshopEntities
-	 */
-	private Link allWorkshopEntitiesLink;
-	/**
 	 * Http header 'Allow:' with set of HttpMethods allowed within this controller (GET, PUT, DELETE etc)
 	 */
 	private Set<HttpMethod> httpAllowedMethods;
@@ -125,59 +121,28 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Override
 	@GetMapping
 	public ResponseEntity<String> getAll(
-		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
-		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		  @RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		  @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		  @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		  @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
-		//Add a self-Link to every WorkshopEntity to be a Resource
-//		entitiesPage.get().forEach(this::addSelfLink);
-		
-//		Resources<T> resources = new Resources<>(entitiesPage.getContent());
-		//The following are preparing paged Links for this resources (i.e. nextPage, previousPage etc)
-//		Collection<Link> pagedLinks = getPagedLinks(entitiesPage, orderBy, order);
-		
-//		resources.add(pagedLinks);
-		
 		Resources<T> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
-		
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
-		
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
-			workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
-		
+			  workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
 //		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
-/*
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
 		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
-		addSelfLink(entity);
-		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entity);
-		
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
-//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
-		return responseEntity;
-	}
-*/
-	
-	@Override
-	@GetMapping("/{id}")
-	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
-		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
-		
 		Resource<T> entityResource = workshopEntityResourceAssembler.toResource(entity);
-		
-//		addSelfLink(entity);
-		
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entityResource);
-		
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
 //		responseEntity.getHeaders().setAllow();
 		return responseEntity;
@@ -200,15 +165,14 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 										  BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new InvalidMethodArgumentsException(
-				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+				  "The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
 		
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
-		addSelfLink(persistedWorkshopEntity);
-		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntity);
-		
+		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
+		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntityResource);
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
-		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
@@ -218,23 +182,15 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 										 @Validated(value = {MergingValidation.class, Default.class})
 										 @RequestBody WorkshopEntity workshopEntity,
 										 BindingResult bindingResult) {
-		if (workshopEntity.getIdentifier() != id) {
-			bindingResult.addError(
-				new FieldError(workshopEntityClassName, "ID", messageSource.getMessage(
-					"error.propertyHasToBe(2)", new Object[]{workshopEntityClassName + " ID", "='/{pathVariableID}'"},
-					LocaleContextHolder.getLocale())));
+		if (bindingResult.hasErrors()) {
 			throw new InvalidMethodArgumentsException(
-				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
-		} else if (bindingResult.hasErrors()) {
-			throw new InvalidMethodArgumentsException(
-				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+				  "The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
-		addSelfLink(mergedWorkshopEntity);
-		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntity);
-		
+		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
+		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntityResource);
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
-		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
@@ -244,21 +200,19 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		workshopEntitiesService.removeEntity(id);
 		
 		String localizedMessage = messageSource.getMessage(
-			"message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
-			LocaleContextHolder.getLocale());
+			  "message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
+			  LocaleContextHolder.getLocale());
 		
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(localizedMessage, HttpStatus.NO_CONTENT);
-		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
-	//TODO: to do a separate Hateoas service class to pass all the following methods in it
-	
 	/**
 	 * This method sets originally passed parameters to defaults if they are wrong
-	 * so that they subsequently could be passed into {@link #getPagedLinks)}
+	 * so that they subsequently could be passed as valid data for getting Page<T>
 	 *
-	 * @param pageSize Will be set to default if it's wrong.
+	 * @param pageSize Will be set to default if it's <= 0
 	 * @param pageNum  Spring Page interface internally starts pages count from 0 so to adapt it to more convenient
 	 *                 count from 1 we do '--pageNum' to prepare Page and then '++pageNum' when return pageNum back to
 	 *                 the end User.
@@ -275,9 +229,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 				direction = Sort.Direction.fromString(order);
 			} catch (IllegalArgumentException e) { //If 'order' doesn't math asc or desc
 				throw new IllegalArgumentsException("'order' parameter must be equal 'asc' or 'desc' value!",
-					HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
-					"error.propertyHasToBe(2)", new Object[]{"order", "'asc' || 'desc'"},
-					LocaleContextHolder.getLocale()), e);
+					  HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
+					  "error.propertyHasToBe(2)", new Object[]{"order", "'asc' || 'desc'"},
+					  LocaleContextHolder.getLocale()), e);
 			}
 		} else { //'desc' is the default value if 'order' param is not presented in the Request
 			direction = Sort.Direction.DESC;
@@ -290,101 +244,14 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		pageNum = pageNum == null || pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 0 : --pageNum;
 		
 		return PageRequest.of(
-			pageNum,
-			pageSize,
-			new Sort(direction, orderBy));
-	}
-	
-	/**
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 */
-	private Collection<Link> getPagedLinks(Page page, String orderBy, String order) {
-		Collection<Link> pagedLinks = new ArrayList<>(7);
-		
-		String currentPageRel = "currentPage";
-		String previousPageRel = "previousPage";
-		String nexPageRel = "nextPage";
-		String firstPageRel = "firstPage";
-		String lastPageRel = "lastPage";
-		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
-		String media = "application/json; charset=utf-8";
-		String lastPageTitle = "Page " + (page.getTotalPages());
-		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
-			"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
-		
-		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, currentPageRel,
-			hrefLang, media, currentPageTitle);
-		
-		pagedLinks.add(currentPageLink);
-		
-		if (page.getTotalPages() == 1) {
-			return pagedLinks;
-		}
-		if (page.hasPrevious()) {
-			pagedLinks.add(getPagedLink(page.previousPageable(), page.getSize(), orderBy, order, previousPageRel,
-				hrefLang, media, null));
-		}
-		if (page.hasNext()) {
-			pagedLinks.add(getPagedLink(page.nextPageable(), page.getSize(), orderBy, order, nexPageRel, hrefLang, media,
-				null));
-		}
-		if (!page.isFirst()) { //Add FirstPage
-			pagedLinks.add(getPagedLink(page.getPageable().first(), page.getSize(), orderBy, order, firstPageRel,
-				hrefLang, media, null));
-		}
-		if (!page.isLast()) { //Add LastPage
-			Link lastPageLink =
-				ControllerLinkBuilder.linkTo(
-					ControllerLinkBuilder.methodOn(this.getClass())
-						.getAll(page.getSize(), page.getTotalPages(), orderBy, order))
-					.withRel(lastPageRel)
-					.withHreflang(hrefLang)
-					.withMedia(media)
-					.withTitle(lastPageTitle);
-			
-			pagedLinks.add(lastPageLink);
-		}
-		
-		return pagedLinks;
-	}
-	
-	/**
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 */
-	private Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
-							  String hrefLang, String media, @Nullable String title) {
-		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
-		
-		Link link =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(this.getClass())
-					.getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
-				.withRel(relation)
-				.withHreflang(hrefLang)
-				.withMedia(media)
-				.withTitle(title);
-		return link;
-	}
-	
-	private void addSelfLink(T workshopEntity) {
-		WorkshopEntityAbstract workshopEntityAbstract = (WorkshopEntityAbstract) workshopEntity;
-		
-		Link selfGetLink = entityLinks
-			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier()).withSelfRel()
-			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag()).withMedia("application/json; charset=utf-8")
-			.withTitle("title");
-		
-		workshopEntityAbstract.add(selfGetLink);
+			  pageNum,
+			  pageSize,
+			  new Sort(direction, orderBy));
 	}
 	
 	@Override
 	@PostConstruct
 	public void postConstruct() {
-		allWorkshopEntitiesLink = ControllerLinkBuilder.linkTo(
-			ControllerLinkBuilder.methodOn(
-				this.getClass()).getAll(DEFAULT_PAGE_SIZE, 1, DEFAULT_ORDER_BY, DEFAULT_ORDER)
-		).withRel("getAll" + workshopEntityClassName + "s");
+		//TODO: to remove if this method is dummy
 	}
 }

@@ -1,7 +1,9 @@
 package internal.entities;
 
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.stereotype.Component;
 
+//@Component
 public abstract class WorkshopEntityAbstract extends ResourceSupport implements WorkshopEntity {
 	
 	/**

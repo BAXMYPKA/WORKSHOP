@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,7 +36,7 @@ import java.util.*;
 @Setter
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
-@Repository
+@Service
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	//TODO: all the methods must be in the Transactional state!!! Check if @Transaction is inheritable

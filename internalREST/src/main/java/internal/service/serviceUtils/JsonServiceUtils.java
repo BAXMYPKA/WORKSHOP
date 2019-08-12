@@ -66,6 +66,10 @@ public class JsonServiceUtils {
 		return getJson(entity);
 	}
 	
+//	public String workshopEntityObjectsToJson(Resource<WorkshopEntity> entityResource) {
+//		return getJson(entityResource);
+//	}
+	
 	/**
 	 * @param entities
 	 * @param <T>
@@ -84,7 +88,7 @@ public class JsonServiceUtils {
 	 * @return
 	 * @throws JsonProcessingException
 	 */
-	public <T extends WorkshopEntityAbstract> String workshopEntityObjectsToJson(Resource<T> resource) {
+	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Resource<T> resource) {
 		return getJson(resource);
 	}
 	

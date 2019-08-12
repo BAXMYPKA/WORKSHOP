@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/internal/positions", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 @ExposesResourceFor(Position.class)
-public class PositionsController extends WorkshopControllerAbstract<Position> {
+public class PositionsController extends WorkshopControllerAbstract<internal.entities.Position> {
 
 	/**
 	 * @param positionsService By this instance we set the concrete instance of WorkshopServiceAbstract

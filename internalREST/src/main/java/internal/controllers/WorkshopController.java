@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
+import internal.entities.hateoasResources.WorkshopEntityResourceAssembler;
 import internal.service.WorkshopEntitiesServiceAbstract;
 import internal.service.serviceUtils.JsonServiceUtils;
 import org.springframework.context.MessageSource;

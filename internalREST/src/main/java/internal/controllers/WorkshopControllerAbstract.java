@@ -2,8 +2,9 @@ package internal.controllers;
 
 import internal.entities.WorkshopEntity;
 import internal.entities.WorkshopEntityAbstract;
-import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hateoasResources.WorkshopEntityResourceAssembler;
 import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InvalidMethodArgumentsException;
 import internal.service.WorkshopEntitiesServiceAbstract;
@@ -21,13 +22,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,6 +76,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	private JsonServiceUtils jsonServiceUtils;
 	@Autowired
 	private WorkshopEntitiesServiceAbstract<T> workshopEntitiesService;
+	@Autowired
+	private WorkshopEntityResourceAssembler<T> workshopEntityResourceAssembler;
 	private Class<T> workshopEntityClass;
 	/**
 	 * Just a simple name for simplified "workshopEntityClass.getSimpleName()"
@@ -127,24 +133,27 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
 		//Add a self-Link to every WorkshopEntity to be a Resource
-		entitiesPage.get().forEach(this::addSelfLink);
+//		entitiesPage.get().forEach(this::addSelfLink);
 		
-		Resources<T> resources = new Resources<>(entitiesPage.getContent());
+//		Resources<T> resources = new Resources<>(entitiesPage.getContent());
 		//The following are preparing paged Links for this resources (i.e. nextPage, previousPage etc)
-		Collection<Link> pagedLinks = getPagedLinks(entitiesPage, orderBy, order);
+//		Collection<Link> pagedLinks = getPagedLinks(entitiesPage, orderBy, order);
 		
-		resources.add(pagedLinks);
+//		resources.add(pagedLinks);
 		
-		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(resources);
+		Resources<T> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
+		
+		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
 		
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
 			workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
-		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
+/*
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
@@ -153,9 +162,27 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entity);
 		
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
-		responseEntity.getHeaders().setAllow(httpAllowedMethods);
+//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
+*/
+	
+	@Override
+	@GetMapping("/{id}")
+	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
+		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
+		
+		Resource<T> entityResource = workshopEntityResourceAssembler.toResource(entity);
+		
+//		addSelfLink(entity);
+		
+		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entityResource);
+		
+		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
+//		responseEntity.getHeaders().setAllow();
+		return responseEntity;
+	}
+	
 	
 	/**
 	 * WorkshopEntity may contain some included WorkshopEntities without identifiers or 'identifier = 0' -

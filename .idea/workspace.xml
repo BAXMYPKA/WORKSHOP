@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-08.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-10.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -74,13 +69,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="84" column="27" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
+            <state relative-caret-position="144">
+              <caret line="58" column="30" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
               <folding>
-                <element signature="docComment;method#getPageable#0;class#WorkshopControllerAbstract#0" expanded="true" />
+                <element signature="docComment;field#httpAllowedMethods#0;class#WorkshopControllerAbstract#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,39 +84,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="160" column="13" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1216">
-              <caret line="108" column="102" selection-start-line="108" selection-start-column="102" selection-end-line="108" selection-end-column="102" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="176">
+              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
               <folding>
-                <element signature="e#369#370#0" expanded="true" />
-                <element signature="e#401#402#0" expanded="true" />
+                <element signature="docComment;method#removeEntity#0;class#WorkshopEntitiesServiceAbstract#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="656">
-              <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -133,8 +100,8 @@
       <list>
         <option value="HTML Thymeleaf-Spring" />
         <option value="Interface" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -186,11 +153,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopPage.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/WorkshopException.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/EntityNotFound.java" />
@@ -231,19 +193,24 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkthopEntitiesResources.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntitiesResourcesAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/BeanValidationTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/DepartmentBeanValidationTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/DepartmentBeanValidationTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/OrderValidationTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/OrderBeanValidationTest.java" />
       </list>
     </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$USER_HOME$/Maven/apache-maven-3.6.0" />
+        <option name="mavenHome" value="C:/WORKSPACE/JAVA/apache-maven-3.6.1" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -281,8 +248,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -332,39 +297,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="hateoasResources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
-              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -433,6 +366,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -483,7 +425,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="CatdeaLogs" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -520,19 +464,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="internal.entities" />
       <recent name="internal.controllers" />
       <recent name="internal.configurations" />
       <recent name="internal.service" />
       <recent name="internal.dao" />
-      <recent name="internal.httpSecurity" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources\i18nMessages" />
@@ -540,6 +476,17 @@
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\configs" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\resources" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\internal\dao" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="internal.entities" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -554,81 +501,99 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities">
-    <configuration name="ControllersBeanValidationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DepartmentBeanValidationTest">
+    <configuration name="DepartmentBeanValidationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.ControllersBeanValidationIT" />
+      <option name="PACKAGE_NAME" value="internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllerAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="METHOD_NAME" value="inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
+      <option name="PACKAGE_NAME" value="internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
+      <option name="METHOD_NAME" value="default_Validation_Group_Should_Accept_Only_PastOrPresent_Created(java.lang.Class)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="METHOD_NAME" value="inherited_Method_getOne_Should_Return_One_WorkshopEntity" />
+      <option name="PACKAGE_NAME" value="internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
+      <option name="METHOD_NAME" value="default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllerAbstractIT.init_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
+      <option name="METHOD_NAME" value="default_Validation_Group_Should_Validate_Included_Objects_Chain" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepartmentBeanValidationTest.persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.entities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
+      <option name="METHOD_NAME" value="persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="internal.controllers in internalREST" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="METHOD_NAME" value="init_Test" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -644,20 +609,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ControllersBeanValidationIT" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT.init_Test" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.internal.controllers in internalREST" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created (1)" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest.persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" />
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT.init_Test" />
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
-        <item itemvalue="JUnit.ControllersBeanValidationIT" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest.persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created (1)" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
       </list>
     </recent_temporary>
   </component>
@@ -770,46 +736,47 @@
       <workItem from="1565590512284" duration="25895000" />
       <workItem from="1565635152988" duration="595000" />
       <workItem from="1565645129607" duration="925000" />
+      <workItem from="1565782220837" duration="8512000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 16h 22m 09s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_persistence_Validation_Group_Should_Accept_Only_Null_Identifier - 2019.08.14 at 18h 02m 11s.xml">
+      <configuration name="DepartmentBeanValidationTest.persistence_Validation_Group_Should_Accept_Only_Null_Identifier" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 16h 23m 51s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_And_Persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created - 2019.08.14 at 18h 09m 48s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_And_Persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 16h 27m 00s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_And_Persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created - 2019.08.14 at 18h 11m 09s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_And_Persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities - 2019.08.12 at 17h 35m 41s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_Validation_Group_Should_Accept_Only_PastOrPresent_Created - 2019.08.14 at 18h 12m 11s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 17h 37m 07s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_Validation_Group_Should_Accept_Only_PastOrPresent_Created_(1) - 2019.08.14 at 18h 13m 31s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 17h 38m 51s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created - 2019.08.14 at 18h 13m 38s.xml">
+      <configuration name="DepartmentBeanValidationTest.persistence_Validation_Group_Should_Accept_Only_PastOrPresent_Created" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 17h 39m 44s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_Validation_Group_Should_Validate_Included_Objects_Chain - 2019.08.14 at 18h 19m 48s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 17h 40m 57s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_Validation_Group_Should_Validate_Included_Objects_Chain - 2019.08.14 at 18h 20m 36s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getOne_Should_Return_One_WorkshopEntity - 2019.08.12 at 17h 43m 35s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getOne_Should_Return_One_WorkshopEntity" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest_default_Validation_Group_Should_Validate_Included_Objects_Chain - 2019.08.14 at 18h 21m 30s.xml">
+      <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Validate_Included_Objects_Chain" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopControllerAbstractIT_inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities - 2019.08.12 at 17h 48m 37s.xml">
-      <configuration name="WorkshopControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" configurationId="JUnit" />
+    <history-entry file="DepartmentBeanValidationTest - 2019.08.14 at 18h 22m 14s.xml">
+      <configuration name="DepartmentBeanValidationTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1232584000" />
+    <option name="totallyTimeSpent" value="1241096000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1456" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info id="Image Layers" order="0" />
       <window_info id="Designer" order="1" />
@@ -818,25 +785,25 @@
       <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.4701897" side_tool="true" weight="0.14225501" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" sideWeight="0.4674221" side_tool="true" weight="0.16174921" />
-      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.5298103" weight="0.14223798" />
+      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.5298103" visible="true" weight="0.14172813" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
-      <window_info active="true" id="Maven" order="9" sideWeight="0.5320829" visible="true" weight="0.105594955" />
+      <window_info id="Maven" order="9" sideWeight="0.5320829" weight="0.105374075" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.39475602" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49897048" weight="0.27021122" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49841937" weight="0.26949653" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.34974357" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.34945706" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" auto_hide="true" id="Terminal" order="8" weight="0.4916091" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010295" side_tool="true" weight="0.27225673" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015806" side_tool="true" weight="0.26949653" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32872656" />
       <window_info anchor="bottom" id="Database Changes" order="12" weight="0.32872656" />
-      <window_info anchor="bottom" auto_hide="true" id="Messages" order="13" weight="0.18871795" />
+      <window_info anchor="bottom" auto_hide="true" id="Messages" order="13" weight="0.18854886" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32712215" />
       <window_info anchor="bottom" id="Inspection Results" order="16" weight="0.32923076" />
@@ -907,14 +874,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.1.8.RELEASE/spring-data-commons-2.1.8.RELEASE-sources.jar!/org/springframework/data/domain/PageImpl.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3504">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/WorkshopException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="329">
@@ -983,13 +942,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="61" column="45" lean-forward="true" selection-start-line="61" selection-start-column="45" selection-end-line="61" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2032">
@@ -1002,24 +954,10 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="65" column="48" lean-forward="true" selection-start-line="65" selection-start-column="48" selection-end-line="65" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="812">
           <caret line="70" column="22" lean-forward="true" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="54" column="27" lean-forward="true" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
         </state>
       </provider>
     </entry>
@@ -1087,13 +1025,6 @@ System.out.println(contains);</expression-string>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1750">
           <caret line="128" column="9" selection-start-line="128" selection-start-column="9" selection-end-line="128" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="187" column="29" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1174,45 +1105,74 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" />
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="84" column="27" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
-          <folding>
-            <element signature="docComment;method#getPageable#0;class#WorkshopControllerAbstract#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="672">
+          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="160" column="13" selection-start-line="160" selection-start-column="13" selection-end-line="160" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="176">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
           <folding>
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#401#402#0" expanded="true" />
+            <element signature="docComment;method#removeEntity#0;class#WorkshopEntitiesServiceAbstract#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1216">
-          <caret line="108" column="102" selection-start-line="108" selection-start-column="102" selection-end-line="108" selection-end-column="102" />
+        <state relative-caret-position="2432">
+          <caret line="187" column="29" selection-start-line="187" selection-start-column="29" selection-end-line="187" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="656">
-          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+        <state relative-caret-position="336">
+          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/OrderBeanValidationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/DepartmentBeanValidationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="18" column="59" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="58" column="30" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
+          <folding>
+            <element signature="docComment;field#httpAllowedMethods#0;class#WorkshopControllerAbstract#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

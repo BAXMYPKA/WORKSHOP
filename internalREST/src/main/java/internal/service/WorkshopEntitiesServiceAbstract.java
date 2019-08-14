@@ -19,6 +19,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +39,6 @@ import java.util.*;
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
-	
-	//TODO: all the methods must be in the Transactional state!!! Check if @Transaction is inheritable
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -74,7 +73,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws IllegalArgumentException If identifier <= 0 or not the key type for the Entity
 	 * @throws EntityNotFoundException  If nothing were found
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public T findById(long id) throws IllegalArgumentException, EntityNotFoundException {
 		if (id <= 0) {
 			throw new IllegalArgumentsException("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
@@ -99,6 +98,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
 	 *                                                    Authentication within the Spring's SecurityContext.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
 		if (entity == null) {
@@ -133,6 +133,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                                     2) With 422 HttpStatus.UNPROCESSABLE_ENTITY if its 'identifier' not null
 	 *                                     and > 0. As to be persisted Entities dont't have to have their own ids.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistEntity(T entity)
 		throws IllegalArgumentException, IllegalArgumentsException, EntityExistsException, PersistenceFailureException {
 		if (entity == null) {
@@ -158,6 +159,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws PersistenceFailureException If the given entity is in the removed state (not found in the DataBase)
 	 *                                     with 410 HttpStatus.GONE and the explicit localized message for the end User.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T mergeEntity(T entity) throws IllegalArgumentException, PersistenceFailureException {
 		if (entity == null) {
 			throw new IllegalArgumentsException("Entity cannot be null!", "httpStatus.notAcceptable.null",
@@ -172,9 +174,17 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			HttpStatus.GONE));
 	}
 	
-	public void removeEntity(T entity) {
+	
+	/**
+	 * @param entity The WorkshopEntity to be removed
+	 * @throws IllegalArgumentsException   If the given WorkshopEntity == null
+	 * @throws EntityNotFoundException If such an WorkshopEntity was not found in the DataBase
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public void removeEntity(T entity) throws IllegalArgumentsException, EntityNotFoundException {
 		if (entity == null) {
-			throw new IllegalArgumentException("Entity cannot be null!");
+			throw new IllegalArgumentsException("Id cannot be equal zero or below!", HttpStatus.NOT_ACCEPTABLE,
+				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", "> 0"}, LocaleContextHolder.getLocale()));
 		}
 		try {
 			workshopEntitiesDaoAbstract.removeEntity(entity);
@@ -200,6 +210,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                                   will
 	 *                                   be thrown.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public void removeEntity(long id) throws IllegalArgumentException, EntityNotFoundException {
 		if (id <= 0) {
 			throw new IllegalArgumentsException("Id cannot be equal zero or below!", HttpStatus.NOT_ACCEPTABLE,
@@ -217,6 +228,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	/**
 	 * @throws IllegalArgumentsException If a given Collection is null it will be thrown with HttpStatus.NOT_ACCEPTABLE
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public void removeEntities(Collection<T> entities) throws IllegalArgumentsException {
 		if (entities == null) {
 			throw new IllegalArgumentsException("Entities collection cannot be null!",
@@ -235,6 +247,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * Otherwise an Collections.emptyList() will be returned (not to overload the memory and JPA first-level cache) and you
 	 * will have to get entities from your collection yourself.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public Collection<T> persistEntities(Collection<T> entities) {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
@@ -250,6 +263,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
 	 * and you will have to get entities from your collection yourself.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public Collection<T> mergeEntities(Collection<T> entities) {
 		if (entities == null || entities.size() == 0) {
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
@@ -271,7 +285,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 *                                      properties.
 	 * @throws InternalServerErrorException If Pageable argument is null.
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
 	public Page<T> findAllEntities(Pageable pageable, @Nullable String orderBy) throws InternalServerErrorException, EntityNotFoundException {
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
@@ -314,7 +328,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @return List of Entities or throws EntityNotFoundException if either nothing was found or a PersistenceException occurred.
 	 * @throws EntityNotFoundException If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
 	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, Sort.Direction order)
 		throws EntityNotFoundException {
 		pageSize = pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;

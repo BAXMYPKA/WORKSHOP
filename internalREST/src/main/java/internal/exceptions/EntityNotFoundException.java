@@ -3,7 +3,7 @@ package internal.exceptions;
 import org.springframework.http.HttpStatus;
 
 /**
- * Self explanatory exception. Being caught, it will be sent to a final user of the service with the HttpStatus code 404,
+ * Self explanatory exception. Being caught, it will be sent to a final user of the services with the HttpStatus code 404,
  * but you are free to attach another one on your choice.
  */
 public class EntityNotFoundException extends WorkshopException {

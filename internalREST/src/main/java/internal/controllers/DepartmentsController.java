@@ -1,13 +1,11 @@
 package internal.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.entities.Department;
-import internal.service.DepartmentsService;
-import internal.service.WorkshopEntitiesServiceAbstract;
+import internal.services.DepartmentsService;
+import internal.services.WorkshopEntitiesServiceAbstract;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,16 +26,14 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		super(departmentsService);
 	}
 	
-/*
-	@Override
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<String> getOne(@PathVariable(name = "id") long id) throws JsonProcessingException {
-		Department department = getWorkshopEntitiesService().findById(id);
-		Link link = (ControllerLinkBuilder.linkTo(this.getClass()).withRel("testRel"));
-		Resource<Department> departmentResource = new Resource<>(department, link);
-		System.out.println(departmentResource.getLinks());
-		String json = getJsonServiceUtils().workshopEntityObjectsToJson(department);
-		return ResponseEntity.ok(json);
+	public ResponseEntity<String> getAllPositions(@PathVariable(name = "id") long id) {
+		if (!getWorkshopEntitiesService().isExist(id)) {
+			return new ResponseEntity<>(getMessageSource().getMessage(
+				"httpStatus.notAcceptable.identifier(1)", new Object[]{id}, LocaleContextHolder.getLocale()),
+				HttpStatus.NOT_FOUND);
+		}
+		
+		return ResponseEntity.ok("");
 	}
-*/
 }

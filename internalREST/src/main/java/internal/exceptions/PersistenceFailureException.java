@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * The common exception for passing the i118n of unsuccessful DELETE-UPDATE-CREATE to the end users of the Workshop
  * for any CRUD failures.
- * Also it is advisable to set a desirable HttpStatus code for your kind of error to be sent to a final service user.
+ * Also it is advisable to set a desirable HttpStatus code for your kind of error to be sent to a final services user.
  */
 public class PersistenceFailureException extends WorkshopException {
 	

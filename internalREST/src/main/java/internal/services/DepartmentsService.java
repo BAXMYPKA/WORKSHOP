@@ -1,4 +1,4 @@
-package internal.service;
+package internal.services;
 
 import internal.dao.DepartmentsDao;
 import internal.entities.Department;

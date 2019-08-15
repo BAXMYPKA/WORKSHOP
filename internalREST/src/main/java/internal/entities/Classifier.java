@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 /**
- * The Classifier is the atomic description of one of the possible service to be performed for the customers.
+ * The Classifier is the atomic description of one of the possible services to be performed for the customers.
  * May contain the name (or not), the description (or not), and the price (or may be free).
  * Official Classifiers are presented in the official List of possible services (price list).
  * Non-official are those not presented in the official price list and can be created on the fly to be included in the Task.
@@ -51,14 +51,14 @@ public class Classifier extends Trackable implements Serializable {
 	
 	/**
 	 * Official Classifiers are presented in the official list of services.
-	 * Non-official are made up on the spot to present a kind of service out of the official price list.
+	 * Non-official are made up on the spot to present a kind of services out of the official price list.
 	 * Default = false (as Java primitive fields initialized by default)
 	 */
 	@Column(nullable = false)
 	private boolean isOfficial = false;
 	
 	/**
-	 * The current price for the particular kind of service. It will be stored into Order at the moment of the Order
+	 * The current price for the particular kind of services. It will be stored into Order at the moment of the Order
 	 * creation to fix it, because this current price can be changed further.
 	 * May be = 0 (some work for free, for instance).
 	 * Default = 0.00;

@@ -397,9 +397,14 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		log.debug("All the {}s entities have been removed.", entityClass.getSimpleName());
 	}
 	
-	public boolean isExist(long id) {
+	/**
+	 * @param id WorkshopEntity identifier
+	 * @return true of false
+	 * @throws IllegalArgumentException If a given 'id' parameter <= 0;
+	 */
+	public boolean isExist(long id) throws IllegalArgumentException {
 		if (id <= 0) {
-			throw new IllegalArgumentException("ID cannot be zero or below!");
+			throw new IllegalArgumentException("ID="+id+" cannot be zero or below!");
 		}
 		TypedQuery<Long> entityId = entityManager.createQuery(
 			"SELECT id FROM " + entityClass + " id WHERE id.id= :id", Long.class);

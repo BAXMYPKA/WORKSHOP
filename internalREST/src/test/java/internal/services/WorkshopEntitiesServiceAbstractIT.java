@@ -1,4 +1,4 @@
-package internal.service;
+package internal.services;
 
 import internal.entities.Department;
 import internal.entities.Position;

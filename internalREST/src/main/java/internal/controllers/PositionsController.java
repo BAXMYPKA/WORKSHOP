@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.Position;
-import internal.service.PositionsService;
+import internal.services.PositionsService;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;

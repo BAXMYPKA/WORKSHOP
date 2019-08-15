@@ -2,8 +2,8 @@ package internal.controllers;
 
 import internal.entities.Department;
 import internal.entities.Position;
-import internal.service.DepartmentsService;
-import internal.service.PositionsService;
+import internal.services.DepartmentsService;
+import internal.services.PositionsService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

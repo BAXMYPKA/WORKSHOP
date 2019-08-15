@@ -1,4 +1,4 @@
-package internal.service;
+package internal.services;
 
 import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
@@ -17,7 +17,6 @@ import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -38,7 +37,7 @@ import java.util.*;
 @Slf4j
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -177,8 +176,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	/**
 	 * @param entity The WorkshopEntity to be removed
-	 * @throws IllegalArgumentsException   If the given WorkshopEntity == null
-	 * @throws EntityNotFoundException If such an WorkshopEntity was not found in the DataBase
+	 * @throws IllegalArgumentsException If the given WorkshopEntity == null
+	 * @throws EntityNotFoundException   If such an WorkshopEntity was not found in the DataBase
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public void removeEntity(T entity) throws IllegalArgumentsException, EntityNotFoundException {
@@ -269,7 +268,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
 		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFoundException(
-			"Internal service failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
+			"Internal services failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
 			"error.unknownError", null, LocaleContextHolder.getLocale())));
 	}
 	
@@ -348,5 +347,15 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
 				LocaleContextHolder.getLocale()), e);
 		}
+	}
+	
+	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
+	public boolean isExist(long id) {
+		if (id <= 0) {
+			throw new IllegalArgumentsException("Identifier (" + id + ") cannot be zero or below!",
+				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
+				new Object[]{id}, LocaleContextHolder.getLocale()));
+		}
+		return workshopEntitiesDaoAbstract.isExist(id);
 	}
 }

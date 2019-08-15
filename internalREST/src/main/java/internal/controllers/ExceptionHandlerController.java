@@ -2,7 +2,7 @@ package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.exceptions.*;
-import internal.service.serviceUtils.JsonServiceUtils;
+import internal.services.serviceUtils.JsonServiceUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.*;
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;

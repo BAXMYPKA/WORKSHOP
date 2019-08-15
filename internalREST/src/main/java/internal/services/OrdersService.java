@@ -1,4 +1,4 @@
-package internal.service;
+package internal.services;
 
 import internal.dao.OrdersDao;
 import internal.entities.Order;

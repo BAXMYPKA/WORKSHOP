@@ -1,9 +1,9 @@
-package internal.service;
+package internal.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import internal.controllers.DepartmentsController;
 import internal.entities.*;
-import internal.service.serviceUtils.JsonServiceUtils;
+import internal.services.serviceUtils.JsonServiceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

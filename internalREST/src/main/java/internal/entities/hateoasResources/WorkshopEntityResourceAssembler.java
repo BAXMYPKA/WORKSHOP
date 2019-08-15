@@ -21,10 +21,9 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Component
-public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
-	  implements ResourceAssembler<T, Resource<T>> {
+public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
+	implements ResourceAssembler<T, Resource<T>> {
 	
-	//	@Autowired
 	private WorkshopControllerAbstract<T> workshopControllerAbstract;
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
 	@Getter
@@ -38,7 +37,6 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 	private final String NEXT_PAGE_REL = "nextPage";
 	private final String FIRST_PAGE_REL = "firstPage";
 	private final String LAST_PAGE_REL = "lastPage";
-	private final String HREF_LANG = LocaleContextHolder.getLocale().toLanguageTag();
 //	String lastPageTitle = "Page " + (page.getTotalPages());
 //	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 //		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
@@ -61,7 +59,7 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 	}
 	
 	/**
-	 * Adds the self-Link to the given WorkshopEntities
+	 * Transforms WorkshopEntity into Resource<WorkshopEntity> and adds the self-Link to it.
 	 *
 	 * @param workshopEntity An WorkshopEntity instance to extract 'identifier' from.
 	 * @return Resource<T extends WorkshopEntity> entity resource with self-Link
@@ -70,11 +68,11 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 	@Override
 	public Resource<T> toResource(T workshopEntity) {
 		Link selfGetLink = entityLinks
-			  .linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier())
-			  .withSelfRel()
-			  .withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
-			  .withMedia("application/json; charset=utf-8")
-			  .withTitle("title");
+			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier())
+			.withSelfRel()
+			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
+			.withMedia("application/json; charset=utf-8")
+			.withTitle("title");
 		return new Resource<>(workshopEntity, selfGetLink);
 	}
 	
@@ -98,10 +96,10 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
 		String lastPageTitle = "Page " + (page.getTotalPages());
 		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
-			  "with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
+			"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 		
 		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, CURRENT_PAGE_REL,
-			  hrefLang, MEDIA, currentPageTitle);
+			hrefLang, MEDIA, currentPageTitle);
 		
 		pagedLinks.add(currentPageLink);
 		
@@ -110,25 +108,25 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 		}
 		if (page.hasPrevious()) {
 			pagedLinks.add(getPagedLink(page.previousPageable(), page.getSize(), orderBy, order, PREV_PAGE_REL,
-				  hrefLang, MEDIA, null));
+				hrefLang, MEDIA, null));
 		}
 		if (page.hasNext()) {
 			pagedLinks.add(getPagedLink(page.nextPageable(), page.getSize(), orderBy, order, NEXT_PAGE_REL, hrefLang, MEDIA,
-				  null));
+				null));
 		}
 		if (!page.isFirst()) { //Add FirstPage
 			pagedLinks.add(getPagedLink(page.getPageable().first(), page.getSize(), orderBy, order, FIRST_PAGE_REL,
-				  hrefLang, MEDIA, null));
+				hrefLang, MEDIA, null));
 		}
 		if (!page.isLast()) { //Add LastPage
 			Link lastPageLink =
-				  ControllerLinkBuilder.linkTo(
-						ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
-							  .getAll(page.getSize(), page.getTotalPages(), orderBy, order))
-						.withRel(LAST_PAGE_REL)
-						.withHreflang(hrefLang)
-						.withMedia(MEDIA)
-						.withTitle(lastPageTitle);
+				ControllerLinkBuilder.linkTo(
+					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+						.getAll(page.getSize(), page.getTotalPages(), orderBy, order))
+					.withRel(LAST_PAGE_REL)
+					.withHreflang(hrefLang)
+					.withMedia(MEDIA)
+					.withTitle(lastPageTitle);
 			
 			pagedLinks.add(lastPageLink);
 		}
@@ -145,13 +143,13 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 		
 		Link link =
-			  ControllerLinkBuilder.linkTo(
-					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
-						  .getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
-					.withRel(relation)
-					.withHreflang(hrefLang)
-					.withMedia(media)
-					.withTitle(title);
+			ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+					.getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
 		return link;
 	}
 }

@@ -2,7 +2,7 @@ package internal.dao;
 
 import internal.entities.Order;
 import internal.entities.Task;
-import internal.service.OrdersService;
+import internal.services.OrdersService;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.junit.jupiter.api.AfterEach;

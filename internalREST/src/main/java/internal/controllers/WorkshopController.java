@@ -1,24 +1,13 @@
 package internal.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import internal.entities.WorkshopEntity;
-import internal.entities.WorkshopEntityAbstract;
-import internal.entities.hateoasResources.WorkshopEntityResourceAssembler;
-import internal.service.WorkshopEntitiesServiceAbstract;
-import internal.service.serviceUtils.JsonServiceUtils;
+import internal.services.WorkshopEntitiesServiceAbstract;
+import internal.services.serviceUtils.JsonServiceUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.annotation.PostConstruct;
-import java.util.Locale;
-import java.util.Set;
 
 /**
  * Spring specified controllers contract.

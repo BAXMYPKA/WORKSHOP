@@ -1,7 +1,7 @@
 package internal.http.security;
 
 import internal.entities.User;
-import internal.service.UsersService;
+import internal.services.UsersService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

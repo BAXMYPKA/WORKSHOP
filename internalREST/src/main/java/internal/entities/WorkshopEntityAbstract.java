@@ -1,10 +1,7 @@
 package internal.entities;
 
-import org.springframework.hateoas.ResourceSupport;
-import org.springframework.stereotype.Component;
-
 //@Component
-public abstract class WorkshopEntityAbstract extends ResourceSupport implements WorkshopEntity {
+public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 	
 	/**
 	 * First it compares by 'created', if null, by 'created' ZonedDateTime

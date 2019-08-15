@@ -1,4 +1,4 @@
-package internal.httpSecurity;
+package internal.http.security;
 
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;

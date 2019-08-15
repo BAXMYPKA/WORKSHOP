@@ -56,7 +56,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 * Also for this entity can be set manually with PersistEmployeeValidation.class validation group to be set.
 	 */
 	@Column(nullable = false, updatable = false)
-	@PastOrPresent(groups = {PersistEmployeeValidation.class, MergingValidation.class, Default.class},
+	@PastOrPresent(groups = {PersistEmployeeValidation.class},
 		message = "{validation.pastOrPresent}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private ZonedDateTime created;

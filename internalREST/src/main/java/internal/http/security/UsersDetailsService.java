@@ -1,4 +1,4 @@
-package internal.httpSecurity;
+package internal.http.security;
 
 import internal.dao.UsersDao;
 import internal.entities.User;

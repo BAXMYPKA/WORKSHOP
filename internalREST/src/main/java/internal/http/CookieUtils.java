@@ -1,4 +1,4 @@
-package internal.httpSecurity;
+package internal.http;
 
 import internal.configurations.SecurityConfiguration;
 import lombok.Getter;

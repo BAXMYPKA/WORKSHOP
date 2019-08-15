@@ -43,18 +43,6 @@ public class LocalesConfiguration implements WebMvcConfigurer {
 		return cookieLocaleResolver;
 	}
 	
-/*
-	@Bean(name = "localeResolver")
-	public LocaleResolver acceptHeaderLocaleResolver() {
-		AcceptHeaderLocaleResolver headerLocaleResolver = new AcceptHeaderLocaleResolver();
-		headerLocaleResolver.setDefaultLocale(Locale.forLanguageTag("ru"));
-		headerLocaleResolver.setSupportedLocales(Arrays.asList(
-			Locale.forLanguageTag("ru"),
-			Locale.ENGLISH));
-		return headerLocaleResolver;
-	}
-*/
-	
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();

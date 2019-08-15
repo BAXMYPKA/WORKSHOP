@@ -92,7 +92,18 @@ public class JsonServiceUtils {
 		return getJson(resource);
 	}
 	
-	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Resources<T> resources) {
+//	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Resources<T> resources) {
+//		return getJson(resources);
+//	}
+	
+	/**
+	 * @param resources Resource<T extends WorkshopEntityAbstract> - the Resources with a Collection of WorkshopEntities
+	 *                 with embedded self Links. The collection itself contains Links (prevPage, nexPage, LastPage etc).
+	 * @param <T>      <T extends WorkshopEntityAbstract>
+	 * @return
+	 * @throws JsonProcessingException
+	 */
+	public <T extends WorkshopEntity> String workshopEntityObjectsToJson(Resources<Resource<T>> resources) {
 		return getJson(resources);
 	}
 	

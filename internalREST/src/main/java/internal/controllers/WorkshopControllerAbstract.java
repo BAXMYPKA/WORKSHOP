@@ -1,7 +1,6 @@
 package internal.controllers;
 
 import internal.entities.WorkshopEntity;
-import internal.entities.WorkshopEntityAbstract;
 import internal.entities.hateoasResources.WorkshopEntityResourceAssembler;
 import internal.entities.hibernateValidation.MergingValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
@@ -21,23 +20,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.groups.Default;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
@@ -128,12 +125,11 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
-		Resources<T> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
+		Resources<Resource<T>> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
 			  workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
-//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
@@ -144,7 +140,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		Resource<T> entityResource = workshopEntityResourceAssembler.toResource(entity);
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entityResource);
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
-//		responseEntity.getHeaders().setAllow();
 		return responseEntity;
 	}
 	
@@ -172,7 +167,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
 		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntityResource);
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
-//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
@@ -190,7 +184,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
 		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntityResource);
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
-//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	
@@ -204,7 +197,6 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			  LocaleContextHolder.getLocale());
 		
 		ResponseEntity<String> responseEntity = new ResponseEntity<>(localizedMessage, HttpStatus.NO_CONTENT);
-//		responseEntity.getHeaders().setAllow(httpAllowedMethods);
 		return responseEntity;
 	}
 	

@@ -2,6 +2,7 @@ package internal.service;
 
 import internal.dao.DepartmentsDao;
 import internal.entities.Department;
+import internal.exceptions.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,11 +10,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +29,8 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 	
 	@Mock
 	DepartmentsDao departmentsDao;
+	@Mock
+	MessageSource messageSource;
 //	@InjectMocks
 	DepartmentsService departmentsService;
 	
@@ -31,6 +39,10 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 	public void init() {
 		Mockito.when(departmentsDao.getEntityClass()).thenReturn(Department.class);
 		departmentsService = new DepartmentsService(departmentsDao);
+		
+//		Mockito.when(messageSource.getMessage(Mockito.anyString(), Mockito.any(Object[].class), Mockito.any(Locale.class)))
+//			.thenReturn("MESSAGE");
+		departmentsService.setMessageSource(messageSource);
 	}
 	
 	@Test
@@ -41,18 +53,18 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints = {1, 45, 149, 1499, 3000, 5100})
-	public void pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits(int pageSizeAndNum){
+	@ValueSource(ints = {1, 3, 45, 149, 5100})
+	public void pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits(int pageSize){
 		//GIVEN limits and arguments
-		int defaultPageSize = 50;
-		int maxPageNum = 50;
-		departmentsService.setDEFAULT_PAGE_SIZE(defaultPageSize);
-		departmentsService.setMAX_PAGE_NUM(maxPageNum);
+		int defaultPageSize = 2;
+		int maxPageSize = 2;
+		int pageNum = 1;
 		String orderBy = "Property";
-		Pageable pageable = PageRequest.of(pageSizeAndNum, pageSizeAndNum, Sort.Direction.DESC, orderBy);
+		Sort.Direction order = Sort.Direction.DESC;
 		
-		//Other preparations...
-		Mockito.when(departmentsDao.countAllEntities()).thenReturn(100L);
+		departmentsService.setDEFAULT_PAGE_SIZE(defaultPageSize);
+		departmentsService.setMAX_PAGE_SIZE(maxPageSize);
+		Pageable pageable = PageRequest.of(pageNum, pageSize, order, orderBy);
 		
 		ArgumentCaptor<Integer> capturedPageSize = ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<Integer> capturedPageNum = ArgumentCaptor.forClass(Integer.class);
@@ -61,7 +73,7 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 		
 		Mockito.when(departmentsDao.findAllPagedAndSorted(
 			capturedPageSize.capture(), capturedPageNum.capture(), capturedOrderBy.capture(), capturedDirection.capture()))
-			.thenReturn(Optional.empty());
+			.thenReturn(Optional.of(Collections.singletonList(new Department("Department"))));
 		
 		//WHEN
 		Page<Department> emptyAllEntities = departmentsService.findAllEntities(pageable, orderBy);
@@ -70,7 +82,7 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 		Mockito.verify(departmentsDao, Mockito.times(1))
 			.findAllPagedAndSorted(capturedPageSize.getValue(), capturedPageNum.getValue(), orderBy, Sort.Direction.DESC);
 		
-		assertTrue(capturedPageSize.getValue() <= defaultPageSize);
-		assertTrue(capturedPageNum.getValue() <= maxPageNum);
+		assertTrue(capturedPageSize.getValue() <= maxPageSize);
+		assertTrue(capturedPageNum.getValue() <= defaultPageSize);
 	}
 }

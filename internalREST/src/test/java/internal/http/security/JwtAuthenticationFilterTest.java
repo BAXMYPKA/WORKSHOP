@@ -1,5 +1,9 @@
-package internal.httpSecurity;
+package internal.http.security;
 
+import internal.http.CookieUtils;
+import internal.http.security.JwtAuthenticationFilter;
+import internal.http.security.JwtUtils;
+import internal.http.security.WorkshopAuthenticationManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

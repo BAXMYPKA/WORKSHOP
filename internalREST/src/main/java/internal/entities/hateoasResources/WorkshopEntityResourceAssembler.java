@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Component
@@ -76,10 +78,11 @@ public class WorkshopEntityResourceAssembler<T extends WorkshopEntity>
 		return new Resource<>(workshopEntity, selfGetLink);
 	}
 	
-	public Resources<T> toPagedResources(Page<T> workshopEntitiesPage) {
-		workshopEntitiesPage.get().forEach(this::toResource);
+	public Resources<Resource<T>> toPagedResources(Page<T> workshopEntitiesPage) {
+		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get().map(this::toResource)
+			.collect(Collectors.toList());
 		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage);
-		return new Resources<>(workshopEntitiesPage.getContent(), pagedLinks);
+		return new Resources<>(resourcesCollection, pagedLinks);
 	}
 	
 	/**

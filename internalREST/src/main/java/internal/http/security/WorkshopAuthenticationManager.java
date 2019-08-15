@@ -1,4 +1,4 @@
-package internal.httpSecurity;
+package internal.http.security;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j

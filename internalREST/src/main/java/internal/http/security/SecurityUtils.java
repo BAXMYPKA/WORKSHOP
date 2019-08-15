@@ -1,4 +1,4 @@
-package internal.httpSecurity;
+package internal.http.security;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Getter;

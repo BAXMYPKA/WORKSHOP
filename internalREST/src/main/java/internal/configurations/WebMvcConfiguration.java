@@ -1,5 +1,8 @@
 package internal.configurations;
 
+import internal.http.ResponseHeadersInternalFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableEntityLinks;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -22,4 +25,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 			.maxAge(60*60*12);
 	}
 	
+	@Bean
+	public FilterRegistrationBean<ResponseHeadersInternalFilter> filterFilterRegistrationBean() {
+		FilterRegistrationBean<ResponseHeadersInternalFilter> registrationBean = new FilterRegistrationBean<>();
+		registrationBean.setFilter(new ResponseHeadersInternalFilter());
+		registrationBean.addUrlPatterns("/internal/*");
+		return registrationBean;
+	}
 }

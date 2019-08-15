@@ -1,10 +1,11 @@
-package internal.httpSecurity;
+package internal.http.security;
 
 import internal.entities.Department;
 import internal.entities.Employee;
 import internal.entities.Position;
+import internal.http.security.JwtUtils;
+import internal.http.security.SecurityUtils;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +18,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -60,7 +60,7 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void single_WorkshopEntity_Should_Contain_SelfLink() throws Exception {
+	public void single_Resource_WorkshopEntity_Should_Contain_SelfLink() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique one");
 		departmentOne = departmentsService.persistEntity(departmentOne);
@@ -85,9 +85,9 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void all_defaultPage_Should_Contain_SelfLinks_And_currentPageLink() throws Exception {
+	public void all_defaultPage_Resources_Should_Contain_SelfLinks_And_currentPageLink() throws Exception {
 		//GIVEN
-		positionsController.setDEFAULT_PAGE_SIZE(2);
+//		positionsController.setDEFAULT_PAGE_SIZE(2);
 		
 		positionOne = new Position("Position unique one", departmentOne);
 		positionTwo = new Position("Position unique two", departmentOne);
@@ -124,7 +124,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void firstPage_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink() throws Exception {
+	public void firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink() throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve first page of 4 with 3 elements of 10 total elements
@@ -161,7 +161,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void secondPage_Should_Contain_CurrentPageLink_PreviousPageLink_NextPageLink_LastPageLink_FirstPageLink()
+	public void secondPage_Resources_Should_Contain_CurrentPageLink_PreviousPageLink_NextPageLink_LastPageLink_FirstPageLink()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
@@ -199,7 +199,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void lastPage_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()
+	public void lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
@@ -236,7 +236,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void exceedingLastPage_Should_Return_HttpStatus404_NotFound()
+	public void exceeding_LastPageNumber_Should_Return_HttpStatus404_NotFound()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
@@ -260,7 +260,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void orderBy_PropertyName_With_Default_Desc_Order()
+	public void orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
@@ -297,7 +297,7 @@ class HateoasIT {
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	@Transactional
-	public void orderBy_PropertyName_With_Asc_Order()
+	public void orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		int totalPersisted = totalPersistedPositionsForPaginationTests();

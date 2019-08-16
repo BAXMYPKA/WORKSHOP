@@ -2,40 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-15.0.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-12.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/MergingValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/MergingValidation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/EntityNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/EntityNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailureException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailureException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserAuditorAware.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserAuditorAware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/DepartmentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/DepartmentsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/TasksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/UsersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/serviceUtils/JsonServiceUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/AppConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/AppConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/OrdersServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/service/WorkshopEntitiesServiceAbstractImplementationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -97,53 +78,107 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4522">
+              <caret line="351" column="86" lean-forward="true" selection-start-line="351" selection-start-column="86" selection-end-line="351" selection-end-column="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-406">
-              <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+            <state relative-caret-position="294">
+              <caret line="76" column="62" selection-start-line="76" selection-start-column="62" selection-end-line="76" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
+            <state relative-caret-position="476">
+              <caret line="52" column="124" selection-start-line="52" selection-start-column="124" selection-end-line="52" selection-end-column="124" />
+              <folding>
+                <element signature="e#1240#1241#0" expanded="true" />
+                <element signature="e#1272#1273#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="824">
-              <caret line="358" column="44" selection-start-line="358" selection-start-column="44" selection-end-line="358" selection-end-column="44" />
+            <state relative-caret-position="-436">
+              <caret line="71" selection-start-line="71" selection-end-line="71" />
+              <folding>
+                <element signature="e#1674#1696#1" expanded="true" />
+                <element signature="e#1738#1755#1" expanded="true" />
+                <element signature="e#1792#1810#1" expanded="true" />
+                <element signature="e#1848#1868#1" expanded="true" />
+                <element signature="e#1912#1930#1" expanded="true" />
+                <element signature="docComment;method#toPagedResources#0;class#WorkshopEntityResourceAssembler#0" expanded="true" />
+                <element signature="docComment;method#toPagedResources#1;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
+                <element signature="docComment;method#getPagedLinks#0;class#WorkshopEntityResourceAssembler#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties">
-          <provider selected="true" editor-type-id="ResourceBundle" />
-          <provider editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="63" column="76" selection-start-line="63" selection-start-column="76" selection-end-line="63" selection-end-column="76" />
+            <state relative-caret-position="770">
+              <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+              <folding>
+                <element signature="docComment;method#toResource#0;class#DepartmentResourceAssembler#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+            <state relative-caret-position="154">
+              <caret line="15" column="47" lean-forward="true" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="13" column="79" lean-forward="true" selection-start-line="13" selection-start-column="79" selection-end-line="13" selection-end-column="79" />
+              <folding>
+                <element signature="e#944#945#0" expanded="true" />
+                <element signature="e#974#975#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -162,7 +197,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fail</find>
       <find>One</find>
       <find>PropertyGenerator</find>
       <find>ehca</find>
@@ -192,6 +226,7 @@
       <find>persistEnti</find>
       <find>EntityEx</find>
       <find>objectMa</find>
+      <find>method</find>
     </findStrings>
     <replaceStrings>
       <replace>ZonedDateTime</replace>
@@ -208,11 +243,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/UpdationCheck.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
@@ -226,10 +256,7 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResource.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkthopEntitiesResources.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntitiesResourcesAssembler.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/WorkshopEntitiesServiceAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/BeanValidationTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/DepartmentBeanValidationTest.java" />
@@ -239,7 +266,6 @@
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/TrackableBeanValidationTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/service/serviceUtils/JsonServiceUtils.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntityAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/EmployeesAuthenticationProvider.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/JwtAuthenticationFilter.java" />
@@ -249,16 +275,25 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersFilter.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceValidation.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/LocalesConfiguration.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/service/WorkshopEntitiesServiceAbstractImplementationsTest.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/MergingValidation.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java" />
       </list>
     </option>
   </component>
@@ -304,7 +339,6 @@
     </navigator>
     <panes>
       <pane id="CatdeaLogs" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -545,6 +579,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -578,7 +613,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -620,7 +655,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LocalesConfigurationIT">
+  <component name="RunManager" selected="JUnit.HateoasIT">
     <configuration name="AppConfigurationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -636,17 +671,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HateoasIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.entities.*" />
+          <option name="PATTERN" value="internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.entities" />
-      <option name="MAIN_CLASS_NAME" value="internal.entities.DepartmentBeanValidationTest" />
-      <option name="METHOD_NAME" value="default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+      <option name="PACKAGE_NAME" value="internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="internal.controllers.HateoasIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HateoasIT.dummy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="internal.controllers.HateoasIT" />
+      <option name="METHOD_NAME" value="dummy" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -682,38 +732,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractImplementationsTest" />
-      <option name="METHOD_NAME" value="pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits(int)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractImplementationsTest" />
-      <option name="METHOD_NAME" value="pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits(int)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="internal.controllers in internalREST" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -743,21 +761,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.DepartmentBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
       <item itemvalue="JUnit.AppConfigurationIT" />
       <item itemvalue="JUnit.LocalesConfigurationIT" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.HateoasIT.dummy" />
+      <item itemvalue="JUnit.HateoasIT" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HateoasIT" />
+        <item itemvalue="JUnit.HateoasIT.dummy" />
         <item itemvalue="JUnit.LocalesConfigurationIT" />
         <item itemvalue="JUnit.AppConfigurationIT" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" />
       </list>
     </recent_temporary>
   </component>
@@ -873,43 +890,44 @@
       <workItem from="1565782220837" duration="8512000" />
       <workItem from="1565849503569" duration="18112000" />
       <workItem from="1565874170545" duration="3379000" />
+      <workItem from="1565938004616" duration="25012000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits - 2019.08.15 at 14h 51m 22s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 08m 19s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits - 2019.08.15 at 14h 52m 21s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 09m 54s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits - 2019.08.15 at 14h 52m 58s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 11m 04s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits - 2019.08.15 at 14h 54m 46s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 14m 07s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits - 2019.08.15 at 14h 55m 08s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_Values_Should_Always_Return_Page_Within_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 15m 47s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits - 2019.08.15 at 14h 59m 07s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 29m 51s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractImplementationsTest_pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits - 2019.08.15 at 14h 59m 42s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractImplementationsTest.pagination_With_Any_pageSize_Should_Return_Page_Within_Max_Limits" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 40m 32s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WorkshopEntitiesServiceAbstractIT - 2019.08.15 at 15h 00m 32s.xml">
-      <configuration name="WorkshopEntitiesServiceAbstractIT" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 42m 33s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppConfigurationIT - 2019.08.15 at 15h 00m 57s.xml">
-      <configuration name="AppConfigurationIT" configurationId="JUnit" />
+    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 58m 45s.xml">
+      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="LocalesConfigurationIT - 2019.08.15 at 15h 01m 17s.xml">
-      <configuration name="LocalesConfigurationIT" configurationId="JUnit" />
+    <history-entry file="HateoasIT - 2019.08.16 at 17h 44m 31s.xml">
+      <configuration name="HateoasIT" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1262587000" />
+    <option name="totallyTimeSpent" value="1287599000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -921,9 +939,9 @@
       <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.47124824" side_tool="true" weight="0.14172813" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" sideWeight="0.4674221" side_tool="true" weight="0.16174921" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.52875173" visible="true" weight="0.14172813" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.52875173" weight="0.14172813" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
-      <window_info id="Maven" order="9" sideWeight="0.5320829" weight="0.105374075" />
+      <window_info active="true" id="Maven" order="9" sideWeight="0.5320829" visible="true" weight="0.105374075" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1010,72 +1028,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/TrackableBeanValidationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="153" column="102" lean-forward="true" selection-start-line="153" selection-start-column="102" selection-end-line="153" selection-end-column="102" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/DepartmentBeanValidationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1356">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="63" column="16" lean-forward="true" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-40">
-          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/serviceUtils/JsonServiceUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="97" column="4" lean-forward="true" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
-          <folding>
-            <element signature="e#2296#2297#0" expanded="true" />
-            <element signature="e#2325#2326#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntityAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="58" column="60" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
-          <folding>
-            <element signature="docComment;method#setIdentifier#1;class#Trackable#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/http/CookieUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1177,13 +1129,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="128" column="9" selection-start-line="128" selection-start-column="9" selection-end-line="128" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-800">
@@ -1226,30 +1171,12 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3542">
-          <caret line="299" column="76" selection-start-line="299" selection-start-column="76" selection-end-line="299" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/OrdersControllerIT.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/ControllersBeanValidationIT.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="644">
           <caret line="72" column="46" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#ResponseHeadersInternalFilter#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1320,34 +1247,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-406">
-          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="63" column="76" selection-start-line="63" selection-start-column="76" selection-end-line="63" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -1358,21 +1257,157 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="824">
-          <caret line="358" column="44" selection-start-line="358" selection-start-column="44" selection-end-line="358" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties">
       <provider selected="true" editor-type-id="ResourceBundle" />
       <provider editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="38" column="17" lean-forward="true" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="43" column="43" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding>
+            <element signature="docComment;class#WorkshopController#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="64" lean-forward="true" selection-start-line="17" selection-start-column="64" selection-end-line="17" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#ResponseHeadersInternalFilter#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3386">
+          <caret line="358" column="44" selection-start-line="358" selection-start-column="44" selection-end-line="358" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="13" column="79" lean-forward="true" selection-start-line="13" selection-start-column="79" selection-end-line="13" selection-end-column="79" />
+          <folding>
+            <element signature="e#944#945#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="15" column="47" lean-forward="true" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="76" column="62" selection-start-line="76" selection-start-column="62" selection-end-line="76" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
+        <state relative-caret-position="476">
+          <caret line="52" column="124" selection-start-line="52" selection-start-column="124" selection-end-line="52" selection-end-column="124" />
+          <folding>
+            <element signature="e#1240#1241#0" expanded="true" />
+            <element signature="e#1272#1273#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
+          <folding>
+            <element signature="docComment;method#toResource#0;class#DepartmentResourceAssembler#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-436">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#1674#1696#1" expanded="true" />
+            <element signature="e#1738#1755#1" expanded="true" />
+            <element signature="e#1792#1810#1" expanded="true" />
+            <element signature="e#1848#1868#1" expanded="true" />
+            <element signature="e#1912#1930#1" expanded="true" />
+            <element signature="docComment;method#toPagedResources#0;class#WorkshopEntityResourceAssembler#0" expanded="true" />
+            <element signature="docComment;method#toPagedResources#1;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
+            <element signature="docComment;method#getPagedLinks#0;class#WorkshopEntityResourceAssembler#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4522">
+          <caret line="351" column="86" lean-forward="true" selection-start-line="351" selection-start-column="86" selection-end-line="351" selection-end-column="86" />
         </state>
       </provider>
     </entry>

@@ -1,23 +1,32 @@
 package internal.controllers;
 
 import internal.entities.Department;
+import internal.entities.Position;
+import internal.entities.hateoasResources.PositionResourceAssembler;
 import internal.services.DepartmentsService;
+import internal.services.PositionsService;
 import internal.services.WorkshopEntitiesServiceAbstract;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/internal/departments", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(path = "/internal/departments", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
 @ExposesResourceFor(Department.class)
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
+	@Autowired
+	private PositionResourceAssembler positionResourceAssembler;
+	@Autowired
+	private PositionsService positionsService;
 	
 	/**
 	 * @see WorkshopControllerAbstract#WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract)
@@ -26,14 +35,25 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		super(departmentsService);
 	}
 	
-	@GetMapping(path = "/{id}")
-	public ResponseEntity<String> getAllPositions(@PathVariable(name = "id") long id) {
+	
+	@GetMapping(path = "/{id}/positions")
+	public ResponseEntity<String> getDepartmentPositions(
+		@PathVariable(name = "id") long id,
+		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		if (!getWorkshopEntitiesService().isExist(id)) {
 			return new ResponseEntity<>(getMessageSource().getMessage(
 				"httpStatus.notAcceptable.identifier(1)", new Object[]{id}, LocaleContextHolder.getLocale()),
 				HttpStatus.NOT_FOUND);
 		}
+		Pageable pageablePositions = getPageable(pageSize, pageNum, orderBy, order);
+		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions, orderBy);
+		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
+//		Resources<Resource<Position>> pagedPositionsResources = getWorkshopEntityResourceAssembler().
+		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);
 		
-		return ResponseEntity.ok("");
+		return ResponseEntity.ok(jsonPositionResources);
 	}
 }

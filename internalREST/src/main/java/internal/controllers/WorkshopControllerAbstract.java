@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.WorkshopEntity;
-import internal.entities.hateoasResources.WorkshopEntityResourceAssembler;
+import internal.entities.hateoasResources.WorkshopEntityResourceAssemblerAbstract;
 import internal.entities.hibernateValidation.MergingValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.exceptions.IllegalArgumentsException;
@@ -40,7 +40,7 @@ import java.util.Set;
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
  * so that to get the concrete type of WorkshopEntity to operate with.
  * 2. Every REST controller has to be annotated with:
- * a. "@RequestMapping(path = "/internal/<workshop_entities>", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})"
+ * a. "@RequestMapping(path = "/internal/<workshop_entities>", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})"
  * b. "@RestController"
  * c. '@ExposesResourcesFor(WorkshopEntity.class)' To be Spring EntityLinks capable controller every instance has to be
  * annotated with it and has the method kind of:
@@ -74,7 +74,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Autowired
 	private WorkshopEntitiesServiceAbstract<T> workshopEntitiesService;
 	@Autowired
-	private WorkshopEntityResourceAssembler<T> workshopEntityResourceAssembler;
+	private WorkshopEntityResourceAssemblerAbstract<T> workshopEntityResourceAssembler;
 	private Class<T> workshopEntityClass;
 	/**
 	 * Just a simple name for simplified "workshopEntityClass.getSimpleName()"
@@ -129,8 +129,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
 			  workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
-		return responseEntity;
+		return new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
 	}
 	
 	@Override
@@ -139,8 +138,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
 		Resource<T> entityResource = workshopEntityResourceAssembler.toResource(entity);
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entityResource);
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(entityToJson, HttpStatus.OK);
-		return responseEntity;
+		return new ResponseEntity<>(entityToJson, HttpStatus.OK);
 	}
 	
 	
@@ -166,8 +164,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
 		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntityResource);
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
-		return responseEntity;
+		return new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
 	}
 	
 	@Override
@@ -183,8 +180,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
 		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntityResource);
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
-		return responseEntity;
+		return new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
 	}
 	
 	@Override
@@ -196,8 +192,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			  "message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
 			  LocaleContextHolder.getLocale());
 		
-		ResponseEntity<String> responseEntity = new ResponseEntity<>(localizedMessage, HttpStatus.NO_CONTENT);
-		return responseEntity;
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(localizedMessage);
 	}
 	
 	/**

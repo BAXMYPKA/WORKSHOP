@@ -1,11 +1,13 @@
 package internal.entities.hateoasResources;
 
+import internal.controllers.DepartmentsController;
 import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,15 +22,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
+@Getter
+@Setter
 @Component
-public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
+public abstract class WorkshopEntityResourceAssemblerAbstract <T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
-	private WorkshopControllerAbstract<T> workshopControllerAbstract;
+//	private WorkshopControllerAbstract<T> workshopControllerAbstract;
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
 	@Getter
 	private Class<T> workshopEntityClass;
-	private String workshopEntitySimpleClassName;
+//	private String workshopEntitySimpleClassName;
 	@Autowired
 	private EntityLinks entityLinks;
 	private final String MEDIA = "application/json; charset=utf-8";
@@ -37,25 +41,35 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 	private final String NEXT_PAGE_REL = "nextPage";
 	private final String FIRST_PAGE_REL = "firstPage";
 	private final String LAST_PAGE_REL = "lastPage";
+	@Value("${page.size.default}")
+	private int DEFAULT_PAGE_SIZE;
+	@Value("${page.max_num}")
+	private int MAX_PAGE_NUM;
+	@Value("${page.size.max}")
+	private int MAX_PAGE_SIZE;
+	@Value("${default.orderBy}")
+	private String DEFAULT_ORDER_BY;
+	@Value("${default.order}")
+	private String DEFAULT_ORDER;
 //	String lastPageTitle = "Page " + (page.getTotalPages());
 //	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 //		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 	
-	/**
-	 * Obligatory constructor to create a proper bean
-	 *
-	 * @param workshopControllerAbstract WorkshopController<T extends WorkshopEntity> has to be annotated with
-	 *                                   '@ExposesResourceFor(WorkshopEntity.class)' for Spring's HATEOAS support,
-	 *                                   has to be created according to String HATEOAS REST controllers convention
-	 *                                   and contain the exact WorkshopEntity.class to be extracted
-	 *                                   into {@link #workshopEntityClass}
-	 */
-	public WorkshopEntityResourceAssembler(WorkshopControllerAbstract<T> workshopControllerAbstract) {
-		this.workshopControllerAbstract = workshopControllerAbstract;
-		this.workshopControllerAbstractClass = workshopControllerAbstract.getClass();
-		this.workshopEntityClass = workshopControllerAbstract.getWorkshopEntityClass();
-		workshopEntitySimpleClassName = workshopEntityClass.getSimpleName();
-		
+//	/**
+//	 * Obligatory constructor to create a proper bean
+//	 *
+//	 * @param workshopControllerAbstract WorkshopController<T extends WorkshopEntity> has to be annotated with
+//	 *                                   '@ExposesResourceFor(WorkshopEntity.class)' for Spring's HATEOAS support,
+//	 *                                   has to be created according to String HATEOAS REST controllers convention
+//	 *                                   and contain the exact WorkshopEntity.class to be extracted
+//	 *                                   into {@link #workshopEntityClass}
+//	 */
+	
+	public WorkshopEntityResourceAssemblerAbstract(Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
+												   Class<T> workshopEntityClass) {
+		this.workshopControllerAbstractClass = workshopControllerAbstractClass;
+		this.workshopEntityClass = workshopEntityClass;
+	
 	}
 	
 	/**
@@ -71,15 +85,34 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier())
 			.withSelfRel()
 			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
-			.withMedia("application/json; charset=utf-8")
+			.withMedia("application/hal+json; charset=utf-8")
 			.withTitle("title");
 		return new Resource<>(workshopEntity, selfGetLink);
 	}
 	
+	/**
+	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
+	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
+	 * and pagination Links (nextPage, prevPage etc).
+	 */
 	public Resources<Resource<T>> toPagedResources(Page<T> workshopEntitiesPage) {
-		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get().map(this::toResource)
+		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
+			.map(this::toResource)
 			.collect(Collectors.toList());
-		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage);
+		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage, null);
+		return new Resources<>(resourcesCollection, pagedLinks);
+	}
+	
+	/**
+	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
+	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
+	 * and pagination Links (nextPage, prevPage etc).
+	 */
+	public Resources<Resource<T>> toPagedResources(Page<T> workshopEntitiesPage, Long workshopEntityId) {
+		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
+			.map(this::toResource)
+			.collect(Collectors.toList());
+		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage, workshopEntityId);
 		return new Resources<>(resourcesCollection, pagedLinks);
 	}
 	
@@ -87,7 +120,7 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
 	 * So for page.getNumber() we must add +1
 	 */
-	private Collection<Link> getPagedLinks(Page page) {
+	protected Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
 		Collection<Link> pagedLinks = new ArrayList<>(7);
 		
 		String orderBy = page.getSort().iterator().next().getProperty();
@@ -99,7 +132,7 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 			"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 		
 		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, CURRENT_PAGE_REL,
-			hrefLang, MEDIA, currentPageTitle);
+			hrefLang, MEDIA, currentPageTitle, workshopEntityId);
 		
 		pagedLinks.add(currentPageLink);
 		
@@ -108,15 +141,15 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 		}
 		if (page.hasPrevious()) {
 			pagedLinks.add(getPagedLink(page.previousPageable(), page.getSize(), orderBy, order, PREV_PAGE_REL,
-				hrefLang, MEDIA, null));
+				hrefLang, MEDIA, null, workshopEntityId));
 		}
 		if (page.hasNext()) {
 			pagedLinks.add(getPagedLink(page.nextPageable(), page.getSize(), orderBy, order, NEXT_PAGE_REL, hrefLang, MEDIA,
-				null));
+				null, workshopEntityId));
 		}
 		if (!page.isFirst()) { //Add FirstPage
 			pagedLinks.add(getPagedLink(page.getPageable().first(), page.getSize(), orderBy, order, FIRST_PAGE_REL,
-				hrefLang, MEDIA, null));
+				hrefLang, MEDIA, null, workshopEntityId));
 		}
 		if (!page.isLast()) { //Add LastPage
 			Link lastPageLink =
@@ -133,13 +166,13 @@ public class WorkshopEntityResourceAssembler <T extends WorkshopEntity>
 		
 		return pagedLinks;
 	}
-	
-	/**
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 */
-	private Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
-							  String hrefLang, String media, @Nullable String title) {
+		
+		/**
+		 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
+		 * So for page.getNumber() we must add +1
+		 */
+	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
+							  String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
 		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 		
 		Link link =

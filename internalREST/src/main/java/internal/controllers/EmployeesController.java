@@ -3,12 +3,13 @@ package internal.controllers;
 import internal.entities.Employee;
 import internal.services.EmployeesService;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/internal/employees", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(path = "/internal/employees", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
 @ExposesResourceFor(Employee.class)
 public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	

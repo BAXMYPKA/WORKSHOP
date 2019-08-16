@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ import java.util.Locale;
 @Setter
 @DependsOn("ordersService")
 @RestController
-@RequestMapping(path = "/internal/orders", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@RequestMapping(path = "/internal/orders", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
 @ExposesResourceFor(Order.class)
 public class OrdersController {
 	

@@ -15,6 +15,7 @@ public class ResponseHeadersInternalFilter implements Filter {
 	public ResponseHeadersInternalFilter() {
 		httpHeaders.put("Allow", "GET, POST, PUT, DELETE");
 		httpHeaders.put("Content-Language", "ru-RU, en-US");
+//		httpHeaders.put("Content-Type", "application/hal+json");
 	}
 	
 	@Override

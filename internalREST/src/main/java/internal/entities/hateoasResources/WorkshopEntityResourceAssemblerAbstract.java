@@ -1,6 +1,5 @@
 package internal.entities.hateoasResources;
 
-import internal.controllers.DepartmentsController;
 import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
@@ -25,14 +24,14 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Component
-public abstract class WorkshopEntityResourceAssemblerAbstract <T extends WorkshopEntity>
+public abstract class WorkshopEntityResourceAssemblerAbstract<T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
-//	private WorkshopControllerAbstract<T> workshopControllerAbstract;
+	//	private WorkshopControllerAbstract<T> workshopControllerAbstract;
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
 	@Getter
 	private Class<T> workshopEntityClass;
-//	private String workshopEntitySimpleClassName;
+	//	private String workshopEntitySimpleClassName;
 	@Autowired
 	private EntityLinks entityLinks;
 	private final String MEDIA = "application/json; charset=utf-8";
@@ -54,7 +53,7 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 //	String lastPageTitle = "Page " + (page.getTotalPages());
 //	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 //		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
-	
+
 //	/**
 //	 * Obligatory constructor to create a proper bean
 //	 *
@@ -69,7 +68,7 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 												   Class<T> workshopEntityClass) {
 		this.workshopControllerAbstractClass = workshopControllerAbstractClass;
 		this.workshopEntityClass = workshopEntityClass;
-	
+		
 	}
 	
 	/**
@@ -105,6 +104,11 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	
 	/**
 	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
+	 * @param workshopEntityId     Can by used in some custom cases for deriving paged collections by owner's id.
+	 *                             The given parameter passes down to
+	 *                             {@link #getPagedLink(Pageable, int, String, String, String, String, String, String, Long)}
+	 *                             method but not used by default. If you pass it, you have to override the method above
+	 *                             to use this id.
 	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
 	 * and pagination Links (nextPage, prevPage etc).
 	 */
@@ -119,6 +123,13 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	/**
 	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
 	 * So for page.getNumber() we must add +1
+	 *
+	 * @param page             The container with 'total pages', 'orderBy', 'order' and other data to prepare 'nextPage',
+	 *                         'prevPage' and other Links to be included into the Resources<T> paged collection.
+	 * @param workshopEntityId Not used and nullable by default. But can be passed with a value to
+	 *                         {@link #getPagedLink(Pageable, int, String, String, String, String, String, String, Long)}
+	 *                         method which has to be overriding to use this id as the collection's 'ownerId', for
+	 *                         instance.
 	 */
 	protected Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
 		Collection<Link> pagedLinks = new ArrayList<>(7);
@@ -166,13 +177,17 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 		
 		return pagedLinks;
 	}
-		
-		/**
-		 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-		 * So for page.getNumber() we must add +1
-		 */
+	
+	/**
+	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
+	 * So for page.getNumber() we must add +1
+	 *
+	 * @param workshopEntityId Default = null and not used by this method.
+	 *                         But can by used for special cased when you may want to override the method to
+	 *                         invoke the given parameter.
+	 */
 	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
-							  String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
+								String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
 		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 		
 		Link link =

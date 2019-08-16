@@ -50,8 +50,8 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		}
 		Pageable pageablePositions = getPageable(pageSize, pageNum, orderBy, order);
 		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions, orderBy);
+		
 		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
-//		Resources<Resource<Position>> pagedPositionsResources = getWorkshopEntityResourceAssembler().
 		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);
 		
 		return ResponseEntity.ok(jsonPositionResources);

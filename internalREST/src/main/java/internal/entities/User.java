@@ -29,7 +29,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"identifier"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(of = {"identifier", "email", "firstName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -49,12 +49,15 @@ public class User extends WorkshopEntityAbstract {
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column
+	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column
+	@EqualsAndHashCode.Include
 	private String lastName;
 	
 	/**
@@ -71,10 +74,12 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@Column(unique = true)
 	@Email(message = "{validation.email}")
+	@EqualsAndHashCode.Include
 	private String email;
 	
 	@Column(nullable = false)
 	@PastOrPresent(message = "{validation.pastOrPresent}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	@Column
@@ -83,6 +88,7 @@ public class User extends WorkshopEntityAbstract {
 	
 	@Column
 	@Past(message = "{validation.past}")
+	@EqualsAndHashCode.Include
 	private LocalDate birthday;
 	
 	@Column(name = "enabled")
@@ -95,6 +101,7 @@ public class User extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@EqualsAndHashCode.Include
 	private Set<@Valid Phone> phones;
 	
 	@JsonIgnore
@@ -102,6 +109,7 @@ public class User extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@EqualsAndHashCode.Include
 	private Collection<@Valid Order> orders;
 	
 	/**
@@ -116,6 +124,7 @@ public class User extends WorkshopEntityAbstract {
 			@JoinColumn(name = "user_id", nullable = false)},
 		inverseJoinColumns = {
 			@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
+	@EqualsAndHashCode.Include
 	private Set<@Valid GrantedAuthority> grantedAuthorities;
 	
 	public User(@Email(message = "{validation.email}") String email) {

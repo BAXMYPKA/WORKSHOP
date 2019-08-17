@@ -26,7 +26,7 @@ import java.util.stream.Stream;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"price", "appointedTo"})
-@EqualsAndHashCode(callSuper = true, of = {"order", "name", "deadline"})
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"order"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -37,16 +37,22 @@ public class Task extends Trackable {
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
+	/**
+	 * If not explicitly given, all the included Classifiers names will be concatenated into this 'name' property.
+	 */
 	@Column
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column
 	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
+	@EqualsAndHashCode.Include
 	private Employee appointedTo;
 	
 	/**
@@ -60,12 +66,14 @@ public class Task extends Trackable {
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
 		joinColumns = {@JoinColumn(name = "task_id")},
 		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+	@EqualsAndHashCode.Include
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@EqualsAndHashCode.Include
 	private Order order;
 	
 	/**
@@ -133,14 +141,10 @@ public class Task extends Trackable {
 		if (classifiers == null) {
 			classifiers = new HashSet<>(3);
 		}
-		if (price == null) price = new BigDecimal(0);
-		
 		Stream.of(classifier).forEach(classifierToAdd -> {
 			classifiers.add(classifierToAdd);
 			price = price.add(classifierToAdd.getPrice());
 		});
-		setClassifiers(new HashSet<>(classifiers));
-		setPrice(new BigDecimal(price.toString()));
 	}
 	
 	/**
@@ -152,20 +156,21 @@ public class Task extends Trackable {
 			return;
 		}
 		this.classifiers = classifiers;
-		
-		BigDecimal classifiersPrices = classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-		setPrice(classifiersPrices);
-		
+		price = classifiers.stream().map(Classifier::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 	
 	/**
-	 * Before being updated...
+	 * Forces the included Order to be pre-updated (so that that Order also be updated with this renewed Task).
+	 * If this Task hasn't been given a name, it concatenates all the names of the included Classifiers for this.
 	 */
 	@PreUpdate
 	@Override
 	public void preUpdate() {
 		super.preUpdate();
 		getOrder().preUpdate();
+		if (this.name == null && this.classifiers != null) {
+			this.classifiers.forEach(classifier -> this.name += classifier.getName()+"&");
+		}
 	}
 	
 	@Override

@@ -566,8 +566,9 @@ class WorkshopEntitiesDaoAbstractIT {
 		Long departmentId = department1Persisted.getIdentifier();
 		
 		//WHEN
+		List<Position> positions = positionsDao.findAllPagedAndSorted(0, 0, null, null).get();
 		Optional<List<Department>> allPagedAndSorted = departmentsDao.findAllPagedAndSorted(20, 0, null, null);
-		Optional<List<Position>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(departmentId);
+		Optional<Collection<Collection>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(departmentId);
 		
 		//THEN
 		System.out.println(allPositionsByDepartment);

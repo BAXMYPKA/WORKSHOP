@@ -21,6 +21,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"name", "department"})
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(value = {"department"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -37,6 +38,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	 */
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	/**

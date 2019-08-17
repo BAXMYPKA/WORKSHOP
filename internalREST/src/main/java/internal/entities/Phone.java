@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(of = {"identifier", "phone"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
 @Cacheable
@@ -38,13 +38,16 @@ public class Phone extends WorkshopEntityAbstract {
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column(updatable = false)
 	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	/**
@@ -56,6 +59,7 @@ public class Phone extends WorkshopEntityAbstract {
 	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
 	@Pattern(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.phone}",
 		regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
+	@EqualsAndHashCode.Include
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

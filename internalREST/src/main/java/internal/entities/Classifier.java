@@ -30,7 +30,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true, of = {"name"})
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"tasks"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -44,6 +44,7 @@ public class Classifier extends Trackable implements Serializable {
 	
 	@Column(nullable = false, unique = true)
 	@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column

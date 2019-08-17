@@ -14,10 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Deleting a Department will lead to deleting all the related Positions
@@ -26,7 +23,7 @@ import java.util.HashSet;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"identifier", "name"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(of = {"identifier", "name"})
 @JsonIgnoreProperties(value = {"positions"})
 @Cacheable
@@ -45,14 +42,17 @@ public class Department extends WorkshopEntityAbstract {
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column(updatable = false)
 	@PastOrPresent(groups = {PersistenceValidation.class, Default.class}, message = "{validation.pastOrPresent}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -69,10 +69,10 @@ public class Department extends WorkshopEntityAbstract {
 		if (positions == null) {
 			throw new IllegalArgumentException("Method argument Position cannot be null!");
 		}
-		if (getPositions() == null) {
-			setPositions(new HashSet<>(Arrays.asList(positions)));
+		if (this.positions == null) {
+			this.positions = new HashSet<>(Arrays.asList(positions));
 		} else {
-			getPositions().addAll(Arrays.asList(positions));
+			this.positions.addAll(Arrays.asList(positions));
 		}
 	}
 	

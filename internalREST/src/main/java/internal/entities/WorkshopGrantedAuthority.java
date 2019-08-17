@@ -25,7 +25,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"identifier", "authority"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"users"}, allowSetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -42,10 +42,12 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String authority;
 	
 	@Column
@@ -55,6 +57,7 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	
 	@Column(updatable = false)
 	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	/**

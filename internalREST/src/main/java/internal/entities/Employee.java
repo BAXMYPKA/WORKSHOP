@@ -21,6 +21,7 @@ import java.util.Collection;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"email"})
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"appointedTasks", "ordersModifiedBy", "ordersCreatedBy", "tasksModifiedBy", "tasksCreatedBy"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -37,10 +38,12 @@ public class Employee extends Trackable {
 	
 	@Column(name = "first_name", nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String lastName;
 	
 	/**
@@ -56,6 +59,7 @@ public class Employee extends Trackable {
 	@Column(nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	@Email(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.email}")
+	@EqualsAndHashCode.Include
 	private String email;
 	
 	@Column(nullable = false)

@@ -1,6 +1,5 @@
 package internal.entities;
 
-//@Component
 public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 	
 	/**

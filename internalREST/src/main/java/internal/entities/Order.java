@@ -23,6 +23,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"createdFor"})
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -35,9 +36,11 @@ public class Order extends Trackable {
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime deadline;
 	
 	@Column
+	@EqualsAndHashCode.Include
 	private String description;
 	
 	/**
@@ -49,12 +52,14 @@ public class Order extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@Valid
+	@EqualsAndHashCode.Include
 	private User createdFor;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@EqualsAndHashCode.Include
 	private Set<@Valid Task> tasks;
 	
 	/**
@@ -64,6 +69,7 @@ public class Order extends Trackable {
 	@Column(scale = 2)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
 		message = "{validation.positiveOrZero}")
+	@EqualsAndHashCode.Include
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
 	@Builder

@@ -24,7 +24,7 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"identifier"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"createdBy", "modifiedBy"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -49,6 +49,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	/**
@@ -59,6 +60,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@PastOrPresent(groups = {PersistEmployeeValidation.class},
 		message = "{validation.pastOrPresent}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	@Column

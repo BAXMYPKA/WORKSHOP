@@ -124,7 +124,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * @param pageSize The maximum amount of entities at once (on one page).
 	 *                 Default = ({@link #PAGE_SIZE_DEFAULT}),
 	 *                 Max = {@link #PAGE_SIZE_MAX}
-	 * @param pageNum  Number of desired page to be given.
+	 * @param pageNum  Starts from 0 (according to Spring Pageable). Number of desired page to be given.
 	 *                 Default = 0,
 	 * @param orderBy  @Nullable. The name of the property to order by.
 	 *                 Default = {@link #DEFAULT_ORDER_BY}

@@ -541,20 +541,40 @@ class WorkshopEntitiesDaoAbstractIT {
 		removeAllOrders();
 	}
 	
-	@Disabled
+//	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@Transactional
 	public void criteriaAPI_Junk_Test() {
-		//GIVEN 21 Orders
-		persistAllOrders();
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		Department department2 = new Department("Department 2");
+		
+		Position position1 = new Position("Position 1", department1);
+		Position position2 = new Position("Position 2", department1);
+		Position position3 = new Position("Position 3", department1);
+		Position position4 = new Position("Position 4", department1);
+		Position position5 = new Position("Position 5", department1);
+		Position position6 = new Position("Position 6", department1);
+		Position position7 = new Position("Position 7", department1);
+		Position position8 = new Position("Position 8", department1);
+		Position position9 = new Position("Position 9", department1);
+		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+			position8, position9);
+		
+		Department department1Persisted = departmentsDao.persistEntity(department1).get();
+		Long departmentId = department1Persisted.getIdentifier();
 		
 		//WHEN
-		List<Order> pagedOrders = ordersDao.findAllPagedAndSorted(20, 1, "overallPrice", Sort.Direction.ASC).get();
+		Optional<List<Department>> allPagedAndSorted = departmentsDao.findAllPagedAndSorted(20, 0, null, null);
+		Optional<List<Position>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(departmentId);
 		
 		//THEN
-		System.out.println(pagedOrders);
-		assertEquals(20, pagedOrders.size());
+		System.out.println(allPositionsByDepartment);
 		
+		assertTrue(allPagedAndSorted.isPresent());
+		
+		System.out.println(allPagedAndSorted.get());
 	}
 	
 	@BeforeEach

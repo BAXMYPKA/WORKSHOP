@@ -49,6 +49,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 				HttpStatus.NOT_FOUND);
 		}
 		Pageable pageablePositions = getPageable(pageSize, pageNum, orderBy, order);
+		
 		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions, orderBy);
 		
 		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);

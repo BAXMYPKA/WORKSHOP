@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -64,14 +65,14 @@ public class Department extends WorkshopEntityAbstract {
 		this.name = name;
 	}
 	
-	public void addPosition(@Valid Position position) {
-		if (position == null) {
+	public void addPosition(@Valid Position... positions) {
+		if (positions == null) {
 			throw new IllegalArgumentException("Method argument Position cannot be null!");
 		}
 		if (getPositions() == null) {
-			setPositions(new HashSet<Position>(Collections.singletonList(position)));
+			setPositions(new HashSet<>(Arrays.asList(positions)));
 		} else {
-			getPositions().add(position);
+			getPositions().addAll(Arrays.asList(positions));
 		}
 	}
 	

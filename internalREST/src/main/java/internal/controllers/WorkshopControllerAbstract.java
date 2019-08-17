@@ -125,7 +125,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
+		
 		Resources<Resource<T>> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
+		
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
 			  workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());

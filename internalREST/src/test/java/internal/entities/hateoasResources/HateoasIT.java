@@ -1,5 +1,7 @@
-package internal.controllers;
+package internal.entities.hateoasResources;
 
+import internal.controllers.DepartmentsController;
+import internal.controllers.PositionsController;
 import internal.entities.Department;
 import internal.entities.Position;
 import internal.services.DepartmentsService;
@@ -12,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
-import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -333,58 +332,6 @@ class HateoasIT {
 				.content().string(Matchers.not(
 					Matchers.containsString("\"name\":\"Position unique 10\""))));
 	}
-	
-	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	@Transactional
-	public void dummy()	throws Exception {
-		
-		ResponseEntity<String> one = ControllerLinkBuilder.methodOn(DepartmentsController.class).getOne(1L);
-		
-		Link departmentPositionsLink =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class)
-					.getOne(1))
-				.withSelfRel();
-		
-		Link departmentPositionsLink2 =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class).getOne(2L)
-			).withSelfRel();
-		
-		
-		//GIVEN 10 elements by 3 on a page = 4 pages
-		int totalPersisted = totalPersistedPositionsForPaginationTests();
-		//Retrieve first page of 4 with 3 elements of 10 total elements.
-		//The request with orderBy 'name' property with ascending order
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1&order-by=name&order=asc"));
-		
-		//WHEN
-		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
-		
-		ResultActions resultActions = mockMvc.perform(request);
-		
-		//THEN
-		assertEquals(totalPersisted, totalRetrieved);
-		
-		resultActions
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique 01\"")))
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique 02\"")))
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Position unique 03\"")))
-			
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.not(
-					Matchers.containsString("\"name\":\"Position unique 04\""))))
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.not(
-					Matchers.containsString("\"name\":\"Position unique 10\""))));
-	}
-	
 	
 	private int totalPersistedPositionsForPaginationTests() {
 		//DO NOT ADD NEW POSITIONS!

@@ -2,16 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-14.0.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/LinkedResourcesSubcollectionsIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/HateoasIT.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/internalREST/target/" />
@@ -73,11 +74,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/LinkedResourcesSubcollectionsIT.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
-              <caret line="406" column="1" selection-start-line="406" selection-start-column="1" selection-end-line="406" selection-end-column="1" />
+            <state relative-caret-position="684">
+              <caret line="96" column="54" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#690#691#0" expanded="true" />
+                <element signature="e#712#713#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,26 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="53" column="83" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="880">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="192">
+              <caret line="126" column="17" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -112,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="108">
+              <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
               <folding>
                 <element signature="docComment;method#toPagedResources#1;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
                 <element signature="docComment;method#getPagedLinks#0;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
@@ -124,28 +112,43 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="496">
+              <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="-112">
+              <caret line="16" column="34" lean-forward="true" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+              <folding>
+                <element signature="docComment;method#getPagedLink#0;class#DepartmentResourceAssembler#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+            <state relative-caret-position="572">
+              <caret line="358" column="47" selection-start-line="358" selection-start-column="47" selection-end-line="358" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="414" column="8" selection-start-line="414" selection-start-column="8" selection-end-line="414" selection-end-column="8" />
+              <folding>
+                <element signature="docComment;method#isExist#0;class#WorkshopEntitiesDaoAbstract#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,8 +160,8 @@
       <list>
         <option value="HTML Thymeleaf-Spring" />
         <option value="Interface" />
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -210,11 +213,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceCheck.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/MergingCheck.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistEmployeeCheck.java" />
@@ -247,20 +245,25 @@
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/MergingValidation.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssembler.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" />
-        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoas/HateoasIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/HateoasIT.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/DepartmentResourceAssemblerTest.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/LinkedResourcesSubcollectionsIT.java" />
         <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" />
+        <option value="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" />
       </list>
     </option>
   </component>
@@ -305,7 +308,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="CatdeaLogs" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -355,7 +358,25 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hateoasResources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
@@ -424,6 +445,33 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hateoasResources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WORKSHOP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WORKSHOP" type="462c0819:PsiDirectoryNode" />
+              <item name="internalREST" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -475,7 +523,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="CatdeaLogs" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -512,23 +560,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="internal.entities.hateoasResources" />
       <recent name="internal.entities" />
       <recent name="internal.controllers" />
       <recent name="internal.configurations" />
       <recent name="internal.service" />
-      <recent name="internal.dao" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="internal.http.security" />
-      <recent name="internal.entities" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources\i18nMessages" />
@@ -536,6 +572,18 @@
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\configs" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\resources" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\internal\dao" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="internal.http.security" />
+      <recent name="internal.entities" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -550,32 +598,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HateoasIT.dummy">
-    <configuration name="AppConfigurationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.configurations.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.configurations" />
-      <option name="MAIN_CLASS_NAME" value="internal.configurations.AppConfigurationIT" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection">
     <configuration name="HateoasIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.HateoasIT" />
+      <option name="PACKAGE_NAME" value="internal.entities.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.hateoasResources.HateoasIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -585,13 +618,45 @@
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.controllers.*" />
+          <option name="PATTERN" value="internal.entities.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="internal.controllers.HateoasIT" />
+      <option name="PACKAGE_NAME" value="internal.entities.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.hateoasResources.HateoasIT" />
       <option name="METHOD_NAME" value="dummy" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.entities.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.entities.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.hateoasResources.LinkedResourcesSubcollectionsIT" />
+      <option name="METHOD_NAME" value="departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LinkedResourcesSubcollectionsIT.paged_Department_Positions_Should_Be_Returned" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.entities.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.entities.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.entities.hateoasResources.LinkedResourcesSubcollectionsIT" />
+      <option name="METHOD_NAME" value="paged_Department_Positions_Should_Be_Returned" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -607,21 +672,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.configurations" />
       <option name="MAIN_CLASS_NAME" value="internal.configurations.LocalesConfigurationIT" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -656,20 +706,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
-      <item itemvalue="JUnit.AppConfigurationIT" />
       <item itemvalue="JUnit.LocalesConfigurationIT" />
       <item itemvalue="JUnit.HateoasIT.dummy" />
       <item itemvalue="JUnit.HateoasIT" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.LinkedResourcesSubcollectionsIT.paged_Department_Positions_Should_Be_Returned" />
+      <item itemvalue="JUnit.LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HateoasIT.dummy" />
+        <item itemvalue="JUnit.LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" />
+        <item itemvalue="JUnit.LinkedResourcesSubcollectionsIT.paged_Department_Positions_Should_Be_Returned" />
         <item itemvalue="JUnit.HateoasIT" />
+        <item itemvalue="JUnit.HateoasIT.dummy" />
         <item itemvalue="JUnit.LocalesConfigurationIT" />
-        <item itemvalue="JUnit.AppConfigurationIT" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
       </list>
     </recent_temporary>
   </component>
@@ -787,43 +837,44 @@
       <workItem from="1565874170545" duration="3379000" />
       <workItem from="1565938004616" duration="25012000" />
       <workItem from="1565980687698" duration="1297000" />
+      <workItem from="1566024663215" duration="7211000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 08m 19s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 09m 54s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 11m 04s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 14m 07s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 15m 47s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 29m 51s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 40m 32s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 42m 33s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HateoasIT_dummy - 2019.08.16 at 15h 58m 45s.xml">
-      <configuration name="HateoasIT.dummy" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="HateoasIT - 2019.08.16 at 17h 44m 31s.xml">
       <configuration name="HateoasIT" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="HateoasIT - 2019.08.17 at 10h 45m 46s.xml">
+      <configuration name="HateoasIT" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DepartmentResourceAssemblerTest_paged_Department_Positions_Should_Be_Returned - 2019.08.17 at 11h 20m 13s.xml">
+      <configuration name="DepartmentResourceAssemblerTest.paged_Department_Positions_Should_Be_Returned" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 11h 45m 33s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 11h 49m 24s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 11h 50m 13s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 11h 53m 11s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 12h 28m 21s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 12h 30m 03s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LinkedResourcesSubcollectionsIT_departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection - 2019.08.17 at 12h 31m 27s.xml">
+      <configuration name="LinkedResourcesSubcollectionsIT.departments_Positions_Should_Be_Returned_As_Sorted_Paged_Collection" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1288896000" />
+    <option name="totallyTimeSpent" value="1296107000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -832,17 +883,17 @@
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.47124824" side_tool="true" weight="0.14172813" />
+      <window_info auto_hide="true" id="Structure" order="4" sideWeight="0.47233468" side_tool="true" weight="0.14172813" />
       <window_info id="Bean Validation" order="5" sideWeight="0.4596182" side_tool="true" weight="0.1601686" />
       <window_info id="Favorites" order="6" sideWeight="0.4674221" side_tool="true" weight="0.16174921" />
-      <window_info active="true" content_ui="combo" id="Project" order="7" sideWeight="0.52875173" visible="true" weight="0.14172813" />
+      <window_info content_ui="combo" id="Project" order="7" sideWeight="0.5276653" visible="true" weight="0.14172813" />
       <window_info id="Database" order="8" sideWeight="0.7394247" weight="0.1849315" />
       <window_info id="Maven" order="9" sideWeight="0.5320829" weight="0.105374075" />
       <window_info id="Coverage" order="10" sideWeight="0.45338982" side_tool="true" weight="0.24090597" />
       <window_info id="Web" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.39384615" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49841937" weight="0.26871794" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3928924" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49841937" weight="0.2685094" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.34871796" />
@@ -853,7 +904,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015806" side_tool="true" weight="0.26949653" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32872656" />
       <window_info anchor="bottom" id="Database Changes" order="12" weight="0.32872656" />
-      <window_info anchor="bottom" auto_hide="true" id="Messages" order="13" weight="0.18769231" />
+      <window_info anchor="bottom" auto_hide="true" id="Messages" order="13" weight="0.18756169" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32820514" />
       <window_info anchor="bottom" id="Database Console" order="15" weight="0.32712215" />
       <window_info anchor="bottom" id="Inspection Results" order="16" weight="0.32923076" />
@@ -924,13 +975,6 @@ System.out.println(contains);</expression-string>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/http/CookieUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -1110,16 +1154,6 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="402" column="65" selection-start-line="402" selection-start-column="65" selection-end-line="402" selection-end-column="65" />
-          <folding>
-            <element signature="e#0#47#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties">
       <provider selected="true" editor-type-id="ResourceBundle" />
       <provider editor-type-id="text-editor" />
@@ -1173,19 +1207,16 @@ System.out.println(contains);</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" />
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/EmployeeResourceAssembler.java" />
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="108">
+          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+          <folding>
+            <element signature="docComment;method#toPagedResources#1;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
+            <element signature="docComment;method#getPagedLinks#0;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
+            <element signature="docComment;method#getPagedLink#0;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1198,48 +1229,82 @@ System.out.println(contains);</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="73" column="14" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/WorkshopEntityResourceAssemblerAbstract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="docComment;method#toPagedResources#1;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
-            <element signature="docComment;method#getPagedLinks#0;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
-            <element signature="docComment;method#getPagedLink#0;class#WorkshopEntityResourceAssemblerAbstract#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="192">
+          <caret line="126" column="17" selection-start-line="126" selection-start-column="17" selection-end-line="126" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="53" column="83" selection-start-line="53" selection-start-column="83" selection-end-line="53" selection-end-column="83" />
+        <state relative-caret-position="496">
+          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/HateoasIT.java">
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/PositionResourceAssembler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="406" column="1" selection-start-line="406" selection-start-column="1" selection-end-line="406" selection-end-column="1" />
+        <state relative-caret-position="96">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/HateoasIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hateoasResources/DepartmentResourceAssembler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-112">
+          <caret line="16" column="34" lean-forward="true" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+          <folding>
+            <element signature="docComment;method#getPagedLink#0;class#DepartmentResourceAssembler#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/test/java/internal/entities/hateoasResources/LinkedResourcesSubcollectionsIT.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="96" column="54" selection-start-line="96" selection-start-column="54" selection-end-line="96" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#690#691#0" expanded="true" />
+            <element signature="e#712#713#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="358" column="47" selection-start-line="358" selection-start-column="47" selection-end-line="358" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="414" column="8" selection-start-line="414" selection-start-column="8" selection-end-line="414" selection-end-column="8" />
+          <folding>
+            <element signature="docComment;method#isExist#0;class#WorkshopEntitiesDaoAbstract#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -46,24 +46,28 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 		return departmentResource;
 	}
 	
+	
+	/**
+	 * @see WorkshopEntityResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
+	 */
 	@Override
 	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation, String hrefLang,
-							 String media, @Nullable String title, Long departmentId) {
-		if (departmentId == null){ //It is a standard 'getAll' request
+								String media, @Nullable String title, Long departmentId) {
+		if (departmentId == null) { //It is a standard 'getAll' request
 			return super.getPagedLink(pageable, pageSize, orderBy, order, relation, hrefLang, media, title, departmentId);
+		} else { //It is the special request
+			title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
+			
+			Link link =
+				ControllerLinkBuilder.linkTo(
+					ControllerLinkBuilder.methodOn(DepartmentsController.class)
+						.getDepartmentPositions(departmentId, pageSize, pageable.getPageNumber() + 1, orderBy, order))
+					.withRel(relation)
+					.withHreflang(hrefLang)
+					.withMedia(media)
+					.withTitle(title);
+			
+			return link;
 		}
-		//It is the special request
-		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
-		
-		Link link =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class)
-					.getDepartmentPositions(departmentId, pageSize, pageable.getPageNumber() + 1, orderBy, order))
-				.withRel(relation)
-				.withHreflang(hrefLang)
-				.withMedia(media)
-				.withTitle(title);
-		
-		return link;
 	}
 }

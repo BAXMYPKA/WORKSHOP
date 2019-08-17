@@ -406,13 +406,17 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		if (id <= 0) {
 			throw new IllegalArgumentException("ID="+id+" cannot be zero or below!");
 		}
-		TypedQuery<Long> entityId = entityManager.createQuery(
-			"SELECT id FROM " + entityClass + " id WHERE id.id= :id", Long.class);
-		entityId.setParameter("id", id);
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		Root<T> root = cq.from(entityClass);
+		Predicate idPredicate = cb.equal(root.get("identifier"), id);
+		cq.select(root.get("identifier")).where(idPredicate);
+		TypedQuery<Long> queryById = entityManager.createQuery(cq);
+		
 		Long idFound = null;
 		try {
-			idFound = entityId.getSingleResult();
-			log.debug("Entity.identifier={} is found.", id);
+			idFound = queryById.getSingleResult();
+			log.debug(entityClass.getSimpleName()+".identifier={} is found.", id);
 			return true;
 		} catch (NoResultException nre) {
 			log.debug("Entity.identifier={} is not found!", id);

@@ -90,6 +90,8 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 	}
 	
 	/**
+	 * Default method for obtaining the overall quantity of WorkshopEntities.
+	 *
 	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
 	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
 	 * and pagination Links (nextPage, prevPage etc).
@@ -103,6 +105,8 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 	}
 	
 	/**
+	 * Special method for obtaining paged WorkshopEntities collections with their owner's ids.
+	 *
 	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
 	 * @param workshopEntityId     Can by used in some custom cases for deriving paged collections by owner's id.
 	 *                             The given parameter passes down to

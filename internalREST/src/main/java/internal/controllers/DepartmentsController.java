@@ -18,6 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/internal/departments", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
 @ExposesResourceFor(Department.class)
@@ -36,6 +39,14 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	}
 	
 	
+	/**
+	 * @param id Department id
+	 * @param pageSize
+	 * @param pageNum
+	 * @param orderBy
+	 * @param order
+	 * @return
+	 */
 	@GetMapping(path = "/{id}/positions")
 	public ResponseEntity<String> getDepartmentPositions(
 		@PathVariable(name = "id") long id,
@@ -50,7 +61,11 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		}
 		Pageable pageablePositions = getPageable(pageSize, pageNum, orderBy, order);
 		
-		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions, orderBy);
+		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
+		
+		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions);
+		
+		
 		
 		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
 		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);

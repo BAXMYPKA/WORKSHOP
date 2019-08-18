@@ -124,7 +124,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		  @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
-		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest, orderBy);
+		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest);
 		
 		Resources<Resource<T>> entitiesPageResources = workshopEntityResourceAssembler.toPagedResources(entitiesPage);
 		

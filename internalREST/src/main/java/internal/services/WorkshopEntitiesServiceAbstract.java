@@ -7,6 +7,7 @@ import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
 import internal.exceptions.PersistenceFailureException;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class also intended to throw WorkshopException with fully localized messages with appropriate HttpStatus codes
@@ -35,9 +39,10 @@ import java.util.*;
 @Getter
 @Setter
 @Slf4j
+@NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -51,6 +56,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	private String DEFAULT_ORDER;
 	@Autowired
 	private MessageSource messageSource;
+	//	@Autowired
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
 	private Class<T> entityClass;
 	
@@ -274,42 +280,30 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	
 	
 	/**
-	 * @param pageable Should contain 'Sort.by(Sort.Direction, orderBy)'.
-	 *                 Otherwise {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
-	 * @param orderBy  Nullable. The property for ordering the result list by. If null {@link #DEFAULT_ORDER_BY} will
-	 *                 be used.
+	 * @param pageable If doesn't contain 'Sort' with property to be ordered by and Sort.Direction,
+	 *                 {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
 	 * @return A Page<WorkshopEntity> with a collection of Entities or {@link EntityNotFoundException} will be thrown if nothing found or
 	 * something went wrong during the search.
+	 * The Page consists of number of pages, all the included pages parameters, total elements etc. to be processed
+	 * for subsequent requests for all possible Pages.
 	 * @throws EntityNotFoundException      If nothing was found or 'orderBy' property isn't presented among {@link #entityClass}
 	 *                                      properties.
 	 * @throws InternalServerErrorException If Pageable argument is null.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
-	public Page<T> findAllEntities(Pageable pageable, @Nullable String orderBy) throws InternalServerErrorException, EntityNotFoundException {
+	public Page<T> findAllEntities(Pageable pageable) throws InternalServerErrorException, EntityNotFoundException {
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}
-		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
-			: pageable.getPageSize();
-		int pageNum = pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber();
-		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
-		Sort.Direction order =
-			pageable.getSort().isUnsorted() || pageable.getSort().getOrderFor(orderBy).getDirection() == null ?
-				Sort.Direction.DESC : pageable.getSort().getOrderFor(orderBy).getDirection();
-		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
+		pageable = getVerifiedPageable(pageable);
+		
+		String orderBy = pageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = pageable.getSort().getOrderFor(orderBy).getDirection();
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize, pageNum, orderBy, order);
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(
+				pageable.getPageSize(), pageable.getPageNumber(), orderBy, order);
 			
-			Page<T> page = new PageImpl<T>(entities.orElseThrow(() ->
-				new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",
-					HttpStatus.NOT_FOUND,
-					messageSource.getMessage("message.notFound(1)",
-						new Object[]{entityClass.getSimpleName() + "s"},
-						LocaleContextHolder.getLocale()))),
-				pageable, totalEntities);
-			
-			log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
-			return page;
+			return getEntitiesPage(pageable, entities);
 		} catch (PersistenceException e) {
 			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
@@ -357,5 +351,46 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 				new Object[]{id}, LocaleContextHolder.getLocale()));
 		}
 		return workshopEntitiesDaoAbstract.isExist(id);
+	}
+	
+	/**
+	 * @param pageable The Pageable to be checked and renewed if it is non-compatible with standards.
+	 * @return Fully verified Pageable
+	 * @throws InternalServerErrorException If Pageable to be verified is null;
+	 */
+	Pageable getVerifiedPageable(Pageable pageable) throws InternalServerErrorException {
+		if (pageable == null) {
+			throw new InternalServerErrorException("Pageable cannot by null!");
+		}
+		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
+			: pageable.getPageSize();
+		int pageNum = pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber();
+		Sort sort = pageable.getSortOr(new Sort(Sort.Direction.DESC, DEFAULT_ORDER_BY));
+		
+		return PageRequest.of(pageNum, pageSize, sort);
+	}
+	
+	/**
+	 * Checks if a given Optional.List of Entities is present. If not present - throws EntityNotFoundException,
+	 * else - a fully prepared Page will be returned.
+	 *
+	 * @param pageable PageRequest with verified parameters to prepare Page from.
+	 * @param entities Found WorkshopEntities collection from WorkshopEntitiesDao
+	 * @return Page with number of pages, all the included pages parameters, total elements etc.
+	 * @throws EntityNotFoundException If no Entities were found.
+	 */
+	Page<T> getEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
+		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
+		
+		Page<T> entitiesPage = new PageImpl<T>(entities.orElseThrow(() ->
+			new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("message.notFound(1)",
+					new Object[]{entityClass.getSimpleName() + "s"},
+					LocaleContextHolder.getLocale()))),
+			pageable, totalEntities);
+		log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
+		
+		return entitiesPage;
 	}
 }

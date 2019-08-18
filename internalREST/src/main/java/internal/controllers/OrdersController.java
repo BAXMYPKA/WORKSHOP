@@ -76,7 +76,7 @@ public class OrdersController {
 		throws JsonProcessingException {
 		
 		Pageable pageable = getPageable(pageSize, pageNum, orderBy, order);
-		Page<Order> ordersPage = ordersService.findAllEntities(pageable, orderBy);
+		Page<Order> ordersPage = ordersService.findAllEntities(pageable);
 		
 		if (ordersPage != null && !ordersPage.getContent().isEmpty()) {
 			String jsonOrders = jsonServiceUtils.workshopEntityObjectsToJson(ordersPage.getContent());

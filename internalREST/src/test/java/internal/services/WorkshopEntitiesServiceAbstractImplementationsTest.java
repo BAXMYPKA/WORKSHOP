@@ -72,7 +72,7 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 			.thenReturn(Optional.of(Collections.singletonList(new Department("Department"))));
 		
 		//WHEN
-		Page<Department> emptyAllEntities = departmentsService.findAllEntities(pageable, orderBy);
+		Page<Department> emptyAllEntities = departmentsService.findAllEntities(pageable);
 		
 		//THEN
 		Mockito.verify(departmentsDao, Mockito.times(1))

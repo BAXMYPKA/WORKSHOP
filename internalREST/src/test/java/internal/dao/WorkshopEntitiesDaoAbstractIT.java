@@ -541,14 +541,13 @@ class WorkshopEntitiesDaoAbstractIT {
 		removeAllOrders();
 	}
 	
-//	@Disabled
+	//	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	@Transactional
-	public void criteriaAPI_Junk_Test() {
+	public void positions_By_DepartmentId_Should_Be_Returned() {
 		//GIVEN
 		Department department1 = new Department("Department 1");
-		Department department2 = new Department("Department 2");
 		
 		Position position1 = new Position("Position 1", department1);
 		Position position2 = new Position("Position 2", department1);
@@ -559,6 +558,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		Position position7 = new Position("Position 7", department1);
 		Position position8 = new Position("Position 8", department1);
 		Position position9 = new Position("Position 9", department1);
+		//CascadeType.PERSIST will persist all the corresponding Positions
 		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
 			position8, position9);
 		
@@ -566,16 +566,19 @@ class WorkshopEntitiesDaoAbstractIT {
 		Long departmentId = department1Persisted.getIdentifier();
 		
 		//WHEN
-		List<Position> positions = positionsDao.findAllPagedAndSorted(0, 0, null, null).get();
-		Optional<List<Department>> allPagedAndSorted = departmentsDao.findAllPagedAndSorted(20, 0, null, null);
-		Optional<Collection<Collection>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(departmentId);
+		Optional<List<Department>> allPersistedDepartments =
+			departmentsDao.findAllPagedAndSorted(20, 0, null, null);
+		Optional<List<Position>> allPositionsByDepartment =
+			positionsDao.findAllPositionsByDepartment(0, 0, null, null, departmentId);
 		
 		//THEN
-		System.out.println(allPositionsByDepartment);
+		assertEquals(1, allPersistedDepartments.get().size());
+		assertEquals(9, allPositionsByDepartment.get().size());
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 1".equals(position.getName())));
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 5".equals(position.getName())));
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 9".equals(position.getName())));
 		
-		assertTrue(allPagedAndSorted.isPresent());
-		
-		System.out.println(allPagedAndSorted.get());
+		removeAllPersistedEntities();
 	}
 	
 	@BeforeEach

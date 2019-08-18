@@ -16,7 +16,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
+import java.lang.ref.Reference;
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -28,8 +30,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * The following parameters are obligatory to be set in the all subclasses:
  *
- * @param <T> Entity class
- * @param <K> Key class for the Entity class
+ * @param <T> Entity class through setEntityClass(WorkshopEntity.class)
+ * @param <K> Key class for the Entity class through setKeyClass(Object.class)
  *            <p>
  *            So every subclass must have the explicit NoArgsConstructor as:
  *            public EntityDao() {
@@ -136,20 +138,17 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * @throws PersistenceException     If an Entity doesn't have 'orderBy' field name.
 	 */
 	public Optional<List<T>> findAllPagedAndSorted(
-		int pageSize,
-		int pageNum,
+		Integer pageSize,
+		Integer pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order) throws IllegalArgumentException, PersistenceException {
 		
-		if (pageSize < 0 || pageNum < 0) {
-			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
-		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
-			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
-				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
-		}
-		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
-		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
+		verifyPageableParameters(pageSize, pageNum, orderBy, order);
+		
+		Object[] params = new Object[]{pageSize};
+		
+		verifyPageableParametersBigInteger(params);
+		System.out.println(params[0]);
 		
 		log.debug("Paged query with pageSize={}, pageNum={}, orderBy={}, order={} will be performed",
 			pageSize, pageNum, orderBy, order);
@@ -404,7 +403,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 */
 	public boolean isExist(long id) throws IllegalArgumentException {
 		if (id <= 0) {
-			throw new IllegalArgumentException("ID="+id+" cannot be zero or below!");
+			throw new IllegalArgumentException("ID=" + id + " cannot be zero or below!");
 		}
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
@@ -416,7 +415,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		Long idFound = null;
 		try {
 			idFound = queryById.getSingleResult();
-			log.debug(entityClass.getSimpleName()+".identifier={} is found.", id);
+			log.debug(entityClass.getSimpleName() + ".identifier={} is found.", id);
 			return true;
 		} catch (NoResultException nre) {
 			log.debug("Entity.identifier={} is not found!", id);
@@ -513,4 +512,54 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		}
 		return Optional.empty();
 	}
+	
+	/**
+	 * Sets the verified values to all the given parameters by their references.
+	 *
+	 * @param pageSize Integer reference to be verified and renewed if necessary.
+	 * @param pageNum  Integer reference to be verified and renewed if necessary.
+	 * @param orderBy  String reference to be verified and renewed if necessary.
+	 * @param order    Sort.Direction reference to be verified and renewed if necessary.
+	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
+	 */
+	protected void verifyPageableParameters(Integer pageSize, Integer pageNum, @Nullable String orderBy,
+											@Nullable Sort.Direction order)
+		throws IllegalArgumentException {
+		if (pageSize < 0 || pageNum < 0) {
+			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
+		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
+			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
+				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
+		}
+		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+		
+//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+//		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
+//		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
+//		///////////////
+//		order = Sort.Direction.DESC;
+//		pageSize = new Integer(100500);
+	}
+	
+	protected void verifyPageableParametersBigInteger(Object[] objects)
+		throws IllegalArgumentException {
+//		if (pageSize < 0 || pageNum < 0) {
+//			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
+//		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
+//			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
+//				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
+//		}
+//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+		
+		Integer pageSize = ((Integer) objects[0]);
+		objects[0] = 100500;
+
+//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+//		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
+//		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
+//		///////////////
+//		order = Sort.Direction.DESC;
+//		pageSize = new Integer(100500);
+	}
+	
 }

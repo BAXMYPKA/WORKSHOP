@@ -63,13 +63,11 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
 		
-		Page<Position> positionsPage = positionsService.findAllEntities(pageablePositions);
 		
-		
-		
-		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
-		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);
-		
-		return ResponseEntity.ok(jsonPositionResources);
+//		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
+//		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);
+//
+//		return ResponseEntity.ok(jsonPositionResources);
+		return null;
 	}
 }

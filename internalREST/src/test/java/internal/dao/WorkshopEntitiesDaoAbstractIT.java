@@ -566,18 +566,91 @@ class WorkshopEntitiesDaoAbstractIT {
 		Long departmentId = department1Persisted.getIdentifier();
 		
 		//WHEN
-		Optional<List<Department>> allPersistedDepartments =
-			departmentsDao.findAllPagedAndSorted(20, 0, null, null);
 		Optional<List<Position>> allPositionsByDepartment =
 			positionsDao.findAllPositionsByDepartment(0, 0, null, null, departmentId);
 		
 		//THEN
-		assertEquals(1, allPersistedDepartments.get().size());
 		assertEquals(9, allPositionsByDepartment.get().size());
 		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 1".equals(position.getName())));
 		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 5".equals(position.getName())));
 		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 9".equals(position.getName())));
 		
+		removeAllPersistedEntities();
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@Transactional
+	public void positions_By_DepartmentId_Should_Be_Returned_OrderedBy_Name_Ascending() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position("Position 1", department1);
+		Position position2 = new Position("Position 2", department1);
+		Position position3 = new Position("Position 3", department1);
+		Position position4 = new Position("Position 4", department1);
+		Position position5 = new Position("Position 5", department1);
+		Position position6 = new Position("Position 6", department1);
+		Position position7 = new Position("Position 7", department1);
+		Position position8 = new Position("Position 8", department1);
+		Position position9 = new Position("Position 9", department1);
+		//CascadeType.PERSIST will persist all the corresponding Positions
+		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+			position8, position9);
+		
+		Department department1Persisted = departmentsDao.persistEntity(department1).get();
+		Long departmentId = department1Persisted.getIdentifier();
+		
+		//WHEN
+		List<Position> allPositionsByDepartmentOrderedByNameAsc =
+			positionsDao.findAllPositionsByDepartment(0, 0, "name", Sort.Direction.ASC, departmentId).get();
+		
+		//THEN
+		assertEquals(9, allPositionsByDepartmentOrderedByNameAsc.size());
+		assertEquals("Position 1", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
+		assertEquals("Position 9", allPositionsByDepartmentOrderedByNameAsc.get(8).getName());
+		
+		removeAllPersistedEntities();
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {0, 2})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@Transactional
+	public void positions_By_DepartmentId_Should_Return_First_And_Last_Pages_OrderedBy_Name_Descending(int pageNum) {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position("Position 1", department1);
+		Position position2 = new Position("Position 2", department1);
+		Position position3 = new Position("Position 3", department1);
+		Position position4 = new Position("Position 4", department1);
+		Position position5 = new Position("Position 5", department1);
+		Position position6 = new Position("Position 6", department1);
+		Position position7 = new Position("Position 7", department1);
+		Position position8 = new Position("Position 8", department1);
+		Position position9 = new Position("Position 9", department1);
+		//CascadeType.PERSIST will persist all the corresponding Positions
+		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+			position8, position9);
+		
+		Department department1Persisted = departmentsDao.persistEntity(department1).get();
+		Long departmentId = department1Persisted.getIdentifier();
+		
+		//WHEN
+		List<Position> allPositionsByDepartmentOrderedByNameAsc =
+			positionsDao.findAllPositionsByDepartment(3, pageNum, "name", Sort.Direction.DESC, departmentId).get();
+		
+		//THEN
+		assertEquals(3, allPositionsByDepartmentOrderedByNameAsc.size());
+		
+		if (pageNum == 0) {
+			assertEquals("Position 9", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
+			assertEquals("Position 7", allPositionsByDepartmentOrderedByNameAsc.get(2).getName());
+		} else if (pageNum == 2) {
+			assertEquals("Position 3", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
+			assertEquals("Position 1", allPositionsByDepartmentOrderedByNameAsc.get(2).getName());
+		}
 		removeAllPersistedEntities();
 	}
 	
@@ -762,25 +835,25 @@ class WorkshopEntitiesDaoAbstractIT {
 	 */
 	@Transactional
 	public void removeAllPersistedEntities() {
-		Optional<List<Employee>> employeesManaged = employeesDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Employee>> employeesManaged = employeesDao.findAllPagedAndSorted(0, 0);
 		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Task>> tasksManaged = tasksDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Task>> tasksManaged = tasksDao.findAllPagedAndSorted(0, 0);
 		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Order>> ordersManaged = ordersDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Order>> ordersManaged = ordersDao.findAllPagedAndSorted(0, 0);
 		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllPagedAndSorted(0, 0);
 		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<User>> usersManaged = usersDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<User>> usersManaged = usersDao.findAllPagedAndSorted(0, 0);
 		usersDao.removeEntities(usersManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Position>> positionsManaged = positionsDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Position>> positionsManaged = positionsDao.findAllPagedAndSorted(0, 0);
 		positionsDao.removeEntities(positionsManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Department>> departmentsManaged = departmentsDao.findAllPagedAndSorted(0, 0, null, null);
+		Optional<List<Department>> departmentsManaged = departmentsDao.findAllPagedAndSorted(0, 0);
 		departmentsDao.removeEntities(departmentsManaged.orElse(Collections.emptyList()));
 		
 		entityManager.clear();

@@ -72,6 +72,7 @@ public class Classifier extends Trackable implements Serializable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "classifiers", cascade = {
 		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+//	@OrderBy("created DESC")
 	private Set<@Valid Task> tasks;
 	
 	@Builder

@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -124,7 +124,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * Page formula is: (pageNum)*pageSize
 	 *
 	 * @param pageSize The maximum amount of entities at once (on one page).
-	 *                 Default = ({@link #PAGE_SIZE_DEFAULT}),
+	 *                 Min = 0, will be Default = ({@link #PAGE_SIZE_DEFAULT}),
 	 *                 Max = {@link #PAGE_SIZE_MAX}
 	 * @param pageNum  Starts from 0 (according to Spring Pageable). Number of desired page to be given.
 	 *                 Default = 0,
@@ -140,15 +140,11 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	public Optional<List<T>> findAllPagedAndSorted(
 		Integer pageSize,
 		Integer pageNum,
-		@Nullable String orderBy,
-		@Nullable Sort.Direction order) throws IllegalArgumentException, PersistenceException {
+		String orderBy,
+		Sort.Direction order) throws IllegalArgumentException, PersistenceException {
 		
-		verifyPageableParameters(pageSize, pageNum, orderBy, order);
-		
-		Object[] params = new Object[]{pageSize};
-		
-		verifyPageableParametersBigInteger(params);
-		System.out.println(params[0]);
+		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
 		log.debug("Paged query with pageSize={}, pageNum={}, orderBy={}, order={} will be performed",
 			pageSize, pageNum, orderBy, order);
@@ -171,14 +167,63 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		
 		if (!resultList.isEmpty()) {
 			//Sorting
+/*
 			String finalOrderBy = orderBy;
 			if (order.isDescending()) { //Descending order
 				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
 			} else { //Ascending order
 				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()));
 			}
-			log.debug("{}s were found and sorted {} according to {}",
-				entityClass.getSimpleName(), order.name(), orderBy);
+*/
+			sortEntitiesResultList(resultList, orderBy, order);
+			
+			log.debug("{}s were found and sorted {} by {}", entityClass.getSimpleName(), order.name(), orderBy);
+			return Optional.of(resultList);
+		} else {
+			log.debug("{}s were not found", entityClass.getSimpleName());
+			return Optional.empty();
+		}
+	}
+	
+	/**
+	 * Spring Page interface starts count pages from 0.
+	 * Page formula is: (pageNum)*pageSize
+	 *
+	 * @param pageSize The maximum amount of entities at once (on one page).
+	 *                 Min = 0 (will be default = ({@link #PAGE_SIZE_DEFAULT}) ),
+	 *                 Max = {@link #PAGE_SIZE_MAX}
+	 * @param pageNum  Starts from 0 (according to Spring Pageable). Number of desired page to be given.
+	 * @return 'Optional.of(List<WorkshopEntity>)' sorted by 'created' property in the descending order
+	 * or 'Optional.empty()' if nothing found.
+	 * @throws IllegalArgumentException If pageSize < 0 either pageSize > PAGE_SIZE_MAX or pageNum < 0
+	 * @throws PersistenceException     if the query execution exceeds the query timeout value set
+	 *                                  and the transaction is rolled back
+	 */
+	public Optional<List<T>> findAllPagedAndSorted(Integer pageSize, Integer pageNum)
+		throws IllegalArgumentException, PersistenceException {
+		
+		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
+		verifyPageableValues(pageSize, pageNum);
+		log.trace("Paged query with pageSize={}, pageNum={} will be performed", pageSize, pageNum);
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> root = cq.from(entityClass);
+		cq.select(root);
+		
+		cq.orderBy(cb.desc(root.get(DEFAULT_ORDER_BY)));
+		
+		TypedQuery<T> query = entityManager.createQuery(cq);
+		query.setFirstResult(pageNum * pageSize); //Offset (page number)
+		query.setMaxResults(pageSize); //Limit (page size)
+		
+		List<T> resultList = query.getResultList();
+		
+		if (!resultList.isEmpty()) {
+			String finalOrderBy = DEFAULT_ORDER_BY;
+//			resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
+			sortEntitiesResultList(resultList, DEFAULT_ORDER_BY, Sort.Direction.fromString(DEFAULT_ORDER));
+			log.debug("{}s were found", entityClass.getSimpleName());
 			return Optional.of(resultList);
 		} else {
 			log.debug("{}s were not found", entityClass.getSimpleName());
@@ -493,7 +538,43 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		return temporalParsed;
 	}
 	
-	private Optional<Comparable> getComparablePropertyValue(String propertyName, Object objectToGetValueFrom) {
+	/**
+	 * @param pageSize PageSize to be verified according to {@link #PAGE_SIZE_MAX} or being below zero.
+	 * @param pageNum  PageNumber to be verified if its below zero
+	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 */
+	void verifyPageableValues(int pageSize, int pageNum) throws IllegalArgumentException {
+		if (pageSize < 0 || pageNum < 0) {
+			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
+		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
+			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
+				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
+		}
+	}
+	
+	/**
+	 * Sorts the given List of WorkshopEntities by reference (that is just change the given List order without a returning a new one).
+	 *
+	 * @param resultListToSort The List of Entities to be sorted.
+	 * @param orderBy @Nullable. Property name to be sorted by. If null, {@link #DEFAULT_ORDER_BY} will be used.
+	 * @param order @Nullable. Ascending or Descending. If null, {@link #DEFAULT_ORDER} will be used.
+	 */
+	void sortEntitiesResultList(List<T> resultListToSort, @Nullable String orderBy, @Nullable Sort.Direction order) {
+		if (orderBy == null | order == null) {
+			orderBy = DEFAULT_ORDER_BY;
+			order = Sort.Direction.valueOf(DEFAULT_ORDER);
+		}
+		if (order.isDescending()) { //Descending order
+			String finalOrderBy = orderBy;
+			resultListToSort.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
+		} else { //Ascending order
+			String finalOrderBy1 = orderBy;
+			resultListToSort.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy1, e).get()));
+		}
+	}
+	
+	Optional<Comparable> getComparablePropertyValue(String propertyName, Object objectToGetValueFrom) {
+		
 		Class entityClazz = entityClass;
 		while (entityClazz != null) {
 			Field[] declaredFields = entityClazz.getDeclaredFields();
@@ -501,7 +582,8 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 				if (f.getName().equals(propertyName)) {
 					try {
 						f.setAccessible(true);
-						return Optional.of((Comparable) f.get(objectToGetValueFrom));
+//						return Optional.of((Comparable) f.get(objectToGetValueFrom));
+						return Optional.ofNullable((Comparable) f.get(objectToGetValueFrom));
 					} catch (IllegalAccessException e) {
 						log.error(e.getMessage(), e);
 						return Optional.empty();
@@ -514,52 +596,27 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	}
 	
 	/**
-	 * Sets the verified values to all the given parameters by their references.
-	 *
-	 * @param pageSize Integer reference to be verified and renewed if necessary.
-	 * @param pageNum  Integer reference to be verified and renewed if necessary.
-	 * @param orderBy  String reference to be verified and renewed if necessary.
-	 * @param order    Sort.Direction reference to be verified and renewed if necessary.
-	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
+	 * @param pageSize PageSize to be verified according to {@link #PAGE_SIZE_MAX}
+	 * @param pageNum  PageNumber to be verified
+	 * @param orderBy  To be verified for null and emptiness.
+	 * @param order    To be verified for null
+	 * @throws IllegalArgumentException 1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 *                                  2) If 'orderBy' is null or empty
+	 *                                  3) If 'order' is null
 	 */
-	protected void verifyPageableParameters(Integer pageSize, Integer pageNum, @Nullable String orderBy,
-											@Nullable Sort.Direction order)
-		throws IllegalArgumentException {
+	void verifyPageableValues(int pageSize, int pageNum, String orderBy, Sort.Direction order) throws IllegalArgumentException {
 		if (pageSize < 0 || pageNum < 0) {
 			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
 		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
 			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
 				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
+		} else if (order == null) {
+			throw new IllegalArgumentException("'order' parameter cannot be null!");
+		} else if (orderBy == null) {
+			throw new IllegalArgumentException("'orderBy' parameter cannot be null!");
+		} else if (orderBy.isEmpty()) {
+			throw new IllegalArgumentException("'orderBy' parameter cannot be empty!");
 		}
-		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-		
-//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-//		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
-//		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
-//		///////////////
-//		order = Sort.Direction.DESC;
-//		pageSize = new Integer(100500);
-	}
-	
-	protected void verifyPageableParametersBigInteger(Object[] objects)
-		throws IllegalArgumentException {
-//		if (pageSize < 0 || pageNum < 0) {
-//			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
-//		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
-//			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
-//				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
-//		}
-//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-		
-		Integer pageSize = ((Integer) objects[0]);
-		objects[0] = 100500;
-
-//		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;
-//		orderBy = orderBy != null && !orderBy.isEmpty() ? orderBy : DEFAULT_ORDER_BY;
-//		order = order != null ? order : Sort.Direction.fromString(DEFAULT_ORDER); //Set presented of default
-//		///////////////
-//		order = Sort.Direction.DESC;
-//		pageSize = new Integer(100500);
 	}
 	
 }

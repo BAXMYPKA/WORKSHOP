@@ -638,18 +638,18 @@ class WorkshopEntitiesDaoAbstractIT {
 		Long departmentId = department1Persisted.getIdentifier();
 		
 		//WHEN
-		List<Position> allPositionsByDepartmentOrderedByNameAsc =
+		List<Position> positionsByDepartmentOrderedByNameDesc =
 			positionsDao.findAllPositionsByDepartment(3, pageNum, "name", Sort.Direction.DESC, departmentId).get();
 		
 		//THEN
-		assertEquals(3, allPositionsByDepartmentOrderedByNameAsc.size());
+		assertEquals(3, positionsByDepartmentOrderedByNameDesc.size());
 		
 		if (pageNum == 0) {
-			assertEquals("Position 9", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
-			assertEquals("Position 7", allPositionsByDepartmentOrderedByNameAsc.get(2).getName());
+			assertEquals("Position 9", positionsByDepartmentOrderedByNameDesc.get(0).getName());
+			assertEquals("Position 7", positionsByDepartmentOrderedByNameDesc.get(2).getName());
 		} else if (pageNum == 2) {
-			assertEquals("Position 3", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
-			assertEquals("Position 1", allPositionsByDepartmentOrderedByNameAsc.get(2).getName());
+			assertEquals("Position 3", positionsByDepartmentOrderedByNameDesc.get(0).getName());
+			assertEquals("Position 1", positionsByDepartmentOrderedByNameDesc.get(2).getName());
 		}
 		removeAllPersistedEntities();
 	}

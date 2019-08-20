@@ -39,54 +39,40 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 	 * @throws IllegalArgumentException 1) If 'departmentId' is null or < 0.
 	 *                                  2) If 'pageSize' or 'pageNum' is incorrect.
 	 */
-//	@Query("SELECT ID, NAME FROM INTERNAL.POSITIONS JOIN INTERNAL.DEPARTMENTS_TO_POSITIONS\n" +
-//		"    ON POSITIONS.ID = DEPARTMENTS_TO_POSITIONS.POSITION_ID WHERE DEPARTMENT_ID = departmentId")
 	public Optional<List<Position>> findAllPositionsByDepartment(
 		Integer pageSize,
 		Integer pageNum,
 		@Nullable String orderBy,
 		@Nullable Sort.Direction order,
 		Long departmentId) {
+		
 		if (departmentId == null || departmentId <= 0) {
 			throw new IllegalArgumentException("ID=" + departmentId + " cannot be neither null nor zero or even below!");
 		}
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
+		order = order == null ? Sort.Direction.DESC : order;
+		orderBy = orderBy == null || orderBy.isEmpty() ? getDEFAULT_ORDER_BY() : orderBy;
 		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Position> cq = cb.createQuery(Position.class);
 		
-		Root<Department> departmentRoot = cq.from(Department.class);
-		Predicate departmentIdEqual = cb.equal(departmentRoot.get("identifier"), departmentId);
+		Root<Position> positionRoot = cq.from(Position.class);
+		Join<Position, Department> departmentJoin = positionRoot.join("department");
+		Predicate departmentIdEqual = cb.equal(departmentJoin.get("identifier"), departmentId);
+		departmentJoin.on(departmentIdEqual);
+		cq.select(positionRoot);
 		
-		cq.select(departmentRoot.get("positions")).where(departmentIdEqual);
-		
-		if (order != null && order.isAscending()){
-			cq.orderBy(cb.asc(departmentRoot.get("positions").get("created")));
+		if (order.isAscending()) {
+			cq.orderBy(cb.asc(positionRoot.get(orderBy)));
 		} else {
-			cq.orderBy(cb.desc(departmentRoot.get("positions").get("created")));
+			cq.orderBy(cb.desc(positionRoot.get(orderBy)));
 		}
-		
 		TypedQuery<Position> typedQuery = entityManager.createQuery(cq);
-		
-/*
-		TypedQuery<Collection> typedQuery;
-		if (order == null) { //Default ordering
-			super.verifyPageableValues(pageSize, pageNum); //Can throw IllegalArgumentException if not correct
-			typedQuery = entityManager.createQuery(
-				"SELECT dep.positions FROM Department dep WHERE dep.identifier = :departmentId",	Collection.class);
-		} else { //Custom ordering
-			super.verifyPageableValues(pageSize, pageNum, orderBy, order);
-			typedQuery = entityManager.createQuery(
-				"SELECT dep.positions AS pos FROM Department dep WHERE dep.identifier = :departmentId ORDER BY pos." + orderBy + " " + order.name(),
-				Collection.class);
-		}
-		typedQuery.setParameter("departmentId", departmentId);
-*/
 		//Set pagination
 		typedQuery.setFirstResult(pageNum * pageSize);
 		typedQuery.setMaxResults(pageSize);
 		try {
-			List<Position> departmentPositions = (List) typedQuery.getResultList();
+			List<Position> departmentPositions = typedQuery.getResultList();
 			if (departmentPositions != null && !departmentPositions.isEmpty()) {
 				sortEntitiesResultList(departmentPositions, orderBy, order);
 				return Optional.of(departmentPositions);

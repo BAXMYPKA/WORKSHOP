@@ -1,6 +1,7 @@
 package internal.entities.hateoasResources;
 
 import internal.controllers.WorkshopControllerAbstract;
+import internal.entities.Employee;
 import internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,14 +25,12 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Component
-public abstract class WorkshopEntityResourceAssemblerAbstract<T extends WorkshopEntity>
+public abstract class WorkshopEntityResourceAssemblerAbstract <T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
-	//	private WorkshopControllerAbstract<T> workshopControllerAbstract;
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
 	@Getter
 	private Class<T> workshopEntityClass;
-	//	private String workshopEntitySimpleClassName;
 	@Autowired
 	private EntityLinks entityLinks;
 	private final String MEDIA = "application/json; charset=utf-8";
@@ -50,26 +49,20 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 	private String DEFAULT_ORDER_BY;
 	@Value("${default.order}")
 	private String DEFAULT_ORDER;
+	//	String lastPageTitle = "Page " + (page.getTotalPages());
+//	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
+//		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
+	
+	public WorkshopEntityResourceAssemblerAbstract(
+		Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
+		Class<T> workshopEntityClass) {
+		
+		setWorkshopControllerAbstractClass(workshopControllerAbstractClass);
+		setWorkshopEntityClass(workshopEntityClass);
+	}
 //	String lastPageTitle = "Page " + (page.getTotalPages());
 //	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 //		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
-
-//	/**
-//	 * Obligatory constructor to create a proper bean
-//	 *
-//	 * @param workshopControllerAbstract WorkshopController<T extends WorkshopEntity> has to be annotated with
-//	 *                                   '@ExposesResourceFor(WorkshopEntity.class)' for Spring's HATEOAS support,
-//	 *                                   has to be created according to String HATEOAS REST controllers convention
-//	 *                                   and contain the exact WorkshopEntity.class to be extracted
-//	 *                                   into {@link #workshopEntityClass}
-//	 */
-	
-	public WorkshopEntityResourceAssemblerAbstract(Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
-												   Class<T> workshopEntityClass) {
-		this.workshopControllerAbstractClass = workshopControllerAbstractClass;
-		this.workshopEntityClass = workshopEntityClass;
-		
-	}
 	
 	/**
 	 * Transforms WorkshopEntity into Resource<WorkshopEntity> and adds the self-Link to it.
@@ -130,10 +123,12 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 	 *
 	 * @param page             The container with 'total pages', 'orderBy', 'order' and other data to prepare 'nextPage',
 	 *                         'prevPage' and other Links to be included into the Resources<T> paged collection.
-	 * @param workshopEntityId Not used and nullable by default. But can be passed with a value to
+	 * @param workshopEntityId Not used and nullable by default.
+	 *                         Can be passed with a value to
 	 *                         {@link #getPagedLink(Pageable, int, String, String, String, String, String, String, Long)}
 	 *                         method which has to be overriding to use this id as the collection's 'ownerId', for
 	 *                         instance.
+	 * @return Collection of Links as 'nextPage', 'prevPage' ect to be added into "Resources<Resource<T>>" Links
 	 */
 	protected Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
 		Collection<Link> pagedLinks = new ArrayList<>(7);
@@ -143,8 +138,8 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 		
 		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
 		String lastPageTitle = "Page " + (page.getTotalPages());
-		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
-			"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
+		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total. " +
+			"Elements " + page.getNumberOfElements() + " of " + page.getTotalElements() + " elements total.";
 		
 		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, CURRENT_PAGE_REL,
 			hrefLang, MEDIA, currentPageTitle, workshopEntityId);

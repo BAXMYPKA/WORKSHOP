@@ -2,6 +2,7 @@ package internal.controllers;
 
 import internal.entities.Department;
 import internal.entities.Position;
+import internal.entities.hateoasResources.DepartmentResourceAssembler;
 import internal.entities.hateoasResources.PositionResourceAssembler;
 import internal.services.DepartmentsService;
 import internal.services.PositionsService;
@@ -27,7 +28,7 @@ import java.util.List;
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
 	@Autowired
-	private PositionResourceAssembler positionResourceAssembler;
+	private DepartmentResourceAssembler departmentResourceAssembler;
 	@Autowired
 	private PositionsService positionsService;
 	
@@ -40,7 +41,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	
 	
 	/**
-	 * @param id Department id
+	 * @param id       Department id
 	 * @param pageSize
 	 * @param pageNum
 	 * @param orderBy
@@ -54,20 +55,21 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		
 		if (!getWorkshopEntitiesService().isExist(id)) {
 			return new ResponseEntity<>(getMessageSource().getMessage(
 				"httpStatus.notAcceptable.identifier(1)", new Object[]{id}, LocaleContextHolder.getLocale()),
 				HttpStatus.NOT_FOUND);
 		}
-		Pageable pageablePositions = getPageable(pageSize, pageNum, orderBy, order);
+		Pageable pageablePositions = super.getPageable(pageSize, pageNum, orderBy, order);
 		
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
 		
+		Resources<Resource<Position>> pagedPositionResources =
+			departmentResourceAssembler.positionsFromDepartmentToPagedResources(positionsByDepartmentPage, id);
 		
-//		Resources<Resource<Position>> pagedPositionsResources = positionResourceAssembler.toPagedResources(positionsPage, id);
-//		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionsResources);
-//
-//		return ResponseEntity.ok(jsonPositionResources);
-		return null;
+		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionResources);
+		
+		return ResponseEntity.ok(jsonPositionResources);
 	}
 }

@@ -1,9 +1,9 @@
 package internal.entities.hateoasResources;
 
 import internal.controllers.DepartmentsController;
-import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.Department;
-import lombok.NoArgsConstructor;
+import internal.entities.Position;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -13,8 +13,15 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Component
 public class DepartmentResourceAssembler extends WorkshopEntityResourceAssemblerAbstract<Department> {
+	
+	@Autowired
+	private PositionResourceAssembler positionResourceAssembler;
 	
 	public DepartmentResourceAssembler() {
 		setWorkshopControllerAbstractClass(DepartmentsController.class);
@@ -28,10 +35,10 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 	@Override
 	public Resource<Department> toResource(Department workshopEntity) {
 		Resource<Department> selfLinkedDepartmentResource = super.toResource(workshopEntity);
-		return addDepartmentPositionsLink(selfLinkedDepartmentResource);
+		return addPositionsFromDepartmentLink(selfLinkedDepartmentResource);
 	}
 	
-	private Resource<Department> addDepartmentPositionsLink(Resource<Department> departmentResource) {
+	private Resource<Department> addPositionsFromDepartmentLink(Resource<Department> departmentResource) {
 		Link departmentPositionsLink =
 			ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(DepartmentsController.class)
@@ -46,6 +53,22 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 		return departmentResource;
 	}
 	
+	public Resources<Resource<Position>> positionsFromDepartmentToPagedResources(
+		Page<Position> positionPage, Long departmentId) {
+		
+		//Get every Position as a Resource<Position> and collect
+		Collection<Resource<Position>> positionsResources = positionPage
+			.stream()
+			.map(position -> positionResourceAssembler.toResource(position))
+			.collect(Collectors.toList());
+		//Collect them into Resources
+		Resources<Resource<Position>> positionResources = new Resources<>(positionsResources);
+		//Get paged Links for this collection
+		Collection<Link> pagedLinks = super.getPagedLinks(positionPage, departmentId);
+		//Add fully paged navigation Links
+		positionResources.add(pagedLinks);
+		return positionResources;
+	}
 	
 	/**
 	 * @see WorkshopEntityResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
@@ -61,7 +84,8 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 			Link link =
 				ControllerLinkBuilder.linkTo(
 					ControllerLinkBuilder.methodOn(DepartmentsController.class)
-						.getDepartmentPositions(departmentId, pageSize, pageable.getPageNumber() + 1, orderBy, order))
+						.getDepartmentPositions(
+							departmentId, pageSize, pageable.getPageNumber() + 1, orderBy, order))
 					.withRel(relation)
 					.withHreflang(hrefLang)
 					.withMedia(media)

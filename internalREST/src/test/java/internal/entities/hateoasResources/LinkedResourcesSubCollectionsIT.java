@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class LinkedResourcesSubcollectionsIT {
+class LinkedResourcesSubCollectionsIT {
 	
 	@Autowired
 	MockMvc mockMvc;
@@ -53,6 +53,7 @@ class LinkedResourcesSubcollectionsIT {
 	}
 	
 	@Test
+	@Transactional
 	public void department_Resource_Should_Contain_Self_Link_And_Its_Positions_Link() throws Exception {
 		//GIVEN
 		Department department1 = new Department("Department 1");

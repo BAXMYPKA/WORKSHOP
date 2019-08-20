@@ -654,6 +654,40 @@ class WorkshopEntitiesDaoAbstractIT {
 		removeAllPersistedEntities();
 	}
 	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@Transactional
+	public void department_By_PositionId_Should_Return_() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position("Position 1", department1);
+		Position position2 = new Position("Position 2", department1);
+		Position position3 = new Position("Position 3", department1);
+		Position position4 = new Position("Position 4", department1);
+		Position position5 = new Position("Position 5", department1);
+		Position position6 = new Position("Position 6", department1);
+		Position position7 = new Position("Position 7", department1);
+		Position position8 = new Position("Position 8", department1);
+		Position position9 = new Position("Position 9", department1);
+		//CascadeType.PERSIST will persist all the corresponding Positions
+		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+			position8);
+		
+		Department department1Persisted = departmentsDao.persistEntity(department1).get();
+		
+		Position positionPersisted = positionsDao.persistEntity(position9).get();
+		Long positionId = positionPersisted.getIdentifier();
+		
+		//WHEN
+		Department departmentByPosition = departmentsDao.findDepartmentByPosition(positionId).get();
+		
+		//THEN
+		
+		
+		removeAllPersistedEntities();
+	}
+	
 	@BeforeEach
 	@DisplayName("Clears the DataBase from persisted Entities and initializes the new ones.")
 	public void initNewEntities() {

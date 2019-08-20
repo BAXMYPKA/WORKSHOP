@@ -20,9 +20,6 @@ import java.util.stream.Collectors;
 @Component
 public class DepartmentResourceAssembler extends WorkshopEntityResourceAssemblerAbstract<Department> {
 	
-	@Autowired
-	private PositionResourceAssembler positionResourceAssembler;
-	
 	public DepartmentResourceAssembler() {
 		setWorkshopControllerAbstractClass(DepartmentsController.class);
 		setWorkshopEntityClass(Department.class);
@@ -53,6 +50,7 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 		return departmentResource;
 	}
 	
+/*
 	public Resources<Resource<Position>> positionsFromDepartmentToPagedResources(
 		Page<Position> positionPage, Long departmentId) {
 		
@@ -68,6 +66,24 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 		//Add fully paged navigation Links
 		positionResources.add(pagedLinks);
 		return positionResources;
+	}
+*/
+	
+	/**
+	 * Adds navigation Links to the given "Resources<Resource<Position>>" extracted from the given "Page<Position>".
+	 *
+	 * @param positionsResources Unpaged "Resources<Resource<Position>>" without Links.
+	 * @param positionPage       Pageable information (total pages, current page etc) to extract such an information.
+	 * @param departmentId
+	 * @return A fully navigable Resources with nextPage, prevPage etc Links.
+	 */
+	public Resources<Resource<Position>> positionsFromDepartmentToPagedResources(
+		Resources<Resource<Position>> positionsResources, Page<Position> positionPage, Long departmentId) {
+		//Get paged Links for this collection
+		Collection<Link> pagedLinks = super.getPagedLinks(positionPage, departmentId);
+		//Add fully paged navigation Links
+		positionsResources.add(pagedLinks);
+		return positionsResources;
 	}
 	
 	/**

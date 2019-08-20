@@ -60,9 +60,6 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 		setWorkshopControllerAbstractClass(workshopControllerAbstractClass);
 		setWorkshopEntityClass(workshopEntityClass);
 	}
-//	String lastPageTitle = "Page " + (page.getTotalPages());
-//	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
-//		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 	
 	/**
 	 * Transforms WorkshopEntity into Resource<WorkshopEntity> and adds the self-Link to it.
@@ -130,7 +127,7 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	 *                         instance.
 	 * @return Collection of Links as 'nextPage', 'prevPage' ect to be added into "Resources<Resource<T>>" Links
 	 */
-	protected Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
+	Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
 		Collection<Link> pagedLinks = new ArrayList<>(7);
 		
 		String orderBy = page.getSort().iterator().next().getProperty();
@@ -185,7 +182,7 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	 *                         But can by used for special cased when you may want to override the method to
 	 *                         invoke the given parameter.
 	 */
-	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
+	Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
 								String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
 		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 		

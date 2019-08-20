@@ -10,6 +10,7 @@ import internal.services.WorkshopEntitiesServiceAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/internal/departments", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
@@ -29,6 +31,8 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	
 	@Autowired
 	private DepartmentResourceAssembler departmentResourceAssembler;
+	@Autowired
+	private PositionResourceAssembler positionResourceAssembler;
 	@Autowired
 	private PositionsService positionsService;
 	
@@ -65,10 +69,17 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
 		
-		Resources<Resource<Position>> pagedPositionResources =
-			departmentResourceAssembler.positionsFromDepartmentToPagedResources(positionsByDepartmentPage, id);
+		Collection<Resource<Position>> positionsResourcesCollection = positionsByDepartmentPage
+			.stream()
+			.map(position -> positionResourceAssembler.toResource(position))
+			.collect(Collectors.toList());
 		
-		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedPositionResources);
+		Resources<Resource<Position>> positionResources = new Resources<>(positionsResourcesCollection);
+		//Obtain navigation paginated Links
+		positionResources = departmentResourceAssembler
+			.positionsFromDepartmentToPagedResources(positionResources, positionsByDepartmentPage, id);
+		
+		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionResources);
 		
 		return ResponseEntity.ok(jsonPositionResources);
 	}

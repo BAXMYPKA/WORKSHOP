@@ -1,8 +1,8 @@
-package internal.entities.hateoasResources;
+package internal.hateoasResources;
 
 import internal.controllers.WorkshopControllerAbstract;
-import internal.entities.Employee;
 import internal.entities.WorkshopEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,14 +22,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter(value = AccessLevel.PACKAGE)
+@Setter(value = AccessLevel.PACKAGE)
 @Component
-public abstract class WorkshopEntityResourceAssemblerAbstract <T extends WorkshopEntity>
+public abstract class WorkshopEntityResourceAssemblerAbstract<T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
-	@Getter
 	private Class<T> workshopEntityClass;
 	@Autowired
 	private EntityLinks entityLinks;
@@ -95,10 +94,13 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	}
 	
 	/**
-	 * Special method for obtaining paged WorkshopEntities collections with their owner's ids.
+	 * Special method for obtaining paged WorkshopEntities collections with their owner's ID.
+	 * For using this method it is obligatory to override {@link #getPagedLinks(Page, Long)} method to use
+	 * 'workshopEntityID' parameter for constructing your own paged navigation links with ControllerLinkBuilder
+	 * .methodOn().
 	 *
 	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
-	 * @param workshopEntityId     Can by used in some custom cases for deriving paged collections by owner's id.
+	 * @param workshopEntityId     Has to be used in some custom cases for deriving paged collections by owner's id.
 	 *                             The given parameter passes down to
 	 *                             {@link #getPagedLink(Pageable, int, String, String, String, String, String, String, Long)}
 	 *                             method but not used by default. If you pass it, you have to override the method above
@@ -175,6 +177,14 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	}
 	
 	/**
+	 * The method obligatory to be overridden if you use Long 'workshopEntityID' parameter for constructing your own
+	 * Links.
+	 * Start method with:
+	 * if (workshopEntityId == null) {
+	 * return super.getPagedLink(pageable, pageSize, orderBy, order, relation, hrefLang, media, title, workshopEntityId);
+	 * } else {
+	 * //WRITE YOUR LOGIC WITH workshopEntityID with ControllerLinkBuilder.methodOn() or similar.
+	 * }
 	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
 	 * So for page.getNumber() we must add +1
 	 *
@@ -183,7 +193,7 @@ public abstract class WorkshopEntityResourceAssemblerAbstract <T extends Worksho
 	 *                         invoke the given parameter.
 	 */
 	Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
-								String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
+					  String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
 		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 		
 		Link link =

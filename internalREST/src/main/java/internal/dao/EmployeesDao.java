@@ -61,13 +61,19 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 	}
 	
 	/**
-	 * @param pageSize
-	 * @param pageNum
-	 * @param orderBy
-	 * @param order
-	 * @param positionId
+	 * @param pageSize   Amount of Employees at once
+	 * @param pageNum    Zero-based pagination.
+	 * @param orderBy    Non-null and non-empty property name the Employees to be ordered by
+	 * @param order      Ascending or Descending
+	 * @param positionId Id of the Position
 	 * @return Optional.of(List Employees) or Optional.empty() if nothing found.
 	 * @throws PersistenceException If some DateBase problems occurred (Locks, timeouts etc).
+	 *                              IllegalStateException  - if called for a Java Persistence query language UPDATE or DELETE statement
+	 *                              QueryTimeoutException - if the query execution exceeds the query timeout value set and only the statement is rolled back
+	 *                              TransactionRequiredException - if a lock mode other than NONE has been set and there is no transaction or the persistence context has not been joined to the transaction
+	 *                              PessimisticLockException - if pessimistic locking fails and the transaction is rolled back
+	 *                              LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
+	 *                              PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
 	public Optional<List<Employee>> findEmployeesByPosition(Integer pageSize,
 															Integer pageNum,
@@ -75,6 +81,7 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 															Sort.Direction order,
 															Long positionId)
 		throws PersistenceException {
+		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
@@ -85,12 +92,24 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		
 		Predicate positionIdEqual = cb.equal(employeeRoot.get("position").get("identifier"), positionId);
 		
+		cq.where(positionIdEqual);
+		
+		if (order.isAscending()) {
+			cq.orderBy(cb.asc(employeeRoot.get(orderBy)));
+		} else {
+			cq.orderBy(cb.desc(employeeRoot.get(orderBy)));
+		}
+		
 		TypedQuery<Employee> typedQuery = entityManager.createQuery(cq);
+		typedQuery.setMaxResults(pageSize);
+		typedQuery.setFirstResult(pageSize * pageNum);
 		
 		List<Employee> employeesByPosition = typedQuery.getResultList();
 		
-		//TODO: to complete
-		
-		return null;
+		if (employeesByPosition != null && !employeesByPosition.isEmpty()) {
+			return Optional.of(employeesByPosition);
+		} else {
+			return Optional.empty();
+		}
 	}
 }

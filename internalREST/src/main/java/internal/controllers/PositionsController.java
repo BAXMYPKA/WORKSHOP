@@ -1,17 +1,20 @@
 package internal.controllers;
 
 import internal.entities.Department;
+import internal.entities.Employee;
 import internal.entities.Position;
-import internal.entities.hateoasResources.DepartmentResourceAssembler;
-import internal.entities.hateoasResources.EmployeeResourceAssembler;
+import internal.hateoasResources.DepartmentResourceAssembler;
+import internal.hateoasResources.EmployeeResourceAssembler;
 import internal.services.DepartmentsService;
+import internal.services.EmployeesService;
 import internal.services.PositionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
-import org.springframework.http.MediaType;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
 	@Autowired
 	private DepartmentsService departmentsService;
+	@Autowired
+	private EmployeesService employeesService;
 	@Autowired
 	private DepartmentResourceAssembler departmentResourceAssembler;
 	@Autowired
@@ -38,6 +43,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
 	@GetMapping(path = "/{id}/department")
 	public ResponseEntity<String> getDepartment(@PathVariable("id") Long id) {
+		
 		Department departmentByPosition = departmentsService.findDepartmentByPosition(id);
 		Resource<Department> departmentResource = departmentResourceAssembler.toResource(departmentByPosition);
 		String jsonDepartmentResource = getJsonServiceUtils().workshopEntityObjectsToJson(departmentResource);
@@ -53,10 +59,10 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
-		super.
-		
-//		getWorkshopEntitiesService().
-		
-		return null;
+		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
+		Resources<Resource<Employee>> pagedEmployeesResources =
+			employeeResourceAssembler.toPagedResources(employeesByPositionPage, id);
+		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedEmployeesResources);
+		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}
 }

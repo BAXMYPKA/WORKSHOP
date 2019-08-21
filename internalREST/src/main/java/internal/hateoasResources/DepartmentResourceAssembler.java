@@ -1,9 +1,8 @@
-package internal.entities.hateoasResources;
+package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.entities.Department;
 import internal.entities.Position;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -14,8 +13,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Component
 public class DepartmentResourceAssembler extends WorkshopEntityResourceAssemblerAbstract<Department> {

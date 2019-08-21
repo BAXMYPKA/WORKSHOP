@@ -375,7 +375,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		usersDao.persistEntity(user);
 		
 		//WHEN
-		Employee employeeByEmail = employeesDao.findEmployeeByEmail(employeeEmail);
+		Employee employeeByEmail = employeesDao.findEmployeeByEmail(employeeEmail).get();
 		Optional<User> userByEmail = usersDao.findByEmail(userEmail);
 		
 		//THEN

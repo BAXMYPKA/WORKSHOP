@@ -1,9 +1,7 @@
-package internal.entities.hateoasResources;
+package internal.hateoasResources;
 
 import internal.controllers.PositionsController;
 import internal.entities.Position;
-import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 @Component

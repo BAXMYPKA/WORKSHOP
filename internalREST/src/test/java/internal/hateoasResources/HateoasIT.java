@@ -1,4 +1,4 @@
-package internal.entities.hateoasResources;
+package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.controllers.PositionsController;

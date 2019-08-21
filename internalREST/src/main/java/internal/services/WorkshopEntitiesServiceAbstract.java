@@ -380,7 +380,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * Verifies Pageable to be consistent.
 	 *
 	 * @param pageable The Pageable to be checked and renewed if it is non-compatible with standards.
-	 * @return Fully verified Pageable
+	 * @return Fully verified and renewed Pageable with corrected values.
 	 * @throws InternalServerErrorException If Pageable to be verified is null;
 	 */
 	Pageable getVerifiedPageable(Pageable pageable) throws InternalServerErrorException {

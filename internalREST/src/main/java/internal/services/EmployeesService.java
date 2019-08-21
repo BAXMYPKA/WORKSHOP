@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -56,7 +58,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 	 * @param pageable
 	 * @param positionId
 	 * @return
-	 * @throws EntityNotFoundException If no Position found.
+	 * @throws EntityNotFoundException If no Position or Employees found.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public Page<Employee> findEmployeesByPosition(Pageable pageable, Long positionId) throws EntityNotFoundException {
@@ -68,8 +70,22 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 				.getMessage("httpStatus.notFound(1)", new Object[]{"Position" + positionId}, LocaleContextHolder.getLocale()));
 		}
 		Pageable verifiedPageable = super.getVerifiedPageable(pageable);
+		String order = verifiedPageable.getSort().iterator().next().getProperty();
 		
+		List<Employee> employeesByPosition = employeesDao.findEmployeesByPosition(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			order,
+			verifiedPageable.getSort().iterator().next().getDirection(),
+			positionId)
+			.orElseThrow(() -> new EntityNotFoundException("No Employees found!", HttpStatus.NOT_FOUND,
+				getMessageSource().getMessage(
+					"httpStatus.notFound(1)", new Object[]{"Employees"}, LocaleContextHolder.getLocale())));
 		
-		return null;
+		long totalEmployees = employeesDao.countAllEntities();
+		
+		Page<Employee> employeesPage = new PageImpl<>(employeesByPosition, verifiedPageable, totalEmployees);
+		
+		return employeesPage;
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.PersistenceException;
+import java.util.Optional;
 
 /**
  * Special class for providing the UserDetails for the Spring Security process with the help of EmployeesDao
@@ -31,7 +32,8 @@ public class EmployeesDetailsService implements UserDetailsService {
 	@Override
 	public UserDetailsEmployee loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
-			Employee employee = employeesDao.findEmployeeByEmail(email);
+			Employee employee = employeesDao.findEmployeeByEmail(email).orElseThrow(() ->
+				new UsernameNotFoundException("Such an email=(" + email + ") is not found."));
 /*
 			//User.builder.authorities can receive String as a name for an WorkshopGrantedAuthority and cannot be null
 			UserDetails userDetails = User.builder()

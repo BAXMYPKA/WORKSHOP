@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.WorkshopEntity;
-import internal.entities.hateoasResources.WorkshopEntityResourceAssemblerAbstract;
+import internal.hateoasResources.WorkshopEntityResourceAssemblerAbstract;
 import internal.entities.hibernateValidation.MergingValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.exceptions.IllegalArgumentsException;

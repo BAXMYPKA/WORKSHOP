@@ -2,15 +2,14 @@ package internal.controllers;
 
 import internal.entities.Department;
 import internal.entities.Position;
-import internal.entities.hateoasResources.DepartmentResourceAssembler;
-import internal.entities.hateoasResources.PositionResourceAssembler;
+import internal.hateoasResources.DepartmentResourceAssembler;
+import internal.hateoasResources.PositionResourceAssembler;
 import internal.services.DepartmentsService;
 import internal.services.PositionsService;
 import internal.services.WorkshopEntitiesServiceAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
@@ -21,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController

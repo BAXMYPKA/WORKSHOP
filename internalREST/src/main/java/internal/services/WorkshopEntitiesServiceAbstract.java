@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * Always returns ready-to-use WorkshopEntities or throws WorkshopExceptions for ExceptionHandlerController with
+ * appropriate HttpStatuses and
+ * localized messages for end-users.
  * This class also intended to throw WorkshopException with fully localized messages with appropriate HttpStatus codes
  * to be shown to the end Users.
  *
@@ -73,8 +76,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @param id
-	 * @return A found Entity or throws javax.persistence.NoResultException
+	 * @param id WorkshopEntity ID
+	 * @return A found Entity or throws EntityNotFoundException with appropriate HttpStatus and localized message for
+	 * the end Users. That Exception is intended to be intercept by ExceptionHandler controller.
 	 * @throws IllegalArgumentException If identifier <= 0 or not the key type for the Entity
 	 * @throws EntityNotFoundException  If nothing were found
 	 */
@@ -332,7 +336,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			return entities.orElseThrow(() -> new EntityNotFoundException(
 				"No " + entityClass.getSimpleName() + "s was found!",
 				HttpStatus.NOT_FOUND,
-				messageSource.getMessage("message.notFound(1)", new Object[]{entityClass.getSimpleName() + "s"},
+				messageSource.getMessage("httpStatus.notFound(1)", new Object[]{entityClass.getSimpleName() + "s"},
 					LocaleContextHolder.getLocale())));
 		} catch (PersistenceException e) {
 			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
@@ -363,7 +367,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		Page<T> entitiesPage = new PageImpl<T>(entities.orElseThrow(() ->
 			new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",
 				HttpStatus.NOT_FOUND,
-				messageSource.getMessage("message.notFound(1)",
+				messageSource.getMessage("httpStatus.notFound(1)",
 					new Object[]{entityClass.getSimpleName() + "s"},
 					LocaleContextHolder.getLocale()))),
 			pageable, totalEntities);
@@ -373,6 +377,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
+	 * Verifies Pageable to be consistent.
+	 *
 	 * @param pageable The Pageable to be checked and renewed if it is non-compatible with standards.
 	 * @return Fully verified Pageable
 	 * @throws InternalServerErrorException If Pageable to be verified is null;
@@ -422,5 +428,4 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 				new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
 		}
 	}
-	
 }

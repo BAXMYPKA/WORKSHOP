@@ -28,6 +28,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * The class is intended to return Optional.of(WorkshopEntity) either Optional.empty() if nothing found
+ * or to throw a java Exceptions to be caught higher.
  * The following parameters are obligatory to be set in the all subclasses:
  *
  * @param <T> Entity class through setEntityClass(WorkshopEntity.class)
@@ -45,7 +47,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -556,8 +558,8 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	 * Sorts the given List of WorkshopEntities by reference (that is just change the given List order without a returning a new one).
 	 *
 	 * @param resultListToSort The List of Entities to be sorted.
-	 * @param orderBy @Nullable. Property name to be sorted by. If null, {@link #DEFAULT_ORDER_BY} will be used.
-	 * @param order @Nullable. Ascending or Descending. If null, {@link #DEFAULT_ORDER} will be used.
+	 * @param orderBy          @Nullable. Property name to be sorted by. If null, {@link #DEFAULT_ORDER_BY} will be used.
+	 * @param order            @Nullable. Ascending or Descending. If null, {@link #DEFAULT_ORDER} will be used.
 	 */
 	void sortEntitiesResultList(List<T> resultListToSort, @Nullable String orderBy, @Nullable Sort.Direction order) {
 		if (orderBy == null | order == null) {
@@ -598,7 +600,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	/**
 	 * @param pageSize PageSize to be verified according to {@link #PAGE_SIZE_MAX}
 	 * @param pageNum  PageNumber to be verified
-	 * @param orderBy  To be verified for null and emptiness.
+	 * @param orderBy  To be verified for null and isEmpty().
 	 * @param order    To be verified for null
 	 * @throws IllegalArgumentException 1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
 	 *                                  2) If 'orderBy' is null or empty

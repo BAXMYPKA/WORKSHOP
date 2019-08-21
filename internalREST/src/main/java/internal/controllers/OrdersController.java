@@ -82,7 +82,7 @@ public class OrdersController {
 			String jsonOrders = jsonServiceUtils.workshopEntityObjectsToJson(ordersPage.getContent());
 			return ResponseEntity.ok(jsonOrders);
 		} else {
-			String message = messageSource.getMessage("message.notFound(1)", new Object[]{"Order"}, locale);
+			String message = messageSource.getMessage("httpStatus.notFound(1)", new Object[]{"Order"}, locale);
 			PersistenceFailureException pf = new PersistenceFailureException("No Orders found!", HttpStatus.NOT_FOUND);
 			pf.setLocalizedMessage(message);
 			throw pf;

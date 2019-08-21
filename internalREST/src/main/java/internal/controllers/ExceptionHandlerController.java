@@ -218,7 +218,7 @@ public class ExceptionHandlerController {
 		} else if (exception instanceof NoResultException) {
 			log.debug(exception.getMessage(), exception);
 			return getResponseEntityWithErrorMessage(HttpStatus.NOT_FOUND,
-				messageSource.getMessage("message.noResult", null, locale));
+				messageSource.getMessage("httpStatus.notFound", null, locale));
 			
 		} else if (exception instanceof RollbackException) {
 			log.debug(exception.getMessage(), exception);

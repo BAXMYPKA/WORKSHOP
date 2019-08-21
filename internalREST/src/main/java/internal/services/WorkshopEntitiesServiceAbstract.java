@@ -80,11 +80,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public T findById(long id) throws IllegalArgumentException, EntityNotFoundException {
-		if (id <= 0) {
-			throw new IllegalArgumentsException("The ID to be found cannot be 0 or even lower!", HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("error.propertyHasToBe(2)",
-					new Object[]{"ID", " > 0"}, LocaleContextHolder.getLocale()));
-		}
+		
+		verifyIdForNullZeroBelowZero(id);
+		
 		return workshopEntitiesDaoAbstract.findById(id).orElseThrow(() ->
 			new EntityNotFoundException("No " + entityClass.getSimpleName() + " with identifier=" + id + " was found!",
 				HttpStatus.NOT_FOUND,
@@ -106,6 +104,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
+		
 		if (entity == null) {
 			throw new IllegalArgumentException("The entity argument cannot by null!");
 		}
@@ -188,8 +187,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public void removeEntity(T entity) throws IllegalArgumentsException, EntityNotFoundException {
 		if (entity == null) {
-			throw new IllegalArgumentsException("Id cannot be equal zero or below!", HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", "> 0"}, LocaleContextHolder.getLocale()));
+			throw new IllegalArgumentsException("Entity cannot be null!", "httpStatus.notAcceptable.null",
+				HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 		try {
 			workshopEntitiesDaoAbstract.removeEntity(entity);
@@ -217,10 +216,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public void removeEntity(long id) throws IllegalArgumentException, EntityNotFoundException {
-		if (id <= 0) {
-			throw new IllegalArgumentsException("Id cannot be equal zero or below!", HttpStatus.NOT_ACCEPTABLE,
-				messageSource.getMessage("error.propertyHasToBe(2)", new Object[]{"id", "> 0"}, LocaleContextHolder.getLocale()));
-		}
+		
+		verifyIdForNullZeroBelowZero(id);
+		
 		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFoundException(
 			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
@@ -345,30 +343,10 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
 	public boolean isExist(long id) {
-		if (id <= 0) {
-			throw new IllegalArgumentsException("Identifier (" + id + ") cannot be zero or below!",
-				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
-				new Object[]{id}, LocaleContextHolder.getLocale()));
-		}
+		verifyIdForNullZeroBelowZero(id);
 		return workshopEntitiesDaoAbstract.isExist(id);
 	}
 	
-	/**
-	 * @param pageable The Pageable to be checked and renewed if it is non-compatible with standards.
-	 * @return Fully verified Pageable
-	 * @throws InternalServerErrorException If Pageable to be verified is null;
-	 */
-	Pageable getVerifiedPageable(Pageable pageable) throws InternalServerErrorException {
-		if (pageable == null) {
-			throw new InternalServerErrorException("Pageable cannot by null!");
-		}
-		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
-			: pageable.getPageSize();
-		int pageNum = pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber();
-		Sort sort = pageable.getSortOr(new Sort(Sort.Direction.DESC, DEFAULT_ORDER_BY));
-		
-		return PageRequest.of(pageNum, pageSize, sort);
-	}
 	
 	/**
 	 * Checks if a given Optional.List of Entities is present. If not present - throws EntityNotFoundException,
@@ -393,4 +371,56 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		
 		return entitiesPage;
 	}
+	
+	/**
+	 * @param pageable The Pageable to be checked and renewed if it is non-compatible with standards.
+	 * @return Fully verified Pageable
+	 * @throws InternalServerErrorException If Pageable to be verified is null;
+	 */
+	Pageable getVerifiedPageable(Pageable pageable) throws InternalServerErrorException {
+		if (pageable == null) {
+			throw new InternalServerErrorException("Pageable cannot by null!");
+		}
+		int pageSize = pageable.getPageSize() <= 0 || pageable.getPageSize() > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE
+			: pageable.getPageSize();
+		int pageNum = pageable.getPageNumber() < 0 ? 0 : pageable.getPageNumber();
+		Sort sort = pageable.getSortOr(new Sort(Sort.Direction.DESC, DEFAULT_ORDER_BY));
+		
+		return PageRequest.of(pageNum, pageSize, sort);
+	}
+	
+	/**
+	 * @param idToVerify ID to be verified
+	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
+	 *                                   users if the given parameter id is null or below zero.
+	 */
+	void verifyIdForNullBelowZero(Long idToVerify) throws IllegalArgumentsException {
+		if (idToVerify == null) {
+			throw new IllegalArgumentsException("Identifier cannot be null!",
+				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
+				new Object[]{"null"}, LocaleContextHolder.getLocale()));
+		} else if (idToVerify < 0) {
+			throw new IllegalArgumentsException("Identifier cannot be below zero!",
+				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
+				new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
+		}
+	}
+	
+	/**
+	 * @param idToVerify ID to be verified
+	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
+	 *                                   users if the given parameter id is null either zero or below zero.
+	 */
+	void verifyIdForNullZeroBelowZero(Long idToVerify) throws IllegalArgumentsException {
+		if (idToVerify == null) {
+			throw new IllegalArgumentsException("Identifier cannot be null!",
+				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
+				new Object[]{"null"}, LocaleContextHolder.getLocale()));
+		} else if (idToVerify <= 0) {
+			throw new IllegalArgumentsException("Identifier cannot be zero or below!",
+				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
+				new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
+		}
+	}
+	
 }

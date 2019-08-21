@@ -11,7 +11,9 @@
     <schema id="3" parent="2" name="EXTERNAL">
       <Visible>1</Visible>
     </schema>
-    <schema id="4" parent="2" name="INFORMATION_SCHEMA"/>
+    <schema id="4" parent="2" name="INFORMATION_SCHEMA">
+      <Substituted>1</Substituted>
+    </schema>
     <schema id="5" parent="2" name="INTERNAL">
       <Visible>1</Visible>
     </schema>

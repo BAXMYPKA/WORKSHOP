@@ -1,11 +1,14 @@
 package internal.controllers;
 
+import internal.entities.Department;
 import internal.entities.Position;
+import internal.entities.hateoasResources.DepartmentResourceAssembler;
 import internal.services.DepartmentsService;
 import internal.services.PositionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
 	@Autowired
 	private DepartmentsService departmentsService;
+	@Autowired
+	private DepartmentResourceAssembler departmentResourceAssembler;
 
 	/**
 	 * @param positionsService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -32,7 +37,9 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
 	@GetMapping(path = "/{id}/department")
 	public ResponseEntity<String> getDepartment(@PathVariable("id") Long id) {
-//		departmentsService.
-		return null;
+		Department departmentByPosition = departmentsService.findDepartmentByPosition(id);
+		Resource<Department> departmentResource = departmentResourceAssembler.toResource(departmentByPosition);
+		String jsonDepartmentResource = getJsonServiceUtils().workshopEntityObjectsToJson(departmentResource);
+		return ResponseEntity.ok(jsonDepartmentResource);
 	}
 }

@@ -74,8 +74,8 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	int batchSize;
 	
 	/**
-	 * @param key
-	 * @return The found entity instance or Optional.empty() if the entity does not exist
+	 * @param key The ID-key
+	 * @return Optional.of(WorkshopEntity) or Optional.empty() if that entity does not exist
 	 * @throws IllegalArgumentException if key is null
 	 */
 	public Optional<T> findById(K key) throws IllegalArgumentException {

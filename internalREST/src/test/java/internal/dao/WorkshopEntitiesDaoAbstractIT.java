@@ -675,6 +675,7 @@ class WorkshopEntitiesDaoAbstractIT {
 			position8);
 		
 		Department department1Persisted = departmentsDao.persistEntity(department1).get();
+		long departmentId = department1Persisted.getIdentifier();
 		
 		Position positionPersisted = positionsDao.persistEntity(position9).get();
 		Long positionId = positionPersisted.getIdentifier();
@@ -683,7 +684,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		Department departmentByPosition = departmentsDao.findDepartmentByPosition(positionId).get();
 		
 		//THEN
-		
+		assertEquals(departmentId, departmentByPosition.getIdentifier());
 		
 		removeAllPersistedEntities();
 	}

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Getter(value = AccessLevel.PACKAGE)
 @Setter(value = AccessLevel.PACKAGE)
 @Component
-public abstract class WorkshopEntityResourceAssemblerAbstract<T extends WorkshopEntity>
+public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
@@ -52,7 +52,13 @@ public abstract class WorkshopEntityResourceAssemblerAbstract<T extends Workshop
 //	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
 //		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 	
-	public WorkshopEntityResourceAssemblerAbstract(
+	/**
+	 * Obligatory constructor.
+	 *
+	 * @param workshopControllerAbstractClass The concrete class-type of WorkshopController
+	 * @param workshopEntityClass             The concrete class-type of WorkshopEntity
+	 */
+	public WorkshopEntitiesResourceAssemblerAbstract(
 		Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
 		Class<T> workshopEntityClass) {
 		

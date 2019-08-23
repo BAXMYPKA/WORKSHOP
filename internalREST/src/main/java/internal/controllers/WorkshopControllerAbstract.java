@@ -1,7 +1,7 @@
 package internal.controllers;
 
 import internal.entities.WorkshopEntity;
-import internal.hateoasResources.WorkshopEntityResourceAssemblerAbstract;
+import internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
 import internal.entities.hibernateValidation.MergingValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.exceptions.IllegalArgumentsException;
@@ -74,7 +74,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Autowired
 	private WorkshopEntitiesServiceAbstract<T> workshopEntitiesService;
 	@Autowired
-	private WorkshopEntityResourceAssemblerAbstract<T> workshopEntityResourceAssembler;
+	private WorkshopEntitiesResourceAssemblerAbstract<T> workshopEntityResourceAssembler;
 	private Class<T> workshopEntityClass;
 	/**
 	 * Just a simple name for simplified "workshopEntityClass.getSimpleName()"
@@ -91,9 +91,12 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 *                                to operate with.
 	 */
 	@Autowired
-	public WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract<T> workshopEntitiesService) {
+	public WorkshopControllerAbstract(
+		WorkshopEntitiesServiceAbstract<T> workshopEntitiesService,
+		WorkshopEntitiesResourceAssemblerAbstract<T> workshopEntitiesResourceAssemblerAbstract) {
 		this.workshopEntitiesService = workshopEntitiesService;
 		this.workshopEntityClass = workshopEntitiesService.getEntityClass();
+		this.workshopEntityResourceAssembler = workshopEntitiesResourceAssemblerAbstract;
 		workshopEntityClassName = workshopEntityClass.getSimpleName();
 		httpAllowedMethods = new HashSet<>(8);
 		httpAllowedMethods.addAll(Arrays.asList(HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE));

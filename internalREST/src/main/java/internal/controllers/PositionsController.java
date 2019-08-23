@@ -3,8 +3,9 @@ package internal.controllers;
 import internal.entities.Department;
 import internal.entities.Employee;
 import internal.entities.Position;
-import internal.hateoasResources.DepartmentResourceAssembler;
-import internal.hateoasResources.EmployeeResourceAssembler;
+import internal.hateoasResources.DepartmentsResourceAssembler;
+import internal.hateoasResources.EmployeesResourceAssembler;
+import internal.hateoasResources.PositionsResourceAssembler;
 import internal.services.DepartmentsService;
 import internal.services.EmployeesService;
 import internal.services.PositionsService;
@@ -28,24 +29,24 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	@Autowired
 	private EmployeesService employeesService;
 	@Autowired
-	private DepartmentResourceAssembler departmentResourceAssembler;
+	private DepartmentsResourceAssembler departmentsResourceAssembler;
 	@Autowired
-	private EmployeeResourceAssembler employeeResourceAssembler;
+	private EmployeesResourceAssembler employeesResourceAssembler;
 	
 	/**
 	 * @param positionsService By this instance we set the concrete instance of WorkshopServiceAbstract
 	 *                         and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
 	 *                         to operate with.
 	 */
-	public PositionsController(PositionsService positionsService) {
-		super(positionsService);
+	public PositionsController(PositionsService positionsService, PositionsResourceAssembler positionsResourceAssembler) {
+		super(positionsService, positionsResourceAssembler);
 	}
 	
 	@GetMapping(path = "/{id}/department")
 	public ResponseEntity<String> getDepartment(@PathVariable("id") Long id) {
 		
 		Department departmentByPosition = departmentsService.findDepartmentByPosition(id);
-		Resource<Department> departmentResource = departmentResourceAssembler.toResource(departmentByPosition);
+		Resource<Department> departmentResource = departmentsResourceAssembler.toResource(departmentByPosition);
 		String jsonDepartmentResource = getJsonServiceUtils().workshopEntityObjectsToJson(departmentResource);
 		return ResponseEntity.ok(jsonDepartmentResource);
 	}
@@ -61,7 +62,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
 		Resources<Resource<Employee>> pagedEmployeesResources =
-			employeeResourceAssembler.toPagedResources(employeesByPositionPage, id);
+			employeesResourceAssembler.toPagedResources(employeesByPositionPage, id);
 		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedEmployeesResources);
 		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}

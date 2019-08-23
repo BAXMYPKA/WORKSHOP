@@ -10,7 +10,6 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,14 +48,10 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public Page<Position> findPositionsByDepartment(Pageable pageable, Long departmentId)
 		throws IllegalArgumentsException, InternalServerErrorException {
-		if (pageable == null) {
-			throw new IllegalArgumentsException("Pageable cannot be null!", "httpStatus.internalServerError",
-				HttpStatus.INTERNAL_SERVER_ERROR);
-		} else if (departmentId == null) {
-			throw new IllegalArgumentsException("DepartmentId cannot be null!", "httpStatus.internalServerError",
-				HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		Pageable verifiedPageable = super.getVerifiedPageable(pageable);
+		
+		super.verifyIdForNullZeroBelowZero(departmentId);
+		
+		Pageable verifiedPageable = super.verifyAndCorrectPageable(pageable);
 		
 		Optional<List<Position>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(
 			verifiedPageable.getPageSize(),

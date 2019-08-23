@@ -67,7 +67,7 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 		ArgumentCaptor<String> capturedOrderBy = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<Sort.Direction> capturedDirection = ArgumentCaptor.forClass(Sort.Direction.class);
 		
-		Mockito.when(departmentsDao.findAllPagedAndSorted(
+		Mockito.when(departmentsDao.findAllEntities(
 			capturedPageSize.capture(), capturedPageNum.capture(), capturedOrderBy.capture(), capturedDirection.capture()))
 			.thenReturn(Optional.of(Collections.singletonList(new Department("Department"))));
 		
@@ -76,7 +76,7 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 		
 		//THEN
 		Mockito.verify(departmentsDao, Mockito.times(1))
-			.findAllPagedAndSorted(capturedPageSize.getValue(), capturedPageNum.getValue(), orderBy, Sort.Direction.DESC);
+			.findAllEntities(capturedPageSize.getValue(), capturedPageNum.getValue(), orderBy, Sort.Direction.DESC);
 		
 		assertTrue(capturedPageSize.getValue() <= maxPageSize);
 		assertTrue(capturedPageNum.getValue() <= defaultPageSize);

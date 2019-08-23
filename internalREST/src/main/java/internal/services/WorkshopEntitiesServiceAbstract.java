@@ -2,6 +2,7 @@ package internal.services;
 
 import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
+import internal.entities.WorkshopEntityAbstract;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
@@ -45,7 +46,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -79,11 +80,13 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @param id WorkshopEntity ID
 	 * @return A found Entity or throws EntityNotFoundException with appropriate HttpStatus and localized message for
 	 * the end Users. That Exception is intended to be intercept by ExceptionHandler controller.
-	 * @throws IllegalArgumentException If identifier <= 0 or not the key type for the Entity
-	 * @throws EntityNotFoundException  If nothing were found
+	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end users
+	 *                                   if the given parameter id is null either zero or below zero.
+	 * @throws EntityNotFoundException   If nothing was found. With appropriate HttpStatus and fully localized message
+	 *                                   for being intercepted by ExceptionHandlerController to be sent to the end users.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
-	public T findById(long id) throws IllegalArgumentException, EntityNotFoundException {
+	public T findById(long id) throws IllegalArgumentsException, EntityNotFoundException {
 		
 		verifyIdForNullZeroBelowZero(id);
 		
@@ -297,12 +300,12 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}
-		pageable = getVerifiedPageable(pageable);
+		pageable = verifyAndCorrectPageable(pageable);
 		
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = pageable.getSort().getOrderFor(orderBy).getDirection();
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllEntities(
 				pageable.getPageSize(), pageable.getPageNumber(), orderBy, order);
 			
 			return getEntitiesPage(pageable, entities);
@@ -331,7 +334,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
 		order = order.isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
 		try {
-			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllPagedAndSorted(pageSize, pageNum, orderBy, order);
+			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllEntities(pageSize, pageNum, orderBy, order);
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
 			return entities.orElseThrow(() -> new EntityNotFoundException(
 				"No " + entityClass.getSimpleName() + "s was found!",
@@ -353,8 +356,10 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	
 	/**
-	 * Checks if a given Optional.List of Entities is present. If not present - throws EntityNotFoundException,
-	 * else - a fully prepared Page will be returned.
+	 * 1) Checks if a given Optional.List of Entities is present. If not - throws EntityNotFoundException,
+	 * with the corresponds HttpStatus and localized message for the end-users.
+	 * 2) Returns the fully prepared Page containing info about amount of Pages, total entities, current page num etc.
+	 * to be extracted and user by WorkshopEntitiedResourceAssemblers.
 	 *
 	 * @param pageable PageRequest with verified parameters to prepare Page from.
 	 * @param entities Found WorkshopEntities collection from WorkshopEntitiesDao
@@ -362,6 +367,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws EntityNotFoundException If no Entities were found.
 	 */
 	Page<T> getEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
+		
 		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
 		
 		Page<T> entitiesPage = new PageImpl<T>(entities.orElseThrow(() ->
@@ -383,7 +389,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @return Fully verified and renewed Pageable with corrected values.
 	 * @throws InternalServerErrorException If Pageable to be verified is null;
 	 */
-	Pageable getVerifiedPageable(Pageable pageable) throws InternalServerErrorException {
+	Pageable verifyAndCorrectPageable(Pageable pageable) throws InternalServerErrorException {
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}

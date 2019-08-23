@@ -1,6 +1,7 @@
 package internal.controllers;
 
 import internal.entities.Employee;
+import internal.hateoasResources.EmployeesResourceAssembler;
 import internal.services.EmployeesService;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
@@ -18,7 +19,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 *                        and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
 	 *                        to operate with.
 	 */
-	public EmployeesController(EmployeesService employeesService) {
-		super(employeesService);
+	public EmployeesController(EmployeesService employeesService, EmployeesResourceAssembler employeesResourceAssembler) {
+		super(employeesService, employeesResourceAssembler);
 	}
 }

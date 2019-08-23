@@ -2,8 +2,9 @@ package internal.controllers;
 
 import internal.entities.Department;
 import internal.entities.Position;
-import internal.hateoasResources.DepartmentResourceAssembler;
-import internal.hateoasResources.PositionResourceAssembler;
+import internal.hateoasResources.DepartmentsResourceAssembler;
+import internal.hateoasResources.PositionsResourceAssembler;
+import internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
 import internal.services.DepartmentsService;
 import internal.services.PositionsService;
 import internal.services.WorkshopEntitiesServiceAbstract;
@@ -28,17 +29,17 @@ import java.util.stream.Collectors;
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
 	@Autowired
-	private DepartmentResourceAssembler departmentResourceAssembler;
+	private DepartmentsResourceAssembler departmentsResourceAssembler;
 	@Autowired
-	private PositionResourceAssembler positionResourceAssembler;
+	private PositionsResourceAssembler positionsResourceAssembler;
 	@Autowired
 	private PositionsService positionsService;
 	
 	/**
-	 * @see WorkshopControllerAbstract#WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract)
+	 * @see WorkshopControllerAbstract#WorkshopControllerAbstract(WorkshopEntitiesServiceAbstract, WorkshopEntitiesResourceAssemblerAbstract) )
 	 */
-	public DepartmentsController(DepartmentsService departmentsService) {
-		super(departmentsService);
+	public DepartmentsController(DepartmentsService departmentsService, DepartmentsResourceAssembler departmentsResourceAssembler) {
+		super(departmentsService, departmentsResourceAssembler);
 	}
 	
 	
@@ -69,12 +70,12 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		
 		Collection<Resource<Position>> positionsResourcesCollection = positionsByDepartmentPage
 			.stream()
-			.map(position -> positionResourceAssembler.toResource(position))
+			.map(position -> positionsResourceAssembler.toResource(position))
 			.collect(Collectors.toList());
 		
 		Resources<Resource<Position>> positionResources = new Resources<>(positionsResourcesCollection);
 		//Obtain navigation paginated Links
-		positionResources = departmentResourceAssembler
+		positionResources = departmentsResourceAssembler
 			.positionsFromDepartmentToPagedResources(positionResources, positionsByDepartmentPage, id);
 		
 		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionResources);

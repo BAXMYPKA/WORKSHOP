@@ -61,17 +61,17 @@ class OrdersServiceTest {
 		ArgumentCaptor<Sort.Direction> sortCaptured = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		//WHEN
-		Mockito.lenient().when(entitiesDao.findAllPagedAndSorted(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAllEntities(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
-		Mockito.lenient().when(entitiesDao.findAllPagedAndSorted(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
+		Mockito.lenient().when(entitiesDao.findAllEntities(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC))
 			.thenReturn(Optional.empty());
 		
 		ordersService.findAllEntities(sizeAndPage, sizeAndPage, "", Sort.Direction.DESC);
 		
 		//THEN
 		
-		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllPagedAndSorted(
+		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllEntities(
 			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), sortCaptured.capture());
 		
 		System.out.println("Size=" + sizeCaptured.getValue() + " Page=" + pageCaptured.getValue());
@@ -96,7 +96,7 @@ class OrdersServiceTest {
 		//WHEN
 		
 		Mockito.lenient()
-			.when(ordersDao.findAllPagedAndSorted(
+			.when(ordersDao.findAllEntities(
 				Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.any(Sort.Direction.class)))
 			.thenReturn(Optional.empty());
 		
@@ -104,7 +104,7 @@ class OrdersServiceTest {
 		
 		//THEN
 		
-		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllPagedAndSorted(
+		Mockito.verify(ordersDao, Mockito.atLeastOnce()).findAllEntities(
 			sizeCaptured.capture(), pageCaptured.capture(), sortByCaptured.capture(), directionCaptured.capture());
 		
 		System.out.println("SortBy=" + sortByCaptured.getValue() + " || AscDesc=" + directionCaptured.getValue());

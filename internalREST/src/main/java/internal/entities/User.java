@@ -108,7 +108,7 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
 	@EqualsAndHashCode.Include
 	private Collection<@Valid Order> orders;
 	

@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
 @Component
-public class EmployeeResourceAssembler extends WorkshopEntityResourceAssemblerAbstract<Employee> {
+public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Employee> {
 	
-	public EmployeeResourceAssembler(Class<? extends WorkshopControllerAbstract<Employee>> workshopControllerAbstractClass,
-									 Class<Employee> workshopEntityClass) {
+	public EmployeesResourceAssembler(Class<? extends WorkshopControllerAbstract<Employee>> workshopControllerAbstractClass,
+									  Class<Employee> workshopEntityClass) {
 		super(workshopControllerAbstractClass, workshopEntityClass);
 	}
 	
 	/**
-	 * @see WorkshopEntityResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
+	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
 	 */
 	@Override
 	Link getPagedLink(Pageable pageable,

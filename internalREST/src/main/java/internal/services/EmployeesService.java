@@ -2,7 +2,6 @@ package internal.services;
 
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;
-import internal.entities.Position;
 import internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
-import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,10 +64,10 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 			throw new EntityNotFoundException("No Position found!", HttpStatus.NOT_FOUND, getMessageSource()
 				.getMessage("httpStatus.notFound(1)", new Object[]{"Position" + positionId}, LocaleContextHolder.getLocale()));
 		}
-		Pageable verifiedPageable = super.getVerifiedPageable(pageable);
+		Pageable verifiedPageable = super.verifyAndCorrectPageable(pageable);
 		String order = verifiedPageable.getSort().iterator().next().getProperty();
 		
-		List<Employee> employeesByPosition = employeesDao.findEmployeesByPosition(
+		List<Employee> employeesByPosition = employeesDao.findAllEmployeesByPosition(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			order,

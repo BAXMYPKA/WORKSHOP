@@ -75,11 +75,11 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 	 *                              LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
 	 *                              PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
-	public Optional<List<Employee>> findEmployeesByPosition(Integer pageSize,
-															Integer pageNum,
-															String orderBy,
-															Sort.Direction order,
-															Long positionId)
+	public Optional<List<Employee>> findAllEmployeesByPosition(Integer pageSize,
+															   Integer pageNum,
+															   String orderBy,
+															   Sort.Direction order,
+															   Long positionId)
 		throws PersistenceException {
 		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);

@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
-public class DepartmentResourceAssembler extends WorkshopEntityResourceAssemblerAbstract<Department> {
+public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Department> {
 	
-	public DepartmentResourceAssembler() {
+	public DepartmentsResourceAssembler() {
 		setWorkshopControllerAbstractClass(DepartmentsController.class);
 		setWorkshopEntityClass(Department.class);
 	}
@@ -84,7 +84,7 @@ public class DepartmentResourceAssembler extends WorkshopEntityResourceAssembler
 	}
 	
 	/**
-	 * @see WorkshopEntityResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
+	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
 	 */
 	@Override
 	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation, String hrefLang,

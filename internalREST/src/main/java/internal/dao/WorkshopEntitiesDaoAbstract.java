@@ -139,7 +139,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values.
 	 * @throws PersistenceException     If an Entity doesn't have 'orderBy' field name.
 	 */
-	public Optional<List<T>> findAllPagedAndSorted(
+	public Optional<List<T>> findAllEntities(
 		Integer pageSize,
 		Integer pageNum,
 		String orderBy,
@@ -201,7 +201,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	 * @throws PersistenceException     if the query execution exceeds the query timeout value set
 	 *                                  and the transaction is rolled back
 	 */
-	public Optional<List<T>> findAllPagedAndSorted(Integer pageSize, Integer pageNum)
+	public Optional<List<T>> findAllEntities(Integer pageSize, Integer pageNum)
 		throws IllegalArgumentException, PersistenceException {
 		
 		pageSize = pageSize == 0 ? PAGE_SIZE_DEFAULT : pageSize;

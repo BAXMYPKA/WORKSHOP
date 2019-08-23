@@ -62,7 +62,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
 		Resources<Resource<Employee>> pagedEmployeesResources =
-			employeesResourceAssembler.toPagedResources(employeesByPositionPage, id);
+			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id);
 		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedEmployeesResources);
 		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}

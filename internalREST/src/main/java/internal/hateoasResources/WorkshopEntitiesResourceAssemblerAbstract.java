@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 @Getter(value = AccessLevel.PACKAGE)
 @Setter(value = AccessLevel.PACKAGE)
 @Component
-public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends WorkshopEntity>
-	implements ResourceAssembler<T, Resource<T>> {
+public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends WorkshopEntity>
+	  implements ResourceAssembler<T, Resource<T>> {
 	
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
 	private Class<T> workshopEntityClass;
@@ -38,6 +38,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	private final String NEXT_PAGE_REL = "nextPage";
 	private final String FIRST_PAGE_REL = "firstPage";
 	private final String LAST_PAGE_REL = "lastPage";
+	private final String DEFAULT_TITLE = "";
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
 	@Value("${page.max_num}")
@@ -48,9 +49,6 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	private String DEFAULT_ORDER_BY;
 	@Value("${default.order}")
 	private String DEFAULT_ORDER;
-	//	String lastPageTitle = "Page " + (page.getTotalPages());
-//	String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total " +
-//		"with " + page.getNumberOfElements() + " elements of " + page.getTotalElements() + " elements total.";
 	
 	/**
 	 * Obligatory constructor.
@@ -59,8 +57,8 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 * @param workshopEntityClass             The concrete class-type of WorkshopEntity
 	 */
 	public WorkshopEntitiesResourceAssemblerAbstract(
-		Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
-		Class<T> workshopEntityClass) {
+		  Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
+		  Class<T> workshopEntityClass) {
 		
 		setWorkshopControllerAbstractClass(workshopControllerAbstractClass);
 		setWorkshopEntityClass(workshopEntityClass);
@@ -76,16 +74,19 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	@Override
 	public Resource<T> toResource(T workshopEntity) {
 		Link selfGetLink = entityLinks
-			.linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier())
-			.withSelfRel()
-			.withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
-			.withMedia("application/hal+json; charset=utf-8")
-			.withTitle("title");
+			  .linkForSingleResource(workshopEntityClass, workshopEntity.getIdentifier())
+			  .withSelfRel()
+			  .withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
+			  .withMedia("application/hal+json; charset=utf-8")
+			  .withTitle("title");
 		return new Resource<>(workshopEntity, selfGetLink);
 	}
 	
 	/**
-	 * Default method for obtaining the overall quantity of WorkshopEntities.
+	 * Default method for obtaining the overall quantity of WorkshopEntities. This method:
+	 * 1) Transforms the every given WorkshopEntity to "Resource<T>"
+	 * 2) From a given Page information prepares pageable navigation Links through WorkshopEntities collection
+	 * 3) Returns a ready to use pageable "Resources<Resource<T>>"
 	 *
 	 * @param workshopEntitiesPage Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
 	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
@@ -93,14 +94,20 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 */
 	public Resources<Resource<T>> toPagedResources(Page<T> workshopEntitiesPage) {
 		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
-			.map(this::toResource)
-			.collect(Collectors.toList());
-		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage, null);
+			  .map(this::toResource)
+			  .collect(Collectors.toList());
+		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage);
 		return new Resources<>(resourcesCollection, pagedLinks);
 	}
 	
 	/**
 	 * Special method for obtaining paged WorkshopEntities collections with their owner's ID.
+	 * <p>
+	 * This method:
+	 * 1) Transforms the every given WorkshopEntity to "Resource<T>"
+	 * 2) From a given Page information prepares pageable navigation Links through WorkshopEntities collection
+	 * 3) Returns a ready to use pageable "Resources<Resource<T>>"
+	 * <p>
 	 * For using this method it is obligatory to override {@link #getPagedLinks(Page, Long)} method to use
 	 * 'workshopEntityID' parameter for constructing your own paged navigation links with ControllerLinkBuilder
 	 * .methodOn().
@@ -112,14 +119,70 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 *                             method but not used by default. If you pass it, you have to override the method above
 	 *                             to use this id.
 	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
-	 * and pagination Links (nextPage, prevPage etc).
+	 * and pagination Links (nextPage, prevPage etc).////////////////// TO COMPLETE ///////////////////////////
 	 */
-	public Resources<Resource<T>> toPagedResources(Page<T> workshopEntitiesPage, Long workshopEntityId) {
+	public Resources<Resource<T>> toPagedSubResources(Page<T> workshopEntitiesPage, Long workshopEntityId) {
 		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
-			.map(this::toResource)
-			.collect(Collectors.toList());
+			  .map(this::toResource)
+			  .collect(Collectors.toList());
 		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage, workshopEntityId);
 		return new Resources<>(resourcesCollection, pagedLinks);
+	}
+	
+	/**
+	 * The constructor for pagination Links (nextPage, prevPage etc).
+	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
+	 * So for page.getNumber() we must add +1
+	 *
+	 * @param page The container with 'total pages', 'orderBy', 'order' and other data to prepare 'nextPage',
+	 *             'prevPage' and other Links to be included into the Resources<T> paged collection.
+	 * @return Collection of Links as 'nextPage', 'prevPage' etc to be added into "Resources<Resource<T>>" paged Links
+	 */
+	Collection<Link> getPagedLinks(Page page) {
+		Collection<Link> pagedLinks = new ArrayList<>(7);
+		
+		String orderBy = page.getSort().iterator().next().getProperty();
+		String order = page.getSort().iterator().next().getDirection().name();
+		
+		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
+		String lastPageTitle = "Page " + (page.getTotalPages());
+		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total. " +
+			  "Elements " + page.getNumberOfElements() + " of " + page.getTotalElements() + " elements total.";
+		
+		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, CURRENT_PAGE_REL,
+			  hrefLang, MEDIA, currentPageTitle);
+		
+		pagedLinks.add(currentPageLink);
+		
+		if (page.getTotalPages() == 1) {
+			return pagedLinks;
+		}
+		if (page.hasPrevious()) {
+			pagedLinks.add(getPagedLink(page.previousPageable(), page.getSize(), orderBy, order, PREV_PAGE_REL,
+				  hrefLang, MEDIA, DEFAULT_TITLE));
+		}
+		if (page.hasNext()) {
+			pagedLinks.add(getPagedLink(page.nextPageable(), page.getSize(), orderBy, order, NEXT_PAGE_REL, hrefLang, MEDIA,
+				  DEFAULT_TITLE));
+		}
+		if (!page.isFirst()) { //Add FirstPage
+			pagedLinks.add(getPagedLink(page.getPageable().first(), page.getSize(), orderBy, order, FIRST_PAGE_REL,
+				  hrefLang, MEDIA, DEFAULT_TITLE));
+		}
+		if (!page.isLast()) { //Add LastPage
+			Link lastPageLink =
+				  ControllerLinkBuilder.linkTo(
+						ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+							  .getAll(page.getSize(), page.getTotalPages(), orderBy, order))
+						.withRel(LAST_PAGE_REL)
+						.withHreflang(hrefLang)
+						.withMedia(MEDIA)
+						.withTitle(lastPageTitle);
+			
+			pagedLinks.add(lastPageLink);
+		}
+		
+		return pagedLinks;
 	}
 	
 	/**
@@ -135,7 +198,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 *                         instance.
 	 * @return Collection of Links as 'nextPage', 'prevPage' ect to be added into "Resources<Resource<T>>" Links
 	 */
-	Collection<Link> getPagedLinks(Page page, @Nullable Long workshopEntityId) {
+	Collection<Link> getPagedLinks(Page page, Long workshopEntityId) {
 		Collection<Link> pagedLinks = new ArrayList<>(7);
 		
 		String orderBy = page.getSort().iterator().next().getProperty();
@@ -144,10 +207,10 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
 		String lastPageTitle = "Page " + (page.getTotalPages());
 		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total. " +
-			"Elements " + page.getNumberOfElements() + " of " + page.getTotalElements() + " elements total.";
+			  "Elements " + page.getNumberOfElements() + " of " + page.getTotalElements() + " elements total.";
 		
 		Link currentPageLink = getPagedLink(page.getPageable(), page.getSize(), orderBy, order, CURRENT_PAGE_REL,
-			hrefLang, MEDIA, currentPageTitle, workshopEntityId);
+			  hrefLang, MEDIA, currentPageTitle, workshopEntityId);
 		
 		pagedLinks.add(currentPageLink);
 		
@@ -156,30 +219,51 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 		}
 		if (page.hasPrevious()) {
 			pagedLinks.add(getPagedLink(page.previousPageable(), page.getSize(), orderBy, order, PREV_PAGE_REL,
-				hrefLang, MEDIA, null, workshopEntityId));
+				  hrefLang, MEDIA, DEFAULT_TITLE, workshopEntityId));
 		}
 		if (page.hasNext()) {
 			pagedLinks.add(getPagedLink(page.nextPageable(), page.getSize(), orderBy, order, NEXT_PAGE_REL, hrefLang, MEDIA,
-				null, workshopEntityId));
+				  null, workshopEntityId));
 		}
 		if (!page.isFirst()) { //Add FirstPage
 			pagedLinks.add(getPagedLink(page.getPageable().first(), page.getSize(), orderBy, order, FIRST_PAGE_REL,
-				hrefLang, MEDIA, null, workshopEntityId));
+				  hrefLang, MEDIA, DEFAULT_TITLE, workshopEntityId));
 		}
 		if (!page.isLast()) { //Add LastPage
 			Link lastPageLink =
-				ControllerLinkBuilder.linkTo(
-					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
-						.getAll(page.getSize(), page.getTotalPages(), orderBy, order))
-					.withRel(LAST_PAGE_REL)
-					.withHreflang(hrefLang)
-					.withMedia(MEDIA)
-					.withTitle(lastPageTitle);
+				  ControllerLinkBuilder.linkTo(
+						ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+							  .getAll(page.getSize(), page.getTotalPages(), orderBy, order))
+						.withRel(LAST_PAGE_REL)
+						.withHreflang(hrefLang)
+						.withMedia(MEDIA)
+						.withTitle(lastPageTitle);
 			
 			pagedLinks.add(lastPageLink);
 		}
 		
 		return pagedLinks;
+	}
+	
+	/**
+	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
+	 * So for page.getNumber() we must add +1
+	 *
+	 * @param pageable Pageable information from a Clients with the desired parameters for custom Page and info about their current Page.
+	 * @param order    'Asc' or 'Desc' order
+	 * @return A fully prepared Link based on client's Pageable info and @ExposedResourceFor(Class.class) from "WorkshopController<T>".
+	 */
+	Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
+					  String hrefLang, String media, String title) {
+		Link link =
+			  ControllerLinkBuilder.linkTo(
+					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+						  .getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
+					.withRel(relation)
+					.withHreflang(hrefLang)
+					.withMedia(media)
+					.withTitle(title);
+		return link;
 	}
 	
 	/**
@@ -194,22 +278,22 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
 	 * So for page.getNumber() we must add +1
 	 *
-	 * @param workshopEntityId Default = null and not used by this method.
-	 *                         But can by used for special cased when you may want to override the method to
-	 *                         invoke the given parameter.
+	 * @param ownerId ID of the Owner of this collection. E.g., getUser(ownerId).getOrders()
 	 */
 	Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
-					  String hrefLang, String media, @Nullable String title, @Nullable Long workshopEntityId) {
-		title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
+					  String hrefLang, String media, String title, Long ownerId) {
+		
+		//TODO: to think about it..............
 		
 		Link link =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
-					.getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
-				.withRel(relation)
-				.withHreflang(hrefLang)
-				.withMedia(media)
-				.withTitle(title);
+			  ControllerLinkBuilder.linkTo(
+					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+						  .getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
+					.withRel(relation)
+					.withHreflang(hrefLang)
+					.withMedia(media)
+					.withTitle(title);
 		return link;
 	}
+	
 }

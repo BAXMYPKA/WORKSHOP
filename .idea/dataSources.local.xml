@@ -8,7 +8,17 @@
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>Admin</user-name>
-      <introspection-schemas>@:@,EXTERNAL,INTERNAL</introspection-schemas>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema">
+              <name qname="@" />
+              <name qname="EXTERNAL" />
+              <name qname="INTERNAL" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
   </component>
 </project>

@@ -2,35 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PhonesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/ClassifiersService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-20.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PhonesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PhonesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -110,7 +94,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../JAVA/apache-maven-3.6.1" />
+        <option name="mavenHome" value="$USER_HOME$/Maven/apache-maven-3.6.0" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -156,11 +140,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -325,8 +309,8 @@
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_Tasks" />
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" />
       <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.order" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsServiceh" />
+      <item itemvalue="Spring Boot.Internal" />
     </list>
     <recent_temporary>
       <list>
@@ -495,6 +479,9 @@
       <workItem from="1566886879640" duration="1896000" />
       <workItem from="1566888806285" duration="1867000" />
       <workItem from="1566890981204" duration="22438000" />
+      <workItem from="1566927987931" duration="47000" />
+      <workItem from="1566928053850" duration="526000" />
+      <workItem from="1566928600570" duration="1876000" />
     </task>
     <servers />
   </component>
@@ -527,6 +514,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

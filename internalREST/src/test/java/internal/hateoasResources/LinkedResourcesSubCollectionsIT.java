@@ -47,6 +47,8 @@ class LinkedResourcesSubCollectionsIT {
 	@Autowired
 	ClassifiersService classifiersService;
 	@Autowired
+	PhonesService phonesService;
+	@Autowired
 	TasksService tasksService;
 	@Autowired
 	OrdersService ordersService;
@@ -264,7 +266,27 @@ class LinkedResourcesSubCollectionsIT {
 		
 		Employee employee= new Employee("FN", "LN", "12345", "emp@workshop.pro",
 			LocalDate.now().minusYears(55), positionPersisted);
+		
+		phone1.setEmployee(employee);
+		phone2.setEmployee(employee);
+		phone3.setEmployee(employee);
+		
 		employee.setPhones(Arrays.asList(phone1, phone2, phone3));
+		
 		Employee employeePersisted = employeesService.persistEntity(employee);
+		
+		List<Phone> allEntities = phonesService.findAllEntities(25, 0, null, Sort.Direction.DESC);
+		System.out.println(allEntities);
+		
+		long employeeId = employeePersisted.getIdentifier();
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			  "GET", URI.create("/internal/employees/" + employeeId));
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions.andDo(MockMvcResultHandlers.print());
 	}
 }

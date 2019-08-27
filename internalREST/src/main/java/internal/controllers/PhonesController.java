@@ -4,9 +4,12 @@ import internal.entities.Phone;
 import internal.hateoasResources.PhonesResourceAssembler;
 import internal.services.PhonesService;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(path = "/internal/phones", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @ExposesResourceFor(Phone.class)
 public class PhonesController extends WorkshopControllerAbstract<Phone> {
 	

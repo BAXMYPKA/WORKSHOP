@@ -12,13 +12,11 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
 @Component
 public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Employee> {
 	
-	public EmployeesResourceAssembler(Class<? extends WorkshopControllerAbstract<Employee>> workshopControllerAbstractClass,
-									  Class<Employee> workshopEntityClass) {
-		super(workshopControllerAbstractClass, workshopEntityClass);
+	public EmployeesResourceAssembler() {
+		super(EmployeesController.class, Employee.class);
 	}
 	
 	/**

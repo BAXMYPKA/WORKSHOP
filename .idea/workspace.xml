@@ -2,21 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PhonesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/ClassifiersService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-20.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,55 +104,13 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>ehca</find>
-      <find>javax.cache</find>
-      <find>hibernate</find>
-      <find>ehcache</find>
-      <find>10501</find>
-      <find>trackable</find>
-      <find>LocalDateTime</find>
-      <find>22</find>
-      <find>if an Entity ha</find>
-      <find>MAX</find>
-      <find>throw</find>
-      <find>findById</find>
-      <find>findByEm</find>
-      <find>new Order();</find>
-      <find>.findAll</find>
-      <find>.findAllPaged</find>
-      <find>EntityNotFoun</find>
-      <find>hate</find>
-      <find>id</find>
-      <find>kjl</find>
-      <find>unique 1</find>
-      <find>unique 9</find>
-      <find>010</find>
-      <find>IllegalArgumentsE</find>
-      <find>persistEnti</find>
-      <find>EntityEx</find>
-      <find>objectMa</find>
-      <find>method</find>
-      <find>findAll</find>
-      <find>Illegal</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>ZonedDateTime</replace>
-      <replace>Order.builder().description(&quot;Order3&quot;).build();</replace>
-      <replace>.fingAllPaged</replace>
-      <replace>findAllPaged</replace>
-      <replace>unique 01</replace>
-      <replace>unique 09</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$USER_HOME$/Maven/apache-maven-3.6.0" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../JAVA/apache-maven-3.6.1" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -188,7 +160,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -198,25 +170,25 @@
       <recent name="internal.configurations" />
       <recent name="internal.service" />
     </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="internal" />
-      <recent name="internal.http.security" />
-      <recent name="internal.entities" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources\i18nMessages" />
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\main\resources\messages" />
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\configs" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\resources" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\internal\dao" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="internal" />
+      <recent name="internal.http.security" />
+      <recent name="internal.entities" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\internal\dao" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\main\resources\templates" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -239,8 +211,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.Internal">
-    <configuration name="LinkedResourcesSubCollectionsIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LinkedResourcesSubCollectionsIT.order">
+    <configuration name="LinkedResourcesSubCollectionsIT.order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -250,22 +222,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.hateoasResources" />
       <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LinkedResourcesSubCollectionsIT.departments_Positions_FirstPage_Should_Be_Returned_As_Sorted_By_Name_Order_Desc_Paged_Collection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.hateoasResources.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
-      <option name="METHOD_NAME" value="departments_Positions_FirstPage_Should_Be_Returned_As_Sorted_By_Name_Order_Desc_Paged_Collection" />
+      <option name="METHOD_NAME" value="order" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -319,6 +276,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WorkshopEntitiesServiceAbstractIT.departmentsServiceh" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.services" />
+      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
+      <option name="METHOD_NAME" value="departmentsServiceh" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="internal.controllers in internalREST" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -348,20 +321,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT" />
-      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.departments_Positions_FirstPage_Should_Be_Returned_As_Sorted_By_Name_Order_Desc_Paged_Collection" />
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.department_By_PositionId_Should_Return_" />
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_Tasks" />
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" />
+      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.order" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsServiceh" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.order" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsServiceh" />
         <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" />
         <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_Tasks" />
         <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.department_By_PositionId_Should_Return_" />
-        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT" />
-        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.departments_Positions_FirstPage_Should_Be_Returned_As_Sorted_By_Name_Order_Desc_Paged_Collection" />
       </list>
     </recent_temporary>
   </component>
@@ -518,6 +491,10 @@
       <workItem from="1566540308929" duration="23293000" />
       <workItem from="1566578088858" duration="200000" />
       <workItem from="1566578363798" duration="4747000" />
+      <workItem from="1566886617022" duration="215000" />
+      <workItem from="1566886879640" duration="1896000" />
+      <workItem from="1566888806285" duration="1867000" />
+      <workItem from="1566890981204" duration="22438000" />
     </task>
     <servers />
   </component>

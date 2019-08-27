@@ -88,11 +88,10 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 	 */
 	@Override
 	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation, String hrefLang,
-								String media, @Nullable String title, Long departmentId) {
+								String media, String title, Long departmentId) {
 		if (departmentId == null) { //It is a standard 'getAll' request
 			return super.getPagedLink(pageable, pageSize, orderBy, order, relation, hrefLang, media, title, departmentId);
 		} else { //It is the special request
-			title = title == null ? "Page " + (pageable.getPageNumber() + 1) : title;
 			
 			Link link =
 				ControllerLinkBuilder.linkTo(

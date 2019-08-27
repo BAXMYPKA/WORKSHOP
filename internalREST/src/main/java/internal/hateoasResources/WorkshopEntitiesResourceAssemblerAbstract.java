@@ -296,4 +296,21 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 		return link;
 	}
 	
+/*
+	Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation,
+					  String hrefLang, String media, String title, Long ownerId, Link customLink) {
+		
+		
+		Link link =
+			ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
+					.getAll(pageSize, pageable.getPageNumber() + 1, orderBy, order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+		return link;
+	}
+*/
+
 }

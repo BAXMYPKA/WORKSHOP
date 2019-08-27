@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Always returns ready-to-use WorkshopEntities or throws WorkshopExceptions for ExceptionHandlerController with
@@ -85,7 +87,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @throws EntityNotFoundException   If nothing was found. With appropriate HttpStatus and fully localized message
 	 *                                   for being intercepted by ExceptionHandlerController to be sent to the end users.
 	 */
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public T findById(long id) throws IllegalArgumentsException, EntityNotFoundException {
 		
 		verifyIdForNullZeroBelowZero(id);
@@ -104,16 +106,19 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 *
 	 * @param entity If an Entity.identifier = 0 it will be persisted. If an Entity.identifier > 0 it will be merged (updated into DB)
 	 * @return Persisted (or merged) managed copy of the Entity.
-	 * @throws IllegalArgumentException                   If an Entity == null
+	 * @throws IllegalArgumentsException                  If an Entity == null, with localized message and HttpStatus.NOT_ACCEPTABLE
 	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
 	 *                                                    Authentication within the Spring's SecurityContext.
+	 * @throws PersistenceFailureException                If some properties of the given Entity are incorrect.
+	 * @throws EntityNotFoundException                    If the given Entity.ID is not presented in the DataBase.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
-		throws IllegalArgumentException, AuthenticationCredentialsNotFoundException {
+		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
 		
 		if (entity == null) {
-			throw new IllegalArgumentException("The entity argument cannot by null!");
+			throw new IllegalArgumentsException(
+				"The entity argument cannot be null!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
 		}
 		Optional<T> persistedEntity;
 		try {
@@ -131,6 +136,28 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 		}
 		return persistedEntity.orElseThrow(() -> new PersistenceFailureException(
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
+	}
+	
+	/**
+	 * @param entity Array of Entities to be saved or persisted
+	 * @return Collection of the managed Entities copies.
+	 * @throws IllegalArgumentsException                  If an Entity == null, with localized message and HttpStatus.NOT_ACCEPTABLE
+	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
+	 *                                                    Authentication within the Spring's SecurityContext.
+	 * @throws PersistenceFailureException                If some properties of the given Entity are incorrect.
+	 * @throws EntityNotFoundException                    If the given Entity.ID is not presented in the DataBase.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public Collection<T> persistOrMergeEntities(T... entity)
+		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException, EntityNotFoundException {
+		
+		if (entity == null || entity.length == 0) {
+			throw new IllegalArgumentsException(
+				"The entities arguments cannot be null or empty!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+		List<T> persistedOrMergedEntities = Stream.of(entity).peek(this::persistEntity).collect(Collectors.toList());
+		return persistedOrMergedEntities;
 	}
 	
 	/**
@@ -153,7 +180,9 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 		} else if (entity.getIdentifier() != null && entity.getIdentifier() > 0) {
 			throw new PersistenceFailureException("Id (identifier) must by null or zero!",
 				HttpStatus.UNPROCESSABLE_ENTITY, messageSource.getMessage(
-				"error.propertyHasToBe(2)", new Object[]{"id", "empty (null) or 0"}, LocaleContextHolder.getLocale()));
+				"error.propertyHasToBe(2)",
+				new Object[]{entity.getClass().getSimpleName() + ".ID", "empty (null) or 0"},
+				LocaleContextHolder.getLocale()));
 		}
 		return workshopEntitiesDaoAbstract.persistEntity(entity).orElseThrow(() -> new PersistenceFailureException(
 			"Couldn't save" + entityClass.getSimpleName() + "! Check its properties.",
@@ -326,7 +355,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @return List of Entities or throws EntityNotFoundException if either nothing was found or a PersistenceException occurred.
 	 * @throws EntityNotFoundException If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
 	 */
-	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
 	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, Sort.Direction order)
 		throws EntityNotFoundException {
 		pageSize = pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;

@@ -52,7 +52,6 @@ public class Task extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "appointed_to")
-	@EqualsAndHashCode.Include
 	private Employee appointedTo;
 	
 	/**
@@ -62,18 +61,16 @@ public class Task extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
 		joinColumns = {@JoinColumn(name = "task_id")},
 		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
-	@EqualsAndHashCode.Include
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	@EqualsAndHashCode.Include
 	private Order order;
 	
 	/**
@@ -86,6 +83,7 @@ public class Task extends Trackable {
 	@Column(scale = 2, nullable = false)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
 		message = "{validation.positiveOrZero}")
+	@EqualsAndHashCode.Include
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder

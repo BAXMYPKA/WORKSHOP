@@ -58,6 +58,8 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 		taskOrderJoin.on(cb.equal(taskRoot.get("order").get("identifier"), orderId));
 		
 		TypedQuery<Task> taskTypedQuery = entityManager.createQuery(cq);
+		taskTypedQuery.setMaxResults(pageSize);
+		taskTypedQuery.setFirstResult(pageSize*pageNum);
 		
 		try {
 			List<Task> taskList = taskTypedQuery.getResultList();

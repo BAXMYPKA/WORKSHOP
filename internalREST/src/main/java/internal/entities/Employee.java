@@ -93,7 +93,7 @@ public class Employee extends Trackable {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, cascade = {
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {
 		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),

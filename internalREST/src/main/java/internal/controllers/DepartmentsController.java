@@ -72,7 +72,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 			.stream()
 			.map(position -> positionsResourceAssembler.toResource(position))
 			.collect(Collectors.toList());
-		
+
 		Resources<Resource<Position>> positionResources = new Resources<>(positionsResourcesCollection);
 		//Obtain navigation paginated Links
 		positionResources = departmentsResourceAssembler
@@ -82,4 +82,6 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		
 		return ResponseEntity.ok(jsonPositionResources);
 	}
+	
+	//TODO: TO get Employees from the Departments
 }

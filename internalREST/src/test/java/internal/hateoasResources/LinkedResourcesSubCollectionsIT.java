@@ -1,18 +1,20 @@
 package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
-import internal.entities.Department;
-import internal.entities.Position;
-import internal.services.DepartmentsService;
-import internal.services.PositionsService;
+import internal.controllers.OrdersController;
+import internal.entities.*;
+import internal.services.*;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -22,7 +24,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,10 +45,20 @@ class LinkedResourcesSubCollectionsIT {
 	@Autowired
 	PositionsService positionsService;
 	@Autowired
+	ClassifiersService classifiersService;
+	@Autowired
+	TasksService tasksService;
+	@Autowired
+	OrdersService ordersService;
+	@Autowired
+	EmployeesService employeesService;
+	@Autowired
 	DepartmentsController departmentsController;
+	@Autowired
+	OrdersController ordersController;
 	
 	@Test
-	@Order(1)
+	@org.junit.jupiter.api.Order(1)
 	public void init() {
 		assertNotNull(mockMvc);
 	}
@@ -94,7 +111,7 @@ class LinkedResourcesSubCollectionsIT {
 		Position position9 = new Position("Position 9", department1);
 		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
 			position8, position9);
-
+		
 		Department department1Persisted = departmentsService.persistEntity(department1);
 		
 		long departmentId = department1Persisted.getIdentifier();
@@ -156,23 +173,98 @@ class LinkedResourcesSubCollectionsIT {
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.containsString("\"rel\":\"previousPage\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId+"/positions")))
+				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")))
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.containsString("\"rel\":\"nextPage\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId+"/positions")))
+				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")))
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.containsString("\"rel\":\"firstPage\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId+"/positions")))
+				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")))
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.containsString("\"rel\":\"lastPage\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId+"/positions")))
+				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
 				Matchers.containsString("\"name\":\"Position 9\""))))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
 				Matchers.containsString("\"name\":\"Position 1\""))));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void order_Tasks_Should_Be_Returned() throws Exception {
+		//GIVEN
+		Order order = new internal.entities.Order();
+		order.setDescription("Order 1");
+		order.setOverallPrice(BigDecimal.TEN);
+		
+		order = ordersService.persistEntity(order);
+		
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier 1");
+		
+		classifier = classifiersService.persistEntity(classifier);
+		
+		Task task1 = new Task();
+		task1.setName("Task 1");
+		task1.setOrder(order);
+		task1.addClassifier(classifier);
+		
+		Task task2 = new Task();
+		task2.setName("Task 2");
+		task2.setOrder(order);
+		task2.addClassifier(classifier);
+		
+		Task task3 = new Task();
+		task3.setName("Task 3");
+		task3.setOrder(order);
+		task3.addClassifier(classifier);
+		
+		Task persistedTask1 = tasksService.persistEntity(task1);
+		Task persistedTask2 = tasksService.persistEntity(task2);
+		Task persistedTask3 = tasksService.persistEntity(task3);
+		long task3Identifier = persistedTask3.getIdentifier();
+		
+		
+		long orderId = order.getIdentifier();
+		//PageSize=2 of 3 Tasks total
+		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
+			URI.create("/internal/orders/" + orderId + "/tasks?order-by=name&order=asc&pageSize=2&pageNum=1"));
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
+		
+		//THEN
+		resultActions.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.content().string(
+				Matchers.containsString("\"name\":\"Task 1\"")))
+			.andExpect(MockMvcResultMatchers.content().string(
+				Matchers.containsString("\"name\":\"Task 2\"")))
+			
+			.andExpect(MockMvcResultMatchers.content().string(
+				Matchers.not(Matchers.containsString("\"identifier\":\"" + task3Identifier + "\""))));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void order() throws Exception {
+		//GIVEN
+		Department department = new Department("Department 1");
+		Department departmentPersisted = departmentsService.persistEntity(department);
+		
+		Position position = new Position("Position 1", departmentPersisted);
+		Position positionPersisted = positionsService.persistEntity(position);
+		
+		Phone phone1 = new Phone("Home", "8-911-111-11-11");
+		Phone phone2 = new Phone("Home2", "8-911-111-11-12");
+		Phone phone3 = new Phone("Work", "8-911-111-11-13");
+		
+		Employee employee= new Employee("FN", "LN", "12345", "emp@workshop.pro",
+			LocalDate.now().minusYears(55), positionPersisted);
+		employee.setPhones(Arrays.asList(phone1, phone2, phone3));
+		Employee employeePersisted = employeesService.persistEntity(employee);
 	}
 }

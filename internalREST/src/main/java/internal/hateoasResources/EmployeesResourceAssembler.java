@@ -1,11 +1,13 @@
 package internal.hateoasResources;
 
+import internal.controllers.EmployeesController;
 import internal.controllers.PositionsController;
 import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.Employee;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -31,10 +33,8 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 					  String hrefLang,
 					  String media,
 					  String title,
-					  @Nullable Long workshopEntityId) {
-		if (workshopEntityId == null) {
-			return super.getPagedLink(pageable, pageSize, orderBy, order, relation, hrefLang, media, title, workshopEntityId);
-		}
+					  Long workshopEntityId) {
+		
 		Link pagedLink = ControllerLinkBuilder.linkTo(
 			ControllerLinkBuilder.methodOn(PositionsController.class).getEmployees(
 				workshopEntityId,
@@ -49,6 +49,4 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 		
 		return pagedLink;
 	}
-	
-	
 }

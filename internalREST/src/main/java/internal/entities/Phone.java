@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.MergingValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
@@ -21,12 +18,26 @@ import java.time.ZonedDateTime;
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 @ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone extends WorkshopEntityAbstract {
+	
+	public Phone(String name,
+				 @NotNull(
+					 groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+					 message = "{validation.notNull}")
+				 @Pattern(
+					 groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+					 message = "{validation.phone}",
+					 regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
+					 String phone) {
+		this.name = name;
+		this.phone = phone;
+	}
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;

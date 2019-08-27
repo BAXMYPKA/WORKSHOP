@@ -303,6 +303,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			}
 		}
 		entityManager.persist(entity);
+		//TODO: Unique keys violation error to be handled
 		log.info("{} has been persisted.", entity.getClass().getSimpleName());
 		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getIdentifier()));
 	}

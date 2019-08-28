@@ -107,20 +107,20 @@ public class Employee extends Trackable {
 	private Collection<@Valid Task> appointedTasks;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
-	private Collection<Trackable> ordersModifiedBy;
-	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
-	private Collection<Trackable> ordersCreatedBy;
-	
-	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
 	private Collection<Trackable> tasksCreatedBy;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	private Collection<Trackable> ordersModifiedBy;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	private Collection<Trackable> ordersCreatedBy;
 	
 	/**
 	 * All the arguments of this constructor are obligatory to be set!

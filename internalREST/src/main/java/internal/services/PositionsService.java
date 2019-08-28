@@ -51,7 +51,7 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		
 		super.verifyIdForNullZeroBelowZero(departmentId);
 		
-		Pageable verifiedPageable = super.verifyAndCorrectPageable(pageable);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		
 		Optional<List<Position>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(
 			verifiedPageable.getPageSize(),
@@ -67,7 +67,7 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 					new Object[]{getEntityClass().getSimpleName(), "Department.id=" + departmentId},
 					LocaleContextHolder.getLocale()));
 		}
-		Page<Position> entitiesPage = super.getEntitiesPage(verifiedPageable, allPositionsByDepartment);
+		Page<Position> entitiesPage = super.getVerifiedEntitiesPage(verifiedPageable, allPositionsByDepartment);
 		return entitiesPage;
 	}
 }

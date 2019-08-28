@@ -20,6 +20,7 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 	public DepartmentsResourceAssembler() {
 		setWorkshopControllerAbstractClass(DepartmentsController.class);
 		setWorkshopEntityClass(Department.class);
+		setDEFAULT_TITLE("Department");
 	}
 	
 	/**
@@ -47,25 +48,6 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 		return departmentResource;
 	}
 	
-/*
-	public Resources<Resource<Position>> positionsFromDepartmentToPagedResources(
-		Page<Position> positionPage, Long departmentId) {
-		
-		//Get every Position as a Resource<Position> and collect
-		Collection<Resource<Position>> positionsResources = positionPage
-			.stream()
-			.map(position -> positionResourceAssembler.toResource(position))
-			.collect(Collectors.toList());
-		//Collect them into Resources
-		Resources<Resource<Position>> positionResources = new Resources<>(positionsResources);
-		//Get paged Links for this collection
-		Collection<Link> pagedLinks = super.getPagedLinks(positionPage, departmentId);
-		//Add fully paged navigation Links
-		positionResources.add(pagedLinks);
-		return positionResources;
-	}
-*/
-	
 	/**
 	 * Adds navigation Links to the given "Resources<Resource<Position>>" extracted from the given "Page<Position>".
 	 *
@@ -84,26 +66,26 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 	}
 	
 	/**
-	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, String, String, Long)
+	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, Long)
 	 */
 	@Override
-	protected Link getPagedLink(Pageable pageable, int pageSize, String orderBy, String order, String relation, String hrefLang,
-								String media, String title, Long departmentId) {
-		if (departmentId == null) { //It is a standard 'getAll' request
-			return super.getPagedLink(pageable, pageSize, orderBy, order, relation, hrefLang, media, title, departmentId);
-		} else { //It is the special request
-			
-			Link link =
-				ControllerLinkBuilder.linkTo(
-					ControllerLinkBuilder.methodOn(DepartmentsController.class)
-						.getDepartmentPositions(
-							departmentId, pageSize, pageable.getPageNumber() + 1, orderBy, order))
-					.withRel(relation)
-					.withHreflang(hrefLang)
-					.withMedia(media)
-					.withTitle(title);
-			
-			return link;
-		}
+	protected Link getPagedLink(Pageable pageable, int pageNum, String relation, String hrefLang, String media, String title,
+								Long departmentId) {
+		String orderBy = pageable.getSort().iterator().next().getProperty();
+		String order = pageable.getSort().iterator().next().getDirection().name();
+		Link link =
+			ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(DepartmentsController.class)
+					.getDepartmentPositions(
+						departmentId,
+						pageable.getPageSize(),
+						pageNum + 1,
+						orderBy,
+						order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+		return link;
 	}
 }

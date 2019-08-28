@@ -57,10 +57,4 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	ResponseEntity<String> deleteOne(long id);
 	
 	Pageable getPageable(Integer pageSize, Integer pageNum, String orderBy, String order);
-	
-	/**
-	 * "@PostConstruct"
-	 * setObjectMapper(getJsonServiceUtils().getObjectMapper());
-	 */
-	void postConstruct() throws JsonProcessingException;
 }

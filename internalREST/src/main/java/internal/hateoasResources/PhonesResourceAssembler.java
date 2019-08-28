@@ -9,5 +9,6 @@ public class PhonesResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 	
 	public PhonesResourceAssembler() {
 		super(PhonesController.class, Phone.class);
+		setDEFAULT_TITLE("Phone");
 	}
 }

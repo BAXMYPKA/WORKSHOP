@@ -64,7 +64,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 			throw new EntityNotFoundException("No Position found!", HttpStatus.NOT_FOUND, getMessageSource()
 				.getMessage("httpStatus.notFound(1)", new Object[]{"Position" + positionId}, LocaleContextHolder.getLocale()));
 		}
-		Pageable verifiedPageable = super.verifyAndCorrectPageable(pageable);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		String order = verifiedPageable.getSort().iterator().next().getProperty();
 		
 		List<Employee> employeesByPosition = employeesDao.findAllEmployeesByPosition(

@@ -2,7 +2,6 @@ package internal.services;
 
 import internal.dao.WorkshopEntitiesDaoAbstract;
 import internal.entities.WorkshopEntity;
-import internal.entities.WorkshopEntityAbstract;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
@@ -329,7 +328,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}
-		pageable = verifyAndCorrectPageable(pageable);
+		pageable = getVerifiedAndCorrectedPageable(pageable);
 		
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = pageable.getSort().getOrderFor(orderBy).getDirection();
@@ -337,7 +336,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllEntities(
 				pageable.getPageSize(), pageable.getPageNumber(), orderBy, order);
 			
-			return getEntitiesPage(pageable, entities);
+			return getVerifiedEntitiesPage(pageable, entities);
 		} catch (PersistenceException e) {
 			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
@@ -395,7 +394,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @return Page with number of pages, all the included pages parameters, total elements etc.
 	 * @throws EntityNotFoundException If no Entities were found.
 	 */
-	Page<T> getEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
+	Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
 		
 		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
 		
@@ -418,7 +417,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @return Fully verified and renewed Pageable with corrected values.
 	 * @throws InternalServerErrorException If Pageable to be verified is null;
 	 */
-	Pageable verifyAndCorrectPageable(Pageable pageable) throws InternalServerErrorException {
+	Pageable getVerifiedAndCorrectedPageable(Pageable pageable) throws InternalServerErrorException {
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}

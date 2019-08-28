@@ -8,6 +8,7 @@ import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InvalidMethodArgumentsException;
 import internal.services.WorkshopEntitiesServiceAbstract;
 import internal.services.serviceUtils.JsonServiceUtils;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -239,11 +240,5 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			  pageNum,
 			  pageSize,
 			  new Sort(direction, orderBy));
-	}
-	
-	@Override
-	@PostConstruct
-	public void postConstruct() {
-		//TODO: to remove if this method is dummy
 	}
 }

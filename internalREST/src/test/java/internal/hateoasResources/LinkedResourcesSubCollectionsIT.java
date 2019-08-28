@@ -14,6 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -252,8 +255,8 @@ class LinkedResourcesSubCollectionsIT {
 	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void order() throws Exception {
-		//GIVEN
+	public void employee_Phones_Should_Be_Included_With_Self_Links() throws Exception {
+		//GIVEN an Employee with Phones
 		Department department = new Department("Department 1");
 		Department departmentPersisted = departmentsService.persistEntity(department);
 		
@@ -264,29 +267,99 @@ class LinkedResourcesSubCollectionsIT {
 		Phone phone2 = new Phone("Home2", "8-911-111-11-12");
 		Phone phone3 = new Phone("Work", "8-911-111-11-13");
 		
-		Employee employee= new Employee("FN", "LN", "12345", "emp@workshop.pro",
+		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
 			LocalDate.now().minusYears(55), positionPersisted);
+		
+		Employee employeePersisted = employeesService.persistEntity(employee);
+		long employeeId = employeePersisted.getIdentifier();
 		
 		phone1.setEmployee(employee);
 		phone2.setEmployee(employee);
 		phone3.setEmployee(employee);
+		long phone1Id = phonesService.persistEntity(phone1).getIdentifier();
+		long phone2Id = phonesService.persistEntity(phone2).getIdentifier();
+		long phone3Id = phonesService.persistEntity(phone3).getIdentifier();
 		
 		employee.setPhones(Arrays.asList(phone1, phone2, phone3));
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		
-		List<Phone> allEntities = phonesService.findAllEntities(25, 0, null, Sort.Direction.DESC);
-		System.out.println(allEntities);
-		
-		long employeeId = employeePersisted.getIdentifier();
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			  "GET", URI.create("/internal/employees/" + employeeId));
+			"GET", URI.create("/internal/employees/" + employeeId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
-		resultActions.andDo(MockMvcResultHandlers.print());
+		resultActions.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-11")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-12")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-13")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+				"\"href\":\"http://localhost/internal/phones/" + phone1Id)))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+				"\"href\":\"http://localhost/internal/phones/" + phone2Id)))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+				"\"href\":\"http://localhost/internal/phones/" + phone3Id)));
 	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
+		//GIVEN an Employee with Phones
+		Department department = new Department("Department 1");
+		Department departmentPersisted = departmentsService.persistEntity(department);
+		
+		Position position = new Position("Position 1", departmentPersisted);
+		Position positionPersisted = positionsService.persistEntity(position);
+		
+		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
+			LocalDate.now().minusYears(55), positionPersisted);
+		
+		Employee employeePersisted = employeesService.persistEntity(employee);
+		long employeeId = employeePersisted.getIdentifier();
+		
+		Order order = new Order();
+		order.setDescription("Order 1");
+		Order persistedOrder = ordersService.persistEntity(order);
+		
+		Task task1 = new Task();
+		task1.setName("Task 1");
+		task1.setAppointedTo(employeePersisted);
+		task1.setOrder(persistedOrder);
+		Task persistedTask1 = tasksService.persistEntity(task1);
+		
+		Task task2 = new Task();
+		task2.setName("Task 2");
+		task2.setAppointedTo(employeePersisted);
+		task2.setOrder(persistedOrder);
+		Task persistedTask2 = tasksService.persistEntity(task2);
+		
+		Task task3 = new Task();
+		task3.setName("Task 3");
+		task3.setAppointedTo(employeePersisted);
+		task3.setOrder(persistedOrder);
+		Task persistedTask3 = tasksService.persistEntity(task3);
+		
+		Employee employeeMerged = employeesService.mergeEntity(employeePersisted);
+		Order orderMerged = ordersService.mergeEntity(persistedOrder);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET", URI.create("/internal/employees/" + employeeId+"/appointed_tasks"));
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-11")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-12")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-13")));
+//			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+//				"\"href\":\"http://localhost/internal/phones/" + phone1Id)))
+//			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+//				"\"href\":\"http://localhost/internal/phones/" + phone2Id)))
+//			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
+//				"\"href\":\"http://localhost/internal/phones/" + phone3Id)));
+	}
+	
 }

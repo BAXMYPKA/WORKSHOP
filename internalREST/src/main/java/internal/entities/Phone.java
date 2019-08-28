@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString(of = {"identifier", "phone"})
-@JsonIgnoreProperties(value = {"employee", "user"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"employee", "user"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
@@ -45,7 +45,7 @@ public class Phone extends WorkshopEntityAbstract {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
-	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 200, allocationSize = 1)
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
@@ -74,13 +74,13 @@ public class Phone extends WorkshopEntityAbstract {
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Employee.class)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Employee.class)
 	@JoinColumn(name = "employee_id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class)
+	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;

@@ -9,5 +9,6 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 	
 	public OrdersResourceAssembler() {
 		super(OrdersController.class, Order.class);
+		setDEFAULT_TITLE("Order");
 	}
 }

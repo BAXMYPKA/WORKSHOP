@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Component
-public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends WorkshopEntity>
+public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
@@ -395,11 +395,20 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 * @param pageable             The main info about pageable state.
 	 * @param pageNum              The obligatory parameter to obtain the current number of page.
 	 * @param ownerId              ID of the Owner of this collection. E.g., getUser(ownerId).getOrders()
-	 * @param controllerMethodName Discriminator string name in order to allow to pass custom parameters to play with.
-	 *                             Doesn't used by default.
+	 * @param controllerMethodName Discriminator string method name in order to allow to pass custom parameters and
+	 *                             construct a custom Link according to ControllerLinkBuilder.methodOn().
+	 *                             As usual, it passes as static string from WorkshopController
+	 *                             .GET_ORDERS_CREATED_BY_METHOD_NAME.
+	 * @return A single custom Link created according to 'controllerMethodName'.
 	 */
-	protected Link getPagedLink(Pageable pageable, int pageNum, String relation, String hrefLang, String media, String title,
-								Long ownerId, String controllerMethodName) {
+	protected Link getPagedLink(Pageable pageable,
+								int pageNum,
+								String relation,
+								String hrefLang,
+								String media,
+								String title,
+								Long ownerId,
+								String controllerMethodName) {
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		Link link =

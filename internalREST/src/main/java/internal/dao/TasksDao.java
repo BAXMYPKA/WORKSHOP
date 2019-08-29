@@ -118,4 +118,96 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
+	
+	/**
+	 * @param pageSize Amount of Tasks to be returned at once. Min = 1
+	 * @param pageNum  Zero based index.
+	 * @param orderBy  Property name to order by.
+	 * @param order    Ascending or Descending {@link Sort.Direction}
+	 * @return 'Optional.of(List<Task>)' or Optional.empty() if nothing found.
+	 * @throws IllegalArgumentException     1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 *                                      2) If 'orderBy' is null or empty 3) If 'order' is null
+	 * @throws InternalServerErrorException IllegalStateException  - if called for a Java Persistence query language UPDATE or DELETE statement
+	 *                                      QueryTimeoutException - if the query execution exceeds the query timeout value set and only the statement is rolled back
+	 *                                      TransactionRequiredException - if a lock mode other than NONE has been set and there is no transaction or the persistence context has not been joined to the transaction
+	 *                                      PessimisticLockException - if pessimistic locking fails and the transaction is rolled back
+	 *                                      LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
+	 *                                      PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
+	 */
+	public Optional<List<Task>> findAllTasksModifiedByEmployee(Integer pageSize,
+															   Integer pageNum,
+															   String orderBy,
+															   Sort.Direction order,
+															   Long employeeId) {
+		verifyPageableValues(pageSize, pageNum, orderBy, order);
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+		Root<Task> taskRoot = cq.from(Task.class);
+		
+		Predicate modifiedByPredicate = cb.equal(taskRoot.get("modifiedBy").get("identifier"), employeeId);
+		cq.where(modifiedByPredicate);
+		
+		TypedQuery<Task> tasksTypedQuery = entityManager.createQuery(cq);
+		tasksTypedQuery.setMaxResults(pageSize);
+		tasksTypedQuery.setFirstResult(pageNum * pageSize);
+		
+		try {
+			List<Task> modifiedByTasks = tasksTypedQuery.getResultList();
+			if (modifiedByTasks != null && !modifiedByTasks.isEmpty()) {
+				return Optional.of(modifiedByTasks);
+			} else {
+				return Optional.empty();
+			}
+		} catch (PersistenceException e) {
+			throw new InternalServerErrorException(
+				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+		}
+	}
+	
+	/**
+	 * @param pageSize Amount of Tasks to be returned at once. Min = 1
+	 * @param pageNum  Zero based index.
+	 * @param orderBy  Property name to order by.
+	 * @param order    Ascending or Descending {@link Sort.Direction}
+	 * @return 'Optional.of(List<Task>)' or Optional.empty() if nothing found.
+	 * @throws IllegalArgumentException     1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 *                                      2) If 'orderBy' is null or empty 3) If 'order' is null
+	 * @throws InternalServerErrorException IllegalStateException  - if called for a Java Persistence query language UPDATE or DELETE statement
+	 *                                      QueryTimeoutException - if the query execution exceeds the query timeout value set and only the statement is rolled back
+	 *                                      TransactionRequiredException - if a lock mode other than NONE has been set and there is no transaction or the persistence context has not been joined to the transaction
+	 *                                      PessimisticLockException - if pessimistic locking fails and the transaction is rolled back
+	 *                                      LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
+	 *                                      PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
+	 */
+	public Optional<List<Task>> findAllTasksCreatedByEmployee(Integer pageSize,
+															  Integer pageNum,
+															  String orderBy,
+															  Sort.Direction order,
+															  Long employeeId) {
+		verifyPageableValues(pageSize, pageNum, orderBy, order);
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+		Root<Task> taskRoot = cq.from(Task.class);
+		
+		Predicate createdByPredicate = cb.equal(taskRoot.get("createdBy").get("identifier"), employeeId);
+		cq.where(createdByPredicate);
+		
+		TypedQuery<Task> tasksTypedQuery = entityManager.createQuery(cq);
+		tasksTypedQuery.setMaxResults(pageSize);
+		tasksTypedQuery.setFirstResult(pageNum * pageSize);
+		
+		try {
+			List<Task> createdByTasks = tasksTypedQuery.getResultList();
+			if (createdByTasks != null && !createdByTasks.isEmpty()) {
+				return Optional.of(createdByTasks);
+			} else {
+				return Optional.empty();
+			}
+		} catch (PersistenceException e) {
+			throw new InternalServerErrorException(
+				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+		}
+	}
 }

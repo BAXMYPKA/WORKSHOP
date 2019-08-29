@@ -2,35 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-08-19.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-08-19.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/classes/META-INF/maven/remote-resources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -117,7 +103,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$PROJECT_DIR$/../../JAVA/apache-maven-3.6.1" />
+        <option name="mavenHome" value="C:/WORKSPACE/JAVA/apache-maven-3.6.1" />
         <option name="threads" value="3" />
       </MavenGeneralSettings>
     </option>
@@ -163,7 +149,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -201,8 +187,8 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean" />
-      <command value="mvn install" />
       <command value="mvn " />
+      <command value="mvn install" />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -218,7 +204,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LinkedResourcesSubCollectionsIT.employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links">
+  <component name="RunManager" selected="JUnit.LinkedResourcesSubCollectionsIT.employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links">
     <configuration name="LinkedResourcesSubCollectionsIT.employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -251,6 +237,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LinkedResourcesSubCollectionsIT.employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
+      <option name="METHOD_NAME" value="employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LinkedResourcesSubCollectionsIT.employee_TasksModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
+      <option name="METHOD_NAME" value="employee_TasksModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LinkedResourcesSubCollectionsIT.order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -262,38 +280,6 @@
       <option name="PACKAGE_NAME" value="internal.hateoasResources" />
       <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
       <option name="METHOD_NAME" value="order" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="tasks_By_OrderId_Should_Return_All_Included_Tasks" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.departmentsServiceh" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="departmentsServiceh" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -328,20 +314,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" />
       <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.order" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsServiceh" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_Phones_Should_Be_Included_With_Self_Links" />
       <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_TasksModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_TasksModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
         <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
         <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.employee_Phones_Should_Be_Included_With_Self_Links" />
         <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.order" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsServiceh" />
-        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.tasks_By_OrderId_Should_Return_All_Included_Tasks" />
       </list>
     </recent_temporary>
   </component>
@@ -506,6 +492,7 @@
       <workItem from="1566928053850" duration="526000" />
       <workItem from="1566928600570" duration="1876000" />
       <workItem from="1566972028037" duration="27335000" />
+      <workItem from="1567087404652" duration="6565000" />
     </task>
     <servers />
   </component>

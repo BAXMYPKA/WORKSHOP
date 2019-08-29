@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -67,6 +68,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
 	public Page<Task> findAllTasksAppointedToEmployee(Pageable pageable, Long employeeId) {
+		
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		super.verifyIdForNullZeroBelowZero(employeeId);
 		
@@ -81,7 +83,64 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		
 		Page<Task> tasksPage = super.getVerifiedEntitiesPage(verifiedPageable, allPagedTasksAppointedToEmployee);
 		return tasksPage;
+	}
+	
+	/**
+	 * @param employeeId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
+	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
+	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	public Page<Task> findAllTasksModifiedByEmployee(Pageable pageable, Long employeeId)
+		throws IllegalArgumentsException, EntityNotFoundException {
 		
-		//TODO: to test
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Task>> allTasksModifiedByEmployee = tasksDao.findAllTasksModifiedByEmployee(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			orderBy,
+			order,
+			employeeId);
+		
+		Page<Task> verifiedEntitiesPageFromDao =
+			super.getVerifiedEntitiesPage(verifiedPageable, allTasksModifiedByEmployee);
+		
+		return verifiedEntitiesPageFromDao;
+	}
+	
+	/**
+	 * @param employeeId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
+	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
+	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	
+	public Page<Task> findAllTasksCreatedByEmployee(Pageable pageable, Long employeeId)
+		throws IllegalArgumentsException, EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Task>> allTasksCreatedByEmployee = tasksDao.findAllTasksCreatedByEmployee(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			orderBy,
+			order,
+			employeeId);
+		
+		Page<Task> verifiedEntitiesPageFromDao =
+			super.getVerifiedEntitiesPage(verifiedPageable, allTasksCreatedByEmployee);
+		
+		return verifiedEntitiesPageFromDao;
 	}
 }

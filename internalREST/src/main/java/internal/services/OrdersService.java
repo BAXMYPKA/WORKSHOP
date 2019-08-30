@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -22,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -64,7 +64,36 @@ public class OrdersService extends WorkshopEntitiesServiceAbstract<Order> {
 		}
 	}
 	
-/*
+	/**
+	 * @param employeeId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
+	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
+	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	public Page<Order> findAllOrdersModifiedByEmployee(Pageable pageable, Long employeeId)
+		  throws IllegalArgumentsException, EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Order>> allOrdersModifiedByEmployee = ordersDao.findAllOrdersModifiedByEmployee(
+			  verifiedPageable.getPageSize(),
+			  verifiedPageable.getPageNumber(),
+			  orderBy,
+			  order,
+			  employeeId);
+		
+		Page<Order> verifiedEntitiesPageFromDao =
+			  super.getVerifiedEntitiesPage(verifiedPageable, allOrdersModifiedByEmployee);
+		
+		return verifiedEntitiesPageFromDao;
+	}
+	
+	/*
 	*/
 /**
 	 * @param orderId Self-description.

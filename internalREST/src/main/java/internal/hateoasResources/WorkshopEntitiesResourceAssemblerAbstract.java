@@ -37,6 +37,9 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	private final String NEXT_PAGE_REL = "nextPage";
 	private final String FIRST_PAGE_REL = "firstPage";
 	private final String LAST_PAGE_REL = "lastPage";
+	/**
+	 * To be set by every subclass as its own name, eg, "Order", "Task" etc.
+	 */
 	protected String DEFAULT_TITLE = "";
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -158,6 +161,9 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	public Resources<Resource<T>> toPagedSubResources(Page<T> workshopEntitiesPage,
 													  Long workshopEntityOwnerId,
 													  String controllerMethodName) {
+		
+		//TODO: the null check
+		
 		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
 			.map(this::toResource)
 			.collect(Collectors.toList());

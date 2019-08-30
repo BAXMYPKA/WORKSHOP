@@ -1,12 +1,15 @@
 package internal.controllers;
 
 import internal.entities.Employee;
+import internal.entities.Order;
 import internal.entities.Position;
 import internal.entities.Task;
 import internal.hateoasResources.EmployeesResourceAssembler;
+import internal.hateoasResources.OrdersResourceAssembler;
 import internal.hateoasResources.PositionsResourceAssembler;
 import internal.hateoasResources.TasksResourceAssembler;
 import internal.services.EmployeesService;
+import internal.services.OrdersService;
 import internal.services.TasksService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +40,11 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@Autowired
 	private TasksResourceAssembler tasksResourceAssembler;
 	@Autowired
+	private OrdersResourceAssembler ordersResourceAssembler;
+	@Autowired
 	private TasksService tasksService;
+	@Autowired
+	private OrdersService ordersService;
 	
 	/**
 	 * @param employeesService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -117,8 +124,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		//TODO: to complete
-		return null;
+		Page<Order> ordersModifiedByEmployeePage = ordersService.findAllOrdersModifiedByEmployee(pageable, id);
+		Resources<Resource<Order>> ordersModifiedByResources =
+			  ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, GET_ORDERS_MODIFIED_BY_METHOD_NAME);
+		String jsonOrdersModifiedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersModifiedByResources);
+		return ResponseEntity.ok(jsonOrdersModifiedByResources);
+		
+		//TODO: to test
 	}
 	
 	@GetMapping(path = "/{id}/orders_created_by")

@@ -2,9 +2,7 @@ package internal.hateoasResources;
 
 import internal.controllers.EmployeesController;
 import internal.controllers.PositionsController;
-import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.Employee;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +10,6 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,20 +26,26 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 		setDEFAULT_TITLE("Employee");
 	}
 	
+	/**
+	 * @return A 'Resource<Employee>' with Links to every Phone is contains.
+	 */
 	@Override
 	public Resource<Employee> toResource(Employee employee) {
 		Resource<Employee> employeeResource = super.toResource(employee);
 		//Add Links to the every Phone of Employee
 		if (employee.getPhones() != null) {
-			List<Link> phonesSerfLinks = employee.getPhones()
+			List<Link> phonesSelfLinks = employee.getPhones()
 				.stream()
 				.map(phone -> phonesResourceAssembler.toResource(phone).getLink("self"))
 				.collect(Collectors.toList());
-			employeeResource.add(phonesSerfLinks);
+			employeeResource.add(phonesSelfLinks);
 		}
 		return employeeResource;
 	}
 	
+	/**
+	 * @return "Resources<Resource<Employee>>" where every 'Resource<Employee>' has Link(s) to the every Phone it contains.
+	 */
 	@Override
 	public Resources<Resource<Employee>> toPagedResources(Page<Employee> employeesPage) {
 		Resources<Resource<Employee>> employeesResources = super.toPagedResources(employeesPage);
@@ -60,34 +63,33 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 	}
 	
 	@Override
-	public Resources<Resource<Employee>> toPagedSubResources(Page<Employee> workshopEntitiesPage, Long workshopEntityId) {
-		return super.toPagedSubResources(workshopEntitiesPage, workshopEntityId);
-	}
-	
-	/**
-	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, Long)
-	 */
-	@Override
 	protected Link getPagedLink(Pageable pageable,
-							 int pageSize,
-							 String relation,
-							 String hrefLang,
-							 String media,
-							 String title,
-							 Long workshopEntityId) {
+								int pageNum,
+								String relation,
+								String hrefLang,
+								String media,
+								String title,
+								Long ownerId,
+								String controllerMethodName) {
+		Link link;
 		String orderBy = pageable.getSort().iterator().next().getProperty();
-		String order = pageable.getSort().iterator().next().getDirection().name();
-		Link pagedLink = ControllerLinkBuilder.linkTo(
-			ControllerLinkBuilder.methodOn(PositionsController.class).getEmployees(
-				workshopEntityId,
-				pageSize,
-				0,
-				orderBy,
-				order))
-			.withRel(relation)
-			.withHreflang(hrefLang)
-			.withMedia(media)
-			.withTitle(title);
-		return pagedLink;
+		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
+		
+		if (PositionsController.GET_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+			link = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(PositionsController.class).positionEmployees(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+			return link;
+		} else {
+			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+		}
 	}
 }

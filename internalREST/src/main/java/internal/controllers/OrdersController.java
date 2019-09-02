@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @ExposesResourceFor(Order.class)
 public class OrdersController extends WorkshopControllerAbstract<Order> {
 	
+	public static final String GET_ORDER_TASKS_METHOD_NAME = "getOrderTasks";
 	@Autowired
 	private TasksService tasksService;
 	@Autowired
@@ -45,12 +46,11 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 * @param id OrderID to get the User from.
 	 */
 	@GetMapping(path = "/{id}/user")
-	public ResponseEntity<String> getUser(@PathVariable("id") Long id) {
+	public ResponseEntity<String> orderUser(@PathVariable("id") Long id) {
 		
 		User userById = ((OrdersService) getWorkshopEntitiesService()).findUserByOrder(id);
 		Resource<User> userResource = usersResourceAssembler.toResource(userById);
 		String jsonUser = getJsonServiceUtils().workshopEntityObjectsToJson(userResource);
-		
 		return ResponseEntity.ok(jsonUser);
 	}
 	
@@ -58,7 +58,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 * @param id OrderID to get Tasks from.
 	 */
 	@GetMapping(path = "/{id}/tasks")
-	public ResponseEntity<String> getTasks(
+	public ResponseEntity<String> orderTasks(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -66,13 +66,10 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageableTasks = getPageable(pageSize, pageNum, orderBy, order);
-		
 		Page<Task> tasksByOrderPage = tasksService.findAllTasksByOrder(pageableTasks, id);
-		
-		Resources<Resource<Task>> tasksPagedResources = tasksResourceAssembler.toPagedSubResources(tasksByOrderPage, id);
-		
+		Resources<Resource<Task>> tasksPagedResources =
+			tasksResourceAssembler.toPagedSubResources(tasksByOrderPage, id, GET_ORDER_TASKS_METHOD_NAME);
 		String jsonTasksPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(tasksPagedResources);
-		
 		return ResponseEntity.ok(jsonTasksPagedResources);
 	}
 	

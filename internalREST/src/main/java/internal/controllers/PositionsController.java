@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @ExposesResourceFor(Position.class)
 public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
+	public static final String GET_EMPLOYEES_METHOD_NAME = "getEmployees";
+	
 	@Autowired
 	private DepartmentsService departmentsService;
 	@Autowired
@@ -43,7 +45,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@GetMapping(path = "/{id}/department")
-	public ResponseEntity<String> getDepartment(@PathVariable("id") Long id) {
+	public ResponseEntity<String> positionDepartment(@PathVariable("id") Long id) {
 		
 		Department departmentByPosition = departmentsService.findDepartmentByPosition(id);
 		Resource<Department> departmentResource = departmentsResourceAssembler.toResource(departmentByPosition);
@@ -52,7 +54,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@GetMapping(path = "/{id}/employees")
-	public ResponseEntity<String> getEmployees(
+	public ResponseEntity<String> positionEmployees(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -61,9 +63,9 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
-		Resources<Resource<Employee>> pagedEmployeesResources =
-			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id);
-		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(pagedEmployeesResources);
+		Resources<Resource<Employee>> positionEmployeesPagedResources =
+			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id, GET_EMPLOYEES_METHOD_NAME);
+		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionEmployeesPagedResources);
 		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}
 }

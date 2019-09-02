@@ -1,23 +1,18 @@
 package internal.hateoasResources;
 
-import internal.controllers.DepartmentsController;
-import internal.controllers.EmployeesController;
-import internal.controllers.PositionsController;
-import internal.entities.Position;
-import org.springframework.data.domain.Page;
+import internal.controllers.ClassifiersController;
+import internal.controllers.TasksController;
+import internal.entities.Classifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Position> {
-	
-	public PositionsResourceAssembler() {
-		super(PositionsController.class, Position.class);
-		setDEFAULT_TITLE("Position");
+public class ClassifiersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Classifier> {
+	public ClassifiersResourceAssembler() {
+		super(ClassifiersController.class, Classifier.class);
+		setDEFAULT_TITLE("Classifier");
 	}
 	
 	@Override
@@ -33,9 +28,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (DepartmentsController.GET_DEPARTMENT_POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (TasksController.GET_TASK_CLASSIFIERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class).getDepartmentPositions(
+				ControllerLinkBuilder.methodOn(TasksController.class).taskClassifiers(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

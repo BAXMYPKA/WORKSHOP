@@ -15,6 +15,8 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -70,10 +72,19 @@ public class Classifier extends Trackable implements Serializable {
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "classifiers", cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-//	@OrderBy("created DESC")
+	@ManyToMany(mappedBy = "classifiers", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
+		fetch = FetchType.EAGER)
 	private Set<@Valid Task> tasks;
+	
+	public void addTask(Task... tasks) {
+		if (tasks == null) {
+			throw new IllegalArgumentException("Task varargs cannot be null!");
+		}
+		if (this.tasks == null) {
+			this.tasks = new HashSet<>(100);
+		}
+		this.tasks.addAll(Arrays.asList(tasks));
+	}
 	
 	@Builder
 	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")

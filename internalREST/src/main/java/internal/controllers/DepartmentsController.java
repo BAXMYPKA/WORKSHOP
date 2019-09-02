@@ -28,6 +28,8 @@ import java.util.stream.Collectors;
 @ExposesResourceFor(Department.class)
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
+	public static final String GET_DEPARTMENT_POSITIONS_METHOD_NAME = "getDepartmentPositions";
+	
 	@Autowired
 	private DepartmentsResourceAssembler departmentsResourceAssembler;
 	@Autowired
@@ -65,22 +67,13 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 				HttpStatus.NOT_FOUND);
 		}
 		Pageable pageablePositions = super.getPageable(pageSize, pageNum, orderBy, order);
-		
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
+		Resources<Resource<Position>> departmentPositionsPagedResources =
+			positionsResourceAssembler.toPagedSubResources(positionsByDepartmentPage, id, GET_DEPARTMENT_POSITIONS_METHOD_NAME);
+		String jsonDepartmentPositionsResources =
+			getJsonServiceUtils().workshopEntityObjectsToJson(departmentPositionsPagedResources);
 		
-		Collection<Resource<Position>> positionsResourcesCollection = positionsByDepartmentPage
-			.stream()
-			.map(position -> positionsResourceAssembler.toResource(position))
-			.collect(Collectors.toList());
-
-		Resources<Resource<Position>> positionResources = new Resources<>(positionsResourcesCollection);
-		//Obtain navigation paginated Links
-		positionResources = departmentsResourceAssembler
-			.positionsFromDepartmentToPagedResources(positionResources, positionsByDepartmentPage, id);
-		
-		String jsonPositionResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionResources);
-		
-		return ResponseEntity.ok(jsonPositionResources);
+		return ResponseEntity.ok(jsonDepartmentPositionsResources);
 	}
 	
 	//TODO: TO get Employees from the Departments

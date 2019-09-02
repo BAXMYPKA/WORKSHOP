@@ -2,6 +2,7 @@ package internal.services;
 
 import internal.dao.OrdersDao;
 import internal.dao.TasksDao;
+import internal.dao.UsersDao;
 import internal.entities.Order;
 import internal.entities.Task;
 import internal.entities.User;
@@ -33,7 +34,7 @@ public class OrdersService extends WorkshopEntitiesServiceAbstract<Order> {
 	@Autowired
 	private OrdersDao ordersDao;
 	@Autowired
-	private TasksDao tasksDao;
+	private UsersDao usersDao;
 	
 	public OrdersService(OrdersDao ordersDao) {
 		super(ordersDao);
@@ -93,30 +94,62 @@ public class OrdersService extends WorkshopEntitiesServiceAbstract<Order> {
 		return verifiedEntitiesPageFromDao;
 	}
 	
-	/*
-	*/
-/**
-	 * @param orderId Self-description.
-	 * @return A Set of Tasks from the given Order or throws EntityNotFoundException with appropriate HttpStatus.
+	/**
+	 * @param employeeId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
 	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
-	 *//*
-
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.SERIALIZABLE)
-	public Set<Task> findAllTasksByOrder(Long orderId) throws EntityNotFoundException, IllegalArgumentsException {
-		super.verifyIdForNullZeroBelowZero(orderId);
-		try {
-			return ordersDao.findById(orderId).orElseThrow(() ->
-				new EntityNotFoundException("No Order with such an ID!", HttpStatus.NOT_FOUND, getMessageSource().getMessage(
-					"httpStatus.notFound(1)", new Object[]{"OrderID=" + orderId}, LocaleContextHolder.getLocale())))
-				.getTasks();
-		} catch (NullPointerException npe) {
-			throw new EntityNotFoundException(
-				"No Tasks for the Order found!",
-				HttpStatus.NOT_FOUND, getMessageSource().getMessage("httpStatus.notFound(2)",
-				new Object[]{"Tasks", "OrderID=" + orderId}, LocaleContextHolder.getLocale()));
-		}
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	public Page<Order> findAllOrdersCreatedByEmployee(Pageable pageable, Long employeeId)
+		throws IllegalArgumentsException, EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Order>> allOrdersCreatedByEmployee = ordersDao.findAllOrdersCreatedByEmployee(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			orderBy,
+			order,
+			employeeId);
+		
+		Page<Order> verifiedEntitiesPageFromDao =
+			super.getVerifiedEntitiesPage(verifiedPageable, allOrdersCreatedByEmployee);
+		
+		return verifiedEntitiesPageFromDao;
 	}
-*/
+	
+	/**
+	 * @param userId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
+	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
+	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	public Page<Order> findAllOrdersCreatedForUser(Pageable pageable, Long userId)
+		throws IllegalArgumentsException, EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(userId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Order>> allOrdersCreatedForUser = ordersDao.findAllOrdersCreatedForUser(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			orderBy,
+			order,
+			userId);
+		
+		Page<Order> verifiedEntitiesPageFromDao =
+			super.getVerifiedEntitiesPage(verifiedPageable, allOrdersCreatedForUser);
+		
+		return verifiedEntitiesPageFromDao;
+	}
 
 }

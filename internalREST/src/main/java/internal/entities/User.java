@@ -14,6 +14,7 @@ import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -139,19 +140,33 @@ public class User extends WorkshopEntityAbstract {
 		isEnabled = enabled != null ? enabled : true;
 	}
 	
-	public void addPhone(Phone phone) throws IllegalArgumentException {
+	public void addPhones(Phone... phone) throws IllegalArgumentException {
 		if (phone == null) {
 			throw new IllegalArgumentException("Phone object cannot be null!");
 		}
 		if (phones == null) {
 			phones = new HashSet<>(3);
 		}
-		phones.add(phone);
+		phones.addAll(Arrays.asList(phone));
 	}
 	
-	public void deletePhone(Phone phone) {
+	public void deletePhones(Phone... phone) {
 		if (phones == null || phones.isEmpty()) return;
-		phones.remove(phone);
+		phones.removeAll(Arrays.asList(phone));
+	}
+	
+	public void addGrantedAuthorities(GrantedAuthority... grantedAuthority) {
+		if (grantedAuthorities == null){
+			grantedAuthorities = new HashSet<>(5);
+		}
+		grantedAuthorities.addAll(Arrays.asList(grantedAuthority));
+	}
+	
+	public void removeGrantedAuthority(GrantedAuthority... grantedAuthority) {
+		if (grantedAuthorities == null || grantedAuthorities.isEmpty()) {
+			return;
+		}
+		grantedAuthorities.removeAll(Arrays.asList(grantedAuthority));
 	}
 	
 	/**

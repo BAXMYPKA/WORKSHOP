@@ -34,6 +34,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	public static final String GET_TASKS_MODIFIED_BY_METHOD_NAME = "getTasksModifiedBy";
 	public static final String GET_TASKS_CREATED_BY_METHOD_NAME = "getTasksCreatedBy";
 	public static final String GET_ORDERS_MODIFIED_BY_METHOD_NAME = "getOrdersModifiedBy";
+	public static final String GET_ORDERS_CREATED_BY_METHOD_NAME = "getOrdersCreatedBy";
 	
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
@@ -129,8 +130,6 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 			  ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, GET_ORDERS_MODIFIED_BY_METHOD_NAME);
 		String jsonOrdersModifiedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersModifiedByResources);
 		return ResponseEntity.ok(jsonOrdersModifiedByResources);
-		
-		//TODO: to test
 	}
 	
 	@GetMapping(path = "/{id}/orders_created_by")
@@ -140,8 +139,19 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
-		return null;
+		
+		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
+		Page<Order> ordersCreatedByEmployeePage = ordersService.findAllOrdersCreatedByEmployee(pageable, id);
+		Resources<Resource<Order>> ordersCreatedByResources =
+			ordersResourceAssembler.toPagedSubResources(ordersCreatedByEmployeePage, id, GET_ORDERS_CREATED_BY_METHOD_NAME);
+		String jsonOrdersCreatedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersCreatedByResources);
+		return ResponseEntity.ok(jsonOrdersCreatedByResources);
 	}
 	
-	
+	public ResponseEntity<String> photo() {
+		
+		//TODO: to complete
+		
+		return null;
+	}
 }

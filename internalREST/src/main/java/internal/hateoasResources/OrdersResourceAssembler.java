@@ -2,6 +2,7 @@ package internal.hateoasResources;
 
 import internal.controllers.EmployeesController;
 import internal.controllers.OrdersController;
+import internal.controllers.UsersController;
 import internal.entities.Order;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -31,16 +32,42 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 		
 		if (EmployeesController.GET_ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				  ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
-						ownerId,
-						pageable.getPageSize(),
-						pageNum,
-						orderBy,
-						order))
-				  .withRel(relation)
-				  .withHreflang(hrefLang)
-				  .withMedia(media)
-				  .withTitle(title);
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+			return link;
+		} else if (EmployeesController.GET_ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+			link = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersCreatedBy(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+			return link;
+		} else if (UsersController.GET_USER_ORDERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+			link = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(UsersController.class).userOrders(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
 			return link;
 		} else {
 			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);

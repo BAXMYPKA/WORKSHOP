@@ -5,19 +5,10 @@ import internal.controllers.OrdersController;
 import internal.controllers.TasksController;
 import internal.entities.Task;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -25,31 +16,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 	
 	public TasksResourceAssembler() {
 		super(TasksController.class, Task.class);
-	}
-	
-	@Override
-	protected Link getPagedLink(Pageable pageable,
-								int pageNum,
-								String relation,
-								String hrefLang,
-								String media,
-								String title,
-								Long workshopEntityId) {
-		String orderBy = pageable.getSort().iterator().next().getProperty();
-		String order = pageable.getSort().iterator().next().getDirection().name();
-		
-		Link tasksByOrderLink = ControllerLinkBuilder.linkTo(
-			ControllerLinkBuilder.methodOn(OrdersController.class).getTasks(
-				workshopEntityId,
-				pageable.getPageSize(),
-				pageNum,
-				orderBy,
-				order))
-			.withRel(relation)
-			.withHreflang(hrefLang)
-			.withMedia(media)
-			.withTitle(title);
-		return tasksByOrderLink;
+		setDEFAULT_TITLE("Task");
 	}
 	
 	/**
@@ -106,6 +73,18 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 		} else if (EmployeesController.GET_TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksCreatedBy(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withHreflang(hrefLang)
+				.withMedia(media)
+				.withTitle(title);
+		} else if (OrdersController.GET_ORDER_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+			link = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(OrdersController.class).orderTasks(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

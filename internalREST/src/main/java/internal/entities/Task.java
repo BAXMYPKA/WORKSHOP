@@ -50,7 +50,7 @@ public class Task extends Trackable {
 	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
 	
@@ -69,7 +69,7 @@ public class Task extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
-		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	private Order order;
 	
@@ -122,8 +122,7 @@ public class Task extends Trackable {
 			classifiers = new HashSet<>(3);
 		}
 		classifiers.add(classifier);
-		setClassifiers(new HashSet<Classifier>(classifiers));
-		setPrice(price == null ? classifier.getPrice() : price.add(classifier.getPrice()));
+		price = price == null ? classifier.getPrice() : price.add(classifier.getPrice());
 	}
 	
 	/**
@@ -141,7 +140,7 @@ public class Task extends Trackable {
 		}
 		Stream.of(classifier).forEach(classifierToAdd -> {
 			classifiers.add(classifierToAdd);
-			price = price.add(classifierToAdd.getPrice());
+			price = price == null ? classifierToAdd.getPrice() : price.add(classifierToAdd.getPrice());
 		});
 	}
 	

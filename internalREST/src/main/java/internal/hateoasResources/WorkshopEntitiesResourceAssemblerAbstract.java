@@ -20,11 +20,19 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * To construct custom navigable Links for subResources for a given Resource
+ * (e.g. to get pageable collection of all the Orders modified by Employee through Employee.getOrdersModifiedBy
+ * with the ability to iterate them page by page with 'nextPage', 'lastPage' Links etc)
+ * you have to use {@link #toPagedSubResources(Page, Long, String)} method by passing the desired ControllerMethodName
+ * and only override {@link #getPagedLink(Pageable, int, String, String, String, String, Long, String)} method
+ * to implement your custom logic depending on given 'controllerMethodName'.
+ */
 @NoArgsConstructor
 @Getter
 @Setter
 @Component
-public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends WorkshopEntity>
+public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends WorkshopEntity>
 	implements ResourceAssembler<T, Resource<T>> {
 	
 	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
@@ -103,34 +111,6 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	}
 	
 	/**
-	 * Special method for obtaining paged WorkshopEntities collections with their owner's ID
-	 * if ////////////// TO COMPLETE ///////////////
-	 * This method:
-	 * 1) Transforms the every given WorkshopEntity to "Resource<T>"
-	 * 2) From a given Page information prepares pageable navigation Links through WorkshopEntities collection
-	 * 3) Returns a ready to use pageable "Resources<Resource<T>>"
-	 * For using this method it is obligatory to override {@link #getPagedLinks(Page, Long)} method to use
-	 * 'workshopEntityID' parameter for constructing your own paged navigation links with ControllerLinkBuilder
-	 * .methodOn().
-	 *
-	 * @param workshopEntitiesPage  Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
-	 * @param workshopEntityOwnerId Has to be used in some custom cases for deriving paged collections by owner's id.
-	 *                              The given parameter passes down to
-	 *                              {@link #getPagedLink(Pageable, int, String, String, String, String, Long)}
-	 *                              method but not used by default. If you pass it, you have to override the method above
-	 *                              to use this id.
-	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
-	 * and pagination Links (nextPage, prevPage etc).////////////////// TO COMPLETE ///////////////////////////
-	 */
-	public Resources<Resource<T>> toPagedSubResources(Page<T> workshopEntitiesPage, Long workshopEntityOwnerId) {
-		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
-			.map(this::toResource)
-			.collect(Collectors.toList());
-		Collection<Link> pagedLinks = getPagedLinks(workshopEntitiesPage, workshopEntityOwnerId);
-		return new Resources<>(resourcesCollection, pagedLinks);
-	}
-	
-	/**
 	 * NOTICE: DON'T FORGET TO OVERRIDE {@link #getPagedLink(Pageable, int, String, String, String, String, Long, String)} method
 	 * IN CASE OF USING THIS!
 	 * Special method for obtaining paged WorkshopEntities collections with their owner's ID
@@ -141,14 +121,14 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * 1) Transforms the every given WorkshopEntity to "Resource<T>"
 	 * 2) From a given Page information prepares pageable navigation Links through WorkshopEntities collection
 	 * 3) Returns a ready to use pageable "Resources<Resource<T>>"
-	 * For using this method it is obligatory to override {@link #getPagedLinks(Page, Long)} method to use
+	 * For using this method it is obligatory to override {@link #getPagedLinks(Page, Long, String)} method to use
 	 * 'workshopEntityID' parameter for constructing your own paged navigation links with ControllerLinkBuilder
 	 * .methodOn().
 	 *
 	 * @param workshopEntitiesPage  Page<T> workshopEntitiesPage with current pageNum, pageSize, orderBy, order.
 	 * @param workshopEntityOwnerId Has to be used in some custom cases for deriving paged collections by owner's id.
 	 *                              The given parameter passes down to
-	 *                              {@link #getPagedLink(Pageable, int, String, String, String, String, Long)}
+	 *                              {@link #getPagedLink(Pageable, int, String, String, String, String, Long, String)}
 	 *                              method but not used by default. If you pass it, you have to override the method above
 	 *                              to use this id.
 	 * @param controllerMethodName  The discriminator name of the RestController method to being passed to the
@@ -230,56 +210,6 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
 	 * So for page.getNumber() we must add +1
 	 *
-	 * @param page    The container with 'total pages', 'orderBy', 'order' and other data to prepare 'nextPage',
-	 *                'prevPage' and other Links to be included into the Resources<T> paged collection.
-	 * @param ownerId Passes with a value to
-	 *                {@link #getPagedLink(Pageable, int, String, String, String, String, Long)}
-	 *                method which has to be overridden to use this id as the collection's 'ownerId' with a custom
-	 *                ControllerLinkBuilder.methodOn(Controller.class).getAllCustom(ownerId, ...pageable) Link.
-	 * @return Collection of Links as 'nextPage', 'prevPage' ect to be added into "Resources<Resource<T>>" Links
-	 */
-	Collection<Link> getPagedLinks(Page page, Long ownerId) {
-		Collection<Link> pagedLinks = new ArrayList<>(7);
-		
-		String orderBy = page.getSort().iterator().next().getProperty();
-		String order = page.getSort().iterator().next().getDirection().name();
-		
-		String hrefLang = LocaleContextHolder.getLocale().toLanguageTag();
-		String lastPageTitle = "Page " + (page.getTotalPages());
-		String currentPageTitle = "Page " + (page.getNumber() + 1) + " of " + page.getTotalPages() + " pages total. " +
-			"Elements " + page.getNumberOfElements() + " of " + page.getTotalElements() + " elements total.";
-		
-		Link currentPageLink = getPagedLink(
-			page.getPageable(), page.getNumber(), CURRENT_PAGE_REL, hrefLang, MEDIA, currentPageTitle, ownerId);
-		
-		pagedLinks.add(currentPageLink);
-		
-		if (page.getTotalPages() == 1) {
-			return pagedLinks;
-		}
-		if (page.hasPrevious()) {
-			pagedLinks.add(getPagedLink(
-				page.previousPageable(), page.previousPageable().getPageNumber(), PREV_PAGE_REL, hrefLang, MEDIA, DEFAULT_TITLE, ownerId));
-		}
-		if (page.hasNext()) {
-			pagedLinks.add(getPagedLink(
-				page.nextPageable(), page.nextPageable().getPageNumber(), NEXT_PAGE_REL, hrefLang, MEDIA, DEFAULT_TITLE, ownerId));
-		}
-		if (!page.isFirst()) { //Add FirstPage
-			pagedLinks.add(getPagedLink(
-				page.getPageable().first(), page.getPageable().first().getPageNumber(), FIRST_PAGE_REL, hrefLang, MEDIA, DEFAULT_TITLE, ownerId));
-		}
-		if (!page.isLast()) { //Add LastPage
-			pagedLinks.add(getPagedLink(
-				page.getPageable(), page.getTotalPages(), LAST_PAGE_REL, hrefLang, MEDIA, lastPageTitle, ownerId));
-		}
-		return pagedLinks;
-	}
-	
-	/**
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 *
 	 * @param page                 The container with 'total pages', 'orderBy', 'order' and other data to prepare 'nextPage',
 	 *                             'prevPage' and other Links to be included into the Resources<T> paged collection.
 	 * @param ownerId              Not used and nullable by default.
@@ -340,43 +270,15 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * @param pageNum  Obligatory current page number
 	 * @return A fully prepared Link based on client's Pageable info and @ExposedResourceFor(Class.class) from "WorkshopController<T>".
 	 */
-	protected Link getPagedLink(Pageable pageable, int pageNum, String relation, String hrefLang, String media, String title) {
+	protected Link getPagedLink(Pageable pageable,
+								int pageNum,
+								String relation,
+								String hrefLang,
+								String media,
+								String title) {
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		Link link =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass).getAll(
-					pageable.getPageSize(),
-					pageNum + 1,
-					orderBy,
-					order))
-				.withRel(relation)
-				.withHreflang(hrefLang)
-				.withMedia(media)
-				.withTitle(title);
-		return link;
-	}
-	
-	/**
-	 * The method obligatory to be overridden if you use Long 'ownerID' parameter for constructing your own
-	 * Links.
-	 * You have to use your own "ControllerLinkBuilder.methodOn(Controller.class).getAllCustom(ownerId, ...pageable)"
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 *
-	 * @param pageable The main info about pageable state.
-	 * @param pageNum  The obligatory parameter to obtain the current number of page.
-	 * @param ownerId  ID of the Owner of this collection. E.g., getUser(ownerId).getOrders()
-	 */
-	protected Link getPagedLink(Pageable pageable, int pageNum, String relation, String hrefLang, String media, String title,
-								Long ownerId) {
-		String orderBy = pageable.getSort().iterator().next().getProperty();
-		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
-		Link link;
-		if (ownerId != null) {
-			//Do custom logic
-		}
-		link =
 			ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass).getAll(
 					pageable.getPageSize(),

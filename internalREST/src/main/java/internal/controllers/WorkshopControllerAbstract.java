@@ -98,6 +98,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	public WorkshopControllerAbstract(
 		WorkshopEntitiesServiceAbstract<T> workshopEntitiesService,
 		WorkshopEntitiesResourceAssemblerAbstract<T> workshopEntitiesResourceAssemblerAbstract) {
+		
 		this.workshopEntitiesService = workshopEntitiesService;
 		this.workshopEntityClass = workshopEntitiesService.getEntityClass();
 		this.workshopEntityResourceAssembler = workshopEntitiesResourceAssemblerAbstract;

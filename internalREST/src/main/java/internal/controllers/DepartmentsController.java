@@ -20,15 +20,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping(path = "/internal/departments", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})
 @ExposesResourceFor(Department.class)
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
-	public static final String GET_DEPARTMENT_POSITIONS_METHOD_NAME = "getDepartmentPositions";
+	public static final String POSITIONS_METHOD_NAME = "positions";
 	
 	@Autowired
 	private DepartmentsResourceAssembler departmentsResourceAssembler;
@@ -54,7 +51,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	 * @return
 	 */
 	@GetMapping(path = "/{id}/positions")
-	public ResponseEntity<String> getDepartmentPositions(
+	public ResponseEntity<String> positions(
 		@PathVariable(name = "id") long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -69,7 +66,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		Pageable pageablePositions = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
 		Resources<Resource<Position>> departmentPositionsPagedResources =
-			positionsResourceAssembler.toPagedSubResources(positionsByDepartmentPage, id, GET_DEPARTMENT_POSITIONS_METHOD_NAME);
+			positionsResourceAssembler.toPagedSubResources(positionsByDepartmentPage, id, POSITIONS_METHOD_NAME);
 		String jsonDepartmentPositionsResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(departmentPositionsPagedResources);
 		

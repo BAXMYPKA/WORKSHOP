@@ -1,5 +1,6 @@
 package internal.dao;
 
+import internal.entities.Classifier;
 import internal.entities.Order;
 import internal.entities.Task;
 import internal.exceptions.EntityNotFoundException;
@@ -210,4 +211,56 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
+	
+	/**
+	 * @param pageSize Amount of Tasks to be returned at once. Min = 1
+	 * @param pageNum  Zero based index.
+	 * @param orderBy  Property name to order by.
+	 * @param order    Ascending or Descending {@link Sort.Direction}
+	 * @return "Optional.of(List<Task>)" or Optional.empty() if nothing found.
+	 * @throws IllegalArgumentException     1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 *                                      2) If 'orderBy' is null or empty 3) If 'order' is null
+	 * @throws InternalServerErrorException IllegalStateException  - if called for a Java Persistence query language UPDATE or DELETE statement
+	 *                                      QueryTimeoutException - if the query execution exceeds the query timeout value set and only the statement is rolled back
+	 *                                      TransactionRequiredException - if a lock mode other than NONE has been set and there is no transaction or the persistence context has not been joined to the transaction
+	 *                                      PessimisticLockException - if pessimistic locking fails and the transaction is rolled back
+	 *                                      LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
+	 *                                      PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
+	 */
+	public Optional<List<Task>> findAllTasksByClassifier(Integer pageSize,
+														 Integer pageNum,
+														 String orderBy,
+														 Sort.Direction order,
+														 Long classifierId)
+		throws IllegalArgumentException, InternalServerErrorException {
+		
+		verifyPageableValues(pageSize, pageNum, orderBy, order);
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+		
+		Root<Classifier> classifierRoot = cq.from(Classifier.class);
+		Predicate classifierIdEqual = cb.equal(classifierRoot.get("identifier"), classifierId);
+		
+		cq.where(classifierIdEqual);
+		
+		cq.select(classifierRoot.get("tasks"));
+		
+		TypedQuery<Task> taskTypedQuery = entityManager.createQuery(cq);
+		taskTypedQuery.setMaxResults(pageSize);
+		taskTypedQuery.setFirstResult(pageSize * pageNum);
+		
+		try {
+			List<Task> taskList = taskTypedQuery.getResultList();
+			if (taskList != null && !taskList.isEmpty()) {
+				return Optional.of(taskList);
+			} else {
+				return Optional.empty();
+			}
+		} catch (PersistenceException e) {
+			throw new InternalServerErrorException(
+				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+		}
+	}
+	
 }

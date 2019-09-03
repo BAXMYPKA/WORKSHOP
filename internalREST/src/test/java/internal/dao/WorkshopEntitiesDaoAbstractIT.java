@@ -724,6 +724,53 @@ class WorkshopEntitiesDaoAbstractIT {
 		ordersDao.removeEntity(order1);
 	}
 	
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@Transactional
+	public void classifier_Tasks_Should_Be_Returned_As_ManyToMany() {
+		//GIVEN
+		Order order1 = new Order();
+		
+		Classifier classifier1 = new Classifier("Classifier 1", "", true, BigDecimal.ONE);
+		Classifier classifier2 = new Classifier("Classifier 2", "", true, BigDecimal.TEN);
+		
+		classifiersDao.persistEntities(Arrays.asList(classifier1, classifier2));
+		
+		Task task1 = Task.builder().name("Task 1").build();
+		task1.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2)));
+		task1.setOrder(order1);
+		
+		Task task2 = Task.builder().name("Task 2").build();
+		task2.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2)));
+		task2.setOrder(order1);
+		
+		Task task3 = Task.builder().name("Task 3").build();
+		task3.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2)));
+		task3.setOrder(order1);
+		
+		order1.setTasks(new HashSet<>(Arrays.asList(task1, task2, task3)));
+		
+		ordersDao.persistEntity(order1);
+		
+		//WHEN
+		Optional<List<Task>> tasksByClassifier = tasksDao.findAllTasksByClassifier(
+			10,
+			0,
+			"created",
+			Sort.Direction.DESC,
+			classifier1.getIdentifier());
+		
+		//THEN
+		assertTrue(tasksByClassifier.isPresent());
+		assertEquals(3, tasksByClassifier.get().size());
+		assertAll(
+			() -> assertTrue(tasksByClassifier.get().contains(task1)),
+			() -> assertTrue(tasksByClassifier.get().contains(task2)),
+			() -> assertTrue(tasksByClassifier.get().contains(task3))
+		);
+	}
+	
 	@BeforeEach
 	@DisplayName("Clears the DataBase from persisted Entities and initializes the new ones.")
 	public void initNewEntities() {

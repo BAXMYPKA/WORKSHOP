@@ -1,15 +1,10 @@
 package internal.controllers;
 
-import internal.entities.Employee;
-import internal.entities.Order;
-import internal.entities.Position;
-import internal.entities.Task;
-import internal.hateoasResources.EmployeesResourceAssembler;
-import internal.hateoasResources.OrdersResourceAssembler;
-import internal.hateoasResources.PositionsResourceAssembler;
-import internal.hateoasResources.TasksResourceAssembler;
+import internal.entities.*;
+import internal.hateoasResources.*;
 import internal.services.EmployeesService;
 import internal.services.OrdersService;
+import internal.services.PhonesService;
 import internal.services.TasksService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +25,12 @@ import org.springframework.web.bind.annotation.*;
 @ExposesResourceFor(Employee.class)
 public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	
-	public static final String GET_APPOINTED_TASKS_METHOD_NAME = "getAppointedTasks";
-	public static final String GET_TASKS_MODIFIED_BY_METHOD_NAME = "getTasksModifiedBy";
-	public static final String GET_TASKS_CREATED_BY_METHOD_NAME = "getTasksCreatedBy";
-	public static final String GET_ORDERS_MODIFIED_BY_METHOD_NAME = "getOrdersModifiedBy";
-	public static final String GET_ORDERS_CREATED_BY_METHOD_NAME = "getOrdersCreatedBy";
-	
+	public static final String APPOINTED_TASKS_METHOD_NAME = "appointedTasks";
+	public static final String TASKS_MODIFIED_BY_METHOD_NAME = "tasksModifiedBy";
+	public static final String TASKS_CREATED_BY_METHOD_NAME = "tasksCreatedBy";
+	public static final String ORDERS_MODIFIED_BY_METHOD_NAME = "ordersModifiedBy";
+	public static final String ORDERS_CREATED_BY_METHOD_NAME = "ordersCreatedBy";
+	public static final String PHONES_METHOD_NAME = "phones";
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
 	@Autowired
@@ -43,9 +38,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@Autowired
 	private OrdersResourceAssembler ordersResourceAssembler;
 	@Autowired
+	private PhonesResourceAssembler phonesResourceAssembler;
+	@Autowired
 	private TasksService tasksService;
 	@Autowired
 	private OrdersService ordersService;
+	@Autowired
+	private PhonesService phonesService;
 	
 	/**
 	 * @param employeesService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -58,8 +57,25 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	
 	//TODO: to include all the following URIs to the every Resource<Employee>
 	
+	@GetMapping(path = "/{id}/phones")
+	public ResponseEntity<String> phones(
+		@PathVariable("id") Long id,
+		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order){
+		
+		Pageable phonesPage = super.getPageable(pageSize, pageNum, orderBy, order);
+		Page<Phone> allPhonesByUserPage = phonesService.findAllPhonesByEmployee(phonesPage, id);
+		Resources<Resource<Phone>> employeePhonesPagedResources =
+			phonesResourceAssembler.toPagedSubResources(allPhonesByUserPage, id, PHONES_METHOD_NAME);
+		String jsonEmployeePhonesPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(employeePhonesPagedResources);
+		return ResponseEntity.ok(jsonEmployeePhonesPagedResources);
+	}
+	
+	
 	@GetMapping(path = "/{id}/position")
-	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
+	public ResponseEntity<String> position(@PathVariable("id") Long id) {
 		Employee employeeById = getWorkshopEntitiesService().findById(id);
 		Position employeePosition = employeeById.getPosition();
 		Resource<Position> positionResource = positionsResourceAssembler.toResource(employeePosition);
@@ -68,7 +84,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/appointed_tasks")
-	public ResponseEntity<String> getAppointedTasks(
+	public ResponseEntity<String> appointedTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -78,14 +94,14 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksAppointedToEmployeePage = tasksService.findAllTasksAppointedToEmployee(pageable, id);
 		Resources<Resource<Task>> employeeAppointedTasksResources =
-			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, GET_APPOINTED_TASKS_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, APPOINTED_TASKS_METHOD_NAME);
 		String jsonEmployeeAppointedTasksResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(employeeAppointedTasksResources);
 		return ResponseEntity.ok(jsonEmployeeAppointedTasksResources);
 	}
 	
 	@GetMapping(path = "/{id}/tasks_modified_by")
-	public ResponseEntity<String> getTasksModifiedBy(
+	public ResponseEntity<String> tasksModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -95,13 +111,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksModifiedByEmployeePage = tasksService.findAllTasksModifiedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksModifiedPagedResources =
-			tasksResourceAssembler.toPagedSubResources(tasksModifiedByEmployeePage, id, GET_TASKS_MODIFIED_BY_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksModifiedByEmployeePage, id, TASKS_MODIFIED_BY_METHOD_NAME);
 		String jsonPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(tasksModifiedPagedResources);
 		return ResponseEntity.ok(jsonPagedResources);
 	}
 	
 	@GetMapping(path = "/{id}/tasks_created_by")
-	public ResponseEntity<String> getTasksCreatedBy(
+	public ResponseEntity<String> tasksCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -111,13 +127,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksCreatedByEmployee = tasksService.findAllTasksCreatedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksCreatedByResources =
-			tasksResourceAssembler.toPagedSubResources(tasksCreatedByEmployee, id, GET_TASKS_CREATED_BY_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksCreatedByEmployee, id, TASKS_CREATED_BY_METHOD_NAME);
 		String jsonTasksCreatedBy = getJsonServiceUtils().workshopEntityObjectsToJson(tasksCreatedByResources);
 		return ResponseEntity.ok(jsonTasksCreatedBy);
 	}
 	
 	@GetMapping(path = "/{id}/orders_modified_by")
-	public ResponseEntity<String> getOrdersModifiedBy(
+	public ResponseEntity<String> ordersModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -127,13 +143,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersModifiedByEmployeePage = ordersService.findAllOrdersModifiedByEmployee(pageable, id);
 		Resources<Resource<Order>> ordersModifiedByResources =
-			  ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, GET_ORDERS_MODIFIED_BY_METHOD_NAME);
+			  ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, ORDERS_MODIFIED_BY_METHOD_NAME);
 		String jsonOrdersModifiedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersModifiedByResources);
 		return ResponseEntity.ok(jsonOrdersModifiedByResources);
 	}
 	
 	@GetMapping(path = "/{id}/orders_created_by")
-	public ResponseEntity<String> getOrdersCreatedBy(
+	public ResponseEntity<String> ordersCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -143,7 +159,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersCreatedByEmployeePage = ordersService.findAllOrdersCreatedByEmployee(pageable, id);
 		Resources<Resource<Order>> ordersCreatedByResources =
-			ordersResourceAssembler.toPagedSubResources(ordersCreatedByEmployeePage, id, GET_ORDERS_CREATED_BY_METHOD_NAME);
+			ordersResourceAssembler.toPagedSubResources(ordersCreatedByEmployeePage, id, ORDERS_CREATED_BY_METHOD_NAME);
 		String jsonOrdersCreatedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersCreatedByResources);
 		return ResponseEntity.ok(jsonOrdersCreatedByResources);
 	}

@@ -114,6 +114,7 @@ public class User extends WorkshopEntityAbstract {
 	private Collection<@Valid Order> orders;
 	
 	/**
+	 * {@link WorkshopGrantedAuthority}
 	 * Available individual permissions within Workshop security realm.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -155,6 +156,9 @@ public class User extends WorkshopEntityAbstract {
 		phones.removeAll(Arrays.asList(phone));
 	}
 	
+	/**
+	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
+	 */
 	public void addGrantedAuthorities(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null){
 			grantedAuthorities = new HashSet<>(5);
@@ -162,7 +166,10 @@ public class User extends WorkshopEntityAbstract {
 		grantedAuthorities.addAll(Arrays.asList(grantedAuthority));
 	}
 	
-	public void removeGrantedAuthority(GrantedAuthority... grantedAuthority) {
+	/**
+	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
+	 */
+	public void removeGrantedAuthorities(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null || grantedAuthorities.isEmpty()) {
 			return;
 		}

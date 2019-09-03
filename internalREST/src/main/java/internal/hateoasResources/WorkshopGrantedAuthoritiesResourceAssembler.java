@@ -1,19 +1,19 @@
 package internal.hateoasResources;
 
-import internal.controllers.DepartmentsController;
-import internal.controllers.PositionsController;
-import internal.entities.Position;
+import internal.controllers.UsersController;
+import internal.controllers.WorkshopGrantedAuthoritiesController;
+import internal.entities.WorkshopGrantedAuthority;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Position> {
+public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<WorkshopGrantedAuthority> {
 	
-	public PositionsResourceAssembler() {
-		super(PositionsController.class, Position.class);
-		setDEFAULT_TITLE("Position");
+	public WorkshopGrantedAuthoritiesResourceAssembler() {
+		super(WorkshopGrantedAuthoritiesController.class, WorkshopGrantedAuthority.class);
+		super.setDEFAULT_TITLE("WorkshopGrantedAuthority");
 	}
 	
 	@Override
@@ -29,9 +29,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (DepartmentsController.POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (UsersController.GET_USER_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class).positions(
+				ControllerLinkBuilder.methodOn(UsersController.class).userGrantedAuthorities(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

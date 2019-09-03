@@ -33,6 +33,7 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 			return super.toResource(user);
 		}
 		Resource<User> userResource = super.toResource(user);
+		
 		userResource.getContent().getPhones().stream()
 			.map(phone -> phonesResourceAssembler.toResource(phone))
 			.forEach(phoneResource -> userResource.add(phoneResource.getLink("self")));

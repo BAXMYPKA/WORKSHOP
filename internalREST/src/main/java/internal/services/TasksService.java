@@ -143,4 +143,34 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		
 		return verifiedEntitiesPageFromDao;
 	}
+	
+	/**
+	 * @param classifierId Self-description.
+	 * @return 'Page<Task>' with included List of Tasks and pageable info for constructing pages.
+	 * @throws IllegalArgumentsException If the given 'orderID' is null, zero or below.
+	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
+	public Page<Task> findAllTasksByClassifier(Pageable pageable, Long classifierId)
+		throws IllegalArgumentsException, EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(classifierId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Task>> allTasksModifiedByEmployee = tasksDao.findAllTasksByClassifier(
+			verifiedPageable.getPageSize(),
+			verifiedPageable.getPageNumber(),
+			orderBy,
+			order,
+			classifierId);
+		
+		Page<Task> verifiedEntitiesPageFromDao =
+			super.getVerifiedEntitiesPage(verifiedPageable, allTasksModifiedByEmployee);
+		
+		return verifiedEntitiesPageFromDao;
+	}
+	
 }

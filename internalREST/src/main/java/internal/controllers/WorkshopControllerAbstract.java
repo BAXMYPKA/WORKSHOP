@@ -1,5 +1,6 @@
 package internal.controllers;
 
+import internal.entities.Order;
 import internal.entities.WorkshopEntity;
 import internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
 import internal.entities.hibernateValidation.MergingValidation;
@@ -36,6 +37,8 @@ import javax.validation.groups.Default;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import static internal.controllers.UsersController.GET_USER_ORDERS_METHOD_NAME;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
@@ -122,10 +125,10 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Override
 	@GetMapping
 	public ResponseEntity<String> getAll(
-		  @RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
-		  @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-		  @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		  @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest);
@@ -134,7 +137,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		
 		String pagedResourcesToJson = jsonServiceUtils.workshopEntityObjectsToJson(entitiesPageResources);
 		log.debug("{}s Page with pageNumber={} and pageSize={} has been written as JSON",
-			  workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
+			workshopEntityClassName, entitiesPage.getNumber(), entitiesPage.getSize());
 		return new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
 	}
 	
@@ -164,7 +167,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 										  BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
 			throw new InvalidMethodArgumentsException(
-				  "The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
 		
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
@@ -181,7 +184,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 										 BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			throw new InvalidMethodArgumentsException(
-				  "The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
@@ -195,8 +198,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		workshopEntitiesService.removeEntity(id);
 		
 		String localizedMessage = messageSource.getMessage(
-			  "message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
-			  LocaleContextHolder.getLocale());
+			"message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
+			LocaleContextHolder.getLocale());
 		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(localizedMessage);
 	}
@@ -222,9 +225,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 				direction = Sort.Direction.fromString(order);
 			} catch (IllegalArgumentException e) { //If 'order' doesn't math asc or desc
 				throw new IllegalArgumentsException("'order' parameter must be equal 'asc' or 'desc' value!",
-					  HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
-					  "error.propertyHasToBe(2)", new Object[]{"order", "'asc' || 'desc'"},
-					  LocaleContextHolder.getLocale()), e);
+					HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
+					"error.propertyHasToBe(2)", new Object[]{"order", "'asc' || 'desc'"},
+					LocaleContextHolder.getLocale()), e);
 			}
 		} else { //'desc' is the default value if 'order' param is not presented in the Request
 			direction = Sort.Direction.DESC;
@@ -237,8 +240,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		pageNum = pageNum == null || pageNum <= 0 || pageNum > MAX_PAGE_NUM ? 0 : --pageNum;
 		
 		return PageRequest.of(
-			  pageNum,
-			  pageSize,
-			  new Sort(direction, orderBy));
+			pageNum,
+			pageSize,
+			new Sort(direction, orderBy));
 	}
 }

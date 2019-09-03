@@ -47,7 +47,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -61,9 +61,9 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	private String DEFAULT_ORDER;
 	@Autowired
 	private MessageSource messageSource;
-	//	@Autowired
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
 	private Class<T> entityClass;
+	private String entityClassSimpleName;
 	
 	/**
 	 * @param workshopEntitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -74,6 +74,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	public WorkshopEntitiesServiceAbstract(WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract) {
 		this.workshopEntitiesDaoAbstract = workshopEntitiesDaoAbstract;
 		setEntityClass(workshopEntitiesDaoAbstract.getEntityClass());
+		entityClassSimpleName = entityClass.getSimpleName();
 		log.trace("{} initialized successfully", entityClass.getSimpleName());
 	}
 	
@@ -408,6 +409,20 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 		log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
 		
 		return entitiesPage;
+	}
+	
+	/**
+	 * The convenient method to obtain a fully prepared EntityNotFoundException.
+	 * @param entityClassName A SimpleClassName to be inserted into the localized message.
+	 * @throws EntityNotFoundException With 404 HttpStatus and fully localized message for the end users If no Entities
+	 *                                 were found.
+	 */
+	protected EntityNotFoundException getLocalizedEntityNotFoundException(String entityClassName) {
+		throw new EntityNotFoundException("No " + entityClassName + " found!",
+			HttpStatus.NOT_FOUND,
+			messageSource.getMessage("httpStatus.notFound(1)",
+				new Object[]{entityClassName},
+				LocaleContextHolder.getLocale()));
 	}
 	
 	/**

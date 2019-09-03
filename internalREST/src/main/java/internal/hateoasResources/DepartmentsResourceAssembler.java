@@ -2,17 +2,10 @@ package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.entities.Department;
-import internal.entities.Position;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
 
 @Component
 public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Department> {
@@ -38,7 +31,7 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 		Link departmentPositionsLink =
 			ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(DepartmentsController.class)
-					.getDepartmentPositions(
+					.positions(
 						departmentResource.getContent().getIdentifier(),
 						getDEFAULT_PAGE_SIZE(),
 						1,

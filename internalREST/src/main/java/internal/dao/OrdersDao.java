@@ -29,7 +29,7 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 	 * @param pageNum  Zero based index.
 	 * @param orderBy  Property name to order by.
 	 * @param order    Ascending or Descending {@link Sort.Direction}
-	 * @return 'Optional.of(List<Task>)' or Optional.empty() if nothing found.
+	 * @return 'Optional.of(List<Order>)' or Optional.empty() if nothing found.
 	 * @throws IllegalArgumentException     1) If pageSize or pageNum are greater or less than their Min and Max values or < 0.
 	 *                                      2) If 'orderBy' is null or empty 3) If 'order' is null
 	 * @throws InternalServerErrorException IllegalStateException  - if called for a Java Persistence query language UPDATE or DELETE statement

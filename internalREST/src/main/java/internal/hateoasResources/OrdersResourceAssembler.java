@@ -30,9 +30,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (EmployeesController.GET_ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (EmployeesController.ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).ordersModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -43,9 +43,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				.withMedia(media)
 				.withTitle(title);
 			return link;
-		} else if (EmployeesController.GET_ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesController.ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersCreatedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).ordersCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

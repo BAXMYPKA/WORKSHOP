@@ -4,17 +4,18 @@ import internal.controllers.EmployeesController;
 import internal.controllers.OrdersController;
 import internal.controllers.UsersController;
 import internal.entities.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Order> {
 	
 	public OrdersResourceAssembler() {
 		super(OrdersController.class, Order.class);
-		setDEFAULT_TITLE("Order");
 	}
 	
 	@Override
@@ -70,7 +71,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				.withTitle(title);
 			return link;
 		} else {
-			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+			log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
+				controllerMethodName, getWorkshopControllerAbstractClass());
+			return new Link("/no_link_found/");
 		}
 	}
 }

@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class LinkedResourcesSubCollectionsIT {
+class SubResourcesCollectionsLinksIT {
 	
 	@Autowired
 	MockMvc mockMvc;

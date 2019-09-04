@@ -3,6 +3,7 @@ package internal.hateoasResources;
 import internal.controllers.EmployeesController;
 import internal.controllers.PositionsController;
 import internal.entities.Employee;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Employee> {
 	
@@ -23,45 +25,11 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 	
 	public EmployeesResourceAssembler() {
 		super(EmployeesController.class, Employee.class);
-		setDEFAULT_TITLE("Employee");
 	}
 	
 	/**
-	 * @return A 'Resource<Employee>' with Links to every Phone is contains.
+	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, Long, String)
 	 */
-	@Override
-	public Resource<Employee> toResource(Employee employee) {
-		Resource<Employee> employeeResource = super.toResource(employee);
-		//Add Links to the every Phone of Employee
-		if (employee.getPhones() != null) {
-			List<Link> phonesSelfLinks = employee.getPhones()
-				.stream()
-				.map(phone -> phonesResourceAssembler.toResource(phone).getLink("self"))
-				.collect(Collectors.toList());
-			employeeResource.add(phonesSelfLinks);
-		}
-		return employeeResource;
-	}
-	
-	/**
-	 * @return "Resources<Resource<Employee>>" where every 'Resource<Employee>' has Link(s) to the every Phone it contains.
-	 */
-	@Override
-	public Resources<Resource<Employee>> toPagedResources(Page<Employee> employeesPage) {
-		Resources<Resource<Employee>> employeesResources = super.toPagedResources(employeesPage);
-		//Add to every Resource<Employee> additional Links to its every Phone
-		employeesResources.getContent().stream()
-			.filter(employeeResource -> employeeResource.getContent().getPhones() != null)
-			.forEach(employeeResource -> {
-				List<Link> selfPhonesLinks = employeeResource.getContent().getPhones()
-					.stream()
-					.map(phone -> phonesResourceAssembler.toResource(phone).getLink("self"))
-					.collect(Collectors.toList());
-				employeeResource.add(selfPhonesLinks);
-			});
-		return employeesResources;
-	}
-	
 	@Override
 	protected Link getPagedLink(Pageable pageable,
 								int pageNum,
@@ -89,7 +57,9 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 				.withTitle(title);
 			return link;
 		} else {
-			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+			log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
+				controllerMethodName, getWorkshopControllerAbstractClass());
+			return new Link("/no_link_found/");
 		}
 	}
 }

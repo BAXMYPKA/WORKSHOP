@@ -2,18 +2,22 @@ package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.controllers.PositionsController;
+import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.Position;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Position> {
 	
 	public PositionsResourceAssembler() {
 		super(PositionsController.class, Position.class);
-		setDEFAULT_TITLE("Position");
 	}
 	
 	@Override
@@ -43,7 +47,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 				.withTitle(title);
 			return link;
 		} else {
-			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+			log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
+				controllerMethodName, getWorkshopControllerAbstractClass());
+			return new Link("/no_link_found/");
 		}
 	}
 }

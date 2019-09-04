@@ -3,17 +3,24 @@ package internal.hateoasResources;
 import internal.controllers.UsersController;
 import internal.controllers.WorkshopGrantedAuthoritiesController;
 import internal.entities.WorkshopGrantedAuthority;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<WorkshopGrantedAuthority> {
 	
+	
+	/**
+	 * Obligatory constructor.
+	 * Delete the method arguments and only leave:
+	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
+	 */
 	public WorkshopGrantedAuthoritiesResourceAssembler() {
 		super(WorkshopGrantedAuthoritiesController.class, WorkshopGrantedAuthority.class);
-		super.setDEFAULT_TITLE("WorkshopGrantedAuthority");
 	}
 	
 	@Override
@@ -43,7 +50,9 @@ public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitie
 				.withTitle(title);
 			return link;
 		} else {
-			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+			log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
+				controllerMethodName, getWorkshopControllerAbstractClass());
+			return new Link("/no_link_found/");
 		}
 	}
 }

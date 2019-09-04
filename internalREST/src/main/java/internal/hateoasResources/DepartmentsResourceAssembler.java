@@ -2,17 +2,24 @@ package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.entities.Department;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Department> {
 	
+	/**
+	 * Obligatory constructor.
+	 * Delete the method arguments and only leave:
+	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
+	 */
 	public DepartmentsResourceAssembler() {
-		setWorkshopControllerAbstractClass(DepartmentsController.class);
-		setWorkshopEntityClass(Department.class);
+		super(DepartmentsController.class, Department.class);
 	}
 	
 	/**
@@ -41,5 +48,10 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 		
 		departmentResource.add(departmentPositionsLink);
 		return departmentResource;
+	}
+	
+	@Override
+	protected Link getPagedLink(Pageable pageable, int pageNum, String relation, String hrefLang, String media, String title, Long ownerId, String controllerMethodName) {
+		return null;
 	}
 }

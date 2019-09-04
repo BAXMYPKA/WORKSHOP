@@ -2,14 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-02.0.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/logs/internalREST.log.2019-08-27.0.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopGrantedAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopGrantedAuthoritiesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/LinkedResourcesSubCollectionsIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="PARALLEL_COMPILATION" value="true" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -78,8 +105,8 @@
       <list>
         <option value="HTML Thymeleaf-Spring" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -96,7 +123,8 @@
       <MavenImportingSettings>
         <option name="downloadDocsAutomatically" value="true" />
         <option name="importAutomatically" value="true" />
-        <option name="vmOptionsForImporter" value="-Xmx768m" />
+        <option name="jdkForImporter" value="#JAVA_HOME" />
+        <option name="vmOptionsForImporter" value="-Xmx768m -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -134,11 +162,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -176,8 +204,10 @@
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn clean" />
-      <command value="mvn " />
+      <command value="mvn validate" />
       <command value="mvn install" />
+      <command value="mvn compile" />
+      <command value="mvn " />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -193,8 +223,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.ttt">
-    <configuration name="LinkedResourcesSubCollectionsIT.task_Classifiers_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links">
+    <configuration name="HateoasIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -203,14 +233,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
-      <option name="METHOD_NAME" value="task_Classifiers_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.HateoasIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HateoasIT.single_Resource_WorkshopEntity_Should_Contain_SelfLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.HateoasIT" />
+      <option name="METHOD_NAME" value="single_Resource_WorkshopEntity_Should_Contain_SelfLink" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LinkedResourcesSubCollectionsIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -219,30 +264,30 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.LinkedResourcesSubCollectionsIT" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.SubResourcesCollectionsLinksIT" />
       <option name="METHOD_NAME" value="user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesDaoAbstractIT.manyToMany_Classifier_Tasks_Should_Be_Returned" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.dao.*" />
+          <option name="PATTERN" value="internal.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="manyToMany_Classifier_Tasks_Should_Be_Returned" />
+      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstractTest" />
+      <option name="METHOD_NAME" value="getMapped_Controller_Methods_Should_Be_Converted_to_Links" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesResourceAssemblerAbstractTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_SubResources_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -252,22 +297,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.hateoasResources" />
       <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstractTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesResourceAssemblerAbstractTest.ttt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.hateoasResources.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstractTest" />
-      <option name="METHOD_NAME" value="ttt" />
+      <option name="METHOD_NAME" value="getMapped_Controller_Methods_Should_Be_Converted_to_SubResources_Links" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -302,20 +332,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.task_Classifiers_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
-      <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
-      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.manyToMany_Classifier_Tasks_Should_Be_Returned" />
       <item itemvalue="Spring Boot.Internal" />
-      <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.ttt" />
-      <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest" />
+      <item itemvalue="JUnit.HateoasIT" />
+      <item itemvalue="JUnit.HateoasIT.single_Resource_WorkshopEntity_Should_Contain_SelfLink" />
+      <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_Links" />
+      <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_SubResources_Links" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.ttt" />
-        <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest" />
-        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.manyToMany_Classifier_Tasks_Should_Be_Returned" />
-        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
-        <item itemvalue="JUnit.LinkedResourcesSubCollectionsIT.task_Classifiers_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+        <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+        <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_SubResources_Links" />
+        <item itemvalue="JUnit.WorkshopEntitiesResourceAssemblerAbstractTest.getMapped_Controller_Methods_Should_Be_Converted_to_Links" />
+        <item itemvalue="JUnit.HateoasIT.single_Resource_WorkshopEntity_Should_Contain_SelfLink" />
+        <item itemvalue="JUnit.HateoasIT" />
       </list>
     </recent_temporary>
   </component>
@@ -487,6 +517,10 @@
       <workItem from="1567501161187" duration="8789000" />
       <workItem from="1567517437520" duration="11396000" />
       <workItem from="1567534698942" duration="3834000" />
+      <workItem from="1567577408092" duration="1147000" />
+      <workItem from="1567578763217" duration="533000" />
+      <workItem from="1567579326963" duration="976000" />
+      <workItem from="1567580328395" duration="23783000" />
     </task>
     <servers />
   </component>

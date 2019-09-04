@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public class ResponseHeadersInternalFilter implements Filter {
 	
-	private HashMap<String, String> httpHeaders = new HashMap<>();
+	public static final HashMap<String, String> httpHeaders = new HashMap<>();
 	
 	public ResponseHeadersInternalFilter() {
 		httpHeaders.put("Allow", "GET, POST, PUT, DELETE");

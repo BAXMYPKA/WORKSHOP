@@ -1,11 +1,10 @@
 package internal.hateoasResources;
 
-import internal.controllers.ClassifiersController;
-import internal.controllers.EmployeesController;
-import internal.controllers.OrdersController;
-import internal.controllers.TasksController;
+import internal.controllers.*;
 import internal.entities.Task;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -14,26 +13,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Task> {
-	
+
 	public TasksResourceAssembler() {
 		super(TasksController.class, Task.class);
-		setDEFAULT_TITLE("Task");
 	}
 	
 	/**
-	 * @param pageable             The main info about pageable state.
-	 * @param pageNum              The obligatory parameter to obtain the current number of page.
-	 * @param relation             The relation ("self", "tasksAppointedTo" etc).
-	 * @param hrefLang             Depending on given user's Locale.
-	 * @param media                MediaType (json-hal, utf-8)
-	 * @param title                The Title of the Link.
-	 * @param ownerId              ID of the Owner of this collection. E.g., if an Employee is the owner, getEmployee
-	 *                             (ownerId).getOrders()
-	 * @param controllerMethodName Discriminator string method name in order to allow to pass custom parameters and
-	 *                             construct a custom Link according to ControllerLinkBuilder.methodOn().
-	 *                             As usual, it passes as static string from WorkshopController
-	 *                             .GET_ORDERS_CREATED_BY_METHOD_NAME.
-	 * @return A single custom Link created according to 'controllerMethodName'.
+	 * @see internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, Long, String)
 	 */
 	@Override
 	protected Link getPagedLink(Pageable pageable,
@@ -107,8 +93,11 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else { //If something would go wrong this is the default fallback
-			return super.getPagedLink(pageable, pageNum, relation, hrefLang, media, title, ownerId, controllerMethodName);
+		} else {
+			log.error(
+				"No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
+				controllerMethodName, getWorkshopControllerAbstractClass());
+			return new Link("/no_link_found/");
 		}
 		return link;
 	}

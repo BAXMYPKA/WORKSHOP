@@ -120,7 +120,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 				}
 			}
 			Link link = ControllerLinkBuilder.linkTo(workshopControllerAbstractClass, m, parameterValues)
-				.withRel(m.getName())
+				.withRel(m.getName().replaceFirst("get", ""))
 				.withMedia(LINK_MEDIA)
 				.withHreflang(LocaleContextHolder.getLocale().toLanguageTag())
 				.withTitle(Arrays.toString(m.getAnnotation(GetMapping.class).path()) +

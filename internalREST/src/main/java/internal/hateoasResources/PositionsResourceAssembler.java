@@ -2,11 +2,8 @@ package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
 import internal.controllers.PositionsController;
-import internal.controllers.WorkshopControllerAbstract;
 import internal.entities.Position;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -35,7 +32,7 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		
 		if (DepartmentsController.POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class).positions(
+				ControllerLinkBuilder.methodOn(DepartmentsController.class).getPositions(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

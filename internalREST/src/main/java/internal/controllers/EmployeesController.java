@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.*;
 @ExposesResourceFor(Employee.class)
 public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	
-	public static final String APPOINTED_TASKS_METHOD_NAME = "appointedTasks";
-	public static final String TASKS_MODIFIED_BY_METHOD_NAME = "tasksModifiedBy";
-	public static final String TASKS_CREATED_BY_METHOD_NAME = "tasksCreatedBy";
-	public static final String ORDERS_MODIFIED_BY_METHOD_NAME = "ordersModifiedBy";
-	public static final String ORDERS_CREATED_BY_METHOD_NAME = "ordersCreatedBy";
-	public static final String PHONES_METHOD_NAME = "phones";
+	public static final String APPOINTED_TASKS_METHOD_NAME = "getAppointedTasks";
+	public static final String TASKS_MODIFIED_BY_METHOD_NAME = "getTasksModifiedBy";
+	public static final String TASKS_CREATED_BY_METHOD_NAME = "getTasksCreatedBy";
+	public static final String ORDERS_MODIFIED_BY_METHOD_NAME = "getOrdersModifiedBy";
+	public static final String ORDERS_CREATED_BY_METHOD_NAME = "getOrdersCreatedBy";
+	public static final String PHONES_METHOD_NAME = "getPhones";
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
 	@Autowired
@@ -55,10 +55,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		super(employeesService, employeesResourceAssembler);
 	}
 	
-	//TODO: to include all the following URIs to the every Resource<Employee>
-	
 	@GetMapping(path = "/{id}/phones")
-	public ResponseEntity<String> phones(
+	public ResponseEntity<String> getPhones(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -75,7 +73,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	
 	
 	@GetMapping(path = "/{id}/position")
-	public ResponseEntity<String> position(@PathVariable("id") Long id) {
+	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
 		Employee employeeById = getWorkshopEntitiesService().findById(id);
 		Position employeePosition = employeeById.getPosition();
 		Resource<Position> positionResource = positionsResourceAssembler.toResource(employeePosition);
@@ -84,7 +82,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/appointed_tasks")
-	public ResponseEntity<String> appointedTasks(
+	public ResponseEntity<String> getAppointedTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -101,7 +99,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/tasks_modified_by")
-	public ResponseEntity<String> tasksModifiedBy(
+	public ResponseEntity<String> getTasksModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -117,7 +115,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/tasks_created_by")
-	public ResponseEntity<String> tasksCreatedBy(
+	public ResponseEntity<String> getTasksCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -133,7 +131,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/orders_modified_by")
-	public ResponseEntity<String> ordersModifiedBy(
+	public ResponseEntity<String> getOrdersModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -149,7 +147,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/orders_created_by")
-	public ResponseEntity<String> ordersCreatedBy(
+	public ResponseEntity<String> getOrdersCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,

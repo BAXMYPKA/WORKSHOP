@@ -1,7 +1,7 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -47,8 +47,8 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;

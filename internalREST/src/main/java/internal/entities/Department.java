@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceValidation;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -39,14 +39,14 @@ public class Department extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
 	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	
@@ -57,8 +57,8 @@ public class Department extends WorkshopEntityAbstract {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department", cascade = {
-		CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department",
+			   cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Position> positions;
 	
 	public Department(String name) {

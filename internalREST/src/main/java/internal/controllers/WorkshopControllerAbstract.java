@@ -1,15 +1,13 @@
 package internal.controllers;
 
-import internal.entities.Order;
 import internal.entities.WorkshopEntity;
 import internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InvalidMethodArgumentsException;
 import internal.services.WorkshopEntitiesServiceAbstract;
 import internal.services.serviceUtils.JsonServiceUtils;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +30,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.validation.groups.Default;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import static internal.controllers.UsersController.GET_USER_ORDERS_METHOD_NAME;
 
 /**
  * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
@@ -166,11 +161,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	public ResponseEntity<String> postOne(@Validated(value = {PersistenceValidation.class, Default.class})
 										  @RequestBody WorkshopEntity workshopEntity,
 										  BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
-			throw new InvalidMethodArgumentsException(
-				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
-		}
-		
+		validateBindingResult(bindingResult);
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
 		String jsonPersistedWorkshopEntity = jsonServiceUtils.workshopEntityObjectsToJson(persistedWorkshopEntityResource);
@@ -180,13 +171,10 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Override
 	@PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putOne(@PathVariable(name = "id") long id,
-										 @Validated(value = {MergingValidation.class, Default.class})
+										 @Validated(value = {UpdateValidation.class, Default.class})
 										 @RequestBody WorkshopEntity workshopEntity,
 										 BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			throw new InvalidMethodArgumentsException(
-				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
-		}
+		validateBindingResult(bindingResult);
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
 		String jsonMergedEntity = jsonServiceUtils.workshopEntityObjectsToJson(mergedWorkshopEntityResource);
@@ -244,5 +232,18 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			pageNum,
 			pageSize,
 			new Sort(direction, orderBy));
+	}
+	
+	/**
+	 * Validates the given BindingResult and throws the InvalidMethodArgumentsException to be processed by
+	 * ExceptionHandlerController.validationFailure()
+	 *
+	 * @throws InvalidMethodArgumentsException to be processed by ExceptionHandlerController.validationFailure()
+	 */
+	protected void validateBindingResult(BindingResult bindingResult) throws InvalidMethodArgumentsException {
+		if (bindingResult.hasErrors()) { //To be processed by ExceptionHandlerController.validationFailure()
+			throw new InvalidMethodArgumentsException(
+				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
+		}
 	}
 }

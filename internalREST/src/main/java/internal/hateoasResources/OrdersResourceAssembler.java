@@ -33,7 +33,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 		
 		if (EmployeesController.ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).ordersModifiedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -46,7 +46,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 			return link;
 		} else if (EmployeesController.ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).ordersCreatedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

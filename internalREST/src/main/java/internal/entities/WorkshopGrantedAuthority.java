@@ -3,7 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -39,19 +39,19 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")
 	@SequenceGenerator(name = "authorities_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String authority;
 	
 	@Column
-	@Length(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, max = 254,
+	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
 		message = "{validation.length}")
 	private String description;
 	

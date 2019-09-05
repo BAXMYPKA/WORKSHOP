@@ -6,6 +6,7 @@ import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
 import internal.exceptions.PersistenceFailureException;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +42,8 @@ import java.util.stream.Stream;
  *
  * @param <T> The class type of the Entity its instance will be serving to.
  */
-@Getter
-@Setter
+@Getter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PROTECTED)
 @Slf4j
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
@@ -50,18 +51,24 @@ import java.util.stream.Stream;
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
+	@Getter(AccessLevel.PUBLIC)
 	private int DEFAULT_PAGE_SIZE;
 	@Value("${page.max_num}")
+	@Getter(AccessLevel.PUBLIC)
 	private int MAX_PAGE_NUM;
 	@Value("${page.size.max}")
+	@Getter(AccessLevel.PUBLIC)
 	private int MAX_PAGE_SIZE;
 	@Value("${default.orderBy}")
+	@Getter(AccessLevel.PUBLIC)
 	private String DEFAULT_ORDER_BY;
 	@Value("${default.order}")
+	@Getter(AccessLevel.PUBLIC)
 	private String DEFAULT_ORDER;
 	@Autowired
 	private MessageSource messageSource;
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
+	@Getter(AccessLevel.PUBLIC)
 	private Class<T> entityClass;
 	private String entityClassSimpleName;
 	
@@ -189,6 +196,19 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			HttpStatus.CONFLICT,
 			messageSource.getMessage("error.saveFailure(1)", new Object[]{entityClass.getSimpleName()},
 				LocaleContextHolder.getLocale())));
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public Collection<T> persistEntities(T... entity)
+		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException, EntityNotFoundException {
+		
+		if (entity == null || entity.length == 0) {
+			throw new IllegalArgumentsException(
+				"The entities arguments cannot be null or empty!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+		List<T> persistedEntities = Stream.of(entity).peek(this::persistEntity).collect(Collectors.toList());
+		return persistedEntities;
 	}
 	
 	/**
@@ -395,7 +415,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @return Page with number of pages, all the included pages parameters, total elements etc.
 	 * @throws EntityNotFoundException If no Entities were found.
 	 */
-	Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
+	protected Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
 		
 		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
 		
@@ -432,7 +452,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @return Fully verified and renewed Pageable with corrected values.
 	 * @throws InternalServerErrorException If Pageable to be verified is null;
 	 */
-	Pageable getVerifiedAndCorrectedPageable(Pageable pageable) throws InternalServerErrorException {
+	protected Pageable getVerifiedAndCorrectedPageable(Pageable pageable) throws InternalServerErrorException {
 		if (pageable == null) {
 			throw new InternalServerErrorException("Pageable cannot by null!");
 		}
@@ -449,7 +469,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
 	 *                                   users if the given parameter id is null or below zero.
 	 */
-	void verifyIdForNullBelowZero(Long idToVerify) throws IllegalArgumentsException {
+	protected void verifyIdForNullBelowZero(Long idToVerify) throws IllegalArgumentsException {
 		if (idToVerify == null) {
 			throw new IllegalArgumentsException("Identifier cannot be null!",
 				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
@@ -466,7 +486,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
 	 *                                   users if the given parameter id is null either zero or below zero.
 	 */
-	void verifyIdForNullZeroBelowZero(Long idToVerify) throws IllegalArgumentsException {
+	protected void verifyIdForNullZeroBelowZero(Long idToVerify) throws IllegalArgumentsException {
 		if (idToVerify == null) {
 			throw new IllegalArgumentsException("Identifier cannot be null!",
 				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",

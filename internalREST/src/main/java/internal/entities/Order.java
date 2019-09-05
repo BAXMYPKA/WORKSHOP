@@ -2,7 +2,7 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -65,7 +65,7 @@ public class Order extends Trackable {
 	 * Also can be set or corrected manually.
 	 */
 	@Column(scale = 2)
-	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
 		message = "{validation.positiveOrZero}")
 	@EqualsAndHashCode.Include
 	private BigDecimal overallPrice = BigDecimal.ZERO;

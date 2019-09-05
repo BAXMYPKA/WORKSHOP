@@ -3,7 +3,7 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -11,6 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
@@ -60,17 +61,22 @@ public class Task extends Trackable {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {
-		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
-		joinColumns = {@JoinColumn(name = "task_id")},
-		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+	@ManyToMany(fetch = FetchType.EAGER,
+				cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@JoinTable(name = "Tasks_to_Classifiers",
+			   schema = "INTERNAL",
+			   joinColumns = {
+				   @JoinColumn(name = "task_id")},
+			   inverseJoinColumns = {
+				   @JoinColumn(name = "classifier_id")})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
 		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
+	@Valid
+	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
 	private Order order;
 	
 	/**
@@ -81,17 +87,17 @@ public class Task extends Trackable {
 	 * Default = 0.00
 	 */
 	@Column(scale = 2, nullable = false)
-	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
-		message = "{validation.positiveOrZero}")
+	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
+					message = "{validation.positiveOrZero}")
 	@EqualsAndHashCode.Include
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder
 	public Task(String name,
-				@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
-				Employee appointedTo,
-				Set<@Valid Classifier> classifiers, Order order,
-				@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+		@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
+		Employee appointedTo,
+		Set<@Valid Classifier> classifiers, Order order,
+		@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
 		this.name = name;
 		this.deadline = deadline;
 		this.appointedTo = appointedTo;
@@ -166,7 +172,7 @@ public class Task extends Trackable {
 		super.preUpdate();
 		getOrder().preUpdate();
 		if (this.name == null && this.classifiers != null) {
-			this.classifiers.forEach(classifier -> this.name += classifier.getName()+"&");
+			this.classifiers.forEach(classifier -> this.name += classifier.getName() + "&");
 		}
 	}
 	

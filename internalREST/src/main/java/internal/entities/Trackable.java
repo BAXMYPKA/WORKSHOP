@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistEmployeeValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -46,8 +46,8 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;

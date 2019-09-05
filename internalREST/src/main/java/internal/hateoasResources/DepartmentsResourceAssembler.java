@@ -38,7 +38,7 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 		Link departmentPositionsLink =
 			ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(DepartmentsController.class)
-					.positions(
+					.getPositions(
 						departmentResource.getContent().getIdentifier(),
 						getDEFAULT_PAGE_SIZE(),
 						1,

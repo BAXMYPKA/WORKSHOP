@@ -2,9 +2,7 @@ package internal.hateoasResources;
 
 import internal.controllers.*;
 import internal.entities.Task;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -35,7 +33,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 		Link link;
 		if (EmployeesController.APPOINTED_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).appointedTasks(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getAppointedTasks(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -47,7 +45,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withTitle(title);
 		} else if (EmployeesController.TASKS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).tasksModifiedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -59,7 +57,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withTitle(title);
 		} else if (EmployeesController.TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).tasksCreatedBy(
+				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -83,7 +81,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withTitle(title);
 		} else if (ClassifiersController.TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(ClassifiersController.class).tasks(
+				ControllerLinkBuilder.methodOn(ClassifiersController.class).getTasks(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

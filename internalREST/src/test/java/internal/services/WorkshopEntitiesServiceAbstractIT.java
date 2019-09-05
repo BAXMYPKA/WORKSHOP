@@ -1,9 +1,7 @@
 package internal.services;
 
-import internal.entities.Department;
-import internal.entities.Order;
-import internal.entities.Position;
-import internal.entities.Task;
+import internal.entities.*;
+import javafx.geometry.Pos;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +11,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -38,9 +38,13 @@ class WorkshopEntitiesServiceAbstractIT {
 	@Autowired
 	private DepartmentsService departmentsService;
 	@Autowired
+	private PositionsService positionsService;
+	@Autowired
 	private OrdersService ordersService;
 	@Autowired
 	private TasksService tasksService;
+	@Autowired
+	private ClassifiersService classifiersService;
 	
 	@Test
 	@DisplayName("EntitiesServiceAbstract subclasses initializes and autowires successfully")
@@ -100,39 +104,149 @@ class WorkshopEntitiesServiceAbstractIT {
 		assertEquals(departmentPersisted.getPositions().iterator().next().getName(), positionToPersist.getName());
 	}
 	
-	//TODO: to complete deriving Tasks from Order
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void departmentsServiceh() {
-		//GIVEN
+	public void set_New_Task_To_Classifier() {
+		//GIVEN as the Task is the owning side, we add Classifiers into the Task, not wise versa
+		Classifier classifier1 = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
+		classifiersService.persistEntity(classifier1);
 		
-		Order order1 = new Order();
-		order1.setDescription("Order 1");
+		Classifier classifier2 = new Classifier("Classifier 2", "", true, BigDecimal.TEN);
+		classifiersService.persistEntity(classifier2);
 		
-		Task task1 = new Task();
-		task1.setName("Task 1");
+		Order order = new Order();
+		order.setDescription("Order 1");
 		
-		Task task2 = new Task();
-		task2.setName("Task 2");
+		Task task = new Task();
+		task.setName("Task 1");
 		
-		Order orderPersisted = ordersService.persistEntity(order1);
-		long orderPersistedId = orderPersisted.getIdentifier();
+		ordersService.persistEntity(order);
 		
-		task1.setOrder(orderPersisted);
-		task2.setOrder(orderPersisted);
+		task.setOrder(order);
+		tasksService.persistEntity(task);
 		
-		Task task1Persisted = tasksService.persistEntity(task1);
-		Task task2Persisted = tasksService.persistEntity(task2);
+		order.setTasks(new HashSet<>(Collections.singletonList(task)));
 		
-		orderPersisted.setTasks(new HashSet<>(Arrays.asList(task1Persisted, task2Persisted)));
-		ordersService.mergeEntity(orderPersisted);
-		
-		Order orderPersisted2 = ordersService.findById(orderPersistedId);
-		System.out.println(orderPersisted2);
+		task.addClassifiers(classifier1, classifier2);
+		tasksService.mergeEntity(task);
 		
 		//WHEN
-//		List<Task> tasksByOrder =
-//			tasksDao.findAllTasksByOrder(0, 0, "name", Sort.Direction.DESC, orderPersistedId).get();
+		Order orderPersisted = ordersService.findById(order.getIdentifier());
+		
+		//THEN
+		assertNotNull(orderPersisted.getTasks().iterator().next().getIdentifier());
+		assertEquals(2, orderPersisted.getTasks().iterator().next().getClassifiers().size());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void delete_Task_From_Classifier() {
+		//GIVEN as the Task is the owning side, we add Classifiers into the Task, not wise versa
+		Classifier classifier1 = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
+		classifiersService.persistEntity(classifier1);
+		
+		Classifier classifier2 = new Classifier("Classifier 2", "", true, BigDecimal.TEN);
+		classifiersService.persistEntity(classifier2);
+		
+		Order order = new Order();
+		order.setDescription("Order 1");
+		
+		Task task = new Task();
+		task.setName("Task 1");
+		
+		ordersService.persistEntity(order);
+		
+		task.setOrder(order);
+		tasksService.persistEntity(task);
+		
+		order.setTasks(new HashSet<>(Collections.singletonList(task)));
+		
+		task.addClassifiers(classifier1, classifier2);
+		tasksService.mergeEntity(task);
+		
+		//WHEN
+		
+		Classifier classifierToBeDeletedFromTask = classifiersService.findById(classifier1.getIdentifier());
+		Task persistedTask = tasksService.findById(task.getIdentifier());
+		
+		persistedTask.getClassifiers().remove(classifierToBeDeletedFromTask);
+		tasksService.mergeEntity(persistedTask);
+		
+		Order orderPersisted = ordersService.findById(order.getIdentifier());
+		
+		//THEN
+		assertNotNull(orderPersisted.getTasks().iterator().next().getIdentifier());
+		//Only one Classifier left by Task
+		assertEquals(1, orderPersisted.getTasks().iterator().next().getClassifiers().size());
+		//And that Classifier is 'classifier2'
+		assertEquals(classifier2.getIdentifier(),
+					 orderPersisted.getTasks().iterator().next().getClassifiers().iterator().next().getIdentifier());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void set_Department_To_Position_Will_Be_Updated_For_Both_of_Them() {
+		//GIVEN
+		Department department = new Department("Department 1");
+		
+		departmentsService.persistEntity(department);
+		//Only Position is updated with the Department set
+		Position position = new Position();
+		position.setName("Position 1");
+		position.setDepartment(department);
+		positionsService.persistEntity(position);
+		
+		//WHEN
+		Department persistedDepartment = departmentsService.findById(department.getIdentifier());
+		
+		//THEN
+		assertEquals(1, persistedDepartment.getPositions().size());
+		assertEquals("Position 1", persistedDepartment.getPositions().iterator().next().getName());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them() {
+		//GIVEN a 'department1' with 3 Positions and a 'department2' without ones
+		Department department1 = new Department("Department 1");
+		Department department2 = new Department("Department 2");
+		departmentsService.persistEntities(department1, department2);
+		
+		//All Position set to 'department1'
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		Position position2 = new Position();
+		position2.setName("Position 2");
+		position2.setDepartment(department1);
+		Position position3 = new Position();
+		position3.setName("Position 3");
+		position3.setDepartment(department1);
+		positionsService.persistEntities(position1, position2, position3);
+		
+		//WHEN position1.setDepartment(department2)
+		Department department1Persisted = departmentsService.findById(department1.getIdentifier());
+		Department department2Persisted = departmentsService.findById(department2.getIdentifier());
+		
+		Position position1Persisted = positionsService.findById(position1.getIdentifier());
+		position1Persisted.setDepartment(department2Persisted);
+		
+		department1Persisted.getPositions().remove(position1Persisted);
+		department2Persisted.addPosition(position1Persisted);
+		
+		positionsService.mergeEntity(position1Persisted);
+		departmentsService.mergeEntity(department1Persisted);
+		departmentsService.mergeEntity(department2Persisted);
+		
+		Department persistedDepartment1 = departmentsService.findById(department1.getIdentifier());
+		Department persistedDepartment2 = departmentsService.findById(department2.getIdentifier());
+		
+		Position position1AfterMerging = positionsService.findById(position1.getIdentifier());
+		
+		//THEN
+		assertEquals(2, persistedDepartment1.getPositions().size());
+		assertEquals(2, persistedDepartment1.getPositions().size());
+		assertEquals("Position 1", persistedDepartment2.getPositions().iterator().next().getName());
 	}
 	
 }

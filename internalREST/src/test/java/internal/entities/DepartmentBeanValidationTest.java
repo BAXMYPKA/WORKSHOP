@@ -1,6 +1,6 @@
 package internal.entities;
 
-import internal.entities.hibernateValidation.MergingValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -73,7 +73,7 @@ class DepartmentBeanValidationTest {
 		department.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, MergingValidation.class);
+		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, UpdateValidation.class);
 		
 		//THEN
 		ConstraintViolation<Department> violationIterator = validatedDepartment.iterator().next();

@@ -40,9 +40,8 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 	
 	@BeforeEach
 	public void beforeEach() {
-		Mockito.when(employeesService.getEntityClass()).thenReturn(Employee.class);
-		employeesService.setEntityClassSimpleName(Employee.class.getSimpleName());
-		employeesService.setWorkshopEntitiesDaoAbstract(employeesDao);
+		Mockito.when(employeesDao.getEntityClass()).thenReturn(Employee.class);
+		employeesService = new EmployeesService(employeesDao);
 		employeesResourceAssembler = new EmployeesResourceAssembler();
 		employeesResourceAssembler.setEntityLinks(entityLinks);
 		employeesController = new EmployeesController(employeesService, employeesResourceAssembler);
@@ -74,21 +73,21 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 		
 		assertTrue(employeeResource.hasLink("self"));
 		
-		assertTrue(employeeResource.hasLink("position"));
-		assertTrue(employeeResource.getLink("position").getHref().contains("/3/position"));
-		assertTrue(employeeResource.getLink("position").getTitle().contains("[/{id}/position]"));
+		assertTrue(employeeResource.hasLink("Position"));
+		assertTrue(employeeResource.getLink("Position").getHref().contains("/3/position"));
+		assertTrue(employeeResource.getLink("Position").getTitle().contains("[/{id}/position]"));
 		
-		assertTrue(employeeResource.hasLink("phones"));
-		assertTrue(employeeResource.getLink("phones").getHref().contains("/3/phones"));
-		assertTrue(employeeResource.getLink("phones").getTitle().contains("[/{id}/phones]"));
+		assertTrue(employeeResource.hasLink("Phones"));
+		assertTrue(employeeResource.getLink("Phones").getHref().contains("/3/phones"));
+		assertTrue(employeeResource.getLink("Phones").getTitle().contains("[/{id}/phones]"));
 		
-		assertTrue(employeeResource.hasLink("appointedTasks"));
-		assertTrue(employeeResource.getLink("appointedTasks").getHref().contains("/3/appointed_tasks"));
-		assertTrue(employeeResource.getLink("appointedTasks").getTitle().contains("[/{id}/appointed_tasks]"));
+		assertTrue(employeeResource.hasLink("AppointedTasks"));
+		assertTrue(employeeResource.getLink("AppointedTasks").getHref().contains("/3/appointed_tasks"));
+		assertTrue(employeeResource.getLink("AppointedTasks").getTitle().contains("[/{id}/appointed_tasks]"));
 		
-		assertTrue(employeeResource.hasLink("ordersCreatedBy"));
-		assertTrue(employeeResource.getLink("ordersCreatedBy").getHref().contains("/3/orders_created_by"));
-		assertTrue(employeeResource.getLink("ordersCreatedBy").getTitle().contains("[/{id}/orders_created_by]"));
+		assertTrue(employeeResource.hasLink("OrdersCreatedBy"));
+		assertTrue(employeeResource.getLink("OrdersCreatedBy").getHref().contains("/3/orders_created_by"));
+		assertTrue(employeeResource.getLink("OrdersCreatedBy").getTitle().contains("[/{id}/orders_created_by]"));
 	}
 	
 	

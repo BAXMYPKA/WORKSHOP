@@ -59,7 +59,7 @@ public class Department extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "department",
 			   cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<@Valid Position> positions;
+	private Set<@Valid Position> positions;
 	
 	public Department(String name) {
 		this.name = name;

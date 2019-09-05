@@ -287,7 +287,7 @@ class JsonServiceUtilsTest {
 		Phone phone = new Phone();
 		phone.setIdentifier(523L);
 		
-		department.setPositions(new ArrayList<>(Arrays.asList(positionOne, positionTwo)));
+		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
 		
 		positionOne.setDepartment(department);
 		positionOne.setEmployees(new HashSet<Employee>(Collections.singleton(employee)));
@@ -329,7 +329,7 @@ class JsonServiceUtilsTest {
 	@Test
 	public void collection_Of_Entities_Returns_Valid_Json() throws JsonProcessingException {
 		//GIVEN Positions and Department from initNewEntities method
-		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
+		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
 		
 		//WHEN
 		String positions = jsonServiceUtils.workshopEntityObjectsToJson(Arrays.asList(positionOne, positionTwo));
@@ -420,7 +420,7 @@ class JsonServiceUtilsTest {
 		
 		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from initNewEntities
 		
-		department.setPositions(new ArrayList<Position>(Arrays.asList(positionOne, positionTwo)));
+		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
 		positionOne.setDepartment(department);
 		positionTwo.setDepartment(department);
 		
@@ -453,8 +453,8 @@ class JsonServiceUtilsTest {
 		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
 		position3.setModified(ZonedDateTime.now().minusMinutes(5));
 		
-		department1.setPositions(new ArrayList<Position>(Arrays.asList(position1, position2)));
-		department2.setPositions(new ArrayList<Position>(Arrays.asList(position3)));
+		department1.setPositions(new HashSet<>(Arrays.asList(position1, position2)));
+		department2.setPositions(new HashSet<>(Arrays.asList(position3)));
 		position1.setDepartment(department1);
 		position2.setDepartment(department1);
 		position3.setDepartment(department2);

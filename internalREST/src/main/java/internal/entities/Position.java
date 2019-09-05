@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
-import java.util.Collection;
+import java.util.*;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
@@ -57,20 +57,33 @@ public class Position extends Trackable implements GrantedAuthority {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@ManyToOne(optional = false, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(optional = false, cascade = {CascadeType.REFRESH, CascadeType.MERGE},
+			   fetch = FetchType.EAGER)
+/*
 	@JoinTable(name = "Departments_to_Positions", schema = "INTERNAL",
 			   joinColumns =
 			   @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
 			   inverseJoinColumns =
-			   @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table = "Departments"))
+			   @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table =
+				   "Departments"))
+*/
 	@Valid
-//	@NotNull(groups = {UpdateValidation.class})
 	private Department department;
 	
 	@Builder
 	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
 		this.name = name;
 		this.department = department;
+	}
+	
+	public void setDepartment(Department department) {
+		if (this.department != null) {
+			Set<Position> positions = new HashSet<>(this.department.getPositions());
+			positions.remove(this);
+			this.department.setPositions(positions);
+		}
+		this.department = department;
+		this.department.addPosition(this);
 	}
 	
 	@JsonIgnore
@@ -83,4 +96,18 @@ public class Position extends Trackable implements GrantedAuthority {
 	public Long getIdentifier() {
 		return super.getIdentifier();
 	}
+
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) return true;
+//		if (o == null || getClass() != o.getClass()) return false;
+//		if (!super.equals(o)) return false;
+//		Position position = (Position) o;
+//		return name.equals(position.name);
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(name);
+//	}
 }

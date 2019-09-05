@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
@@ -207,46 +208,39 @@ class WorkshopEntitiesServiceAbstractIT {
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	public void update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them() {
-		//GIVEN a 'department1' with 3 Positions and a 'department2' without ones
+		//GIVEN all Positions are set to department1
 		Department department1 = new Department("Department 1");
 		Department department2 = new Department("Department 2");
 		departmentsService.persistEntities(department1, department2);
 		
-		//All Position set to 'department1'
 		Position position1 = new Position();
 		position1.setName("Position 1");
 		position1.setDepartment(department1);
+		
 		Position position2 = new Position();
 		position2.setName("Position 2");
 		position2.setDepartment(department1);
-		Position position3 = new Position();
-		position3.setName("Position 3");
-		position3.setDepartment(department1);
-		positionsService.persistEntities(position1, position2, position3);
+		positionsService.persistEntities(position1, position2);
 		
-		//WHEN position1.setDepartment(department2)
-		Department department1Persisted = departmentsService.findById(department1.getIdentifier());
-		Department department2Persisted = departmentsService.findById(department2.getIdentifier());
+		boolean equals = position1.equals(position2);
+		System.out.println(equals);
 		
-		Position position1Persisted = positionsService.findById(position1.getIdentifier());
-		position1Persisted.setDepartment(department2Persisted);
+		//WHEN
 		
-		department1Persisted.getPositions().remove(position1Persisted);
-		department2Persisted.addPosition(position1Persisted);
-		
-		positionsService.mergeEntity(position1Persisted);
-		departmentsService.mergeEntity(department1Persisted);
-		departmentsService.mergeEntity(department2Persisted);
-		
-		Department persistedDepartment1 = departmentsService.findById(department1.getIdentifier());
 		Department persistedDepartment2 = departmentsService.findById(department2.getIdentifier());
 		
-		Position position1AfterMerging = positionsService.findById(position1.getIdentifier());
+		Position persistedPosition1 = positionsService.findById(position1.getIdentifier());
+		Department department = persistedPosition1.getDepartment();
+		persistedPosition1.setDepartment(persistedDepartment2);
+		positionsService.mergeEntity(persistedPosition1);
+		departmentsService.mergeEntity(department);
+		
+		Department persisted1Department = departmentsService.findById(department1.getIdentifier());
+		Department persisted2Department = departmentsService.findById(department2.getIdentifier());
 		
 		//THEN
-		assertEquals(2, persistedDepartment1.getPositions().size());
-		assertEquals(2, persistedDepartment1.getPositions().size());
-		assertEquals("Position 1", persistedDepartment2.getPositions().iterator().next().getName());
+		System.out.println(persisted1Department);
+		
 	}
 	
 }

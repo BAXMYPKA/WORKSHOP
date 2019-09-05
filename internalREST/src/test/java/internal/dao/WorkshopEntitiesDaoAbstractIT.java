@@ -229,7 +229,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		//First pair to be cascade-persisted
 		Department department1 = new Department("Department one");
 		Position position1 = new Position("Position one", department1);
-		department1.setPositions(Collections.singleton(position1));
+		department1.setPositions(new HashSet<>(Collections.singletonList(position1)));
 		//Second pair to be cascade-persisted
 		Order order1 = new Order();
 		Classifier classifier1 = new Classifier("Classifier one", "", true, BigDecimal.ONE);

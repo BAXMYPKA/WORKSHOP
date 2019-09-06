@@ -2,6 +2,7 @@ package internal.services;
 
 import internal.dao.EmployeesDao;
 import internal.entities.Employee;
+import internal.entities.Phone;
 import internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 	private EmployeesDao employeesDao;
 	@Autowired
 	private PositionsService positionsService;
+	@Autowired
+	private PhonesService phonesService;
 	
 	public EmployeesService(EmployeesDao employeesDao) {
 		super(employeesDao);
@@ -82,5 +85,16 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		Page<Employee> employeesPage = new PageImpl<>(employeesByPosition, verifiedPageable, totalEmployees);
 		
 		return employeesPage;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public Employee addNewPhoneToEmployee(Long employeeId, Phone phoneToPersist) {
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Employee employee = super.getVerifiedEntity(getWorkshopEntitiesDaoAbstract().findById(employeeId));
+		if (phoneToPersist.getIdentifier() != null) {
+			phoneToPersist = phonesService.mergeEntity(phoneToPersist);
+		}
+		employee.addPhone(phoneToPersist);
+		return employee;
 	}
 }

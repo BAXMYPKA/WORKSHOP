@@ -11,7 +11,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Employee's personal data should not be exposed outside for Users
@@ -28,9 +31,9 @@ import java.util.Collection;
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
-	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
-	@AttributeOverride(name = "created", column = @Column(name = "employed"))})
+						@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+						@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
+						@AttributeOverride(name = "created", column = @Column(name = "employed"))})
 public class Employee extends Trackable {
 	
 	@Transient
@@ -81,7 +84,7 @@ public class Employee extends Trackable {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
 		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Collection<@Valid Phone> phones;
+	private Set<@Valid Phone> phones;
 	
 	//TODO: to implement a photo loader Controller method
 	
@@ -96,8 +99,8 @@ public class Employee extends Trackable {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {
 		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+			   joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+			   inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	@NotNull(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
@@ -121,6 +124,23 @@ public class Employee extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
 	private Collection<Trackable> ordersCreatedBy;
+	
+	/**
+	 * Can be performed only under a Transaction.
+	 */
+	public void addPhone(Phone... phones) {
+		if (this.phones != null) {
+			this.phones.addAll(Arrays.asList(phones));
+		} else {
+			this.phones = new HashSet<>(Arrays.asList(phones));
+		}
+		for (Phone phone : this.phones) {
+			if (phone.getEmployee() != null && phone.getEmployee().getPhones() != null) {
+				phone.getEmployee().getPhones().remove(phone);
+			}
+			phone.setEmployee(this);
+		}
+	}
 	
 	/**
 	 * All the arguments of this constructor are obligatory to be set!

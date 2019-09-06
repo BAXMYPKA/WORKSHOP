@@ -4,6 +4,7 @@ import internal.entities.Department;
 import internal.entities.Position;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
+import internal.exceptions.EntityNotFoundException;
 import internal.hateoasResources.DepartmentsResourceAssembler;
 import internal.hateoasResources.PositionsResourceAssembler;
 import internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
@@ -77,13 +78,14 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	
 	/**
 	 * Sets this Department to the given Position and persist it as new.
-	 * @param id ID of this Department
+	 *
+	 * @param id       ID of this Department
 	 * @param position New Position to be saved and to which this Department will be set.
 	 */
 	@PostMapping(path = "/{id}/positions")
 	public ResponseEntity<String> postPosition(@PathVariable(name = "id") long id,
-											   @Validated(PersistenceValidation.class) @RequestBody Position position,
-											   BindingResult bindingResult){
+		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
 		Department department = getWorkshopEntitiesService().findById(id);
@@ -96,18 +98,39 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	
 	@PutMapping(path = "/{id}/positions")
 	public ResponseEntity<String> putPosition(@PathVariable(name = "id") long id,
-											   @Validated(UpdateValidation.class) @RequestBody Position position,
-											   BindingResult bindingResult) {
+		@Validated(UpdateValidation.class) @RequestBody Position position,
+		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
-		Department department = getWorkshopEntitiesService().findById(id);
-		position.setDepartment(department);
-		Position mergedPosition = positionsService.mergeEntity(position);
-		Resource<Position> positionResource = positionsResourceAssembler.toResource(mergedPosition);
+		Position updatedPosition = positionsService.updatePositionDepartment(position, id);
+		Resource<Position> positionResource = positionsResourceAssembler.toResource(updatedPosition);
 		String jsonPositionResource = getJsonServiceUtils().workshopEntityObjectsToJson(positionResource);
 		return ResponseEntity.ok(jsonPositionResource);
 	}
 	
+	/**
+	 * This method deletes the given Position itself as Position entity cannot exist without Department.
+	 *
+	 * @param id         The ID of the Department to derive Position from.
+	 * @param positionId The ID of the Position to be deleted
+	 */
+	@DeleteMapping(path = "/{id}/positions/{positionId}")
+	public ResponseEntity<String> deletePosition(@PathVariable(name = "id") long id,
+		@PathVariable(name = "positionId") Long positionId) {
+		
+		Department department = getWorkshopEntitiesService().findById(id);
+		if (department.getPositions().stream().noneMatch(position -> position.getIdentifier().equals(positionId))) {
+			throw new EntityNotFoundException("No Position.id=" + positionId + " in the Department.id=" + id,
+				HttpStatus.NOT_FOUND, getMessageSource().getMessage(
+				"httpStatus.notFound(2)",
+				new Object[]{"Position.ID=" + positionId, "Department.ID=" + id},
+				LocaleContextHolder.getLocale()));
+		}
+		positionsService.removeEntity(positionId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT)
+			.body(getDeleteMessageSuccessLocalized("Position.ID=" + positionId));
+	}
 	
-		//TODO: TO get Employees from the Departments
+	
+	//TODO: TO get Employees from the Departments
 }

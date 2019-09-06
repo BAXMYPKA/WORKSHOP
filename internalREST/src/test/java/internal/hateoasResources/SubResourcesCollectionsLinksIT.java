@@ -275,7 +275,7 @@ class SubResourcesCollectionsLinksIT {
 		long phone2Id = phonesService.persistEntity(phone2).getIdentifier();
 		long phone3Id = phonesService.persistEntity(phone3).getIdentifier();
 		
-		employee.setPhones(Arrays.asList(phone1, phone2, phone3));
+		employee.setPhones(new HashSet<>(Arrays.asList(phone1, phone2, phone3)));
 		
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(

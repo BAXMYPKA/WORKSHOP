@@ -433,11 +433,12 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	
 	/**
 	 * The convenient method to obtain a fully prepared EntityNotFoundException.
+	 *
 	 * @param entityClassName A SimpleClassName to be inserted into the localized message.
 	 * @throws EntityNotFoundException With 404 HttpStatus and fully localized message for the end users If no Entities
 	 *                                 were found.
 	 */
-	protected EntityNotFoundException getLocalizedEntityNotFoundException(String entityClassName) {
+	protected EntityNotFoundException getEntityNotFoundException(String entityClassName) {
 		throw new EntityNotFoundException("No " + entityClassName + " found!",
 			HttpStatus.NOT_FOUND,
 			messageSource.getMessage("httpStatus.notFound(1)",
@@ -464,6 +465,22 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		return PageRequest.of(pageNum, pageSize, sort);
 	}
 	
+	protected WorkshopEntity getVerifiedWorkshopEntity(Optional<? extends WorkshopEntity> optionalEntity)
+		throws InternalServerErrorException, EntityNotFoundException {
+		if (optionalEntity == null) {
+			throw new InternalServerErrorException("Optional Entity cannot be null!");
+		}
+		return optionalEntity.orElseThrow(() -> getEntityNotFoundException(entityClassSimpleName));
+	}
+	
+	protected T getVerifiedEntity(Optional<T> optionalEntity)
+		throws InternalServerErrorException, EntityNotFoundException {
+		if (optionalEntity == null) {
+			throw new InternalServerErrorException("Optional Entity cannot be null!");
+		}
+		return optionalEntity.orElseThrow(() -> getEntityNotFoundException(entityClassSimpleName));
+	}
+	
 	/**
 	 * @param idToVerify ID to be verified
 	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
@@ -486,15 +503,22 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
 	 *                                   users if the given parameter id is null either zero or below zero.
 	 */
-	protected void verifyIdForNullZeroBelowZero(Long idToVerify) throws IllegalArgumentsException {
+	protected void verifyIdForNullZeroBelowZero(Long... idToVerify) throws IllegalArgumentsException {
 		if (idToVerify == null) {
-			throw new IllegalArgumentsException("Identifier cannot be null!",
+			throw new IllegalArgumentsException(
+				"Identifier cannot be null!",
 				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
 				new Object[]{"null"}, LocaleContextHolder.getLocale()));
-		} else if (idToVerify <= 0) {
-			throw new IllegalArgumentsException("Identifier cannot be zero or below!",
-				HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage("httpStatus.notAcceptable.identifier(1)",
-				new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
+		} else {
+			for (Long id : idToVerify) {
+				if (id <= 0) {
+					throw new IllegalArgumentsException(
+						"Identifier cannot be zero or below!",
+						HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
+						"httpStatus.notAcceptable.identifier(1)",
+						new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
+				}
+			}
 		}
 	}
 }

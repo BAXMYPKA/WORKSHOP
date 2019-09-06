@@ -1,7 +1,10 @@
 package internal.services;
 
+import internal.dao.DepartmentsDao;
 import internal.dao.PositionsDao;
+import internal.entities.Department;
 import internal.entities.Position;
+import internal.entities.WorkshopEntity;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
@@ -26,7 +29,7 @@ import java.util.Optional;
 public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> {
 	
 	@Autowired
-	private PositionsDao positionsDao;
+	private DepartmentsDao departmentsDao;
 	
 	/**
 	 * @param positionsDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -53,12 +56,13 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		
-		Optional<List<Position>> allPositionsByDepartment = positionsDao.findAllPositionsByDepartment(
-			verifiedPageable.getPageSize(),
-			verifiedPageable.getPageNumber(),
-			verifiedPageable.getSort().iterator().next().getProperty(),
-			verifiedPageable.getSort().iterator().next().getDirection(),
-			departmentId);
+		Optional<List<Position>> allPositionsByDepartment =
+			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findAllPositionsByDepartment(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				verifiedPageable.getSort().iterator().next().getProperty(),
+				verifiedPageable.getSort().iterator().next().getDirection(),
+				departmentId);
 		
 		if (!allPositionsByDepartment.isPresent()) {
 			throw new EntityNotFoundException("No Positions from a given Department found!", HttpStatus.NOT_FOUND,
@@ -69,5 +73,15 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		}
 		Page<Position> entitiesPage = super.getVerifiedEntitiesPage(verifiedPageable, allPositionsByDepartment);
 		return entitiesPage;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public Position updatePositionDepartment(Position position, Long departmentId) throws IllegalArgumentsException {
+		super.verifyIdForNullZeroBelowZero(departmentId);
+		Department department =
+			(Department)super.getVerifiedWorkshopEntity(departmentsDao.findById(departmentId));
+		Position mergedPosition = super.getVerifiedEntity(getWorkshopEntitiesDaoAbstract().mergeEntity(position));
+		mergedPosition.setDepartment(department);
+		return mergedPosition;
 	}
 }

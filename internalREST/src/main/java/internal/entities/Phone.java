@@ -58,7 +58,6 @@ public class Phone extends WorkshopEntityAbstract {
 	
 	@Column(updatable = false)
 	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
-	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	/**
@@ -74,13 +73,14 @@ public class Phone extends WorkshopEntityAbstract {
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, targetEntity = Employee.class)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, targetEntity = Employee.class,
+			   fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class)
+	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;

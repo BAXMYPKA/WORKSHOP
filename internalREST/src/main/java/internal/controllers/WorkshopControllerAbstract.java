@@ -159,8 +159,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Override
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postOne(@Validated(value = {PersistenceValidation.class, Default.class})
-										  @RequestBody WorkshopEntity workshopEntity,
-										  BindingResult bindingResult) {
+	@RequestBody WorkshopEntity workshopEntity,
+		BindingResult bindingResult) {
 		validateBindingResult(bindingResult);
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
@@ -171,9 +171,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@Override
 	@PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putOne(@PathVariable(name = "id") long id,
-										 @Validated(value = {UpdateValidation.class, Default.class})
-										 @RequestBody WorkshopEntity workshopEntity,
-										 BindingResult bindingResult) {
+		@Validated(value = {UpdateValidation.class, Default.class})
+		@RequestBody WorkshopEntity workshopEntity,
+		BindingResult bindingResult) {
 		validateBindingResult(bindingResult);
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
@@ -185,12 +185,8 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> deleteOne(@PathVariable(name = "id") long id) {
 		workshopEntitiesService.removeEntity(id);
-		
-		String localizedMessage = messageSource.getMessage(
-			"message.deletedSuccessfully(1)", new Object[]{workshopEntityClassName + " id = " + id},
-			LocaleContextHolder.getLocale());
-		
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(localizedMessage);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT)
+			.body(getDeleteMessageSuccessLocalized(workshopEntityClassName + " id = " + id));
 	}
 	
 	/**
@@ -245,5 +241,12 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			throw new InvalidMethodArgumentsException(
 				"The passed " + workshopEntityClassName + " Json object has errors!", bindingResult);
 		}
+	}
+	
+	protected String getDeleteMessageSuccessLocalized(String whatIsDeleted) {
+		String localizedMessage = messageSource.getMessage(
+			"message.deletedSuccessfully(1)", new Object[]{whatIsDeleted},
+			LocaleContextHolder.getLocale());
+		return localizedMessage;
 	}
 }

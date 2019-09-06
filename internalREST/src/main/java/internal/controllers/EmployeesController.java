@@ -1,6 +1,9 @@
 package internal.controllers;
 
 import internal.entities.*;
+import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
+import internal.exceptions.InternalServerErrorException;
 import internal.hateoasResources.*;
 import internal.services.EmployeesService;
 import internal.services.OrdersService;
@@ -15,7 +18,10 @@ import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -61,7 +67,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order){
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable phonesPage = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Phone> allPhonesByUserPage = phonesService.findAllPhonesByEmployee(phonesPage, id);
@@ -71,6 +77,41 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.ok(jsonEmployeePhonesPagedResources);
 	}
 	
+	/**
+	 * Creates a new Phone and set it to the existing Employee.
+	 *
+	 * @param id    Employee.ID to set the new Phone to.
+	 * @param phone A new Phone to be created and set to existing Employee
+	 * @return Persisted Phone as a Resource.
+	 */
+	@PostMapping(path = "/{id}/phones")
+	public ResponseEntity<String> postPhone(
+		@PathVariable(name = "id") long id,
+		@Validated(PersistenceValidation.class) @RequestBody Phone phone,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addNewPhoneToEmployee(id, phone);
+		Resource<Phone> phoneResource = employeeWithNewPhone.getPhones().stream()
+			.filter(phone1 -> phone1.getIdentifier().equals(phone.getIdentifier()))
+			.findFirst()
+			.map(phone1 -> phonesResourceAssembler.toResource(phone1))
+			.orElseThrow(() -> new InternalServerErrorException(
+				"Underlies WorkshopEntitiesService error!", "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR));
+		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
+		return ResponseEntity.ok(jsonPhoneResource);
+	}
+	
+	@PutMapping(path = "/{id}/phones")
+	public ResponseEntity<String> putPhone(
+		@PathVariable(name = "id") long id,
+		@Validated(UpdateValidation.class) @RequestBody Phone phone,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		
+		return null;
+	}
 	
 	@GetMapping(path = "/{id}/position")
 	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
@@ -141,7 +182,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersModifiedByEmployeePage = ordersService.findAllOrdersModifiedByEmployee(pageable, id);
 		Resources<Resource<Order>> ordersModifiedByResources =
-			  ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, ORDERS_MODIFIED_BY_METHOD_NAME);
+			ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, ORDERS_MODIFIED_BY_METHOD_NAME);
 		String jsonOrdersModifiedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersModifiedByResources);
 		return ResponseEntity.ok(jsonOrdersModifiedByResources);
 	}

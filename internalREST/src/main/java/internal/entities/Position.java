@@ -68,6 +68,7 @@ public class Position extends Trackable implements GrantedAuthority {
 				   "Departments"))
 */
 	@Valid
+	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
 	private Department department;
 	
 	@Builder
@@ -77,11 +78,6 @@ public class Position extends Trackable implements GrantedAuthority {
 	}
 	
 	public void setDepartment(Department department) {
-		if (this.department != null) {
-			Set<Position> positions = new HashSet<>(this.department.getPositions());
-			positions.remove(this);
-			this.department.setPositions(positions);
-		}
 		this.department = department;
 		this.department.addPosition(this);
 	}

@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -221,7 +218,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.delete_Task_From_Cddlassifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -231,7 +228,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="delete_Task_From_Cddlassifier" />
+      <option name="METHOD_NAME" value="set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -298,20 +295,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Task_From_Cddlassifier" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Task_From_Cddlassifier" />
       </list>
     </recent_temporary>
   </component>
@@ -491,6 +488,7 @@
       <workItem from="1567701318239" duration="9976000" />
       <workItem from="1567749438212" duration="16680000" />
       <workItem from="1567774168656" duration="6787000" />
+      <workItem from="1567796721227" duration="1649000" />
     </task>
     <servers />
   </component>

@@ -11,10 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.PersistentObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
@@ -119,7 +121,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws PersistenceFailureException                If some properties of the given Entity are incorrect.
 	 * @throws EntityNotFoundException                    If the given Entity.ID is not presented in the DataBase.
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+//	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE,
+//				   noRollbackFor ={InvalidDataAccessApiUsageException.class})
+/*
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
 		
@@ -130,7 +134,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		Optional<T> persistedEntity;
 		try {
 			persistedEntity = workshopEntitiesDaoAbstract.persistEntity(entity);
-		} catch (EntityExistsException ex) {
+		} catch (EntityExistsException | PersistentObjectException | InvalidDataAccessApiUsageException ex) {
 			log.debug("{} exists, trying to merge it...", entityClass.getSimpleName(), ex);
 			persistedEntity = workshopEntitiesDaoAbstract.mergeEntity(entity);
 		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
@@ -140,6 +144,25 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 				messageSource.getMessage("error.saveOrUpdate(1)", new Object[]{entityClass.getSimpleName()},
 					LocaleContextHolder.getLocale()),
 				ie);
+		}
+		return persistedEntity.orElseThrow(() -> new PersistenceFailureException(
+			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
+	}
+*/
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public T persistOrMergeEntity(T entity)
+		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
+		
+		if (entity == null) {
+			throw new IllegalArgumentsException(
+				"The entity argument cannot be null!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
+		}
+		Optional<T> persistedEntity;
+		if (entity.getIdentifier() == null || entity.getIdentifier() == 0) {
+			persistedEntity = workshopEntitiesDaoAbstract.persistEntity(entity);
+		} else {
+			persistedEntity = workshopEntitiesDaoAbstract.mergeEntity(entity);
 		}
 		return persistedEntity.orElseThrow(() -> new PersistenceFailureException(
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));

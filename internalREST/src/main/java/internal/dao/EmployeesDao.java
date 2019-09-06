@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -76,10 +77,10 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 	 *                              PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
 	public Optional<List<Employee>> findAllEmployeesByPosition(Integer pageSize,
-															   Integer pageNum,
-															   String orderBy,
-															   Sort.Direction order,
-															   Long positionId)
+		Integer pageNum,
+		String orderBy,
+		Sort.Direction order,
+		Long positionId)
 		throws PersistenceException {
 		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
@@ -111,5 +112,24 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		} else {
 			return Optional.empty();
 		}
+	}
+	
+	/**
+	 * @param employeeId Existed Employee.ID to set Phone to.
+	 * @param phoneId    Existed Phone.ID to be set a new owner
+	 * @return Optional.(Employee) with a new Phone set or Optional.empty() if some of the given IDs is wrong.
+	 * @throws PersistenceException If some of IDs is wrong.
+	 */
+	public Optional<Employee> addPhoneToEmployee(Long employeeId, Long phoneId) throws PersistenceException {
+		Query query = entityManager.createQuery("UPDATE Phone p SET p.employee.id = :employeeId WHERE p.id = :phoneId");
+		query.setParameter("phoneId", phoneId);
+		query.setParameter("employeeId", employeeId);
+		try {
+			query.executeUpdate();
+		} catch (PersistenceException e) {
+			log.info(e.getMessage(), e);
+			return Optional.empty();
+		}
+		return Optional.of(entityManager.find(Employee.class, employeeId));
 	}
 }

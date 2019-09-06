@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-05.0.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/internalREST.log.2019-09-05.0.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-03.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -312,10 +300,10 @@
       <item itemvalue="JUnit.internal.controllers in internalREST" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Task_From_Cddlassifier" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
+      <item itemvalue="Spring Boot.Internal" />
     </list>
     <recent_temporary>
       <list>
@@ -502,6 +490,7 @@
       <workItem from="1567669124750" duration="25517000" />
       <workItem from="1567701318239" duration="9976000" />
       <workItem from="1567749438212" duration="16680000" />
+      <workItem from="1567774168656" duration="6787000" />
     </task>
     <servers />
   </component>

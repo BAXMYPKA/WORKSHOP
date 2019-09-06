@@ -1,7 +1,6 @@
 package internal.services;
 
 import internal.entities.*;
-import javafx.geometry.Pos;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,19 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -271,7 +266,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//WHEN
 		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
-		employeesService.addNewPhoneToEmployee(employee.getIdentifier(), phone2);
+		employeesService.addPhoneToEmployee(employee.getIdentifier(), phone2);
 		
 		//THEN
 		Employee employeeUpdated = employeesService.findById(employee.getIdentifier());
@@ -315,8 +310,9 @@ class WorkshopEntitiesServiceAbstractIT {
 		//WHEN
 		Phone phone2Persisted = phonesService.findById(phone2.getIdentifier());
 		phone2Persisted.setName("Phone 22");
+		Phone phone2Merged = phonesService.mergeEntity(phone2Persisted);
 		
-		Employee employee2Persisted = employeesService.addNewPhoneToEmployee(employee2.getIdentifier(), phone2Persisted);
+		employeesService.addPhoneToEmployee(employee2.getIdentifier(), phone2Persisted.getIdentifier());
 
 		//THEN
 		Employee employee1ToAssert = employeesService.findById(employee1.getIdentifier());
@@ -326,7 +322,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		assertTrue(employee1ToAssert.getPhones().contains(phone1));
 		
 		assertEquals(1, employee2ToAssert.getPhones().size());
-		assertTrue(employee1ToAssert.getPhones().contains(phone2));
+		assertTrue(employee2ToAssert.getPhones().contains(phone2Merged));
 		
 		assertEquals("Phone 1", employee1ToAssert.getPhones().iterator().next().getName());
 		assertEquals("Phone 22", employee2ToAssert.getPhones().iterator().next().getName());

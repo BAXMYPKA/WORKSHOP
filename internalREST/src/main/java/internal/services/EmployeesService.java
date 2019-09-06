@@ -4,6 +4,7 @@ import internal.dao.EmployeesDao;
 import internal.entities.Employee;
 import internal.entities.Phone;
 import internal.exceptions.EntityNotFoundException;
+import internal.exceptions.InternalServerErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,14 +89,46 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		return employeesPage;
 	}
 	
+	/**
+	 * Sets a new or changed Phone to an existing Employee.
+	 *
+	 * @param employeeId     Existing Employee.ID
+	 * @param phone Phone entity to be persisted or merged (if ID is set).
+	 * @return The Employee with the new Phone set.
+	 * @throws EntityNotFoundException      If no Employee with the given ID found.
+	 * @throws InternalServerErrorException When update fails on underlying DAO layer.
+	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-	public Employee addNewPhoneToEmployee(Long employeeId, Phone phoneToPersist) {
+	public Employee addPhoneToEmployee(Long employeeId, Phone phone)
+		throws EntityNotFoundException, InternalServerErrorException {
+		
 		super.verifyIdForNullZeroBelowZero(employeeId);
-		Employee employee = super.getVerifiedEntity(getWorkshopEntitiesDaoAbstract().findById(employeeId));
-		if (phoneToPersist.getIdentifier() != null) {
-			phoneToPersist = phonesService.mergeEntity(phoneToPersist);
+		
+		if (!getWorkshopEntitiesDaoAbstract().isExist(employeeId)) {
+			throw getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + employeeId);
 		}
-		employee.addPhone(phoneToPersist);
-		return employee;
+		Phone phonePersisted = phonesService.persistOrMergeEntity(phone);
+		Optional<Employee> employeeWithNewPhone =
+			employeesDao.addPhoneToEmployee(employeeId, phonePersisted.getIdentifier());
+		return employeeWithNewPhone.orElseThrow(() ->
+			new InternalServerErrorException("An error occurred on DAO layer during setting a new Phone to Employee!"
+				, "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR));
 	}
+	
+	/**
+	 * Sets an existing Phone to an existing Employee.
+	 *
+	 * @param employeeId Existing Employee.ID
+	 * @param phoneId    Existing Phone.ID
+	 * @return An Employee with the new Phone set
+	 * @throws EntityNotFoundException If 'employeeId' or 'phoneId' is wrong.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public Employee addPhoneToEmployee(Long employeeId, Long phoneId) throws EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(employeeId, phoneId);
+		Optional<Employee> employee = employeesDao.addPhoneToEmployee(employeeId, phoneId);
+		return employee.orElseThrow(() -> getEntityNotFoundException(getEntityClassSimpleName()));
+	}
+	
 }

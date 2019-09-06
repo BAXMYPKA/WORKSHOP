@@ -24,6 +24,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Getter
 @RestController
@@ -91,7 +93,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
-		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addNewPhoneToEmployee(id, phone);
+		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addPhoneToEmployee(id, phone);
 		Resource<Phone> phoneResource = employeeWithNewPhone.getPhones().stream()
 			.filter(phone1 -> phone1.getIdentifier().equals(phone.getIdentifier()))
 			.findFirst()
@@ -109,11 +111,24 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
+		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addPhoneToEmployee(id, phone);
+		Phone phonePersisted = employeeWithNewPhone.getPhones().stream()
+			.filter(phone1 -> phone1.getPhone().equals(phone.getPhone()))
+			.findFirst().get();
+		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phonePersisted);
+		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
+		return ResponseEntity.ok(jsonPhoneResource);
+	}
+	
+	@DeleteMapping(path = "/{id}/phones/{phoneId}")
+	public ResponseEntity<String> putPhone(
+		@PathVariable(name = "id") long id,
+		@PathVariable(name = "phoneId") Long phoneId) {
 		
 		return null;
 	}
-	
-	@GetMapping(path = "/{id}/position")
+		
+		@GetMapping(path = "/{id}/position")
 	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
 		Employee employeeById = getWorkshopEntitiesService().findById(id);
 		Position employeePosition = employeeById.getPosition();

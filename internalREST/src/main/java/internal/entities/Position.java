@@ -53,7 +53,7 @@ public class Position extends Trackable implements GrantedAuthority {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "position", orphanRemoval = false,
 			   cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-	private Collection<@Valid Employee> employees;
+	private Set<@Valid Employee> employees;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

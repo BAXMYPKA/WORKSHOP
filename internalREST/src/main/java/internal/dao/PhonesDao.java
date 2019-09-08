@@ -3,16 +3,19 @@ package internal.dao;
 import internal.entities.*;
 import internal.entities.Order;
 import internal.exceptions.InternalServerErrorException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 	
@@ -122,4 +125,22 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 		}
 	}
 	
+	/**
+	 * @param employeeId Existed Employee.ID to set Phone to.
+	 * @param phoneId    Existed Phone.ID to be set a new owner
+	 * @return Optional.(Employee) with a new Phone set or Optional.empty() if some of the given IDs is wrong.
+	 * @throws PersistenceException If some of IDs is wrong.
+	 */
+	public Optional<Employee> addPhoneToEmployee(Long employeeId, Long phoneId) throws PersistenceException {
+		Query query = entityManager.createQuery("UPDATE Phone p SET p.employee.id = :employeeId WHERE p.id = :phoneId");
+		query.setParameter("phoneId", phoneId);
+		query.setParameter("employeeId", employeeId);
+		try {
+			query.executeUpdate();
+		} catch (PersistenceException e) {
+			log.info(e.getMessage(), e);
+			return Optional.empty();
+		}
+		return Optional.of(entityManager.find(Employee.class, employeeId));
+	}
 }

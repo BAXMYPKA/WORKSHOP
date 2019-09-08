@@ -5,10 +5,7 @@ import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import internal.exceptions.InternalServerErrorException;
 import internal.hateoasResources.*;
-import internal.services.EmployeesService;
-import internal.services.OrdersService;
-import internal.services.PhonesService;
-import internal.services.TasksService;
+import internal.services.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +50,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	private OrdersService ordersService;
 	@Autowired
 	private PhonesService phonesService;
+	@Autowired
+	private PositionsService positionsService;
 	
 	/**
 	 * @param employeesService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -93,17 +92,17 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
-		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addPhoneToEmployee(id, phone);
-		Resource<Phone> phoneResource = employeeWithNewPhone.getPhones().stream()
-			.filter(phone1 -> phone1.getIdentifier().equals(phone.getIdentifier()))
-			.findFirst()
-			.map(phone1 -> phonesResourceAssembler.toResource(phone1))
-			.orElseThrow(() -> new InternalServerErrorException(
-				"Underlies WorkshopEntitiesService error!", "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR));
+		Phone phonePersisted = phonesService.addPhoneToEmployee(id, phone);
+		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phonePersisted);
 		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
 		return ResponseEntity.ok(jsonPhoneResource);
 	}
 	
+	/**
+	 * @param id    Employee.ID
+	 * @param phone New or existing Phone to bind with existing Employee
+	 * @return Updated Phone with the given Employee set.
+	 */
 	@PutMapping(path = "/{id}/phones")
 	public ResponseEntity<String> putPhone(
 		@PathVariable(name = "id") long id,
@@ -111,30 +110,50 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
-		Employee employeeWithNewPhone = ((EmployeesService) getWorkshopEntitiesService()).addPhoneToEmployee(id, phone);
-		Phone phonePersisted = employeeWithNewPhone.getPhones().stream()
-			.filter(phone1 -> phone1.getPhone().equals(phone.getPhone()))
-			.findFirst().get();
-		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phonePersisted);
+		Phone phoneUpdated = phonesService.addPhoneToEmployee(id, phone);
+		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phoneUpdated);
 		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
 		return ResponseEntity.ok(jsonPhoneResource);
 	}
 	
 	@DeleteMapping(path = "/{id}/phones/{phoneId}")
-	public ResponseEntity<String> putPhone(
+	public ResponseEntity<String> deletePhone(
 		@PathVariable(name = "id") long id,
 		@PathVariable(name = "phoneId") Long phoneId) {
 		
-		return null;
+		phonesService.deletePhoneFromEmployee(id, phoneId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT)
+			.body(getDeleteMessageSuccessLocalized("Phone.ID" + phoneId));
 	}
-		
-		@GetMapping(path = "/{id}/position")
+	
+	@GetMapping(path = "/{id}/position")
 	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
 		Employee employeeById = getWorkshopEntitiesService().findById(id);
 		Position employeePosition = employeeById.getPosition();
 		Resource<Position> positionResource = positionsResourceAssembler.toResource(employeePosition);
 		String jsonPositionResource = getJsonServiceUtils().workshopEntityObjectsToJson(positionResource);
 		return ResponseEntity.ok(jsonPositionResource);
+	}
+	
+	@PostMapping(path = "/{id}/positions")
+	public ResponseEntity<String> postPosition(
+		@PathVariable(name = "id") long id,
+		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		Position persistedPosition = positionsService.addPositionToEmployee(id, position);
+		Resource<Position> positionResource = positionsResourceAssembler.toResource(persistedPosition);
+		String jsonPositionResource = getJsonServiceUtils().workshopEntityObjectsToJson(positionResource);
+		return ResponseEntity.ok(jsonPositionResource);
+	}
+	
+	@PutMapping(path = "/{id}/positions")
+	public ResponseEntity<String> putPosition(
+		@PathVariable(name = "id") long id,
+		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		BindingResult bindingResult) {
+		return postPosition(id, position, bindingResult);
 	}
 	
 	@GetMapping(path = "/{id}/appointed_tasks")

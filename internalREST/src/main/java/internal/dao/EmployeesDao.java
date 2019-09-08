@@ -114,12 +114,15 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		}
 	}
 	
-	/**
+/*
+	*/
+/**
 	 * @param employeeId Existed Employee.ID to set Phone to.
 	 * @param phoneId    Existed Phone.ID to be set a new owner
 	 * @return Optional.(Employee) with a new Phone set or Optional.empty() if some of the given IDs is wrong.
 	 * @throws PersistenceException If some of IDs is wrong.
-	 */
+	 *//*
+
 	public Optional<Employee> addPhoneToEmployee(Long employeeId, Long phoneId) throws PersistenceException {
 		Query query = entityManager.createQuery("UPDATE Phone p SET p.employee.id = :employeeId WHERE p.id = :phoneId");
 		query.setParameter("phoneId", phoneId);
@@ -132,4 +135,5 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		}
 		return Optional.of(entityManager.find(Employee.class, employeeId));
 	}
+*/
 }

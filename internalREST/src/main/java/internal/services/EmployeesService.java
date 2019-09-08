@@ -1,6 +1,7 @@
 package internal.services;
 
 import internal.dao.EmployeesDao;
+import internal.dao.PhonesDao;
 import internal.entities.Employee;
 import internal.entities.Phone;
 import internal.exceptions.EntityNotFoundException;
@@ -26,11 +27,11 @@ import java.util.Optional;
 public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> {
 	
 	@Autowired
-	private EmployeesDao employeesDao;
-	@Autowired
 	private PositionsService positionsService;
 	@Autowired
 	private PhonesService phonesService;
+	@Autowired
+	private PhonesDao phonesDao;
 	
 	public EmployeesService(EmployeesDao employeesDao) {
 		super(employeesDao);
@@ -48,7 +49,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		if (email == null) {
 			throw new IllegalArgumentException("Email cannot be null!");
 		}
-		Optional<Employee> employee = employeesDao.findEmployeeByEmail(email);
+		Optional<Employee> employee = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).findEmployeeByEmail(email);
 		return employee.orElseThrow(() -> new EntityNotFoundException("No Employee found!", HttpStatus.NOT_FOUND,
 			getMessageSource().getMessage("httpStatus.notFound(2)", new Object[]{"Employee", email},
 				LocaleContextHolder.getLocale())));
@@ -72,7 +73,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		String order = verifiedPageable.getSort().iterator().next().getProperty();
 		
-		List<Employee> employeesByPosition = employeesDao.findAllEmployeesByPosition(
+		List<Employee> employeesByPosition = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).findAllEmployeesByPosition(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			order,
@@ -82,53 +83,11 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 				getMessageSource().getMessage(
 					"httpStatus.notFound(1)", new Object[]{"Employees"}, LocaleContextHolder.getLocale())));
 		
-		long totalEmployees = employeesDao.countAllEntities();
+		long totalEmployees = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).countAllEntities();
 		
 		Page<Employee> employeesPage = new PageImpl<>(employeesByPosition, verifiedPageable, totalEmployees);
 		
 		return employeesPage;
-	}
-	
-	/**
-	 * Sets a new or changed Phone to an existing Employee.
-	 *
-	 * @param employeeId     Existing Employee.ID
-	 * @param phone Phone entity to be persisted or merged (if ID is set).
-	 * @return The Employee with the new Phone set.
-	 * @throws EntityNotFoundException      If no Employee with the given ID found.
-	 * @throws InternalServerErrorException When update fails on underlying DAO layer.
-	 */
-	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-	public Employee addPhoneToEmployee(Long employeeId, Phone phone)
-		throws EntityNotFoundException, InternalServerErrorException {
-		
-		super.verifyIdForNullZeroBelowZero(employeeId);
-		
-		if (!getWorkshopEntitiesDaoAbstract().isExist(employeeId)) {
-			throw getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + employeeId);
-		}
-		Phone phonePersisted = phonesService.persistOrMergeEntity(phone);
-		Optional<Employee> employeeWithNewPhone =
-			employeesDao.addPhoneToEmployee(employeeId, phonePersisted.getIdentifier());
-		return employeeWithNewPhone.orElseThrow(() ->
-			new InternalServerErrorException("An error occurred on DAO layer during setting a new Phone to Employee!"
-				, "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR));
-	}
-	
-	/**
-	 * Sets an existing Phone to an existing Employee.
-	 *
-	 * @param employeeId Existing Employee.ID
-	 * @param phoneId    Existing Phone.ID
-	 * @return An Employee with the new Phone set
-	 * @throws EntityNotFoundException If 'employeeId' or 'phoneId' is wrong.
-	 */
-	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-	public Employee addPhoneToEmployee(Long employeeId, Long phoneId) throws EntityNotFoundException {
-		
-		super.verifyIdForNullZeroBelowZero(employeeId, phoneId);
-		Optional<Employee> employee = employeesDao.addPhoneToEmployee(employeeId, phoneId);
-		return employee.orElseThrow(() -> getEntityNotFoundException(getEntityClassSimpleName()));
 	}
 	
 }

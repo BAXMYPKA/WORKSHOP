@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -266,7 +270,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//WHEN
 		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
-		employeesService.addPhoneToEmployee(employee.getIdentifier(), phone2);
+		phonesService.addPhoneToEmployee(employee.getIdentifier(), phone2);
 		
 		//THEN
 		Employee employeeUpdated = employeesService.findById(employee.getIdentifier());
@@ -312,7 +316,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		phone2Persisted.setName("Phone 22");
 		Phone phone2Merged = phonesService.mergeEntity(phone2Persisted);
 		
-		employeesService.addPhoneToEmployee(employee2.getIdentifier(), phone2Persisted.getIdentifier());
+		phonesService.addPhoneToEmployee(employee2.getIdentifier(), phone2Persisted.getIdentifier());
 
 		//THEN
 		Employee employee1ToAssert = employeesService.findById(employee1.getIdentifier());
@@ -326,6 +330,121 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		assertEquals("Phone 1", employee1ToAssert.getPhones().iterator().next().getName());
 		assertEquals("Phone 22", employee2ToAssert.getPhones().iterator().next().getName());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void delete_Existing_Phone_From_Existing_Employee() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		
+		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
+			LocalDate.now().minusYears(28),	position1);
+		
+		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
+		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		
+		employee1.addPhone(phone1, phone2);
+		
+		departmentsService.persistEntity(department1);
+		employeesService.persistEntities(employee1);
+		
+		//WHEN
+		phonesService.deletePhoneFromEmployee(employee1.getIdentifier(), phone1.getIdentifier());
+		
+		//THEN
+		Employee employeeWithSinglePhone2 = employeesService.findById(employee1.getIdentifier());
+		
+		assertEquals(1, employeeWithSinglePhone2.getPhones().size());
+		assertTrue(employeeWithSinglePhone2.getPhones().contains(phone2));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void add_New_Position_To_Existing_Employee() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		
+		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
+			LocalDate.now().minusYears(28),	position1);
+		
+		departmentsService.persistEntity(department1);
+		employeesService.persistEntities(employee1);
+		
+		//WHEN
+		Position position2 = new Position();
+		position2.setName("Position 2");
+		position2.setDepartment(department1);
+		
+		positionsService.addPositionToEmployee(employee1.getIdentifier(), position2);
+		
+		//THEN
+		Employee updatedEmployee = employeesService.findById(employee1.getIdentifier());
+		List<Employee> employeesByPosition =
+			employeesService.findEmployeesByPosition(
+				PageRequest.of(0, 10, Sort.Direction.DESC, "created"), position2.getIdentifier())
+				.getContent();
+		Position updatedPosition = positionsService.findById(position2.getIdentifier());
+		
+		assertEquals(updatedPosition, updatedEmployee.getPosition());
+		assertEquals(1, employeesByPosition.size());
+		assertTrue(employeesByPosition.contains(updatedEmployee));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void add_Existing_Position_To_Existing_Employee() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		
+		Position position2 = new Position();
+		position2.setName("Position 2");
+		position2.setDepartment(department1);
+		
+		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
+		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+			LocalDate.now().minusYears(28),	position1);
+		employee1.setPhones(new HashSet<>(Collections.singletonList(phone1)));
+		
+		Employee employee2 = new Employee("Employee 2", "LN", "12345", "email@pro2.pro",
+			LocalDate.now().minusYears(28),	position2);
+		employee2.setPhones(new HashSet<>(Collections.singletonList(phone2)));
+		
+		position1.setEmployees(new HashSet<>(Collections.singletonList(employee1)));
+		position2.setEmployees(new HashSet<>(Collections.singletonList(employee2)));
+		
+		departmentsService.persistEntity(department1);
+		employeesService.persistEntities(employee1);
+		
+		//WHEN
+		positionsService.addPositionToEmployee(employee1.getIdentifier(), position2);
+		
+		//THEN
+		Employee updatedEmployee1 = employeesService.findById(employee1.getIdentifier());
+		
+		List<Employee> employeesByPosition2 =
+			employeesService.findEmployeesByPosition(
+				PageRequest.of(0, 10, Sort.Direction.DESC, "created"), position2.getIdentifier())
+				.getContent();
+		Position updatedPosition2 = positionsService.findById(position2.getIdentifier());
+		
+		assertEquals(updatedPosition2, updatedEmployee1.getPosition());
+		assertEquals(2, employeesByPosition2.size());
+		assertTrue(employeesByPosition2.contains(updatedEmployee1));
 	}
 	
 }

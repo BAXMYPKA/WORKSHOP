@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-06.1.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-05.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -185,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated">
+  <component name="RunManager" selected="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee">
     <configuration name="WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -202,7 +211,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -212,7 +221,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="add_New_Phone_To_Employee_Should_Return_Both_Updated" />
+      <option name="METHOD_NAME" value="add_Existing_Position_To_Existing_Employee" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.services" />
+      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
+      <option name="METHOD_NAME" value="add_New_Position_To_Existing_Employee" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.services" />
+      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
+      <option name="METHOD_NAME" value="delete_Existing_Phone_From_Existing_Employee" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -229,38 +270,6 @@
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
       <option name="METHOD_NAME" value="set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -295,20 +304,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
-      <item itemvalue="Spring Boot.Internal" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Phone_To_Employee_Should_Return_Both_Updated" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.update_Department_On_Persisted_Position_Will_Be_Updated_For_Both_of_Them" />
       </list>
     </recent_temporary>
   </component>
@@ -489,6 +498,7 @@
       <workItem from="1567749438212" duration="16680000" />
       <workItem from="1567774168656" duration="6787000" />
       <workItem from="1567796721227" duration="1649000" />
+      <workItem from="1567924233380" duration="14378000" />
     </task>
     <servers />
   </component>
@@ -521,6 +531,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

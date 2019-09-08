@@ -73,7 +73,7 @@ public class Phone extends WorkshopEntityAbstract {
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, targetEntity = Employee.class,
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Employee.class,
 			   fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
 	@Valid

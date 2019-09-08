@@ -1,8 +1,10 @@
 package internal.services;
 
 import internal.dao.DepartmentsDao;
+import internal.dao.EmployeesDao;
 import internal.dao.PositionsDao;
 import internal.entities.Department;
+import internal.entities.Employee;
 import internal.entities.Position;
 import internal.entities.WorkshopEntity;
 import internal.exceptions.EntityNotFoundException;
@@ -20,8 +22,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Getter
 @Setter
@@ -30,6 +31,8 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 	
 	@Autowired
 	private DepartmentsDao departmentsDao;
+	@Autowired
+	private EmployeesDao employeesDao;
 	
 	/**
 	 * @param positionsDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -83,5 +86,21 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		Position mergedPosition = super.getVerifiedEntity(getWorkshopEntitiesDaoAbstract().mergeEntity(position));
 		mergedPosition.setDepartment(department);
 		return mergedPosition;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public Position addPositionToEmployee(long employeeId, Position position) {
+		
+		super.verifyIdForNullZeroBelowZero(employeeId);
+		Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
+			getEntityNotFoundException("Employee.ID="+employeeId));
+		Position mergedOrPersistedPosition = super.persistOrMergeEntity(position);
+		employee.setPosition(mergedOrPersistedPosition);
+		if (mergedOrPersistedPosition.getEmployees() == null) {
+			mergedOrPersistedPosition.setEmployees(new HashSet<>(Collections.singletonList(employee)));
+		} else {
+			mergedOrPersistedPosition.getEmployees().add(employee);
+		}
+		return mergedOrPersistedPosition;
 	}
 }

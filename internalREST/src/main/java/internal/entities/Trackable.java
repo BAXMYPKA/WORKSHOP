@@ -60,7 +60,6 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@PastOrPresent(groups = {PersistEmployeeValidation.class},
 		message = "{validation.pastOrPresent}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
-	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	@Column
@@ -76,14 +75,14 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE},
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
 		optional = true)
 	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
 	@Valid
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	@Valid
 	private Employee modifiedBy;

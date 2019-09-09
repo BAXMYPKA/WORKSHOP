@@ -26,6 +26,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -249,4 +250,14 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 			LocaleContextHolder.getLocale());
 		return localizedMessage;
 	}
+	
+	protected ResponseEntity<String> getResponseEntityWithErrorMessage(HttpStatus httpStatus, String messageBody)
+		throws IllegalArgumentException {
+		if (httpStatus == null || messageBody == null) {
+			throw new IllegalArgumentException("HttpStatus or messageBody cannot be null!");
+		}
+		messageBody = "{\"errorMessage\":\"" + messageBody + "\"}";
+		return ResponseEntity.status(httpStatus).contentType(MediaType.APPLICATION_JSON_UTF8).body(messageBody);
+	}
+	
 }

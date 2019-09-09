@@ -1,6 +1,7 @@
 package internal.services;
 
 import internal.entities.*;
+import internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -253,7 +254,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		position1.setDepartment(department1);
 		
 		Employee employee = new Employee("FN", "LN", "12345", "email@pro.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		
 		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
 		
@@ -292,10 +293,10 @@ class WorkshopEntitiesServiceAbstractIT {
 		position1.setDepartment(department1);
 		
 		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		
 		Employee employee2 = new Employee("FN", "LN", "12345", "email@pro2.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		
 		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
 		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
@@ -317,7 +318,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		Phone phone2Merged = phonesService.mergeEntity(phone2Persisted);
 		
 		phonesService.addPhoneToEmployee(employee2.getIdentifier(), phone2Persisted.getIdentifier());
-
+		
 		//THEN
 		Employee employee1ToAssert = employeesService.findById(employee1.getIdentifier());
 		Employee employee2ToAssert = employeesService.findById(employee2.getIdentifier());
@@ -343,7 +344,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		position1.setDepartment(department1);
 		
 		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		
 		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
 		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
@@ -374,7 +375,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		position1.setDepartment(department1);
 		
 		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		
 		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1);
@@ -417,11 +418,11 @@ class WorkshopEntitiesServiceAbstractIT {
 		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
 		
 		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
-			LocalDate.now().minusYears(28),	position1);
+			LocalDate.now().minusYears(28), position1);
 		employee1.setPhones(new HashSet<>(Collections.singletonList(phone1)));
 		
 		Employee employee2 = new Employee("Employee 2", "LN", "12345", "email@pro2.pro",
-			LocalDate.now().minusYears(28),	position2);
+			LocalDate.now().minusYears(28), position2);
 		employee2.setPhones(new HashSet<>(Collections.singletonList(phone2)));
 		
 		position1.setEmployees(new HashSet<>(Collections.singletonList(employee1)));
@@ -445,6 +446,94 @@ class WorkshopEntitiesServiceAbstractIT {
 		assertEquals(updatedPosition2, updatedEmployee1.getPosition());
 		assertEquals(2, employeesByPosition2.size());
 		assertTrue(employeesByPosition2.contains(updatedEmployee1));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void delete_AppointedTask_From_Existing_Employee() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+			LocalDate.now().minusYears(28), position1);
+		
+		departmentsService.persistEntity(department1);
+		employeesService.persistEntities(employee1);
+		
+		Order order = new Order();
+		
+		Task task1 = new Task();
+		task1.setName("Task 1");
+		task1.setOrder(order);
+		task1.setAppointedTo(employee1);
+		
+		ordersService.persistEntity(order);
+		tasksService.persistOrMergeEntity(task1);
+		
+		//WHEN check
+		Page<Task> tasksAppointedToEmployee = tasksService.findAllTasksAppointedToEmployee(
+			PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
+			employee1.getIdentifier());
+		
+		assertTrue(tasksAppointedToEmployee.getContent().contains(task1));
+		
+		//WHEN
+		Task taskToBeDeletedFromEmployee = tasksService.findById(task1.getIdentifier());
+		taskToBeDeletedFromEmployee.setAppointedTo(null);
+		tasksService.mergeEntity(taskToBeDeletedFromEmployee);
+		
+		//THEN
+		Task taskWithoutAppointedTo = tasksService.findById(task1.getIdentifier());
+		
+		assertThrows(EntityNotFoundException.class, () ->
+			tasksService.findAllTasksAppointedToEmployee(
+				PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
+				employee1.getIdentifier()));
+		
+		assertNull(taskWithoutAppointedTo.getAppointedTo());
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void post_New_TaskCreatedBy_To_Existing_Employee() {
+		//GIVEN
+		Department department1 = new Department("Department 1");
+		
+		Position position1 = new Position();
+		position1.setName("Position 1");
+		position1.setDepartment(department1);
+		
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+			LocalDate.now().minusYears(28), position1);
+		
+		departmentsService.persistEntity(department1);
+		employeesService.persistEntities(employee1);
+		
+		Order order = new Order();
+		
+		ordersService.persistEntity(order);
+		
+		//WHEN
+		Employee persistedEmployee = employeesService.findById(employee1.getIdentifier());
+		Task task1 = new Task();
+		task1.setName("Task 1");
+		task1.setOrder(order);
+		task1.setCreatedBy(persistedEmployee);
+		
+		tasksService.persistEntity(task1);
+		
+		//THEN
+		Task taskWithCreatedBy = tasksService.findById(task1.getIdentifier());
+		Page<Task> tasksCreatedByEmployee = tasksService.findAllTasksCreatedByEmployee(
+			PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
+			persistedEmployee.getIdentifier());
+		
+		assertEquals(persistedEmployee, taskWithCreatedBy.getCreatedBy());
+		assertTrue(tasksCreatedByEmployee.getContent().contains(task1));
 	}
 	
 }

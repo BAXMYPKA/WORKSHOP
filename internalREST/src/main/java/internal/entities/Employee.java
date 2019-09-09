@@ -1,8 +1,8 @@
 package internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,9 +31,9 @@ import java.util.Set;
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
-						@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-						@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
-						@AttributeOverride(name = "created", column = @Column(name = "employed"))})
+	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
+	@AttributeOverride(name = "created", column = @Column(name = "employed"))})
 public class Employee extends Trackable {
 	
 	@Transient
@@ -70,8 +70,6 @@ public class Employee extends Trackable {
 	@Past(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.past}")
 	private LocalDate birthday;
 	
-	//TODO: to realize custom 16years-old check
-	
 	/**
 	 * To disable Employee across a domain.
 	 * Default = true
@@ -82,8 +80,8 @@ public class Employee extends Trackable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true, cascade = {
-		CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true,
+		cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones;
 	
 	//TODO: to implement a photo loader Controller method
@@ -96,33 +94,34 @@ public class Employee extends Trackable {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {
-		CascadeType.REMOVE, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(optional = false, fetch = FetchType.EAGER,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-			   joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-			   inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	@NotNull(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "appointedTo", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToMany(mappedBy = "appointedTo", fetch = FetchType.LAZY,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Task> appointedTasks;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
+	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Task.class)
 	private Collection<Trackable> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Task.class)
+	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Task.class)
 	private Collection<Trackable> tasksCreatedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "modifiedBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Order.class)
 	private Collection<Trackable> ordersModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "createdBy", cascade = {CascadeType.REMOVE}, targetEntity = Order.class)
+	@OneToMany(mappedBy = "createdBy", targetEntity = Order.class)
 	private Collection<Trackable> ordersCreatedBy;
 	
 	/**

@@ -47,11 +47,10 @@ public class Task extends Trackable {
 	
 	@Column
 	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
-	@EqualsAndHashCode.Include
 	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "appointed_to")
 	private Employee appointedTo;
 	
@@ -61,8 +60,7 @@ public class Task extends Trackable {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(fetch = FetchType.EAGER,
-				cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Tasks_to_Classifiers",
 			   schema = "INTERNAL",
 			   joinColumns = {
@@ -73,7 +71,7 @@ public class Task extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, cascade = {
-		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+		CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	@Valid
 	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
@@ -89,7 +87,7 @@ public class Task extends Trackable {
 	@Column(scale = 2, nullable = false)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
 					message = "{validation.positiveOrZero}")
-	@EqualsAndHashCode.Include
+//	@EqualsAndHashCode.Include
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder

@@ -2,18 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-06.1.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-04.0.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-05.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-06.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-06.1.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ClassifiersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +69,13 @@
         <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
         <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
         <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+        <item name="EMPLOYEES: table" type="818c1b4a:H2ImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -134,10 +154,10 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="Debugger_Data_Views_Java" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -177,8 +197,8 @@
       <command value="mvn clean" />
       <command value="mvn validate" />
       <command value="mvn install" />
-      <command value="mvn compile" />
       <command value="mvn " />
+      <command value="mvn compile" />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -194,23 +214,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee">
-    <configuration name="WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internalREST" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee">
     <configuration name="WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
@@ -227,7 +231,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -237,13 +241,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="add_New_Position_To_Existing_Employee" />
+      <option name="METHOD_NAME" value="delete_AppointedTask_From_Existing_Employee" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -253,13 +257,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="delete_Existing_Phone_From_Existing_Employee" />
+      <option name="METHOD_NAME" value="departmentsService_Should_Persist_Departments" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
@@ -269,7 +273,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="internal.services" />
       <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
+      <option name="METHOD_NAME" value="entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internalREST" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="internal.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="internal.services" />
+      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
+      <option name="METHOD_NAME" value="post_New_TaskCreatedBy_To_Existing_Employee" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -304,20 +324,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
-      <item itemvalue="Spring Boot.Internal" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
+      <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" />
+      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
+        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Position_To_Existing_Employee" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_New_Position_To_Existing_Employee" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_Existing_Phone_From_Existing_Employee" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.add_Existing_Phone_To_Employee_Should_Return_Both_Updated" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.set_Department_To_Position_Will_Be_Updated_For_Both_of_Them" />
       </list>
     </recent_temporary>
   </component>
@@ -499,6 +519,8 @@
       <workItem from="1567774168656" duration="6787000" />
       <workItem from="1567796721227" duration="1649000" />
       <workItem from="1567924233380" duration="14378000" />
+      <workItem from="1568009193215" duration="6991000" />
+      <workItem from="1568016903535" duration="13664000" />
     </task>
     <servers />
   </component>
@@ -551,50 +573,6 @@
     <SUITE FILE_PATH="coverage/WORKSHOP$JsonServiceTest_every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back.ic" NAME="JsonServiceTest.every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back Coverage Results" MODIFIED="1560967359388" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>internal.service.*</FILTER>
     </SUITE>
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateCodeFragment">
-      <expression>
-        <expression-string>tasksObjects.keySet().contains(task);</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>boolean contains = ((IdentityHashMap) tasksObjects).keySet.contains(task);
-System.out.println(contains);</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>boolean contains = ((IdentityHashMap) tasksObjects).keySet.contains(task);</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((IdentityHashMap) tasksObjects).keySet.contains(task);</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="breakpointCondition">
-      <expression>
-        <expression-string>pageSize == 5</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>((IdentityHashMap) tasksObjects).keySet.contains(task)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((IdentityHashMap) tasksObjects).keySet.contains(task);</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
   </component>
   <component name="mavenExecuteGoalHistory">
     <option value="$PROJECT_DIR$" />

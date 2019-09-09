@@ -1,6 +1,8 @@
 package internal.services;
 
+import internal.dao.EmployeesDao;
 import internal.dao.TasksDao;
+import internal.entities.Employee;
 import internal.entities.Task;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
@@ -22,7 +24,7 @@ import java.util.Optional;
 public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	
 	@Autowired
-	private TasksDao tasksDao;
+	private EmployeesDao employeesDao;
 	
 	/**
 	 * @param tasksDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -49,7 +51,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		
-		Optional<List<Task>> allTasksByOrder = tasksDao.findAllTasksByOrder(
+		Optional<List<Task>> allTasksByOrder = ((TasksDao) getWorkshopEntitiesDaoAbstract()).findAllTasksByOrder(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			orderBy,
@@ -74,12 +76,13 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		
-		Optional<List<Task>> allPagedTasksAppointedToEmployee = tasksDao.findAllTasksAppointedToEmployee(
-			verifiedPageable.getPageSize(),
-			verifiedPageable.getPageNumber(),
-			orderBy,
-			verifiedPageable.getSort().getOrderFor(orderBy).getDirection(),
-			employeeId);
+		Optional<List<Task>> allPagedTasksAppointedToEmployee =
+			((TasksDao) getWorkshopEntitiesDaoAbstract()).findAllTasksAppointedToEmployee(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				orderBy,
+				verifiedPageable.getSort().getOrderFor(orderBy).getDirection(),
+				employeeId);
 		
 		Page<Task> tasksPage = super.getVerifiedEntitiesPage(verifiedPageable, allPagedTasksAppointedToEmployee);
 		return tasksPage;
@@ -101,12 +104,13 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Optional<List<Task>> allTasksModifiedByEmployee = tasksDao.findAllTasksModifiedByEmployee(
-			verifiedPageable.getPageSize(),
-			verifiedPageable.getPageNumber(),
-			orderBy,
-			order,
-			employeeId);
+		Optional<List<Task>> allTasksModifiedByEmployee =
+			((TasksDao) getWorkshopEntitiesDaoAbstract()).findAllTasksModifiedByEmployee(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				orderBy,
+				order,
+				employeeId);
 		
 		Page<Task> verifiedEntitiesPageFromDao =
 			super.getVerifiedEntitiesPage(verifiedPageable, allTasksModifiedByEmployee);
@@ -131,12 +135,13 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Optional<List<Task>> allTasksCreatedByEmployee = tasksDao.findAllTasksCreatedByEmployee(
-			verifiedPageable.getPageSize(),
-			verifiedPageable.getPageNumber(),
-			orderBy,
-			order,
-			employeeId);
+		Optional<List<Task>> allTasksCreatedByEmployee =
+			((TasksDao) getWorkshopEntitiesDaoAbstract()).findAllTasksCreatedByEmployee(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				orderBy,
+				order,
+				employeeId);
 		
 		Page<Task> verifiedEntitiesPageFromDao =
 			super.getVerifiedEntitiesPage(verifiedPageable, allTasksCreatedByEmployee);
@@ -160,12 +165,13 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Optional<List<Task>> allTasksModifiedByEmployee = tasksDao.findAllTasksByClassifier(
-			verifiedPageable.getPageSize(),
-			verifiedPageable.getPageNumber(),
-			orderBy,
-			order,
-			classifierId);
+		Optional<List<Task>> allTasksModifiedByEmployee =
+			((TasksDao) getWorkshopEntitiesDaoAbstract()).findAllTasksByClassifier(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				orderBy,
+				order,
+				classifierId);
 		
 		Page<Task> verifiedEntitiesPageFromDao =
 			super.getVerifiedEntitiesPage(verifiedPageable, allTasksModifiedByEmployee);
@@ -173,4 +179,19 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 		return verifiedEntitiesPageFromDao;
 	}
 	
+	/**
+	 * Appoints new or existing Task to the existing Employee.
+	 *
+	 * @param employeeId An Employee to set the Task to.
+	 * @param newTask    New (to be persisted) or existing (to be merged) Task to be set to the given Employee.
+	 * @return A Task appointed to the given Employee.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public Task appointTaskToEmployee(Long employeeId, Task newTask) {
+		Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
+			getEntityNotFoundException("Employee.ID=" + employeeId));
+		Task task = persistOrMergeEntity(newTask);
+		task.setAppointedTo(employee);
+		return task;
+	}
 }

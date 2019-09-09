@@ -97,7 +97,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	 * @param taskId Task id
 	 * @return A Task without this Classifier.
 	 */
-	@PutMapping(path = "/{id}/tasks/{taskId}")
+	@DeleteMapping(path = "/{id}/tasks/{taskId}")
 	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
 											 @PathVariable(name = "taskId") Long taskId) {
 		

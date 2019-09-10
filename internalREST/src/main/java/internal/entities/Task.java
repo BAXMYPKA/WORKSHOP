@@ -70,8 +70,8 @@ public class Task extends Trackable {
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, cascade = {
-		CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER,
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	@Valid
 	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
@@ -172,6 +172,11 @@ public class Task extends Trackable {
 		if (this.name == null && this.classifiers != null) {
 			this.classifiers.forEach(classifier -> this.name += classifier.getName() + "&");
 		}
+	}
+	
+	@PreRemove
+	public void preRemove() {
+		if ()
 	}
 	
 	@Override

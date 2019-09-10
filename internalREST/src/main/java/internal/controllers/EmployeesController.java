@@ -16,11 +16,13 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -96,7 +98,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Phone phonePersisted = phonesService.addPhoneToEmployee(id, phone);
 		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phonePersisted);
 		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
-		return ResponseEntity.ok(jsonPhoneResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPhoneResource);
 	}
 	
 	/**
@@ -114,7 +116,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Phone phoneUpdated = phonesService.addPhoneToEmployee(id, phone);
 		Resource<Phone> phoneResource = phonesResourceAssembler.toResource(phoneUpdated);
 		String jsonPhoneResource = getJsonServiceUtils().workshopEntityObjectsToJson(phoneResource);
-		return ResponseEntity.ok(jsonPhoneResource);
+		return ResponseEntity.accepted().body(jsonPhoneResource);
 	}
 	
 	@DeleteMapping(path = "/{id}/phones/{phoneId}")
@@ -146,7 +148,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Position persistedPosition = positionsService.addPositionToEmployee(id, position);
 		Resource<Position> positionResource = positionsResourceAssembler.toResource(persistedPosition);
 		String jsonPositionResource = getJsonServiceUtils().workshopEntityObjectsToJson(positionResource);
-		return ResponseEntity.ok(jsonPositionResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPositionResource);
 	}
 	
 	@PutMapping(path = "/{id}/positions")
@@ -166,7 +168,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return HttpStatus.FORBIDDEN and the message with the Position as a Resource with the Link to it.
 	 */
 	@DeleteMapping(path = "/{id}/positions/{positionId}")
-	public ResponseEntity<String> deletePosition(
+	public ResponseEntity<String> deletePositionForbidden(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "positionId") Long positionId) {
 		
@@ -206,7 +208,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Task taskAppointed = tasksService.appointTaskToEmployee(id, task);
 		Resource<Task> taskResource = tasksResourceAssembler.toResource(taskAppointed);
 		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
-		return ResponseEntity.ok(jsonTaskResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonTaskResource);
 	}
 	
 	/**
@@ -227,7 +229,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 */
 	@DeleteMapping(path = "/{id}/appointed-tasks/{taskId}")
 	public ResponseEntity<String> deleteAppointedTask(@PathVariable(name = "id") Long id,
-													  @PathVariable(name = "taskId") Long taskId) {
+		@PathVariable(name = "taskId") Long taskId) {
 		
 		Task task = tasksService.findById(taskId);
 		if (task.getAppointedTo() != null && task.getAppointedTo().getIdentifier().equals(id)) {
@@ -265,10 +267,10 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 */
 	@Secured({"Administrator"})
 	@RequestMapping(path = "/{id}/tasks-modified-by/{taskId}",
-		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	public ResponseEntity<String> notAllowedTaskModifiedBy(@PathVariable(name = "id") Long id,
-														   @PathVariable(name = "taskId") Long taskId,
-														   HttpServletRequest request) {
+		@PathVariable(name = "taskId") Long taskId,
+		HttpServletRequest request) {
 		
 		String notAllowedMessage = getMessageSource().getMessage(
 			"httpStatus.methodNotAllowed(2)",
@@ -310,7 +312,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Task persistedCreatedByTask = tasksService.persistEntity(task);
 		Resource<Task> taskResource = tasksResourceAssembler.toResource(persistedCreatedByTask);
 		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
-		return ResponseEntity.ok(jsonTaskResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonTaskResource);
 	}
 	
 	/**
@@ -330,7 +332,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Task mergedCreatedByTask = tasksService.mergeEntity(task);
 		Resource<Task> taskResource = tasksResourceAssembler.toResource(mergedCreatedByTask);
 		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
-		return ResponseEntity.ok(jsonTaskResource);
+		return ResponseEntity.accepted().body(jsonTaskResource);
 	}
 	
 	/**
@@ -343,7 +345,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@Secured("Administrator")
 	@DeleteMapping(path = "/{id}/tasks-created-by/{taskId}")
 	public ResponseEntity<String> deleteTaskCreatedBy(@PathVariable(name = "id") Long id,
-													  @PathVariable(name = "taskId") Long taskId) {
+		@PathVariable(name = "taskId") Long taskId) {
 		
 		Task task = tasksService.findById(taskId);
 		if (task.getCreatedBy() != null && task.getCreatedBy().getIdentifier().equals(id)) {
@@ -377,6 +379,23 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.ok(jsonOrdersModifiedByResources);
 	}
 	
+	/**
+	 * @return ErrorMessage about the fact that 'modifiedBy' property is filled in automatically only.
+	 */
+	@Secured({"Administrator"})
+	@RequestMapping(path = "/{id}/orders-modified-by/{orderId}",
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+	public ResponseEntity<String> notAllowedOrderModifiedBy(@PathVariable(name = "id") Long id,
+		@PathVariable(name = "orderId") Long orderId,
+		HttpServletRequest request) {
+		
+		String notAllowedMessage = getMessageSource().getMessage(
+			"httpStatus.methodNotAllowed(2)",
+			new Object[]{request.getMethod(), "As this is being applied automatically only."},
+			LocaleContextHolder.getLocale());
+		return getResponseEntityWithErrorMessage(HttpStatus.METHOD_NOT_ALLOWED, notAllowedMessage);
+	}
+	
 	@GetMapping(path = "/{id}/orders-created-by")
 	public ResponseEntity<String> getOrdersCreatedBy(
 		@PathVariable(name = "id") Long id,
@@ -393,7 +412,77 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.ok(jsonOrdersCreatedByResources);
 	}
 	
-	public ResponseEntity<String> photo() {
+	/**
+	 * Receives a new Order, persist it and sets as 'createdBy' a given Employee.
+	 *
+	 * @return Created Order with the 'createdBy' set.
+	 */
+	@PostMapping(path = "/{id}/orders-created-by")
+	public ResponseEntity<String> postOrderCreatedBy(
+		@PathVariable(name = "id") Long id,
+		@Validated(PersistenceValidation.class) @RequestBody Order order,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		Employee employee = getWorkshopEntitiesService().findById(id);
+		order.setCreatedBy(employee);
+		Order persistedCreatedByOrder = ordersService.persistEntity(order);
+		Resource<Order> orderResource = ordersResourceAssembler.toResource(persistedCreatedByOrder);
+		String jsonOrderResource = getJsonServiceUtils().workshopEntityObjectsToJson(orderResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonOrderResource);
+	}
+	
+	/**
+	 * Receives an existing Order and updates it with the given Employee as 'createdBy'.
+	 *
+	 * @return An updated Order with the new 'createdBy'.
+	 */
+	@PutMapping(path = "/{id}/orders-created-by")
+	public ResponseEntity<String> putOrderCreatedBy(
+		@PathVariable(name = "id") Long id,
+		@Validated(UpdateValidation.class) @RequestBody Order order,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		Employee employee = getWorkshopEntitiesService().findById(id);
+		order.setCreatedBy(employee);
+		Order mergedCreatedByOrder = ordersService.mergeEntity(order);
+		Resource<Order> orderResource = ordersResourceAssembler.toResource(mergedCreatedByOrder);
+		String jsonOrderResource = getJsonServiceUtils().workshopEntityObjectsToJson(orderResource);
+		return ResponseEntity.accepted().body(jsonOrderResource);
+	}
+	
+	/**
+	 * Just deletes the 'createdBy' property from a given Order
+	 *
+	 * @param id      Employee id to be deleted from Order's 'createdBy' property.
+	 * @param orderId The Order that needs the deletion of 'createdBy' property.
+	 * @return The renewed Order without 'createdBy'.
+	 */
+	@Secured("Administrator")
+	@DeleteMapping(path = "/{id}/orders-created-by/{orderId}")
+	public ResponseEntity<String> deleteOrderCreatedBy(@PathVariable(name = "id") Long id,
+		@PathVariable(name = "orderId") Long orderId) {
+		
+		Order order = ordersService.findById(orderId);
+		if (order.getCreatedBy() != null && order.getCreatedBy().getIdentifier().equals(id)) {
+			order.setCreatedBy(null);
+			Order orderWithoutCreatedBy = ordersService.mergeEntity(order);
+			Resource<Order> orderWithoutCreatedByResource = ordersResourceAssembler.toResource(orderWithoutCreatedBy);
+			String jsonOrderkWithoutCreatedBy = getJsonServiceUtils().workshopEntityObjectsToJson(orderWithoutCreatedByResource);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(jsonOrderkWithoutCreatedBy);
+		} else {
+			String errorMessage = getMessageSource().getMessage(
+				"httpStatus.notFound(2)",
+				new Object[]{"Employee.ID=" + id, "Order.ID=" + orderId},
+				LocaleContextHolder.getLocale());
+			return getResponseEntityWithErrorMessage(HttpStatus.NOT_FOUND, errorMessage);
+		}
+	}
+	
+	@PostMapping(path = "/{id}/photo", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<String> photo(@RequestParam(name = "photo") MultipartFile photo) {
+		
 		
 		//TODO: to complete
 		

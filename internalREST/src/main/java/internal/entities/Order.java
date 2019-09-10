@@ -50,7 +50,7 @@ public class Order extends Trackable {
 	 */
 	@CreatedBy //Only in a case when an User is a creator of the Order. Otherwise is set by hand
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@Valid
 	private User createdFor;
 	

@@ -100,16 +100,16 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@EqualsAndHashCode.Include
 	private Set<@Valid Phone> phones;
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, fetch = FetchType.LAZY,
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@EqualsAndHashCode.Include
 	private Collection<@Valid Order> orders;
 	
@@ -119,13 +119,13 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER, cascade = {
-		CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.MERGE})
+	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER,
+				cascade = {CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
-		joinColumns = {
-			@JoinColumn(name = "user_id", nullable = false)},
-		inverseJoinColumns = {
-			@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
+			   joinColumns = {
+				   @JoinColumn(name = "user_id", nullable = false)},
+			   inverseJoinColumns = {
+				   @JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
 	@EqualsAndHashCode.Include
 	private Set<@Valid GrantedAuthority> grantedAuthorities;
 	
@@ -160,7 +160,7 @@ public class User extends WorkshopEntityAbstract {
 	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
 	 */
 	public void addGrantedAuthorities(GrantedAuthority... grantedAuthority) {
-		if (grantedAuthorities == null){
+		if (grantedAuthorities == null) {
 			grantedAuthorities = new HashSet<>(5);
 		}
 		grantedAuthorities.addAll(Arrays.asList(grantedAuthority));
@@ -182,7 +182,7 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@PrePersist
 	public void prePersist() throws PersistenceException {
-		if ((email == null || email.isEmpty()) && (phones == null || phones.isEmpty())){
+		if ((email == null || email.isEmpty()) && (phones == null || phones.isEmpty())) {
 			throw new PersistenceException(
 				"User must have either email or phone as a login to be persisted! Enter one of these field");
 		}

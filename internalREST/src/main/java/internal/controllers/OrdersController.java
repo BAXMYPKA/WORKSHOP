@@ -1,6 +1,5 @@
 package internal.controllers;
 
-import internal.entities.Employee;
 import internal.entities.Order;
 import internal.entities.Task;
 import internal.entities.User;
@@ -15,6 +14,7 @@ import internal.services.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -146,13 +146,66 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 		
 		super.validateBindingResult(bindingResult);
 		Order order = getWorkshopEntitiesService().findById(id);
+		task.setOrder(order);
 		task = tasksService.persistEntity(task);
-		
-		order.setCreatedFor(task);
+		order.addTask(task);
 		getWorkshopEntitiesService().mergeEntity(order);
-		Resource<User> userResource = usersResourceAssembler.toResource(task);
-		String jsonUserResource = getJsonServiceUtils().workshopEntityObjectsToJson(userResource);
-		return ResponseEntity.status(HttpStatus.CREATED).body(jsonUserResource);
+		
+		Resource<Task> taskResource = tasksResourceAssembler.toResource(task);
+		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonTaskResource);
+	}
+	
+	/**
+	 * Receives an existing Task, sets it to a given existing Order and returns an updated Task.
+	 *
+	 * @return An updated Task with the Order set..
+	 */
+	@PutMapping(path = "/{id}/tasks")
+	public ResponseEntity<String> putTask(
+		@PathVariable(name = "id") Long id,
+		@Validated(UpdateValidation.class) @RequestBody Task task,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		Order order = getWorkshopEntitiesService().findById(id);
+		task.setOrder(order);
+		task = tasksService.mergeEntity(task);
+		order.addTask(task);
+		getWorkshopEntitiesService().mergeEntity(order);
+		
+		Resource<Task> taskResource = tasksResourceAssembler.toResource(task);
+		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonTaskResource);
+	}
+	
+	/**
+	 * Removes the Task itself from the DataBase.
+	 *
+	 * @param id     Order.ID the given Task to be removed from.
+	 * @param taskId Task.ID to be removed.
+	 * @return HttpStatus.NO_CONTENT if the Task is successfully removed.
+	 */
+	@DeleteMapping(path = "/{id}/tasks/{taskId}")
+	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
+											 @PathVariable(name = "taskId") Long taskId) {
+		
+		Order order = getWorkshopEntitiesService().findById(id);
+		if (order.getTasks() != null &&
+			order.getTasks().stream().anyMatch(task -> task.getIdentifier().equals(taskId))) {
+			tasksService.removeEntity(taskId);
+			order.getTasks().removeIf(task -> task.getIdentifier().equals(taskId));
+			getWorkshopEntitiesService().mergeEntity(order);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT)
+				.body(getDeleteMessageSuccessLocalized("Task.ID=" + taskId));
+		} else {
+			return getResponseEntityWithErrorMessage(
+				HttpStatus.NOT_FOUND,
+				getMessageSource().getMessage(
+					"httpStatus.notFound(2)",
+					new Object[]{"Task.ID=" + taskId, "Order.ID=" + id},
+					LocaleContextHolder.getLocale()));
+		}
 	}
 	
 }

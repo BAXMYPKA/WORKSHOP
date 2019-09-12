@@ -16,9 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
-import java.lang.ref.Reference;
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -47,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
 	
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
@@ -168,17 +166,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 		List<T> resultList = query.getResultList();
 		
 		if (!resultList.isEmpty()) {
-			//Sorting
-/*
-			String finalOrderBy = orderBy;
-			if (order.isDescending()) { //Descending order
-				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
-			} else { //Ascending order
-				resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()));
-			}
-*/
 			sortEntitiesResultList(resultList, orderBy, order);
-			
 			log.debug("{}s were found and sorted {} by {}", entityClass.getSimpleName(), order.name(), orderBy);
 			return Optional.of(resultList);
 		} else {
@@ -349,8 +337,10 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	
 	/**
 	 * Pull any database changes into the managed Entity
+	 *
+	 * @throws EntityNotFoundException if the entity no longer exists in the database.
 	 */
-	public void refreshEntity(T entity) throws IllegalArgumentException {
+	public void refreshEntity(T entity) throws IllegalArgumentException, EntityNotFoundException {
 		if (entity == null) {
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}

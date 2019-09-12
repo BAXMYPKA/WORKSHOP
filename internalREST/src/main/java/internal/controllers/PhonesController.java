@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PhonesController extends WorkshopControllerAbstract<Phone> {
 	
 	/**
-	 * @param phonesService           By this instance we set the concrete instance of WorkshopServiceAbstract
-	 *                                and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
-	 *                                to operate with.
-	 * @param phonesResourceAssembler
+	 * @param phonesService By this instance we set the concrete instance of WorkshopServiceAbstract
+	 *                      and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
+	 *                      to operate with.
 	 */
 	public PhonesController(PhonesService phonesService, PhonesResourceAssembler phonesResourceAssembler) {
 		super(phonesService, phonesResourceAssembler);

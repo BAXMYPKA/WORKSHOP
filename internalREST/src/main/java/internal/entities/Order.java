@@ -2,8 +2,8 @@ package internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
@@ -56,8 +56,8 @@ public class Order extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER,
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Task> tasks;
 	
 	/**
@@ -95,9 +95,9 @@ public class Order extends Trackable {
 	}
 	
 	/**
-	 * Add a Task and adds its price to the Order.overallPrice
+	 * Add a Task and adds its price to the Order.overallPrice.
+	 * FetchType of {@link #tasks} MUST BY EAGER!
 	 *
-	 * @param task
 	 */
 	public void addTask(@Valid Task task) {
 		if (tasks == null) {
@@ -112,7 +112,7 @@ public class Order extends Trackable {
 	 *
 	 * @param task
 	 */
-	public void deleteTask(@Valid Task task) {
+	public void removeTask(@Valid Task task) {
 		if (task == null || tasks.isEmpty()) return;
 		tasks.remove(task);
 		setOverallPrice(overallPrice.subtract(task.getPrice()));

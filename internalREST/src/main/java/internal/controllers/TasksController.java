@@ -4,6 +4,7 @@ import internal.entities.Classifier;
 import internal.entities.Employee;
 import internal.entities.Order;
 import internal.entities.Task;
+import internal.entities.hibernateValidation.UpdateValidation;
 import internal.exceptions.EntityNotFoundException;
 import internal.hateoasResources.ClassifiersResourceAssembler;
 import internal.hateoasResources.EmployeesResourceAssembler;
@@ -21,7 +22,13 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.HashSet;
 
 @RequestMapping(path = "/internal/tasks", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @RestController
@@ -63,6 +70,68 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 					"httpStatus.notFound(2)",
 					new Object[]{"Employee", getWorkshopEntityClassName() + " ID=" + id},
 					LocaleContextHolder.getLocale()));
+		}
+	}
+	
+	/**
+	 * @return HttpStatus.FORBIDDEN with an explanation about the fact that Employees must be saved by their
+	 * individual links before.
+	 */
+	@PostMapping(path = "/{id}/appointed_to")
+	public ResponseEntity<String> postEmployeeAppointedTo(@PathVariable(name = "id") Long id,
+														  @RequestBody(required = false) Employee employee,
+														  HttpServletRequest request) {
+		return getResponseEntityWithErrorMessage(
+			HttpStatus.FORBIDDEN,
+			getMessageSource().getMessage(
+				"httpStatus.forbidden.withDescription(2)",
+				new Object[]{request.getMethod(), " Save the Employee with a dedicated link first!"},
+				LocaleContextHolder.getLocale()));
+	}
+	
+	@PutMapping(path = "/{id}/appointed_to")
+	public ResponseEntity<String> putEmployeeAppointedTo(@PathVariable(name = "id") Long id,
+														 @Validated(UpdateValidation.class) @RequestBody Employee employee,
+														 BindingResult bindingResult) {
+		super.validateBindingResult(bindingResult);
+		Task task = getWorkshopEntitiesService().findById(id);
+		task.setAppointedTo(employee);
+		getWorkshopEntitiesService().mergeEntity(task);
+		if ((employee.getAppointedTasks() != null)) {
+			employee.getAppointedTasks().add(task);
+		} else {
+			employee.setAppointedTasks(new HashSet<>(Collections.singletonList(task)));
+		}
+		Resource<Task> taskResource = getWorkshopEntityResourceAssembler().toResource(task);
+		String jsonTaskResource = getJsonServiceUtils().workshopEntityObjectsToJson(taskResource);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(jsonTaskResource);
+	}
+	
+	/**
+	 * Just removes this Task from being appointed to the given Employee
+	 */
+	@DeleteMapping(path = "/{id}/appointed_to/{employeeId}")
+	public ResponseEntity<String> deleteEmployeeAppointedTo(@PathVariable(name = "id") Long id,
+															@PathVariable(name = "employeeId") Long employeeId) {
+		Task task = getWorkshopEntitiesService().findById(id);
+		if (task.getAppointedTo() != null && task.getAppointedTo().getIdentifier().equals(employeeId)) {
+			
+			Employee employeeFromTask = task.getAppointedTo();
+			if (employeeFromTask.getAppointedTasks() != null) {
+				employeeFromTask.getAppointedTasks().remove(task);
+			}
+			
+			task.setAppointedTo(null);
+			getWorkshopEntitiesService().mergeEntity(task);
+			
+			Resource<Employee> employeeResource = employeesResourceAssembler.toResource(employeeFromTask);
+			String jsonEmployeeResource = getJsonServiceUtils().workshopEntityObjectsToJson(employeeResource);
+			return ResponseEntity.status(HttpStatus.GONE).body(jsonEmployeeResource);
+		} else {
+			return getResponseEntityWithErrorMessage(HttpStatus.NOT_FOUND, getMessageSource().getMessage(
+				"httpStatus.notFound(2)",
+				new Object[]{"Employee.ID=" + employeeId, "Order.ID=" + id},
+				LocaleContextHolder.getLocale()));
 		}
 	}
 	

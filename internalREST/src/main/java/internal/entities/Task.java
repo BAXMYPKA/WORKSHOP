@@ -3,10 +3,12 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
+import internal.exceptions.PersistenceFailureException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -15,12 +17,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
 /**
+ * Belongs to a particular Order.
+ * Cannot be deleted if that Order is already finished.
  * Can be appointed to an Employee in the creation time or can be self-appointed that's why 'appointedTo' field can be null
  */
 @Getter
@@ -62,16 +67,15 @@ public class Task extends Trackable {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Tasks_to_Classifiers",
-			   schema = "INTERNAL",
-			   joinColumns = {
-				   @JoinColumn(name = "task_id")},
-			   inverseJoinColumns = {
-				   @JoinColumn(name = "classifier_id")})
+		schema = "INTERNAL",
+		joinColumns = {
+			@JoinColumn(name = "task_id")},
+		inverseJoinColumns = {
+			@JoinColumn(name = "classifier_id")})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER,
-			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	@Valid
 	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
@@ -86,16 +90,15 @@ public class Task extends Trackable {
 	 */
 	@Column(scale = 2, nullable = false)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
-					message = "{validation.positiveOrZero}")
-//	@EqualsAndHashCode.Include
+		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder
 	public Task(String name,
-		@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
-		Employee appointedTo,
-		Set<@Valid Classifier> classifiers, Order order,
-		@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+				@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
+				Employee appointedTo,
+				Set<@Valid Classifier> classifiers, Order order,
+				@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
 		this.name = name;
 		this.deadline = deadline;
 		this.appointedTo = appointedTo;
@@ -174,9 +177,20 @@ public class Task extends Trackable {
 		}
 	}
 	
+	/**
+	 * Checks if the Order this Task belongs to is not finished (finished Orders cannot be modified).
+	 *
+	 * @throws PersistenceFailureException If the Order this Task belongs to is already finished and cannot be modified.
+	 *                                     This RuntimeException is intended to break a Transaction with this removing.
+	 */
 	@PreRemove
-	public void preRemove() {
-		if ()
+	public void preRemove() throws PersistenceFailureException {
+		if (order != null && order.getFinished() != null &&
+			order.getFinished().withZoneSameLocal(ZoneId.of("UTC"))
+				.isBefore(ZonedDateTime.now().withZoneSameLocal(ZoneId.of("UTC")))) {
+			throw new PersistenceFailureException("This Task.Order is already finished and cannot be modified!",
+				HttpStatus.FORBIDDEN, "httpStatus.forbidden.removeFromFinishedOrderForbidden");
+		}
 	}
 	
 	@Override

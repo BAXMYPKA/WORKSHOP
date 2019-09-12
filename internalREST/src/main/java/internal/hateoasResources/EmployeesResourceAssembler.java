@@ -5,16 +5,10 @@ import internal.controllers.PositionsController;
 import internal.entities.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -45,7 +39,7 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 		
 		if (PositionsController.GET_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(PositionsController.class).positionEmployees(
+				ControllerLinkBuilder.methodOn(PositionsController.class).getPositionEmployees(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

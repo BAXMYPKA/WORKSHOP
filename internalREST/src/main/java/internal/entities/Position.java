@@ -1,8 +1,11 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.UpdateValidation;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
-import java.util.*;
+import java.util.Set;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
@@ -51,22 +54,14 @@ public class Position extends Trackable implements GrantedAuthority {
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@OneToMany(mappedBy = "position", orphanRemoval = false,
-			   cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "position", orphanRemoval = false, fetch = FetchType.LAZY,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Employee> employees;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@ManyToOne(optional = false, cascade = {CascadeType.REFRESH, CascadeType.MERGE},
-			   fetch = FetchType.EAGER)
-/*
-	@JoinTable(name = "Departments_to_Positions", schema = "INTERNAL",
-			   joinColumns =
-			   @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false, table = "Positions"),
-			   inverseJoinColumns =
-			   @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false, table =
-				   "Departments"))
-*/
+		fetch = FetchType.EAGER)
 	@Valid
 	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
 	private Department department;
@@ -92,18 +87,4 @@ public class Position extends Trackable implements GrantedAuthority {
 	public Long getIdentifier() {
 		return super.getIdentifier();
 	}
-
-//	@Override
-//	public boolean equals(Object o) {
-//		if (this == o) return true;
-//		if (o == null || getClass() != o.getClass()) return false;
-//		if (!super.equals(o)) return false;
-//		Position position = (Position) o;
-//		return name.equals(position.name);
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return Objects.hash(name);
-//	}
 }

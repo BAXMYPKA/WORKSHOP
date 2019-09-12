@@ -12,7 +12,6 @@ import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -94,8 +93,7 @@ public class Employee extends Trackable {
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
@@ -106,23 +104,27 @@ public class Employee extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "appointedTo", fetch = FetchType.LAZY,
 		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Collection<@Valid Task> appointedTasks;
+	private Set<@Valid Task> appointedTasks;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Task.class)
-	private Collection<Trackable> tasksModifiedBy;
+	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Task.class,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Trackable> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Task.class)
-	private Collection<Trackable> tasksCreatedBy;
+	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Task.class,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Trackable> tasksCreatedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Order.class)
-	private Collection<Trackable> ordersModifiedBy;
+	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Order.class,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Trackable> ordersModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@OneToMany(mappedBy = "createdBy", targetEntity = Order.class)
-	private Collection<Trackable> ordersCreatedBy;
+	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Order.class,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<Trackable> ordersCreatedBy;
 	
 	/**
 	 * Can be performed only under a Transaction.

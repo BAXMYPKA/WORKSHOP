@@ -53,7 +53,6 @@ public class Phone extends WorkshopEntityAbstract {
 	private Long identifier;
 	
 	@Column
-	@EqualsAndHashCode.Include
 	private String name;
 	
 	@Column(updatable = false)

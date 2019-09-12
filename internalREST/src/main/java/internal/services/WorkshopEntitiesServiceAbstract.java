@@ -11,12 +11,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.PersistentObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
@@ -50,7 +48,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
@@ -149,7 +147,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
 	}
 */
-	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
@@ -278,7 +275,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 					"removed!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage(
-					"error.removingFailure(1)",
+					"error.removeNotFoundFailure(1)",
 					new Object[]{entityClass.getSimpleName()},
 					LocaleContextHolder.getLocale()),
 				ex);
@@ -301,7 +298,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		T foundBiId = workshopEntitiesDaoAbstract.findById(id).orElseThrow(() -> new EntityNotFoundException(
 			"No " + entityClass.getSimpleName() + " for identifier=" + id + " was found to be deleted!",
 			HttpStatus.NOT_FOUND,
-			messageSource.getMessage("error.removingFailure(2)",
+			messageSource.getMessage("error.removeNotFoundFailure(2)",
 				new Object[]{entityClass.getSimpleName(), id}, LocaleContextHolder.getLocale())));
 		
 		workshopEntitiesDaoAbstract.removeEntity(foundBiId);
@@ -417,6 +414,18 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
 				LocaleContextHolder.getLocale()), e);
+		}
+	}
+	
+	/**
+	 * Refresh the state of the instance from the database, overwriting changes made to the entity, if any.
+	 */
+	public void refreshEntity(T entity) {
+		verifyEntityForNull(entity);
+		try {
+			workshopEntitiesDaoAbstract.refreshEntity(entity);
+		} catch (EntityNotFoundException e) {
+			throw new PersistenceFailureException(e.getMessage(), "httpStatus.notFound", HttpStatus.NOT_FOUND, e);
 		}
 	}
 	
@@ -542,6 +551,20 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 						new Object[]{idToVerify}, LocaleContextHolder.getLocale()));
 				}
 			}
+		}
+	}
+	
+	/**
+	 * @param entity Entity to be checked for nullability.
+	 * @throws IllegalArgumentsException With the HttpStatus.UNPROCESSABLE_ENTITY and localized message for end users.
+	 */
+	protected void verifyEntityForNull(T entity) throws IllegalArgumentsException {
+		if (entity == null) {
+			log.error("The given " + entityClassSimpleName + " cannot be null!");
+			throw new IllegalArgumentsException(
+				"The given " + entityClassSimpleName + " cannot be null!",
+				"httpStatus.unprocessableEntity.null",
+				HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
 }

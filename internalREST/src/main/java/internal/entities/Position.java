@@ -8,7 +8,6 @@ import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -19,20 +18,20 @@ import java.util.Set;
 
 /**
  * Class also plays a role for granting access to the inner App resources by its name
- * by implementing WorkshopGrantedAuthority interface
+ * by containing a set of GrantedAuthorities
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"name", "department"})
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@JsonIgnoreProperties(value = {"department"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"department", "internalGrantedAuthorities"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
-public class Position extends Trackable implements GrantedAuthority {
+public class Position extends Trackable {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
@@ -66,6 +65,10 @@ public class Position extends Trackable implements GrantedAuthority {
 	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
 	private Department department;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@ManyToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<@Valid InternalAuthority> internalGrantedAuthorities;
+	
 	@Builder
 	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
 		this.name = name;
@@ -75,12 +78,6 @@ public class Position extends Trackable implements GrantedAuthority {
 	public void setDepartment(Department department) {
 		this.department = department;
 		this.department.addPosition(this);
-	}
-	
-	@JsonIgnore
-	@Override
-	public String getAuthority() {
-		return getName();
 	}
 	
 	@Override

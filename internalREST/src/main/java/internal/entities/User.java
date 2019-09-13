@@ -114,12 +114,12 @@ public class User extends WorkshopEntityAbstract {
 	private Collection<@Valid Order> orders;
 	
 	/**
-	 * {@link WorkshopGrantedAuthority}
+	 * {@link ExternalAuthority}
 	 * Available individual permissions within Workshop security realm.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER,
+	@ManyToMany(targetEntity = ExternalAuthority.class, fetch = FetchType.EAGER,
 		cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
 		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
@@ -154,7 +154,7 @@ public class User extends WorkshopEntityAbstract {
 	}
 	
 	/**
-	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
+	 * @param grantedAuthority {@link ExternalAuthority}
 	 */
 	public void addGrantedAuthority(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null) {
@@ -164,7 +164,7 @@ public class User extends WorkshopEntityAbstract {
 	}
 	
 	/**
-	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
+	 * @param grantedAuthority {@link ExternalAuthority}
 	 */
 	public void removeGrantedAuthority(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null || grantedAuthorities.isEmpty()) {

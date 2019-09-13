@@ -25,17 +25,18 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"users"}, allowSetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@Entity(name = "Granted_Authority")
-@Table(name = "Granted_Authorities", schema = "EXTERNAL")
-public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements GrantedAuthority {
+@Entity
+@Table(name = "External_Granted_Authorities", schema = "EXTERNAL")
+public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
+/*
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")
 	@SequenceGenerator(name = "authorities_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
@@ -44,6 +45,7 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
+*/
 	
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
@@ -55,10 +57,11 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 		message = "{validation.length}")
 	private String description;
 	
+/*
 	@Column(updatable = false)
 	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
-	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
+*/
 	
 	/**
 	 * Not serializable to JSON (to prevent huge amount of Users).
@@ -74,10 +77,12 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 		return authority;
 	}
 	
+/*
 	@PrePersist
 	public void prePersist() {
 		if (created == null) {
 			created = ZonedDateTime.now();
 		}
 	}
+*/
 }

@@ -1,19 +1,19 @@
 package internal.controllers;
 
+import internal.entities.ExternalAuthority;
 import internal.entities.Order;
 import internal.entities.Phone;
 import internal.entities.User;
-import internal.entities.WorkshopGrantedAuthority;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import internal.hateoasResources.OrdersResourceAssembler;
 import internal.hateoasResources.PhonesResourceAssembler;
 import internal.hateoasResources.UsersResourceAssembler;
-import internal.hateoasResources.WorkshopGrantedAuthoritiesResourceAssembler;
+import internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import internal.services.OrdersService;
 import internal.services.PhonesService;
 import internal.services.UsersService;
-import internal.services.WorkshopGrantedAuthoritiesService;
+import internal.services.ExternalAuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,13 +42,13 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	@Autowired
 	private PhonesService phonesService;
 	@Autowired
-	private WorkshopGrantedAuthoritiesService workshopGrantedAuthoritiesService;
+	private ExternalAuthoritiesService externalAuthoritiesService;
 	@Autowired
 	private OrdersResourceAssembler ordersResourceAssembler;
 	@Autowired
 	private PhonesResourceAssembler phonesResourceAssembler;
 	@Autowired
-	private WorkshopGrantedAuthoritiesResourceAssembler workshopGrantedAuthoritiesResourceAssembler;
+	private ExternalAuthoritiesResourceAssembler externalAuthoritiesResourceAssembler;
 	
 	/**
 	 * @param usersService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -206,10 +206,10 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable phonesPage = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<WorkshopGrantedAuthority> authoritiesByUserPage =
-			workshopGrantedAuthoritiesService.findAllGrantedAuthoritiesByUser(phonesPage, id);
-		Resources<Resource<WorkshopGrantedAuthority>> userAuthoritiesPagedResources =
-			workshopGrantedAuthoritiesResourceAssembler.toPagedSubResources(
+		Page<ExternalAuthority> authoritiesByUserPage =
+			externalAuthoritiesService.findAllGrantedAuthoritiesByUser(phonesPage, id);
+		Resources<Resource<ExternalAuthority>> userAuthoritiesPagedResources =
+			externalAuthoritiesResourceAssembler.toPagedSubResources(
 				authoritiesByUserPage, id, GET_USER_AUTHORITIES_METHOD_NAME);
 		String jsonUserAuthoritiesPagedResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(userAuthoritiesPagedResources);

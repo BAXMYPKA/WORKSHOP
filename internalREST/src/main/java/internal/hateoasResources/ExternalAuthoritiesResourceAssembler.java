@@ -1,8 +1,8 @@
 package internal.hateoasResources;
 
 import internal.controllers.UsersController;
-import internal.controllers.WorkshopGrantedAuthoritiesController;
-import internal.entities.WorkshopGrantedAuthority;
+import internal.controllers.ExternalAuthoritiesController;
+import internal.entities.ExternalAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<WorkshopGrantedAuthority> {
+public class ExternalAuthoritiesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<ExternalAuthority> {
 	
 	
 	/**
@@ -19,8 +19,8 @@ public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitie
 	 * Delete the method arguments and only leave:
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
-	public WorkshopGrantedAuthoritiesResourceAssembler() {
-		super(WorkshopGrantedAuthoritiesController.class, WorkshopGrantedAuthority.class);
+	public ExternalAuthoritiesResourceAssembler() {
+		super(ExternalAuthoritiesController.class, ExternalAuthority.class);
 	}
 	
 	@Override

@@ -1,9 +1,7 @@
 package internal.services;
 
-import internal.dao.WorkshopEntitiesDaoAbstract;
-import internal.dao.WorkshopGrantedAuthoritiesDao;
-import internal.entities.Task;
-import internal.entities.WorkshopGrantedAuthority;
+import internal.dao.ExternalAuthoritiesDao;
+import internal.entities.ExternalAuthority;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import lombok.extern.slf4j.Slf4j;
@@ -21,13 +19,13 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class WorkshopGrantedAuthoritiesService extends WorkshopEntitiesServiceAbstract<WorkshopGrantedAuthority> {
+public class ExternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<ExternalAuthority> {
 	
 	@Autowired
-	private WorkshopGrantedAuthoritiesDao workshopGrantedAuthoritiesDao;
+	private ExternalAuthoritiesDao externalAuthoritiesDao;
 	
-	public WorkshopGrantedAuthoritiesService(WorkshopGrantedAuthoritiesDao workshopGrantedAuthoritiesDao) {
-		super(workshopGrantedAuthoritiesDao);
+	public ExternalAuthoritiesService(ExternalAuthoritiesDao externalAuthoritiesDao) {
+		super(externalAuthoritiesDao);
 	}
 	
 	/**
@@ -37,7 +35,7 @@ public class WorkshopGrantedAuthoritiesService extends WorkshopEntitiesServiceAb
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
-	public Page<WorkshopGrantedAuthority> findAllGrantedAuthoritiesByUser(Pageable pageable, Long userId)
+	public Page<ExternalAuthority> findAllGrantedAuthoritiesByUser(Pageable pageable, Long userId)
 		throws IllegalArgumentsException, EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(userId);
@@ -46,15 +44,15 @@ public class WorkshopGrantedAuthoritiesService extends WorkshopEntitiesServiceAb
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Optional<List<WorkshopGrantedAuthority>> allTasksModifiedByEmployee =
-			workshopGrantedAuthoritiesDao.findAllGrantedAuthoritiesByUser(
+		Optional<List<ExternalAuthority>> allTasksModifiedByEmployee =
+			externalAuthoritiesDao.findAllGrantedAuthoritiesByUser(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			orderBy,
 			order,
 			userId);
 		
-		Page<WorkshopGrantedAuthority> verifiedEntitiesPageFromDao =
+		Page<ExternalAuthority> verifiedEntitiesPageFromDao =
 			super.getVerifiedEntitiesPage(verifiedPageable, allTasksModifiedByEmployee);
 		
 		return verifiedEntitiesPageFromDao;

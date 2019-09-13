@@ -130,16 +130,13 @@ public class Employee extends Trackable {
 	 * Can be performed only under a Transaction.
 	 */
 	public void addPhone(Phone... phones) {
+		for (Phone phone : phones) {
+			phone.setEmployee(this);
+		}
 		if (this.phones != null) {
 			this.phones.addAll(Arrays.asList(phones));
 		} else {
 			this.phones = new HashSet<>(Arrays.asList(phones));
-		}
-		for (Phone phone : this.phones) {
-			if (phone.getEmployee() != null && phone.getEmployee().getPhones() != null) {
-				phone.getEmployee().getPhones().remove(phone);
-			}
-			phone.setEmployee(this);
 		}
 	}
 	

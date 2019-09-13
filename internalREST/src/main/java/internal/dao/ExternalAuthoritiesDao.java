@@ -1,9 +1,7 @@
 package internal.dao;
 
-import internal.entities.Order;
-import internal.entities.Task;
+import internal.entities.ExternalAuthority;
 import internal.entities.User;
-import internal.entities.WorkshopGrantedAuthority;
 import internal.exceptions.InternalServerErrorException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -16,10 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class WorkshopGrantedAuthoritiesDao extends WorkshopEntitiesDaoAbstract<WorkshopGrantedAuthority, Long> {
+public class ExternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<ExternalAuthority, Long> {
 	
-	public WorkshopGrantedAuthoritiesDao() {
-		super.setEntityClass(WorkshopGrantedAuthority.class);
+	public ExternalAuthoritiesDao() {
+		super.setEntityClass(ExternalAuthority.class);
 		super.setKeyClass(Long.class);
 	}
 	
@@ -38,31 +36,31 @@ public class WorkshopGrantedAuthoritiesDao extends WorkshopEntitiesDaoAbstract<W
 	 *                                      LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
 	 *                                      PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
-	public Optional<List<WorkshopGrantedAuthority>> findAllGrantedAuthoritiesByUser(Integer pageSize,
-																					Integer pageNum,
-																					String orderBy,
-																					Sort.Direction order,
-																					Long userId)
+	public Optional<List<ExternalAuthority>> findAllGrantedAuthoritiesByUser(Integer pageSize,
+																			 Integer pageNum,
+																			 String orderBy,
+																			 Sort.Direction order,
+																			 Long userId)
 		throws IllegalArgumentException, InternalServerErrorException {
 		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<WorkshopGrantedAuthority> cqa = cb.createQuery(WorkshopGrantedAuthority.class);
+		CriteriaQuery<ExternalAuthority> cqa = cb.createQuery(ExternalAuthority.class);
 		Root<User> userRoot = cqa.from(User.class);
 		Predicate userIdEqual = cb.equal(userRoot.get("identifier"), userId);
 		cqa.where(userIdEqual);
-		Join<User, WorkshopGrantedAuthority> userAuthorityJoin = userRoot.join("grantedAuthorities");
-		CriteriaQuery<WorkshopGrantedAuthority> criteriaQuery = cqa.select(userAuthorityJoin);
+		Join<User, ExternalAuthority> userAuthorityJoin = userRoot.join("grantedAuthorities");
+		CriteriaQuery<ExternalAuthority> criteriaQuery = cqa.select(userAuthorityJoin);
 		if (order.isAscending()) {
 			criteriaQuery.orderBy(cb.asc(userRoot.get(orderBy)));
 		} else {
 			criteriaQuery.orderBy(cb.desc(userRoot.get(orderBy)));
 		}
-		TypedQuery<WorkshopGrantedAuthority> authorityTypedQuery = entityManager.createQuery(criteriaQuery);
+		TypedQuery<ExternalAuthority> authorityTypedQuery = entityManager.createQuery(criteriaQuery);
 		authorityTypedQuery.setMaxResults(pageSize);
 		authorityTypedQuery.setFirstResult(pageSize * pageNum);
 		try {
-			List<WorkshopGrantedAuthority> grantedAuthorities = authorityTypedQuery.getResultList();
+			List<ExternalAuthority> grantedAuthorities = authorityTypedQuery.getResultList();
 			if (grantedAuthorities != null && !grantedAuthorities.isEmpty()) {
 				return Optional.of(grantedAuthorities);
 			} else {

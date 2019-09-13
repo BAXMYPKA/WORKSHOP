@@ -37,7 +37,7 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (PositionsController.GET_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (PositionsController.GET_POSITION_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(PositionsController.class).getPositionEmployees(
 					ownerId,

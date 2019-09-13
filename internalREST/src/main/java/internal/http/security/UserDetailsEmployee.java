@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * This implementation is intended to give an Employee object (eg for Trackable.setModified purpose, etc).
@@ -30,7 +29,8 @@ public class UserDetailsEmployee implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(employee.getPosition());
+		return employee.getPosition().getInternalGrantedAuthorities();
+//		return Collections.singletonList(employee.getPosition());
 	}
 	
 	@Override

@@ -2,14 +2,17 @@ package internal.controllers;
 
 import internal.entities.Department;
 import internal.entities.Employee;
+import internal.entities.InternalAuthority;
 import internal.entities.Position;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import internal.hateoasResources.DepartmentsResourceAssembler;
 import internal.hateoasResources.EmployeesResourceAssembler;
+import internal.hateoasResources.InternalAuthoritiesResourceAssembler;
 import internal.hateoasResources.PositionsResourceAssembler;
 import internal.services.DepartmentsService;
 import internal.services.EmployeesService;
+import internal.services.InternalAuthoritiesService;
 import internal.services.PositionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -33,7 +36,8 @@ import javax.servlet.http.HttpServletRequest;
 @ExposesResourceFor(Position.class)
 public class PositionsController extends WorkshopControllerAbstract<Position> {
 	
-	public static final String GET_EMPLOYEES_METHOD_NAME = "getEmployees";
+	public static final String GET_POSITION_EMPLOYEES_METHOD_NAME = "getPositionEmployees";
+	public static final String GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME = "getPositionInternalAuthorities";
 	
 	@Autowired
 	private SmartValidator smartValidator;
@@ -42,9 +46,13 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	@Autowired
 	private EmployeesService employeesService;
 	@Autowired
+	private InternalAuthoritiesService internalAuthoritiesService;
+	@Autowired
 	private DepartmentsResourceAssembler departmentsResourceAssembler;
 	@Autowired
 	private EmployeesResourceAssembler employeesResourceAssembler;
+	@Autowired
+	private InternalAuthoritiesResourceAssembler internalAuthoritiesResourceAssembler;
 	
 	/**
 	 * @param positionsService By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -91,7 +99,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
 		Resources<Resource<Employee>> positionEmployeesPagedResources =
-			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id, GET_EMPLOYEES_METHOD_NAME);
+			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id, GET_POSITION_EMPLOYEES_METHOD_NAME);
 		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionEmployeesPagedResources);
 		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}
@@ -149,5 +157,38 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 				new Object[]{"Position from Employee",
 					" Employee cannot be left without a Position! Please, use Put method for replacing Position!"},
 				LocaleContextHolder.getLocale()));
+	}
+	
+	@GetMapping(path = "/{id}/internal_authorities")
+	public ResponseEntity<String> getPositionInternalAuthorities(
+		@PathVariable(name = "id") Long id,
+		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		
+		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
+		Page<InternalAuthority> internalAuthoritiesByPositionPage =
+			internalAuthoritiesService.findAllInternalAuthoritiesByPosition(pageable, id);
+		Resources<Resource<InternalAuthority>> positionInternalAuthoritiesResources =
+			internalAuthoritiesResourceAssembler.toPagedSubResources(
+				internalAuthoritiesByPositionPage, id, GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME);
+		String jsonPositionInternalAuthoritiesResources =
+			getJsonServiceUtils().workshopEntityObjectsToJson(positionInternalAuthoritiesResources);
+		return ResponseEntity.ok(jsonPositionInternalAuthoritiesResources);
+	}
+	
+	@PostMapping(path = "/{id}/internal_authorities")
+	public ResponseEntity<String> postForbiddenMethodPositionInternalAuthority(
+		@PathVariable(name = "id") Long id,
+		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
+		BindingResult bindingResult,
+		HttpServletRequest request) {
+		
+		String errorMessage = getMessageSource().getMessage(
+			"httpStatus.forbidden.withDescription(2)",
+			new Object[]{request.getMethod() + " HttpMethod", " Use direct Link from IntarnalAuthority instead to do it!"},
+			LocaleContextHolder.getLocale());
+		return getResponseEntityWithErrorMessage(HttpStatus.FORBIDDEN, errorMessage);
 	}
 }

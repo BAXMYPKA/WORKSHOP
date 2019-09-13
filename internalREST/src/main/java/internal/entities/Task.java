@@ -19,6 +19,7 @@ import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -66,12 +67,9 @@ public class Task extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinTable(name = "Tasks_to_Classifiers",
-		schema = "INTERNAL",
-		joinColumns = {
-			@JoinColumn(name = "task_id")},
-		inverseJoinColumns = {
-			@JoinColumn(name = "classifier_id")})
+	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
+		joinColumns = {@JoinColumn(name = "task_id")},
+		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -116,39 +114,37 @@ public class Task extends Trackable {
 	}
 	
 	/**
-	 * ALso adds a Classifier.price to this Task.price
+	 * ALso adds an every Classifier.price to this Task.price
 	 *
-	 * @param classifier
+	 * @param classifiers
 	 * @throws IllegalArgumentException
 	 */
-	public void addClassifier(@Valid Classifier classifier) throws IllegalArgumentException {
-		if (classifier == null) {
+	public void addClassifier(@Valid Classifier... classifiers) throws IllegalArgumentException {
+		if (classifiers == null) {
 			throw new IllegalArgumentException("Classifier cannot be null!");
 		}
-		if (classifiers == null) {
-			classifiers = new HashSet<>(3);
+		if (this.classifiers == null) {
+			this.classifiers = new HashSet<>(3);
 		}
-		classifiers.add(classifier);
-		price = price == null ? classifier.getPrice() : price.add(classifier.getPrice());
+		Stream.of(classifiers).forEach(classifierToAdd -> {
+			this.classifiers.add(classifierToAdd);
+			price = price == null ? classifierToAdd.getPrice() : price.add(classifierToAdd.getPrice());
+		});
 	}
 	
 	/**
-	 * ALso adds an every Classifier.price to this Task.price
-	 *
-	 * @param classifier
-	 * @throws IllegalArgumentException
+	 * This method also recalculates the Price of the Task.
 	 */
-	public void addClassifiers(@Valid Classifier... classifier) throws IllegalArgumentException {
-		if (classifier == null) {
+	public void removeClassifier(@Valid Classifier... classifiers) {
+		if (classifiers == null) {
 			throw new IllegalArgumentException("Classifier cannot be null!");
 		}
-		if (classifiers == null) {
-			classifiers = new HashSet<>(3);
+		if (this.classifiers == null) {
+			return;
 		}
-		Stream.of(classifier).forEach(classifierToAdd -> {
-			classifiers.add(classifierToAdd);
-			price = price == null ? classifierToAdd.getPrice() : price.add(classifierToAdd.getPrice());
-		});
+		price = price.subtract(
+			Arrays.stream(classifiers).map(Classifier::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add)
+		);
 	}
 	
 	/**

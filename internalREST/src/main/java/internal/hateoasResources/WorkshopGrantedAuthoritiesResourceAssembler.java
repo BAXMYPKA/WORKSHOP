@@ -38,7 +38,7 @@ public class WorkshopGrantedAuthoritiesResourceAssembler extends WorkshopEntitie
 		
 		if (UsersController.GET_USER_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(UsersController.class).userGrantedAuthorities(
+				ControllerLinkBuilder.methodOn(UsersController.class).getUserGrantedAuthorities(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

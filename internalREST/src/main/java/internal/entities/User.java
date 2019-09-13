@@ -1,8 +1,11 @@
 package internal.entities;
 
-import com.fasterxml.jackson.annotation.*;
-import internal.entities.hibernateValidation.UpdateValidation;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
@@ -80,7 +83,6 @@ public class User extends WorkshopEntityAbstract {
 	
 	@Column(nullable = false)
 	@PastOrPresent(message = "{validation.pastOrPresent}")
-	@EqualsAndHashCode.Include
 	private ZonedDateTime created;
 	
 	@Column
@@ -101,16 +103,14 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
-			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@EqualsAndHashCode.Include
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones;
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, fetch = FetchType.LAZY,
-			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	@EqualsAndHashCode.Include
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Order> orders;
 	
 	/**
@@ -120,13 +120,10 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = WorkshopGrantedAuthority.class, fetch = FetchType.EAGER,
-				cascade = {CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.MERGE})
+		cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
-			   joinColumns = {
-				   @JoinColumn(name = "user_id", nullable = false)},
-			   inverseJoinColumns = {
-				   @JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
-	@EqualsAndHashCode.Include
+		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
 	private Set<@Valid GrantedAuthority> grantedAuthorities;
 	
 	public User(@Email(message = "{validation.email}") String email) {
@@ -141,7 +138,7 @@ public class User extends WorkshopEntityAbstract {
 		isEnabled = enabled != null ? enabled : true;
 	}
 	
-	public void addPhones(Phone... phone) throws IllegalArgumentException {
+	public void addPhone(Phone... phone) throws IllegalArgumentException {
 		if (phone == null) {
 			throw new IllegalArgumentException("Phone object cannot be null!");
 		}
@@ -151,7 +148,7 @@ public class User extends WorkshopEntityAbstract {
 		phones.addAll(Arrays.asList(phone));
 	}
 	
-	public void deletePhones(Phone... phone) {
+	public void removePhone(Phone... phone) {
 		if (phones == null || phones.isEmpty()) return;
 		phones.removeAll(Arrays.asList(phone));
 	}
@@ -159,7 +156,7 @@ public class User extends WorkshopEntityAbstract {
 	/**
 	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
 	 */
-	public void addGrantedAuthorities(GrantedAuthority... grantedAuthority) {
+	public void addGrantedAuthority(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null) {
 			grantedAuthorities = new HashSet<>(5);
 		}
@@ -169,7 +166,7 @@ public class User extends WorkshopEntityAbstract {
 	/**
 	 * @param grantedAuthority {@link WorkshopGrantedAuthority}
 	 */
-	public void removeGrantedAuthorities(GrantedAuthority... grantedAuthority) {
+	public void removeGrantedAuthority(GrantedAuthority... grantedAuthority) {
 		if (grantedAuthorities == null || grantedAuthorities.isEmpty()) {
 			return;
 		}

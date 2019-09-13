@@ -59,7 +59,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 			return link;
 		} else if (UsersController.GET_USER_ORDERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(UsersController.class).userOrders(
+				ControllerLinkBuilder.methodOn(UsersController.class).getUserOrders(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

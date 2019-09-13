@@ -336,6 +336,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	}
 	
 	/**
+	 * Works only with managed Entities!
 	 * Pull any database changes into the managed Entity
 	 *
 	 * @throws EntityNotFoundException if the entity no longer exists in the database.
@@ -349,6 +350,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	}
 	
 	/**
+	 * Works only with managed Entities!
 	 * Pull any database changes into the managed Entities
 	 */
 	public void refreshEntities(Collection<T> entities) throws IllegalArgumentException {

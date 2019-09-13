@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,8 @@ class WorkshopEntitiesServiceAbstractIT {
 	private EmployeesService employeesService;
 	@Autowired
 	private PhonesService phonesService;
+	@Autowired
+	private UsersService usersService;
 	
 	@Test
 	@DisplayName("EntitiesServiceAbstract subclasses initializes and autowires successfully")
@@ -133,7 +136,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		order.setTasks(new HashSet<>(Collections.singletonList(task)));
 		
-		task.addClassifiers(classifier1, classifier2);
+		task.addClassifier(classifier1, classifier2);
 		tasksService.mergeEntity(task);
 		
 		//WHEN
@@ -167,7 +170,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		order.setTasks(new HashSet<>(Collections.singletonList(task)));
 		
-		task.addClassifiers(classifier1, classifier2);
+		task.addClassifier(classifier1, classifier2);
 		tasksService.mergeEntity(task);
 		
 		//WHEN
@@ -534,6 +537,24 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		assertEquals(persistedEmployee, taskWithCreatedBy.getCreatedBy());
 		assertTrue(tasksCreatedByEmployee.getContent().contains(task1));
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void post_New_Phone_To_Existing_User_And_Getting_User_Again_Should_Return_User_With_Phone() {
+		//GIVEN
+		User user = new User("user@email.com");
+		user = usersService.persistEntity(user);
+		
+		//WHEN
+		Phone phone = new Phone("Home", "111-111-11-11");
+		phone.setUser(user);
+		phone = phonesService.persistEntity(phone);
+		
+		user = usersService.findById(user.getIdentifier());
+		
+		//THEN
+		assertTrue(user.getPhones().contains(phone));
 	}
 	
 }

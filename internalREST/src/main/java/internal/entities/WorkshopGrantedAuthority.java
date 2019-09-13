@@ -65,8 +65,8 @@ public class WorkshopGrantedAuthority extends WorkshopEntityAbstract implements 
 	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "grantedAuthorities", targetEntity = User.class, cascade = {
-		CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@ManyToMany(mappedBy = "grantedAuthorities", targetEntity = User.class,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<User> users;
 	
 	@Override

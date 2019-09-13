@@ -3,8 +3,8 @@ package internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import internal.entities.hibernateValidation.UpdateValidation;
 import internal.entities.hibernateValidation.PersistenceValidation;
+import internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -72,14 +72,14 @@ public class Phone extends WorkshopEntityAbstract {
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Employee.class,
-			   fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, targetEntity = User.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;

@@ -4,6 +4,7 @@ import internal.entities.Classifier;
 import internal.entities.Employee;
 import internal.entities.Order;
 import internal.entities.Task;
+import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import internal.exceptions.EntityNotFoundException;
 import internal.hateoasResources.ClassifiersResourceAssembler;
@@ -145,6 +146,18 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 		return ResponseEntity.ok(jsonEmployeeResource);
 	}
 	
+	@RequestMapping(path = {"/{id}/order", "/{id}/order/{orderId}"},
+		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+	public ResponseEntity<String> forbiddenMethodsTaskOrder(@PathVariable(name = "id", required = false) Long id,
+															@PathVariable(name = "orderId", required = false) Long orderId,
+															@RequestBody(required = false) Order order,
+															HttpServletRequest request) {
+		return getResponseEntityWithErrorMessage(HttpStatus.FORBIDDEN, getMessageSource().getMessage(
+			"httpStatus.forbidden.withDescription(2)",
+			new Object[]{request.getMethod() + " method ", " Use '{orderId}/tasks' instead!"},
+			LocaleContextHolder.getLocale()));
+	}
+	
 	@GetMapping(path = "/{id}/classifiers")
 	public ResponseEntity<String> taskClassifiers(
 		@PathVariable("id") Long id,
@@ -159,5 +172,69 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 			classifiersResourceAssembler.toPagedSubResources(allClassifiersByTaskPage, id, GET_TASK_CLASSIFIERS_METHOD_NAME);
 		String jsonPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(classifiersByTaskPagedResources);
 		return ResponseEntity.ok(jsonPagedResources);
+	}
+	
+	/**
+	 * Receives a new Classifier, persist if and set into the given Task.
+	 * @param id Task.ID
+	 * @param classifier A Classifier to be persisted.
+	 * @return The persisted Classifier with this Task set.
+	 */
+	@PostMapping(path = "/{id}/classifiers")
+	public ResponseEntity<String> postClassifier(
+		@PathVariable(name = "id") Long id,
+		@Validated(PersistenceValidation.class) @RequestBody Classifier classifier,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		classifier = classifiersService.persistEntity(classifier);
+		Task task = getWorkshopEntitiesService().findById(id);
+		task.addClassifier(classifier);
+		getWorkshopEntitiesService().mergeEntity(task);
+		classifier.addTask(task); //Just to be fulfilled before sending back
+		
+		Resource<Classifier> classifierResource = classifiersResourceAssembler.toResource(classifier);
+		String jsonClassifierResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassifierResource);
+	}
+	
+	/**
+	 * Receives an existing Classifier, set into the given Task and updates it state.
+	 * @param id Task.ID
+	 * @param classifier A Classifier to be updated.
+	 * @return The updated Classifier with this Task set.
+	 */
+	@PutMapping(path = "/{id}/classifiers")
+	public ResponseEntity<String> putClassifier(
+		@PathVariable(name = "id") Long id,
+		@Validated(UpdateValidation.class) @RequestBody Classifier classifier,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		classifier = classifiersService.mergeEntity(classifier);
+		Task task = getWorkshopEntitiesService().findById(id);
+		task.addClassifier(classifier);
+		getWorkshopEntitiesService().mergeEntity(task);
+		classifier.addTask(task); //Just to be fulfilled before sending back
+		
+		Resource<Classifier> classifierResource = classifiersResourceAssembler.toResource(classifier);
+		String jsonClassifierResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierResource);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(jsonClassifierResource);
+	}
+	
+	/**
+	 * Just deletes a Classifier from a given Task.
+	 * @param id Task.ID the Classifier have to be deleted from.
+	 * @param classifierId The Classifier.ID to be deleted from the Task.
+	 * @return HttpStatus.NO_CONTENT
+	 */
+	@DeleteMapping(path = "{id}/classifiers/{classifierId}")
+	public ResponseEntity<String> deleteClassifier(@PathVariable(name = "id") Long id,
+												   @PathVariable(name = "classifierId") Long classifierId) {
+		Task task = getWorkshopEntitiesService().findById(id);
+		Classifier classifier = classifiersService.findById(classifierId);
+		task.removeClassifier(classifier);
+		getWorkshopEntitiesService().mergeEntity(task);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

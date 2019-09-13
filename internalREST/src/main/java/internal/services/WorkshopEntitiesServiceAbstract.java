@@ -26,10 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -418,12 +415,13 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	}
 	
 	/**
+	 * Works only with managed Entities!
 	 * Refresh the state of the instance from the database, overwriting changes made to the entity, if any.
 	 */
-	public void refreshEntity(T entity) {
+	public void refreshEntity(T... entity) {
 		verifyEntityForNull(entity);
 		try {
-			workshopEntitiesDaoAbstract.refreshEntity(entity);
+			Arrays.stream(entity).forEach(t -> workshopEntitiesDaoAbstract.refreshEntity(t));
 		} catch (EntityNotFoundException e) {
 			throw new PersistenceFailureException(e.getMessage(), "httpStatus.notFound", HttpStatus.NOT_FOUND, e);
 		}
@@ -558,12 +556,18 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @param entity Entity to be checked for nullability.
 	 * @throws IllegalArgumentsException With the HttpStatus.UNPROCESSABLE_ENTITY and localized message for end users.
 	 */
-	protected void verifyEntityForNull(T entity) throws IllegalArgumentsException {
-		if (entity == null) {
+	protected void verifyEntityForNull(T... entity) throws IllegalArgumentsException {
+		if (entity == null || Arrays.stream(entity).anyMatch(Objects::isNull)) {
 			log.error("The given " + entityClassSimpleName + " cannot be null!");
 			throw new IllegalArgumentsException(
 				"The given " + entityClassSimpleName + " cannot be null!",
 				"httpStatus.unprocessableEntity.null",
+				HttpStatus.UNPROCESSABLE_ENTITY);
+		} else if (entity.length == 0) {
+			log.error("The given " + entityClassSimpleName + "s cannot be the empty array!");
+			throw new IllegalArgumentsException(
+				"The given " + entityClassSimpleName + "s cannot be the empty array!",
+				"httpStatus.unprocessableEntity.empty",
 				HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}

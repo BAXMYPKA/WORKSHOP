@@ -121,10 +121,10 @@ public class User extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = ExternalAuthority.class, fetch = FetchType.EAGER,
 		cascade = {CascadeType.REFRESH, CascadeType.MERGE})
-	@JoinTable(name = "Users_To_GrantedAuthorities", schema = "EXTERNAL",
+	@JoinTable(name = "Users_To_External_Authorities", schema = "EXTERNAL",
 		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "WorkshopGrantedAuthority_id", nullable = false)})
-	private Set<@Valid GrantedAuthority> grantedAuthorities;
+		inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
+	private Set<@Valid GrantedAuthority> externalAuthorities;
 	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;
@@ -157,20 +157,20 @@ public class User extends WorkshopEntityAbstract {
 	 * @param grantedAuthority {@link ExternalAuthority}
 	 */
 	public void addGrantedAuthority(GrantedAuthority... grantedAuthority) {
-		if (grantedAuthorities == null) {
-			grantedAuthorities = new HashSet<>(5);
+		if (externalAuthorities == null) {
+			externalAuthorities = new HashSet<>(5);
 		}
-		grantedAuthorities.addAll(Arrays.asList(grantedAuthority));
+		externalAuthorities.addAll(Arrays.asList(grantedAuthority));
 	}
 	
 	/**
 	 * @param grantedAuthority {@link ExternalAuthority}
 	 */
 	public void removeGrantedAuthority(GrantedAuthority... grantedAuthority) {
-		if (grantedAuthorities == null || grantedAuthorities.isEmpty()) {
+		if (externalAuthorities == null || externalAuthorities.isEmpty()) {
 			return;
 		}
-		grantedAuthorities.removeAll(Arrays.asList(grantedAuthority));
+		externalAuthorities.removeAll(Arrays.asList(grantedAuthority));
 	}
 	
 	/**

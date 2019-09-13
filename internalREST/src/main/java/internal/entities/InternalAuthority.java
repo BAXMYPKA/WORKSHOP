@@ -68,10 +68,10 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(targetEntity = Position.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToMany(targetEntity = Position.class, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Positions_To_Internal_Authorities", schema = "INTERNAL",
-		joinColumns = {@JoinColumn(name = "internal_authority_id")},
-		inverseJoinColumns = {@JoinColumn(name = "position_id")})
+		joinColumns = {@JoinColumn(name = "internal_authority_id", nullable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "position_id", nullable = false)})
 	private Set<@Valid Position> position;
 	
 	@Override

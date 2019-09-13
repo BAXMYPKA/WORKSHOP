@@ -29,7 +29,7 @@ public class UserDetailsEmployee implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return employee.getPosition().getInternalGrantedAuthorities();
+		return employee.getPosition().getInternalAuthorities();
 //		return Collections.singletonList(employee.getPosition());
 	}
 	

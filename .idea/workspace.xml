@@ -2,22 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExternalAuthoritiesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopGrantedAuthoritiesController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopGrantedAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopGrantedAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopGrantedAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsEmployee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopGrantedAuthoritiesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/ExternalAuthoritiesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,13 +62,6 @@
         <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
         <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
         <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="MEM:WORKSHOP" type="feb32156:DbDataSourceImpl" />
-        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
-        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
-        <item name="EMPLOYEES: table" type="818c1b4a:H2ImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -523,6 +517,7 @@
       <workItem from="1568271298623" duration="16565000" />
       <workItem from="1568354411405" duration="11315000" />
       <workItem from="1568372845004" duration="12926000" />
+      <workItem from="1568395209708" duration="1295000" />
     </task>
     <servers />
   </component>
@@ -555,17 +550,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

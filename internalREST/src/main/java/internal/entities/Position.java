@@ -67,7 +67,7 @@ public class Position extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<@Valid InternalAuthority> internalGrantedAuthorities;
+	private Set<@Valid InternalAuthority> internalAuthorities;
 	
 	@Builder
 	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {

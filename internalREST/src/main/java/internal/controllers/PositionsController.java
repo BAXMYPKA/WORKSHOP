@@ -1,9 +1,6 @@
 package internal.controllers;
 
-import internal.entities.Department;
-import internal.entities.Employee;
-import internal.entities.InternalAuthority;
-import internal.entities.Position;
+import internal.entities.*;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
 import internal.hateoasResources.DepartmentsResourceAssembler;
@@ -73,33 +70,33 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@RequestMapping(path = {"/{id}/department/{departmentId}", "/{id}/department/"},
-		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+		  method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 	public ResponseEntity<String> positionDepartmentForbiddenMethods(
-		@PathVariable(name = "id") Long id,
-		@PathVariable(name = "departmentId", required = false) Long departmentId,
-		@RequestBody(required = false) Department department,
-		HttpServletRequest request) {
+		  @PathVariable(name = "id") Long id,
+		  @PathVariable(name = "departmentId", required = false) Long departmentId,
+		  @RequestBody(required = false) Department department,
+		  HttpServletRequest request) {
 		
 		return getResponseEntityWithErrorMessage(
-			HttpStatus.FORBIDDEN,
-			getMessageSource().getMessage(
-				"httpStatus.forbidden.withDescription(2)",
-				new Object[]{request.getMethod(), " Please, use strict Department link for such purposes!"},
-				LocaleContextHolder.getLocale()));
+			  HttpStatus.FORBIDDEN,
+			  getMessageSource().getMessage(
+					"httpStatus.forbidden.withDescription(2)",
+					new Object[]{request.getMethod(), " Please, use strict Department link for such purposes!"},
+					LocaleContextHolder.getLocale()));
 	}
 	
 	@GetMapping(path = "/{id}/employees")
 	public ResponseEntity<String> getPositionEmployees(
-		@PathVariable("id") Long id,
-		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
-		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		  @PathVariable("id") Long id,
+		  @RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		  @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		  @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		  @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageableEmployees = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Employee> employeesByPositionPage = employeesService.findEmployeesByPosition(pageableEmployees, id);
 		Resources<Resource<Employee>> positionEmployeesPagedResources =
-			employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id, GET_POSITION_EMPLOYEES_METHOD_NAME);
+			  employeesResourceAssembler.toPagedSubResources(employeesByPositionPage, id, GET_POSITION_EMPLOYEES_METHOD_NAME);
 		String jsonPagedEmployeesResources = getJsonServiceUtils().workshopEntityObjectsToJson(positionEmployeesPagedResources);
 		return ResponseEntity.ok(jsonPagedEmployeesResources);
 	}
@@ -151,44 +148,70 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	public ResponseEntity<String> deletePositionEmployeeForbidden(@PathVariable(name = "id") Long id,
 																  @PathVariable(name = "employeeId") Long employeeId) {
 		return getResponseEntityWithErrorMessage(
-			HttpStatus.FORBIDDEN,
-			getMessageSource().getMessage(
-				"httpStatus.forbidden.removeForbidden(2)",
-				new Object[]{"Position from Employee",
-					" Employee cannot be left without a Position! Please, use Put method for replacing Position!"},
-				LocaleContextHolder.getLocale()));
+			  HttpStatus.FORBIDDEN,
+			  getMessageSource().getMessage(
+					"httpStatus.forbidden.removeForbidden(2)",
+					new Object[]{"Position from Employee",
+						  " Employee cannot be left without a Position! Please, use Put method for replacing Position!"},
+					LocaleContextHolder.getLocale()));
 	}
 	
 	@GetMapping(path = "/{id}/internal_authorities")
 	public ResponseEntity<String> getPositionInternalAuthorities(
-		@PathVariable(name = "id") Long id,
-		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
-		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		  @PathVariable(name = "id") Long id,
+		  @RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
+		  @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+		  @RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
+		  @RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<InternalAuthority> internalAuthoritiesByPositionPage =
-			internalAuthoritiesService.findAllInternalAuthoritiesByPosition(pageable, id);
+			  internalAuthoritiesService.findAllInternalAuthoritiesByPosition(pageable, id);
 		Resources<Resource<InternalAuthority>> positionInternalAuthoritiesResources =
-			internalAuthoritiesResourceAssembler.toPagedSubResources(
-				internalAuthoritiesByPositionPage, id, GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME);
+			  internalAuthoritiesResourceAssembler.toPagedSubResources(
+					internalAuthoritiesByPositionPage, id, GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME);
 		String jsonPositionInternalAuthoritiesResources =
-			getJsonServiceUtils().workshopEntityObjectsToJson(positionInternalAuthoritiesResources);
+			  getJsonServiceUtils().workshopEntityObjectsToJson(positionInternalAuthoritiesResources);
 		return ResponseEntity.ok(jsonPositionInternalAuthoritiesResources);
 	}
 	
+	/**
+	 * New InternalAuthorities have to be persisted with their dedicated controller!
+	 *
+	 * @return HttpStatus.FORBIDDEN with a message advises using {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult)}
+	 * post method for persisting.
+	 */
 	@PostMapping(path = "/{id}/internal_authorities")
 	public ResponseEntity<String> postForbiddenMethodPositionInternalAuthority(
-		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
-		BindingResult bindingResult,
-		HttpServletRequest request) {
+		  @PathVariable(name = "id") Long id,
+		  @Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
+		  BindingResult bindingResult,
+		  HttpServletRequest request) {
 		
 		String errorMessage = getMessageSource().getMessage(
-			"httpStatus.forbidden.withDescription(2)",
-			new Object[]{request.getMethod() + " HttpMethod", " Use direct Link from IntarnalAuthority instead to do it!"},
-			LocaleContextHolder.getLocale());
+			  "httpStatus.forbidden.withDescription(2)",
+			  new Object[]{request.getMethod() + " HttpMethod", " Use direct Link from InternalAuthority instead to do it!"},
+			  LocaleContextHolder.getLocale());
 		return getResponseEntityWithErrorMessage(HttpStatus.FORBIDDEN, errorMessage);
 	}
+	
+	/**
+	 * Adds another existing InternalAuthority to the given Position
+	 * @param id Position.ID to add a new InternalAuthority to.
+	 * @param internalAuthority An existing InternalAuthority to be added.
+	 * @return HttpStatus.ACCEPTED with the renewed InternalAuthority.
+	 */
+	@PutMapping(path = "/{id}/internal_authorities")
+	public ResponseEntity<String> putPositionInternalAuthority(
+		  @PathVariable(name = "id") Long id,
+		  @Validated(UpdateValidation.class) @RequestBody InternalAuthority internalAuthority,
+		  BindingResult bindingResult) {
+		super.validateBindingResult(bindingResult);
+		Position position = getWorkshopEntitiesService().findById(id);
+		
+		//TODO: to complete
+		
+		return null;
+	}
+	
 }

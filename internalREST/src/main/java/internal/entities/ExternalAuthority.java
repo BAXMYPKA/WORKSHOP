@@ -30,7 +30,7 @@ import java.util.Set;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
-@Table(name = "External_Granted_Authorities", schema = "EXTERNAL")
+@Table(name = "External_Authorities", schema = "EXTERNAL")
 public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	
 	@Transient
@@ -68,8 +68,7 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "grantedAuthorities", targetEntity = User.class,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToMany(mappedBy = "externalAuthorities", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<User> users;
 	
 	@Override

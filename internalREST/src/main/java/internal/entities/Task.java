@@ -68,8 +68,8 @@ public class Task extends Trackable {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
-		joinColumns = {@JoinColumn(name = "task_id")},
-		inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+			   joinColumns = {@JoinColumn(name = "task_id")},
+			   inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -88,15 +88,15 @@ public class Task extends Trackable {
 	 */
 	@Column(scale = 2, nullable = false)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
-		message = "{validation.positiveOrZero}")
+					message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder
 	public Task(String name,
-				@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
-				Employee appointedTo,
-				Set<@Valid Classifier> classifiers, Order order,
-				@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+		@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
+		Employee appointedTo,
+		Set<@Valid Classifier> classifiers, Order order,
+		@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
 		this.name = name;
 		this.deadline = deadline;
 		this.appointedTo = appointedTo;

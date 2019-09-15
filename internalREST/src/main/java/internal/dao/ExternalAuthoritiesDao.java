@@ -68,7 +68,7 @@ public class ExternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<External
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 		//TODO: to test
 	}

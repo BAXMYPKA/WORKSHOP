@@ -2,22 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/logs/internalREST.log.2019-09-14.0.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af08d03f-e9f0-4c8f-857b-5b6208b27e62.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_28_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsEmployee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-04.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-05.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
@@ -94,7 +99,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="threads" value="3" />
+        <option name="threads" value="4" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -143,7 +148,7 @@
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Debugger_Data_Views_Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -518,6 +523,11 @@
       <workItem from="1568354411405" duration="11315000" />
       <workItem from="1568372845004" duration="12926000" />
       <workItem from="1568395209708" duration="1295000" />
+      <workItem from="1568490356891" duration="592000" />
+      <workItem from="1568490975227" duration="235000" />
+      <workItem from="1568491853447" duration="837000" />
+      <workItem from="1568492714861" duration="152000" />
+      <workItem from="1568539514617" duration="7489000" />
     </task>
     <servers />
   </component>

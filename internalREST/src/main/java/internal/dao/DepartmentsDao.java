@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -56,7 +55,7 @@ public class DepartmentsDao extends WorkshopEntitiesDaoAbstract<Department, Long
 			return Optional.empty();
 		} catch (Exception e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	

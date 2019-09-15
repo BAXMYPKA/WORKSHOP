@@ -3,10 +3,8 @@ package internal.services;
 import internal.dao.EmployeesDao;
 import internal.dao.PhonesDao;
 import internal.dao.UsersDao;
-import internal.entities.Classifier;
 import internal.entities.Employee;
 import internal.entities.Phone;
-import internal.entities.User;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.InternalServerErrorException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +18,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,7 +143,7 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 				getWorkshopEntitiesDaoAbstract().removeEntity(phone);
 			} catch (Exception e) {
 				throw new InternalServerErrorException(
-					e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+					e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 			}
 		} else {
 			throw getEntityNotFoundException("Employee.ID=" + employeeId);

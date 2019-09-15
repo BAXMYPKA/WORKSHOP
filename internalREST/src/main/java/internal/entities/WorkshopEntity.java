@@ -14,7 +14,7 @@ public interface WorkshopEntity extends Serializable, Comparable<WorkshopEntity>
 	 * '@Transient
 	 * private static final long serialVersionUID = WorkshopEntity.serialVersionUID;'
 	 */
-	long serialVersionUID = 10L;
+	long serialVersionUID = 20L;
 	
 	/**
 	 * Has to have the annotation '@Column(name = 'id')' for being the Entity for JPA

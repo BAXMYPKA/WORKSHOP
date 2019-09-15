@@ -72,7 +72,7 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 	@JoinTable(name = "Positions_To_Internal_Authorities", schema = "INTERNAL",
 		joinColumns = {@JoinColumn(name = "internal_authority_id", nullable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "position_id", nullable = false)})
-	private Set<@Valid Position> position;
+	private Set<@Valid Position> positions;
 	
 	@Override
 	public String getAuthority() {

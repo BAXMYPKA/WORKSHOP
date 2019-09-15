@@ -1,7 +1,6 @@
 package internal.dao;
 
 import internal.entities.Order;
-import internal.entities.Task;
 import internal.exceptions.InternalServerErrorException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -66,7 +65,7 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				  e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				  e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -112,7 +111,7 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -158,7 +157,7 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	

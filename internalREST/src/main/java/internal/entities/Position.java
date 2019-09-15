@@ -6,14 +6,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
+import internal.exceptions.IllegalArgumentsException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -66,13 +70,26 @@ public class Position extends Trackable {
 	private Department department;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToMany(mappedBy = "positions", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid InternalAuthority> internalAuthorities;
 	
 	@Builder
 	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
 		this.name = name;
 		this.department = department;
+	}
+	
+	/**
+	 * Works properly ONLY under a Transaction.
+	 */
+	public void addInternalAuthority(InternalAuthority... internalAuthorities) {
+		if (internalAuthorities == null || internalAuthorities.length == 0) {
+			throw new IllegalArgumentsException("'internalAuthorities' parameter cannot be null or empty!",
+				"httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (this.internalAuthorities == null) {
+			this.internalAuthorities = new HashSet<>(Arrays.asList(internalAuthorities));
+		}
 	}
 	
 	public void setDepartment(Department department) {

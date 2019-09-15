@@ -3,10 +3,7 @@ package internal.dao;
 import internal.entities.Classifier;
 import internal.entities.Order;
 import internal.entities.Task;
-import internal.exceptions.EntityNotFoundException;
-import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
-import internal.exceptions.WorkshopException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -71,7 +68,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -116,7 +113,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -162,7 +159,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -208,7 +205,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	
@@ -259,7 +256,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 			}
 		} catch (PersistenceException e) {
 			throw new InternalServerErrorException(
-				e.getMessage(), "httpStatus.internalServerError", HttpStatus.INTERNAL_SERVER_ERROR, e);
+				e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
 		}
 	}
 	

@@ -244,7 +244,7 @@ public class ExceptionHandlerController {
 		
 		log.error(iex.getMessage(), iex);
 		return getResponseEntityWithErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
-			"httpStatus.internalServerError", null, LocaleContextHolder.getLocale()));
+			"httpStatus.internalServerError.common", null, LocaleContextHolder.getLocale()));
 	}
 	
 	@ExceptionHandler({Throwable.class})

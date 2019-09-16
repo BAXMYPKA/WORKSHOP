@@ -2,28 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/logs/internalREST.log.2019-09-14.0.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_28_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_28_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/logs/internalREST.log.2019-09-09.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalAuthoritiesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/InternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/InternalAuthoritiesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PositionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PositionsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/InternalAuthoritiesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/InternalAuthoritiesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/internalREST.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internalREST.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-04.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-05.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-14.0.gz" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,7 +112,8 @@
       <MavenImportingSettings>
         <option name="downloadDocsAutomatically" value="true" />
         <option name="importAutomatically" value="true" />
-        <option name="vmOptionsForImporter" value="-Xmx768m" />
+        <option name="jdkForImporter" value="#JAVA_HOME" />
+        <option name="vmOptionsForImporter" value="-Xmx1024m -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -148,7 +155,7 @@
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -188,11 +195,11 @@
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
-      <command value="mvn clean" />
       <command value="mvn validate" />
       <command value="mvn install" />
       <command value="mvn " />
       <command value="mvn compile" />
+      <command value="mvn clean" />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -208,50 +215,50 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.Internal">
-    <configuration name="WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions">
+    <configuration name="WorkshopEntitiesDaoAbstractIT.cla" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.services.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="delete_AppointedTask_From_Existing_Employee" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="cla" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.services.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="departmentsService_Should_Persist_Departments" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internalREST" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.services.*" />
+          <option name="PATTERN" value="internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
+      <option name="PACKAGE_NAME" value="internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="positions_By_Authority_Should_Return_All_Linked_Positions" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -318,20 +325,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cla" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cla" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" />
         <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.delete_AppointedTask_From_Existing_Employee" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.entitiesServiceAbstract_Subclasses_Initializes_And_Autowires" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.departmentsService_Should_Persist_Departments" />
       </list>
     </recent_temporary>
   </component>
@@ -528,6 +535,13 @@
       <workItem from="1568491853447" duration="837000" />
       <workItem from="1568492714861" duration="152000" />
       <workItem from="1568539514617" duration="7489000" />
+      <workItem from="1568614221252" duration="4234000" />
+      <workItem from="1568618480991" duration="1374000" />
+      <workItem from="1568620780731" duration="706000" />
+      <workItem from="1568621669023" duration="751000" />
+      <workItem from="1568622446055" duration="437000" />
+      <workItem from="1568623283767" duration="169000" />
+      <workItem from="1568623489250" duration="14230000" />
     </task>
     <servers />
   </component>

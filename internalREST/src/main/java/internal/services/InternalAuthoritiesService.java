@@ -1,7 +1,9 @@
 package internal.services;
 
 import internal.dao.InternalAuthoritiesDao;
+import internal.dao.PositionsDao;
 import internal.entities.InternalAuthority;
+import internal.entities.Position;
 import internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,15 @@ public class InternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<
 	
 	@Autowired
 	private InternalAuthoritiesDao internalAuthoritiesDao;
+	@Autowired
+	private PositionsDao positionsDao;
 	
 	public InternalAuthoritiesService(InternalAuthoritiesDao internalAuthoritiesDao) {
 		super(internalAuthoritiesDao);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-	public Page<InternalAuthority> findAllInternalAuthoritiesByPosition(Pageable pageable, Long positionId)
+	public Page<InternalAuthority> findInternalAuthoritiesByPosition(Pageable pageable, Long positionId)
 		throws EntityNotFoundException {
 		
 		super.verifyIdForNullBelowZero(positionId);
@@ -39,8 +43,8 @@ public class InternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Set<InternalAuthority> internalAuthoritiesByPosition =
-			internalAuthoritiesDao.findAllInternalAuthoritiesByPosition(
+		List<InternalAuthority> internalAuthoritiesByPosition =
+			internalAuthoritiesDao.findInternalAuthoritiesByPosition(
 				verifiedPageable.getPageSize(),
 				verifiedPageable.getPageNumber(),
 				orderBy,
@@ -56,7 +60,30 @@ public class InternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<
 		
 		long totalInternalAuthorities = getWorkshopEntitiesDaoAbstract().countAllEntities();
 		Page<InternalAuthority> internalAuthoritiesPage = new PageImpl<>(
-			(List<InternalAuthority>) internalAuthoritiesByPosition, verifiedPageable, totalInternalAuthorities);
+			internalAuthoritiesByPosition, verifiedPageable, totalInternalAuthorities);
 		return internalAuthoritiesPage;
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public void addPositionToInternalAuthority(Long positionId, Long authorityId) {
+		super.verifyIdForNullZeroBelowZero(positionId, authorityId);
+		//For future optimization should be lowered down to DAO layer to be performed by SQL
+		InternalAuthority authority = getWorkshopEntitiesDaoAbstract().findById(authorityId)
+			.orElseThrow(() -> getEntityNotFoundException(getEntityClassSimpleName()));
+		Position position = positionsDao.findById(positionId)
+			.orElseThrow(() -> getEntityNotFoundException("Position"));
+		authority.getPositions().add(position);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public void removePositionFromInternalAuthority(Long positionId, Long authorityId) {
+		super.verifyIdForNullZeroBelowZero(positionId, authorityId);
+		//For future optimization should be lowered down to DAO layer to be performed by SQL
+		InternalAuthority authority = getWorkshopEntitiesDaoAbstract().findById(authorityId)
+			.orElseThrow(() -> getEntityNotFoundException(getEntityClassSimpleName()));
+		Position position = positionsDao.findById(positionId)
+			.orElseThrow(() -> getEntityNotFoundException("Position"));
+		authority.getPositions().remove(position);
+	}
+	
 }

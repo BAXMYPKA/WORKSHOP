@@ -36,17 +36,6 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
-/*
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorities_sequence")
-	@SequenceGenerator(name = "authorities_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
-	@EqualsAndHashCode.Include
-	private Long identifier;
-*/
-	
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
@@ -56,12 +45,6 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
 		message = "{validation.length}")
 	private String description;
-	
-/*
-	@Column(updatable = false)
-	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
-	private ZonedDateTime created;
-*/
 	
 	/**
 	 * Not serializable to JSON (to prevent huge amount of Users).
@@ -75,13 +58,4 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	public String getAuthority() {
 		return authority;
 	}
-	
-/*
-	@PrePersist
-	public void prePersist() {
-		if (created == null) {
-			created = ZonedDateTime.now();
-		}
-	}
-*/
 }

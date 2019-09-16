@@ -1,6 +1,7 @@
 package internal.hateoasResources;
 
 import internal.controllers.DepartmentsController;
+import internal.controllers.InternalAuthoritiesController;
 import internal.controllers.PositionsController;
 import internal.entities.Position;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		super(PositionsController.class, Position.class);
 	}
 	
+	/**
+	 * @see WorkshopEntitiesResourceAssemblerAbstract#getPagedLink(Pageable, int, String, String, String, String, Long, String)
+	 */
 	@Override
 	protected Link getPagedLink(Pageable pageable,
 								int pageNum,
@@ -41,6 +45,20 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 				.withRel(relation)
 				.withHreflang(hrefLang)
 				.withMedia(media)
+				.withTitle(title);
+			return link;
+		}
+		if (InternalAuthoritiesController.GET_INTERNAL_AUTHORITY_POSITIONS.equalsIgnoreCase(controllerMethodName)) {
+			link = ControllerLinkBuilder.linkTo(
+				ControllerLinkBuilder.methodOn(InternalAuthoritiesController.class).getInternalAuthorityPositions(
+					ownerId,
+					pageable.getPageSize(),
+					pageNum,
+					orderBy,
+					order))
+				.withRel(relation)
+				.withMedia(media)
+				.withHreflang(hrefLang)
 				.withTitle(title);
 			return link;
 		} else {

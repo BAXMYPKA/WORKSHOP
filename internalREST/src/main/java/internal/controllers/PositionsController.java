@@ -169,7 +169,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<InternalAuthority> internalAuthoritiesByPositionPage =
-			internalAuthoritiesService.findAllInternalAuthoritiesByPosition(pageable, id);
+			internalAuthoritiesService.findInternalAuthoritiesByPosition(pageable, id);
 		Resources<Resource<InternalAuthority>> positionInternalAuthoritiesResources =
 			internalAuthoritiesResourceAssembler.toPagedSubResources(
 				internalAuthoritiesByPositionPage, id, GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME);
@@ -229,7 +229,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	/**
-	 * Just deletes an InternalAuthority from a given Position.
+	 * Just removes an InternalAuthority from a given Position.
 	 *
 	 * @param id          Position.ID
 	 * @param authorityId Authority.ID to be deleted from Position

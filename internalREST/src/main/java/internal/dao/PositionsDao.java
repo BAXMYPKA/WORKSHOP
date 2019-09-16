@@ -1,17 +1,16 @@
 package internal.dao;
 
 import internal.entities.Department;
+import internal.entities.InternalAuthority;
 import internal.entities.Position;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,19 +38,18 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 	 * @throws IllegalArgumentException 1) If 'departmentId' is null or < 0.
 	 *                                  2) If 'pageSize' or 'pageNum' is incorrect.
 	 */
-	public Optional<List<Position>> findAllPositionsByDepartment(
+	public Optional<List<Position>> findPositionsByDepartment(
 		Integer pageSize,
 		Integer pageNum,
-		@Nullable String orderBy,
-		@Nullable Sort.Direction order,
+		String orderBy,
+		Sort.Direction order,
 		Long departmentId) {
 		
-		if (departmentId == null || departmentId <= 0) {
-			throw new IllegalArgumentException("ID=" + departmentId + " cannot be neither null nor zero or even below!");
-		}
-		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
-		order = order == null ? Sort.Direction.DESC : order;
-		orderBy = orderBy == null || orderBy.isEmpty() ? getDEFAULT_ORDER_BY() : orderBy;
+		verifyIdForNull(departmentId);
+		verifyPageableValues(pageSize, pageNum, orderBy, order);
+		
+		log.debug("Received pageable of: pageSize={}, pageNum={}, orderBy={}, order={}, for Department.ID={}",
+			pageSize, pageNum, orderBy, order.name(), departmentId);
 		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Position> cq = cb.createQuery(Position.class);
@@ -82,6 +80,52 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			return Optional.empty();
+		}
+	}
+	
+	/**
+	 * @param internalAuthorityId InternalAuthority.ID from which all its Positions have to be derived.
+	 * @return Optional.of{@literal (List<Position>} which contain such an InternalAuthority or Optional.empty().
+	 * @throws IllegalArgumentException If some of the given parameters are incorrect or null.
+	 */
+	public Optional<List<Position>> findPositionsByInternalAuthority(Integer pageSize,
+																	 Integer pageNum,
+																	 String orderBy,
+																	 Sort.Direction order,
+																	 Long internalAuthorityId)
+		throws IllegalArgumentException {
+		
+		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
+		super.verifyIdForNull(internalAuthorityId);
+		
+		log.debug("Received pageable of: pageSize={}, pageNum={}, orderBy={}, order={}, for InternalAuthority.ID={}",
+			pageSize, pageNum, orderBy, order.name(), internalAuthorityId);
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Position> cq = cb.createQuery(Position.class);
+		
+		Root<Position> positionRoot = cq.from(Position.class);
+		
+		Join<Position, InternalAuthority> positionAuthorityJoin = positionRoot.join("internalAuthorities", JoinType.INNER);
+		Predicate authorityIdEquals =
+			cb.equal(positionAuthorityJoin.get("identifier"), internalAuthorityId);
+		positionAuthorityJoin.on(authorityIdEquals);
+		
+		if (order.isAscending()) {
+			cb.asc(positionRoot.get(orderBy));
+		} else {
+			cb.desc(positionRoot.get(orderBy));
+		}
+		TypedQuery<Position> positionsByAuthorityQuery = entityManager.createQuery(cq);
+		positionsByAuthorityQuery.setMaxResults(pageSize);
+		positionsByAuthorityQuery.setFirstResult(pageNum * pageSize);
+		
+		List<Position> positionsByAuthority = positionsByAuthorityQuery.getResultList();
+		
+		if (positionsByAuthority == null || positionsByAuthority.isEmpty()) {
+			return Optional.empty();
+		} else {
+			return Optional.of(positionsByAuthority);
 		}
 	}
 }

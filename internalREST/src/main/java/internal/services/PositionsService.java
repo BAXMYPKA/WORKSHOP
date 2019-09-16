@@ -2,11 +2,11 @@ package internal.services;
 
 import internal.dao.DepartmentsDao;
 import internal.dao.EmployeesDao;
+import internal.dao.InternalAuthoritiesDao;
 import internal.dao.PositionsDao;
 import internal.entities.Department;
 import internal.entities.Employee;
 import internal.entities.Position;
-import internal.entities.WorkshopEntity;
 import internal.exceptions.EntityNotFoundException;
 import internal.exceptions.IllegalArgumentsException;
 import internal.exceptions.InternalServerErrorException;
@@ -16,13 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -33,6 +37,8 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 	private DepartmentsDao departmentsDao;
 	@Autowired
 	private EmployeesDao employeesDao;
+	@Autowired
+	private InternalAuthoritiesDao internalAuthoritiesDao;
 	
 	/**
 	 * @param positionsDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -60,7 +66,7 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		
 		Optional<List<Position>> allPositionsByDepartment =
-			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findAllPositionsByDepartment(
+			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findPositionsByDepartment(
 				verifiedPageable.getPageSize(),
 				verifiedPageable.getPageNumber(),
 				verifiedPageable.getSort().iterator().next().getProperty(),
@@ -82,7 +88,7 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 	public Position updatePositionDepartment(Position position, Long departmentId) throws IllegalArgumentsException {
 		super.verifyIdForNullZeroBelowZero(departmentId);
 		Department department =
-			(Department)super.getVerifiedWorkshopEntity(departmentsDao.findById(departmentId));
+			(Department) super.getVerifiedWorkshopEntity(departmentsDao.findById(departmentId));
 		Position mergedPosition = super.getVerifiedEntity(getWorkshopEntitiesDaoAbstract().mergeEntity(position));
 		mergedPosition.setDepartment(department);
 		return mergedPosition;
@@ -93,7 +99,7 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		
 		super.verifyIdForNullZeroBelowZero(employeeId);
 		Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
-			getEntityNotFoundException("Employee.ID="+employeeId));
+			getEntityNotFoundException("Employee.ID=" + employeeId));
 		Position mergedOrPersistedPosition = super.persistOrMergeEntity(position);
 		employee.setPosition(mergedOrPersistedPosition);
 		if (mergedOrPersistedPosition.getEmployees() == null) {
@@ -102,5 +108,23 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 			mergedOrPersistedPosition.getEmployees().add(employee);
 		}
 		return mergedOrPersistedPosition;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	public Page<Position> findPositionsByInternalAuthority(Pageable pageable, Long internalAuthorityId) {
+		super.verifyIdForNullZeroBelowZero(internalAuthorityId);
+		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		
+		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		
+		Optional<List<Position>> positionsByAuthority =
+			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findPositionsByInternalAuthority(
+				verifiedPageable.getPageSize(),
+				verifiedPageable.getPageNumber(),
+				orderBy,
+				order,
+				internalAuthorityId);
+		return super.getVerifiedEntitiesPage(verifiedPageable, positionsByAuthority);
 	}
 }

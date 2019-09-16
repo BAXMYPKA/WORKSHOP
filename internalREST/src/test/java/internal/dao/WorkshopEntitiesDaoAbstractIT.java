@@ -1,9 +1,10 @@
 package internal.dao;
 
 import internal.entities.*;
-import internal.entities.Order;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -61,6 +62,8 @@ class WorkshopEntitiesDaoAbstractIT {
 	PositionsDao positionsDao;
 	@Autowired
 	DepartmentsDao departmentsDao;
+	@Autowired
+	InternalAuthoritiesDao internalAuthoritiesDao;
 	@PersistenceContext
 	EntityManager entityManager;
 	@Autowired
@@ -567,7 +570,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		Optional<List<Position>> allPositionsByDepartment =
-			positionsDao.findAllPositionsByDepartment(0, 0, null, null, departmentId);
+			positionsDao.findPositionsByDepartment(0, 0, null, null, departmentId);
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartment.get().size());
@@ -603,7 +606,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		List<Position> allPositionsByDepartmentOrderedByNameAsc =
-			positionsDao.findAllPositionsByDepartment(0, 0, "name", Sort.Direction.ASC, departmentId).get();
+			positionsDao.findPositionsByDepartment(0, 0, "name", Sort.Direction.ASC, departmentId).get();
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartmentOrderedByNameAsc.size());
@@ -639,7 +642,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		List<Position> positionsByDepartmentOrderedByNameDesc =
-			positionsDao.findAllPositionsByDepartment(3, pageNum, "name", Sort.Direction.DESC, departmentId).get();
+			positionsDao.findPositionsByDepartment(3, pageNum, "name", Sort.Direction.DESC, departmentId).get();
 		
 		//THEN
 		assertEquals(3, positionsByDepartmentOrderedByNameDesc.size());
@@ -769,6 +772,46 @@ class WorkshopEntitiesDaoAbstractIT {
 			() -> assertTrue(tasksByClassifier.get().contains(task2)),
 			() -> assertTrue(tasksByClassifier.get().contains(task3))
 		);
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	public void positions_By_Authority_Should_Return_All_Linked_Positions() {
+		//GIVEN
+		Department department = new Department("Department 1");
+		departmentsDao.persistEntity(department);
+		
+		Position position1 = new Position("Position 1", department);
+		Position position2 = new Position("Position 2", department);
+		Position position3 = new Position("Position 3", department);
+		positionsDao.persistEntities(Arrays.asList(position1, position2, position3));
+		
+		InternalAuthority authority1 = new InternalAuthority("Authority 1");
+		InternalAuthority authority2 = new InternalAuthority("Authority 2");
+		authority1.setPositions(new HashSet<>(Arrays.asList(position1, position2)));
+		authority2.setPositions(new HashSet<>(Collections.singletonList(position3)));
+		internalAuthoritiesDao.persistEntities(Arrays.asList(authority1, authority2));
+		
+		authority1 = internalAuthoritiesDao.findById(authority1.getIdentifier()).get();
+		position1 = positionsDao.findById(position1.getIdentifier()).get();
+		
+		//WHEN
+		List<Position> positionsByAuthority1 =
+			positionsDao.findPositionsByInternalAuthority(
+				10, 0, "created", Sort.Direction.DESC, authority1.getIdentifier()).get();
+		
+		List<Position> positionsByAuthority2 =
+			positionsDao.findPositionsByInternalAuthority(
+				10, 0, "created", Sort.Direction.DESC, authority2.getIdentifier()).get();
+		
+		//THEN
+		assertEquals(2, positionsByAuthority1.size());
+		assertTrue(positionsByAuthority1.contains(position1));
+		assertTrue(positionsByAuthority1.contains(position2));
+		
+		assertEquals(1, positionsByAuthority2.size());
+		assertTrue(positionsByAuthority2.contains(position3));
+		
 	}
 	
 	@BeforeEach
@@ -952,14 +995,14 @@ class WorkshopEntitiesDaoAbstractIT {
 	 */
 	@Transactional
 	public void removeAllPersistedEntities() {
-		Optional<List<Employee>> employeesManaged = employeesDao.findAllEntities(0, 0);
-		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
+		Optional<List<Order>> ordersManaged = ordersDao.findAllEntities(0, 0);
+		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Task>> tasksManaged = tasksDao.findAllEntities(0, 0);
 		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
 		
-		Optional<List<Order>> ordersManaged = ordersDao.findAllEntities(0, 0);
-		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
+		Optional<List<Employee>> employeesManaged = employeesDao.findAllEntities(0, 0);
+		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
 		
 		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllEntities(0, 0);
 		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));

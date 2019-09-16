@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -73,6 +70,11 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 		joinColumns = {@JoinColumn(name = "internal_authority_id", nullable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "position_id", nullable = false)})
 	private Set<@Valid Position> positions;
+	
+	@Builder
+	public InternalAuthority(String authority) {
+		this.authority = authority;
+	}
 	
 	@Override
 	public String getAuthority() {

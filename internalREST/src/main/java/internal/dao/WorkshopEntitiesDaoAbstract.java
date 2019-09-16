@@ -534,20 +534,6 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	}
 	
 	/**
-	 * @param pageSize PageSize to be verified according to {@link #PAGE_SIZE_MAX} or being below zero.
-	 * @param pageNum  PageNumber to be verified if its below zero
-	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values or < 0.
-	 */
-	void verifyPageableValues(int pageSize, int pageNum) throws IllegalArgumentException {
-		if (pageSize < 0 || pageNum < 0) {
-			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
-		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
-			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
-				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
-		}
-	}
-	
-	/**
 	 * Sorts the given List of WorkshopEntities by reference (that is just change the given List order without a returning a new one).
 	 *
 	 * @param resultListToSort The List of Entities to be sorted.
@@ -614,4 +600,29 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 		}
 	}
 	
+	/**
+	 * @param pageSize PageSize to be verified according to {@link #PAGE_SIZE_MAX} or being below zero.
+	 * @param pageNum  PageNumber to be verified if its below zero
+	 * @throws IllegalArgumentException If pageSize or pageNum are greater or less than their Min and Max values or < 0.
+	 */
+	void verifyPageableValues(int pageSize, int pageNum) throws IllegalArgumentException {
+		if (pageSize < 0 || pageNum < 0) {
+			throw new IllegalArgumentException("Page size or page number cannot be below zero!");
+		} else if (pageSize > PAGE_SIZE_MAX || pageNum > PAGE_NUM_MAX) {
+			throw new IllegalArgumentException("Your page size=" + pageSize + " or page number=" + pageNum +
+				" exceeds the max page size=" + PAGE_SIZE_MAX + " or max page num=" + PAGE_NUM_MAX);
+		}
+	}
+	
+	/**
+	 * Just checks a given ID for null.
+	 *
+	 * @param id Long ID to be verified for null.
+	 * @throws IllegalArgumentException With a message to be logged.
+	 */
+	void verifyIdForNull(Long id) throws IllegalArgumentException {
+		if (id == null) {
+			throw new IllegalArgumentException("ID value cannot be null!");
+		}
+	}
 }

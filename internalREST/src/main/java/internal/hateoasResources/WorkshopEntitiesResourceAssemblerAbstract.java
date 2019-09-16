@@ -325,64 +325,19 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	}
 	
 	/**
-	 * This method is strictly intended to be overridden.
-	 * If not, default WorkshopController.getAll() method will be used for constructing a ControllerLinkBuilder.methodOn(Controller.class).getAll()
-	 * Link.
-	 * You have to use your own "ControllerLinkBuilder.methodOn(Controller.class).getAllCustom(ownerId, ...pageable)"
-	 * Don't forget: inner String Page starts with 0 but outer Link for Users starts with 1!
-	 * So for page.getNumber() we must add +1
-	 *
-	 * @param pageable             The main info about pageable state.
-	 * @param pageNum              The obligatory parameter to obtain the current number of page.
-	 * @param ownerId              ID of the Owner of this collection. E.g., getUser(ownerId).getOrders()
-	 * @param controllerMethodName Discriminator string method name in order to allow to pass custom parameters and
-	 *                             construct a custom Link according to ControllerLinkBuilder.methodOn().
-	 *                             As usual, it passes as static string from WorkshopController
-	 *                             .GET_ORDERS_CREATED_BY_METHOD_NAME.
-	 * @return A single custom Link created according to 'controllerMethodName'.
-	 */
-/*
-	protected Link getPagedLink(Pageable pageable,
-								int pageNum,
-								String relation,
-								String hrefLang,
-								String media,
-								String title,
-								Long ownerId,
-								String controllerMethodName) {
-		String orderBy = pageable.getSort().iterator().next().getProperty();
-		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
-		Link link =
-			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(workshopControllerAbstractClass).getAll(
-					pageable.getPageSize(),
-					pageNum + 1,
-					orderBy,
-					order))
-				.withRel(relation)
-				.withHreflang(hrefLang)
-				.withMedia(media)
-				.withTitle(title);
-		return link;
-	}
-*/
-	
-	/**
+	 * This method has to be overridden to be able to receive 'controllerMethodName' as a discriminator for method from
+	 * any {@literal WorkshopController<T>} which should return a paged List of this {@literal WorkshopEntity<T>}.
+	 * You have to build your own Link with {@link ControllerLinkBuilder#methodOn(Class, Object...)} as in the following example:
+	 * <p>
+	 * <p>
 	 * String orderBy = pageable.getSort().iterator().next().getProperty();
 	 * String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 	 * Link link;
 	 * if (WorkshopControllerAbstract<T>.CONTROLLER_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 	 * link = ControllerLinkBuilder.linkTo(
 	 * ControllerLinkBuilder.methodOn(WorkshopControllerAbstract<T>.class).controllerMethod(
-	 * ownerId,
-	 * pageable.getPageSize(),
-	 * pageNum,
-	 * orderBy,
-	 * order))
-	 * .withRel(relation)
-	 * .withHreflang(hrefLang)
-	 * .withMedia(media)
-	 * .withTitle(title);
+	 * ownerId, pageable.getPageSize(), pageNum, orderBy, order))
+	 * .withRel(relation).withHreflang(hrefLang).withMedia(media).withTitle(title);
 	 * } else {
 	 * log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
 	 * controllerMethodName, workshopControllerAbstractClass);
@@ -392,10 +347,10 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract <T extends Works
 	 *
 	 * @param pageable             The main info about pageable state.
 	 * @param pageNum              The obligatory parameter to obtain the current number of page.
-	 * @param relation
-	 * @param hrefLang
-	 * @param media
-	 * @param title
+	 * @param relation             Link relation parameter.
+	 * @param hrefLang             Link language.
+	 * @param media                Media type of the Link.
+	 * @param title                Title of the Link.
 	 * @param ownerId              ID of the Owner of this collection. E.g., getUser(ownerId).getOrders()
 	 * @param controllerMethodName Discrimination string method name in order to allow to pass a needed method name and
 	 *                             construct a custom Link according to ControllerLinkBuilder.methodOn().

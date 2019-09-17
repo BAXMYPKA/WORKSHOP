@@ -46,7 +46,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 		super(internalAuthoritiesService, internalAuthoritiesResourceAssembler);
 	}
 	
-	@GetMapping(path = "/{id}/internal-authority-positions")
+	@GetMapping(path = "/{id}/positions")
 	public ResponseEntity<String> getInternalAuthorityPositions(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -63,7 +63,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 		return ResponseEntity.ok(jsonAuthorityPositionsSubResources);
 	}
 	
-	@PostMapping(path = "/{id}/internal-authority-positions")
+	@PostMapping(path = "/{id}/positions")
 	public ResponseEntity<String> postForbiddenMethodInternalAuthorityPosition(@PathVariable(name = "id") long id,
 																			   @RequestBody Position position,
 																			   HttpServletRequest request) {
@@ -81,10 +81,12 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 * @param position Position to be inserted into this InternalAuthority.
 	 * @return The updated Position with this InternalAuthority set.
 	 */
-	@PutMapping(path = "/{id}/internal-authority-positions")
-	public ResponseEntity<String> putInternalAuthorityPosition(@PathVariable(name = "id") Long id,
-															   @Validated(UpdateValidation.class) @RequestBody Position position,
-															   BindingResult bindingResult) {
+	@PutMapping(path = "/{id}/positions")
+	public ResponseEntity<String> putInternalAuthorityPosition(
+		@PathVariable(name = "id") Long id,
+		@Validated(UpdateValidation.class) @RequestBody Position position,
+		BindingResult bindingResult) {
+		
 		super.validateBindingResult(bindingResult);
 		((InternalAuthoritiesService) getWorkshopEntitiesService())
 			.addPositionToInternalAuthority(position.getIdentifier(), id);
@@ -100,7 +102,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 * @param id         InternalAuthority.ID to delete a Position from.
 	 * @param positionId Position.ID to be deleted from this InternalAuthority.
 	 */
-	@DeleteMapping(path = "{id}/internal-authority-positions/{positionId}")
+	@DeleteMapping(path = "{id}/positions/{positionId}")
 	public ResponseEntity<String> deleteInternalAuthorityPosition(@PathVariable(name = "id") Long id,
 																  @PathVariable(name = "positionId") Long positionId) {
 		((InternalAuthoritiesService) getWorkshopEntitiesService()).removePositionFromInternalAuthority(positionId, id);

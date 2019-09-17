@@ -33,8 +33,6 @@ public class OrdersService extends WorkshopEntitiesServiceAbstract<Order> {
 	@Setter
 	@Autowired
 	private OrdersDao ordersDao;
-	@Autowired
-	private UsersDao usersDao;
 	
 	public OrdersService(OrdersDao ordersDao) {
 		super(ordersDao);

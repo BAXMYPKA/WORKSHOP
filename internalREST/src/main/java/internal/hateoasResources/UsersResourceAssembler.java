@@ -1,5 +1,6 @@
 package internal.hateoasResources;
 
+import internal.controllers.ExternalAuthoritiesController;
 import internal.controllers.UsersController;
 import internal.entities.Phone;
 import internal.entities.User;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -72,11 +74,10 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 								String controllerMethodName) {
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
-		Link link = null;
-/*
-		if (WorkshopControllerAbstract < T >.CONTROLLER_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		Link link;
+		if (ExternalAuthoritiesController.GET_EXTERNAL_AUTHORITY_USERS.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(WorkshopControllerAbstract<T>.class).controllerMethod(
+				ControllerLinkBuilder.methodOn(ExternalAuthoritiesController.class).getExternalAuthorityUsers(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -86,13 +87,11 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else{
+			return link;
+		} else {
 			log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
 				controllerMethodName, getWorkshopControllerAbstractClass());
 			return new Link("/no_link_found/");
 		}
-*/
-		return link;
-		
 	}
 }

@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Users of 2 types can be persisted from online and created by manager.
@@ -124,7 +125,7 @@ public class User extends WorkshopEntityAbstract {
 	@JoinTable(name = "Users_To_External_Authorities", schema = "EXTERNAL",
 		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
-	private Set<@Valid GrantedAuthority> externalAuthorities;
+	private Set<@Valid ExternalAuthority> externalAuthorities;
 	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;
@@ -154,13 +155,16 @@ public class User extends WorkshopEntityAbstract {
 	}
 	
 	/**
-	 * @param grantedAuthority {@link ExternalAuthority}
+	 * @param grantedAuthority {@link ExternalAuthority} instance.
+	 * @throws ClassCastException If the given GrantedAuthority is not the ExternalAuthority instance.
 	 */
-	public void addGrantedAuthority(GrantedAuthority... grantedAuthority) {
+	public void addGrantedAuthority(GrantedAuthority... grantedAuthority) throws ClassCastException {
 		if (externalAuthorities == null) {
 			externalAuthorities = new HashSet<>(5);
 		}
-		externalAuthorities.addAll(Arrays.asList(grantedAuthority));
+		Stream.of(grantedAuthority).forEach(authority -> {
+			externalAuthorities.add((ExternalAuthority)authority);
+		});
 	}
 	
 	/**

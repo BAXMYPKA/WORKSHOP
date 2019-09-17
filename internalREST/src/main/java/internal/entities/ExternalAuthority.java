@@ -51,7 +51,7 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	 * But it is possible to deserialize from JSON to Object with the Users' set within particular WorkshopGrantedAuthority.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "externalAuthorities", cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToMany(mappedBy = "externalAuthorities", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
 	private Set<User> users;
 	
 	@Override

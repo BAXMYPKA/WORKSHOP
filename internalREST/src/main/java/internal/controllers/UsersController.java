@@ -6,15 +6,16 @@ import internal.entities.Phone;
 import internal.entities.User;
 import internal.entities.hibernateValidation.PersistenceValidation;
 import internal.entities.hibernateValidation.UpdateValidation;
+import internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import internal.hateoasResources.OrdersResourceAssembler;
 import internal.hateoasResources.PhonesResourceAssembler;
 import internal.hateoasResources.UsersResourceAssembler;
-import internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
+import internal.services.ExternalAuthoritiesService;
 import internal.services.OrdersService;
 import internal.services.PhonesService;
 import internal.services.UsersService;
-import internal.services.ExternalAuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -27,6 +28,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.HashSet;
 
 @Component
 @RequestMapping(path = "/internal/users", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
@@ -214,5 +219,67 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		String jsonUserAuthoritiesPagedResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(userAuthoritiesPagedResources);
 		return ResponseEntity.ok(jsonUserAuthoritiesPagedResources);
+	}
+	
+	@PostMapping(path = "{id}/authorities")
+	public ResponseEntity<String> postForbiddenMethodUserAuthority(@PathVariable(name = "id") Long id,
+																   @RequestBody ExternalAuthority externalAuthority,
+																   HttpServletRequest request) {
+		String forbiddenMethodMessage = getMessageSource().getMessage(
+			"httpStatus.forbidden.withDescription(2)",
+			new Object[]{request.getMethod(), " Use dedicated ExternalAuthorities Link for this operation!"},
+			LocaleContextHolder.getLocale());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(forbiddenMethodMessage);
+	}
+	
+	/**
+	 * Adds an ExternalAuthority to the User.
+	 *
+	 * @return HttpStatus.ACCEPTED in case of success.
+	 */
+	@PutMapping(path = "{id}/authorities")
+	public ResponseEntity<String> putUserExternalAuthority(
+		@PathVariable(name = "id") Long id,
+		@Validated(UpdateValidation.class) @RequestBody ExternalAuthority externalAuthority,
+		BindingResult bindingResult) {
+		super.validateBindingResult(bindingResult);
+		User user = getWorkshopEntitiesService().findById(id);
+		user.addGrantedAuthority(externalAuthority);
+		user = getWorkshopEntitiesService().mergeEntity(user);
+		if (externalAuthority.getUsers() != null) {
+			externalAuthority.getUsers().add(user);
+		} else {
+			externalAuthority.setUsers(new HashSet<>(Collections.singletonList(user)));
+		}
+		Resource<ExternalAuthority> externalAuthorityResource =
+			externalAuthoritiesResourceAssembler.toResource(externalAuthority);
+		String jsonExternalAuthorityResource =
+			getJsonServiceUtils().workshopEntityObjectsToJson(externalAuthorityResource);
+		return ResponseEntity.accepted().body(jsonExternalAuthorityResource);
+	}
+	
+	/**
+	 * Removes an ExternalAuthority from a User.
+	 *
+	 * @param id          User.ID to remove ExternalAuthority from.
+	 * @param authorityId ExternalAuthority.ID to be removed from the User.
+	 * @return HttpStatus.NO_CONTENT in case of success.
+	 */
+	@DeleteMapping(path = "/{id}/authorities/{authorityId}")
+	public ResponseEntity<String> deleteUserExternalAuthority(@PathVariable(name = "id") Long id,
+															  @PathVariable(name = "authorityId") Long authorityId) {
+		User user = getWorkshopEntitiesService().findById(id);
+		boolean isRemoved = user.getExternalAuthorities()
+			.removeIf(externalAuthority -> externalAuthority.getIdentifier().equals(authorityId));
+		if (isRemoved) {
+			getWorkshopEntitiesService().mergeEntity(user);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			String notFoundMessage = getMessageSource().getMessage(
+				"httpStatus.notFound(2)",
+				new Object[]{"ExternalAuthority.ID=" + authorityId, getWorkshopEntityClassName() + ".ID=" + id},
+				LocaleContextHolder.getLocale());
+			return getResponseEntityWithErrorMessage(HttpStatus.NOT_FOUND, notFoundMessage);
+		}
 	}
 }

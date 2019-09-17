@@ -138,7 +138,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.ok(jsonPositionResource);
 	}
 	
-	@PostMapping(path = "/{id}/positions")
+	@PostMapping(path = "/{id}/position")
 	public ResponseEntity<String> postPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -151,7 +151,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPositionResource);
 	}
 	
-	@PutMapping(path = "/{id}/positions")
+	@PutMapping(path = "/{id}/position")
 	public ResponseEntity<String> putPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -167,7 +167,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param positionId Self-description.
 	 * @return HttpStatus.FORBIDDEN and the message with the Position as a Resource with the Link to it.
 	 */
-	@DeleteMapping(path = "/{id}/positions/{positionId}")
+	@DeleteMapping(path = "/{id}/position/{positionId}")
 	public ResponseEntity<String> deletePositionForbidden(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "positionId") Long positionId) {

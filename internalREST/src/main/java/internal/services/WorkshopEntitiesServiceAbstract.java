@@ -40,7 +40,7 @@ import java.util.stream.Stream;
  * @param <T> The class type of the Entity its instance will be serving to.
  */
 @Getter(AccessLevel.PROTECTED)
-@Setter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PRIVATE)
 @Slf4j
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
@@ -49,20 +49,26 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PROTECTED)
 	private int DEFAULT_PAGE_SIZE;
 	@Value("${page.max_num}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PROTECTED)
 	private int MAX_PAGE_NUM;
 	@Value("${page.size.max}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PROTECTED)
 	private int MAX_PAGE_SIZE;
 	@Value("${default.orderBy}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PROTECTED)
 	private String DEFAULT_ORDER_BY;
 	@Value("${default.order}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PROTECTED)
 	private String DEFAULT_ORDER;
 	@Autowired
+	@Setter(AccessLevel.PROTECTED)
 	private MessageSource messageSource;
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
 	@Getter(AccessLevel.PUBLIC)
@@ -104,46 +110,6 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 					LocaleContextHolder.getLocale())));
 	}
 	
-	/**
-	 * AKA 'persistOrUpdate'. If an Entity doesn't presented in the DataBase it will be persisted.
-	 * Otherwise it will update its properties in the DataBase.
-	 *
-	 * @param entity If an Entity.identifier = 0 it will be persisted. If an Entity.identifier > 0 it will be merged (updated into DB)
-	 * @return Persisted (or merged) managed copy of the Entity.
-	 * @throws IllegalArgumentsException                  If an Entity == null, with localized message and HttpStatus.NOT_ACCEPTABLE
-	 * @throws AuthenticationCredentialsNotFoundException If this method is trying to be performed without an appropriate
-	 *                                                    Authentication within the Spring's SecurityContext.
-	 * @throws PersistenceFailureException                If some properties of the given Entity are incorrect.
-	 * @throws EntityNotFoundException                    If the given Entity.ID is not presented in the DataBase.
-	 */
-//	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE,
-//				   noRollbackFor ={InvalidDataAccessApiUsageException.class})
-/*
-	public T persistOrMergeEntity(T entity)
-		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
-		
-		if (entity == null) {
-			throw new IllegalArgumentsException(
-				"The entity argument cannot be null!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
-		}
-		Optional<T> persistedEntity;
-		try {
-			persistedEntity = workshopEntitiesDaoAbstract.persistEntity(entity);
-		} catch (EntityExistsException | PersistentObjectException | InvalidDataAccessApiUsageException ex) {
-			log.debug("{} exists, trying to merge it...", entityClass.getSimpleName(), ex);
-			persistedEntity = workshopEntitiesDaoAbstract.mergeEntity(entity);
-		} catch (IllegalArgumentException ie) { //Can be thrown by EntityManager if it is a removed Entity
-			throw new EntityNotFoundException(
-				"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties",
-				HttpStatus.GONE,
-				messageSource.getMessage("error.saveOrUpdate(1)", new Object[]{entityClass.getSimpleName()},
-					LocaleContextHolder.getLocale()),
-				ie);
-		}
-		return persistedEntity.orElseThrow(() -> new PersistenceFailureException(
-			"Couldn't neither save nor update the given " + entityClass.getSimpleName() + "! Check its properties."));
-	}
-*/
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {

@@ -16,8 +16,9 @@
 	<description>Demo project with Spring Boot, JPA, REST API and React SPA</description>
 	
 	<modules>
-		<module>internalREST</module>
+		<module>internal</module>
 		<module>sharedResources</module>
+		<module>security</module>
 	</modules>
 	
 	<properties>

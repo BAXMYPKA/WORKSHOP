@@ -1,4 +1,4 @@
-package internal.dao;
+package workshop.internal.dao;
 
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;

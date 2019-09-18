@@ -1,4 +1,4 @@
-package internal.hateoasResources;
+package workshop.internal.hateoasResources;
 
 import workshop.internal.controllers.DepartmentsController;
 import workshop.internal.controllers.PositionsController;
@@ -68,7 +68,7 @@ class HateoasIT {
 		departmentOne = departmentsService.persistEntity(departmentOne);
 		
 		long departmentId = departmentOne.getIdentifier();
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/departments/" + departmentId));
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/workshop/internal/departments/" + departmentId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -100,7 +100,7 @@ class HateoasIT {
 		long positionOneId = positionOne.getIdentifier();
 		long positionTwoId = positionTwo.getIdentifier();
 		//Default request without parameters
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/positions/"));
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/workshop/internal/positions/"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -131,7 +131,7 @@ class HateoasIT {
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve first page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=1"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -169,7 +169,7 @@ class HateoasIT {
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve second page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=2"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=2"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -207,7 +207,7 @@ class HateoasIT {
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve last page of 4 with 3 elements of 10 total elements
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=4"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=4"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -244,7 +244,7 @@ class HateoasIT {
 		int totalPersisted = totalPersistedPositionsForPaginationTests();
 		//Retrieve non-existing 5th page
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=5"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=5"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -269,7 +269,7 @@ class HateoasIT {
 		//Retrieve first page of 4 with 3 elements of 10 total elements.
 		//The request with orderBy 'name' property
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1&order-by=name"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=1&order-by=name"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
@@ -306,7 +306,7 @@ class HateoasIT {
 		//Retrieve first page of 4 with 3 elements of 10 total elements.
 		//The request with orderBy 'name' property with ascending order
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/positions?pageSize=3&pageNum=1&order-by=name&order=asc"));
+			"GET", URI.create("/workshop/internal/positions?pageSize=3&pageNum=1&order-by=name&order=asc"));
 		
 		//WHEN
 		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();

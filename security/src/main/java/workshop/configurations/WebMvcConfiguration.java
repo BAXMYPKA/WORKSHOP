@@ -1,5 +1,8 @@
 package workshop.configurations;
 
+import lombok.AccessLevel;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,15 +17,31 @@ import workshop.http.ResponseHeadersInternalFilter;
 @EnableEntityLinks
 public class WebMvcConfiguration implements WebMvcConfigurer {
 	
+	@Value("${internalPathName}")
+	private String internalPathName;
+	
+	//TODO: to remake as an Array of Strings
+	@Value("${corsAllowedOrigins}")
+	@Setter(AccessLevel.PACKAGE)
+	private String corsAllowedOrigins;
+	
+	@Value("@{Allow}")
+	@Setter(AccessLevel.PACKAGE)
+	private String allowedMethods;
+	
+	@Value("${corsRegistryMaxAge}")
+	@Setter(AccessLevel.PACKAGE)
+	private Integer corsRegistryMaxAge;
+	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry
-			.addMapping("/internal/**")
+			.addMapping(internalPathName + "**")
 			.allowCredentials(true)
-			.allowedOrigins("https://localhost:3000")
-			.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "HEAD")
+			.allowedOrigins(corsAllowedOrigins)
+			.allowedMethods(allowedMethods.split(","))
 			.allowedHeaders("Authorization", "Cache-Control", "Content-Type", "Accept")
-			.maxAge(60 * 60 * 12);
+			.maxAge(corsRegistryMaxAge);
 	}
 	
 	@Bean

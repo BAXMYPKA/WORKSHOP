@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,6 +35,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	private JwtUtils jwtUtils;
 	@Autowired
 	private CookieUtils cookieUtils;
+	@Value("${authenticationCookieName}")
+	private String authenticationCookieName;
 	
 	/**
 	 * If Authentication won't be put into SecurityContext following Authorization process will be failed.
@@ -107,7 +110,6 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		}
 		
 		String jwt = jwtUtils.generateJwt(authResult);
-		String authenticationCookieName = cookieUtils.getAuthenticationCookieName();
 		cookieUtils.addCookieToResponse(response, authenticationCookieName, jwt, null);
 		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);

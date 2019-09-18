@@ -1,4 +1,4 @@
-package internal.services;
+package workshop.internal.services;
 
 import workshop.internal.entities.*;
 import workshop.internal.exceptions.EntityNotFoundException;

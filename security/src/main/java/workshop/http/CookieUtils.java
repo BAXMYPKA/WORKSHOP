@@ -1,5 +1,7 @@
 package workshop.http;
 
+import lombok.AccessLevel;
+import org.springframework.beans.factory.annotation.Value;
 import workshop.configurations.SecurityConfiguration;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +17,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 @Slf4j
-@Setter
-@Getter
+@Setter(AccessLevel.PROTECTED)
+@Getter(AccessLevel.PACKAGE)
 @NoArgsConstructor
 @Component
 public class CookieUtils {
 	
+	@Setter(AccessLevel.PACKAGE)
+	@Value("${domainName}")
+	private String domainName;
+	
+	@Setter(AccessLevel.PACKAGE)
+	@Value("${internalPathName}")
+	private String internalPathName;
+	
 	@Autowired
-	SecurityConfiguration securityConfiguration;
-	private String authenticationCookieName = "workshopAuthentication";
+	private SecurityConfiguration securityConfiguration;
+	
+	@Value("${authenticationCookieName}")
+	@Getter(AccessLevel.PUBLIC)
+	private String authenticationCookieName;
+	
 	/**
 	 * In seconds. Default is 259_200 (3 days)
 	 */
@@ -36,8 +50,8 @@ public class CookieUtils {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
-		cookie.setDomain(securityConfiguration.getDomainName());
-		cookie.setPath(securityConfiguration.getInternalPathName());
+		cookie.setDomain(domainName);
+		cookie.setPath(internalPathName);
 		response.addCookie(cookie);
 	}
 	

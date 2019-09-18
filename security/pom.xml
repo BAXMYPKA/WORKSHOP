@@ -15,7 +15,7 @@
 		
 		<dependency>
 			<groupId>pro.workshop</groupId>
-			<artifactId>internalREST</artifactId>
+			<artifactId>internal</artifactId>
 			<version>${project-version}</version>
 		</dependency>
 		

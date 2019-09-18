@@ -1,13 +1,5 @@
 package workshop.internal.controllers;
 
-import workshop.internal.entities.Classifier;
-import workshop.internal.entities.Task;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
-import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
-import workshop.internal.hateoasResources.TasksResourceAssembler;
-import workshop.internal.services.ClassifiersService;
-import workshop.internal.services.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +9,19 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import workshop.internal.entities.Classifier;
+import workshop.internal.entities.Task;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
+import workshop.internal.hateoasResources.TasksResourceAssembler;
+import workshop.internal.services.ClassifiersService;
+import workshop.internal.services.TasksService;
 
 @RestController
 @RequestMapping(path = "/internal/classifiers",
@@ -28,8 +30,10 @@ import org.springframework.web.bind.annotation.*;
 public class ClassifiersController extends WorkshopControllerAbstract<Classifier> {
 	
 	public static final String TASKS_METHOD_NAME = "getTasks";
+	
 	@Autowired
 	private TasksService tasksService;
+	
 	@Autowired
 	private TasksResourceAssembler tasksResourceAssembler;
 	
@@ -39,11 +43,13 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	 *                                     to operate with.
 	 * @param classifiersResourceAssembler
 	 */
-	public ClassifiersController(ClassifiersService classifiersService, ClassifiersResourceAssembler classifiersResourceAssembler) {
+	public ClassifiersController(
+		ClassifiersService classifiersService, ClassifiersResourceAssembler classifiersResourceAssembler) {
 		super(classifiersService, classifiersResourceAssembler);
 	}
 	
 	@GetMapping(path = "/{id}/tasks")
+	@PreAuthorize("hasAnyAuthority(#authentication, #tasksService.entityClassSimpleName, 'read')")
 	public ResponseEntity<String> getTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -62,8 +68,8 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	
 	@PostMapping(path = "/{id}/tasks")
 	public ResponseEntity<String> postTask(@PathVariable(name = "id") Long id,
-										   @Validated(PersistenceValidation.class) @RequestBody Task task,
-										   BindingResult bindingResult) {
+		@Validated(PersistenceValidation.class) @RequestBody Task task,
+		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
 		tasksService.persistEntity(task);
@@ -77,8 +83,8 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	
 	@PutMapping(path = "/{id}/tasks")
 	public ResponseEntity<String> putTask(@PathVariable(name = "id") Long id,
-										  @Validated(UpdateValidation.class) @RequestBody Task task,
-										  BindingResult bindingResult) {
+		@Validated(UpdateValidation.class) @RequestBody Task task,
+		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
 		Task updatedTask = tasksService.mergeEntity(task);
@@ -99,7 +105,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	 */
 	@DeleteMapping(path = "/{id}/tasks/{taskId}")
 	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
-											 @PathVariable(name = "taskId") Long taskId) {
+		@PathVariable(name = "taskId") Long taskId) {
 		
 		Classifier classifier = getWorkshopEntitiesService().findById(id);
 		Task task = tasksService.findById(taskId);

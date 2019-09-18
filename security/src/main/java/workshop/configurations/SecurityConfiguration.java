@@ -1,8 +1,10 @@
 package workshop.configurations;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -24,21 +26,38 @@ import workshop.security.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * For now works only with cookies for being carried the Authentication information.
+ */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
-	//TODO: to do all the environment variables to be loaded from outside .properties (cookie name, ttl, domain etc)
+	@Value("${authorizationHeaderName}")
+	@Setter(AccessLevel.PACKAGE)
+	private String authorizationHeaderName;
 	
-	private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-	@Getter
-	@Setter
-	private String domainName = "workshop.pro";
-	@Getter
-	@Setter
-	private String internalPathName = "/internal/";
+	@Value("${domainName}")
+	@Getter //For test purposes
+	@Setter(AccessLevel.PACKAGE)
+	private String domainName;
 	
+	@Value("${internalPathName}")
+	@Getter //For test purposes
+	@Setter(AccessLevel.PACKAGE)
+	private String internalPathName;
+	
+	@Value("${authenticationCookieName}")
+	@Setter(AccessLevel.PACKAGE)
+	private String authenticationCookieName;
+	
+	/**
+	 * SessionManagement = STATELESS.
+	 * PermitAll to "/"
+	 * PermitAll to /internal/login**
+	 * Authenticated() to /internal**
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -53,8 +72,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/internal/login**")
 			.permitAll()
-			.antMatchers("/internal/a")
-			.hasAnyAuthority("Administrator")
 			.antMatchers("/internal**")
 			.authenticated()
 			.antMatchers("/")
@@ -65,7 +82,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.failureHandler(authenticationFailureHandler())
 			.and()
 			.logout()
-			.deleteCookies("workshopJwt")
+			.logoutUrl("/internal/login?logout=true")
+			.deleteCookies(authenticationCookieName)
 			.clearAuthentication(true)
 			.logoutSuccessUrl("/internal/login?logged_out=true");
 	}
@@ -117,7 +135,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 		UsernamePasswordAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
-//		authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		return loginAuthenticationFilter;
 	}
@@ -125,8 +142,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
-			new AntPathRequestMatcher(internalPathName, "POST"));
-//		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(internalPathName);
+			new AntPathRequestMatcher(internalPathName));
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
 		return jwtAuthenticationFilter;

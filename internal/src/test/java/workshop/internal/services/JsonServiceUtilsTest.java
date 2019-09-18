@@ -1,4 +1,4 @@
-package internal.services;
+package workshop.internal.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import workshop.internal.controllers.DepartmentsController;

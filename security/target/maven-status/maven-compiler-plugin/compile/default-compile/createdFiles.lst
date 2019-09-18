@@ -8,6 +8,7 @@ workshop\security\EmployeesDetailsService.class
 workshop\http\CookieUtils.class
 workshop\security\JwtAuthenticationFilter.class
 workshop\security\UserAuditorAware.class
+workshop\security\WorkshopPermissionEvaluator.class
 workshop\security\SecurityUtils.class
 workshop\configurations\WebMvcConfiguration.class
 workshop\http\ResponseHeadersInternalFilter.class

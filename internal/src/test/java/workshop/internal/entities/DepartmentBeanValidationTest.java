@@ -1,4 +1,4 @@
-package internal.entities;
+package workshop.internal.entities;
 
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;

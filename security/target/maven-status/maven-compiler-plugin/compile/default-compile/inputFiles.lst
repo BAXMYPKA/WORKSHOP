@@ -7,6 +7,7 @@ C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\J
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\CookieUtils.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsUser.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopPermissionEvaluator.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersAuthenticationProvider.java

@@ -1,9 +1,12 @@
 package workshop.security;
 
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.KeyGenerator;
@@ -14,11 +17,14 @@ import java.security.NoSuchAlgorithmException;
 @NoArgsConstructor
 @Component
 class SecurityUtils {
+	
 	/**
 	 * Requires that you use a secret key that is at least 32 bytes long
 	 * Can by set only at compilation time
 	 */
-	private String secretWord = "WORKSHOP-SECRET-WORD";
+	@Value("${secretWord}")
+	@Setter(AccessLevel.PACKAGE)
+	private String secretWord;
 	@Getter
 	private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	@Getter

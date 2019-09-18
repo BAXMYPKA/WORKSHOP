@@ -2,150 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/security/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_28_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/logs/internal.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/internal/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/InternalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/InternalApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/AppConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/configurations/AppConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/LocalesConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/configurations/LocalesConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/DepartmentsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/ExternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExternalAuthoritiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/InternalAuthoritiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/InternalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/InternalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PhonesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PhonesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/TasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/TasksController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ClassifiersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ClassifiersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/DepartmentsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/DepartmentsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/EmployeesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/ExternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ExternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/InternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/InternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/OrdersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/OrdersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PhonesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PhonesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/PositionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PositionsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/TasksDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/UsersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/UsersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/dao/WorkshopEntitiesDaoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Classifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/ExternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/ExternalAuthority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/InternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/InternalAuthority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/WorkshopEntityAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/cache/CachesListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/cache/CachesListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistEmployeeValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/hibernateValidation/PersistEmployeeValidation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/PersistenceValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/hibernateValidation/PersistenceValidation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/entities/hibernateValidation/UpdateValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/hibernateValidation/UpdateValidation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/EntityNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/EntityNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/IllegalArgumentsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/IllegalArgumentsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/InternalServerErrorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/InternalServerErrorException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/InvalidMethodArgumentsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/InvalidMethodArgumentsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/PersistenceFailureException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/PersistenceFailureException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/exceptions/WorkshopException.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/exceptions/WorkshopException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PhonesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/ResponseHeadersInternalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/ResponseHeadersInternalFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/EmployeesAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/EmployeesDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserAuditorAware.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UserAuditorAware.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UserDetailsEmployee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UserDetailsUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UserDetailsUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UsersAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/UsersDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/http/security/WorkshopAuthenticationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopAuthenticationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/ClassifiersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/ClassifiersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/DepartmentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/DepartmentsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/EmployeesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/ExternalAuthoritiesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/ExternalAuthoritiesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/InternalAuthoritiesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/InternalAuthoritiesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PositionsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/TasksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/TasksService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UsersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/java/internal/services/serviceUtils/JsonServiceUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/serviceUtils/JsonServiceUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/ValidationMessages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/ValidationMessages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/ValidationMessages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/ValidationMessages_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/data1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/data1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/ehcache.xml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/ehcache.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/AppConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/configurations/AppConfigurationIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/configurations/LocalesConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/configurations/LocalesConfigurationIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/DepartmentBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/entities/DepartmentBeanValidationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/entities/TrackableBeanValidationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/HateoasIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/http/security/JwtAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtAuthenticationFilterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/http/security/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/http/security/LoginAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/services/OrdersServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/applicationTest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/applicationTest.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/entitiesCacheIT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/entitiesCacheIT.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/i18nMessages/testMessages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/i18nMessages/testMessages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/i18nMessages/testMessages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internalREST/src/test/java/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internalREST.log.2019-09-16.0.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/resources/data1.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/configurations/AppConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/configurations/AppConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/configurations/LocalesConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/configurations/LocalesConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/entities/DepartmentBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/DepartmentBeanValidationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/services/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/services/OrdersServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/OrdersServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/applicationTest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/applicationTest.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/entitiesCacheIT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/entitiesCacheIT.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/i18nMessages/testMessages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/i18nMessages/testMessages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/i18nMessages/testMessages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/i18nMessages/testMessages_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/internal.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internal.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/security/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/configurations/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/configurations/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/configurations/WebMvcConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/configurations/WebMvcConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/http/CookieUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/http/CookieUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/security/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/security/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/security/LoginAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/security/LoginAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/security/SecurityUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/security/SecurityUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/security-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/security-1.0.3-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/classes/configs/workshop.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/target/sharedResources-1.0.3-SNAPSHOT.jar" afterDir="false" />
@@ -223,6 +122,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
+        <option name="pluginUpdatePolicy" value="UPDATE" />
         <option name="threads" value="4" />
       </MavenGeneralSettings>
     </option>
@@ -230,8 +130,7 @@
       <MavenImportingSettings>
         <option name="downloadDocsAutomatically" value="true" />
         <option name="importAutomatically" value="true" />
-        <option name="jdkForImporter" value="#JAVA_HOME" />
-        <option name="vmOptionsForImporter" value="-Xmx1024m -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -273,7 +172,7 @@
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -335,81 +234,78 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.Internal">
-    <configuration name="WorkshopEntitiesDaoAbstractIT.cla" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AppConfigurationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.configurations.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="cla" />
+      <option name="PACKAGE_NAME" value="workshop.internal.configurations" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.configurations.AppConfigurationIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LocalesConfigurationIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.configurations.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.configurations" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.configurations.LocalesConfigurationIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesDaoAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesDaoAbstractIT.batch_remove_Entities_By_Collection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="batch_remove_Entities_By_Collection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEntitiesDaoAbstractIT.cascade_Persisting_New_Entities_Graph" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="internal.dao.WorkshopEntitiesDaoAbstractIT" />
-      <option name="METHOD_NAME" value="positions_By_Authority_Should_Return_All_Linked_Positions" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="internal.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="internal.services" />
-      <option name="MAIN_CLASS_NAME" value="internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="post_New_TaskCreatedBy_To_Existing_Employee" />
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="cascade_Persisting_New_Entities_Graph" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -444,20 +340,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" />
-      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cla" />
-      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
-      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" />
       <item itemvalue="Spring Boot.Internal" />
+      <item itemvalue="JUnit.AppConfigurationIT" />
+      <item itemvalue="JUnit.LocalesConfigurationIT" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.batch_remove_Entities_By_Collection" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cascade_Persisting_New_Entities_Graph" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.positions_By_Authority_Should_Return_All_Linked_Positions" />
-        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cla" />
-        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.classifier_Tasks_Should_Be_Returned_As_ManyToMany" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_Phone_To_Existing_User_And_Refresh_User_Should_Return_User_With_Phone" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.post_New_TaskCreatedBy_To_Existing_Employee" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.cascade_Persisting_New_Entities_Graph" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.batch_remove_Entities_By_Collection" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT" />
+        <item itemvalue="JUnit.LocalesConfigurationIT" />
+        <item itemvalue="JUnit.AppConfigurationIT" />
       </list>
     </recent_temporary>
   </component>
@@ -663,7 +559,7 @@
       <workItem from="1568623489250" duration="14230000" />
       <workItem from="1568701683827" duration="21725000" />
       <workItem from="1568801496722" duration="651000" />
-      <workItem from="1568808915491" duration="6204000" />
+      <workItem from="1568808915491" duration="23440000" />
     </task>
     <servers />
   </component>
@@ -696,6 +592,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

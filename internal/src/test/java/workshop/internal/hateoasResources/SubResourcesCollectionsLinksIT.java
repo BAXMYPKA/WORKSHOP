@@ -1,4 +1,4 @@
-package internal.hateoasResources;
+package workshop.internal.hateoasResources;
 
 import workshop.internal.controllers.DepartmentsController;
 import workshop.internal.controllers.OrdersController;
@@ -77,7 +77,7 @@ class SubResourcesCollectionsLinksIT {
 		departmentsController.setDEFAULT_PAGE_SIZE(2);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET",
-			URI.create("/internal/departments/" + departmentId));
+			URI.create("/workshop/internal/departments/" + departmentId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -117,7 +117,7 @@ class SubResourcesCollectionsLinksIT {
 		long departmentId = department1Persisted.getIdentifier();
 		
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2"));
+			URI.create("/workshop/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -158,7 +158,7 @@ class SubResourcesCollectionsLinksIT {
 		long departmentId = department1Persisted.getIdentifier();
 		
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2&pageNum=2"));
+			URI.create("/workshop/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2&pageNum=2"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -232,7 +232,7 @@ class SubResourcesCollectionsLinksIT {
 		long orderId = order.getIdentifier();
 		//PageSize=2 of 3 Tasks total
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/internal/orders/" + orderId + "/tasks?order-by=name&order=asc&pageSize=2&pageNum=1"));
+			URI.create("/workshop/internal/orders/" + orderId + "/tasks?order-by=name&order=asc&pageSize=2&pageNum=1"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -279,7 +279,7 @@ class SubResourcesCollectionsLinksIT {
 		
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -336,7 +336,7 @@ class SubResourcesCollectionsLinksIT {
 		Task persistedTask3 = tasksService.persistEntity(task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId+"/appointed_tasks"));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/appointed_tasks"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -400,7 +400,7 @@ class SubResourcesCollectionsLinksIT {
 		Task persistedTask3 = tasksService.persistEntity(task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId+"/tasks_modified_by"));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/tasks_modified_by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -461,7 +461,7 @@ class SubResourcesCollectionsLinksIT {
 		Task persistedTask3 = tasksService.persistEntity(task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId+"/tasks_created_by"));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/tasks_created_by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -516,7 +516,7 @@ class SubResourcesCollectionsLinksIT {
 		
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId+"/orders_modified_by"));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/orders_modified_by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -571,7 +571,7 @@ class SubResourcesCollectionsLinksIT {
 		
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/employees/" + employeeId+"/orders_created_by"));
+			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/orders_created_by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -637,7 +637,7 @@ class SubResourcesCollectionsLinksIT {
 		Task persistedTask1 = tasksService.persistEntity(task1);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/tasks/" + task1.getIdentifier()+"/classifiers"));
+			"GET", URI.create("/workshop/internal/tasks/" + task1.getIdentifier()+"/classifiers"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -716,7 +716,7 @@ class SubResourcesCollectionsLinksIT {
 		user.setOrders(Arrays.asList(order, order2));
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/internal/users/" + user.getIdentifier()+"/orders"));
+			"GET", URI.create("/workshop/internal/users/" + user.getIdentifier()+"/orders"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);

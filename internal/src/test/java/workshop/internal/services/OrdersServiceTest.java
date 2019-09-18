@@ -1,4 +1,4 @@
-package internal.services;
+package workshop.internal.services;
 
 import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 import workshop.internal.dao.OrdersDao;

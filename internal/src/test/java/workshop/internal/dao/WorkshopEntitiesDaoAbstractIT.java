@@ -1,4 +1,4 @@
-package internal.dao;
+package workshop.internal.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.dao.*;
 import workshop.internal.entities.*;
 
 import javax.persistence.EntityManager;
@@ -49,6 +48,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class WorkshopEntitiesDaoAbstractIT {
 	
+	static List<Employee> employees;
+	static List<Order> orders;
+	static List<User> users;
+	static List<Phone> phones;
+	static List<Classifier> classifiers;
+	static List<Task> tasks;
+	static List<Position> positions;
+	static List<Department> departments;
 	@Autowired
 	OrdersDao ordersDao;
 	@Autowired
@@ -70,14 +77,10 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Autowired
 	EntityManagerFactory emf; //To support transactions with emf.getEntityManager();
 	
-	static List<Employee> employees;
-	static List<Order> orders;
-	static List<User> users;
-	static List<Phone> phones;
-	static List<Classifier> classifiers;
-	static List<Task> tasks;
-	static List<Position> positions;
-	static List<Department> departments;
+	public static Stream<? extends Arguments> entitiesFactory() {
+		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
+			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
+	}
 	
 	@Test
 	@org.junit.jupiter.api.Order(1)
@@ -182,8 +185,8 @@ class WorkshopEntitiesDaoAbstractIT {
 		ordersDao.removeEntities(ordersPersisted.get());
 		
 		//THEN No entities of that kind should be found
-		Optional<List<Employee>> emptyEmployees = employeesDao.findAllEntities(0, 0, "", Sort.Direction.ASC);
-		Optional<List<Order>> emptyOrders = ordersDao.findAllEntities(0, 0, "", Sort.Direction.ASC);
+		Optional<List<Employee>> emptyEmployees = employeesDao.findAllEntities(100, 0, "created", Sort.Direction.ASC);
+		Optional<List<Order>> emptyOrders = ordersDao.findAllEntities(100, 0, "created", Sort.Direction.ASC);
 		
 		assertFalse(emptyEmployees.isPresent());
 		assertFalse(emptyOrders.isPresent());
@@ -223,7 +226,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
 		orders.forEach(order -> assertTrue(entityManager.contains(order)));
 	}
-	
 	
 	@Test
 	@DisplayName("New entity with including new entities graph should all be persisted")
@@ -358,7 +360,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		//To clear the DataBase
 		removeAllOrders();
 	}
-	
 	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
@@ -728,7 +729,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		ordersDao.removeEntity(order1);
 	}
 	
-	
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
 	@Transactional
@@ -1082,10 +1082,5 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Transactional
 	public void removeAllOrders() {
 		ordersDao.removeEntities(orders);
-	}
-	
-	public static Stream<? extends Arguments> entitiesFactory() {
-		return Stream.of(Arguments.of(employees.get(0)), Arguments.of(employees.get(1)), Arguments.of(orders.get(0)),
-			Arguments.of(orders.get(1)), Arguments.of(orders.get(2)));
 	}
 }

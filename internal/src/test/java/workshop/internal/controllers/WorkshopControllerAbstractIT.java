@@ -1,11 +1,5 @@
-package internal.controllers;
+package workshop.internal.controllers;
 
-import workshop.internal.controllers.DepartmentsController;
-import workshop.internal.controllers.PositionsController;
-import workshop.internal.entities.Department;
-import workshop.internal.entities.Position;
-import workshop.internal.services.DepartmentsService;
-import workshop.internal.services.PositionsService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,10 +15,18 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import workshop.internal.entities.Classifier;
+import workshop.internal.entities.Department;
+import workshop.internal.entities.Position;
+import workshop.internal.services.ClassifiersService;
+import workshop.internal.services.DepartmentsService;
+import workshop.internal.services.PositionsService;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -32,18 +34,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class WorkshopControllerAbstractIT {
 	
 	@Autowired
-	DepartmentsController departmentsController;
+	private DepartmentsController departmentsController;
 	@Autowired
-	PositionsController positionsController;
+	private PositionsController positionsController;
 	@Autowired
-	DepartmentsService departmentsService;
+	private DepartmentsService departmentsService;
 	@Autowired
-	PositionsService positionsService;
+	private PositionsService positionsService;
 	@Autowired
-	MockMvc mockMvc;
-	Department departmentOne;
-	Position positionOne;
-	Position positionTwo;
+	private ClassifiersService classifiersService;
+	@Autowired
+	private ClassifiersController classifiersController;
+	@Autowired
+	private MockMvc mockMvc;
+	private Department departmentOne;
+	private Position positionOne;
+	private Position positionTwo;
 	
 	@Test
 	@Order(1)
@@ -59,13 +65,33 @@ class WorkshopControllerAbstractIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	public void inherited() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
+		classifiersService.persistEntity(classifier);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/workshop/internal/departments/" + departmentId));
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Department unique one\"")));
+		
+	}
+	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	public void inherited_Method_getOne_Should_Return_One_WorkshopEntity() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique one");
 		departmentOne = departmentsService.persistEntity(departmentOne);
 		
 		long departmentId = departmentOne.getIdentifier();
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/internal/departments/" + departmentId));
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/workshop/internal/departments/" + departmentId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -89,7 +115,7 @@ class WorkshopControllerAbstractIT {
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
 			"GET",
-			URI.create("/internal/positions"));
+			URI.create("/workshop/internal/positions"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);

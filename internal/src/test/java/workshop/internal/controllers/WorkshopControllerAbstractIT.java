@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import workshop.internal.dao.DepartmentsDao;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
@@ -28,7 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = {DepartmentsService.class, DepartmentsController.class, DepartmentsDao.class,
+	PositionsController.class, PositionsService.class, TasksService.class, OrdersService.class,
+	ClassifiersController.class, ClassifiersService.class})
 @AutoConfigureMockMvc
 class WorkshopControllerAbstractIT {
 	

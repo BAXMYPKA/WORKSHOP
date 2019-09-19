@@ -1,15 +1,15 @@
 package workshop.http;
 
 import lombok.AccessLevel;
-import org.springframework.beans.factory.annotation.Value;
-import workshop.configurations.SecurityConfiguration;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import workshop.configurations.SecurityConfiguration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +63,9 @@ public class CookieUtils {
 		Arrays.stream(cookies)
 			.filter(cookie -> cookieName.equals(cookie.getName()))
 			.findFirst()
-			.ifPresent(cookie -> {cookie.setMaxAge(0); response.addCookie(cookie);});
+			.ifPresent(cookie -> {
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			});
 	}
 }

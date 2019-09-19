@@ -19,6 +19,7 @@
 		<module>internal</module>
 		<module>sharedResources</module>
 		<module>security</module>
+		<module>application</module>
 	</modules>
 	
 	<properties>

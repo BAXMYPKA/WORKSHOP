@@ -3,6 +3,7 @@ package workshop.configurations;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import workshop.http.CookieUtils;
 import workshop.security.*;
 
 import java.util.HashSet;
@@ -51,6 +53,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Value("${authenticationCookieName}")
 	@Setter(AccessLevel.PACKAGE)
 	private String authenticationCookieName;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	@Autowired
+	private CookieUtils cookieUtils;
 	
 	/**
 	 * SessionManagement = STATELESS.
@@ -132,19 +140,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationManager;
 	}
 	
-	//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
+	//TODO: to check double invocation of this
+//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
+//	@DependsOn(value = {"jwtUtils", "cookieUtils"})
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
-		UsernamePasswordAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
+		LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
 		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
+		loginAuthenticationFilter.setCookieUtils(cookieUtils);
+		loginAuthenticationFilter.setJwtUtils(jwtUtils);
+		loginAuthenticationFilter.setAuthenticationCookieName(authenticationCookieName);
 		return loginAuthenticationFilter;
 	}
 	
-	//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
+	//TODO: to check double invokation if this
+//	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
 			new AntPathRequestMatcher(internalPathName));
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+		jwtAuthenticationFilter.setCookieUtils(cookieUtils);
+		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
+		jwtAuthenticationFilter.setAuthenticationCookieName(authenticationCookieName);
 		return jwtAuthenticationFilter;
 	}
 	

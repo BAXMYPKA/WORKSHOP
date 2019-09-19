@@ -56,7 +56,7 @@ class JwtAuthenticationFilterTest {
 		jwtAuthenticationFilter = new JwtAuthenticationFilter(matcher);
 		jwtAuthenticationFilter.setCookieUtils(cookieUtils);
 		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
-		jwtAuthenticationFilter.setWorkshopAuthenticationManager(workshopAuthenticationManager);
+		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
 		jwtAuthenticationFilter.setRememberMeServices(rememberMeServices);
 		
 		//TODO: test cookieUtils not return null with this name

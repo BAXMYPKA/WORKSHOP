@@ -1,4 +1,5 @@
 workshop\http\CookieUtilsTest.class
+workshop\internal\controllers\WorkshopControllersSecurityIT.class
 workshop\security\LoginAuthenticationFilterTest.class
 workshop\security\JwtAuthenticationFilterTest.class
 workshop\security\JwtUtilsTest.class

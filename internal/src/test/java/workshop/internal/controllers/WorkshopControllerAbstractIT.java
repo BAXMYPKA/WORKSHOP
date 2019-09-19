@@ -18,9 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.services.ClassifiersService;
-import workshop.internal.services.DepartmentsService;
-import workshop.internal.services.PositionsService;
+import workshop.internal.entities.Task;
+import workshop.internal.services.*;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -44,6 +43,10 @@ class WorkshopControllerAbstractIT {
 	@Autowired
 	private ClassifiersService classifiersService;
 	@Autowired
+	private TasksService tasksService;
+	@Autowired
+	private OrdersService ordersService;
+	@Autowired
 	private ClassifiersController classifiersController;
 	@Autowired
 	private MockMvc mockMvc;
@@ -63,25 +66,6 @@ class WorkshopControllerAbstractIT {
 		);
 	}
 	
-	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void inherited() throws Exception {
-		//GIVEN
-		Classifier classifier = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
-		classifiersService.persistEntity(classifier);
-		
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET", URI.create("/workshop/internal/departments/" + departmentId));
-		
-		//WHEN
-		ResultActions resultActions = mockMvc.perform(request);
-		
-		//THEN
-		resultActions
-			.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Department unique one\"")));
-		
-	}
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})

@@ -14,6 +14,8 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 	@Override
 	public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
 		log.debug("Permission evaluating for: "+authentication.getName());
+		System.out.println(authentication.getAuthorities());
+		System.out.println(targetDomainObject.getClass().getSimpleName());
 		return false;
 	}
 	

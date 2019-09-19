@@ -63,13 +63,14 @@ public class Task extends Trackable {
 	/**
 	 * One Task can have a number of Classifiers
 	 * Validation note: this field is validated by setters
+	 * To remove a Classifier with the Price recalculation use {@link #removeClassifier(Classifier...)} method!
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Tasks_to_Classifiers", schema = "INTERNAL",
-			   joinColumns = {@JoinColumn(name = "task_id")},
-			   inverseJoinColumns = {@JoinColumn(name = "classifier_id")})
+			   joinColumns = {@JoinColumn(name = "task_id", nullable = false)},
+			   inverseJoinColumns = {@JoinColumn(name = "classifier_id", nullable = false)})
 	private Set<@Valid Classifier> classifiers;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

@@ -12,7 +12,6 @@ public class InternalApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(InternalApplication.class, args);
-		
 	}
 	
 	@Bean(initMethod = "start", destroyMethod = "stop")

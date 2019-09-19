@@ -1,7 +1,5 @@
 package workshop.http;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,19 +10,23 @@ import java.util.HashMap;
  */
 public class ResponseHeadersInternalFilter implements Filter {
 	
-	@Value("${Allow}")
-	private String headerAllowValue;
-	@Value("${Content-Language}")
-	private String headerContentLanguageValue;
 	public static final HashMap<String, String> httpHeaders = new HashMap<>();
+	//	@Value("${Allow}")
+	private String headerAllowValue;
+	//	@Value("${Content-Language}")
+	private String headerContentLanguageValue;
 	
-	public ResponseHeadersInternalFilter() {
+	public ResponseHeadersInternalFilter(String headerAllowValue, String headerContentLanguageValue) {
+		this.headerAllowValue = headerAllowValue;
+		this.headerContentLanguageValue = headerContentLanguageValue;
 		httpHeaders.put("Allow", headerAllowValue);
 		httpHeaders.put("Content-Language", headerContentLanguageValue);
 	}
 	
 	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+		throws IOException, ServletException {
+		
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		httpHeaders.entrySet().forEach(entry -> response.addHeader(entry.getKey(), entry.getValue()));
 		filterChain.doFilter(servletRequest, servletResponse);

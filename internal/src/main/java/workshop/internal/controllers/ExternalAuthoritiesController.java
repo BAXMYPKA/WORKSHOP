@@ -1,5 +1,7 @@
 package workshop.internal.controllers;
 
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
@@ -22,7 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/internal/authorities")
+@RequestMapping(path = "/internal/external-authorities", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @ExposesResourceFor(ExternalAuthority.class)
 public class ExternalAuthoritiesController extends WorkshopControllerAbstract<ExternalAuthority> {
 	
@@ -68,7 +70,8 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	 * @param user New User to be persisted with this ExternalAuthority added.
 	 * @return The User with this ExternalAuthority.
 	 */
-	@PostMapping(path = "/{id}/users")
+	@PostMapping(path = "/{id}/users",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postExternalAuthorityUser(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody User user,
@@ -94,7 +97,8 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	 * @param user The existing User to be updated with this ExternalAuthority added.
 	 * @return Updated User with this ExternalAuthority.
 	 */
-	@PutMapping(path = "/{id}/users")
+	@PutMapping(path = "/{id}/users",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putExternalAuthorityUser(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody User user,

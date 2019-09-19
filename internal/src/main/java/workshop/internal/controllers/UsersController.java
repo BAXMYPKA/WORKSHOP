@@ -1,5 +1,6 @@
 package workshop.internal.controllers;
 
+import org.springframework.http.MediaType;
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Phone;
@@ -87,7 +88,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @param order A new Order to be persisted.
 	 * @return The persisted Order with this User set.
 	 */
-	@PostMapping(path = "{id}/orders")
+	@PostMapping(path = "{id}/orders",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postUserOrder(@PathVariable(name = "id") Long id,
 												@Validated(PersistenceValidation.class) @RequestBody Order order,
 												BindingResult bindingResult) {
@@ -107,7 +109,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @param order An existing Order to be set 'createdFor' this User.
 	 * @return The updated Order with this User set.
 	 */
-	@PutMapping(path = "{id}/orders")
+	@PutMapping(path = "{id}/orders",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putUserOrder(@PathVariable(name = "id") Long id,
 											   @Validated(UpdateValidation.class) @RequestBody Order order,
 											   BindingResult bindingResult) {
@@ -153,7 +156,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		return ResponseEntity.ok(jsonUserPhonesPagedResources);
 	}
 	
-	@PostMapping(path = "{id}/phones")
+	@PostMapping(path = "{id}/phones",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postUserPhone(@PathVariable(name = "id") Long id,
 												@Validated(PersistenceValidation.class) @RequestBody Phone phone,
 												BindingResult bindingResult) {
@@ -166,7 +170,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPhoneResource);
 	}
 	
-	@PutMapping(path = "{id}/phones")
+	@PutMapping(path = "{id}/phones",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putUserPhone(@PathVariable(name = "id") Long id,
 											   @Validated(UpdateValidation.class) @RequestBody Phone phone,
 											   BindingResult bindingResult) {
@@ -221,7 +226,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		return ResponseEntity.ok(jsonUserAuthoritiesPagedResources);
 	}
 	
-	@PostMapping(path = "{id}/authorities")
+	@PostMapping(path = "{id}/authorities",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postForbiddenMethodUserAuthority(@PathVariable(name = "id") Long id,
 																   @RequestBody ExternalAuthority externalAuthority,
 																   HttpServletRequest request) {
@@ -237,7 +243,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 *
 	 * @return HttpStatus.ACCEPTED in case of success.
 	 */
-	@PutMapping(path = "{id}/authorities")
+	@PutMapping(path = "{id}/authorities",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putUserExternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody ExternalAuthority externalAuthority,

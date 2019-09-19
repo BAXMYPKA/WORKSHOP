@@ -33,6 +33,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Setter(AccessLevel.PACKAGE)
 	private Integer corsRegistryMaxAge;
 	
+	@Value("${Allow}")
+	private String headerAllowValue;
+	
+	@Value("${Content-Language}")
+	private String headerContentLanguageValue;
+	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry
@@ -45,10 +51,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	}
 	
 	@Bean
-	public FilterRegistrationBean<ResponseHeadersInternalFilter> filterFilterRegistrationBean() {
+	public FilterRegistrationBean<ResponseHeadersInternalFilter> filterRegistrationBean() {
 		FilterRegistrationBean<ResponseHeadersInternalFilter> registrationBean = new FilterRegistrationBean<>();
-		registrationBean.setFilter(new ResponseHeadersInternalFilter());
+		registrationBean.setFilter(new ResponseHeadersInternalFilter(headerAllowValue, headerContentLanguageValue));
 		registrationBean.addUrlPatterns("/internal/*");
+		
 		return registrationBean;
 	}
 }

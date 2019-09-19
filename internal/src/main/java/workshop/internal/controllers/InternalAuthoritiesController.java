@@ -1,12 +1,5 @@
 package workshop.internal.controllers;
 
-import workshop.internal.entities.InternalAuthority;
-import workshop.internal.entities.Position;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
-import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
-import workshop.internal.hateoasResources.PositionsResourceAssembler;
-import workshop.internal.services.InternalAuthoritiesService;
-import workshop.internal.services.PositionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
@@ -16,16 +9,24 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import workshop.internal.entities.InternalAuthority;
+import workshop.internal.entities.Position;
+import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
+import workshop.internal.hateoasResources.PositionsResourceAssembler;
+import workshop.internal.services.InternalAuthoritiesService;
+import workshop.internal.services.PositionsService;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @ExposesResourceFor(InternalAuthority.class)
-@RequestMapping(path = "/internal/authorities", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
+@RequestMapping(path = "/internal/internal-authorities", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class InternalAuthoritiesController extends WorkshopControllerAbstract<InternalAuthority> {
 	
 	public static final String GET_INTERNAL_AUTHORITY_POSITIONS = "getInternalAuthorityPositions";
@@ -42,7 +43,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 * @param internalAuthoritiesResourceAssembler Will be using the '@ExposeResourceFor' definition.
 	 */
 	public InternalAuthoritiesController(InternalAuthoritiesService internalAuthoritiesService,
-										 InternalAuthoritiesResourceAssembler internalAuthoritiesResourceAssembler) {
+		InternalAuthoritiesResourceAssembler internalAuthoritiesResourceAssembler) {
 		super(internalAuthoritiesService, internalAuthoritiesResourceAssembler);
 	}
 	
@@ -63,10 +64,11 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 		return ResponseEntity.ok(jsonAuthorityPositionsSubResources);
 	}
 	
-	@PostMapping(path = "/{id}/positions")
+	@PostMapping(path = "/{id}/positions",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postForbiddenMethodInternalAuthorityPosition(@PathVariable(name = "id") long id,
-																			   @RequestBody Position position,
-																			   HttpServletRequest request) {
+		@RequestBody Position position,
+		HttpServletRequest request) {
 		String errorMessage = getMessageSource().getMessage(
 			"httpStatus.forbidden.withDescription(2)",
 			new Object[]{request.getMethod(), " Use direct Positions link for such purposes!"},
@@ -81,7 +83,8 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 * @param position Position to be inserted into this InternalAuthority.
 	 * @return The updated Position with this InternalAuthority set.
 	 */
-	@PutMapping(path = "/{id}/positions")
+	@PutMapping(path = "/{id}/positions",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putInternalAuthorityPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Position position,
@@ -104,7 +107,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 */
 	@DeleteMapping(path = "{id}/positions/{positionId}")
 	public ResponseEntity<String> deleteInternalAuthorityPosition(@PathVariable(name = "id") Long id,
-																  @PathVariable(name = "positionId") Long positionId) {
+		@PathVariable(name = "positionId") Long positionId) {
 		((InternalAuthoritiesService) getWorkshopEntitiesService()).removePositionFromInternalAuthority(positionId, id);
 		Position positionWithoutAuthority = positionsService.findById(positionId);
 		Resource<Position> positionResource = positionsResourceAssembler.toResource(positionWithoutAuthority);

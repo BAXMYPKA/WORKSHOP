@@ -88,7 +88,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param phone A new Phone to be created and set to existing Employee
 	 * @return Persisted Phone as a Resource.
 	 */
-	@PostMapping(path = "/{id}/phones")
+	@PostMapping(path = "/{id}/phones",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postPhone(
 		@PathVariable(name = "id") long id,
 		@Validated(PersistenceValidation.class) @RequestBody Phone phone,
@@ -106,7 +107,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param phone New or existing Phone to bind with existing Employee
 	 * @return Updated Phone with the given Employee set.
 	 */
-	@PutMapping(path = "/{id}/phones")
+	@PutMapping(path = "/{id}/phones",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putPhone(
 		@PathVariable(name = "id") long id,
 		@Validated(UpdateValidation.class) @RequestBody Phone phone,
@@ -138,7 +140,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.ok(jsonPositionResource);
 	}
 	
-	@PostMapping(path = "/{id}/position")
+	@PostMapping(path = "/{id}/position",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -151,7 +154,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonPositionResource);
 	}
 	
-	@PutMapping(path = "/{id}/position")
+	@PutMapping(path = "/{id}/position",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -198,7 +202,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	/**
 	 * Receives a new Task, persists it and appoints to the existing Employee.
 	 */
-	@PostMapping(path = "/{id}/appointed-tasks")
+	@PostMapping(path = "/{id}/appointed-tasks",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postAppointedTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -215,7 +220,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * Receives an existing Task, merge its changes to the DataBase, appoints to the existing Employee and returns
 	 * that updated Task.
 	 */
-	@PutMapping(path = "/{id}/appointed-tasks")
+	@PutMapping(path = "/{id}/appointed-tasks",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putAppointedTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
@@ -265,9 +271,11 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	/**
 	 * @return ErrorMessage about the fact that 'modifiedBy' property is filled in automatically only.
 	 */
+	//TODO: to remake security
 	@Secured({"Administrator"})
 	@RequestMapping(path = "/{id}/tasks-modified-by/{taskId}",
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> notAllowedTaskModifiedBy(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "taskId") Long taskId,
 		HttpServletRequest request) {
@@ -300,7 +308,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 *
 	 * @return Created Task with the 'createdBy' set.
 	 */
-	@PostMapping(path = "/{id}/tasks-created-by")
+	@PostMapping(path = "/{id}/tasks-created-by",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -320,7 +329,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 *
 	 * @return An updated Task with the new 'createdBy'.
 	 */
-	@PutMapping(path = "/{id}/tasks-created-by")
+	@PutMapping(path = "/{id}/tasks-created-by",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
@@ -382,9 +392,11 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	/**
 	 * @return ErrorMessage about the fact that 'modifiedBy' property is filled in automatically only.
 	 */
+	//TODO: to remake to PreAuthorize
 	@Secured({"Administrator"})
 	@RequestMapping(path = "/{id}/orders-modified-by/{orderId}",
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> notAllowedOrderModifiedBy(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "orderId") Long orderId,
 		HttpServletRequest request) {
@@ -417,7 +429,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 *
 	 * @return Created Order with the 'createdBy' set.
 	 */
-	@PostMapping(path = "/{id}/orders-created-by")
+	@PostMapping(path = "/{id}/orders-created-by",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Order order,
@@ -437,7 +450,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 *
 	 * @return An updated Order with the new 'createdBy'.
 	 */
-	@PutMapping(path = "/{id}/orders-created-by")
+	@PutMapping(path = "/{id}/orders-created-by",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Order order,
@@ -459,6 +473,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param orderId The Order that needs the deletion of 'createdBy' property.
 	 * @return The renewed Order without 'createdBy'.
 	 */
+	//TODO: to remake as PreAuthorize
 	@Secured("Administrator")
 	@DeleteMapping(path = "/{id}/orders-created-by/{orderId}")
 	public ResponseEntity<String> deleteOrderCreatedBy(@PathVariable(name = "id") Long id,

@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +23,7 @@ import workshop.internal.services.ClassifiersService;
 import workshop.internal.services.TasksService;
 
 @RestController
-@RequestMapping(path = "/internal/classifiers",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+@RequestMapping(path = "/internal/classifiers", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @ExposesResourceFor(Classifier.class)
 public class ClassifiersController extends WorkshopControllerAbstract<Classifier> {
 	
@@ -48,7 +47,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	}
 	
 	@GetMapping(path = "/{id}/tasks")
-	@PreAuthorize("hasAnyAuthority(#authentication, #tasksService.entityClassSimpleName, 'read')")
+//	@PreAuthorize("hasAnyAuthority(#authentication, #tasksService.entityClassSimpleName, 'read')")
 	public ResponseEntity<String> getTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -65,7 +64,8 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 		return ResponseEntity.ok(jsonClassifierTasksPagedResources);
 	}
 	
-	@PostMapping(path = "/{id}/tasks")
+	@PostMapping(path = "/{id}/tasks",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postTask(@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
@@ -80,7 +80,8 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonTaskResource);
 	}
 	
-	@PutMapping(path = "/{id}/tasks")
+	@PutMapping(path = "/{id}/tasks",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putTask(@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {

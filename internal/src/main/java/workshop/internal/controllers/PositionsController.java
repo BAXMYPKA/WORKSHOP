@@ -9,6 +9,7 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.SmartValidator;
@@ -73,7 +74,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@RequestMapping(path = {"/{id}/department/{departmentId}", "/{id}/department/"},
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> positionDepartmentForbiddenMethods(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "departmentId", required = false) Long departmentId,
@@ -109,7 +111,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @param employee Employee to be set to this Position
 	 * @return The persisted Employee with this Position set.
 	 */
-	@PostMapping(path = "/{id}/employees")
+	@PostMapping(path = "/{id}/employees",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postPositionEmployee(@PathVariable(name = "id") Long id,
 		@RequestBody Employee employee,
 		BindingResult bindingResult) {
@@ -129,7 +132,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @param employee Employee to be reset to this Position
 	 * @return The updated Employee with this Position set.
 	 */
-	@PutMapping(path = "/{id}/employees")
+	@PutMapping(path = "/{id}/employees",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putPositionEmployee(@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Employee employee,
 		BindingResult bindingResult) {
@@ -184,7 +188,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return HttpStatus.FORBIDDEN with a message advises using {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult)}
 	 * post method for persisting.
 	 */
-	@PostMapping(path = "/{id}/internal-authorities")
+	@PostMapping(path = "/{id}/internal-authorities",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postForbiddenMethodPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
@@ -205,7 +210,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @param internalAuthority An existing InternalAuthority to be added.
 	 * @return HttpStatus.ACCEPTED with the renewed InternalAuthority.
 	 */
-	@PutMapping(path = "/{id}/internal-authorities")
+	@PutMapping(path = "/{id}/internal-authorities",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody InternalAuthority internalAuthority,

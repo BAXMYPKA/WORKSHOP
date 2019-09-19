@@ -1,5 +1,19 @@
 package workshop.internal.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Order;
@@ -13,19 +27,6 @@ import workshop.internal.hateoasResources.OrdersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
 import workshop.internal.services.ClassifiersService;
 import workshop.internal.services.TasksService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -78,10 +79,11 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 * @return HttpStatus.FORBIDDEN with an explanation about the fact that Employees must be saved by their
 	 * individual links before.
 	 */
-	@PostMapping(path = "/{id}/appointed_to")
+	@PostMapping(path = "/{id}/appointed_to",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postEmployeeAppointedTo(@PathVariable(name = "id") Long id,
-														  @RequestBody(required = false) Employee employee,
-														  HttpServletRequest request) {
+		@RequestBody(required = false) Employee employee,
+		HttpServletRequest request) {
 		return getResponseEntityWithErrorMessage(
 			HttpStatus.FORBIDDEN,
 			getMessageSource().getMessage(
@@ -90,10 +92,11 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 				LocaleContextHolder.getLocale()));
 	}
 	
-	@PutMapping(path = "/{id}/appointed_to")
+	@PutMapping(path = "/{id}/appointed_to",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putEmployeeAppointedTo(@PathVariable(name = "id") Long id,
-														 @Validated(UpdateValidation.class) @RequestBody Employee employee,
-														 BindingResult bindingResult) {
+		@Validated(UpdateValidation.class) @RequestBody Employee employee,
+		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Task task = getWorkshopEntitiesService().findById(id);
 		task.setAppointedTo(employee);
@@ -113,7 +116,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 */
 	@DeleteMapping(path = "/{id}/appointed_to/{employeeId}")
 	public ResponseEntity<String> deleteEmployeeAppointedTo(@PathVariable(name = "id") Long id,
-															@PathVariable(name = "employeeId") Long employeeId) {
+		@PathVariable(name = "employeeId") Long employeeId) {
 		Task task = getWorkshopEntitiesService().findById(id);
 		if (task.getAppointedTo() != null && task.getAppointedTo().getIdentifier().equals(employeeId)) {
 			
@@ -147,11 +150,12 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	}
 	
 	@RequestMapping(path = {"/{id}/order", "/{id}/order/{orderId}"},
-		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> forbiddenMethodsTaskOrder(@PathVariable(name = "id", required = false) Long id,
-															@PathVariable(name = "orderId", required = false) Long orderId,
-															@RequestBody(required = false) Order order,
-															HttpServletRequest request) {
+		@PathVariable(name = "orderId", required = false) Long orderId,
+		@RequestBody(required = false) Order order,
+		HttpServletRequest request) {
 		return getResponseEntityWithErrorMessage(HttpStatus.FORBIDDEN, getMessageSource().getMessage(
 			"httpStatus.forbidden.withDescription(2)",
 			new Object[]{request.getMethod() + " method ", " Use '{orderId}/tasks' instead!"},
@@ -176,11 +180,13 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	
 	/**
 	 * Receives a new Classifier, persist if and set into the given Task.
-	 * @param id Task.ID
+	 *
+	 * @param id         Task.ID
 	 * @param classifier A Classifier to be persisted.
 	 * @return The persisted Classifier with this Task set.
 	 */
-	@PostMapping(path = "/{id}/classifiers")
+	@PostMapping(path = "/{id}/classifiers",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postClassifier(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Classifier classifier,
@@ -200,11 +206,13 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	
 	/**
 	 * Receives an existing Classifier, set into the given Task and updates it state.
-	 * @param id Task.ID
+	 *
+	 * @param id         Task.ID
 	 * @param classifier A Classifier to be updated.
 	 * @return The updated Classifier with this Task set.
 	 */
-	@PutMapping(path = "/{id}/classifiers")
+	@PutMapping(path = "/{id}/classifiers",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putClassifier(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Classifier classifier,
@@ -224,13 +232,15 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	
 	/**
 	 * Just deletes a Classifier from a given Task.
-	 * @param id Task.ID the Classifier have to be deleted from.
+	 *
+	 * @param id           Task.ID the Classifier have to be deleted from.
 	 * @param classifierId The Classifier.ID to be deleted from the Task.
 	 * @return HttpStatus.NO_CONTENT
 	 */
 	@DeleteMapping(path = "{id}/classifiers/{classifierId}")
 	public ResponseEntity<String> deleteClassifier(@PathVariable(name = "id") Long id,
-												   @PathVariable(name = "classifierId") Long classifierId) {
+		@PathVariable(name = "classifierId") Long classifierId) {
+		
 		Task task = getWorkshopEntitiesService().findById(id);
 		Classifier classifier = classifiersService.findById(classifierId);
 		task.removeClassifier(classifier);

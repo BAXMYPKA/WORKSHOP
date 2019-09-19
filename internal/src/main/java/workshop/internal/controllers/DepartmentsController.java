@@ -1,5 +1,6 @@
 package workshop.internal.controllers;
 
+import org.springframework.http.MediaType;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
@@ -82,7 +83,8 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	 * @param id       ID of this Department
 	 * @param position New Position to be saved and to which this Department will be set.
 	 */
-	@PostMapping(path = "/{id}/positions")
+	@PostMapping(path = "/{id}/positions",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postPosition(@PathVariable(name = "id") long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {
@@ -96,7 +98,8 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		return ResponseEntity.ok(jsonPositionResource);
 	}
 	
-	@PutMapping(path = "/{id}/positions")
+	@PutMapping(path = "/{id}/positions",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putPosition(@PathVariable(name = "id") long id,
 		@Validated(UpdateValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {

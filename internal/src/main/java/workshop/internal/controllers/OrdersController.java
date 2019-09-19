@@ -1,5 +1,6 @@
 package workshop.internal.controllers;
 
+import org.springframework.http.MediaType;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;
@@ -68,7 +69,8 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 *
 	 * @return Created User.
 	 */
-	@PostMapping(path = "/{id}/user")
+	@PostMapping(path = "/{id}/user",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postUserCreatedFor(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody User user,
@@ -89,7 +91,8 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 *
 	 * @return A renewed User.
 	 */
-	@PutMapping(path = "/{id}/user")
+	@PutMapping(path = "/{id}/user",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putUserCreatedFor(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody User user,
@@ -138,7 +141,8 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 *
 	 * @return Created Task.
 	 */
-	@PostMapping(path = "/{id}/tasks")
+	@PostMapping(path = "/{id}/tasks",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> postTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -161,7 +165,8 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 *
 	 * @return An updated Task with the Order set..
 	 */
-	@PutMapping(path = "/{id}/tasks")
+	@PutMapping(path = "/{id}/tasks",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public ResponseEntity<String> putTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,

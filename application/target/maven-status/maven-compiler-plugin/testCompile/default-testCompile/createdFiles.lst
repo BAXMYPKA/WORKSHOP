@@ -1,0 +1,4 @@
+workshop\internal\controllers\WorkshopControllersMethodSecurityIT.class
+workshop\LocalesConfigurationIT.class
+workshop\AppConfigurationIT.class
+workshop\internal\controllers\WorkshopControllerAbstractIT.class

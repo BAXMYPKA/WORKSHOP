@@ -82,7 +82,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (ClassifiersController.TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (ClassifiersController.GET_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(ClassifiersController.class).getTasks(
 					ownerId,

@@ -10,6 +10,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ import workshop.internal.services.TasksService;
 @ExposesResourceFor(Classifier.class)
 public class ClassifiersController extends WorkshopControllerAbstract<Classifier> {
 	
-	public static final String TASKS_METHOD_NAME = "getTasks";
+	public static final String GET_TASKS_METHOD_NAME = "getTasks";
 	
 	@Autowired
 	private TasksService tasksService;
@@ -47,7 +48,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	}
 	
 	@GetMapping(path = "/{id}/tasks")
-//	@PreAuthorize("hasAnyAuthority(#authentication, #tasksService.entityClassSimpleName, 'read')")
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'read')")
 	public ResponseEntity<String> getTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -58,7 +59,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksAppointedToEmployeePage = tasksService.findAllTasksByClassifier(pageable, id);
 		Resources<Resource<Task>> classifierTasksPagedResources =
-			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, TASKS_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, GET_TASKS_METHOD_NAME);
 		String jsonClassifierTasksPagedResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(classifierTasksPagedResources);
 		return ResponseEntity.ok(jsonClassifierTasksPagedResources);

@@ -12,11 +12,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -34,7 +36,7 @@ import java.util.Set;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${authorizationHeaderName}")
 	@Setter(AccessLevel.PACKAGE)
@@ -59,6 +61,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private CookieUtils cookieUtils;
+	
+	@Autowired
+	private WorkshopPermissionEvaluator workshopPermissionEvaluator;
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+		webSecurityExpressionHandler.setPermissionEvaluator(workshopPermissionEvaluator);
+		web.expressionHandler(webSecurityExpressionHandler);
+//		super.configure(web);
+	}
 	
 	/**
 	 * SessionManagement = STATELESS.

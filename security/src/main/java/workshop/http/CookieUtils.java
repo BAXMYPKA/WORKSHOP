@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import workshop.configurations.SecurityConfiguration;
+import workshop.configurations.WebSecurityConfiguration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +32,7 @@ public class CookieUtils {
 	private String internalPathName;
 	
 	@Autowired
-	private SecurityConfiguration securityConfiguration;
+	private WebSecurityConfiguration webSecurityConfiguration;
 	
 	@Value("${authenticationCookieName}")
 	@Getter(AccessLevel.PUBLIC)

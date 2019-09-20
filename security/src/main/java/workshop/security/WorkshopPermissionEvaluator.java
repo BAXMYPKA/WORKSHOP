@@ -22,6 +22,7 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
 		log.debug("Permission evaluating for: "+authentication.getName());
+		System.out.println("PERM");
 		return false;
 	}
 }

@@ -1,10 +1,10 @@
 package workshop.security;
 
-import workshop.internal.entities.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import workshop.internal.entities.User;
 
 import java.util.Collection;
 

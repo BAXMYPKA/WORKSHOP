@@ -1,17 +1,17 @@
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserAuditorAware.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\EmployeesDetailsService.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\EmployeesAuthenticationProvider.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\ResponseHeadersInternalFilter.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\SecurityConfiguration.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\JwtUtils.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\CookieUtils.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsUser.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopPermissionEvaluator.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersAuthenticationProvider.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\JwtAuthenticationFilter.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\LoginAuthenticationFilter.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\WebMvcConfiguration.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\SecurityUtils.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\configurations\WebMvcConfiguration.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\WorkshopPermissionEvaluator.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\JwtUtils.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UsersAuthenticationProvider.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\EmployeesAuthenticationProvider.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UserDetailsUser.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\http\CookieUtils.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\EmployeesDetailsService.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\configurations\SecurityConfiguration.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\http\ResponseHeadersInternalFilter.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\LoginAuthenticationFilter.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UserAuditorAware.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\SecurityUtils.java
+E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\JwtAuthenticationFilter.java

@@ -67,6 +67,7 @@ class WorkshopControllerAbstractIT {
 	
 	
 	@Test
+	@Order(2)
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	public void inherited_Method_getOne_Should_Return_One_WorkshopEntity() throws Exception {
 		//GIVEN
@@ -89,6 +90,7 @@ class WorkshopControllerAbstractIT {
 	}
 	
 	@Test
+	@Order(3)
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
 	public void inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities() throws Exception {
 		//GIVEN

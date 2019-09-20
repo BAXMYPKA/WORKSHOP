@@ -5,13 +5,14 @@
 	<parent>
 		<artifactId>WORKSHOP</artifactId>
 		<groupId>pro.workshop</groupId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>4.0.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	
 	<description>THE MAIN APP START MODULE WHICH DEPENDS ON ALL OTHER MODULES</description>
 	
 	<artifactId>application</artifactId>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		

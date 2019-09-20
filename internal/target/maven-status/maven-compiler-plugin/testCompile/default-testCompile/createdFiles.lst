@@ -1,0 +1,11 @@
+workshop\internal\entities\DepartmentBeanValidationTest.class
+workshop\internal\services\WorkshopEntitiesServiceAbstractIT.class
+workshop\internal\entities\TrackableBeanValidationTest.class
+workshop\internal\dao\WorkshopEntitiesDaoAbstractIT.class
+workshop\internal\hateoasResources\SubResourcesCollectionsLinksIT.class
+workshop\internal\services\JsonServiceUtilsTest.class
+workshop\internal\hateoasResources\HateoasIT.class
+workshop\internal\services\OrdersServiceTest.class
+workshop\internal\hateoasResources\WorkshopEntitiesResourceAssemblerAbstractTest.class
+workshop\internal\dao\HibernateSecondLevelCacheIT.class
+workshop\internal\services\WorkshopEntitiesServiceAbstractImplementationsTest.class

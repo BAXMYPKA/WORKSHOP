@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.UpdateValidation;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -163,7 +163,7 @@ public class User extends WorkshopEntityAbstract {
 			externalAuthorities = new HashSet<>(5);
 		}
 		Stream.of(grantedAuthority).forEach(authority -> {
-			externalAuthorities.add((ExternalAuthority)authority);
+			externalAuthorities.add((ExternalAuthority) authority);
 		});
 	}
 	

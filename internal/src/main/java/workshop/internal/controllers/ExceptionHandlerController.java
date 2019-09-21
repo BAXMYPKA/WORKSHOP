@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpMediaTypeException;
@@ -95,26 +96,17 @@ public class ExceptionHandlerController {
 		//TODO: to manage the translation for exceptions messages
 	}
 	
-/*
-	@ExceptionHandler({MethodArgumentNotValidException.class}) //422
-	@ResponseBody
-	public ResponseEntity<String> validationFailure(
-		MethodArgumentNotValidException ex, HttpServletResponse response, Locale locale) {
-		BindingResult bindingResult = ex.getBindingResult();
-		Map<String, String> fieldErrors = bindingResult
-			.getFieldErrors()
-			.stream()
-			.collect(Collectors.toMap(fieldError -> fieldError.getField(), fieldError -> fieldError.getDefaultMessage()));
-		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			String jsonedFieldErrors = objectMapper.writeValueAsString(fieldErrors);
-			return getResponseEntityWithErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY, jsonedFieldErrors);
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage());
-			return getResponseEntityWithErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY, fieldErrors.toString());
-		}
+	/**
+	 * Thrown if an Authentication object does not hold a required authority.
+	 * @return HttpStatus.UNAUTHORIZED (401) with an error message,
+	 */
+	@ExceptionHandler({AccessDeniedException.class}) //401
+	public ResponseEntity<String> accessDenied(AccessDeniedException ade) {
+		log.debug(ade.getMessage(), ade);
+		String unauthorizedMessageBody =
+			getMessageSource().getMessage("httpStatus.unauthorized", null, LocaleContextHolder.getLocale());
+		return getResponseEntityWithErrorMessage(HttpStatus.UNAUTHORIZED, unauthorizedMessageBody);
 	}
-*/
 	
 	/**
 	 * Produces 422 HttpStatus.UNPROCESSABLE_ENTITY with Json object as "fieldName : fieldErrorDescription"

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-//@ContextConfiguration(classes = SecurityTestApplication.class)
 @AutoConfigureMockMvc
 public class WorkshopControllersMethodSecurityIT {
 	
@@ -53,8 +53,8 @@ public class WorkshopControllersMethodSecurityIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
-	public void inheritedddd() throws Exception {
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Manager", "Administrator"})
+	public void methodSecurity_With_Administrator_Authority_Should_Grant_Access_To_Read() throws Exception {
 		//GIVEN
 		Classifier classifier = new Classifier();
 		classifier.setName("Classifier 1");
@@ -84,6 +84,41 @@ public class WorkshopControllersMethodSecurityIT {
 			.andExpect(MockMvcResultMatchers
 				.content().string(Matchers.containsString("\"name\":\"Task 1\"")));
 		
+	}
+	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Manager", "Admin"})
+	public void methodSecurity_Without_Administrator_Authority_Should_Dont_Grant_Access_To_Read() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier 2");
+		classifiersService.persistEntity(classifier);
+		
+		workshop.internal.entities.Order order = new workshop.internal.entities.Order();
+		order.setDescription("Order 2");
+		ordersService.persistEntity(order);
+		
+		Task task = new Task();
+		task.setName("Task 2");
+		task.setOrder(order);
+		task.addClassifier(classifier);
+		tasksService.persistEntity(task);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET",
+			URI.create("/internal/classifiers/" + classifier.getIdentifier() + "/tasks/"))
+			.accept(MediaTypes.HAL_JSON_UTF8);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.status().isUnauthorized())
+			.andExpect(MockMvcResultMatchers
+				.content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 	
 }

@@ -1,7 +1,5 @@
 package workshop.internal.services;
 
-import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
-import workshop.internal.dao.OrdersDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
-import workshop.internal.services.OrdersService;
+import workshop.internal.dao.OrdersDao;
+import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 
 import java.util.Optional;
 

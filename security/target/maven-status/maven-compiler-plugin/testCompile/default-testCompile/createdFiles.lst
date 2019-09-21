@@ -1,4 +1,3 @@
-workshop\SecurityTestApplication.class
 workshop\http\CookieUtilsTest.class
 workshop\security\LoginAuthenticationFilterTest.class
 workshop\security\JwtAuthenticationFilterTest.class

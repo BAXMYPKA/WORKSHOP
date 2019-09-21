@@ -1,7 +1,13 @@
 /target
 .idea
 /logs
-/application/target
-/internal/target
-/security/target
-/sharedResources/target
+/application/target/
+/internal/target/
+/security/target/
+/sharedResources/target/
+/security/target/
+/sharedResources/target/
+/logs/
+/internal/target/
+/application/target/
+/application/logs/

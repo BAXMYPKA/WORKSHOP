@@ -37,8 +37,6 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 		}
 	}
 	
-	//TODO: to implement full authorization process
-	
 	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
 		log.debug("Permissions of Authentication={} evaluating for targetId={}, targetType={} with permission={}",
@@ -66,6 +64,23 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 			return false;
 		} catch (NullPointerException npe) {
 			log.info(npe.getMessage(), npe);
+			return false;
+		}
+	}
+	
+	//TODO: to implement full authorization process
+	
+	public boolean hasWorkshopPermission(
+		Authentication authentication,
+		String workshopEntityClass,
+		Class<PermissionType> permissionTypeClass) {
+		
+		log.debug("Permissions of Authentication={} evaluating for DomainObject={} with action={}",
+			authentication.getName(), workshopEntityClass, permissionTypeClass);
+		if (authentication.getAuthorities().stream()
+			.anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ADMINISTRATOR"))) {
+			return true;
+		} else {
 			return false;
 		}
 	}

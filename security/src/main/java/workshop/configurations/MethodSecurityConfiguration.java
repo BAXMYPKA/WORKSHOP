@@ -3,10 +3,21 @@ package workshop.configurations;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 //@Configuration
-public class WorkshopMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
 //	@Autowired
 //	private WorkshopPermissionEvaluator workshopPermissionEvaluator;
+
+//	@Override
+//	protected MethodSecurityExpressionHandler createExpressionHandler() {
+//		WorkshopMethodSecurityExpressionHandler workshopExpressionHandler =
+//			new WorkshopMethodSecurityExpressionHandler();
+//		workshopExpressionHandler.setPermissionEvaluator(workshopPermissionEvaluator);
+//		return workshopExpressionHandler;
+//	}
+
+
 	
 /*
 	@Override

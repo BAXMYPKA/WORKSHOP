@@ -6,36 +6,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8ae7ef7-1fbd-4604-9520-00d20c451735" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/InternalAuthority.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/logs/internal.log" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/internal.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/target/application-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application/target/application-4.0.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/target/classes/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/target/classes/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/target/test-classes/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.class" beforeDir="false" afterPath="$PROJECT_DIR$/application/target/test-classes/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PositionsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/controllers/ClassifiersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/controllers/ClassifiersController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Classifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Classifier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Department.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Department.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/ExternalAuthority.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/ExternalAuthority.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/InternalAuthority.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/InternalAuthority.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Phone.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Phone.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Position.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Task.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Task.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Trackable.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/Trackable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/WorkshopEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/WorkshopEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/WorkshopEntityAbstract.class" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/classes/workshop/internal/entities/WorkshopEntityAbstract.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/target/internal-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/internal/target/internal-4.0.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internal.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/internal.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/internal.log.2019-09-18.0.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WorkshopMethodSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/MethodSecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/configurations/WebSecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/configurations/WebSecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/configurations/WorkshopMethodSecurityConfiguration.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/security/target/classes/workshop/security/WorkshopPermissionEvaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/classes/workshop/security/WorkshopPermissionEvaluator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
@@ -105,8 +87,9 @@
         <option value="HTML Thymeleaf-Spring" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -169,10 +152,6 @@
     <property name="settings.editor.selected.configurable" value="experimentalPlugin" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="internal.hateoasResources" />
-      <recent name="internal.controllers" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="internal.hateoasResources" />
       <recent name="internal.entities.hateoasResources" />
@@ -184,11 +163,18 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="workshop.security" />
+      <recent name="workshop.internal.controllers" />
       <recent name="workshop" />
       <recent name="workshop.http" />
       <recent name="internal" />
-      <recent name="internal.http.security" />
-      <recent name="internal.entities" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\application\src\main\resources" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources\i18nMessages" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\main\resources\messages" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\configs" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\resources" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\test\java\workshop\internal\resources" />
@@ -200,12 +186,9 @@
       <recent name="workshop.internal.controllers" />
       <recent name="internal.entities" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\application\src\main\resources" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\test\java\resources\i18nMessages" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internalREST\src\main\resources\messages" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\configs" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST\src\test\java\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="internal.hateoasResources" />
+      <recent name="internal.controllers" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -230,12 +213,12 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.workshop.application">
+  <component name="RunManager" selected="JUnit.WorkshopControllersMethodSecurityIT">
     <configuration name="WorkshopControllersMethodSecurityIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -250,7 +233,7 @@
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -262,11 +245,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WorkshopControllersMethodSecurityIT.methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read_ClassifierTasks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllersMethodSecurityIT" />
+      <option name="METHOD_NAME" value="methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read_ClassifierTasks" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Just_Return_Status401" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -278,27 +277,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Throw_IllegalArgumentException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllersMethodSecurityIT" />
-      <option name="METHOD_NAME" value="methodSecurity_With_Wrong_Authority_Admin_Should_Throw_IllegalArgumentException" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WorkshopControllersMethodSecurityIT.methodSecurity_Without_Administrator_Authority_Should_Dont_Grant_Access_To_Read" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -339,20 +322,20 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.internal.controllers in internalREST" />
-      <item itemvalue="Spring Boot.workshop.application" />
       <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_Without_Administrator_Authority_Should_Dont_Grant_Access_To_Read" />
-      <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Throw_IllegalArgumentException" />
       <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Just_Return_Status401" />
       <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
       <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read" />
+      <item itemvalue="Spring Boot.workshop.application" />
+      <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read_ClassifierTasks" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
+        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read_ClassifierTasks" />
+        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Just_Return_Status401" />
         <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Read" />
         <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_Without_Administrator_Authority_Should_Dont_Grant_Access_To_Read" />
-        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Just_Return_Status401" />
-        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT.methodSecurity_With_Wrong_Authority_Admin_Should_Throw_IllegalArgumentException" />
       </list>
     </recent_temporary>
   </component>
@@ -560,6 +543,7 @@
       <workItem from="1569058723368" duration="2421000" />
       <workItem from="1569067957779" duration="3760000" />
       <workItem from="1569139628388" duration="17503000" />
+      <workItem from="1569168072237" duration="10100000" />
     </task>
     <servers />
   </component>
@@ -592,6 +576,27 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

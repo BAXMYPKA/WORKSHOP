@@ -1,8 +1,11 @@
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopMethodSecurityExpressionRoot.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserAuditorAware.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopMethodSecurityExpressionHandler.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\EmployeesDetailsService.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\EmployeesAuthenticationProvider.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\ResponseHeadersInternalFilter.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\JwtUtils.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\MethodSecurityConfiguration.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\CookieUtils.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsUser.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
@@ -11,7 +14,6 @@ C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\I
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\WebSecurityConfiguration.java
-C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\WorkshopMethodSecurityConfiguration.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersAuthenticationProvider.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\JwtAuthenticationFilter.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\LoginAuthenticationFilter.java

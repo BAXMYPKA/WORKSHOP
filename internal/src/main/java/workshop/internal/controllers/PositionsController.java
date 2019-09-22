@@ -172,7 +172,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<InternalAuthority> internalAuthoritiesByPositionPage =
+		Page<workshop.internal.entities.InternalAuthority> internalAuthoritiesByPositionPage =
 			internalAuthoritiesService.findInternalAuthoritiesByPosition(pageable, id);
 		Resources<Resource<InternalAuthority>> positionInternalAuthoritiesResources =
 			internalAuthoritiesResourceAssembler.toPagedSubResources(

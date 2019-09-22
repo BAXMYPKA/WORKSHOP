@@ -25,6 +25,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
+import workshop.security.WorkshopPermissionEvaluator;
 import workshop.security.*;
 
 import java.util.HashSet;
@@ -34,8 +35,8 @@ import java.util.Set;
  * For now works only with cookies for being carried the Authentication information.
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${authorizationHeaderName}")

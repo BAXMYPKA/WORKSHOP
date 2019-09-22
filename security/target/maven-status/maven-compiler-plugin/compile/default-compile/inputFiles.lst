@@ -7,6 +7,7 @@ C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\http\Cooki
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsUser.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\WorkshopPermissionEvaluator.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\InternalAuthority.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\WebSecurityConfiguration.java
@@ -15,4 +16,5 @@ C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\U
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\JwtAuthenticationFilter.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\LoginAuthenticationFilter.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\configurations\WebMvcConfiguration.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\PermissionType.java
 C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\main\java\workshop\security\SecurityUtils.java

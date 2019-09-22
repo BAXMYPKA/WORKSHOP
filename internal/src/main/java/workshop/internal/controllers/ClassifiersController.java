@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Task;
+import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
@@ -45,6 +46,30 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	public ClassifiersController(
 		ClassifiersService classifiersService, ClassifiersResourceAssembler classifiersResourceAssembler) {
 		super(classifiersService, classifiersResourceAssembler);
+	}
+	
+	@Override
+	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'read')")
+	public ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order) {
+		return super.getAll(pageSize, pageNum, orderBy, order);
+	}
+	
+	@Override
+	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'full')")
+	public ResponseEntity<String> postOne(WorkshopEntity workshopEntity, BindingResult bindingResult) {
+		return super.postOne(workshopEntity, bindingResult);
+	}
+	
+	@Override
+	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'write')")
+	public ResponseEntity<String> putOne(long id, WorkshopEntity workshopEntity, BindingResult bindingResult) {
+		return super.putOne(id, workshopEntity, bindingResult);
+	}
+	
+	@Override
+	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'full')")
+	public ResponseEntity<String> deleteOne(long id) {
+		return super.deleteOne(id);
 	}
 	
 	@GetMapping(path = "/{id}/tasks")

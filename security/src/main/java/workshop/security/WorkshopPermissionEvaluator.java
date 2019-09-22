@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import workshop.internal.entities.WorkshopEntity;
 
 import java.io.Serializable;
 
@@ -42,10 +43,29 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 	public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
 		log.debug("Permissions of Authentication={} evaluating for targetId={}, targetType={} with permission={}",
 			authentication.getName(), targetId, targetType, permission);
-		if (authentication.getAuthorities().stream()
-			.anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ADMINISTRATOR"))) {
-			return true;
-		} else {
+		
+		PermissionType permissionType1 = InternalAuthority.ADMIN_READ.permissionType;
+		
+		try {
+			//Check the given PermissionType
+			PermissionType permissionType = PermissionType.valueOf(permission.toString().toUpperCase());
+			//Check the given WorkshopEntityTargetType
+			if (!WorkshopEntity.workshopEntitiesNames.contains(targetType)) {
+				throw new IllegalArgumentException("TargetType=" + targetType + " of the given WorkshopEntity name cannot" +
+					" be evaluated through all the possible names of WorkshopEntity.workshopEntitiesNames()!");
+			}
+			//Can throw IllegalArgumentException if the given Authentication doesnt contain proper InternalAuthority
+			return authentication.getAuthorities().stream()
+				.map(auth -> InternalAuthority.valueOf(auth.getAuthority()))
+				.map(InternalAuthority.allAuthoritiesPermissions::get)
+				.anyMatch(permissionTypesToTargetTypes ->
+					permissionTypesToTargetTypes.get(permissionType).contains(targetType));
+			
+		} catch (IllegalArgumentException e) {
+			log.error(e.getMessage(), e);
+			return false;
+		} catch (NullPointerException npe) {
+			log.info(npe.getMessage(), npe);
 			return false;
 		}
 	}

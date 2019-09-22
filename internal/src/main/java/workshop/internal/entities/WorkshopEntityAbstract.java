@@ -2,6 +2,17 @@ package workshop.internal.entities;
 
 public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 	
+	public static String workshopEntityName;
+	
+	WorkshopEntityAbstract() {
+		workshopEntityName = this.getClass().getSimpleName();
+		WorkshopEntity.workshopEntitiesNames.add(workshopEntityName);
+	}
+	
+	public String getWorkshopEntityName() {
+		return workshopEntityName;
+	}
+	
 	/**
 	 * First it compares by 'created', if null, by 'created' ZonedDateTime
 	 *
@@ -18,4 +29,5 @@ public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 			return 0;
 		}
 	}
+	
 }

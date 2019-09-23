@@ -10,6 +10,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -48,32 +49,8 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 		super(classifiersService, classifiersResourceAssembler);
 	}
 	
-	@Override
-	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'read')")
-	public ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order) {
-		return super.getAll(pageSize, pageNum, orderBy, order);
-	}
-	
-	@Override
-	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'full')")
-	public ResponseEntity<String> postOne(WorkshopEntity workshopEntity, BindingResult bindingResult) {
-		return super.postOne(workshopEntity, bindingResult);
-	}
-	
-	@Override
-	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'write')")
-	public ResponseEntity<String> putOne(long id, WorkshopEntity workshopEntity, BindingResult bindingResult) {
-		return super.putOne(id, workshopEntity, bindingResult);
-	}
-	
-	@Override
-	@PreAuthorize("hasPermission(#authentication, 'Classifier', 'full')")
-	public ResponseEntity<String> deleteOne(long id) {
-		return super.deleteOne(id);
-	}
-	
 	@GetMapping(path = "/{id}/tasks")
-	@PreAuthorize("hasPermission(#authentication, 'Task', 'read')")
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'get')")
 	public ResponseEntity<String> getTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -92,6 +69,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	
 	@PostMapping(path = "/{id}/tasks",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'post')")
 	public ResponseEntity<String> postTask(@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
@@ -108,6 +86,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	
 	@PutMapping(path = "/{id}/tasks",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'put')")
 	public ResponseEntity<String> putTask(@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
@@ -130,6 +109,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	 * @return A Task without this Classifier.
 	 */
 	@DeleteMapping(path = "/{id}/tasks/{taskId}")
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'delete')")
 	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "taskId") Long taskId) {
 		

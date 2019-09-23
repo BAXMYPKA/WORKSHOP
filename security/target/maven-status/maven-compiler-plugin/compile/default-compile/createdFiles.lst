@@ -1,7 +1,6 @@
 workshop\security\EmployeesAuthenticationProvider.class
 workshop\security\UserDetailsEmployee.class
 workshop\security\UserDetailsUser.class
-workshop\security\WorkshopMethodSecurityExpressionHandler.class
 workshop\security\LoginAuthenticationFilter.class
 workshop\security\UsersDetailsService.class
 workshop\security\EmployeesDetailsService.class
@@ -19,4 +18,3 @@ workshop\http\ResponseHeadersInternalFilter.class
 workshop\security\UsersAuthenticationProvider.class
 workshop\security\WorkshopAuthenticationManager.class
 workshop\security\JwtUtils.class
-workshop\security\WorkshopMethodSecurityExpressionRoot.class

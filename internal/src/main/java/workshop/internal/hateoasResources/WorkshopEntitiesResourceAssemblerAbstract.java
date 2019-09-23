@@ -228,7 +228,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 			Link lastPageLink =
 				ControllerLinkBuilder.linkTo(
 					ControllerLinkBuilder.methodOn(workshopControllerAbstractClass)
-						.getAll(page.getSize(), page.getTotalPages(), orderBy, order))
+						.getAll(page.getSize(), page.getTotalPages(), orderBy, order, null))
 					.withRel(LINK_LAST_PAGE_REL)
 					.withHreflang(hrefLang)
 					.withMedia(LINK_MEDIA)
@@ -317,7 +317,8 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 					pageable.getPageSize(),
 					pageNum + 1,
 					orderBy,
-					order))
+					order,
+					null))
 				.withRel(relation)
 				.withHreflang(hrefLang)
 				.withMedia(media)

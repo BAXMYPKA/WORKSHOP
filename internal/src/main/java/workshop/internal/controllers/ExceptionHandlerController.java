@@ -50,13 +50,13 @@ public class ExceptionHandlerController {
 	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, Locale locale) {
 		if (ex.getClass().isAssignableFrom(HttpMessageNotReadableException.class)) {
 			//400
-			log.info(ex.getMessage());
+			log.info(ex.getMessage(), ex);
 			return getResponseEntityWithErrorMessage(
 				HttpStatus.BAD_REQUEST,
 				messageSource.getMessage("httpStatus.badRequest", null, locale));
 		} else {
 			// ex = HttpMessageNotWritableException.class, 422
-			log.error(ex.getMessage());
+			log.error(ex.getMessage(), ex);
 			return getResponseEntityWithErrorMessage(
 				HttpStatus.UNPROCESSABLE_ENTITY,
 				messageSource.getMessage("httpStatus.unprocessableEntity.HttpMessageNotWritable", null, locale));

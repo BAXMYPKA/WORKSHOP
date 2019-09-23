@@ -22,6 +22,7 @@ import workshop.internal.entities.Task;
 import workshop.internal.services.ClassifiersService;
 import workshop.internal.services.OrdersService;
 import workshop.internal.services.TasksService;
+import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
 import java.net.URI;
 
@@ -44,6 +45,9 @@ public class WorkshopControllersMethodSecurityIT {
 	
 	@Autowired
 	private OrdersService ordersService;
+	
+	@Autowired
+	private JsonServiceUtils jsonServiceUtils;
 	
 	@Test
 	public void initTest() {
@@ -85,6 +89,30 @@ public class WorkshopControllersMethodSecurityIT {
 					.content().contentType(MediaType.APPLICATION_JSON_UTF8)));
 	}
 	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_READ"})
+	public void methodSecurity_With_AdminRead_Authority_Should_Grant_Access_To_Read_Classifier() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier to read");
+		classifiersService.persistEntity(classifier);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"GET",
+			URI.create("/internal/classifiers/" + classifier.getIdentifier()))
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.accept(MediaTypes.HAL_JSON_UTF8);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Classifier to read\"")));
+		
+	}
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
@@ -122,7 +150,7 @@ public class WorkshopControllersMethodSecurityIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"EMPLOYEE"})
-	public void methodSecurity_Without_Administrator_Authority_Should_Dont_Grant_Access_To_Read_ClassifierTasks() throws Exception {
+	public void methodSecurity_Without_Administrator_Authority_Should_Not_Grant_Access_To_Read_ClassifierTasks() throws Exception {
 		//GIVEN
 		Classifier classifier = new Classifier();
 		classifier.setName("Classifier 2");
@@ -153,6 +181,33 @@ public class WorkshopControllersMethodSecurityIT {
 				.status().isUnauthorized())
 			.andExpect(MockMvcResultMatchers
 				.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+	}
+	
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
+	public void methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Put_Classifier() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier new 1");
+		
+		String jsonClassifier = jsonServiceUtils.workshopEntityObjectsToJson(classifier);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"POST",
+			URI.create("/internal/classifiers"))
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(jsonClassifier)
+			.accept(MediaTypes.HAL_JSON_UTF8);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Classifier new 1\"")));
+		
 	}
 	
 }

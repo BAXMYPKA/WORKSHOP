@@ -1,6 +1,7 @@
 package workshop.internal.controllers;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
@@ -45,6 +46,23 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		super(departmentsService, departmentsResourceAssembler);
 	}
 	
+/*
+	@Override
+	@PreAuthorize("hasPermission(#authentication, 'Department', 'get')")
+	public ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order) {
+		return super.getAll(pageSize, pageNum, orderBy, order);
+	}
+	
+	@Override
+	public ResponseEntity<String> getOne(long id) {
+		return super.getOne(id);
+	}
+	
+	@Override
+	public ResponseEntity<String> deleteOne(long id) {
+		return super.deleteOne(id);
+	}
+*/
 	
 	/**
 	 * @param id       Department id

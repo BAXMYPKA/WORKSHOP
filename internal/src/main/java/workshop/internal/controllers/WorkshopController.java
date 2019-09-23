@@ -1,5 +1,6 @@
 package workshop.internal.controllers;
 
+import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.services.WorkshopEntitiesServiceAbstract;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
@@ -45,15 +46,15 @@ public interface WorkshopController<T extends WorkshopEntity> {
 	
 	//The controller methods are the following...
 	
-	ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order);
+	ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order, WebRequest webRequest);
 	
-	ResponseEntity<String> getOne(long id);
+	ResponseEntity<String> getOne(Long id, WebRequest webRequest);
 	
-	ResponseEntity<String> postOne(T workshopEntity, BindingResult bindingResult);
+	ResponseEntity<String> postOne(T workshopEntity, BindingResult bindingResult, WebRequest webRequest);
 	
-	ResponseEntity<String> putOne(long id, T workshopEntity, BindingResult bindingResult);
+	ResponseEntity<String> putOne(Long id, T workshopEntity, BindingResult bindingResult, WebRequest webRequest);
 	
-	ResponseEntity<String> deleteOne(long id);
+	ResponseEntity<String> deleteOne(Long id, WebRequest webRequest);
 	
 	Pageable getPageable(Integer pageSize, Integer pageNum, String orderBy, String order);
 }

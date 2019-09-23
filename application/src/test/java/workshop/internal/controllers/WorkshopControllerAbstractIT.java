@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,10 +17,13 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.services.*;
+import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -47,6 +51,8 @@ class WorkshopControllerAbstractIT {
 	@Autowired
 	private ClassifiersController classifiersController;
 	@Autowired
+	private JsonServiceUtils jsonServiceUtils;
+	@Autowired
 	private MockMvc mockMvc;
 	private Department departmentOne;
 	private Position positionOne;
@@ -68,7 +74,7 @@ class WorkshopControllerAbstractIT {
 	
 	@Test
 	@Order(2)
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
 	public void inherited_Method_getOne_Should_Return_One_WorkshopEntity() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique one");
@@ -91,7 +97,7 @@ class WorkshopControllerAbstractIT {
 	
 	@Test
 	@Order(3)
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
 	public void inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique");
@@ -119,4 +125,70 @@ class WorkshopControllerAbstractIT {
 			.andExpect(MockMvcResultMatchers
 				.content().string(Matchers.containsString("\"name\":\"Position unique two\"")));
 	}
+	
+	@Test
+	@Order(4)
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
+	public void inherited_Method_Post_Should_Return_Persisted_Classifier() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier new 1");
+		classifier.setPrice(BigDecimal.TEN);
+		
+		String jsonClassifier = jsonServiceUtils.workshopEntityObjectsToJson(classifier);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"POST",
+			URI.create("/internal/classifiers"))
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(jsonClassifier)
+			.accept(MediaTypes.HAL_JSON_UTF8);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Classifier new 1\"")));
+		
+	}
+	
+	@Test
+	@Order(5)
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"ADMIN_FULL"})
+	public void inherited_Method_Put_Should_Return_Updated_Classifier() throws Exception {
+		//GIVEN
+		Classifier classifier = new Classifier();
+		classifier.setName("Classifier not new 1");
+		classifier.setPrice(BigDecimal.TEN);
+		classifiersService.persistEntity(classifier);
+		
+		classifier.setName("Classifier not new again");
+		
+		String jsonClassifier = jsonServiceUtils.workshopEntityObjectsToJson(classifier);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
+			"PUT",
+			URI.create("/internal/classifiers/" + classifier.getIdentifier()))
+			.contentType(MediaType.APPLICATION_JSON_UTF8)
+			.content(jsonClassifier)
+			.accept(MediaTypes.HAL_JSON_UTF8);
+		
+		//WHEN
+		ResultActions resultActions = mockMvc.perform(request);
+		
+		//THEN
+		resultActions
+			.andDo(MockMvcResultHandlers.print())
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers.containsString("\"name\":\"Classifier not new again\"")))
+			.andExpect(MockMvcResultMatchers
+				.content().string(Matchers
+					.not(Matchers.containsString("\"name\":\"Classifier not new 1\""))));
+		
+	}
+	
+	
 }

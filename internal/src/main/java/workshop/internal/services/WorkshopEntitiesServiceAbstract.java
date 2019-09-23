@@ -1,5 +1,7 @@
 package workshop.internal.services;
 
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.exceptions.EntityNotFoundException;
@@ -508,7 +510,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	 * @throws IllegalArgumentsException With appropriate HttpStatus and fully localized error message for the end
 	 *                                   users if the given parameter id is null either zero or below zero.
 	 */
-	protected void verifyIdForNullZeroBelowZero(Long... idToVerify) throws IllegalArgumentsException {
+	public void verifyIdForNullZeroBelowZero(Long... idToVerify) throws IllegalArgumentsException {
 		if (idToVerify == null) {
 			throw new IllegalArgumentsException(
 				"Identifier cannot be null!",
@@ -516,7 +518,13 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 				new Object[]{"null"}, LocaleContextHolder.getLocale()));
 		} else {
 			for (Long id : idToVerify) {
-				if (id <= 0) {
+				if (id == null) {
+					throw new IllegalArgumentsException(
+						"Identifier cannot be null!",
+						HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(
+						"httpStatus.notAcceptable.identifier(1)",
+						new Object[]{"null"}, LocaleContextHolder.getLocale()));
+				} else if (id <= 0) {
 					throw new IllegalArgumentsException(
 						"Identifier cannot be zero or below!",
 						HttpStatus.NOT_ACCEPTABLE, messageSource.getMessage(

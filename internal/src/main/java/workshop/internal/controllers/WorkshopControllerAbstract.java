@@ -18,9 +18,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
@@ -52,7 +56,7 @@ import java.util.Set;
 @Setter
 @Slf4j
 @RestController
-public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> implements WorkshopController {
+public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> implements WorkshopController<T> {
 	
 	@Value("${page.size.default}")
 	private int DEFAULT_PAGE_SIZE;
@@ -103,6 +107,9 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	}
 	
 	/**
+	 * Need to be overridden with {@link PreAuthorize}("hasPermission('#authentication,
+	 * 'WorkshopEntitySimpleClassName', 'get')").
+	 *
 	 * @param pageSize @Nullable. Amount of WorkshopEntities on one page (at once).
 	 *                 Default = {@link #DEFAULT_PAGE_SIZE}.
 	 * @param pageNum  @Nullable. Number of desires page.
@@ -120,11 +127,13 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 */
 	@Override
 	@GetMapping
+	@PreAuthorize("hasPermission(#webRequest, 'get')")
 	public ResponseEntity<String> getAll(
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 		@RequestParam(name = "order-by", required = false, defaultValue = "${default.orderBy}") String orderBy,
-		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
+		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order,
+		@Nullable WebRequest webRequest) {
 		
 		Pageable pageRequest = getPageable(pageSize, pageNum, orderBy, order);
 		Page<T> entitiesPage = workshopEntitiesService.findAllEntities(pageRequest);
@@ -137,15 +146,22 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		return new ResponseEntity<>(pagedResourcesToJson, HttpStatus.OK);
 	}
 	
+	
+	/**
+	 * Need to be overridden with {@link PreAuthorize}("hasPermission('#authentication,
+	 * 'WorkshopEntitySimpleClassName', 'get')").
+	 */
 	@Override
-	@GetMapping("/{id}")
-	public ResponseEntity<String> getOne(@PathVariable("id") long id) {
+	@GetMapping(path = "/{id}")
+	@PreAuthorize("hasPermission(#webRequest, 'get')")
+	public ResponseEntity<String> getOne(@PathVariable(name = "id") Long id, @Nullable WebRequest webRequest) {
+		
 		T entity = workshopEntityClass.cast(workshopEntitiesService.findById(id));
 		Resource<T> entityResource = workshopEntityResourceAssembler.toResource(entity);
 		String entityToJson = jsonServiceUtils.workshopEntityObjectsToJson(entityResource);
+		
 		return new ResponseEntity<>(entityToJson, HttpStatus.OK);
 	}
-	
 	
 	/**
 	 * WorkshopEntity may contain some included WorkshopEntities without identifiers or 'identifier = 0' -
@@ -158,9 +174,12 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	 */
 	@Override
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> postOne(@Validated(value = {PersistenceValidation.class, Default.class})
-	@RequestBody WorkshopEntity workshopEntity,
-		BindingResult bindingResult) {
+	@PreAuthorize("hasPermission(#webRequest, 'post')")
+	public ResponseEntity<String> postOne(
+		@Validated(value = {PersistenceValidation.class}) @RequestBody T workshopEntity,
+		BindingResult bindingResult,
+		WebRequest webRequest) {
+		
 		validateBindingResult(bindingResult);
 		T persistedWorkshopEntity = workshopEntitiesService.persistEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> persistedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(persistedWorkshopEntity);
@@ -168,12 +187,17 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		return new ResponseEntity<>(jsonPersistedWorkshopEntity, HttpStatus.CREATED);
 	}
 	
+	
 	@Override
 	@PutMapping(path = "/{id}", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> putOne(@PathVariable(name = "id") long id,
+	@PreAuthorize("hasPermission(#webRequest, 'put')")
+	public ResponseEntity<String> putOne(
+		@PathVariable(name = "id") Long id,
 		@Validated(value = {UpdateValidation.class, Default.class})
-		@RequestBody WorkshopEntity workshopEntity,
-		BindingResult bindingResult) {
+		@RequestBody T workshopEntity,
+		BindingResult bindingResult,
+		WebRequest webRequest) {
+		
 		validateBindingResult(bindingResult);
 		T mergedWorkshopEntity = workshopEntitiesService.mergeEntity(workshopEntityClass.cast(workshopEntity));
 		Resource<T> mergedWorkshopEntityResource = workshopEntityResourceAssembler.toResource(mergedWorkshopEntity);
@@ -181,9 +205,15 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 		return new ResponseEntity<>(jsonMergedEntity, HttpStatus.OK);
 	}
 	
+	/**
+	 * Need to be overridden with {@link PreAuthorize}("hasPermission('#authentication,
+	 * 'WorkshopEntitySimpleClassName', 'delete')").
+	 */
 	@Override
 	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<String> deleteOne(@PathVariable(name = "id") long id) {
+	@PreAuthorize("hasPermission(#webRequest, 'delete')")
+	public ResponseEntity<String> deleteOne(@PathVariable(name = "id") Long id, @Nullable WebRequest webRequest) {
+		
 		workshopEntitiesService.removeEntity(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT)
 			.body(getDeleteMessageSuccessLocalized(workshopEntityClassName + " id = " + id));

@@ -6,8 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Interface as the marker for implementing classes that they are from Workshop Entities factory.
- * If any implementation is intended to be exposed as the Resource for HATEOAS is also have extend Spring ResourceSupport
+ * Every instance has to be named with a simple noun with a single word without changeable last part of it
+ * by plural form, e.g. 'Word', 'Task' etc with 'words', 'tasks'.
+ * Also the name doesn't have to include intermediate hyphens.
+ * All above are for the sake of constructing simple URI paths '/domainPath/words/', '/domainPath/tasks/' etc.
+ * In other cases you will need to correct {@link WorkshopPermissionEvaluator#evaluateServletWebRequest} method for
+ * proper evaluating {@link WorkshopEntity#getWorkshopEntityName()} from a URI path.
+ * <p>
+ * Any implementations are intended to be exposed as the Resource for HATEOAS and also have extended Spring
+ * ResourceSupport
  */
 public interface WorkshopEntity extends Serializable, Comparable<WorkshopEntity> {
 	
@@ -37,6 +44,12 @@ public interface WorkshopEntity extends Serializable, Comparable<WorkshopEntity>
 	 */
 	void setIdentifier(Long id);
 	
+	/**
+	 * Not null.
+	 *
+	 * @return The obligatory property for being used for ordering by default.
+	 */
+	ZonedDateTime getCreated();
 	
 	/**
 	 * Not null.
@@ -44,13 +57,6 @@ public interface WorkshopEntity extends Serializable, Comparable<WorkshopEntity>
 	 * @param created The obligatory property for being used for ordering by default.
 	 */
 	void setCreated(ZonedDateTime created);
-	
-	/**
-	 * Not null.
-	 *
-	 * @return The obligatory property for being used for ordering by default.
-	 */
-	ZonedDateTime getCreated();
 	
 	/**
 	 * Creates in the instance constructor for being accessed across domain.

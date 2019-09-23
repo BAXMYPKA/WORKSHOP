@@ -4,9 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 public enum PermissionType {
-	READ("For reading WorkshopEntities properties."),
-	WRITE("For modifying WorkshopEntities properties."),
-	FULL("For creating and deleting WorkshopEntities.");
+	GET("For reading WorkshopEntities properties."),
+	POST("For creating WorkshopEntities properties."),
+	PUT("For modifying WorkshopEntities."),
+	DELETE("For deleting WorkshopEntities.");
 	
 	@Getter(AccessLevel.PUBLIC)
 	private String description;

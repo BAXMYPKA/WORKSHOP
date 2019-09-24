@@ -1,4 +1,4 @@
-package workshop.internal.entities.cache;
+package workshop.internal.entities.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ehcache.event.CacheEvent;

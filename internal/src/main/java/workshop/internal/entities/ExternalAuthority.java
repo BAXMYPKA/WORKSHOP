@@ -3,8 +3,6 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +10,19 @@ import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.utils.PermissionType;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.groups.Default;
 import java.util.Set;
 
 /**
- * GrantedAuthorities for the EXTERNAL.Users for fine tuning their permissions
+ * Serves as the {@link GrantedAuthority} for the EXTERNAL.{@link User}s for fine tuning their {@link PermissionType}.
+ * The class is the container for {@link PermissionType}.
  */
 @Getter
 @Setter
@@ -38,7 +41,7 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
-	private String authority;
+	private String name;
 	
 	@Column
 	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
@@ -53,8 +56,18 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	@ManyToMany(mappedBy = "externalAuthorities", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
 	private Set<User> users;
 	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@ManyToMany(mappedBy = "externalAuthorities", targetEntity = AuthorityPermission.class, fetch = FetchType.EAGER,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<@Valid AuthorityPermission> authorityPermissions;
+	
+	/**
+	 * Method name is for compatibility with {@link GrantedAuthority} interface to return a String representation.
+	 *
+	 * @return {@link #name}
+	 */
 	@Override
 	public String getAuthority() {
-		return authority;
+		return name;
 	}
 }

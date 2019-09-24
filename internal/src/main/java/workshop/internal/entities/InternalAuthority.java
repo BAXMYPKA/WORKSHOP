@@ -3,12 +3,13 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.utils.PermissionType;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -17,7 +18,8 @@ import javax.validation.groups.Default;
 import java.util.Set;
 
 /**
- * GrantedAuthorities for the EXTERNAL.Users for fine tuning their permissions
+ * Serves as the {@link GrantedAuthority} for the INTERNAL.{@link Employee}s for fine tuning their {@link PermissionType}.
+ * The class is the container for {@link PermissionType}.
  */
 @Getter
 @Setter
@@ -31,12 +33,19 @@ import java.util.Set;
 public class InternalAuthority extends Trackable implements GrantedAuthority {
 	
 	@Transient
+	@Getter(AccessLevel.PRIVATE)
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(unique = true, nullable = false)
 	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
-	private String authority;
+	private String name;
+	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
+	@ManyToMany(mappedBy = "internalAuthorities", targetEntity = InternalAuthority.class, fetch = FetchType.EAGER,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@Valid
+	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
 	@Column
 	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
@@ -55,12 +64,16 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 	private Set<@Valid Position> positions;
 	
 	@Builder
-	public InternalAuthority(String authority) {
-		this.authority = authority;
+	public InternalAuthority(String name) {
+		this.name = name;
 	}
 	
-	@Override
+	/**
+	 * For compatibility with {@link GrantedAuthority} interface.
+	 *
+	 * @return InternalAuthority name.
+	 */
 	public String getAuthority() {
-		return authority;
+		return name;
 	}
 }

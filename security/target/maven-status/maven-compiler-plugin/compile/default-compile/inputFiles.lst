@@ -1,6 +1,5 @@
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\configurations\WebMvcConfiguration.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\WorkshopPermissionEvaluator.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\configurations\MethodSecurityConfiguration.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\JwtUtils.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\InternalAuthority.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\WorkshopAuthenticationManager.java
@@ -10,7 +9,6 @@ E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\secur
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\http\CookieUtils.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\EmployeesDetailsService.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\http\ResponseHeadersInternalFilter.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\PermissionType.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UsersDetailsService.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\UserDetailsEmployee.java
 E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\security\src\main\java\workshop\security\LoginAuthenticationFilter.java

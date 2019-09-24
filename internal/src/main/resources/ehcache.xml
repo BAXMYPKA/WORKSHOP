@@ -19,7 +19,7 @@
 		
 		<listeners>
 			<listener>
-				<class>workshop.internal.entities.cache.CachesListener</class>
+				<class>workshop.internal.entities.utils.CachesListener</class>
 				<event-firing-mode>ASYNCHRONOUS</event-firing-mode>
 				<event-ordering-mode>UNORDERED</event-ordering-mode>
 				<events-to-fire-on>CREATED</events-to-fire-on>

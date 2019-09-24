@@ -1,6 +1,6 @@
 package workshop.security;
 
-import org.springframework.beans.factory.annotation.Value;
+import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.WorkshopEntity;
 
 import java.util.*;

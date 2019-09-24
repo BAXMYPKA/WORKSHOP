@@ -6,6 +6,7 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
+import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.WorkshopEntity;
 
 import java.io.Serializable;

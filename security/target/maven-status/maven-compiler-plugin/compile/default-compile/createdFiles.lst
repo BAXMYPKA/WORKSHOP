@@ -11,9 +11,7 @@ workshop\security\JwtAuthenticationFilter.class
 workshop\security\UserAuditorAware.class
 workshop\security\WorkshopPermissionEvaluator.class
 workshop\security\SecurityUtils.class
-workshop\configurations\MethodSecurityConfiguration.class
 workshop\configurations\WebMvcConfiguration.class
-workshop\security\PermissionType.class
 workshop\http\ResponseHeadersInternalFilter.class
 workshop\security\UsersAuthenticationProvider.class
 workshop\security\WorkshopAuthenticationManager.class

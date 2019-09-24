@@ -42,14 +42,13 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 	private String name;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "internalAuthorities", targetEntity = InternalAuthority.class, fetch = FetchType.EAGER,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@Valid
+	@OneToMany(mappedBy = "internalAuthority", orphanRemoval = true, fetch = FetchType.EAGER,
+		  cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
 	@Column
 	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
-		message = "{validation.length}")
+		  message = "{validation.length}")
 	private String description;
 	
 	/**
@@ -59,8 +58,8 @@ public class InternalAuthority extends Trackable implements GrantedAuthority {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(targetEntity = Position.class, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Positions_To_Internal_Authorities", schema = "INTERNAL",
-		joinColumns = {@JoinColumn(name = "internal_authority_id", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "position_id", nullable = false)})
+		  joinColumns = {@JoinColumn(name = "internal_authority_id", nullable = false)},
+		  inverseJoinColumns = {@JoinColumn(name = "position_id", nullable = false)})
 	private Set<@Valid Position> positions;
 	
 	@Builder

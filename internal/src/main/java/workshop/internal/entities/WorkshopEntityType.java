@@ -2,13 +2,13 @@ package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.http.HttpStatus;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import workshop.internal.entities.utils.PermissionType;
+import workshop.internal.exceptions.IllegalArgumentsException;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -26,18 +26,45 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Workshop_Entity_Type", schema = "INTERNAL")
 public class WorkshopEntityType extends Trackable {
 	
+	@Transient
+	@Getter(AccessLevel.PRIVATE)
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	@Column(nullable = false, unique = true, updatable = false)
 	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, message = "{validation.notBlank}")
+	@EqualsAndHashCode.Include
 	private String name;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Authority_Permissions_to_Workshop_Entity_Types", schema = "INTERNAL",
-		joinColumns = @JoinColumn(name = "workshop_entity_id", referencedColumnName = "id", nullable = false),
-		inverseJoinColumns = @JoinColumn(name = "authority_permission_id", referencedColumnName = "id", nullable = false))
+		  joinColumns = @JoinColumn(name = "workshop_entity_type_id", referencedColumnName = "id", nullable = false),
+		  inverseJoinColumns = @JoinColumn(name = "authority_permission_id", referencedColumnName = "id", nullable = false))
 	private Set<@Valid AuthorityPermission> authorityPermissions;
+	
+	public WorkshopEntityType(
+		  @NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
+				message = "{validation.notBlank}") String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * The {@link #name} has to be equal one of the {@link WorkshopEntity} from {@link WorkshopEntity#workshopEntitiesNames}
+	 *
+	 * @throws IllegalArgumentsException With the localized message and HttpStatus.NOT_ACCEPTABLE as a RuntimeException
+	 *                                   to break a current Transaction if the given name not equal one of the WorkshopEntity name.
+	 */
+	@PrePersist
+	public void nameEqualityCheck() throws IllegalArgumentsException {
+		if (!WorkshopEntity.workshopEntitiesNames.contains(name)) {
+			throw new IllegalArgumentsException("The given name has to be equal one of the WorkshopEntity names!",
+				  "httpStatus.notAcceptable.workshopEntityType", HttpStatus.NOT_ACCEPTABLE);
+		}
+	}
 }

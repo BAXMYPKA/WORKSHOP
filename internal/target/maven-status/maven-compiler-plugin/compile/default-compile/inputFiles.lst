@@ -1,77 +1,77 @@
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\EmployeesResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\PhonesResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\InternalController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\WorkshopEntitiesServiceAbstract.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ExternalAuthoritiesController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntityAbstract.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\InternalAuthority.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\PhonesService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\serviceUtils\JsonServiceUtils.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\EmployeesController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\UsersResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Employee.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\InvalidMethodArgumentsException.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ExceptionHandlerController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\ClassifiersDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Phone.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\ClassifiersResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\TasksResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\TasksDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntityType.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\PhonesDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\WorkshopEntitiesDaoInterface.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ClassifiersController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\PermissionType.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\EmployeesService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\InternalAuthoritiesResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\ExternalAuthority.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Department.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\OrdersController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\CachesListener.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\TasksController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\UsersController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\PositionsResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\WorkshopEntitiesDaoAbstract.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\InternalAuthoritiesController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\WorkshopEntitiesResourceAssemblerAbstract.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\AuthorityPermission.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\WorkshopControllerAbstract.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\PersistEmployeeValidation.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\WorkshopController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\PersistenceFailureException.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\TasksService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\UpdateValidation.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\UsersService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\PositionsService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\ExternalAuthoritiesResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntity.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\PermissionTypeToPropertyConverter.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\PositionsController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\LoginController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\DepartmentsDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\DepartmentsResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\InternalAuthoritiesService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\PositionsDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\EmployeesDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Trackable.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\OrdersResourceAssembler.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\EntityNotFoundException.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\OrdersDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\ClassifiersService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Classifier.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\WorkshopException.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\OrdersService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\PersistenceValidation.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\UsersDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Position.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Order.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\User.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\ExternalAuthoritiesDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\IllegalArgumentsException.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\PhonesController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\ExternalAuthoritiesService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\services\DepartmentsService.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\dao\InternalAuthoritiesDao.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\entities\Task.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\controllers\DepartmentsController.java
-E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\InternalServerErrorException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\WorkshopController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\UsersResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\OrdersDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\TasksResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\OrdersService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\WorkshopEntitiesServiceAbstract.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\LoginController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\ExternalAuthoritiesService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\WorkshopException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\PositionsController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\EmployeesService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\TasksController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\WorkshopEntitiesDaoAbstract.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\IllegalArgumentsException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\InternalAuthoritiesController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\PermissionTypeToPropertyConverter.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ExternalAuthoritiesController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\serviceUtils\JsonServiceUtils.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\ExternalAuthority.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\WorkshopEntitiesResourceAssemblerAbstract.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\EmployeesController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\OrdersController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\AuthorityPermission.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\PermissionType.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntityAbstract.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Trackable.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\PositionsResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Classifier.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntityType.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\InternalServerErrorException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\PositionsService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Department.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Position.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\ClassifiersService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\InternalController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\ClassifiersDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\DepartmentsService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\DepartmentsResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\UsersService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\TasksService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\ClassifiersResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\ExternalAuthoritiesResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\EmployeesResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\PersistenceValidation.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\DepartmentsDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\PhonesService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\InternalAuthority.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\WorkshopEntity.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\PositionsDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\EntityNotFoundException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\WorkshopControllerAbstract.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\PhonesDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\utils\CachesListener.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\services\InternalAuthoritiesService.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Task.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\WorkshopEntitiesDaoInterface.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\InvalidMethodArgumentsException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Employee.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Order.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\ExternalAuthoritiesDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\EmployeesDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\User.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\DepartmentsController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\UsersDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\PhonesController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\UsersController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\exceptions\PersistenceFailureException.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\UpdateValidation.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\InternalAuthoritiesDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\dao\TasksDao.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\InternalAuthoritiesResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ExceptionHandlerController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\hibernateValidation\PersistEmployeeValidation.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\PhonesResourceAssembler.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\controllers\ClassifiersController.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\entities\Phone.java
+C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\main\java\workshop\internal\hateoasResources\OrdersResourceAssembler.java

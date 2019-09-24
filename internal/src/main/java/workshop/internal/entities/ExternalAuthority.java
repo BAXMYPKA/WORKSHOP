@@ -3,10 +3,7 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +33,7 @@ import java.util.Set;
 public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	
 	@Transient
+	@Getter(AccessLevel.PRIVATE)
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(unique = true, nullable = false)
@@ -57,8 +55,8 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	private Set<User> users;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToMany(mappedBy = "externalAuthorities", targetEntity = AuthorityPermission.class, fetch = FetchType.EAGER,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@OneToMany(mappedBy = "externalAuthority", orphanRemoval = true, fetch = FetchType.EAGER,
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
 	/**

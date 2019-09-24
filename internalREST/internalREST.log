@@ -1,0 +1,10 @@
+00:48:488 - INFO 4344 --- [main] i.c.ControllersBeanValidationIT          : Starting ControllersBeanValidationIT on SERSUS-PC with PID 4344 (started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST)
+-00:48:495 - INFO 4344 --- [main] i.c.ControllersBeanValidationIT          : No active profile set, falling back to default profiles: default
+-00:54:432 - WARN 4344 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-00:56:353 - INFO 4344 --- [main] i.c.ControllersBeanValidationIT          : Started ControllersBeanValidationIT in 8.577 seconds (JVM running for 11.065)
+-01:48:366 - INFO 6044 --- [main] i.c.ControllersBeanValidationIT          : Starting ControllersBeanValidationIT on SERSUS-PC with PID 6044 (started by Sersus in C:\Users\Sersus\IdeaProjects\WORKSHOP\internalREST)
+-01:48:368 - INFO 6044 --- [main] i.c.ControllersBeanValidationIT          : No active profile set, falling back to default profiles: default
+-01:54:613 - WARN 6044 --- [main] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+-01:57:435 - INFO 6044 --- [main] i.c.ControllersBeanValidationIT          : Started ControllersBeanValidationIT in 9.634 seconds (JVM running for 11.611)
+-06:28:684 - WARN 6044 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m37s550ms598µs).
+-

@@ -34,7 +34,7 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (DepartmentsController.POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (DepartmentsController.GET_POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(DepartmentsController.class).getPositions(
 					ownerId,

@@ -1,6 +1,7 @@
 package workshop.internal.controllers;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;
@@ -56,6 +57,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 * @param id OrderID to get the User from.
 	 */
 	@GetMapping(path = "/{id}/user")
+	@PreAuthorize("hasPermission('User', 'get')")
 	public ResponseEntity<String> getUserCreatedFor(@PathVariable("id") Long id) {
 		
 		User userById = ((OrdersService) getWorkshopEntitiesService()).findUserByOrder(id);
@@ -71,6 +73,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 */
 	@PostMapping(path = "/{id}/user",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('User', 'post')")
 	public ResponseEntity<String> postUserCreatedFor(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody User user,
@@ -93,6 +96,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 */
 	@PutMapping(path = "/{id}/user",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putUserCreatedFor(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody User user,
@@ -108,7 +112,12 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(jsonUserResource);
 	}
 	
+	/**
+	 * Just deletes the given User from Order's 'createdFor' property.
+	 * @return HttpStatus.NO_CONTENT in case of success.
+	 */
 	@DeleteMapping(path = "/{id}/user")
+	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> deleteUserCreatedFor(@PathVariable(name = "id") Long id) {
 		
 		Order order = getWorkshopEntitiesService().findById(id);
@@ -121,6 +130,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 * @param id OrderID to get Tasks from.
 	 */
 	@GetMapping(path = "/{id}/tasks")
+	@PreAuthorize("hasPermission('Task', 'get')")
 	public ResponseEntity<String> orderTasks(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -143,6 +153,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 */
 	@PostMapping(path = "/{id}/tasks",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -167,6 +178,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	 */
 	@PutMapping(path = "/{id}/tasks",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
@@ -185,13 +197,14 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	}
 	
 	/**
-	 * Removes the Task itself from the DataBase.
+	 * Deletes the Task itself from the DataBase.
 	 *
 	 * @param id     Order.ID the given Task to be removed from.
 	 * @param taskId Task.ID to be removed.
 	 * @return HttpStatus.NO_CONTENT if the Task is successfully removed.
 	 */
 	@DeleteMapping(path = "/{id}/tasks/{taskId}")
+	@PreAuthorize("hasPermission('Task', 'delete')")
 	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
 											 @PathVariable(name = "taskId") Long taskId) {
 		

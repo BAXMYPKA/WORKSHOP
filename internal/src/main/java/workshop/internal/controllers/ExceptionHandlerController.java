@@ -231,9 +231,6 @@ public class ExceptionHandlerController {
 	@ExceptionHandler({IllegalArgumentException.class})
 	@ResponseBody
 	public ResponseEntity<String> illegalArgumentsFailure(IllegalArgumentException iex) {
-		
-		//TODO: to check that all this kind of errors are being converted into WorkshopExceptions
-		
 		log.error(iex.getMessage(), iex);
 		return getResponseEntityWithErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
 			"httpStatus.internalServerError.common", null, LocaleContextHolder.getLocale()));

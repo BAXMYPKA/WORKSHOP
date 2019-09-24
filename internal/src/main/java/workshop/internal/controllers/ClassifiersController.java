@@ -69,7 +69,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	
 	@PostMapping(path = "/{id}/tasks",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	@PreAuthorize("hasPermission(#authentication, 'Task', 'post')")
+	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTask(@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
@@ -109,7 +109,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 	 * @return A Task without this Classifier.
 	 */
 	@DeleteMapping(path = "/{id}/tasks/{taskId}")
-	@PreAuthorize("hasPermission(#authentication, 'Task', 'delete')")
+	@PreAuthorize("hasPermission(#authentication, 'Task', 'put')")
 	public ResponseEntity<String> deleteTask(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "taskId") Long taskId) {
 		

@@ -11,6 +11,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	
 	@Autowired
 	private PositionsService positionsService;
+	
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
 	
@@ -48,6 +50,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	}
 	
 	@GetMapping(path = "/{id}/positions")
+	@PreAuthorize("hasPermission('Position', 'get')")
 	public ResponseEntity<String> getInternalAuthorityPositions(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -66,6 +69,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	
 	@PostMapping(path = "/{id}/positions",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Position', 'post')")
 	public ResponseEntity<String> postForbiddenMethodInternalAuthorityPosition(@PathVariable(name = "id") long id,
 		@RequestBody Position position,
 		HttpServletRequest request) {
@@ -85,6 +89,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 */
 	@PutMapping(path = "/{id}/positions",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> putInternalAuthorityPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Position position,
@@ -106,6 +111,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	 * @param positionId Position.ID to be deleted from this InternalAuthority.
 	 */
 	@DeleteMapping(path = "{id}/positions/{positionId}")
+	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> deleteInternalAuthorityPosition(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "positionId") Long positionId) {
 		((InternalAuthoritiesService) getWorkshopEntitiesService()).removePositionFromInternalAuthority(positionId, id);

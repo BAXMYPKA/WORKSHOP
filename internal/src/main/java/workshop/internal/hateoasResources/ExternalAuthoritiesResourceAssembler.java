@@ -38,7 +38,7 @@ public class ExternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 		
 		if (UsersController.GET_USER_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(UsersController.class).getUserGrantedAuthorities(
+				ControllerLinkBuilder.methodOn(UsersController.class).getUserExternalAuthorities(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,

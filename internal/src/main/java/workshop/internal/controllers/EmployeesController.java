@@ -13,7 +13,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +33,12 @@ import javax.servlet.http.HttpServletRequest;
 @ExposesResourceFor(Employee.class)
 public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	
-	public static final String APPOINTED_TASKS_METHOD_NAME = "getAppointedTasks";
-	public static final String TASKS_MODIFIED_BY_METHOD_NAME = "getTasksModifiedBy";
-	public static final String TASKS_CREATED_BY_METHOD_NAME = "getTasksCreatedBy";
-	public static final String ORDERS_MODIFIED_BY_METHOD_NAME = "getOrdersModifiedBy";
-	public static final String ORDERS_CREATED_BY_METHOD_NAME = "getOrdersCreatedBy";
-	public static final String PHONES_METHOD_NAME = "getPhones";
+	public static final String GET_APPOINTED_TASKS_METHOD_NAME = "getAppointedTasks";
+	public static final String GET_TASKS_MODIFIED_BY_METHOD_NAME = "getTasksModifiedBy";
+	public static final String GET_TASKS_CREATED_BY_METHOD_NAME = "getTasksCreatedBy";
+	public static final String GET_ORDERS_MODIFIED_BY_METHOD_NAME = "getOrdersModifiedBy";
+	public static final String GET_ORDERS_CREATED_BY_METHOD_NAME = "getOrdersCreatedBy";
+	public static final String GET_PHONES_METHOD_NAME = "getPhones";
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
 	@Autowired
@@ -66,6 +66,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/phones")
+	@PreAuthorize("hasPermission('Phone', 'get')")
 	public ResponseEntity<String> getPhones(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -76,7 +77,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable phonesPage = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Phone> allPhonesByUserPage = phonesService.findAllPhonesByEmployee(phonesPage, id);
 		Resources<Resource<Phone>> employeePhonesPagedResources =
-			phonesResourceAssembler.toPagedSubResources(allPhonesByUserPage, id, PHONES_METHOD_NAME);
+			phonesResourceAssembler.toPagedSubResources(allPhonesByUserPage, id, GET_PHONES_METHOD_NAME);
 		String jsonEmployeePhonesPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(employeePhonesPagedResources);
 		return ResponseEntity.ok(jsonEmployeePhonesPagedResources);
 	}
@@ -89,7 +90,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return Persisted Phone as a Resource.
 	 */
 	@PostMapping(path = "/{id}/phones",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'post')")
 	public ResponseEntity<String> postPhone(
 		@PathVariable(name = "id") long id,
 		@Validated(PersistenceValidation.class) @RequestBody Phone phone,
@@ -108,7 +110,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return Updated Phone with the given Employee set.
 	 */
 	@PutMapping(path = "/{id}/phones",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'put')")
 	public ResponseEntity<String> putPhone(
 		@PathVariable(name = "id") long id,
 		@Validated(UpdateValidation.class) @RequestBody Phone phone,
@@ -121,7 +124,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		return ResponseEntity.accepted().body(jsonPhoneResource);
 	}
 	
+	/**
+	 * Deletes the Phone itself from the DataBase.
+	 *
+	 * @return HttpStatus.NO_CONTENT in case of success
+	 */
 	@DeleteMapping(path = "/{id}/phones/{phoneId}")
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'delete')")
 	public ResponseEntity<String> deletePhone(
 		@PathVariable(name = "id") long id,
 		@PathVariable(name = "phoneId") Long phoneId) {
@@ -132,6 +141,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/position")
+	@PreAuthorize("hasPermission('Position', 'get')")
 	public ResponseEntity<String> getPosition(@PathVariable("id") Long id) {
 		Employee employeeById = getWorkshopEntitiesService().findById(id);
 		Position employeePosition = employeeById.getPosition();
@@ -141,7 +151,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@PostMapping(path = "/{id}/position",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Position', 'post')")
 	public ResponseEntity<String> postPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -155,7 +166,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@PutMapping(path = "/{id}/position",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Position', 'put')")
 	public ResponseEntity<String> putPosition(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
@@ -172,6 +184,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return HttpStatus.FORBIDDEN and the message with the Position as a Resource with the Link to it.
 	 */
 	@DeleteMapping(path = "/{id}/position/{positionId}")
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Position', 'put')")
 	public ResponseEntity<String> deletePositionForbidden(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "positionId") Long positionId) {
@@ -183,6 +196,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/appointed-tasks")
+	@PreAuthorize("hasPermission('Task', 'get')")
 	public ResponseEntity<String> getAppointedTasks(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -193,7 +207,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksAppointedToEmployeePage = tasksService.findAllTasksAppointedToEmployee(pageable, id);
 		Resources<Resource<Task>> employeeAppointedTasksResources =
-			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, APPOINTED_TASKS_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, GET_APPOINTED_TASKS_METHOD_NAME);
 		String jsonEmployeeAppointedTasksResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(employeeAppointedTasksResources);
 		return ResponseEntity.ok(jsonEmployeeAppointedTasksResources);
@@ -203,7 +217,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * Receives a new Task, persists it and appoints to the existing Employee.
 	 */
 	@PostMapping(path = "/{id}/appointed-tasks",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postAppointedTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -221,7 +236,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * that updated Task.
 	 */
 	@PutMapping(path = "/{id}/appointed-tasks",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putAppointedTask(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
@@ -234,8 +250,9 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * Just removes a Task from being appointed to the Employee.
 	 */
 	@DeleteMapping(path = "/{id}/appointed-tasks/{taskId}")
+	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> deleteAppointedTask(@PathVariable(name = "id") Long id,
-		@PathVariable(name = "taskId") Long taskId) {
+													  @PathVariable(name = "taskId") Long taskId) {
 		
 		Task task = tasksService.findById(taskId);
 		if (task.getAppointedTo() != null && task.getAppointedTo().getIdentifier().equals(id)) {
@@ -253,6 +270,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/tasks-modified-by")
+	@PreAuthorize("hasPermission('Task', 'get')")
 	public ResponseEntity<String> getTasksModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -263,7 +281,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksModifiedByEmployeePage = tasksService.findAllTasksModifiedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksModifiedPagedResources =
-			tasksResourceAssembler.toPagedSubResources(tasksModifiedByEmployeePage, id, TASKS_MODIFIED_BY_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksModifiedByEmployeePage, id, GET_TASKS_MODIFIED_BY_METHOD_NAME);
 		String jsonPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(tasksModifiedPagedResources);
 		return ResponseEntity.ok(jsonPagedResources);
 	}
@@ -271,14 +289,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	/**
 	 * @return ErrorMessage about the fact that 'modifiedBy' property is filled in automatically only.
 	 */
-	//TODO: to remake security
-	@Secured({"Administrator"})
 	@RequestMapping(path = "/{id}/tasks-modified-by/{taskId}",
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
-					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Task', 'put') or hasPermission('Task', 'post') or hasPermission('Task', 'delete')")
 	public ResponseEntity<String> notAllowedTaskModifiedBy(@PathVariable(name = "id") Long id,
-		@PathVariable(name = "taskId") Long taskId,
-		HttpServletRequest request) {
+														   @PathVariable(name = "taskId") Long taskId,
+														   HttpServletRequest request) {
 		
 		String notAllowedMessage = getMessageSource().getMessage(
 			"httpStatus.methodNotAllowed(2)",
@@ -288,6 +305,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/tasks-created-by")
+	@PreAuthorize("hasPermission('Task', 'get')")
 	public ResponseEntity<String> getTasksCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -298,7 +316,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Task> tasksCreatedByEmployee = tasksService.findAllTasksCreatedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksCreatedByResources =
-			tasksResourceAssembler.toPagedSubResources(tasksCreatedByEmployee, id, TASKS_CREATED_BY_METHOD_NAME);
+			tasksResourceAssembler.toPagedSubResources(tasksCreatedByEmployee, id, GET_TASKS_CREATED_BY_METHOD_NAME);
 		String jsonTasksCreatedBy = getJsonServiceUtils().workshopEntityObjectsToJson(tasksCreatedByResources);
 		return ResponseEntity.ok(jsonTasksCreatedBy);
 	}
@@ -309,7 +327,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return Created Task with the 'createdBy' set.
 	 */
 	@PostMapping(path = "/{id}/tasks-created-by",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Task task,
@@ -330,7 +349,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return An updated Task with the new 'createdBy'.
 	 */
 	@PutMapping(path = "/{id}/tasks-created-by",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Task task,
@@ -352,10 +372,10 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param taskId The Task that needs the deletion of 'createdBy' property.
 	 * @return The renewed Task without 'createdBy'.
 	 */
-	@Secured("Administrator")
 	@DeleteMapping(path = "/{id}/tasks-created-by/{taskId}")
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Task', 'put')")
 	public ResponseEntity<String> deleteTaskCreatedBy(@PathVariable(name = "id") Long id,
-		@PathVariable(name = "taskId") Long taskId) {
+													  @PathVariable(name = "taskId") Long taskId) {
 		
 		Task task = tasksService.findById(taskId);
 		if (task.getCreatedBy() != null && task.getCreatedBy().getIdentifier().equals(id)) {
@@ -374,6 +394,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/orders-modified-by")
+	@PreAuthorize("hasPermission('Order', 'get')")
 	public ResponseEntity<String> getOrdersModifiedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -384,7 +405,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersModifiedByEmployeePage = ordersService.findAllOrdersModifiedByEmployee(pageable, id);
 		Resources<Resource<Order>> ordersModifiedByResources =
-			ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, ORDERS_MODIFIED_BY_METHOD_NAME);
+			ordersResourceAssembler.toPagedSubResources(ordersModifiedByEmployeePage, id, GET_ORDERS_MODIFIED_BY_METHOD_NAME);
 		String jsonOrdersModifiedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersModifiedByResources);
 		return ResponseEntity.ok(jsonOrdersModifiedByResources);
 	}
@@ -392,14 +413,13 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	/**
 	 * @return ErrorMessage about the fact that 'modifiedBy' property is filled in automatically only.
 	 */
-	//TODO: to remake to PreAuthorize
-	@Secured({"Administrator"})
 	@RequestMapping(path = "/{id}/orders-modified-by/{orderId}",
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
-					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Order', 'post') or hasPermission('Order', 'delete')")
 	public ResponseEntity<String> notAllowedOrderModifiedBy(@PathVariable(name = "id") Long id,
-		@PathVariable(name = "orderId") Long orderId,
-		HttpServletRequest request) {
+															@PathVariable(name = "orderId") Long orderId,
+															HttpServletRequest request) {
 		
 		String notAllowedMessage = getMessageSource().getMessage(
 			"httpStatus.methodNotAllowed(2)",
@@ -409,6 +429,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	}
 	
 	@GetMapping(path = "/{id}/orders-created-by")
+	@PreAuthorize("hasPermission('Order', 'get')")
 	public ResponseEntity<String> getOrdersCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -419,7 +440,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Order> ordersCreatedByEmployeePage = ordersService.findAllOrdersCreatedByEmployee(pageable, id);
 		Resources<Resource<Order>> ordersCreatedByResources =
-			ordersResourceAssembler.toPagedSubResources(ordersCreatedByEmployeePage, id, ORDERS_CREATED_BY_METHOD_NAME);
+			ordersResourceAssembler.toPagedSubResources(ordersCreatedByEmployeePage, id, GET_ORDERS_CREATED_BY_METHOD_NAME);
 		String jsonOrdersCreatedByResources = getJsonServiceUtils().workshopEntityObjectsToJson(ordersCreatedByResources);
 		return ResponseEntity.ok(jsonOrdersCreatedByResources);
 	}
@@ -430,7 +451,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return Created Order with the 'createdBy' set.
 	 */
 	@PostMapping(path = "/{id}/orders-created-by",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'post')")
 	public ResponseEntity<String> postOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Order order,
@@ -451,7 +473,8 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @return An updated Order with the new 'createdBy'.
 	 */
 	@PutMapping(path = "/{id}/orders-created-by",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Order order,
@@ -473,10 +496,10 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	 * @param orderId The Order that needs the deletion of 'createdBy' property.
 	 * @return The renewed Order without 'createdBy'.
 	 */
-	//TODO: to remake as PreAuthorize
-	@Secured("Administrator")
 	@DeleteMapping(path = "/{id}/orders-created-by/{orderId}")
-	public ResponseEntity<String> deleteOrderCreatedBy(@PathVariable(name = "id") Long id,
+	@PreAuthorize("hasPermission('Order', 'put')")
+	public ResponseEntity<String> deleteOrderCreatedBy(
+		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "orderId") Long orderId) {
 		
 		Order order = ordersService.findById(orderId);

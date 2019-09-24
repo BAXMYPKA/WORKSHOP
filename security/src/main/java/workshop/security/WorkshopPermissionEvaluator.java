@@ -1,6 +1,7 @@
 package workshop.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,9 @@ import java.io.Serializable;
 @Slf4j
 @Component
 public class WorkshopPermissionEvaluator implements PermissionEvaluator {
+	
+	@Value("${internalPathName}")
+	private String internalPathName;
 	
 	/**
 	 * @param authentication     {@link Authentication} {@literal The current #authentication from the SecurityContext}
@@ -76,22 +80,13 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 		if (permission == null) {
 			return false;
 		}
-		String workshopEntityName;
-		String permissionTypeName;
-		if (targetDomainObject.getClass().isAssignableFrom(String.class)) {
-			workshopEntityName = (String) targetDomainObject;
-		} else {
-			workshopEntityName = targetDomainObject.toString();
-		}
-		if (permission.getClass().isAssignableFrom(String.class)) {
-			permissionTypeName = (String) permission;
-		} else {
-			permissionTypeName = permission.toString();
-		}
+		String workshopEntityName = targetDomainObject.toString();
+		String permissionTypeName = permission.toString();
+		
 		log.debug("Permissions of Authentication={} evaluating for workshopEntity={} with permission={}",
 			authentication.getName(), workshopEntityName, permissionTypeName);
 		try {
-			//Check the given PermissionType
+			//Check the given PermissionType, may throw IllegalArgumentException
 			PermissionType permissionType = PermissionType.valueOf(permissionTypeName.toUpperCase());
 			//Check the given WorkshopEntityTargetType
 			if (!WorkshopEntity.workshopEntitiesNames.contains(workshopEntityName)) {
@@ -110,14 +105,24 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 		}
 	}
 	
+	/**
+	 * JavaDoc on private method as a reminder.
+	 * {@link ServletWebRequest} object is the sufficient object to obtain all the information for securing a method.
+	 * Its HttpMethod - is the analogue to {@link PermissionType}.
+	 * Its part of the http path following the internal domain path is the potential name of the WorkshopEntity.
+	 * And the {@link Authentication} is set automatically by Spring.
+	 */
 	private boolean evaluateServletWebRequest(Authentication authentication, ServletWebRequest webRequest) {
 		try {
 			PermissionType permissionType = PermissionType.valueOf(webRequest.getHttpMethod().name().toUpperCase());
 			
 			String contextPath = webRequest.getRequest().getPathInfo();
-			int startIndex = contextPath.indexOf("/internal/") + 10;
+			//Start from the end of internal pathName
+			int startIndex = contextPath.indexOf(internalPathName) + internalPathName.length();
+			//End up to the next slash
 			int endIndex = contextPath.indexOf("/", startIndex) != -1 ? contextPath.indexOf("/", startIndex) :
 				contextPath.length();
+			//Entity name is the between internalPathName and the next slash
 			//Capitalize first letter + the rest part of the WorkshopEntityName - last letter "s"
 			String workshopEntityName = contextPath.substring(startIndex, startIndex + 1).toUpperCase() +
 				contextPath.substring(startIndex + 1, endIndex - 1);

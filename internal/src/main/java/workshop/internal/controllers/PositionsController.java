@@ -11,10 +11,12 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.SmartValidator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
@@ -65,6 +67,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@GetMapping(path = "/{id}/department")
+	@PreAuthorize("hasPermission('Department', 'get')")
 	public ResponseEntity<String> getPositionDepartment(@PathVariable("id") Long id) {
 		
 		Department departmentByPosition = departmentsService.findDepartmentByPosition(id);
@@ -74,8 +77,10 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@RequestMapping(path = {"/{id}/department/{departmentId}", "/{id}/department/"},
-					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
-					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize(
+		"hasPermission('Department', 'put') or hasPermission('Department', 'post') or hasPermission('Department', 'delete')")
 	public ResponseEntity<String> positionDepartmentForbiddenMethods(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "departmentId", required = false) Long departmentId,
@@ -91,6 +96,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	}
 	
 	@GetMapping(path = "/{id}/employees")
+	@PreAuthorize("hasPermission('Employee', 'get')")
 	public ResponseEntity<String> getPositionEmployees(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -112,10 +118,11 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return The persisted Employee with this Position set.
 	 */
 	@PostMapping(path = "/{id}/employees",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'post') or hasPermission('Position', 'put')")
 	public ResponseEntity<String> postPositionEmployee(@PathVariable(name = "id") Long id,
-		@RequestBody Employee employee,
-		BindingResult bindingResult) {
+													   @RequestBody Employee employee,
+													   BindingResult bindingResult) {
 		
 		Position position = getWorkshopEntitiesService().findById(id);
 		employee.setPosition(position);
@@ -133,10 +140,11 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return The updated Employee with this Position set.
 	 */
 	@PutMapping(path = "/{id}/employees",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put')")
 	public ResponseEntity<String> putPositionEmployee(@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Employee employee,
-		BindingResult bindingResult) {
+													  @Validated(UpdateValidation.class) @RequestBody Employee employee,
+													  BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Position position = getWorkshopEntitiesService().findById(id);
 		employee.setPosition(position);
@@ -152,8 +160,9 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return HttpStatus.FORBIDDEN with a hint to use Post or Put methods instead to replace a Position.
 	 */
 	@DeleteMapping(path = "/{id}/employees/{employeeId}")
+	@PreAuthorize("hasPermission('Employee', 'delete') or hasPermission('Employee', 'put')")
 	public ResponseEntity<String> deletePositionEmployeeForbidden(@PathVariable(name = "id") Long id,
-		@PathVariable(name = "employeeId") Long employeeId) {
+																  @PathVariable(name = "employeeId") Long employeeId) {
 		return getResponseEntityWithErrorMessage(
 			HttpStatus.FORBIDDEN,
 			getMessageSource().getMessage(
@@ -163,7 +172,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 				LocaleContextHolder.getLocale()));
 	}
 	
-	@GetMapping(path = "/{id}/internal_-uthorities")
+	@GetMapping(path = "/{id}/internal-authorities")
+	@PreAuthorize("hasPermission('InternalAuthority', 'get')")
 	public ResponseEntity<String> getPositionInternalAuthorities(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -185,11 +195,12 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	/**
 	 * New InternalAuthorities have to be persisted with their dedicated controller!
 	 *
-	 * @return HttpStatus.FORBIDDEN with a message advises using {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult)}
+	 * @return HttpStatus.FORBIDDEN with a message advises using {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult, WebRequest)}
 	 * post method for persisting.
 	 */
 	@PostMapping(path = "/{id}/internal-authorities",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('InternalAuthority', 'post')")
 	public ResponseEntity<String> postForbiddenMethodPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
@@ -211,7 +222,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return HttpStatus.ACCEPTED with the renewed InternalAuthority.
 	 */
 	@PutMapping(path = "/{id}/internal-authorities",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> putPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody InternalAuthority internalAuthority,
@@ -242,6 +254,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	 * @return HttpStatus.NO_CONTENT in case of success.
 	 */
 	@DeleteMapping(path = "{id}/internal-authorities/{authorityId}")
+	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> deletePositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@PathVariable(name = "authorityId") Long authorityId) {

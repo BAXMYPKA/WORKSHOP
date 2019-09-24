@@ -1,7 +1,20 @@
 package workshop.internal.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
@@ -10,29 +23,17 @@ import workshop.internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.UsersResourceAssembler;
 import workshop.internal.services.ExternalAuthoritiesService;
 import workshop.internal.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/internal/external-authorities", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @ExposesResourceFor(ExternalAuthority.class)
 public class ExternalAuthoritiesController extends WorkshopControllerAbstract<ExternalAuthority> {
 	
+	public static final String GET_EXTERNAL_AUTHORITY_USERS = "getExternalAuthorityUsers";
 	@Autowired
 	private UsersService usersService;
 	@Autowired
 	private UsersResourceAssembler usersResourceAssembler;
-	public static final String GET_EXTERNAL_AUTHORITY_USERS = "getExternalAuthorityUsers";
 	
 	/**
 	 * @param externalAuthoritiesService           By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -47,6 +48,7 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	}
 	
 	@GetMapping(path = "/{id}/users")
+	@PreAuthorize("hasPermission('User', 'get')")
 	public ResponseEntity<String> getExternalAuthorityUsers(
 		@PathVariable(name = "id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -71,7 +73,8 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	 * @return The User with this ExternalAuthority.
 	 */
 	@PostMapping(path = "/{id}/users",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('User', 'post')")
 	public ResponseEntity<String> postExternalAuthorityUser(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody User user,
@@ -98,7 +101,8 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	 * @return Updated User with this ExternalAuthority.
 	 */
 	@PutMapping(path = "/{id}/users",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('User', 'put')")
 	public ResponseEntity<String> putExternalAuthorityUser(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody User user,
@@ -125,6 +129,7 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	 * @return HttpStatus.NO_CONTENT in case of success.
 	 */
 	@DeleteMapping(path = "{id}/users/{userId}")
+	@PreAuthorize("hasPermission('User', 'put')")
 	public ResponseEntity<String> deleteExternalAuthorityUser(@PathVariable(name = "id") Long id,
 															  @PathVariable(name = "userId") Long userId) {
 		User user = usersService.findById(userId);

@@ -11,6 +11,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	}
 	
 	@GetMapping(path = "/{id}/appointed_to")
+	@PreAuthorize("hasPermission('Employee', 'get')")
 	public ResponseEntity<String> taskEmployeeAppointedTo(@PathVariable("id") Long id) {
 		
 		Task taskById = getWorkshopEntitiesService().findById(id);
@@ -81,6 +83,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 */
 	@PostMapping(path = "/{id}/appointed_to",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'post') and hasPermission('Task', 'put')")
 	public ResponseEntity<String> postEmployeeAppointedTo(@PathVariable(name = "id") Long id,
 		@RequestBody(required = false) Employee employee,
 		HttpServletRequest request) {
@@ -94,6 +97,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	
 	@PutMapping(path = "/{id}/appointed_to",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Task', 'put')")
 	public ResponseEntity<String> putEmployeeAppointedTo(@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Employee employee,
 		BindingResult bindingResult) {
@@ -115,6 +119,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 * Just removes this Task from being appointed to the given Employee
 	 */
 	@DeleteMapping(path = "/{id}/appointed_to/{employeeId}")
+	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> deleteEmployeeAppointedTo(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "employeeId") Long employeeId) {
 		Task task = getWorkshopEntitiesService().findById(id);
@@ -140,6 +145,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	}
 	
 	@GetMapping(path = "/{id}/order")
+	@PreAuthorize("hasPermission('Order', 'get')")
 	public ResponseEntity<String> taskOrder(@PathVariable("id") Long id) {
 		
 		Task taskById = getWorkshopEntitiesService().findById(id);
@@ -152,6 +158,9 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	@RequestMapping(path = {"/{id}/order", "/{id}/order/{orderId}"},
 					method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE},
 					consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize(
+		"hasPermission('Task', 'put') or hasPermission('Order', 'put') " +
+			"or hasPermission('Order', 'post') or hasPermission('Order', 'delete')")
 	public ResponseEntity<String> forbiddenMethodsTaskOrder(@PathVariable(name = "id", required = false) Long id,
 		@PathVariable(name = "orderId", required = false) Long orderId,
 		@RequestBody(required = false) Order order,
@@ -163,6 +172,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	}
 	
 	@GetMapping(path = "/{id}/classifiers")
+	@PreAuthorize("hasPermission('Classifier', 'get')")
 	public ResponseEntity<String> taskClassifiers(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -187,6 +197,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 */
 	@PostMapping(path = "/{id}/classifiers",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Classifier', 'post') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> postClassifier(
 		@PathVariable(name = "id") Long id,
 		@Validated(PersistenceValidation.class) @RequestBody Classifier classifier,
@@ -213,6 +224,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 */
 	@PutMapping(path = "/{id}/classifiers",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Classifier', 'put') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> putClassifier(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody Classifier classifier,
@@ -238,6 +250,7 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 	 * @return HttpStatus.NO_CONTENT
 	 */
 	@DeleteMapping(path = "{id}/classifiers/{classifierId}")
+	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> deleteClassifier(@PathVariable(name = "id") Long id,
 		@PathVariable(name = "classifierId") Long classifierId) {
 		

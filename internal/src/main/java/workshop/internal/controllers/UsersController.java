@@ -1,10 +1,23 @@
 package workshop.internal.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import workshop.internal.entities.ExternalAuthority;
-import workshop.internal.entities.Order;
-import workshop.internal.entities.Phone;
-import workshop.internal.entities.User;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import workshop.internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
@@ -15,20 +28,6 @@ import workshop.internal.services.ExternalAuthoritiesService;
 import workshop.internal.services.OrdersService;
 import workshop.internal.services.PhonesService;
 import workshop.internal.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -66,6 +65,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	}
 	
 	@GetMapping(path = "/{id}/orders")
+	@PreAuthorize("hasPermission('Order', 'get')")
 	public ResponseEntity<String> getUserOrders(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -89,7 +89,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return The persisted Order with this User set.
 	 */
 	@PostMapping(path = "{id}/orders",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'post') and hasPermission('User', 'put')")
 	public ResponseEntity<String> postUserOrder(@PathVariable(name = "id") Long id,
 												@Validated(PersistenceValidation.class) @RequestBody Order order,
 												BindingResult bindingResult) {
@@ -110,7 +111,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return The updated Order with this User set.
 	 */
 	@PutMapping(path = "{id}/orders",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Order', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserOrder(@PathVariable(name = "id") Long id,
 											   @Validated(UpdateValidation.class) @RequestBody Order order,
 											   BindingResult bindingResult) {
@@ -131,6 +133,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return HttpStatus.NO_CONTENT
 	 */
 	@DeleteMapping(path = "{id}/orders/{orderId}")
+	@PreAuthorize("hasPermission('Order', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> deleteUserOrder(@PathVariable(name = "id") Long id,
 												  @PathVariable(name = "orderId") Long orderId) {
 		User user = getWorkshopEntitiesService().findById(id);
@@ -141,6 +144,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	}
 	
 	@GetMapping(path = "/{id}/phones")
+	@PreAuthorize("hasPermission('Phone', 'get')")
 	public ResponseEntity<String> getUserPhones(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -157,7 +161,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	}
 	
 	@PostMapping(path = "{id}/phones",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Phone', 'post') and hasPermission('User', 'put')")
 	public ResponseEntity<String> postUserPhone(@PathVariable(name = "id") Long id,
 												@Validated(PersistenceValidation.class) @RequestBody Phone phone,
 												BindingResult bindingResult) {
@@ -171,7 +176,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	}
 	
 	@PutMapping(path = "{id}/phones",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Phone', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserPhone(@PathVariable(name = "id") Long id,
 											   @Validated(UpdateValidation.class) @RequestBody Phone phone,
 											   BindingResult bindingResult) {
@@ -192,6 +198,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return HttpStatus.NO_CONTENT
 	 */
 	@DeleteMapping(path = "{id}/phones/{phoneId}")
+	@PreAuthorize("hasPermission('Phone', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> deleteUserPhone(@PathVariable(name = "id") Long id,
 												  @PathVariable(name = "phoneId") Long phoneId) {
 		User user = getWorkshopEntitiesService().findById(id);
@@ -208,7 +215,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	
 	
 	@GetMapping(path = "/{id}/authorities")
-	public ResponseEntity<String> getUserGrantedAuthorities(
+	@PreAuthorize("hasPermission('ExternalAuthority', 'get')")
+	public ResponseEntity<String> getUserExternalAuthorities(
 		@PathVariable("id") Long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
 		@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
@@ -226,11 +234,16 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		return ResponseEntity.ok(jsonUserAuthoritiesPagedResources);
 	}
 	
+	/**
+	 * @return HttpStatus.FORBIDDEN with an advice to use dedicated {@link ExternalAuthoritiesController#postOne(WorkshopEntity, BindingResult, WebRequest)}
+	 * link for creation.
+	 */
 	@PostMapping(path = "{id}/authorities",
-				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<String> postForbiddenMethodUserAuthority(@PathVariable(name = "id") Long id,
-																   @RequestBody ExternalAuthority externalAuthority,
-																   HttpServletRequest request) {
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('ExternalAuthority', 'post')")
+	public ResponseEntity<String> postForbiddenMethodUserExternalAuthority(@PathVariable(name = "id") Long id,
+																		   @RequestBody ExternalAuthority externalAuthority,
+																		   HttpServletRequest request) {
 		String forbiddenMethodMessage = getMessageSource().getMessage(
 			"httpStatus.forbidden.withDescription(2)",
 			new Object[]{request.getMethod(), " Use dedicated ExternalAuthorities Link for this operation!"},
@@ -244,7 +257,8 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return HttpStatus.ACCEPTED in case of success.
 	 */
 	@PutMapping(path = "{id}/authorities",
-				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('ExternalAuthority', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserExternalAuthority(
 		@PathVariable(name = "id") Long id,
 		@Validated(UpdateValidation.class) @RequestBody ExternalAuthority externalAuthority,
@@ -273,6 +287,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	 * @return HttpStatus.NO_CONTENT in case of success.
 	 */
 	@DeleteMapping(path = "/{id}/authorities/{authorityId}")
+	@PreAuthorize("hasPermission('ExternalAuthority', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> deleteUserExternalAuthority(@PathVariable(name = "id") Long id,
 															  @PathVariable(name = "authorityId") Long authorityId) {
 		User user = getWorkshopEntitiesService().findById(id);

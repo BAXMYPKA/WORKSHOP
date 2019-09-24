@@ -20,7 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.services.*;
+import workshop.internal.services.ClassifiersService;
+import workshop.internal.services.DepartmentsService;
+import workshop.internal.services.PositionsService;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
 import java.math.BigDecimal;
@@ -45,12 +47,6 @@ class WorkshopControllerAbstractIT {
 	@Autowired
 	private ClassifiersService classifiersService;
 	@Autowired
-	private TasksService tasksService;
-	@Autowired
-	private OrdersService ordersService;
-	@Autowired
-	private ClassifiersController classifiersController;
-	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
 	@Autowired
 	private MockMvc mockMvc;
@@ -61,7 +57,6 @@ class WorkshopControllerAbstractIT {
 	@Test
 	@Order(1)
 	public void init_Test() {
-		
 		assertAll(
 			() -> assertNotNull(mockMvc),
 			() -> assertNotNull(departmentsController),
@@ -70,7 +65,6 @@ class WorkshopControllerAbstractIT {
 			() -> assertNotNull(positionsService)
 		);
 	}
-	
 	
 	@Test
 	@Order(2)

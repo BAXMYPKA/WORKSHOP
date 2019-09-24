@@ -71,7 +71,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
 		webSecurityExpressionHandler.setPermissionEvaluator(workshopPermissionEvaluator);
 		web.expressionHandler(webSecurityExpressionHandler);
-//		super.configure(web);
 	}
 	
 	/**

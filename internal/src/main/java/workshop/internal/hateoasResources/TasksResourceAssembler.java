@@ -34,7 +34,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		Link link;
-		if (EmployeesController.APPOINTED_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (EmployeesController.GET_APPOINTED_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getAppointedTasks(
 					ownerId,
@@ -46,7 +46,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (EmployeesController.TASKS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesController.GET_TASKS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksModifiedBy(
 					ownerId,
@@ -58,7 +58,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (EmployeesController.TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesController.GET_TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksCreatedBy(
 					ownerId,

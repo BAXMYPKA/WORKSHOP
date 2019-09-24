@@ -32,10 +32,11 @@ import org.springframework.web.bind.annotation.*;
 @ExposesResourceFor(Department.class)
 public class DepartmentsController extends WorkshopControllerAbstract<Department> {
 	
-	public static final String POSITIONS_METHOD_NAME = "getPositions";
+	public static final String GET_POSITIONS_METHOD_NAME = "getPositions";
 	
 	@Autowired
 	private PositionsResourceAssembler positionsResourceAssembler;
+	
 	@Autowired
 	private PositionsService positionsService;
 	
@@ -46,24 +47,6 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		super(departmentsService, departmentsResourceAssembler);
 	}
 	
-/*
-	@Override
-	@PreAuthorize("hasPermission(#authentication, 'Department', 'get')")
-	public ResponseEntity<String> getAll(Integer pageSize, Integer pageNum, String orderBy, String order) {
-		return super.getAll(pageSize, pageNum, orderBy, order);
-	}
-	
-	@Override
-	public ResponseEntity<String> getOne(long id) {
-		return super.getOne(id);
-	}
-	
-	@Override
-	public ResponseEntity<String> deleteOne(long id) {
-		return super.deleteOne(id);
-	}
-*/
-	
 	/**
 	 * @param id       Department id
 	 * @param pageSize
@@ -73,6 +56,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	 * @return
 	 */
 	@GetMapping(path = "/{id}/positions")
+	@PreAuthorize("hasPermission('Position', 'get')")
 	public ResponseEntity<String> getPositions(
 		@PathVariable(name = "id") long id,
 		@RequestParam(value = "pageSize", required = false, defaultValue = "${page.size.default}") Integer pageSize,
@@ -88,7 +72,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 		Pageable pageablePositions = super.getPageable(pageSize, pageNum, orderBy, order);
 		Page<Position> positionsByDepartmentPage = positionsService.findPositionsByDepartment(pageablePositions, id);
 		Resources<Resource<Position>> departmentPositionsPagedResources =
-			positionsResourceAssembler.toPagedSubResources(positionsByDepartmentPage, id, POSITIONS_METHOD_NAME);
+			positionsResourceAssembler.toPagedSubResources(positionsByDepartmentPage, id, GET_POSITIONS_METHOD_NAME);
 		String jsonDepartmentPositionsResources =
 			getJsonServiceUtils().workshopEntityObjectsToJson(departmentPositionsPagedResources);
 		
@@ -103,6 +87,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	 */
 	@PostMapping(path = "/{id}/positions",
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Position', 'post')")
 	public ResponseEntity<String> postPosition(@PathVariable(name = "id") long id,
 		@Validated(PersistenceValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {
@@ -118,6 +103,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	
 	@PutMapping(path = "/{id}/positions",
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> putPosition(@PathVariable(name = "id") long id,
 		@Validated(UpdateValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {
@@ -136,6 +122,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 	 * @param positionId The ID of the Position to be deleted
 	 */
 	@DeleteMapping(path = "/{id}/positions/{positionId}")
+	@PreAuthorize("hasPermission('Position', 'delete')")
 	public ResponseEntity<String> deletePosition(@PathVariable(name = "id") long id,
 		@PathVariable(name = "positionId") Long positionId) {
 		

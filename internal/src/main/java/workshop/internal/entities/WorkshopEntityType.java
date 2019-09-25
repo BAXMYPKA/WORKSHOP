@@ -26,6 +26,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@ToString(callSuper = false, onlyExplicitlyIncluded = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
@@ -39,6 +40,7 @@ public class WorkshopEntityType extends Trackable {
 	@Column(nullable = false, unique = true, updatable = false)
 	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
+	@ToString.Include
 	private String name;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

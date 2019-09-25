@@ -121,6 +121,28 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 					LocaleContextHolder.getLocale())));
 	}
 	
+	/**
+	 * @param propertyName E.g., "name" as WorkshopEntity.name
+	 * @param propertyValue E.g., "Cisco phone" as the desired value of the WorkshopEntity.name
+	 * @return WorkshopEntity of the given type with the desired value.
+	 * @throws PersistenceException In case of problems with the DataBase.
+	 * @throws EntityNotFoundException If nothing was found.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	public List<T> findByProperty(String propertyName, String propertyValue) throws PersistenceException, EntityNotFoundException{
+		
+		verifyPropertyForNull(propertyName, propertyValue);
+		
+		List<T> workshopEntitiesByProperty = workshopEntitiesDaoAbstract.findByProperty(propertyName, propertyValue)
+			.orElseThrow(() -> new EntityNotFoundException(
+				"WorkshopEntity."+propertyName+"="+propertyValue+" not found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("httpStatus.notFound(2)",
+					new Object[]{propertyValue, propertyName},
+					LocaleContextHolder.getLocale())));
+		return workshopEntitiesByProperty;
+	}
+	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistOrMergeEntity(T entity)
 		throws IllegalArgumentsException, AuthenticationCredentialsNotFoundException, PersistenceFailureException {
@@ -554,4 +576,20 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 				HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
+	protected void verifyPropertyForNull(String... property) throws IllegalArgumentsException {
+		if (property == null || Arrays.stream(property).anyMatch(Objects::isNull)) {
+			log.error("The given property cannot be null!");
+			throw new IllegalArgumentsException(
+				"The given property cannot be null!",
+				"httpStatus.notAcceptable.property",
+				HttpStatus.NOT_ACCEPTABLE);
+		} else if (property.length == 0) {
+			log.error("The given properties cannot be the empty array!");
+			throw new IllegalArgumentsException(
+				"The given properties cannot be the empty array!",
+				"httpStatus.notAcceptable.property",
+				HttpStatus.NOT_ACCEPTABLE);
+		}
+	}
+	
 }

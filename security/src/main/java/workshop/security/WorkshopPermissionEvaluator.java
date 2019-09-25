@@ -1,13 +1,18 @@
 package workshop.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
-import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.WorkshopEntity;
+import workshop.internal.entities.WorkshopEntityType;
+import workshop.internal.entities.utils.PermissionType;
+import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.services.InternalAuthoritiesService;
+import workshop.internal.services.WorkshopEntityTypesService;
 
 import java.io.Serializable;
 
@@ -30,6 +35,11 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 	
 	@Value("${internalPathName}")
 	private String internalPathName;
+	
+	@Autowired
+	private InternalAuthoritiesService internalAuthoritiesService;
+	@Autowired
+	private WorkshopEntityTypesService workshopEntityTypesService;
 	
 	/**
 	 * @param authentication     {@link Authentication} {@literal The current #authentication from the SecurityContext}
@@ -143,7 +153,7 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 						" through all the possible names of WorkshopEntity.workshopEntitiesNames()!"));
 			
 			//Can throw IllegalArgumentException if the given Authentication doesnt contain proper InternalAuthority
-			return finalAuthenticationEvaluation(authentication, permissionType, finalWorkshopEntityName);
+			return finalAuthenticationEvaluation(authentication, permissionType, workshopEntityName);
 			
 		} catch (IllegalArgumentException e) { //PermissionType or WorkshopEntity name is wrong
 			log.error(e.getMessage(), e);
@@ -151,17 +161,32 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 		} catch (NullPointerException npe) { //Authentication doesnt have authorities
 			log.info(npe.getMessage(), npe);
 			return false;
+		} catch (EntityNotFoundException enf) {
+			System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWW"+enf);
+			return false;
 		}
 	}
+	
+	//TODO: to also implement evaluating ExternalAuthorities
 	
 	private boolean finalAuthenticationEvaluation(
 		Authentication authentication, PermissionType permissionType, String workshopEntityName)
 		throws IllegalArgumentException {
+		
+		WorkshopEntityType workshopEntityType = workshopEntityTypesService.findByProperty("name", workshopEntityName).get(0);
+/*
+		for (GrantedAuthority auth : authentication.getAuthorities()) { //For the checkout test purposes
+			workshop.internal.entities.InternalAuthority intAuth = internalAuthoritiesService.findByProperty("name", auth.getAuthority()).get(0);
+		}
+*/
 		//Can throw IllegalArgumentException if the given Authentication doesnt contain proper InternalAuthority
 		return authentication.getAuthorities().stream()
-			.map(auth -> InternalAuthority.valueOf(auth.getAuthority()))
-			.map(InternalAuthority.allAuthoritiesPermissions::get)
-			.anyMatch(permissionTypesToTargetTypes ->
-				permissionTypesToTargetTypes.get(permissionType).contains(workshopEntityName));
+			.flatMap(intAuth -> internalAuthoritiesService.findByProperty("name", intAuth.getAuthority())
+				.stream())
+			.flatMap(internalAuthority -> internalAuthority.getAuthorityPermissions()
+				.stream())
+			.anyMatch(authorityPermission ->
+				authorityPermission.getPermissionType().equals(permissionType) &&
+					authorityPermission.getWorkshopEntityTypes().contains(workshopEntityType));
 	}
 }

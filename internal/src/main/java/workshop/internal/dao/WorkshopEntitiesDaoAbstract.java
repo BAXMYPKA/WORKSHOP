@@ -231,7 +231,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	 * @param propertyValue The value to be found. It it is the ZonedDateTime, LocalDate value,
 	 *                      it is will be parsed accordingly.
 	 * @return Optional<List < T>> with the found entities or Optional.ofNullable() if nothing was found.
-	 * @throws PersistenceException     When nothing found or in case of some DB problems
+	 * @throws PersistenceException     In case of some DB problems
 	 * @throws IllegalArgumentException If 'propertyName' or 'propertyValue' is either null, or empty,
 	 *                                  or neither ${@link #getClass()} or nor of its superclasses don't have such a property,
 	 *                                  or parsing the 'propertyName' to the instanceof Temporal is failed.

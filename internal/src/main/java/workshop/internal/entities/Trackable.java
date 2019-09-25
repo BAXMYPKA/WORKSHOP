@@ -25,6 +25,7 @@ import java.time.ZonedDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties(value = {"createdBy", "modifiedBy"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -50,6 +51,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
+	@ToString.Include
 	private Long identifier;
 	
 	/**
@@ -106,10 +108,12 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 		this.modified = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
 	}
 	
+/*
 	@Override
 	public String toString() {
 		return "identifier=" + identifier;
 	}
+*/
 	
 	@Override
 	public void setIdentifier(Long identifier) {

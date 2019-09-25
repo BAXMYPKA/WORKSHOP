@@ -30,6 +30,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@ToString(callSuper = false, onlyExplicitlyIncluded = true)
 @JsonIgnoreProperties
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -47,6 +48,7 @@ public class AuthorityPermission extends Trackable {
 	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
 		message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
+	@ToString.Include
 	private PermissionType permissionType;
 	
 	@Column

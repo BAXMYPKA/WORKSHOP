@@ -1,9 +1,11 @@
 /target
 .idea
+/.idea
 /logs
 /security/target/
 /sharedResources/target/
 /logs/
 /internal/target/
+/internalREST/target/
 /application/target/
 /application/logs/

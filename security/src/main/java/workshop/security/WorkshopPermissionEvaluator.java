@@ -10,7 +10,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.entities.WorkshopEntityType;
 import workshop.internal.entities.utils.PermissionType;
-import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.InternalAuthoritiesService;
 import workshop.internal.services.WorkshopEntityTypesService;
 
@@ -142,6 +141,8 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 				workshopEntityName = "InternalAuthority";
 			} else if (workshopEntityName.startsWith("External")) {
 				workshopEntityName = "ExternalAuthority";
+			} else if (workshopEntityName.startsWith("Authority-permission")) {
+				workshopEntityName = "AuthorityPermission";
 			}
 			
 			String finalWorkshopEntityName = workshopEntityName;
@@ -160,9 +161,6 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 			return false;
 		} catch (NullPointerException npe) { //Authentication doesnt have authorities
 			log.info(npe.getMessage(), npe);
-			return false;
-		} catch (EntityNotFoundException enf) {
-			System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWW"+enf);
 			return false;
 		}
 	}

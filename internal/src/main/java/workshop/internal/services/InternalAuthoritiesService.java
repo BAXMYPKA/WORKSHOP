@@ -1,7 +1,9 @@
 package workshop.internal.services;
 
+import workshop.internal.dao.AuthorityPermissionsDao;
 import workshop.internal.dao.InternalAuthoritiesDao;
 import workshop.internal.dao.PositionsDao;
+import workshop.internal.entities.AuthorityPermission;
 import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.Position;
 import workshop.internal.exceptions.EntityNotFoundException;
@@ -28,6 +30,8 @@ public class InternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<
 	private InternalAuthoritiesDao internalAuthoritiesDao;
 	@Autowired
 	private PositionsDao positionsDao;
+	@Autowired
+	private AuthorityPermissionsDao authorityPermissionsDao;
 	
 	public InternalAuthoritiesService(InternalAuthoritiesDao internalAuthoritiesDao) {
 		super(internalAuthoritiesDao);
@@ -85,4 +89,13 @@ public class InternalAuthoritiesService extends WorkshopEntitiesServiceAbstract<
 		authority.getPositions().remove(position);
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	public InternalAuthority findInternalAuthorityByAuthorityPermission(Long authorityPermissionId)
+		throws EntityNotFoundException {
+		
+		AuthorityPermission authorityPermission =
+			authorityPermissionsDao.findById(authorityPermissionId).orElseThrow(()->
+				getEntityNotFoundException("AuthorityPermission"));
+		return authorityPermission.getInternalAuthority();
+	}
 }

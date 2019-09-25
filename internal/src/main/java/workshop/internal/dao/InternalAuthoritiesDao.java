@@ -1,10 +1,10 @@
 package workshop.internal.dao;
 
-import workshop.internal.entities.InternalAuthority;
-import workshop.internal.entities.Position;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import workshop.internal.entities.InternalAuthority;
+import workshop.internal.entities.Position;
 
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
@@ -31,11 +31,12 @@ public class InternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<Internal
 	 *                              LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
 	 *                              PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
-	public Optional<List<InternalAuthority>> findInternalAuthoritiesByPosition(Integer pageSize,
-																			   Integer pageNum,
-																			   String orderBy,
-																			   Sort.Direction order,
-																			   Long positionId)
+	public Optional<List<InternalAuthority>> findInternalAuthoritiesByPosition(
+		Integer pageSize,
+		Integer pageNum,
+		String orderBy,
+		Sort.Direction order,
+		Long positionId)
 		throws PersistenceException {
 		
 		super.verifyPageableValues(pageSize, pageNum, orderBy, order);

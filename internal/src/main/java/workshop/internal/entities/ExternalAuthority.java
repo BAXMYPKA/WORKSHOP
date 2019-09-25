@@ -32,6 +32,9 @@ import java.util.Set;
 @Table(name = "External_Authorities", schema = "EXTERNAL")
 public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	
+	
+	//TODO: to make enum from import.sql
+	
 	@Transient
 	@Getter(AccessLevel.PRIVATE)
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;

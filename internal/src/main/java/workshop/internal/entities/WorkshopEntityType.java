@@ -44,13 +44,13 @@ public class WorkshopEntityType extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinTable(name = "Authority_Permissions_to_Workshop_Entity_Types", schema = "INTERNAL",
-		  joinColumns = @JoinColumn(name = "workshop_entity_type_id", referencedColumnName = "id", nullable = false),
-		  inverseJoinColumns = @JoinColumn(name = "authority_permission_id", referencedColumnName = "id", nullable = false))
+		joinColumns = @JoinColumn(name = "workshop_entity_type_id", referencedColumnName = "id", nullable = false),
+		inverseJoinColumns = @JoinColumn(name = "authority_permission_id", referencedColumnName = "id", nullable = false))
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
-	public WorkshopEntityType(
-		  @NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
-				message = "{validation.notBlank}") String name) {
+	public WorkshopEntityType(@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
+		message = "{validation.notBlank}")
+								  String name) {
 		this.name = name;
 	}
 	
@@ -64,7 +64,7 @@ public class WorkshopEntityType extends Trackable {
 	public void nameEqualityCheck() throws IllegalArgumentsException {
 		if (!WorkshopEntity.workshopEntitiesNames.contains(name)) {
 			throw new IllegalArgumentsException("The given name has to be equal one of the WorkshopEntity names!",
-				  "httpStatus.notAcceptable.workshopEntityType", HttpStatus.NOT_ACCEPTABLE);
+				"httpStatus.notAcceptable.workshopEntityType", HttpStatus.NOT_ACCEPTABLE);
 		}
 	}
 }

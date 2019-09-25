@@ -5,10 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.http.HttpStatus;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.utils.PermissionTypeToPropertyConverter;
+import workshop.internal.exceptions.IllegalArgumentsException;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -54,13 +56,12 @@ public class AuthorityPermission extends Trackable {
 	private String description;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-//	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@Valid
 	private InternalAuthority internalAuthority;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@Valid
 	private ExternalAuthority externalAuthority;
 	
@@ -70,4 +71,23 @@ public class AuthorityPermission extends Trackable {
 	@EqualsAndHashCode.Include
 	private Set<@Valid WorkshopEntityType> workshopEntityTypes;
 	
+	/**
+	 * This Entity must have either {@link #externalAuthority} or {@link #internalAuthority} as a foreign key!
+	 * @throws IllegalArgumentsException If one of the {@link #externalAuthority} or {@link #internalAuthority} is null.
+	 */
+	@PrePersist
+	public void prePersist() throws IllegalArgumentsException {
+		if (internalAuthority == null && externalAuthority == null) {
+			throw new IllegalArgumentsException("The property of ExternalAuthority OR InternalAuthority must not be null!",
+				"httpStatus.notAcceptable.authorityPermissionWithoutAuthority", HttpStatus.NOT_ACCEPTABLE);
+		}
+	}
+	
+	/**
+	 * Does the same as {@link #prePersist()}
+	 */
+	@PreUpdate
+	public void preUpdate() {
+		prePersist();
+	}
 }

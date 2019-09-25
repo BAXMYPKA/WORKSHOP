@@ -66,7 +66,7 @@ public enum InternalAuthority {
 	/**
 	 * Includes only {@link PermissionType#GET} type of permission.
 	 */
-	EMPLOYEE(
+	EMPLOYEE_READ(
 		PermissionType.GET, new String[]{"Employee", "Phone"});
 	
 	public static final Map<InternalAuthority, Map<PermissionType, Set<String>>> allAuthoritiesPermissions = new HashMap<>();

@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.IllegalArgumentsException;
 import workshop.internal.exceptions.InvalidMethodArgumentsException;
 import workshop.internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
@@ -193,7 +192,7 @@ public abstract class WorkshopControllerAbstract<T extends WorkshopEntity> imple
 	@PreAuthorize("hasPermission(#webRequest, 'put')")
 	public ResponseEntity<String> putOne(
 		@PathVariable(name = "id") Long id,
-		@Validated(value = {UpdateValidation.class, Default.class})
+		@Validated(value = {MergingValidation.class, Default.class})
 		@RequestBody T workshopEntity,
 		BindingResult bindingResult,
 		WebRequest webRequest) {

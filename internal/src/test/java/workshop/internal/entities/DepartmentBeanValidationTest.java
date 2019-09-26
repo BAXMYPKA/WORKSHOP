@@ -1,8 +1,6 @@
 package workshop.internal.entities;
 
-import workshop.internal.entities.Department;
-import workshop.internal.entities.Position;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -75,7 +73,7 @@ class DepartmentBeanValidationTest {
 		department.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, UpdateValidation.class);
+		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, MergingValidation.class);
 		
 		//THEN
 		ConstraintViolation<Department> violationIterator = validatedDepartment.iterator().next();

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -45,7 +45,7 @@ public class Classifier extends Trackable implements Serializable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {UpdateValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	
@@ -67,7 +67,7 @@ public class Classifier extends Trackable implements Serializable {
 	 * Default = 0.00;
 	 */
 	@Column(nullable = false, scale = 2)
-	@PositiveOrZero(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
+	@PositiveOrZero(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
 		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
@@ -86,7 +86,7 @@ public class Classifier extends Trackable implements Serializable {
 	}
 	
 	@Builder
-	public Classifier(@NotBlank(groups = {UpdateValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")
+	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")
 						  String name,
 					  String description,
 					  boolean isOfficial,

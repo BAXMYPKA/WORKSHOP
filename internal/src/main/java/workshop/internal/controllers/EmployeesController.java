@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.*;
 import workshop.internal.services.*;
 
@@ -114,7 +114,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'put')")
 	public ResponseEntity<String> putPhone(
 		@PathVariable(name = "id") long id,
-		@Validated(UpdateValidation.class) @RequestBody Phone phone,
+		@Validated(MergingValidation.class) @RequestBody Phone phone,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -240,7 +240,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putAppointedTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Task task,
+		@Validated(MergingValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		return postAppointedTask(id, task, bindingResult);
@@ -353,7 +353,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Task task,
+		@Validated(MergingValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -477,7 +477,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Order order,
+		@Validated(MergingValidation.class) @RequestBody Order order,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

@@ -7,7 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.utils.PermissionTypeToPropertyConverter;
 import workshop.internal.exceptions.IllegalArgumentsException;
@@ -45,16 +45,16 @@ public class AuthorityPermission extends Trackable {
 	@Column(unique = false, nullable = false)
 	@Enumerated(EnumType.STRING)
 	@Convert(converter = PermissionTypeToPropertyConverter.class)
-	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
+	@NotBlank(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
 			  message = "{validation.notBlank}")
 	@Pattern(regexp = "^(GET|PUT|POST|DELETE)$", message = "{validation.pattern.authorityPermission}",
-			 groups = {PersistenceValidation.class, UpdateValidation.class, Default.class})
+			 groups = {PersistenceValidation.class, MergingValidation.class, Default.class})
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private PermissionType permissionType;
 	
 	@Column
-	@Size(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, max = 254,
+	@Size(groups = {PersistenceValidation.class, MergingValidation.class, Default.class}, max = 254,
 		  message = "{validation.size}")
 	@EqualsAndHashCode.Include
 	private String description;

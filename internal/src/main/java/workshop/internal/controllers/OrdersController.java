@@ -6,7 +6,7 @@ import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.OrdersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
 import workshop.internal.hateoasResources.UsersResourceAssembler;
@@ -99,7 +99,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putUserCreatedFor(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody User user,
+		@Validated(MergingValidation.class) @RequestBody User user,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -181,7 +181,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Task task,
+		@Validated(MergingValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

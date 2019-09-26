@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
 import workshop.internal.services.ClassifiersService;
@@ -86,7 +86,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission(#authentication, 'Task', 'put')")
 	public ResponseEntity<String> putTask(@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Task task,
+		@Validated(MergingValidation.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

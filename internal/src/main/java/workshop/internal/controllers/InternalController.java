@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/internal")
 public class InternalController {
 	
-	//TODO: global ExceptionHandler
-	
 	@GetMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public String getInternal() {
 		log.error("MAIN");

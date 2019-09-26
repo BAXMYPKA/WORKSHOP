@@ -8,7 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.utils.PermissionType;
 
 import javax.persistence.*;
@@ -41,14 +41,14 @@ public class ExternalAuthority extends Trackable implements GrantedAuthority {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private String name;
 	
 	@Column
-	@Length(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, max = 254,
-		message = "{validation.length}")
+	@Length(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, max = 254,
+			message = "{validation.length}")
 	private String description;
 	
 	/**

@@ -8,7 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -51,8 +51,8 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;

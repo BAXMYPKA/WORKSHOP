@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistEmployeeValidation;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -47,8 +47,8 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
 	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {UpdateValidation.class, Default.class}, message = "{validation.positive}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	@ToString.Include
@@ -107,13 +107,6 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	public void preUpdate() {
 		this.modified = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
 	}
-	
-/*
-	@Override
-	public String toString() {
-		return "identifier=" + identifier;
-	}
-*/
 	
 	@Override
 	public void setIdentifier(Long identifier) {

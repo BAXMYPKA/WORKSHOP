@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.UsersResourceAssembler;
 import workshop.internal.services.ExternalAuthoritiesService;
@@ -105,7 +105,7 @@ public class ExternalAuthoritiesController extends WorkshopControllerAbstract<Ex
 	@PreAuthorize("hasPermission('User', 'put')")
 	public ResponseEntity<String> putExternalAuthorityUser(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody User user,
+		@Validated(MergingValidation.class) @RequestBody User user,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

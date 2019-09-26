@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.exceptions.IllegalArgumentsException;
 
@@ -42,7 +42,7 @@ public class WorkshopEntityType extends Trackable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true, updatable = false)
-	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {PersistenceValidation.class, MergingValidation.class, Default.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private String name;
@@ -54,7 +54,7 @@ public class WorkshopEntityType extends Trackable {
 		inverseJoinColumns = @JoinColumn(name = "authority_permission_id", referencedColumnName = "id", nullable = false))
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
-	public WorkshopEntityType(@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
+	public WorkshopEntityType(@NotBlank(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
 		message = "{validation.notBlank}") String name) {
 		this.name = name;
 	}

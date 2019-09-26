@@ -1,7 +1,6 @@
 package workshop.internal.entities;
 
-import workshop.internal.entities.Order;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.hibernateValidation.PersistEmployeeValidation;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import org.junit.jupiter.api.BeforeAll;
@@ -62,7 +61,7 @@ class TrackableBeanValidationTest {
 		orderWithIncorrectId.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, UpdateValidation.class);
+		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, MergingValidation.class);
 		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
 		
 		//THEN
@@ -94,7 +93,7 @@ class TrackableBeanValidationTest {
 	}
 	
 	@ParameterizedTest
-	@ValueSource(classes = {Default.class, PersistEmployeeValidation.class, UpdateValidation.class})
+	@ValueSource(classes = {Default.class, PersistEmployeeValidation.class, MergingValidation.class})
 	public void almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created(Class classValidation) {
 		//GIVEN
 		Order orderWithIncorrectCreated = new Order();

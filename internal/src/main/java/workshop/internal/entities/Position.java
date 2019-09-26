@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.IllegalArgumentsException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -44,7 +44,7 @@ public class Position extends Trackable {
 	 * Also uses as the WorkshopGrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	
@@ -66,7 +66,7 @@ public class Position extends Trackable {
 	@ManyToOne(optional = false, cascade = {CascadeType.REFRESH, CascadeType.MERGE},
 		fetch = FetchType.EAGER)
 	@Valid
-	@NotNull(groups = {UpdateValidation.class, Default.class}, message = "{validation.notNull}")
+	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	private Department department;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

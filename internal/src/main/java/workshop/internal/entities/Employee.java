@@ -2,7 +2,7 @@ package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,12 +39,12 @@ public class Employee extends Trackable {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(name = "first_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
@@ -59,14 +59,14 @@ public class Employee extends Trackable {
 	private String password;
 	
 	@Column(nullable = false, length = 100)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notBlank}")
-	@Email(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.email}")
+	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@Email(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.email}")
 	@EqualsAndHashCode.Include
 	private String email;
 	
 	@Column(nullable = false)
-	@NotNull(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
-	@Past(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.past}")
+	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
+	@Past(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.past}")
 	private LocalDate birthday;
 	
 	/**
@@ -97,7 +97,7 @@ public class Employee extends Trackable {
 	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
 		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
-	@NotNull(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
+	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	

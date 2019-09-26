@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.PersistenceFailureException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -77,7 +77,7 @@ public class Task extends Trackable {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	@Valid
-	@NotNull(groups = {PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
+	@NotNull(groups = {PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
 	private Order order;
 	
 	/**
@@ -88,7 +88,7 @@ public class Task extends Trackable {
 	 * Default = 0.00
 	 */
 	@Column(scale = 2, nullable = false)
-	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
+	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
 					message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	

@@ -5,7 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.PositionsResourceAssembler;
@@ -105,7 +105,7 @@ public class DepartmentsController extends WorkshopControllerAbstract<Department
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> putPosition(@PathVariable(name = "id") long id,
-		@Validated(UpdateValidation.class) @RequestBody Position position,
+		@Validated(MergingValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

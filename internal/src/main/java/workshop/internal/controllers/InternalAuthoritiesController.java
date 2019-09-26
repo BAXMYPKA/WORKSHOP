@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.Position;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.PositionsResourceAssembler;
 import workshop.internal.services.InternalAuthoritiesService;
@@ -92,7 +92,7 @@ public class InternalAuthoritiesController extends WorkshopControllerAbstract<In
 	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> putInternalAuthorityPosition(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody Position position,
+		@Validated(MergingValidation.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

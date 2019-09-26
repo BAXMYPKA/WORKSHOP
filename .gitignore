@@ -1,6 +1,6 @@
 /target
-.idea
-/.idea
+#.idea
+#/.idea
 /logs
 /security/target/
 /sharedResources/target/

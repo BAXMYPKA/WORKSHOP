@@ -19,7 +19,7 @@ import workshop.internal.entities.AuthorityPermission;
 import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.WorkshopEntityType;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.AuthorityPermissionsResourceAssembler;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
@@ -119,7 +119,7 @@ public class AuthorityPermissionsController extends WorkshopControllerAbstract<A
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> putInternalAuthority(@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(MergingValidation.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -239,7 +239,7 @@ public class AuthorityPermissionsController extends WorkshopControllerAbstract<A
 	@PreAuthorize("hasPermission('WorkshopEntityType', 'put') and hasPermission('AuthorityPermission', 'put')")
 	public ResponseEntity<String> putAuthorityPermissionWorkshopEntityType(
 		@PathVariable(name = "id") Long id,
-		@Validated({UpdateValidation.class, Default.class}) WorkshopEntityType workshopEntityType,
+		@Validated({MergingValidation.class, Default.class}) WorkshopEntityType workshopEntityType,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.OrdersResourceAssembler;
 import workshop.internal.hateoasResources.PhonesResourceAssembler;
@@ -114,7 +114,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Order', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserOrder(@PathVariable(name = "id") Long id,
-											   @Validated(UpdateValidation.class) @RequestBody Order order,
+											   @Validated(MergingValidation.class) @RequestBody Order order,
 											   BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -179,7 +179,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Phone', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserPhone(@PathVariable(name = "id") Long id,
-											   @Validated(UpdateValidation.class) @RequestBody Phone phone,
+											   @Validated(MergingValidation.class) @RequestBody Phone phone,
 											   BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -261,7 +261,7 @@ public class UsersController extends WorkshopControllerAbstract<User> {
 	@PreAuthorize("hasPermission('ExternalAuthority', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserExternalAuthority(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody ExternalAuthority externalAuthority,
+		@Validated(MergingValidation.class) @RequestBody ExternalAuthority externalAuthority,
 		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);

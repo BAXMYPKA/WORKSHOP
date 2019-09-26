@@ -1,7 +1,6 @@
 package workshop;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ class AppConfigurationIT {
 	private DepartmentsService departmentsService;
 	
 	@Test
-	@Order(1)
 	@DisplayName("@PropertySource = classpath:configs/workshop.properties")
 	public void workshop_Properties_Loads_From_Classpath_And_Injects_Into_Beans() {
 		//GIVEN

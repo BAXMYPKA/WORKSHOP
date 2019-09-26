@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.AuthorityPermission;
 import workshop.internal.entities.WorkshopEntityType;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.hateoasResources.AuthorityPermissionsResourceAssembler;
 import workshop.internal.hateoasResources.WorkshopEntityTypesResourceAssembler;
 import workshop.internal.services.AuthorityPermissionsService;
@@ -91,7 +91,7 @@ public class WorkshopEntityTypesController extends WorkshopControllerAbstract<Wo
 	@PreAuthorize("hasPermission('AuthorityPermission', 'put')")
 	public ResponseEntity<String> putEntityTypeAuthorityPermission(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody AuthorityPermission authorityPermission,
+		@Validated(MergingValidation.class) @RequestBody AuthorityPermission authorityPermission,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

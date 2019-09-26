@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.UpdateValidation;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.EmployeesResourceAssembler;
@@ -143,7 +143,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Employee', 'put')")
 	public ResponseEntity<String> putPositionEmployee(@PathVariable(name = "id") Long id,
-													  @Validated(UpdateValidation.class) @RequestBody Employee employee,
+													  @Validated(MergingValidation.class) @RequestBody Employee employee,
 													  BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Position position = getWorkshopEntitiesService().findById(id);
@@ -227,7 +227,7 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> putPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
-		@Validated(UpdateValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(MergingValidation.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Position position = getWorkshopEntitiesService().findById(id);

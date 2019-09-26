@@ -15,7 +15,7 @@ import workshop.internal.exceptions.IllegalArgumentsException;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 import java.util.Set;
@@ -46,14 +46,16 @@ public class AuthorityPermission extends Trackable {
 	@Enumerated(EnumType.STRING)
 	@Convert(converter = PermissionTypeToPropertyConverter.class)
 	@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
-		message = "{validation.notBlank}")
+			  message = "{validation.notBlank}")
+	@Pattern(regexp = "^(GET|PUT|POST|DELETE)$", message = "{validation.pattern.authorityPermission}",
+			 groups = {PersistenceValidation.class, UpdateValidation.class, Default.class})
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private PermissionType permissionType;
 	
 	@Column
 	@Size(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class}, max = 254,
-		message = "{validation.size}")
+		  message = "{validation.size}")
 	@EqualsAndHashCode.Include
 	private String description;
 	
@@ -69,12 +71,13 @@ public class AuthorityPermission extends Trackable {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "authorityPermissions", fetch = FetchType.EAGER,
-		  cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+				cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@EqualsAndHashCode.Include
 	private Set<@Valid WorkshopEntityType> workshopEntityTypes;
 	
 	/**
 	 * This Entity must have either {@link #externalAuthority} or {@link #internalAuthority} as a foreign key!
+	 *
 	 * @throws IllegalArgumentsException If one of the {@link #externalAuthority} or {@link #internalAuthority} is null.
 	 */
 	@PrePersist

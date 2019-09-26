@@ -32,7 +32,7 @@ public class Phone extends WorkshopEntityAbstract {
 					 message = "{validation.notNull}")
 				 @Pattern(
 					 groups = {Default.class, PersistenceValidation.class, UpdateValidation.class},
-					 message = "{validation.phone}",
+					 message = "{validation.pattern.phone}",
 					 regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 					 String phone) {
 		this.name = name;
@@ -66,7 +66,7 @@ public class Phone extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
 	@NotNull(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.notNull}")
-	@Pattern(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.phone}",
+	@Pattern(groups = {Default.class, PersistenceValidation.class, UpdateValidation.class}, message = "{validation.pattern.phone}",
 		regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 	@EqualsAndHashCode.Include
 	private String phone;

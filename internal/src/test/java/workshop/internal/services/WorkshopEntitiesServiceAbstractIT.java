@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.services.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -478,7 +477,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		tasksService.persistOrMergeEntity(task1);
 		
 		//WHEN check
-		Page<Task> tasksAppointedToEmployee = tasksService.findAllTasksAppointedToEmployee(
+		Page<Task> tasksAppointedToEmployee = tasksService.findTasksAppointedToEmployee(
 			PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
 			employee1.getIdentifier());
 		
@@ -493,7 +492,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		Task taskWithoutAppointedTo = tasksService.findById(task1.getIdentifier());
 		
 		assertThrows(EntityNotFoundException.class, () ->
-			tasksService.findAllTasksAppointedToEmployee(
+			tasksService.findTasksAppointedToEmployee(
 				PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
 				employee1.getIdentifier()));
 		
@@ -531,7 +530,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//THEN
 		Task taskWithCreatedBy = tasksService.findById(task1.getIdentifier());
-		Page<Task> tasksCreatedByEmployee = tasksService.findAllTasksCreatedByEmployee(
+		Page<Task> tasksCreatedByEmployee = tasksService.findTasksCreatedByEmployee(
 			PageRequest.of(0, 10, Sort.Direction.DESC, "created"),
 			persistedEmployee.getIdentifier());
 		

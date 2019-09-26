@@ -1,13 +1,5 @@
 package workshop.internal.services;
 
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
-import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
-import workshop.internal.exceptions.PersistenceFailureException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
+import workshop.internal.entities.WorkshopEntity;
+import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.internal.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
@@ -47,7 +45,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 @Service
-public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity> {
+public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
@@ -122,20 +120,20 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	}
 	
 	/**
-	 * @param propertyName E.g., "name" as WorkshopEntity.name
+	 * @param propertyName  E.g., "name" as WorkshopEntity.name
 	 * @param propertyValue E.g., "Cisco phone" as the desired value of the WorkshopEntity.name
 	 * @return WorkshopEntity of the given type with the desired value.
-	 * @throws PersistenceException In case of problems with the DataBase.
+	 * @throws PersistenceException    In case of problems with the DataBase.
 	 * @throws EntityNotFoundException If nothing was found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
-	public List<T> findByProperty(String propertyName, String propertyValue) throws PersistenceException, EntityNotFoundException{
+	public List<T> findByProperty(String propertyName, String propertyValue) throws PersistenceException, EntityNotFoundException {
 		
 		verifyPropertyForNull(propertyName, propertyValue);
 		
 		List<T> workshopEntitiesByProperty = workshopEntitiesDaoAbstract.findByProperty(propertyName, propertyValue)
 			.orElseThrow(() -> new EntityNotFoundException(
-				"WorkshopEntity."+propertyName+"="+propertyValue+" not found!",
+				"WorkshopEntity." + propertyName + "=" + propertyValue + " not found!",
 				HttpStatus.NOT_FOUND,
 				messageSource.getMessage("httpStatus.notFound(2)",
 					new Object[]{propertyValue, propertyName},
@@ -434,6 +432,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 	
 	
 	/**
+	 * Convenient method to receive a raw data from DAO and transform it to Page<T> or throw localized {@link EntityNotFoundException}
 	 * 1) Checks if a given Optional.List of Entities is present. If not - throws EntityNotFoundException,
 	 * with the corresponds HttpStatus and localized message for the end-users.
 	 * 2) Returns the fully prepared Page containing info about amount of Pages, total entities, current page num etc.
@@ -576,6 +575,7 @@ public abstract class WorkshopEntitiesServiceAbstract <T extends WorkshopEntity>
 				HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
+	
 	protected void verifyPropertyForNull(String... property) throws IllegalArgumentsException {
 		if (property == null || Arrays.stream(property).anyMatch(Objects::isNull)) {
 			log.error("The given property cannot be null!");

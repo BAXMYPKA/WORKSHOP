@@ -43,7 +43,7 @@ public class ClassifiersService extends WorkshopEntitiesServiceAbstract<Classifi
 		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
 		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
 		
-		Optional<List<Classifier>> allClassifiersByTask = classifiersDao.findAllClassifiersByTask(
+		Optional<List<Classifier>> allClassifiersByTask = classifiersDao.findClassifiersByTask(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			orderBy,

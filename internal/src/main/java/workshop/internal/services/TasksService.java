@@ -43,7 +43,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.SERIALIZABLE)
-	public Page<Task> findAllTasksByOrder(Pageable pageable, Long orderId)
+	public Page<Task> findTasksByOrder(Pageable pageable, Long orderId)
 		throws EntityNotFoundException, IllegalArgumentsException {
 		
 		super.verifyIdForNullZeroBelowZero(orderId);
@@ -69,7 +69,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
-	public Page<Task> findAllTasksAppointedToEmployee(Pageable pageable, Long employeeId) {
+	public Page<Task> findTasksAppointedToEmployee(Pageable pageable, Long employeeId) {
 		
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		super.verifyIdForNullZeroBelowZero(employeeId);
@@ -95,7 +95,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
-	public Page<Task> findAllTasksModifiedByEmployee(Pageable pageable, Long employeeId)
+	public Page<Task> findTasksModifiedByEmployee(Pageable pageable, Long employeeId)
 		throws IllegalArgumentsException, EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(employeeId);
@@ -126,7 +126,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
 	
-	public Page<Task> findAllTasksCreatedByEmployee(Pageable pageable, Long employeeId)
+	public Page<Task> findTasksCreatedByEmployee(Pageable pageable, Long employeeId)
 		throws IllegalArgumentsException, EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(employeeId);
@@ -156,7 +156,7 @@ public class TasksService extends WorkshopEntitiesServiceAbstract<Task> {
 	 * @throws EntityNotFoundException   If no Order or Tasks from if were found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, readOnly = true)
-	public Page<Task> findAllTasksByClassifier(Pageable pageable, Long classifierId)
+	public Page<Task> findTasksByClassifier(Pageable pageable, Long classifierId)
 		throws IllegalArgumentsException, EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(classifierId);

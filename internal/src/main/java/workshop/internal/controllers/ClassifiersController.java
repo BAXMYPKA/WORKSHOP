@@ -10,14 +10,12 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Task;
-import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.UpdateValidation;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
@@ -59,7 +57,7 @@ public class ClassifiersController extends WorkshopControllerAbstract<Classifier
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<Task> tasksAppointedToEmployeePage = tasksService.findAllTasksByClassifier(pageable, id);
+		Page<Task> tasksAppointedToEmployeePage = tasksService.findTasksByClassifier(pageable, id);
 		Resources<Resource<Task>> classifierTasksPagedResources =
 			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, GET_TASKS_METHOD_NAME);
 		String jsonClassifierTasksPagedResources =

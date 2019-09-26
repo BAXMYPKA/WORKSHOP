@@ -139,7 +139,7 @@ public class OrdersController extends WorkshopControllerAbstract<Order> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageableTasks = getPageable(pageSize, pageNum, orderBy, order);
-		Page<Task> tasksByOrderPage = tasksService.findAllTasksByOrder(pageableTasks, id);
+		Page<Task> tasksByOrderPage = tasksService.findTasksByOrder(pageableTasks, id);
 		Resources<Resource<Task>> tasksPagedResources =
 			tasksResourceAssembler.toPagedSubResources(tasksByOrderPage, id, GET_ORDER_TASKS_METHOD_NAME);
 		String jsonTasksPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(tasksPagedResources);

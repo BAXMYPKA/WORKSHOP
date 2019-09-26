@@ -7,18 +7,19 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import workshop.internal.controllers.AuthorityPermissionsController;
 import workshop.internal.controllers.WorkshopEntityTypesController;
-import workshop.internal.entities.AuthorityPermission;
+import workshop.internal.entities.WorkshopEntityType;
 
 @Slf4j
 @Component
-public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<AuthorityPermission> {
+public class WorkshopEntityTypesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<WorkshopEntityType> {
+	
 	/**
 	 * Obligatory constructor.
 	 * Delete the method arguments and only leave:
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
-	public AuthorityPermissionsResourceAssembler() {
-		super(AuthorityPermissionsController.class, AuthorityPermission.class);
+	public WorkshopEntityTypesResourceAssembler() {
+		super(WorkshopEntityTypesController.class, WorkshopEntityType.class);
 	}
 	
 	@Override
@@ -36,9 +37,9 @@ public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResou
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (WorkshopEntityTypesController.GET_ENTITY_TYPE_AUTHORITY_PERMISSIONS.equalsIgnoreCase(controllerMethodName)) {
+		if (AuthorityPermissionsController.GET_AUTHORITY_PERMISSION_ENTITY_TYPES.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(WorkshopEntityTypesController.class).getEntityTypeAuthorityPermissions(
+				ControllerLinkBuilder.methodOn(AuthorityPermissionsController.class).getWorkshopEntitiesTypes(
 					ownerId,
 					pageable.getPageSize(),
 					pageNum,
@@ -53,7 +54,7 @@ public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResou
 			log.error(
 				"No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
 				controllerMethodName, getWorkshopControllerAbstractClass());
-			return new Link("/no_link_found/");
+			return getPagedLink(pageable, pageNum, relation, hrefLang, media, title);
 		}
 	}
 }

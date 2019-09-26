@@ -195,7 +195,8 @@ public class PositionsController extends WorkshopControllerAbstract<Position> {
 	/**
 	 * New InternalAuthorities have to be persisted with their dedicated controller!
 	 *
-	 * @return HttpStatus.FORBIDDEN with a message advises using {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult, WebRequest)}
+	 * @return HttpStatus.FORBIDDEN with a message advises using
+	 * {@link InternalAuthoritiesController#postOne(WorkshopEntity, BindingResult, WebRequest)}
 	 * post method for persisting.
 	 */
 	@PostMapping(path = "/{id}/internal-authorities",

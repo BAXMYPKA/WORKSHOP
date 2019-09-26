@@ -143,6 +143,8 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 				workshopEntityName = "ExternalAuthority";
 			} else if (workshopEntityName.startsWith("Authority-permission")) {
 				workshopEntityName = "AuthorityPermission";
+			} else if (workshopEntityName.startsWith("Entity-type")) {
+				workshopEntityName = "WorkshopEntityType";
 			}
 			
 			String finalWorkshopEntityName = workshopEntityName;

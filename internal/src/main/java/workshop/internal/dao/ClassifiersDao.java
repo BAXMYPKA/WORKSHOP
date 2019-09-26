@@ -34,7 +34,7 @@ public class ClassifiersDao extends WorkshopEntitiesDaoAbstract<Classifier, Long
 	 *                              LockTimeoutException - if pessimistic locking fails and only the statement is rolled back
 	 *                              PersistenceException - if the query execution exceeds the query timeout value set and the transaction is rolled back
 	 */
-	public Optional<List<Classifier>> findAllClassifiersByTask(Integer pageSize,
+	public Optional<List<Classifier>> findClassifiersByTask(Integer pageSize,
 		Integer pageNum,
 		String orderBy,
 		Sort.Direction order,

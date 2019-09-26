@@ -205,7 +205,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<Task> tasksAppointedToEmployeePage = tasksService.findAllTasksAppointedToEmployee(pageable, id);
+		Page<Task> tasksAppointedToEmployeePage = tasksService.findTasksAppointedToEmployee(pageable, id);
 		Resources<Resource<Task>> employeeAppointedTasksResources =
 			tasksResourceAssembler.toPagedSubResources(tasksAppointedToEmployeePage, id, GET_APPOINTED_TASKS_METHOD_NAME);
 		String jsonEmployeeAppointedTasksResources =
@@ -279,7 +279,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<Task> tasksModifiedByEmployeePage = tasksService.findAllTasksModifiedByEmployee(pageable, id);
+		Page<Task> tasksModifiedByEmployeePage = tasksService.findTasksModifiedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksModifiedPagedResources =
 			tasksResourceAssembler.toPagedSubResources(tasksModifiedByEmployeePage, id, GET_TASKS_MODIFIED_BY_METHOD_NAME);
 		String jsonPagedResources = getJsonServiceUtils().workshopEntityObjectsToJson(tasksModifiedPagedResources);
@@ -314,7 +314,7 @@ public class EmployeesController extends WorkshopControllerAbstract<Employee> {
 		@RequestParam(name = "order", required = false, defaultValue = "${default.order}") String order) {
 		
 		Pageable pageable = super.getPageable(pageSize, pageNum, orderBy, order);
-		Page<Task> tasksCreatedByEmployee = tasksService.findAllTasksCreatedByEmployee(pageable, id);
+		Page<Task> tasksCreatedByEmployee = tasksService.findTasksCreatedByEmployee(pageable, id);
 		Resources<Resource<Task>> tasksCreatedByResources =
 			tasksResourceAssembler.toPagedSubResources(tasksCreatedByEmployee, id, GET_TASKS_CREATED_BY_METHOD_NAME);
 		String jsonTasksCreatedBy = getJsonServiceUtils().workshopEntityObjectsToJson(tasksCreatedByResources);

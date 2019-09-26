@@ -14,7 +14,11 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.groups.Default;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * The class is the container for {@link WorkshopEntity} types (classes names).
@@ -51,8 +55,7 @@ public class WorkshopEntityType extends Trackable {
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
 	public WorkshopEntityType(@NotBlank(groups = {PersistenceValidation.class, UpdateValidation.class, Default.class},
-		message = "{validation.notBlank}")
-								  String name) {
+		message = "{validation.notBlank}") String name) {
 		this.name = name;
 	}
 	
@@ -69,4 +72,32 @@ public class WorkshopEntityType extends Trackable {
 				"httpStatus.notAcceptable.workshopEntityType", HttpStatus.NOT_ACCEPTABLE);
 		}
 	}
+	
+	/**
+	 * This method strictly relies on being under {@link org.springframework.transaction.annotation.Transactional}!
+	 */
+	public void addAuthorityPermission(AuthorityPermission... authorityPermissions) {
+		if (authorityPermissions == null || Stream.of(authorityPermissions).anyMatch(Objects::isNull)) {
+			throw new IllegalArgumentsException(
+				"AuthorityPermissions cannot be null!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
+		}
+		if (this.authorityPermissions == null) {
+			this.authorityPermissions = new HashSet<>();
+		}
+		this.authorityPermissions.addAll(Arrays.asList(authorityPermissions));
+	}
+	/**
+	 * This method strictly relies on being under {@link org.springframework.transaction.annotation.Transactional}!
+	 */
+	public void removeAuthorityPermission(AuthorityPermission... authorityPermissions) {
+		if (authorityPermissions == null || Stream.of(authorityPermissions).anyMatch(Objects::isNull)) {
+			throw new IllegalArgumentsException(
+				"AuthorityPermissions cannot be null!", "httpStatus.notAcceptable.null", HttpStatus.NOT_ACCEPTABLE);
+		}
+		if (this.authorityPermissions == null) {
+			return;
+		}
+		this.authorityPermissions.removeAll(Arrays.asList(authorityPermissions));
+	}
+	
 }

@@ -17,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class CookieUtilsTest {
 	
 	@Mock
-	WebSecurityConfiguration webSecurityConfiguration;
+	private WebSecurityConfiguration webSecurityConfiguration;
 	@Mock
-	HttpServletRequestWrapper requestWrapper;
+	private HttpServletRequestWrapper requestWrapper;
 	@Mock
-	HttpServletResponseWrapper responseWrapper;
+	private HttpServletResponseWrapper responseWrapper;
 	@InjectMocks
-	CookieUtils cookieUtils;
+	private CookieUtils cookieUtils;
 	
 	@BeforeEach
 	public void init() {

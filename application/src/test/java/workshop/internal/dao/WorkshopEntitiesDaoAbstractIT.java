@@ -94,7 +94,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@org.junit.jupiter.api.Order(2)
 	@Transactional
 	@DisplayName("The persisting simple entities without identifier (identifier=0) one by one should be successful")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void persist_Simple_Entities_One_By_One_Should_Be_Successful() {
 		//GIVEN
 		//New entities
@@ -124,7 +124,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@org.junit.jupiter.api.Order(3)
 	@Transactional
 	@DisplayName("Entities should be removed one by one.")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void remove_Entities_One_By_One() {
 		//GIVEN
 		//New entities
@@ -166,7 +166,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Test
 	@org.junit.jupiter.api.Order(4)
 	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void batch_remove_Entities_By_Collection() {
 		//GIVEN
 		removeAllPersistedEntities();
@@ -196,7 +196,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@org.junit.jupiter.api.Order(5)
 	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
 	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void batch_Persisting_Collections() {
 		
 		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
@@ -229,7 +229,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	@Test
 	@DisplayName("New entity with including new entities graph should all be persisted")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void cascade_Persisting_New_Entities_Graph() {
 		//GIVEN entities with CascadeType.PERSIST allowed
 		//First pair to be cascade-persisted
@@ -270,7 +270,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@ValueSource(ints = {1, 2, 3, 4})
 	@DisplayName("Check default pagination within limit and offsets")
 	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void pagination_With_Limits_And_Offsets_Should_Work_Properly(int pageNum) {
 		//GIVEN DAO layer with Spring Page starts pages count from 0
 		// 21 pre-persisted Orders from order1 to order21
@@ -290,7 +290,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Test
 	@DisplayName("Pagination with custom orderBy and default descending order")
 	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void pagination_With_Custom_Sorting_Should_Sort_Properly() {
 		//GIVEN
 		// 21 pre-persisted Orders from order1 to order21
@@ -338,7 +338,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Test
 	@DisplayName("Check pagination with the last partial filled page")
 	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly() {
 		//GIVEN DAO layer starts pages count from 0
 		// 21 pre-persisted Orders from order1 to order21
@@ -362,7 +362,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void find_Entities_By_Email_Should_Return_Entities_With_Emails() {
 		//GIVEN
 		//Pre-persist necessary entities
@@ -392,7 +392,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@DisplayName("JPA should persist and return ZonedDateTime in UTC despite a set one.")
 	public void zonedDateTime_Should_Be_Saved_And_Returned_In_UTC_TimeZone() {
 		//GIVEN an Employee with Europe/Moscow (+3) TimeZone
@@ -418,7 +418,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	@Test
 	@DisplayName("CreatedBy should by automatically set from the SecurityContext")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void createdBy_Property_Should_Be_Automatically_Persisted_From_SecurityContext() {
 		//GIVEN
 		//Pre persist entities.
@@ -449,7 +449,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	@Test
 	@DisplayName("Manually set 'createdBy' property should be persisted")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void createdBy_Property_If_Set_Manually_Should_Be_Persisted() {
 		//GIVEN
 		//Pre persist entities
@@ -476,7 +476,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@ParameterizedTest
 	@ValueSource(strings = {"property", "anotherProperty"})
 	@DisplayName("FindByProperty should throw IllegalArgExc with exact message if Entity doesn't have such a property")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void findByProperty_Should_Throw_IllegalArgsEx_If_Entity_Doesnt_Have_Such_Property(String propertyName) {
 		//GIVEN
 		
@@ -492,7 +492,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	@ParameterizedTest
 	@CsvSource({"overallPrice, 10.11", "overallPrice, 10.21", "description, Order3", "description, Order11"})
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void findByProperty_Should_Return_Proper_String_Result(String propertyName, String propertyValue) {
 		//GIVEN 21 pre-persisted Orders
 		persistAllOrders();
@@ -517,7 +517,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	@ParameterizedTest
 	@CsvSource({"created, 2017-11-20T09:35:45+03:00", "deadline, 2020-12-30T12:00:00+00:00"})
 	@DisplayName("FindByProperty should parse Temporal and return more than one result if they are")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void findByProperty_Should_Return_Proper_ZonedDateTime_Results(String propertyName, String propertyValue) {
 		//GIVEN 21 pre-persisted Orders
 		persistAllOrders();
@@ -548,7 +548,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	//	@Disabled
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void positions_By_DepartmentId_Should_Be_Returned() {
 		//GIVEN
@@ -584,7 +584,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void positions_By_DepartmentId_Should_Be_Returned_OrderedBy_Name_Ascending() {
 		//GIVEN
@@ -620,7 +620,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	
 	@ParameterizedTest
 	@ValueSource(ints = {0, 2})
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void positions_By_DepartmentId_Should_Return_First_And_Last_Pages_OrderedBy_Name_Descending(int pageNum) {
 		//GIVEN
@@ -660,7 +660,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void department_By_PositionId_Should_Return_() {
 		//GIVEN
@@ -695,7 +695,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void tasks_By_OrderId_Should_Return_All_Included_Tasks() {
 		//GIVEN
@@ -730,7 +730,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void classifier_Tasks_Should_Be_Returned_As_ManyToMany() {
 		//GIVEN
@@ -776,7 +776,7 @@ class WorkshopEntitiesDaoAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void positions_By_Authority_Should_Return_All_Linked_Positions() {
 		//GIVEN
 		Department department = new Department("Department 1");

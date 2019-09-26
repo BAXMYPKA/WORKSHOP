@@ -1,8 +1,5 @@
 package workshop.internal.dao;
 
-import workshop.internal.entities.Order;
-import workshop.internal.entities.Task;
-import workshop.internal.services.OrdersService;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.junit.jupiter.api.AfterEach;
@@ -17,12 +14,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import workshop.internal.entities.Order;
+import workshop.internal.entities.Task;
+import workshop.internal.services.OrdersService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-import java.util.*;
+import java.util.Arrays;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,11 +40,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HibernateSecondLevelCacheIT {
 	
 	@PersistenceContext
-	EntityManager entityManager;
+	private EntityManager entityManager;
 	@PersistenceUnit
-	EntityManagerFactory entityManagerFactory;
+	private EntityManagerFactory entityManagerFactory;
 	@Autowired
-	OrdersService ordersService;
+	private OrdersService ordersService;
+	
+	@AfterEach
+	@DisplayName("Clears all the Database, the second-level cache and Hibernate Sessions Statistics.")
+	private void tearDownDatabase() {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		
+		entityManager.getTransaction().begin();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Task").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Order").executeUpdate();
+		entityManager.getTransaction().commit();
+		
+		entityManager.getEntityManagerFactory().unwrap(SessionFactory.class).getStatistics().clear();
+	}
 	
 	@Test
 	@org.junit.jupiter.api.Order(1)
@@ -84,17 +100,21 @@ public class HibernateSecondLevelCacheIT {
 		//All opened sessions (transactions) were closed
 		assertEquals(statistics.getSessionCloseCount(), statistics.getSessionCloseCount());
 		//Cache region Order is presented
-		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains("internal.entities.Order"));
+		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains(
+			"workshop.internal.entities.Order"));
 		//Orders have been retrieved within the different transactions and they are not the same objects in memory
 		assertNotNull(orderFromDb);
 		assertNotNull(orderFromCache);
 		assertNotSame(orderFromDb, orderFromCache);
 		//Cache region Order has only one object in it
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getPutCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getPutCount());
 		//And this cache region has been retrieved only once
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getHitCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getHitCount());
 		//Only the first session is missed the second level cache for the first time looking up an Order.identifier=501
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getMissCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getMissCount());
 	}
 	
 	@Test
@@ -118,13 +138,17 @@ public class HibernateSecondLevelCacheIT {
 			() -> assertNotSame(orderFromDb, orderFromCache)
 		);
 		//The cache region Order is presented
-		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains("internal.entities.Order"));
+		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains(
+			"workshop.internal.entities.Order"));
 		//The Order.identifier=501 has been put only once
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getPutCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getPutCount());
 		//The Order.identifier=501 has been successfully got from the cache once
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getHitCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getHitCount());
 		//Only the first transaction is missed the second level cache to derive an Order.identifier=501
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Order").getMissCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Order").getMissCount());
 	}
 	
 	@ParameterizedTest
@@ -158,25 +182,17 @@ public class HibernateSecondLevelCacheIT {
 		Set<Task> identityTasksSet = tasksObjects.keySet();
 		assertEquals(repeat, identityTasksSet.size());
 		//Hibernate second-level cache must contain the Task region
-		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains("internal.entities.Task"));
+		assertTrue(Arrays.asList(statistics.getSecondLevelCacheRegionNames()).contains(
+			"workshop.internal.entities.Task"));
 		//The Task was put in the second-level cache only once
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getPutCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Task").getPutCount());
 		//And only that first time there was a miss (as the cache was empty)
-		assertEquals(1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getMissCount());
+		assertEquals(1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Task").getMissCount());
 		//And only if the repeat more than once, the subsequent transactions (sessions) hit the cache successful
-		assertEquals(repeat-1, statistics.getDomainDataRegionStatistics("internal.entities.Task").getHitCount());
+		assertEquals(repeat - 1, statistics.getDomainDataRegionStatistics(
+			"workshop.internal.entities.Task").getHitCount());
 	}
 	
-	@AfterEach
-	@DisplayName("Clears all the Database, the second-level cache and Hibernate Sessions Statistics.")
-	private void tearDownDatabase() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
-		entityManager.getTransaction().begin();
-		entityManager.createQuery("DELETE FROM internal.entities.Task").executeUpdate();
-		entityManager.createQuery("DELETE FROM internal.entities.Order").executeUpdate();
-		entityManager.getTransaction().commit();
-		
-		entityManager.getEntityManagerFactory().unwrap(SessionFactory.class).getStatistics().clear();
-	}
 }

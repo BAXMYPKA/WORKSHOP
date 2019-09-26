@@ -24,7 +24,7 @@ class AppConfigurationIT {
 	
 	@Test
 	@DisplayName("@PropertySource = classpath:configs/workshop.properties")
-	public void workshop_Properties_Loads_From_Classpath_And_Injects_Into_Beans() {
+	public void workshop_Properties_Loads_From_Classpath_From_SharedResources_Module_And_Injects_Into_Beans() {
 		//GIVEN
 		//A workshop.properties from SharedResources/properties/configs to be loaded by Spring in AppConfiguration settings
 		

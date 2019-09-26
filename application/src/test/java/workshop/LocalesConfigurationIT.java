@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -47,6 +48,12 @@ class LocalesConfigurationIT {
 	private MockMvc mockMvc;
 	@Autowired
 	private LoginController loginController;
+	
+	@BeforeEach
+	public void settingUp() {
+		((ReloadableResourceBundleMessageSource) messageSource).addBasenames(TEST_MESSAGES_LOCATION);
+		((CookieLocaleResolver) localeResolver).setDefaultLocale(null);
+	}
 	
 	@Test
 	@Order(1)
@@ -103,7 +110,7 @@ class LocalesConfigurationIT {
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(
 			MockMvcRequestBuilders
-				.request(HttpMethod.GET, URI.create("/workshop/internal/login"))
+				.request(HttpMethod.GET, URI.create("/internal/login"))
 				.header("Accept-Language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"));
 		
 		//THEN
@@ -121,7 +128,7 @@ class LocalesConfigurationIT {
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(
 			MockMvcRequestBuilders
-				.request(HttpMethod.GET, URI.create("/workshop/internal/login"))
+				.request(HttpMethod.GET, URI.create("/internal/login"))
 				.header("Accept-Language", "en-US;q=0.8,en;q=0.7,ru-RU;q=0.6"));
 		
 		//THEN
@@ -140,7 +147,7 @@ class LocalesConfigurationIT {
 		
 		//WHEN the request without Accept-Language header
 		ResultActions resultActionsWithoutAcceptLanguage = mockMvc.perform(
-			MockMvcRequestBuilders.request(HttpMethod.GET, URI.create("/workshop/internal/login")));
+			MockMvcRequestBuilders.request(HttpMethod.GET, URI.create("/internal/login")));
 		
 		//THEN
 		resultActionsWithoutAcceptLanguage
@@ -156,7 +163,7 @@ class LocalesConfigurationIT {
 			" Проверьте заголовок 'Content-Type' при отправке запросов к этому адресу!\"}";
 		//Request without MediaType set
 		MockHttpServletRequestBuilder requestWithErrorBody = MockMvcRequestBuilders
-			.request("POST", URI.create("/workshop/internal/orders"))
+			.request("POST", URI.create("/internal/orders"))
 			.header("Accept-Language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7");
 		
 		//WHEN
@@ -176,7 +183,7 @@ class LocalesConfigurationIT {
 			" Check 'Content-Type' header for this endpoint!\"}";
 		//Request without MediaType set
 		MockHttpServletRequestBuilder requestWithErrorBody = MockMvcRequestBuilders
-			.request("POST", URI.create("/workshop/internal/orders"))
+			.request("POST", URI.create("/internal/orders"))
 			.header("Accept-Language", "en-US;q=0.8,en;q=0.7");
 		
 		//WHEN
@@ -199,7 +206,7 @@ class LocalesConfigurationIT {
 			" Check 'Content-Type' header for this endpoint!\"}";
 		//Request without MediaType set
 		MockHttpServletRequestBuilder requestWithErrorBody = MockMvcRequestBuilders
-			.request("POST", URI.create("/workshop/internal/orders"))
+			.request("POST", URI.create("/internal/orders"))
 			.header("Accept-Language", "fr-FR;q=0.8,al;q=0.7");
 		
 		//WHEN
@@ -216,7 +223,7 @@ class LocalesConfigurationIT {
 	public void request_With_RU_Locale_Change_Parameter_Should_Response_With_RU_Cookie_Lang() throws Exception {
 		//GIVEN a mockMvc without lang cookie set
 		MockHttpServletRequestBuilder localeChangeRequest = MockMvcRequestBuilders
-			.request(HttpMethod.GET, "/workshop/internal/orders/all")
+			.request(HttpMethod.GET, "/internal/orders/all")
 			.param("lang", "ru")
 			.header("Accept-Language", "fr-FR;q=0.8,al;q=0.7");
 		
@@ -234,7 +241,7 @@ class LocalesConfigurationIT {
 	public void request_With_EN_Locale_Change_Parameter_Should_Response_With_EN_Cookie_Lang() throws Exception {
 		//GIVEN a mockMvc without lang cookie set
 		MockHttpServletRequestBuilder localeChangeRequest = MockMvcRequestBuilders
-			.request(HttpMethod.GET, "/workshop/internal/orders/all")
+			.request(HttpMethod.GET, "/internal/orders/all")
 			.param("lang", "en")
 			.header("Accept-Language", "fr-FR;q=0.8,al;q=0.7");
 		
@@ -249,13 +256,14 @@ class LocalesConfigurationIT {
 	}
 	
 	@Test
+	@WithMockUser(username = "admin@workshop.pro", authorities = {"ADMIN_FULL"})
 	public void request_With_RU_Cookie_Should_Response_With_RU_Language() throws Exception {
 		//GIVEN a mockMvc without lang cookie set
 		Cookie rusCookie = new Cookie("lang", "ru");
 		rusCookie.setHttpOnly(true);
 		
 		MockHttpServletRequestBuilder localeChangeRequest = MockMvcRequestBuilders
-			.request(HttpMethod.GET, "/workshop/internal/orders/100500")
+			.request(HttpMethod.GET, "/internal/orders/100500")
 			.header("Accept-Language", "fr-FR;q=0.8,al;q=0.7")
 			.cookie(rusCookie);
 		
@@ -270,13 +278,14 @@ class LocalesConfigurationIT {
 	}
 	
 	@Test
+	@WithMockUser(username = "admin@workshop.pro", authorities = {"ADMIN_FULL"})
 	public void request_With_EN_Cookie_Should_Response_With_EN_Language() throws Exception {
 		//GIVEN a mockMvc without lang cookie set
 		Cookie rusCookie = new Cookie("lang", "en");
 		rusCookie.setHttpOnly(true);
 		
 		MockHttpServletRequestBuilder localeChangeRequest = MockMvcRequestBuilders
-			.request(HttpMethod.GET, "/workshop/internal/orders/100500")
+			.request(HttpMethod.GET, "/internal/orders/100500")
 			.header("Accept-Language", "fr-FR;q=0.8,al;q=0.7")
 			.cookie(rusCookie);
 		
@@ -291,9 +300,4 @@ class LocalesConfigurationIT {
 				"{\"errorMessage\":\"No Order with identifier=100500 was found!\"}"));
 	}
 	
-	@BeforeEach
-	public void settingUp() {
-		((ReloadableResourceBundleMessageSource) messageSource).addBasenames(TEST_MESSAGES_LOCATION);
-		((CookieLocaleResolver) localeResolver).setDefaultLocale(null);
-	}
 }

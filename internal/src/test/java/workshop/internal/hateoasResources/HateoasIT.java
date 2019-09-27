@@ -35,18 +35,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class HateoasIT {
 	
 	@Autowired
-	DepartmentsController departmentsController;
+	private DepartmentsController departmentsController;
 	@Autowired
-	PositionsController positionsController;
+	private PositionsController positionsController;
 	@Autowired
-	DepartmentsService departmentsService;
+	private DepartmentsService departmentsService;
 	@Autowired
-	PositionsService positionsService;
+	private PositionsService positionsService;
 	@Autowired
-	MockMvc mockMvc;
-	Department departmentOne;
-	Position positionOne;
-	Position positionTwo;
+	private MockMvc mockMvc;
+	private Department departmentOne;
+	private Position positionOne;
+	private Position positionTwo;
 	
 	@Test
 	@Order(1)
@@ -61,7 +61,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void single_Resource_WorkshopEntity_Should_Contain_SelfLink() throws Exception {
 		//GIVEN
 		departmentOne = new Department("Department unique one");
@@ -86,7 +86,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void all_defaultPage_Resources_Should_Contain_SelfLinks_And_currentPageLink() throws Exception {
 		//GIVEN
 //		positionsController.setDEFAULT_PAGE_SIZE(2);
@@ -124,7 +124,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink() throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
@@ -161,7 +161,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void secondPage_Resources_Should_Contain_CurrentPageLink_PreviousPageLink_NextPageLink_LastPageLink_FirstPageLink()
 		throws Exception {
@@ -199,7 +199,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()
 		throws Exception {
@@ -236,7 +236,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void exceeding_LastPageNumber_Should_Return_HttpStatus404_NotFound()
 		throws Exception {
@@ -260,7 +260,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct()
 		throws Exception {
@@ -297,7 +297,7 @@ class HateoasIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "Manager"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct()
 		throws Exception {

@@ -3,18 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/testResources/applicationTest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/applicationTest.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/testResources/testMessages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/testMessages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/testResources/testMessages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/testMessages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/testResources/testMessages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/testMessages_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/applicationTest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/internalTestResources/applicationTest.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/entitiesCacheIT.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/entitiesCacheIT.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/TasksDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,65 +124,63 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopEntitiesDaoAbstractIT">
-    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+  <component name="RunManager" selected="JUnit.HateoasIT">
+    <configuration name="DepartmentBeanValidationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="PACKAGE_NAME" value="workshop.internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.DepartmentBeanValidationTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="HateoasIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="TrackableBeanValidationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="workshop.internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.TrackableBeanValidationTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.initTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="TrackableBeanValidationTest.almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="initTest" />
+      <option name="PACKAGE_NAME" value="workshop.internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.TrackableBeanValidationTest" />
+      <option name="METHOD_NAME" value="almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created(java.lang.Class)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -222,19 +213,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.WorkshopApplication" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest (1)" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT (1)" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
       <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT" />
+      <item itemvalue="JUnit.DepartmentBeanValidationTest" />
+      <item itemvalue="JUnit.TrackableBeanValidationTest" />
+      <item itemvalue="JUnit.TrackableBeanValidationTest.almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+      <item itemvalue="JUnit.HateoasIT" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HateoasIT" />
+        <item itemvalue="JUnit.TrackableBeanValidationTest" />
+        <item itemvalue="JUnit.TrackableBeanValidationTest.almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created" />
+        <item itemvalue="JUnit.DepartmentBeanValidationTest" />
         <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT (1)" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -272,6 +263,7 @@
       <workItem from="1569508547242" duration="1127000" />
       <workItem from="1569510506091" duration="88000" />
       <workItem from="1569522258463" duration="4027000" />
+      <workItem from="1569583917978" duration="4764000" />
     </task>
     <servers />
   </component>
@@ -290,5 +282,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/WORKSHOP$WorkshopEntitiesDaoAbstractIT_pagination_With_Limits_And_Offsets_Should_Work_Properly.ic" NAME="WorkshopEntitiesDaoAbstractIT.pagination_With_Limits_And_Offsets_Should_Work_Properly Coverage Results" MODIFIED="1569586047869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>workshop.internal.dao.*</FILTER>
+    </SUITE>
   </component>
 </project>

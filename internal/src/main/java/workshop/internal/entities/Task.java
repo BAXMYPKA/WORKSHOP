@@ -93,17 +93,9 @@ public class Task extends Trackable {
 	private BigDecimal price = BigDecimal.ZERO;
 	
 	@Builder
-	public Task(String name,
-		@Future(groups = {PersistenceValidation.class}, message = "{validation.future}") ZonedDateTime deadline,
-		Employee appointedTo,
-		Set<@Valid Classifier> classifiers, Order order,
-		@PositiveOrZero(message = "{validation.positiveOrZero}") BigDecimal price) {
+	public Task(String name, Order order) {
 		this.name = name;
-		this.deadline = deadline;
-		this.appointedTo = appointedTo;
-		this.classifiers = classifiers;
 		this.order = order;
-		this.price = price;
 	}
 	
 	public void setAppointedTo(@Valid Employee appointedTo) {

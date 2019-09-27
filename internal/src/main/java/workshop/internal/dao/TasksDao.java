@@ -45,7 +45,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 													Long orderId)
 		throws IllegalArgumentException, InternalServerErrorException {
 		
-		verifyPageableValues(pageSize, pageNum, orderBy, order);
+		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);

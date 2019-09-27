@@ -170,26 +170,18 @@ class WorkshopEntitiesDaoAbstractIT {
 	public void batch_remove_Entities_By_Collection() {
 		//GIVEN
 		removeAllPersistedEntities();
-//		initNewEntities();
-		//Persisted entities collections
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		Optional<Collection<Employee>> employeesPersisted = employeesDao.persistEntities(WorkshopEntitiesDaoAbstractIT.employees);
-		Optional<Collection<Order>> ordersPersisted = ordersDao.persistEntities(WorkshopEntitiesDaoAbstractIT.orders);
-		//Check is the persistence successful
-		assertTrue(employeesPersisted.isPresent());
-		assertTrue(ordersPersisted.isPresent());
+		Department department1 = new Department("Delete me 1");
+		Department department2 = new Department("Delete me 2");
+		Department department3 = new Department("Delete me 3");
+		//Check the persistence
+		Collection<Department> departments =
+			departmentsDao.persistEntities(Arrays.asList(department1, department2, department3)).get();
+		departments.forEach(department -> assertNotNull(department.getIdentifier()));
 		
-		//WHEN Batch total remove some kind of entities
-		employeesDao.removeEntities(employeesPersisted.get());
-		ordersDao.removeEntities(ordersPersisted.get());
-		
+		//WHEN
+		departmentsDao.removeEntities(departments);
 		//THEN No entities of that kind should be found
-		Optional<List<Employee>> emptyEmployees = employeesDao.findAllEntities(100, 0, "created", Sort.Direction.ASC);
-		Optional<List<Order>> emptyOrders = ordersDao.findAllEntities(100, 0, "created", Sort.Direction.ASC);
-		
-		assertFalse(emptyEmployees.isPresent());
-		assertFalse(emptyOrders.isPresent());
+		departments.forEach(department -> assertFalse(departmentsDao.isExist(department.getIdentifier())));
 	}
 	
 	@Test
@@ -230,61 +222,21 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Test
 	@DisplayName("New entity with including new entities graph should all be persisted")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
-	public void cascade_Persisting_New_Entities_Graph() {
+	public void cascade_Persisting_New_Order_And_Its_Tasks_Should_Persist_All() {
 		//GIVEN entities with CascadeType.PERSIST allowed
-		//First pair to be cascade-persisted
-		Department department1 = new Department("Department one");
-		Position position1 = new Position("Position one", department1);
-		department1.setPositions(new HashSet<>(Collections.singletonList(position1)));
-		//Second pair to be cascade-persisted
 		Order order1 = new Order();
-		Classifier classifier1 = new Classifier("Classifier one", "", true, BigDecimal.ONE);
-		Classifier classifier2 = new Classifier("Classifier two", "", true, BigDecimal.TEN);
-		Task task1 = Task.builder().name("Task one").build();
-		task1.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2)));
-		task1.setOrder(order1);
+		Task task1 = Task.builder().name("Task one 1").order(order1).build();
+		System.out.println(task1.getPrice());
 		order1.setTasks(new HashSet<>(Collections.singleton(task1)));
 		
 		//WHEN
-		Optional<Order> orderPersisted = ordersDao.persistEntity(order1);
-		Optional<Department> departmentPersisted = departmentsDao.persistEntity(department1);
+		Order orderPersisted = ordersDao.persistEntity(order1).get();
 		
 		//THEN
 		assertAll(
-			() -> assertTrue(orderPersisted.get().getIdentifier() > 0)
+			() -> assertNotNull(orderPersisted.getIdentifier()),
+			() -> assertNotNull(orderPersisted.getTasks().iterator().next().getIdentifier())
 		);
-		//The Department has been persisted with the appropriate Position
-		assertAll(
-			() -> assertTrue(departmentPersisted.get().getIdentifier() > 0),
-			() -> assertTrue(departmentPersisted.get().getPositions().iterator().next().getIdentifier() > 0)
-		);
-		//The Task has been persisted with appropriate new Classifiers
-		assertAll(
-			() -> assertFalse(orderPersisted.get().getTasks().isEmpty()),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getIdentifier() > 0),
-			() -> assertTrue(orderPersisted.get().getTasks().iterator().next().getClassifiers().iterator().next().getIdentifier() > 0)
-		);
-	}
-	
-	@ParameterizedTest
-	@ValueSource(ints = {1, 2, 3, 4})
-	@DisplayName("Check default pagination within limit and offsets")
-	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
-	public void pagination_With_Limits_And_Offsets_Should_Work_Properly(int pageNum) {
-		//GIVEN DAO layer with Spring Page starts pages count from 0
-		// 21 pre-persisted Orders from order1 to order21
-		persistAllOrders();
-		int customPageSize = 4;
-		
-		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAllEntities(customPageSize, pageNum, null, null).get();
-		
-		//THEN
-		assertEquals(customPageSize, ordersPageFromExisting.size());
-		
-		//To clear the DataBase
-		removeAllOrders();
 	}
 	
 	@Test
@@ -298,27 +250,13 @@ class WorkshopEntitiesDaoAbstractIT {
 		int pageNum = 1;
 		int pageSize = 5;
 		
-		//WHEN get a page with the descending order by default
-		List<Order> ordersPageDescendingDefault = ordersDao.findAllEntities(
-			pageSize, pageNum, "overallPrice", null).get();
+		//WHEN
 		List<Order> ordersPageAscending = ordersDao.findAllEntities(
 			pageSize, pageNum, "description", Sort.Direction.ASC).get();
 		
 		//THEN
-		assertEquals(5, ordersPageDescendingDefault.size());
 		assertEquals(5, ordersPageAscending.size());
 		
-		assertAll(
-			() -> assertEquals(
-				1,
-				ordersPageDescendingDefault.get(0).getOverallPrice().compareTo(ordersPageDescendingDefault.get(1).getOverallPrice())),
-			() -> assertEquals(
-				1,
-				ordersPageDescendingDefault.get(1).getOverallPrice().compareTo(ordersPageDescendingDefault.get(2).getOverallPrice())),
-			() -> assertEquals(
-				1,
-				ordersPageDescendingDefault.get(3).getOverallPrice().compareTo(ordersPageDescendingDefault.get(4).getOverallPrice()))
-		);
 		assertAll(
 			() -> assertEquals(
 				-1,
@@ -345,11 +283,13 @@ class WorkshopEntitiesDaoAbstractIT {
 		persistAllOrders();
 		int customPageSize = 5;
 		int lastPage = 4; //DAO layer starts pages count from 0
+		String orderBy = "created";
+		Sort.Direction order = Sort.Direction.DESC;
 		//All existing Orders to compare with
-		List<Order> allPersistedOrders = ordersDao.findAllEntities(0, 0, null, null).get();
+		List<Order> allPersistedOrders = ordersDao.findAllEntities(0, 0, orderBy, order).get();
 		
 		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAllEntities(customPageSize, lastPage, null, null).get();
+		List<Order> ordersPageFromExisting = ordersDao.findAllEntities(customPageSize, lastPage, orderBy, order).get();
 		
 		//THEN the last fifth page should contain only the one last Order
 		assertEquals(1, ordersPageFromExisting.size());
@@ -572,7 +512,8 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		Optional<List<Position>> allPositionsByDepartment =
-			positionsDao.findPositionsByDepartment(0, 0, null, null, departmentId);
+			positionsDao.
+				findPositionsByDepartment(20, 0, "created", Sort.Direction.DESC, departmentId);
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartment.get().size());
@@ -608,7 +549,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		List<Position> allPositionsByDepartmentOrderedByNameAsc =
-			positionsDao.findPositionsByDepartment(0, 0, "name", Sort.Direction.ASC, departmentId).get();
+			positionsDao.findPositionsByDepartment(20, 0, "name", Sort.Direction.ASC, departmentId).get();
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartmentOrderedByNameAsc.size());
@@ -719,7 +660,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//WHEN
 		List<Task> tasksByOrder =
-			tasksDao.findAllTasksByOrder(0, 0, "name", Sort.Direction.DESC, orderPersistedId).get();
+			tasksDao.findAllTasksByOrder(20, 0, "name", Sort.Direction.DESC, orderPersistedId).get();
 		
 		//THEN
 		assertEquals(2, tasksByOrder.size());

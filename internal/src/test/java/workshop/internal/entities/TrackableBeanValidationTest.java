@@ -1,19 +1,17 @@
 package workshop.internal.entities;
 
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistEmployeeValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
@@ -92,25 +90,6 @@ class TrackableBeanValidationTest {
 		assertEquals("{validation.null}", violation.getMessageTemplate());
 	}
 	
-	@ParameterizedTest
-	@ValueSource(classes = {Default.class, PersistEmployeeValidation.class, MergingValidation.class})
-	public void almost_Any_Validation_Group_Should_Accept_Only_PastOrPresent_Created(Class classValidation) {
-		//GIVEN
-		Order orderWithIncorrectCreated = new Order();
-		orderWithIncorrectCreated.setIdentifier(1L);
-		orderWithIncorrectCreated.setCreated(ZonedDateTime.now().plusMinutes(1));
-		
-		
-		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectCreated, classValidation);
-		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
-		
-		//THEN
-		assertEquals(1, validatedOrder.size());
-		assertEquals("created", violation.getPropertyPath().toString());
-		assertEquals("{validation.pastOrPresent}", violation.getMessageTemplate());
-	}
-	
 	@Test
 	public void persistence_Validation_Group_Should_Reject_Filled_In_Created() {
 		//GIVEN
@@ -126,7 +105,7 @@ class TrackableBeanValidationTest {
 		assertEquals("created", violation.getPropertyPath().toString());
 		assertEquals("{validation.null}", violation.getMessageTemplate());
 	}
-
+	
 	@Test
 	public void persistence_Validation_Group_Should_Accept_Only_Null_Modified() {
 		//GIVEN

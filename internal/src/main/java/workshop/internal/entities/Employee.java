@@ -1,10 +1,10 @@
 package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -30,9 +30,9 @@ import java.util.Set;
 @Entity
 @Table(name = "Employees", schema = "INTERNAL")
 @AttributeOverrides({
-	@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
-	@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
-	@AttributeOverride(name = "created", column = @Column(name = "employed"))})
+						@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
+						@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
+						@AttributeOverride(name = "created", column = @Column(name = "employed"))})
 public class Employee extends Trackable {
 	
 	@Transient
@@ -80,7 +80,7 @@ public class Employee extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true,
-		cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+			   cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones;
 	
 	//TODO: to implement a photo loader Controller method
@@ -94,51 +94,38 @@ public class Employee extends Trackable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-		joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-		inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
+	@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
+//	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
+//			   joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
+//			   inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "appointedTo", fetch = FetchType.LAZY,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Task> appointedTasks;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Task.class,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Trackable> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Task.class,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Trackable> tasksCreatedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Order.class,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Trackable> ordersModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Order.class,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<Trackable> ordersCreatedBy;
-	
-	/**
-	 * Can be performed only under a Transaction.
-	 */
-	public void addPhone(Phone... phones) {
-		for (Phone phone : phones) {
-			phone.setEmployee(this);
-		}
-		if (this.phones != null) {
-			this.phones.addAll(Arrays.asList(phones));
-		} else {
-			this.phones = new HashSet<>(Arrays.asList(phones));
-		}
-	}
 	
 	/**
 	 * All the arguments of this constructor are obligatory to be set!
@@ -152,5 +139,19 @@ public class Employee extends Trackable {
 		this.email = email;
 		this.birthday = birthday;
 		this.position = position;
+	}
+	
+	/**
+	 * Can be performed only under a Transaction.
+	 */
+	public void addPhone(Phone... phones) {
+		for (Phone phone : phones) {
+			phone.setEmployee(this);
+		}
+		if (this.phones != null) {
+			this.phones.addAll(Arrays.asList(phones));
+		} else {
+			this.phones = new HashSet<>(Arrays.asList(phones));
+		}
 	}
 }

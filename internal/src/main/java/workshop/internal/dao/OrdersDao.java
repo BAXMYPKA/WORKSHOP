@@ -45,14 +45,14 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 																Long employeeId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 		Root<Order> orderRoot = cq.from(Order.class);
 		
 		Predicate modifiedByPredicate = cb.equal(orderRoot.get("modifiedBy").get("identifier"), employeeId);
 		cq.where(modifiedByPredicate);
 		
-		TypedQuery<Order> ordersTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Order> ordersTypedQuery = getEntityManager().createQuery(cq);
 		ordersTypedQuery.setMaxResults(pageSize);
 		ordersTypedQuery.setFirstResult(pageNum * pageSize);
 		
@@ -91,14 +91,14 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 																 Long employeeId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 		Root<Order> orderRoot = cq.from(Order.class);
 		
 		Predicate createdByPredicate = cb.equal(orderRoot.get("createdBy").get("identifier"), employeeId);
 		cq.where(createdByPredicate);
 		
-		TypedQuery<Order> ordersTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Order> ordersTypedQuery = getEntityManager().createQuery(cq);
 		ordersTypedQuery.setMaxResults(pageSize);
 		ordersTypedQuery.setFirstResult(pageNum * pageSize);
 		
@@ -137,14 +137,14 @@ public class OrdersDao extends WorkshopEntitiesDaoAbstract<Order, Long> {
 																Long userId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 		Root<Order> orderRoot = cq.from(Order.class);
 		
 		Predicate createdForPredicate = cb.equal(orderRoot.get("createdFor").get("identifier"), userId);
 		cq.where(createdForPredicate);
 		
-		TypedQuery<Order> ordersTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Order> ordersTypedQuery = getEntityManager().createQuery(cq);
 		ordersTypedQuery.setMaxResults(pageSize);
 		ordersTypedQuery.setFirstResult(pageNum * pageSize);
 		

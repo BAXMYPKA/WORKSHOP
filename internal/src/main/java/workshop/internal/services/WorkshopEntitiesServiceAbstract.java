@@ -25,6 +25,7 @@ import workshop.internal.exceptions.InternalServerErrorException;
 import workshop.internal.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -310,7 +311,10 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		} else if (entities.isEmpty()) {
 			return;
 		}
-		entities.forEach(this::removeEntity);
+		for (T en : entities) {
+			removeEntity(en);
+		}
+//		entities.forEach(this::removeEntity);
 	}
 	
 	/**
@@ -390,12 +394,12 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws EntityNotFoundException If nothing was found or {@link #entityClass} doesn't have 'orderBy' property.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
-	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, Sort.Direction order)
+	public List<T> findAllEntities(int pageSize, int pageNum, @Nullable String orderBy, @Nullable Sort.Direction order)
 		throws EntityNotFoundException {
 		pageSize = pageSize <= 0 || pageSize > MAX_PAGE_SIZE ? DEFAULT_PAGE_SIZE : pageSize;
 		pageNum = pageNum < 0 || pageNum > MAX_PAGE_NUM ? 0 : pageNum;
 		orderBy = orderBy == null || orderBy.isEmpty() ? DEFAULT_ORDER_BY : orderBy;
-		order = order.isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
+		order = order == null || order.isDescending() ? Sort.Direction.DESC : Sort.Direction.ASC;
 		try {
 			Optional<List<T>> entities = workshopEntitiesDaoAbstract.findAllEntities(pageSize, pageNum, orderBy, order);
 			log.debug("An empty={} collection of {}s will be returned", entities.isPresent(), entityClass.getSimpleName());
@@ -444,6 +448,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws EntityNotFoundException If no Entities were found.
 	 */
 	protected Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
+		
+		//TODO: to create a overloaded version with 'ownerId'
 		
 		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
 		

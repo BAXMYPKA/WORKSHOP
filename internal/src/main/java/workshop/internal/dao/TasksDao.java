@@ -47,7 +47,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 		
 		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> taskRoot = cq.from(Task.class);
 		
@@ -55,7 +55,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 		
 		taskOrderJoin.on(cb.equal(taskRoot.get("order").get("identifier"), orderId));
 		
-		TypedQuery<Task> taskTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Task> taskTypedQuery = getEntityManager().createQuery(cq);
 		taskTypedQuery.setMaxResults(pageSize);
 		taskTypedQuery.setFirstResult(pageSize * pageNum);
 		
@@ -94,13 +94,13 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 																Long employeeId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> taskRoot = cq.from(Task.class);
 		Predicate appointedToPredicate = cb.equal(taskRoot.get("appointedTo").get("identifier"), employeeId);
 		cq.where(appointedToPredicate);
 		
-		TypedQuery<Task> taskTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Task> taskTypedQuery = getEntityManager().createQuery(cq);
 		taskTypedQuery.setMaxResults(pageSize);
 		taskTypedQuery.setFirstResult(pageSize * pageNum);
 		
@@ -139,14 +139,14 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 															   Long employeeId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> taskRoot = cq.from(Task.class);
 		
 		Predicate modifiedByPredicate = cb.equal(taskRoot.get("modifiedBy").get("identifier"), employeeId);
 		cq.where(modifiedByPredicate);
 		
-		TypedQuery<Task> tasksTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Task> tasksTypedQuery = getEntityManager().createQuery(cq);
 		tasksTypedQuery.setMaxResults(pageSize);
 		tasksTypedQuery.setFirstResult(pageNum * pageSize);
 		
@@ -185,14 +185,14 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 															  Long employeeId) {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		Root<Task> taskRoot = cq.from(Task.class);
 		
 		Predicate createdByPredicate = cb.equal(taskRoot.get("createdBy").get("identifier"), employeeId);
 		cq.where(createdByPredicate);
 		
-		TypedQuery<Task> tasksTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Task> tasksTypedQuery = getEntityManager().createQuery(cq);
 		tasksTypedQuery.setMaxResults(pageSize);
 		tasksTypedQuery.setFirstResult(pageNum * pageSize);
 		
@@ -233,7 +233,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Task> cq = cb.createQuery(Task.class);
 		
 		Root<Classifier> classifierRoot = cq.from(Classifier.class);
@@ -243,7 +243,7 @@ public class TasksDao extends WorkshopEntitiesDaoAbstract<Task, Long> {
 		
 		cq.select(classifierRoot.get("tasks"));
 		
-		TypedQuery<Task> taskTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<Task> taskTypedQuery = getEntityManager().createQuery(cq);
 		taskTypedQuery.setMaxResults(pageSize);
 		taskTypedQuery.setFirstResult(pageSize * pageNum);
 		

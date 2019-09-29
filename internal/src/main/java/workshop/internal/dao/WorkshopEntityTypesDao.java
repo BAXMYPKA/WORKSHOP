@@ -32,7 +32,7 @@ public class WorkshopEntityTypesDao extends WorkshopEntitiesDaoAbstract<Workshop
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<WorkshopEntityType> cq = cb.createQuery(WorkshopEntityType.class);
 		
 		Root<WorkshopEntityType> entityTypeRoot = cq.from(WorkshopEntityType.class);
@@ -47,7 +47,7 @@ public class WorkshopEntityTypesDao extends WorkshopEntitiesDaoAbstract<Workshop
 		} else {
 			cq.orderBy(cb.desc(entityTypeRoot.get(orderBy)));
 		}
-		TypedQuery<WorkshopEntityType> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<WorkshopEntityType> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		

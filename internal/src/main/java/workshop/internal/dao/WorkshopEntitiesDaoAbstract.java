@@ -1,5 +1,6 @@
 package workshop.internal.dao;
 
+import org.springframework.http.HttpStatus;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Trackable;
 import workshop.internal.entities.WorkshopEntity;
@@ -59,7 +60,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	private String DEFAULT_ORDER;
 	
 	@PersistenceContext
-	public EntityManager entityManager;
+	private EntityManager entityManager;
 	
 	private Class<T> entityClass;
 	private Class<K> keyClass;
@@ -421,8 +422,12 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	 * @throws TransactionRequiredException This method has to be performed within a Transaction.
 	 */
 	public void removeEntity(T entity) throws IllegalArgumentException, TransactionRequiredException {
-		if (entity == null) {
-			throw new IllegalArgumentException("Entity cannot be null!");
+		if (entity == null || entity.getIdentifier() == null) {
+			throw new IllegalArgumentException("Entity or its ID cannot be null!");
+		}
+		if (isExist(entity.getIdentifier()) && !entityManager.contains(entity)) {
+			entity = mergeEntity(entity).orElseThrow(() ->
+				new EntityNotFoundException("The given Entity cannot be merged before removing!"));
 		}
 		entityManager.remove(entity);
 		log.debug("{} successfully removed", entityClass.getSimpleName());
@@ -437,6 +442,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	}
 	
 	/**
+	 * Id the given ID is introduced as an WorkshopEntity in the DataBase
 	 * @param id WorkshopEntity identifier
 	 * @return true of false
 	 * @throws IllegalArgumentException If a given 'id' parameter <= 0;

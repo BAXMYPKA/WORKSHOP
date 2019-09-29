@@ -51,7 +51,7 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		log.debug("Received pageable of: pageSize={}, pageNum={}, orderBy={}, order={}, for Department.ID={}",
 			pageSize, pageNum, orderBy, order.name(), departmentId);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Position> cq = cb.createQuery(Position.class);
 		
 		Root<Position> positionRoot = cq.from(Position.class);
@@ -65,7 +65,7 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		} else {
 			cq.orderBy(cb.desc(positionRoot.get(orderBy)));
 		}
-		TypedQuery<Position> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Position> typedQuery = getEntityManager().createQuery(cq);
 		//Set pagination
 		typedQuery.setFirstResult(pageNum * pageSize);
 		typedQuery.setMaxResults(pageSize);
@@ -101,7 +101,7 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		log.debug("Received pageable of: pageSize={}, pageNum={}, orderBy={}, order={}, for InternalAuthority.ID={}",
 			pageSize, pageNum, orderBy, order.name(), internalAuthorityId);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Position> cq = cb.createQuery(Position.class);
 		
 		Root<Position> positionRoot = cq.from(Position.class);
@@ -116,7 +116,7 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		} else {
 			cb.desc(positionRoot.get(orderBy));
 		}
-		TypedQuery<Position> positionsByAuthorityQuery = entityManager.createQuery(cq);
+		TypedQuery<Position> positionsByAuthorityQuery = getEntityManager().createQuery(cq);
 		positionsByAuthorityQuery.setMaxResults(pageSize);
 		positionsByAuthorityQuery.setFirstResult(pageNum * pageSize);
 		

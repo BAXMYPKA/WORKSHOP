@@ -47,7 +47,7 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Phone> cq = cb.createQuery(Phone.class);
 		
 		Root<Phone> phoneRoot = cq.from(Phone.class);
@@ -61,7 +61,7 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 		} else {
 			cq.orderBy(cb.desc(phoneRoot.get(orderBy)));
 		}
-		TypedQuery<Phone> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Phone> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		
@@ -98,7 +98,7 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Phone> cq = cb.createQuery(Phone.class);
 		
 		Root<Phone> phoneRoot = cq.from(Phone.class);
@@ -112,7 +112,7 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 		} else {
 			cq.orderBy(cb.desc(phoneRoot.get(orderBy)));
 		}
-		TypedQuery<Phone> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Phone> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		
@@ -132,7 +132,8 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 	 * @throws PersistenceException If some of IDs is wrong.
 	 */
 	public Optional<Employee> addPhoneToEmployee(Long employeeId, Long phoneId) throws PersistenceException {
-		Query query = entityManager.createQuery("UPDATE Phone p SET p.employee.id = :employeeId WHERE p.id = :phoneId");
+		Query query = getEntityManager().createQuery("UPDATE Phone p SET p.employee.id = :employeeId WHERE p.id = " +
+			":phoneId");
 		query.setParameter("phoneId", phoneId);
 		query.setParameter("employeeId", employeeId);
 		try {
@@ -141,6 +142,6 @@ public class PhonesDao extends WorkshopEntitiesDaoAbstract<Phone, Long> {
 			log.info(e.getMessage(), e);
 			return Optional.empty();
 		}
-		return Optional.of(entityManager.find(Employee.class, employeeId));
+		return Optional.of(getEntityManager().find(Employee.class, employeeId));
 	}
 }

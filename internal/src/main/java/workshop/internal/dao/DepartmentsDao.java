@@ -37,7 +37,7 @@ public class DepartmentsDao extends WorkshopEntitiesDaoAbstract<Department, Long
 		if (positionId == null) {
 			throw new IllegalArgumentException("PositionId cannot be null!");
 		}
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Department> cq = cb.createQuery(Department.class);
 		
 		Root<Department> departmentRoot = cq.from(Department.class);
@@ -46,7 +46,7 @@ public class DepartmentsDao extends WorkshopEntitiesDaoAbstract<Department, Long
 		
 		departmentPositionJoin.on(cb.equal(departmentPositionJoin.get("identifier"), positionId));
 		
-		TypedQuery<Department> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Department> typedQuery = getEntityManager().createQuery(cq);
 		
 		try {
 			Department department = typedQuery.getSingleResult();

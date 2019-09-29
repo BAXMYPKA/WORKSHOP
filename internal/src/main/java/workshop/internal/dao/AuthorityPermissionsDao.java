@@ -34,7 +34,7 @@ public class AuthorityPermissionsDao extends WorkshopEntitiesDaoAbstract<Authori
 		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<AuthorityPermission> cq = cb.createQuery(AuthorityPermission.class);
 		
 		Root<AuthorityPermission> permissionRoot = cq.from(AuthorityPermission.class);
@@ -49,7 +49,7 @@ public class AuthorityPermissionsDao extends WorkshopEntitiesDaoAbstract<Authori
 		} else {
 			cq.orderBy(cb.desc(permissionRoot.get(orderBy)));
 		}
-		TypedQuery<AuthorityPermission> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<AuthorityPermission> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		

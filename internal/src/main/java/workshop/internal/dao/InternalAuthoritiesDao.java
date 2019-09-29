@@ -44,7 +44,7 @@ public class InternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<Internal
 		log.debug("Received pageable of: pageSize={}, pageNum={}, orderBy={}, order={}, for Position.ID={}",
 			pageSize, pageNum, orderBy, order.name(), positionId);
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<InternalAuthority> cq = cb.createQuery(InternalAuthority.class);
 		Root<InternalAuthority> authorityRoot = cq.from(InternalAuthority.class);
 		
@@ -57,7 +57,7 @@ public class InternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<Internal
 		} else {
 			cq.orderBy(cb.desc(authorityRoot.get("created")));
 		}
-		TypedQuery<InternalAuthority> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<InternalAuthority> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageNum * pageSize);
 		

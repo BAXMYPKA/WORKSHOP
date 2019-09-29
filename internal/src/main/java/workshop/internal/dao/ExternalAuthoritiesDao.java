@@ -44,7 +44,7 @@ public class ExternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<External
 		throws IllegalArgumentException, InternalServerErrorException {
 		
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<ExternalAuthority> cqa = cb.createQuery(ExternalAuthority.class);
 		Root<User> userRoot = cqa.from(User.class);
 		Predicate userIdEqual = cb.equal(userRoot.get("identifier"), userId);
@@ -56,7 +56,7 @@ public class ExternalAuthoritiesDao extends WorkshopEntitiesDaoAbstract<External
 		} else {
 			criteriaQuery.orderBy(cb.desc(userRoot.get(orderBy)));
 		}
-		TypedQuery<ExternalAuthority> authorityTypedQuery = entityManager.createQuery(criteriaQuery);
+		TypedQuery<ExternalAuthority> authorityTypedQuery = getEntityManager().createQuery(criteriaQuery);
 		authorityTypedQuery.setMaxResults(pageSize);
 		authorityTypedQuery.setFirstResult(pageSize * pageNum);
 		try {

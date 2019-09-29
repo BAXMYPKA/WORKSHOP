@@ -47,7 +47,7 @@ public class UsersDao extends WorkshopEntitiesDaoAbstract<User, Long> {
 															 Long externalAuthorityId) throws PersistenceException {
 		super.verifyIdForNull(externalAuthorityId);
 		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<User> cq = cb.createQuery(User.class);
 		Root<User> userRoot = cq.from(User.class);
 		
@@ -61,7 +61,7 @@ public class UsersDao extends WorkshopEntitiesDaoAbstract<User, Long> {
 			cq.orderBy(cb.desc(userRoot.get(orderBy)));
 		}
 		
-		TypedQuery<User> userTypedQuery = entityManager.createQuery(cq);
+		TypedQuery<User> userTypedQuery = getEntityManager().createQuery(cq);
 		userTypedQuery.setMaxResults(pageSize);
 		userTypedQuery.setFirstResult(pageNum * pageSize);
 		

@@ -77,14 +77,13 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 * Also may be set manually.
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
-		optional = true)
-	@JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true, updatable = true)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = true, targetEntity = Employee.class)
+	@JoinColumn(name = "created_by", referencedColumnName = "id")
 	@Valid
 	private Employee createdBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Employee.class)
 	@JoinColumn(name = "modified_by", referencedColumnName = "id")
 	@Valid
 	private Employee modifiedBy;

@@ -44,7 +44,7 @@ public class ClassifiersDao extends WorkshopEntitiesDaoAbstract<Classifier, Long
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Classifier> cq = cb.createQuery(Classifier.class);
 		
 		Root<Classifier> classifierRoot = cq.from(Classifier.class);
@@ -58,7 +58,7 @@ public class ClassifiersDao extends WorkshopEntitiesDaoAbstract<Classifier, Long
 		} else {
 			cq.orderBy(cb.desc(classifierRoot.get(orderBy)));
 		}
-		TypedQuery<Classifier> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Classifier> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		

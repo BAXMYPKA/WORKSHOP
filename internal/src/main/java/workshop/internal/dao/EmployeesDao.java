@@ -43,12 +43,12 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		if (email == null || email.isEmpty()) {
 			throw new IllegalArgumentException("Email cannot be null or empty!");
 		}
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
 		Root<Employee> root = cq.from(Employee.class);
 		Predicate emailEqual = cb.equal(root.get("email"), email);
 		cq.where(emailEqual);
-		TypedQuery<Employee> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Employee> typedQuery = getEntityManager().createQuery(cq);
 		try {
 			Employee employee = typedQuery.getSingleResult();
 			return Optional.of(employee);
@@ -82,7 +82,7 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 		verifyPageableValues(pageSize, pageNum, orderBy, order);
 		pageSize = pageSize == 0 ? getPAGE_SIZE_DEFAULT() : pageSize;
 		
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
 		
 		Root<Employee> employeeRoot = cq.from(Employee.class);
@@ -97,7 +97,7 @@ public class EmployeesDao extends WorkshopEntitiesDaoAbstract<Employee, Long> {
 			cq.orderBy(cb.desc(employeeRoot.get(orderBy)));
 		}
 		
-		TypedQuery<Employee> typedQuery = entityManager.createQuery(cq);
+		TypedQuery<Employee> typedQuery = getEntityManager().createQuery(cq);
 		typedQuery.setMaxResults(pageSize);
 		typedQuery.setFirstResult(pageSize * pageNum);
 		

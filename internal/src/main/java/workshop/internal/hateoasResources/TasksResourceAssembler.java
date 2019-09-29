@@ -39,7 +39,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getAppointedTasks(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -51,7 +51,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -63,7 +63,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -75,7 +75,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(OrdersController.class).orderTasks(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -87,7 +87,7 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(ClassifiersController.class).getTasks(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

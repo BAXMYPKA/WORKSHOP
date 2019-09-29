@@ -33,7 +33,7 @@ public class InternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 					.getPositionInternalAuthorities(
 						ownerId,
 						pageable.getPageSize(),
-						pageNum,
+						++pageNum,
 						orderBy,
 						order))
 				.withRel(relation)

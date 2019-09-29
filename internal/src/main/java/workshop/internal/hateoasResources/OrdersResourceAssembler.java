@@ -36,7 +36,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -49,7 +49,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)
@@ -62,7 +62,7 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				ControllerLinkBuilder.methodOn(UsersController.class).getUserOrders(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

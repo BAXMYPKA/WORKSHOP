@@ -41,7 +41,7 @@ public class ExternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 				ControllerLinkBuilder.methodOn(UsersController.class).getUserExternalAuthorities(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

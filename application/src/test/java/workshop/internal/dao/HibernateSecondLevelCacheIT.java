@@ -68,7 +68,9 @@ public class HibernateSecondLevelCacheIT {
 	
 	@Test
 	@DisplayName("Check second level cache with raw Hibernate sessions")
-	@Sql(scripts = {"classpath:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+	@Sql(scripts = {
+		"file:C:\\Users\\Sersus\\IdeaProjects\\WORKSHOP\\application\\src\\test\\java\\applicationTestResources\\import.sql",
+		"file:C:\\Users\\Sersus\\IdeaProjects\\WORKSHOP\\application\\src\\test\\java\\applicationTestResources\\entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Order_Works_After_Second_Transaction() {
 		//GIVEN
 		//For own non-Spring transactions we have to get a separate copy of javax EntityManager

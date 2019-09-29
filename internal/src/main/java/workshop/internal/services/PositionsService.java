@@ -1,15 +1,5 @@
 package workshop.internal.services;
 
-import workshop.internal.dao.DepartmentsDao;
-import workshop.internal.dao.EmployeesDao;
-import workshop.internal.dao.InternalAuthoritiesDao;
-import workshop.internal.dao.PositionsDao;
-import workshop.internal.entities.Department;
-import workshop.internal.entities.Employee;
-import workshop.internal.entities.Position;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.dao.DepartmentsDao;
+import workshop.internal.dao.EmployeesDao;
+import workshop.internal.dao.InternalAuthoritiesDao;
+import workshop.internal.dao.PositionsDao;
+import workshop.internal.entities.Department;
+import workshop.internal.entities.Employee;
+import workshop.internal.entities.Position;
+import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.internal.exceptions.InternalServerErrorException;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -62,15 +62,14 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 		throws IllegalArgumentsException, InternalServerErrorException {
 		
 		super.verifyIdForNullZeroBelowZero(departmentId);
-		
-		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		pageable = super.getVerifiedAndCorrectedPageable(pageable);
 		
 		Optional<List<Position>> allPositionsByDepartment =
 			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findPositionsByDepartment(
-				verifiedPageable.getPageSize(),
-				verifiedPageable.getPageNumber(),
-				verifiedPageable.getSort().iterator().next().getProperty(),
-				verifiedPageable.getSort().iterator().next().getDirection(),
+				pageable.getPageSize(),
+				pageable.getPageNumber(),
+				pageable.getSort().iterator().next().getProperty(),
+				pageable.getSort().iterator().next().getDirection(),
 				departmentId);
 		
 		if (!allPositionsByDepartment.isPresent()) {
@@ -80,8 +79,10 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 					new Object[]{getEntityClass().getSimpleName(), "Department.id=" + departmentId},
 					LocaleContextHolder.getLocale()));
 		}
-		Page<Position> entitiesPage = super.getVerifiedEntitiesPage(verifiedPageable, allPositionsByDepartment);
-		return entitiesPage;
+		long totalPositionsByDepartment =
+			((PositionsDao) getWorkshopEntitiesDaoAbstract()).countAllPositionsByDepartment(departmentId);
+		
+		return super.getVerifiedEntitiesPage(pageable, allPositionsByDepartment, totalPositionsByDepartment);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
@@ -113,18 +114,20 @@ public class PositionsService extends WorkshopEntitiesServiceAbstract<Position> 
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, readOnly = true)
 	public Page<Position> findPositionsByInternalAuthority(Pageable pageable, Long internalAuthorityId) {
 		super.verifyIdForNullZeroBelowZero(internalAuthorityId);
-		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
+		pageable = super.getVerifiedAndCorrectedPageable(pageable);
 		
-		String orderBy = verifiedPageable.getSort().iterator().next().getProperty();
-		Sort.Direction order = verifiedPageable.getSort().getOrderFor(orderBy).getDirection();
+		String orderBy = pageable.getSort().iterator().next().getProperty();
+		Sort.Direction order = pageable.getSort().getOrderFor(orderBy).getDirection();
 		
 		Optional<List<Position>> positionsByAuthority =
 			((PositionsDao) getWorkshopEntitiesDaoAbstract()).findPositionsByInternalAuthority(
-				verifiedPageable.getPageSize(),
-				verifiedPageable.getPageNumber(),
+				pageable.getPageSize(),
+				pageable.getPageNumber(),
 				orderBy,
 				order,
 				internalAuthorityId);
-		return super.getVerifiedEntitiesPage(verifiedPageable, positionsByAuthority);
+		long totalPositionsByInternalAuthority =
+			((PositionsDao) getWorkshopEntitiesDaoAbstract()).countAllPositionsByInternalAuthority(internalAuthorityId);
+		return super.getVerifiedEntitiesPage(pageable, positionsByAuthority, totalPositionsByInternalAuthority);
 	}
 }

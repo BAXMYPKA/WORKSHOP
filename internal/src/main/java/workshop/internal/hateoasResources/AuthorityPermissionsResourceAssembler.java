@@ -41,7 +41,7 @@ public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResou
 				ControllerLinkBuilder.methodOn(WorkshopEntityTypesController.class).getEntityTypeAuthorityPermissions(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

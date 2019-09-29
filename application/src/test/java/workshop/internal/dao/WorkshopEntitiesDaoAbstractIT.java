@@ -2,6 +2,7 @@ package workshop.internal.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -169,7 +170,6 @@ class WorkshopEntitiesDaoAbstractIT {
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void batch_remove_Entities_By_Collection() {
 		//GIVEN
-		removeAllPersistedEntities();
 		Department department1 = new Department("Delete me 1");
 		Department department2 = new Department("Delete me 2");
 		Department department3 = new Department("Delete me 3");
@@ -182,41 +182,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		departmentsDao.removeEntities(departments);
 		//THEN No entities of that kind should be found
 		departments.forEach(department -> assertFalse(departmentsDao.isExist(department.getIdentifier())));
-	}
-	
-	@Test
-	@org.junit.jupiter.api.Order(5)
-	@DisplayName("Also checks the availability to be merge and returned back to the managed state from the detached")
-	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
-	public void batch_Persisting_Collections() {
-		
-		//GIVEN Employees and Orders collections. EntityManager doesn't contain them
-		initNewEntities();
-		removeAllPersistedEntities();
-		
-		//Pre-persist Entities without CascadeType.Persist
-		departmentsDao.persistEntities(departments);
-		positionsDao.persistEntities(positions);
-		
-		orders.forEach(order -> assertFalse(entityManager.contains(order)));
-		employees.forEach(employee -> assertFalse(entityManager.contains(employee)));
-		
-		//WHEN
-		
-		employeesDao.persistEntities(employees);
-		ordersDao.persistEntities(orders);
-		
-		//THEN all entities are managed and have an identifier
-		
-		employees.forEach(employee -> assertTrue(employee.getIdentifier() > 0));
-		employees.forEach(employee -> assertNotNull(employee.getCreated()));
-		
-		orders.forEach(order -> assertNotNull(order.getCreated()));
-		orders.forEach(order -> assertTrue(order.getIdentifier() > 0));
-		
-		employees.forEach(employee -> assertTrue(entityManager.contains(employee)));
-		orders.forEach(order -> assertTrue(entityManager.contains(order)));
 	}
 	
 	@Test
@@ -239,6 +204,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		);
 	}
 	
+	@Disabled
 	@Test
 	@DisplayName("Pagination with custom orderBy and default descending order")
 	@Transactional
@@ -246,7 +212,6 @@ class WorkshopEntitiesDaoAbstractIT {
 	public void pagination_With_Custom_Sorting_Should_Sort_Properly() {
 		//GIVEN
 		// 21 pre-persisted Orders from order1 to order21
-		persistAllOrders();
 		int pageNum = 1;
 		int pageSize = 5;
 		
@@ -268,39 +233,9 @@ class WorkshopEntitiesDaoAbstractIT {
 				-1,
 				ordersPageAscending.get(3).getOverallPrice().compareTo(ordersPageAscending.get(4).getOverallPrice()))
 		);
-		
-		//To clear the DataBase
-		removeAllOrders();
 	}
 	
-	@Test
-	@DisplayName("Check pagination with the last partial filled page")
-	@Transactional
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
-	public void pagination_With_Limits_And_Offsets_Last_Page_Should_Work_Properly() {
-		//GIVEN DAO layer starts pages count from 0
-		// 21 pre-persisted Orders from order1 to order21
-		persistAllOrders();
-		int customPageSize = 5;
-		int lastPage = 4; //DAO layer starts pages count from 0
-		String orderBy = "created";
-		Sort.Direction order = Sort.Direction.DESC;
-		//All existing Orders to compare with
-		List<Order> allPersistedOrders = ordersDao.findAllEntities(0, 0, orderBy, order).get();
-		
-		//WHEN
-		List<Order> ordersPageFromExisting = ordersDao.findAllEntities(customPageSize, lastPage, orderBy, order).get();
-		
-		//THEN the last fifth page should contain only the one last Order
-		assertEquals(1, ordersPageFromExisting.size());
-		assertEquals(
-			allPersistedOrders.get(allPersistedOrders.size() - 1).getDescription(),
-			ordersPageFromExisting.get(0).getDescription());
-		
-		//To clear the DataBase
-		removeAllOrders();
-	}
-	
+	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void find_Entities_By_Email_Should_Return_Entities_With_Emails() {
@@ -331,6 +266,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		);
 	}
 	
+	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@DisplayName("JPA should persist and return ZonedDateTime in UTC despite a set one.")
@@ -356,6 +292,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		assertTrue(employeeFromDb.get().getFinished().isEqual(utcZone));
 	}
 	
+	@Disabled
 	@Test
 	@DisplayName("CreatedBy should by automatically set from the SecurityContext")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
@@ -387,32 +324,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		assertEquals(employeeToBeCreatedBy, classifierPersisted.get().getCreatedBy());
 	}
 	
-	@Test
-	@DisplayName("Manually set 'createdBy' property should be persisted")
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
-	public void createdBy_Property_If_Set_Manually_Should_Be_Persisted() {
-		//GIVEN
-		//Pre persist entities
-		Department department = new Department("Department");
-		Position position = new Position("Position", department);
-		Employee employeeToBeCreatedBy = new Employee("fn", "ln", "12345", "employee@workshop.pro",
-			LocalDate.now().minusYears(50), position);
-		
-		departmentsDao.persistEntity(department);
-		positionsDao.persistEntity(position);
-		employeesDao.persistEntity(employeeToBeCreatedBy);
-		
-		//The given Classifier with createdBy preset
-		Classifier classifier = new Classifier("Classifier", "Descr", true, BigDecimal.TEN);
-		classifier.setCreatedBy(employeeToBeCreatedBy);
-		
-		//WHEN
-		Optional<Classifier> classifierPersisted = classifiersDao.persistEntity(classifier);
-		
-		//THEN
-		assertEquals(employeeToBeCreatedBy, classifierPersisted.get().getCreatedBy());
-	}
-	
 	@ParameterizedTest
 	@ValueSource(strings = {"property", "anotherProperty"})
 	@DisplayName("FindByProperty should throw IllegalArgExc with exact message if Entity doesn't have such a property")
@@ -430,12 +341,12 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@CsvSource({"overallPrice, 10.11", "overallPrice, 10.21", "description, Order3", "description, Order11"})
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void findByProperty_Should_Return_Proper_String_Result(String propertyName, String propertyValue) {
 		//GIVEN 21 pre-persisted Orders
-		persistAllOrders();
 		
 		//WHEN
 		Optional<List<Order>> orderByProperty = ordersDao.findByProperty(propertyName, propertyValue);
@@ -449,18 +360,15 @@ class WorkshopEntitiesDaoAbstractIT {
 		} else if ("deadline".equals(propertyName)) {
 			System.out.println(orderByProperty.get().get(0).getDeadline());
 		}
-		
-		//To clear the database
-		removeAllOrders();
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@CsvSource({"created, 2017-11-20T09:35:45+03:00", "deadline, 2020-12-30T12:00:00+00:00"})
 	@DisplayName("FindByProperty should parse Temporal and return more than one result if they are")
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void findByProperty_Should_Return_Proper_ZonedDateTime_Results(String propertyName, String propertyValue) {
 		//GIVEN 21 pre-persisted Orders
-		persistAllOrders();
 		
 		ZonedDateTime expectedCreatedInOrder2 = ZonedDateTime.of(
 			2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault());
@@ -481,34 +389,29 @@ class WorkshopEntitiesDaoAbstractIT {
 			assertEquals(2, orderByProperty.get().size());
 			assertEquals(expectedDeadline, orderByProperty.get().get(0).getDeadline());
 		}
-		
-		//To clear the database
-		removeAllOrders();
 	}
 	
-	//	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
 	public void positions_By_DepartmentId_Should_Be_Returned() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department id 1");
+		departmentsDao.persistEntity(department1).get();
+		Long departmentId = department1.getIdentifier();
 		
-		Position position1 = new Position("Position 1", department1);
-		Position position2 = new Position("Position 2", department1);
-		Position position3 = new Position("Position 3", department1);
-		Position position4 = new Position("Position 4", department1);
-		Position position5 = new Position("Position 5", department1);
-		Position position6 = new Position("Position 6", department1);
-		Position position7 = new Position("Position 7", department1);
-		Position position8 = new Position("Position 8", department1);
-		Position position9 = new Position("Position 9", department1);
-		//CascadeType.PERSIST will persist all the corresponding Positions
-		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
-			position8, position9);
+		Position position1 = new Position("Position id 1", department1);
+		Position position2 = new Position("Position id 2", department1);
+		Position position3 = new Position("Position id 3", department1);
+		Position position4 = new Position("Position id 4", department1);
+		Position position5 = new Position("Position id 5", department1);
+		Position position6 = new Position("Position id 6", department1);
+		Position position7 = new Position("Position id 7", department1);
+		Position position8 = new Position("Position id 8", department1);
+		Position position9 = new Position("Position id 9", department1);
 		
-		Department department1Persisted = departmentsDao.persistEntity(department1).get();
-		Long departmentId = department1Persisted.getIdentifier();
+		positionsDao.persistEntities(Arrays.asList(position1, position2, position3, position4, position5, position6,
+			position7, position8, position9));
 		
 		//WHEN
 		Optional<List<Position>> allPositionsByDepartment =
@@ -517,11 +420,9 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartment.get().size());
-		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 1".equals(position.getName())));
-		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 5".equals(position.getName())));
-		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position 9".equals(position.getName())));
-		
-		removeAllPersistedEntities();
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position id 1".equals(position.getName())));
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position id 5".equals(position.getName())));
+		assertTrue(allPositionsByDepartment.get().stream().anyMatch(position -> "Position id 9".equals(position.getName())));
 	}
 	
 	@Test
@@ -529,23 +430,22 @@ class WorkshopEntitiesDaoAbstractIT {
 	@Transactional
 	public void positions_By_DepartmentId_Should_Be_Returned_OrderedBy_Name_Ascending() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department is 1");
+		departmentsDao.persistEntity(department1).get();
+		Long departmentId = department1.getIdentifier();
 		
-		Position position1 = new Position("Position 1", department1);
-		Position position2 = new Position("Position 2", department1);
-		Position position3 = new Position("Position 3", department1);
-		Position position4 = new Position("Position 4", department1);
-		Position position5 = new Position("Position 5", department1);
-		Position position6 = new Position("Position 6", department1);
-		Position position7 = new Position("Position 7", department1);
-		Position position8 = new Position("Position 8", department1);
-		Position position9 = new Position("Position 9", department1);
-		//CascadeType.PERSIST will persist all the corresponding Positions
-		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
-			position8, position9);
+		Position position1 = new Position("Position is 1", department1);
+		Position position2 = new Position("Position is 2", department1);
+		Position position3 = new Position("Position is 3", department1);
+		Position position4 = new Position("Position is 4", department1);
+		Position position5 = new Position("Position is 5", department1);
+		Position position6 = new Position("Position is 6", department1);
+		Position position7 = new Position("Position is 7", department1);
+		Position position8 = new Position("Position is 8", department1);
+		Position position9 = new Position("Position is 9", department1);
 		
-		Department department1Persisted = departmentsDao.persistEntity(department1).get();
-		Long departmentId = department1Persisted.getIdentifier();
+		positionsDao.persistEntities(Arrays.asList(position1, position2, position3, position4, position5, position6,
+			position7, position8, position9));
 		
 		//WHEN
 		List<Position> allPositionsByDepartmentOrderedByNameAsc =
@@ -553,12 +453,11 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//THEN
 		assertEquals(9, allPositionsByDepartmentOrderedByNameAsc.size());
-		assertEquals("Position 1", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
-		assertEquals("Position 9", allPositionsByDepartmentOrderedByNameAsc.get(8).getName());
-		
-		removeAllPersistedEntities();
+		assertEquals("Position is 1", allPositionsByDepartmentOrderedByNameAsc.get(0).getName());
+		assertEquals("Position is 9", allPositionsByDepartmentOrderedByNameAsc.get(8).getName());
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@ValueSource(ints = {0, 2})
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
@@ -597,9 +496,9 @@ class WorkshopEntitiesDaoAbstractIT {
 			assertEquals("Position 3", positionsByDepartmentOrderedByNameDesc.get(0).getName());
 			assertEquals("Position 1", positionsByDepartmentOrderedByNameDesc.get(2).getName());
 		}
-		removeAllPersistedEntities();
 	}
 	
+	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
@@ -631,8 +530,6 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 		//THEN
 		assertEquals(departmentId, departmentByPosition.getIdentifier());
-		
-		removeAllPersistedEntities();
 	}
 	
 	@Test
@@ -641,13 +538,13 @@ class WorkshopEntitiesDaoAbstractIT {
 	public void tasks_By_OrderId_Should_Return_All_Included_Tasks() {
 		//GIVEN
 		Order order1 = new Order();
-		order1.setDescription("Order 1");
+		order1.setDescription("Order is 1");
 		
 		Task task1 = new Task();
-		task1.setName("Task 1");
+		task1.setName("Task is 1");
 		
 		Task task2 = new Task();
-		task2.setName("Task 2");
+		task2.setName("Task is 2");
 		
 		Order orderPersisted = ordersDao.persistEntity(order1).get();
 		long orderPersistedId = orderPersisted.getIdentifier();
@@ -670,6 +567,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		ordersDao.removeEntity(order1);
 	}
 	
+	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	@Transactional
@@ -716,6 +614,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		);
 	}
 	
+	@Disabled
 	@Test
 	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void positions_By_Authority_Should_Return_All_Linked_Positions() {
@@ -756,12 +655,54 @@ class WorkshopEntitiesDaoAbstractIT {
 		
 	}
 	
-	@BeforeEach
-	@DisplayName("Clears the DataBase from persisted Entities and initializes the new ones.")
-	public void initNewEntities() {
-		//Clear the DataBase
-		removeAllPersistedEntities();
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
+	public void count_All_Positions_By_Department() {
+		//GIVEN
+		Department department = new Department("Department unique 100");
+		departmentsDao.persistEntity(department);
 		
+		Position position1 = new Position("Position unique 100", department);
+		Position position2 = new Position("Position unique 200", department);
+		Position position3 = new Position("Position unique 300", department);
+		positionsDao.persistEntities(Arrays.asList(position1, position2, position3));
+		
+		//WHEN
+		long totalPositionsByDepartment = positionsDao.countAllPositionsByDepartment(department.getIdentifier());
+		long totalPositionsByUnknownDepartment = positionsDao.countAllPositionsByDepartment(100501L);
+		
+		
+		//THEN
+		assertEquals(3, totalPositionsByDepartment);
+		assertEquals(0, totalPositionsByUnknownDepartment);
+	}
+	
+	@Test
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
+	public void count_All_Positions_By_InternalAuthority() {
+		//GIVEN
+		Department department = new Department("Department unique is 100");
+		departmentsDao.persistEntity(department);
+		
+		Position position1 = new Position("Position unique is 100", department);
+		Position position2 = new Position("Position unique is 200", department);
+		Position position3 = new Position("Position unique is 300", department);
+		positionsDao.persistEntities(Arrays.asList(position1, position2, position3));
+		
+		InternalAuthority authority = new InternalAuthority("Authority 1 for Positions");
+		authority.setPositions(new HashSet<>(Arrays.asList(position1, position2, position3)));
+		internalAuthoritiesDao.persistEntity(authority);
+		
+		//WHEN
+		long totalPositionsByInternalAuthority = positionsDao.countAllPositionsByInternalAuthority(authority.getIdentifier());
+		long totalPositionsByUnknownAuthority = positionsDao.countAllPositionsByInternalAuthority(100501L);
+		
+		//THEN
+		assertEquals(3, totalPositionsByInternalAuthority);
+		assertEquals(0, totalPositionsByUnknownAuthority);
+	}
+	
+	public void initNewEntities() {
 		//Init new Entities
 		Department department = new Department();
 		department.setName("Department one");
@@ -930,98 +871,5 @@ class WorkshopEntitiesDaoAbstractIT {
 		phones = new ArrayList<>(Arrays.asList(phone1, phone2, phone3));
 		tasks = new ArrayList<>(Arrays.asList(task1, task2, task3));
 		classifiers = new ArrayList<>(Arrays.asList(classifier1, classifier2, classifier3));
-	}
-	
-	/**
-	 * Remove all the entities from the current DataBase
-	 */
-	@Transactional
-	public void removeAllPersistedEntities() {
-		Optional<List<Order>> ordersManaged = ordersDao.findAllEntities(0, 0);
-		ordersDao.removeEntities(ordersManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<Task>> tasksManaged = tasksDao.findAllEntities(0, 0);
-		tasksDao.removeEntities(tasksManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<Employee>> employeesManaged = employeesDao.findAllEntities(0, 0);
-		employeesDao.removeEntities(employeesManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<Classifier>> classifiersManaged = classifiersDao.findAllEntities(0, 0);
-		classifiersDao.refreshEntities(classifiersManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<User>> usersManaged = usersDao.findAllEntities(0, 0);
-		usersDao.removeEntities(usersManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<Position>> positionsManaged = positionsDao.findAllEntities(0, 0);
-		positionsDao.removeEntities(positionsManaged.orElse(Collections.emptyList()));
-		
-		Optional<List<Department>> departmentsManaged = departmentsDao.findAllEntities(0, 0);
-		departmentsDao.removeEntities(departmentsManaged.orElse(Collections.emptyList()));
-		
-		entityManager.clear();
-	}
-	
-	@Transactional
-	public void persistAllOrders() {
-		//DO NOT CHANGE OR OVERWRITE THESE INSTANCES WITHOUT CHECK (!) THEIR VALUES ARE USED ACROSS this.getMethods()
-		Order order1 = new Order();
-		order1.setDescription("Order1");
-		order1.setOverallPrice(BigDecimal.valueOf(10.01));
-		order1.setCreated(ZonedDateTime.of(2018, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
-		Order order2 = new Order();
-		order2.setOverallPrice(BigDecimal.valueOf(10.02));
-		order2.setDescription("Order2");
-		order2.setCreated(ZonedDateTime.of(2017, 11, 20, 9, 35, 45, 0, ZoneId.systemDefault()));
-		Order order3 = Order.builder().description("Order3").build();
-		order3.setCreated(ZonedDateTime.of(2016, 11, 20, 9, 35, 45, 0, ZoneId.of("Europe/Moscow")));
-		order3.setOverallPrice(BigDecimal.valueOf(10.03));
-		Order order4 = Order.builder().description("Order4").build();
-		order4.setOverallPrice(BigDecimal.valueOf(10.04));
-		Order order5 = Order.builder().description("Order5").build();
-		order5.setOverallPrice(BigDecimal.valueOf(10.05));
-		order5.setDeadline(ZonedDateTime.of(2020, 12, 30, 12, 0, 0, 0, ZoneId.of("UTC")));
-		Order order6 = Order.builder().description("Order6").build();
-		order6.setOverallPrice(BigDecimal.valueOf(10.06));
-		order6.setDeadline(ZonedDateTime.of(2020, 12, 30, 12, 0, 0, 0, ZoneId.of("UTC")));
-		Order order7 = Order.builder().description("Order7").build();
-		order7.setOverallPrice(BigDecimal.valueOf(10.07));
-		Order order8 = Order.builder().description("Order8").build();
-		order8.setOverallPrice(BigDecimal.valueOf(10.08));
-		Order order9 = Order.builder().description("Order9").build();
-		order9.setOverallPrice(BigDecimal.valueOf(10.09));
-		Order order10 = Order.builder().description("Order10").build();
-		order10.setOverallPrice(BigDecimal.valueOf(10.10));
-		Order order11 = Order.builder().description("Order11").build();
-		order11.setOverallPrice(BigDecimal.valueOf(10.11));
-		Order order12 = Order.builder().description("Order12").build();
-		order12.setOverallPrice(BigDecimal.valueOf(10.12));
-		Order order13 = Order.builder().description("Order13").build();
-		order13.setOverallPrice(BigDecimal.valueOf(10.13));
-		Order order14 = Order.builder().description("Order14").build();
-		order14.setOverallPrice(BigDecimal.valueOf(10.14));
-		Order order15 = Order.builder().description("Order15").build();
-		order15.setOverallPrice(BigDecimal.valueOf(10.15));
-		Order order16 = Order.builder().description("Order16").build();
-		order16.setOverallPrice(BigDecimal.valueOf(10.16));
-		Order order17 = Order.builder().description("Order17").build();
-		order17.setOverallPrice(BigDecimal.valueOf(10.17));
-		Order order18 = Order.builder().description("Order18").build();
-		order18.setOverallPrice(BigDecimal.valueOf(10.18));
-		Order order19 = Order.builder().description("Order19").build();
-		order19.setOverallPrice(BigDecimal.valueOf(10.19));
-		Order order20 = Order.builder().description("Order20").build();
-		order20.setOverallPrice(BigDecimal.valueOf(10.20));
-		Order order21 = Order.builder().description("Order21").build();
-		order21.setOverallPrice(BigDecimal.valueOf(10.21));
-		
-		orders = new ArrayList<>(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9,
-			order10, order11, order12, order13, order14, order15, order16, order17, order18, order19, order20, order21));
-		
-		ordersDao.persistEntities(orders);
-	}
-	
-	@Transactional
-	public void removeAllOrders() {
-		ordersDao.removeEntities(orders);
 	}
 }

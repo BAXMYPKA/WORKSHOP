@@ -203,9 +203,6 @@ class HateoasIT {
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()	throws Exception {
-		
-		//TODO: to check the results
-		
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		long departmentId = departmentIdOfTotalPersistedPositions();
 		//Retrieve last page of 4 with 3 elements of 10 total elements

@@ -1,13 +1,13 @@
 package workshop.internal.dao;
 
-import workshop.internal.entities.Department;
-import workshop.internal.entities.InternalAuthority;
-import workshop.internal.entities.Position;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import workshop.internal.entities.Department;
+import workshop.internal.entities.InternalAuthority;
+import workshop.internal.entities.Position;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
@@ -66,7 +66,6 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 			cq.orderBy(cb.desc(positionRoot.get(orderBy)));
 		}
 		TypedQuery<Position> typedQuery = getEntityManager().createQuery(cq);
-		//Set pagination
 		typedQuery.setFirstResult(pageNum * pageSize);
 		typedQuery.setMaxResults(pageSize);
 		try {
@@ -83,16 +82,30 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 		}
 	}
 	
+	public long countAllPositionsByDepartment(Long departmentId) {
+		
+		verifyIdForNull(departmentId);
+		log.debug("Received Department.ID={} to count its Positions", departmentId);
+		
+		Long totalPositionsByDepartment = getEntityManager().createQuery(
+			"SELECT COUNT (p.identifier) FROM workshop.internal.entities.Position p " +
+				"WHERE p.department.identifier=:departmentId",
+			Long.class)
+			.setParameter("departmentId", departmentId)
+			.getSingleResult();
+		return totalPositionsByDepartment;
+	}
+	
 	/**
 	 * @param internalAuthorityId InternalAuthority.ID from which all its Positions have to be derived.
 	 * @return Optional.of{@literal (List<Position>} which contain such an InternalAuthority or Optional.empty().
 	 * @throws IllegalArgumentException If some of the given parameters are incorrect or null.
 	 */
 	public Optional<List<Position>> findPositionsByInternalAuthority(Integer pageSize,
-																	 Integer pageNum,
-																	 String orderBy,
-																	 Sort.Direction order,
-																	 Long internalAuthorityId)
+		Integer pageNum,
+		String orderBy,
+		Sort.Direction order,
+		Long internalAuthorityId)
 		throws IllegalArgumentException {
 		
 		super.verifyPageableValues(pageSize, pageNum, orderBy, order);
@@ -128,4 +141,19 @@ public class PositionsDao extends WorkshopEntitiesDaoAbstract<Position, Long> {
 			return Optional.of(positionsByAuthority);
 		}
 	}
+	
+	public long countAllPositionsByInternalAuthority(Long internalAuthorityId) {
+		
+		verifyIdForNull(internalAuthorityId);
+		log.debug("Received InternalAuthority.ID={} to count its Positions", internalAuthorityId);
+		
+		Long totalPositionsByDepartment = getEntityManager().createQuery(
+			"SELECT COUNT (pos.identifier) FROM workshop.internal.entities.Position pos " +
+				"JOIN pos.internalAuthorities ia WHERE ia.identifier=:internalAuthorityId",
+			Long.class)
+			.setParameter("internalAuthorityId", internalAuthorityId)
+			.getSingleResult();
+		return totalPositionsByDepartment;
+	}
+	
 }

@@ -25,7 +25,6 @@ import workshop.internal.exceptions.InternalServerErrorException;
 import workshop.internal.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -449,9 +448,38 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 */
 	protected Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities) throws EntityNotFoundException {
 		
-		//TODO: to create a overloaded version with 'ownerId'
-		
 		long totalEntities = workshopEntitiesDaoAbstract.countAllEntities();
+		
+		Page<T> entitiesPage = new PageImpl<T>(entities.orElseThrow(() ->
+			new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",
+				HttpStatus.NOT_FOUND,
+				messageSource.getMessage("httpStatus.notFound(1)",
+					new Object[]{entityClass.getSimpleName() + "s"},
+					LocaleContextHolder.getLocale()))),
+			pageable, totalEntities);
+		log.debug("A Page with the collection of {}s is found", entityClass.getSimpleName());
+		
+		return entitiesPage;
+	}
+	
+	/**
+	 * Convenient method to receive a raw data from DAO and transform it to Page<T> or throw localized
+	 * {@link EntityNotFoundException}
+	 * 1) Checks if a given Optional.List of Entities is present. If not - throws EntityNotFoundException,
+	 * with the corresponds HttpStatus and localized message for the end-users.
+	 * 2) Returns the fully prepared Page containing info about amount of Pages, total entities, current page num etc.
+	 * to be extracted and user by WorkshopEntitiesResourceAssemblers.
+	 *
+	 * @param pageable      PageRequest with verified parameters to prepare Page from.
+	 * @param entities      Found WorkshopEntities collection from WorkshopEntitiesDao
+	 * @param totalEntities Predefined amount of total Entities to be set to the Page. It is useful when getting
+	 *                      specific amount of Entities (e.g. all Positions by Department) when you previously count
+	 *                      not all the Positions, but all the Positions by particular Department.
+	 * @return Page with number of pages, all the included pages parameters, total elements etc.
+	 * @throws EntityNotFoundException If no Entities were found.
+	 */
+	protected Page<T> getVerifiedEntitiesPage(Pageable pageable, Optional<List<T>> entities, Long totalEntities)
+		throws EntityNotFoundException {
 		
 		Page<T> entitiesPage = new PageImpl<T>(entities.orElseThrow(() ->
 			new EntityNotFoundException("No " + entityClass.getSimpleName() + "s were found!",

@@ -80,7 +80,7 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				ControllerLinkBuilder.methodOn(ExternalAuthoritiesController.class).getExternalAuthorityUsers(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

@@ -42,7 +42,7 @@ public class WorkshopEntityTypesResourceAssembler extends WorkshopEntitiesResour
 				ControllerLinkBuilder.methodOn(AuthorityPermissionsController.class).getWorkshopEntitiesTypes(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

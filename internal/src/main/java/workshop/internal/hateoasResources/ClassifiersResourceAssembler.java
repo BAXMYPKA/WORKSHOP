@@ -38,7 +38,7 @@ public class ClassifiersResourceAssembler extends WorkshopEntitiesResourceAssemb
 				ControllerLinkBuilder.methodOn(TasksController.class).taskClassifiers(
 					ownerId,
 					pageable.getPageSize(),
-					pageNum,
+					++pageNum,
 					orderBy,
 					order))
 				.withRel(relation)

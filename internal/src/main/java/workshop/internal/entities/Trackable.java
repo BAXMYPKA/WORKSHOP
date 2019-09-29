@@ -46,7 +46,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
-	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 150, allocationSize = 1)
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")

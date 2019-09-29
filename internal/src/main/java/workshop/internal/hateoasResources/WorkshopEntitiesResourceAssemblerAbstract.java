@@ -174,7 +174,8 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * @return 'Resources<Resource <T>>' - a collection WorkshopEntities as a resources with self-links
 	 * and pagination Links (nextPage, prevPage etc).
 	 */
-	public Resources<Resource<T>> toPagedSubResources(Page<T> workshopEntitiesPage,
+	public Resources<Resource<T>> toPagedSubResources(
+		Page<T> workshopEntitiesPage,
 		Long workshopEntityOwnerId,
 		String controllerMethodName) {
 		List<Resource<T>> resourcesCollection = workshopEntitiesPage.get()
@@ -303,7 +304,8 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * @param pageNum  Obligatory current page number
 	 * @return A fully prepared Link based on client's Pageable info and @ExposedResourceFor(Class.class) from "WorkshopController<T>".
 	 */
-	protected Link getPagedLink(Pageable pageable,
+	protected Link getPagedLink(
+		Pageable pageable,
 		int pageNum,
 		String relation,
 		String hrefLang,
@@ -338,7 +340,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * if (WorkshopControllerAbstract<T>.CONTROLLER_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 	 * link = ControllerLinkBuilder.linkTo(
 	 * ControllerLinkBuilder.methodOn(WorkshopControllerAbstract<T>.class).controllerMethod(
-	 * ownerId, pageable.getPageSize(), pageNum, orderBy, order))
+	 * ownerId, pageable.getPageSize(), pageNum + 1, orderBy, order))
 	 * .withRel(relation).withHreflang(hrefLang).withMedia(media).withTitle(title);
 	 * } else {
 	 * log.error("No matching 'controllerMethodName' found for the given parameter {} in the {} for the Link to be constructed!",
@@ -348,7 +350,9 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 * return link;
 	 *
 	 * @param pageable             The main info about pageable state.
-	 * @param pageNum              The obligatory parameter to obtain the current number of page.
+	 * @param pageNum              Has to be ++pageNum as the result for the end users has to start from 1 despite
+	 *                             inner Spring and JPA pagination starts from 0!
+	 *                             The  obligatory parameter to obtain the current number of page.
 	 * @param relation             Link relation parameter.
 	 * @param hrefLang             Link language.
 	 * @param media                Media type of the Link.
@@ -360,7 +364,8 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 *                             .ORDERS_CREATED_BY_METHOD_NAME.
 	 * @return A single custom Link created according to 'controllerMethodName'.
 	 */
-	protected abstract Link getPagedLink(Pageable pageable,
+	protected abstract Link getPagedLink(
+		Pageable pageable,
 		int pageNum,
 		String relation,
 		String hrefLang,

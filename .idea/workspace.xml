@@ -2,28 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ac4f4c70-798d-48a0-a903-777ef7fbe6fe.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ac4f4c70-798d-48a0-a903-777ef7fbe6fe.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/AuthorityPermissionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/AuthorityPermissionsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ClassifiersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ClassifiersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/DepartmentsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/DepartmentsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/EmployeesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/EmployeesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ExternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ExternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/InternalAuthoritiesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/InternalAuthoritiesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/OrdersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/OrdersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PhonesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PhonesDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PositionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PositionsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/TasksDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/TasksDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/UsersDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/UsersDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntityTypesDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntityTypesDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PositionsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,39 +138,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HateoasIT.lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink">
-    <configuration name="HateoasIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction">
+    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
+          <option name="PATTERN" value="workshop.internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HateoasIT.firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
+          <option name="PATTERN" value="workshop.internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
-      <option name="METHOD_NAME" value="firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink" />
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HateoasIT.lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SubResourcesCollectionsLinksIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
@@ -181,41 +179,38 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
-      <option name="METHOD_NAME" value="lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.SubResourcesCollectionsLinksIT" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HateoasIT.orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopControllerAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
+          <option name="PATTERN" value="workshop.internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
-      <option name="METHOD_NAME" value="orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllerAbstractIT" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopControllersMethodSecurityIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
+          <option name="PATTERN" value="workshop.internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
-      <option name="METHOD_NAME" value="orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllersMethodSecurityIT" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -232,19 +227,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.WorkshopApplication" />
-      <item itemvalue="JUnit.HateoasIT.lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink" />
-      <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct" />
-      <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
-      <item itemvalue="JUnit.HateoasIT" />
-      <item itemvalue="JUnit.HateoasIT.firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink" />
+      <item itemvalue="JUnit.SubResourcesCollectionsLinksIT" />
+      <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
+      <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HateoasIT.lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink" />
-        <item itemvalue="JUnit.HateoasIT" />
-        <item itemvalue="JUnit.HateoasIT.firstPage_Resources_Should_Contain_Only_CurrentPageLink_NextPageLink_LastPageLink" />
-        <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct" />
-        <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
+        <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
+        <item itemvalue="JUnit.SubResourcesCollectionsLinksIT" />
       </list>
     </recent_temporary>
   </component>
@@ -252,12 +247,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@4dcfbb04" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -284,6 +274,7 @@
       <workItem from="1569522258463" duration="4027000" />
       <workItem from="1569583917978" duration="4764000" />
       <workItem from="1569743225444" duration="18758000" />
+      <workItem from="1569771076584" duration="13415000" />
     </task>
     <servers />
   </component>

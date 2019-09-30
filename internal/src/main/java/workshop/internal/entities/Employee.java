@@ -24,7 +24,8 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"email"})
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@JsonIgnoreProperties(value = {"appointedTasks", "ordersModifiedBy", "ordersCreatedBy", "tasksModifiedBy", "tasksCreatedBy"})
+@JsonIgnoreProperties(value = {
+	"appointedTasks", "ordersModifiedBy", "ordersCreatedBy", "tasksModifiedBy", "tasksCreatedBy", "workshopEntityName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity

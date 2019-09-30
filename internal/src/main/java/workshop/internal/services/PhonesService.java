@@ -1,5 +1,14 @@
 package workshop.internal.services;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.dao.EmployeesDao;
 import workshop.internal.dao.PhonesDao;
 import workshop.internal.dao.UsersDao;
@@ -7,16 +16,6 @@ import workshop.internal.entities.Employee;
 import workshop.internal.entities.Phone;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.exceptions.InternalServerErrorException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -100,10 +99,13 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 		
 		super.verifyIdForNullZeroBelowZero(employeeId);
 		
-		if (!getWorkshopEntitiesDaoAbstract().isExist(employeeId)) {
-			throw getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + employeeId);
-		}
+		Employee employee = employeesDao.findById(employeeId)
+			.orElseThrow(() -> getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + employeeId));
+		phone.setEmployee(employee);
 		Phone phonePersisted = persistOrMergeEntity(phone);
+		
+		employee.addPhone(phonePersisted);
+		
 		return phonePersisted;
 	}
 	
@@ -135,16 +137,15 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
 	public void deletePhoneFromEmployee(Long employeeId, Long phoneId)
 		throws InternalServerErrorException, EntityNotFoundException {
+		
 		Phone phone = getWorkshopEntitiesDaoAbstract().findById(phoneId).orElseThrow(() ->
 			getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + phoneId));
+		
 		if (phone.getEmployee().getIdentifier().equals(employeeId)) {
-			try {
-				phone.getEmployee().getPhones().remove(phone);
-				getWorkshopEntitiesDaoAbstract().removeEntity(phone);
-			} catch (Exception e) {
-				throw new InternalServerErrorException(
-					e.getMessage(), "httpStatus.internalServerError.common", HttpStatus.INTERNAL_SERVER_ERROR, e);
-			}
+			Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
+				getEntityNotFoundException("Employee.ID="+employeeId));
+			employee.getPhones().remove(phone);
+			getWorkshopEntitiesDaoAbstract().removeEntity(phone);
 		} else {
 			throw getEntityNotFoundException("Employee.ID=" + employeeId);
 		}

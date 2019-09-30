@@ -29,7 +29,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"name", "department"})
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@JsonIgnoreProperties(value = {"department", "internalGrantedAuthorities"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"department", "internalGrantedAuthorities", "workshopEntityName"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity

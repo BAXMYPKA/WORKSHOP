@@ -25,7 +25,7 @@ import java.util.*;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(of = {"identifier", "name"})
-@JsonIgnoreProperties(value = {"positions"})
+@JsonIgnoreProperties(value = {"positions", "workshopEntityName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity

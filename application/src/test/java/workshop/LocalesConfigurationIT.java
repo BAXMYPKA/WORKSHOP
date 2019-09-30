@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -39,7 +40,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class LocalesConfigurationIT {
 	
 	private final String TEST_MESSAGES_LOCATION = "classpath:testMessages";
-	private final String MAIN_MESSAGES_LOCATION = "classpath:internal";
 	@Autowired
 	private LocaleResolver localeResolver;
 	@Autowired

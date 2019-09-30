@@ -424,7 +424,7 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			entity = mergeEntity(entity).orElseThrow(() ->
 				new EntityNotFoundException("The given Entity cannot be merged before removing!"));
 		}
-		entityManager.remove(entity);
+		entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
 		log.debug("{} successfully removed", entityClass.getSimpleName());
 	}
 	

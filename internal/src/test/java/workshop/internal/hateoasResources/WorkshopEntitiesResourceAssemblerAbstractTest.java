@@ -47,15 +47,15 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 	@Test
 	public void getMapped_Controller_Methods_Should_Be_Converted_to_SubResources_Links() {
 		//GIVEN
-		Department department = new Department("Department 1");
+		Department department = new Department("Department 122");
 		department.setIdentifier(1L);
 		
-		Position position = new Position("Position 1", department);
+		Position position = new Position("Position 122", department);
 		position.setIdentifier(2);
 		
 		
 		Employee employee = new Employee(
-			"FN", "LN", "12345", "employee@workshop.pro", LocalDate.now().minusYears(55), position);
+			"FN", "LN", "12345", "employee122@workshop.pro", LocalDate.now().minusYears(55), position);
 		employee.setIdentifier(3);
 		
 		Mockito.when(entityLinks.linkForSingleResource(Employee.class, employee.getIdentifier()))
@@ -78,13 +78,11 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 		assertTrue(employeeResource.getLink("Phones").getTitle().contains("[/{id}/phones]"));
 		
 		assertTrue(employeeResource.hasLink("AppointedTasks"));
-		assertTrue(employeeResource.getLink("AppointedTasks").getHref().contains("/3/appointed_tasks"));
-		assertTrue(employeeResource.getLink("AppointedTasks").getTitle().contains("[/{id}/appointed_tasks]"));
+		assertTrue(employeeResource.getLink("AppointedTasks").getHref().contains("/3/appointed-tasks"));
+		assertTrue(employeeResource.getLink("AppointedTasks").getTitle().contains("[/{id}/appointed-tasks]"));
 		
 		assertTrue(employeeResource.hasLink("OrdersCreatedBy"));
-		assertTrue(employeeResource.getLink("OrdersCreatedBy").getHref().contains("/3/orders_created_by"));
-		assertTrue(employeeResource.getLink("OrdersCreatedBy").getTitle().contains("[/{id}/orders_created_by]"));
+		assertTrue(employeeResource.getLink("OrdersCreatedBy").getHref().contains("/3/orders-created-by"));
+		assertTrue(employeeResource.getLink("OrdersCreatedBy").getTitle().contains("[/{id}/orders-created-by]"));
 	}
-	
-	
 }

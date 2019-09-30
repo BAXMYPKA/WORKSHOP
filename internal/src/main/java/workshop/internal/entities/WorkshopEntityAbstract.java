@@ -1,5 +1,8 @@
 package workshop.internal.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(value = {"workshopEntityName"}, allowGetters = true)
 public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 	
 	public static String workshopEntityName;

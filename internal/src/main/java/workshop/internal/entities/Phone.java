@@ -20,7 +20,7 @@ import java.time.ZonedDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @ToString(of = {"identifier", "phone"})
-@JsonIgnoreProperties(value = {"employee", "user"})
+@JsonIgnoreProperties(value = {"employee", "user", "workshopEntityName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
@@ -73,7 +73,7 @@ public class Phone extends WorkshopEntityAbstract {
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "employee_id", referencedColumnName = "id")
 	@Valid
 	private Employee employee;

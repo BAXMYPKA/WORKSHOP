@@ -1,9 +1,6 @@
 package workshop.internal.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import workshop.internal.controllers.DepartmentsController;
-import workshop.internal.entities.*;
-import workshop.internal.services.serviceUtils.JsonServiceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +9,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
+import workshop.internal.controllers.DepartmentsController;
+import workshop.internal.entities.*;
+import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -31,6 +31,64 @@ class JsonServiceUtilsTest {
 	DepartmentsController departmentsController;
 	Position positionOne;
 	Position positionTwo;
+	
+	private static Stream<Arguments> entitiesStream() {
+		Classifier classifier = new Classifier();
+		classifier.setIdentifier(65);
+		classifier.setName("The Classifier");
+		classifier.setPrice(new BigDecimal("45.25"));
+		classifier.setCreated(ZonedDateTime.now().minusMonths(5));
+		
+		Department department = new Department();
+		department.setIdentifier(38L);
+		department.setName("The Department");
+		
+		Position position = new Position();
+		position.setIdentifier(2);
+		position.setName("The Position");
+		position.setDescription("The description");
+		position.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position.setModified(ZonedDateTime.now().minusMinutes(5));
+		
+		Order order = new Order();
+		order.setIdentifier(10);
+		order.setDescription("Order desc");
+		order.setOverallPrice(new BigDecimal("333.22"));
+		order.setCreated(ZonedDateTime.of(2019, 10, 13, 13, 45, 15, 0, ZoneId.systemDefault()));
+		order.setDeadline(ZonedDateTime.now().plusDays(10));
+		order.setModified(ZonedDateTime.now());
+		
+		Employee employee = new Employee();
+		employee.setIdentifier(23);
+		employee.setFirstName("FName");
+		employee.setLastName("LName");
+		employee.setBirthday(LocalDate.now().minusYears(45));
+		employee.setEmail("email@workshop.pro");
+		employee.setPassword("12345");
+		
+		Task task = new Task();
+		task.setIdentifier(45);
+		task.setName("Task name");
+		task.setPrice(new BigDecimal("123.98"));
+		task.setDeadline(ZonedDateTime.now().plusDays(15));
+		
+		Phone phone = new Phone();
+		phone.setIdentifier(39L);
+		phone.setName("Phone name");
+		phone.setPhone("98765");
+		
+		User user = new User();
+		user.setIdentifier(100L);
+		user.setEmail("user@workshop.pro");
+		user.setBirthday(LocalDate.now().minusYears(50));
+		user.setCreated(ZonedDateTime.now().minusMonths(3));
+		user.setModified(ZonedDateTime.now());
+		user.setFirstName("First User Name");
+		user.setPassword("54321");
+		
+		return Stream.of(Arguments.of(department), Arguments.of(position), Arguments.of(order),
+			Arguments.of(employee), Arguments.of(task), Arguments.of(phone), Arguments.of(user));
+	}
 	
 	@BeforeEach
 	public void init() {
@@ -83,15 +141,15 @@ class JsonServiceUtilsTest {
 			"\"name\":\"The Department\"," +
 			"\"positions\":null}";
 		
-		assertAll(
-			() -> assertTrue(jsonedPosition.contains("\"identifier\":2")),
-			() -> assertTrue(jsonedPosition.contains("\"name\":\"The Position One\"")),
-			() -> assertTrue(jsonedPosition.contains("\"description\":\"The description\"")),
-			() -> assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45Z\"")),
-			() -> assertTrue(jsonedPosition.contains("\"finished\":null")),
-			() -> assertFalse(jsonedPosition.contains(departmentInPosition)),
-			() -> assertFalse(jsonedPosition.contains("\"authority\":\"The Position One\""))
-		);
+		
+		assertTrue(jsonedPosition.contains("\"identifier\":222"));
+		assertTrue(jsonedPosition.contains("\"name\":\"The Position One\""));
+		assertTrue(jsonedPosition.contains("\"description\":\"The description\""));
+		assertTrue(jsonedPosition.contains("\"created\":\"2019-06-15T12:35:45Z\""));
+		assertFalse(jsonedPosition.contains(departmentInPosition));
+		assertFalse(jsonedPosition.contains("\"authority\":\"The Position One\""));
+		
+		assertFalse(jsonedPosition.contains("\"finished\":null"));
 	}
 	
 	@Test
@@ -119,8 +177,8 @@ class JsonServiceUtilsTest {
 	@ParameterizedTest
 	@MethodSource("entitiesStream")
 	@DisplayName("Every simple Entity (without deep graph) can be converted to JSON and back to the Entity" +
-		"Entities as Objects and as Jsoned Objects are save original TimeZone," +
-		"but after deserialization UTC will be returned.")
+					 "Entities as Objects and as Jsoned Objects are save original TimeZone," +
+					 "but after deserialization UTC will be returned.")
 	public void every_Entity_Can_Be_Properly_Serialized_And_Deserialized_Back(WorkshopEntity originalEntity)
 		throws IOException {
 		//GIVEN incoming Stream.of Entities from "entitiesStream" method
@@ -243,8 +301,8 @@ class JsonServiceUtilsTest {
 	
 	@Test
 	@DisplayName("ZonedDateTime has to be converted to JSON and back without issues." +
-		"JsonService saves original TimeZone but returns the UTC value!")
-	public void zonedDateTime_converts_vise_versa() throws IOException {
+					 "JsonService saves original TimeZone but returns the UTC value!")
+	public void zonedDateTime_converts_vise_versa() {
 		//GIVEN
 		positionOne = new Position();
 		positionOne.setName("PositionOne");
@@ -415,85 +473,6 @@ class JsonServiceUtilsTest {
 		);
 	}
 	
-	@Test
-	public void collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly() throws IOException {
-		
-		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from initNewEntities
-		
-		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
-		positionOne.setDepartment(department);
-		positionTwo.setDepartment(department);
-		
-		Department department1 = new Department();
-		department1.setIdentifier(100L);
-		department1.setName("The Department 1");
-		
-		Department department2 = new Department();
-		department2.setIdentifier(101L);
-		department2.setName("The Department 2");
-		
-		Position position1 = new Position();
-		position1.setIdentifier(200);
-		position1.setName("The Position 1");
-		position1.setDescription("The description 1");
-		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
-		position1.setModified(ZonedDateTime.now().minusMinutes(5));
-		
-		Position position2 = new Position();
-		position2.setIdentifier(201);
-		position2.setName("The Position 2");
-		position2.setDescription("The description 2");
-		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
-		position2.setModified(ZonedDateTime.now().minusMinutes(5));
-		
-		Position position3 = new Position();
-		position3.setIdentifier(202);
-		position3.setName("The Position 3");
-		position3.setDescription("The description 3");
-		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
-		position3.setModified(ZonedDateTime.now().minusMinutes(5));
-		
-		department1.setPositions(new HashSet<>(Arrays.asList(position1, position2)));
-		department2.setPositions(new HashSet<>(Arrays.asList(position3)));
-		position1.setDepartment(department1);
-		position2.setDepartment(department1);
-		position3.setDepartment(department2);
-		
-		//WHEN serialize and deserialize back
-		
-		String jsonDepartments = jsonServiceUtils.workshopEntityObjectsToJson(
-			new ArrayList<Department>(Arrays.asList(department, department1, department2)));
-		String jsonPositions = jsonServiceUtils.workshopEntityObjectsToJson(
-			new ArrayList<Position>(Arrays.asList(positionOne, positionTwo, position1, position2, position3)));
-		
-		System.out.println(jsonDepartments);
-		System.out.println(jsonPositions);
-		
-		List<Department> departments = Arrays.asList(
-			jsonServiceUtils.getObjectMapper().readValue(jsonDepartments, Department[].class));
-		List<Position> positions = Arrays.asList(
-			jsonServiceUtils.getObjectMapper().readValue(jsonPositions, Position[].class));
-		
-		//THEN
-		
-		assertAll(
-			() -> assertTrue(() -> departments.get(0).getIdentifier() == 1 && departments.get(0).getName().equals("The Department")),
-			() -> assertTrue(() -> departments.get(1).getIdentifier() == 100 && departments.get(1).getName().equals("The Department 1")),
-			() -> assertTrue(() -> departments.get(2).getIdentifier() == 101 && departments.get(2).getName().equals("The Department 2")),
-			() -> assertNull(departments.get(0).getPositions()),
-			() -> assertNull(departments.get(1).getPositions()),
-			() -> assertNull(departments.get(2).getPositions())
-		);
-		
-		assertAll(
-			() -> assertTrue(() -> positions.get(0).getIdentifier() == 222 && positions.get(0).getCreated().getMinute() == 35),
-			() -> assertTrue(() -> positions.get(2).getIdentifier() == 200 && positions.get(2).getDescription().equals("The description 1")),
-			() -> assertNull(positions.get(1).getDepartment()),
-			() -> assertNull(positions.get(2).getDepartment()),
-			() -> assertNull(positions.get(3).getDepartment())
-		);
-	}
-	
 /*
 	@Test
 	public void simple_WorkshopEntityResource_Should_Return_Json_With_WorkshopEntity_And_Links() throws Throwable {
@@ -605,62 +584,82 @@ class JsonServiceUtilsTest {
 	}
 */
 	
-	
-	private static Stream<Arguments> entitiesStream() {
-		Classifier classifier = new Classifier();
-		classifier.setIdentifier(65);
-		classifier.setName("The Classifier");
-		classifier.setPrice(new BigDecimal("45.25"));
-		classifier.setCreated(ZonedDateTime.now().minusMonths(5));
+	@Test
+	public void collection_Of_Linked_Entities_Serializes_And_Deserializes_Properly() throws IOException {
 		
-		Department department = new Department();
-		department.setIdentifier(38L);
-		department.setName("The Department");
+		//GIVEN a list of the same Entities as above but linked with each other. Plus Department & Positions from initNewEntities
 		
-		Position position = new Position();
-		position.setIdentifier(2);
-		position.setName("The Position");
-		position.setDescription("The description");
-		position.setCreated(ZonedDateTime.of(2019, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
-		position.setModified(ZonedDateTime.now().minusMinutes(5));
+		department.setPositions(new HashSet<>(Arrays.asList(positionOne, positionTwo)));
+		positionOne.setDepartment(department);
+		positionTwo.setDepartment(department);
 		
-		Order order = new Order();
-		order.setIdentifier(10);
-		order.setDescription("Order desc");
-		order.setOverallPrice(new BigDecimal("333.22"));
-		order.setCreated(ZonedDateTime.of(2019, 10, 13, 13, 45, 15, 0, ZoneId.systemDefault()));
-		order.setDeadline(ZonedDateTime.now().plusDays(10));
-		order.setModified(ZonedDateTime.now());
+		Department department1 = new Department();
+		department1.setIdentifier(100L);
+		department1.setName("The Department 1");
 		
-		Employee employee = new Employee();
-		employee.setIdentifier(23);
-		employee.setFirstName("FName");
-		employee.setLastName("LName");
-		employee.setBirthday(LocalDate.now().minusYears(45));
-		employee.setEmail("email@workshop.pro");
-		employee.setPassword("12345");
+		Department department2 = new Department();
+		department2.setIdentifier(101L);
+		department2.setName("The Department 2");
 		
-		Task task = new Task();
-		task.setIdentifier(45);
-		task.setName("Task name");
-		task.setPrice(new BigDecimal("123.98"));
-		task.setDeadline(ZonedDateTime.now().plusDays(15));
+		Position position1 = new Position();
+		position1.setIdentifier(200);
+		position1.setName("The Position 1");
+		position1.setDescription("The description 1");
+		position1.setCreated(ZonedDateTime.of(2017, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position1.setModified(ZonedDateTime.now().minusMinutes(5));
 		
-		Phone phone = new Phone();
-		phone.setIdentifier(39L);
-		phone.setName("Phone name");
-		phone.setPhone("98765");
+		Position position2 = new Position();
+		position2.setIdentifier(201);
+		position2.setName("The Position 2");
+		position2.setDescription("The description 2");
+		position2.setCreated(ZonedDateTime.of(2018, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position2.setModified(ZonedDateTime.now().minusMinutes(5));
 		
-		User user = new User();
-		user.setIdentifier(100L);
-		user.setEmail("user@workshop.pro");
-		user.setBirthday(LocalDate.now().minusYears(50));
-		user.setCreated(ZonedDateTime.now().minusMonths(3));
-		user.setModified(ZonedDateTime.now());
-		user.setFirstName("First User Name");
-		user.setPassword("54321");
+		Position position3 = new Position();
+		position3.setIdentifier(202);
+		position3.setName("The Position 3");
+		position3.setDescription("The description 3");
+		position3.setCreated(ZonedDateTime.of(2016, 6, 15, 12, 35, 45, 0, ZoneId.systemDefault()));
+		position3.setModified(ZonedDateTime.now().minusMinutes(5));
 		
-		return Stream.of(Arguments.of(department), Arguments.of(position), Arguments.of(order),
-			Arguments.of(employee), Arguments.of(task), Arguments.of(phone), Arguments.of(user));
+		department1.setPositions(new HashSet<>(Arrays.asList(position1, position2)));
+		department2.setPositions(new HashSet<>(Arrays.asList(position3)));
+		position1.setDepartment(department1);
+		position2.setDepartment(department1);
+		position3.setDepartment(department2);
+		
+		//WHEN serialize and deserialize back
+		
+		String jsonDepartments = jsonServiceUtils.workshopEntityObjectsToJson(
+			new ArrayList<Department>(Arrays.asList(department, department1, department2)));
+		String jsonPositions = jsonServiceUtils.workshopEntityObjectsToJson(
+			new ArrayList<Position>(Arrays.asList(positionOne, positionTwo, position1, position2, position3)));
+		
+		System.out.println(jsonDepartments);
+		System.out.println(jsonPositions);
+		
+		List<Department> departments = Arrays.asList(
+			jsonServiceUtils.getObjectMapper().readValue(jsonDepartments, Department[].class));
+		List<Position> positions = Arrays.asList(
+			jsonServiceUtils.getObjectMapper().readValue(jsonPositions, Position[].class));
+		
+		//THEN
+		
+		assertAll(
+			() -> assertTrue(() -> departments.get(0).getIdentifier() == 1 && departments.get(0).getName().equals("The Department")),
+			() -> assertTrue(() -> departments.get(1).getIdentifier() == 100 && departments.get(1).getName().equals("The Department 1")),
+			() -> assertTrue(() -> departments.get(2).getIdentifier() == 101 && departments.get(2).getName().equals("The Department 2")),
+			() -> assertNull(departments.get(0).getPositions()),
+			() -> assertNull(departments.get(1).getPositions()),
+			() -> assertNull(departments.get(2).getPositions())
+		);
+		
+		assertAll(
+			() -> assertTrue(() -> positions.get(0).getIdentifier() == 222 && positions.get(0).getCreated().getMinute() == 35),
+			() -> assertTrue(() -> positions.get(2).getIdentifier() == 200 && positions.get(2).getDescription().equals("The description 1")),
+			() -> assertNull(positions.get(1).getDepartment()),
+			() -> assertNull(positions.get(2).getDepartment()),
+			() -> assertNull(positions.get(3).getDepartment())
+		);
 	}
 }

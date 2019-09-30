@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"price", "appointedTo"})
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
-@JsonIgnoreProperties(value = {"order"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"order", "workshopEntityName"}, allowGetters = true)
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity

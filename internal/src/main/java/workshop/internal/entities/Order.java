@@ -1,6 +1,7 @@
 package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.MergingValidation;
@@ -24,6 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(callSuper = true, of = {"createdFor"})
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@JsonIgnoreProperties(value = {"workshopEntityName"})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity

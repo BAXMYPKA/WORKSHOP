@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.services.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -94,26 +95,7 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	public void departmentsService_Should_Persist_Department_With_Attached_New_Objects_Graph() {
-		//GIVEN
-		Department departmentToPersist = new Department("Department one");
-		Position positionToPersist = new Position("Position name", departmentToPersist);
-		
-		departmentToPersist.addPosition(positionToPersist);
-		
-		//WHEN
-		Department departmentPersisted = departmentsService.persistOrMergeEntity(departmentToPersist);
-		
-		//THEN
-		assertNotNull(departmentPersisted);
-		//Position has been persisted
-		assertTrue(departmentPersisted.getPositions().iterator().next().getIdentifier() > 0);
-		//Position is same
-		assertEquals(departmentPersisted.getPositions().iterator().next().getName(), positionToPersist.getName());
-	}
-	
-	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void set_New_Task_To_Classifier() {
 		//GIVEN as the Task is the owning side, we add Classifiers into the Task, not wise versa
 		Classifier classifier1 = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
@@ -147,20 +129,20 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void delete_Task_From_Classifier() {
 		//GIVEN as the Task is the owning side, we add Classifiers into the Task, not wise versa
-		Classifier classifier1 = new Classifier("Classifier 1", "", true, BigDecimal.TEN);
+		Classifier classifier1 = new Classifier("Classifier delTask 1", "", true, BigDecimal.TEN);
 		classifiersService.persistEntity(classifier1);
 		
-		Classifier classifier2 = new Classifier("Classifier 2", "", true, BigDecimal.TEN);
+		Classifier classifier2 = new Classifier("Classifier delTask 2", "", true, BigDecimal.TEN);
 		classifiersService.persistEntity(classifier2);
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
+		order.setDescription("Order delTask 1");
 		
 		Task task = new Task();
-		task.setName("Task 1");
+		task.setName("Task delTask 1");
 		
 		ordersService.persistEntity(order);
 		
@@ -192,15 +174,15 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void set_Department_To_Position_Will_Be_Updated_For_Both_of_Them() {
 		//GIVEN
-		Department department = new Department("Department 1");
+		Department department = new Department("Department depToPos 1");
 		
 		departmentsService.persistEntity(department);
 		//Only Position is updated with the Department set
 		Position position = new Position();
-		position.setName("Position 1");
+		position.setName("Position depToPos 1");
 		position.setDepartment(department);
 		positionsService.persistEntity(position);
 		
@@ -209,29 +191,29 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//THEN
 		assertEquals(1, persistedDepartment.getPositions().size());
-		assertEquals("Position 1", persistedDepartment.getPositions().iterator().next().getName());
+		assertEquals("Position depToPos 1", persistedDepartment.getPositions().iterator().next().getName());
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void update_Existed_Position_With_Another_Department_Will_Update_All_Of_Them() {
 		//GIVEN position1 and position2 are set to department1
-		Department department1 = new Department("Department 1");
-		Department department2 = new Department("Department 2");
+		Department department1 = new Department("Department update 1");
+		Department department2 = new Department("Department update 2");
 		departmentsService.persistEntities(department1, department2);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position update 1");
 		position1.setDepartment(department1);
 		
 		Position position2 = new Position();
-		position2.setName("Position 2");
+		position2.setName("Position update 2");
 		position2.setDepartment(department1);
 		
 		positionsService.persistEntities(position1, position2);
 		
 		//WHEN position2 is set to department2
-		position2.setDescription("Description 2");
+		position2.setDescription("Description update 2");
 		positionsService.updatePositionDepartment(position2, department2.getIdentifier());
 		
 		//THEN
@@ -239,73 +221,68 @@ class WorkshopEntitiesServiceAbstractIT {
 		Department department2Persisted = departmentsService.findById(department2.getIdentifier());
 		
 		assertEquals(1, department1Persisted.getPositions().size());
-		assertEquals("Position 1", department1Persisted.getPositions().iterator().next().getName());
+		assertEquals("Position update 1", department1Persisted.getPositions().iterator().next().getName());
 		assertEquals(1, department2Persisted.getPositions().size());
-		assertEquals("Position 2", department2Persisted.getPositions().iterator().next().getName());
-		assertEquals("Description 2", department2Persisted.getPositions().iterator().next().getDescription());
+		assertEquals("Position update 2", department2Persisted.getPositions().iterator().next().getName());
+		assertEquals("Description update 2", department2Persisted.getPositions().iterator().next().getDescription());
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void add_New_Phone_To_Employee_Should_Return_Both_Updated() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department newPhone 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position newPhone 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "email@pro.pro",
+		Employee employee = new Employee("FN", "LN", "12345", "email1@pro.pro",
 			LocalDate.now().minusYears(28), position1);
-		
-		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
-		
-		employee.addPhone(phone1);
-		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntity(employee);
 		
-		//WHEN
-		Employee employeePersisted = employeesService.findById(employee.getIdentifier());
-		
-		assertEquals(1, employeePersisted.getPhones().size());
-		assertEquals("Phone 1", employeePersisted.getPhones().iterator().next().getName());
+		Phone phone1 = new Phone("Phone newPhone 1", "111-111-12-115");
+		phone1.setEmployee(employee);
+		phonesService.persistEntity(phone1);
 		
 		//WHEN
-		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		Phone phone2 = new Phone("Phone newPhone 2", "111-111-12-225");
 		phonesService.addPhoneToEmployee(employee.getIdentifier(), phone2);
 		
 		//THEN
-		Employee employeeUpdated = employeesService.findById(employee.getIdentifier());
-		Phone phone2Persisted = phonesService.findById(phone2.getIdentifier());
+		Phone phone2WithEmployee = phonesService.findById(phone2.getIdentifier());
+		Employee employeeWith2Phones = employeesService.findById(employee.getIdentifier());
 		
-		assertTrue(employeeUpdated.getPhones().containsAll(Arrays.asList(phone1, phone2)));
+		assertTrue(employeeWith2Phones.getPhones().containsAll(Arrays.asList(phone1, phone2)));
 		
-		assertEquals(phone2Persisted.getEmployee(), employeeUpdated);
+		assertEquals(phone2WithEmployee.getEmployee(), employeeWith2Phones);
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void add_Existing_Phone_To_Employee_Should_Return_Both_Updated() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department existPhone 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position existPhone 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
-		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
+		Employee employee1 = new Employee("FN", "LN", "12345", "email11@pro1.pro",
 			LocalDate.now().minusYears(28), position1);
 		
-		Employee employee2 = new Employee("FN", "LN", "12345", "email@pro2.pro",
+		Employee employee2 = new Employee("FN", "LN", "12345", "email12@pro2.pro",
 			LocalDate.now().minusYears(28), position1);
 		
-		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
-		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		Phone phone1 = new Phone("Phone existPhone 1", "111-111-11-1133");
+		Phone phone2 = new Phone("Phone existPhone 2", "111-111-11-2233");
 		
 		employee1.addPhone(phone1, phone2);
 		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1, employee2);
 		
 		//WHEN
@@ -316,7 +293,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//WHEN
 		Phone phone2Persisted = phonesService.findById(phone2.getIdentifier());
-		phone2Persisted.setName("Phone 22");
+		phone2Persisted.setName("Phone existPhone 22");
 		Phone phone2Merged = phonesService.mergeEntity(phone2Persisted);
 		
 		phonesService.addPhoneToEmployee(employee2.getIdentifier(), phone2Persisted.getIdentifier());
@@ -331,60 +308,62 @@ class WorkshopEntitiesServiceAbstractIT {
 		assertEquals(1, employee2ToAssert.getPhones().size());
 		assertTrue(employee2ToAssert.getPhones().contains(phone2Merged));
 		
-		assertEquals("Phone 1", employee1ToAssert.getPhones().iterator().next().getName());
-		assertEquals("Phone 22", employee2ToAssert.getPhones().iterator().next().getName());
+		assertEquals("Phone existPhone 1", employee1ToAssert.getPhones().iterator().next().getName());
+		assertEquals("Phone existPhone 22", employee2ToAssert.getPhones().iterator().next().getName());
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void delete_Existing_Phone_From_Existing_Employee() {
 		//GIVEN
 		Department department1 = new Department("Department 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position delPhone 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
 		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
 			LocalDate.now().minusYears(28), position1);
 		
-		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
-		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		Phone phone1 = new Phone("Phone delPhone 1", "144-111-11-11");
+		Phone phone2 = new Phone("Phone delPhone 2", "144-111-11-22");
 		
 		employee1.addPhone(phone1, phone2);
 		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1);
 		
 		//WHEN
 		phonesService.deletePhoneFromEmployee(employee1.getIdentifier(), phone1.getIdentifier());
 		
-		//THEN
 		Employee employeeWithSinglePhone2 = employeesService.findById(employee1.getIdentifier());
 		
+		//THEN
 		assertEquals(1, employeeWithSinglePhone2.getPhones().size());
 		assertTrue(employeeWithSinglePhone2.getPhones().contains(phone2));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void add_New_Position_To_Existing_Employee() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department newPosn 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position newPosn 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
-		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro1.pro",
+		Employee employee1 = new Employee("FN", "LN", "12345", "email@pro21.pro",
 			LocalDate.now().minusYears(28), position1);
 		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1);
 		
 		//WHEN
 		Position position2 = new Position();
-		position2.setName("Position 2");
+		position2.setName("Position newPosn 2");
 		position2.setDepartment(department1);
 		
 		positionsService.addPositionToEmployee(employee1.getIdentifier(), position2);
@@ -403,35 +382,37 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void add_Existing_Position_To_Existing_Employee() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department existEmp 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position existEmp 1");
 		position1.setDepartment(department1);
 		
 		Position position2 = new Position();
-		position2.setName("Position 2");
+		position2.setName("Position existEmp 2");
 		position2.setDepartment(department1);
 		
-		Phone phone1 = new Phone("Phone 1", "111-111-11-11");
-		Phone phone2 = new Phone("Phone 2", "111-111-11-22");
+		positionsService.persistEntities(position1, position2);
 		
-		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+		Phone phone1 = new Phone("Phone existEmp 1", "188-111-11-11");
+		Phone phone2 = new Phone("Phone existEmp 2", "188-111-11-22");
+		
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email34@pro1.pro",
 			LocalDate.now().minusYears(28), position1);
 		employee1.setPhones(new HashSet<>(Collections.singletonList(phone1)));
 		
-		Employee employee2 = new Employee("Employee 2", "LN", "12345", "email@pro2.pro",
+		Employee employee2 = new Employee("Employee 2", "LN", "12345", "email35@pro2.pro",
 			LocalDate.now().minusYears(28), position2);
 		employee2.setPhones(new HashSet<>(Collections.singletonList(phone2)));
 		
-		position1.setEmployees(new HashSet<>(Collections.singletonList(employee1)));
-		position2.setEmployees(new HashSet<>(Collections.singletonList(employee2)));
+		employeesService.persistEntities(employee1, employee2);
 		
-		departmentsService.persistEntity(department1);
-		employeesService.persistEntities(employee1);
+		position1.setEmployees(new HashSet<>(Collections.singletonList(employee1)));
+		positionsService.mergeEntity(position1);
 		
 		//WHEN
 		positionsService.addPositionToEmployee(employee1.getIdentifier(), position2);
@@ -451,25 +432,26 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void delete_AppointedTask_From_Existing_Employee() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department delAppTask 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position delAppTask 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
-		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email87@pro1.pro",
 			LocalDate.now().minusYears(28), position1);
 		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1);
 		
 		Order order = new Order();
 		
 		Task task1 = new Task();
-		task1.setName("Task 1");
+		task1.setName("Task delAppTask 1");
 		task1.setOrder(order);
 		task1.setAppointedTo(employee1);
 		
@@ -500,32 +482,30 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void post_New_TaskCreatedBy_To_Existing_Employee() {
 		//GIVEN
-		Department department1 = new Department("Department 1");
+		Department department1 = new Department("Department newTaskCreated 1");
+		departmentsService.persistEntity(department1);
 		
 		Position position1 = new Position();
-		position1.setName("Position 1");
+		position1.setName("Position newTaskCreated 1");
 		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
 		
-		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email@pro1.pro",
+		Employee employee1 = new Employee("Employee 1", "LN", "12345", "email98@pro1.pro",
 			LocalDate.now().minusYears(28), position1);
-		
-		departmentsService.persistEntity(department1);
 		employeesService.persistEntities(employee1);
 		
 		Order order = new Order();
-		
 		ordersService.persistEntity(order);
 		
 		//WHEN
 		Employee persistedEmployee = employeesService.findById(employee1.getIdentifier());
 		Task task1 = new Task();
-		task1.setName("Task 1");
+		task1.setName("Task newTaskCreated 1");
 		task1.setOrder(order);
 		task1.setCreatedBy(persistedEmployee);
-		
 		tasksService.persistEntity(task1);
 		
 		//THEN
@@ -539,7 +519,7 @@ class WorkshopEntitiesServiceAbstractIT {
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void post_New_Phone_To_Existing_User_And_Getting_User_Again_Should_Return_User_With_Phone() {
 		//GIVEN
 		User user = new User("user@email.com");

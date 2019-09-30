@@ -38,7 +38,7 @@ public class Department extends WorkshopEntityAbstract {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_sequence")
-	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 100, allocationSize = 1)
+	@SequenceGenerator(name = "departments_sequence", schema = "INTERNAL", initialValue = 300, allocationSize = 1)
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")

@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
@@ -37,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestEntityManager
 //Add Hibernate statistics support during the tests
 @TestPropertySource(properties = {"spring.jpa.properties.hibernate.generate_statistics=true"})
+@Sql(scripts = {"classpath:testImport.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class HibernateSecondLevelCacheIT {
 	
 	@PersistenceContext
@@ -48,19 +50,24 @@ public class HibernateSecondLevelCacheIT {
 	
 	@AfterEach
 	@DisplayName("Clears all the Database, the second-level cache and Hibernate Sessions Statistics.")
-	private void tearDownDatabase() {
+	void tearDownDatabase() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		
 		entityManager.getTransaction().begin();
+		
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Task").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Order").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Phone").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Employee").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Position").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Department").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.User").executeUpdate();
+		
 		entityManager.getTransaction().commit();
 		
 		entityManager.getEntityManagerFactory().unwrap(SessionFactory.class).getStatistics().clear();
 	}
 	
 	@Test
-	@org.junit.jupiter.api.Order(1)
 	public void initTest() {
 		assertNotNull(entityManager);
 		assertNotNull(entityManagerFactory);
@@ -68,9 +75,6 @@ public class HibernateSecondLevelCacheIT {
 	
 	@Test
 	@DisplayName("Check second level cache with raw Hibernate sessions")
-	@Sql(scripts = {
-		"file:C:\\Users\\Sersus\\IdeaProjects\\WORKSHOP\\application\\src\\test\\java\\applicationTestResources\\import.sql",
-		"file:C:\\Users\\Sersus\\IdeaProjects\\WORKSHOP\\application\\src\\test\\java\\applicationTestResources\\entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Order_Works_After_Second_Transaction() {
 		//GIVEN
 		//For own non-Spring transactions we have to get a separate copy of javax EntityManager
@@ -121,7 +125,6 @@ public class HibernateSecondLevelCacheIT {
 	
 	@Test
 	@DisplayName("Check second level cache with Spring @Transactional EntityManager")
-	@Sql(scripts = {"classpath:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional() {
 		//GIVEN
 		SessionFactory sessionFactory =
@@ -156,7 +159,6 @@ public class HibernateSecondLevelCacheIT {
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3})
 	@DisplayName("Check second level cache with raw Hibernate sessions with various amount of transactions")
-	@Sql(scripts = {"classpath:entitiesCacheIT.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 	public void cache_Region_Task_Works_After_Second_Transaction(int repeat) {
 		//GIVEN unwrap underlying Hibernate SessionFactory and get Statistics
 		EntityManager entityManager = entityManagerFactory.createEntityManager();

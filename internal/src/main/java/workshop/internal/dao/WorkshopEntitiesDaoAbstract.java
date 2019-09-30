@@ -1,9 +1,5 @@
 package workshop.internal.dao;
 
-import org.springframework.http.HttpStatus;
-import workshop.internal.entities.Employee;
-import workshop.internal.entities.Trackable;
-import workshop.internal.entities.WorkshopEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +10,9 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import workshop.internal.entities.Employee;
+import workshop.internal.entities.Trackable;
+import workshop.internal.entities.WorkshopEntity;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -46,8 +45,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Slf4j
 @Repository
-public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
+public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> implements WorkshopEntitiesDaoInterface {
 	
+	/**
+	 * Automatically set from application.properties 'spring.jpa.properties.hibernate.jdbc.batch_size=2000'
+	 * Getter and setter are for the testing purposes.
+	 */
+	@Getter
+	@Setter
+	@Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
+	int batchSize;
 	@Value("${page.size.default}")
 	private int PAGE_SIZE_DEFAULT;
 	@Value("${page.size.max}")
@@ -58,21 +65,10 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	private String DEFAULT_ORDER_BY;
 	@Value("${default.order}")
 	private String DEFAULT_ORDER;
-	
 	@PersistenceContext
 	private EntityManager entityManager;
-	
 	private Class<T> entityClass;
 	private Class<K> keyClass;
-	
-	/**
-	 * Automatically set from application.properties 'spring.jpa.properties.hibernate.jdbc.batch_size=2000'
-	 * Getter and setter are for the testing purposes.
-	 */
-	@Getter
-	@Setter
-	@Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
-	int batchSize;
 	
 	/**
 	 * @param key The ID-key
@@ -292,7 +288,6 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 			}
 		}
 		entityManager.persist(entity);
-		//TODO: Unique keys violation error to be handled
 		log.info("{} has been persisted.", entity.getClass().getSimpleName());
 		return Optional.ofNullable(entityManager.find(entityClass, ((WorkshopEntity) entity).getIdentifier()));
 	}
@@ -443,6 +438,7 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 	
 	/**
 	 * Id the given ID is introduced as an WorkshopEntity in the DataBase
+	 *
 	 * @param id WorkshopEntity identifier
 	 * @return true of false
 	 * @throws IllegalArgumentException If a given 'id' parameter <= 0;
@@ -481,15 +477,13 @@ public abstract class WorkshopEntitiesDaoAbstract <T extends WorkshopEntity, K> 
 		return count;
 	}
 	
-	private Authentication getCurrentAuthentication() {
+	private Authentication getCurrentAuthentication() throws AuthenticationCredentialsNotFoundException {
 		//Authentication.getPrincipal returns either Employee or User object
-		Authentication authentication = null;
-		try {
-			authentication = SecurityContextHolder.getContext().getAuthentication();
-			log.info("Authentication={} is found", authentication.getName());
-		} catch (Exception e) {
-			throw new AuthenticationCredentialsNotFoundException("Authentication not found in the SecurityContext!", e);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null) {
+			throw new AuthenticationCredentialsNotFoundException("Authentication not found in the SecurityContext!");
 		}
+		log.info("Authentication={} is found", authentication.getName());
 		return authentication;
 	}
 	

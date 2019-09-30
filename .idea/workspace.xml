@@ -3,25 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/entitiesCacheIT.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/applicationTestResources/testImport.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PositionsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/PositionsDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PositionsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PositionsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/TasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/TasksController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Classifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -138,33 +133,34 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction">
-    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.LocalesConfigurationIT.messageSource_Should_Resolve_Test_English_Messages">
+    <configuration name="LocalesConfigurationIT.init_Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="workshop" />
+      <option name="MAIN_CLASS_NAME" value="workshop.LocalesConfigurationIT" />
+      <option name="METHOD_NAME" value="init_Test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LocalesConfigurationIT.messageSource_Should_Resolve_Test_English_Messages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
+      <option name="PACKAGE_NAME" value="workshop" />
+      <option name="MAIN_CLASS_NAME" value="workshop.LocalesConfigurationIT" />
+      <option name="METHOD_NAME" value="messageSource_Should_Resolve_Test_English_Messages" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -185,32 +181,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllerAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SubResourcesCollectionsLinksIT.employee_Phones_Should_Be_Included_As_Employee_Phones_Link" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllerAbstractIT" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.SubResourcesCollectionsLinksIT" />
+      <option name="METHOD_NAME" value="employee_Phones_Should_Be_Included_As_Employee_Phones_Link" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopControllersMethodSecurityIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopControllersMethodSecurityIT" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.SubResourcesCollectionsLinksIT" />
+      <option name="METHOD_NAME" value="user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -227,19 +225,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
       <item itemvalue="JUnit.SubResourcesCollectionsLinksIT" />
-      <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
-      <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
+      <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.employee_Phones_Should_Be_Included_As_Employee_Phones_Link" />
+      <item itemvalue="JUnit.LocalesConfigurationIT.init_Test" />
+      <item itemvalue="JUnit.LocalesConfigurationIT.messageSource_Should_Resolve_Test_English_Messages" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
-        <item itemvalue="JUnit.WorkshopControllersMethodSecurityIT" />
-        <item itemvalue="JUnit.WorkshopControllerAbstractIT" />
+        <item itemvalue="JUnit.LocalesConfigurationIT.messageSource_Should_Resolve_Test_English_Messages" />
+        <item itemvalue="JUnit.LocalesConfigurationIT.init_Test" />
         <item itemvalue="JUnit.SubResourcesCollectionsLinksIT" />
+        <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.employee_Phones_Should_Be_Included_As_Employee_Phones_Link" />
+        <item itemvalue="JUnit.SubResourcesCollectionsLinksIT.user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links" />
       </list>
     </recent_temporary>
   </component>
@@ -275,6 +273,7 @@
       <workItem from="1569583917978" duration="4764000" />
       <workItem from="1569743225444" duration="18758000" />
       <workItem from="1569771076584" duration="13415000" />
+      <workItem from="1569823648277" duration="13989000" />
     </task>
     <servers />
   </component>

@@ -48,8 +48,6 @@ class HateoasIT {
 	@Autowired
 	private PositionsService positionsService;
 	@Autowired
-	private EmployeesService employeesService;
-	@Autowired
 	private MockMvc mockMvc;
 	private Department departmentOne;
 	private Position positionOne;

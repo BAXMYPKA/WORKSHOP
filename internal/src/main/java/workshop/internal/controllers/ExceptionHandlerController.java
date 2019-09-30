@@ -93,7 +93,6 @@ public class ExceptionHandlerController {
 	public ResponseEntity<String> authenticationFailure(Exception ex) {
 		log.info(ex.getMessage());
 		return getResponseEntityWithErrorMessage(HttpStatus.UNAUTHORIZED, ex.getMessage());
-		//TODO: to manage the translation for exceptions messages
 	}
 	
 	/**

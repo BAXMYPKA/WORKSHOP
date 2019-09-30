@@ -1,9 +1,6 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.DepartmentsController;
-import workshop.internal.controllers.OrdersController;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.controllers.DepartmentsController;
+import workshop.internal.controllers.OrdersController;
 import workshop.internal.entities.*;
 import workshop.internal.services.*;
 
@@ -26,6 +25,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -53,6 +53,8 @@ class SubResourcesCollectionsLinksIT {
 	@Autowired
 	UsersService usersService;
 	@Autowired
+	WorkshopEntityTypesService workshopEntityTypesService;
+	@Autowired
 	DepartmentsController departmentsController;
 	@Autowired
 	OrdersController ordersController;
@@ -64,20 +66,22 @@ class SubResourcesCollectionsLinksIT {
 	}
 	
 	@Test
-	@Transactional
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void department_Resource_Should_Contain_Self_Link_And_Its_Positions_Link() throws Exception {
 		//GIVEN
-		Department department1 = new Department("Department 1");
-		Position position1 = new Position("Position 1", department1);
-		department1.addPosition(position1);
+		List<Department> allEntities1 = departmentsService.findAllEntities(100, 0, null, null);
+		List<WorkshopEntityType> allEntities = workshopEntityTypesService.findAllEntities(100, 0, null, null);
 		
-		Department department1Persisted = departmentsService.persistEntity(department1);
-		long departmentId = department1Persisted.getIdentifier();
+		Department department = new Department("Department res 1");
+		departmentsService.persistEntity(department);
 		
-		departmentsController.setDEFAULT_PAGE_SIZE(2);
+		Position position = new Position("Position res 1", department);
+		positionsService.persistEntity(position);
+		
+		long departmentId = department.getIdentifier();
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request("GET",
-			URI.create("/workshop/internal/departments/" + departmentId));
+			URI.create("/internal/departments/" + departmentId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
@@ -94,30 +98,30 @@ class SubResourcesCollectionsLinksIT {
 				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")));
 	}
 	
-	@RepeatedTest(3)
-	@Transactional
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void departments_Positions_FirstPage_Should_Be_Returned_As_Sorted_By_Name_Order_Desc_Paged_Collection()
 		throws Exception {
 		//GIVEN 9 Positions, 2 Items pageSize for 5 pages
-		Department department1 = new Department("Department 1");
-		Position position1 = new Position("Position 1", department1);
-		Position position2 = new Position("Position 2", department1);
-		Position position3 = new Position("Position 3", department1);
-		Position position4 = new Position("Position 4", department1);
-		Position position5 = new Position("Position 5", department1);
-		Position position6 = new Position("Position 6", department1);
-		Position position7 = new Position("Position 7", department1);
-		Position position8 = new Position("Position 8", department1);
-		Position position9 = new Position("Position 9", department1);
-		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+		Department department = new Department("Department firstPage 1");
+		departmentsService.persistEntity(department);
+		
+		Position position1 = new Position("Position firstPage 1", department);
+		Position position2 = new Position("Position firstPage 2", department);
+		Position position3 = new Position("Position firstPage 3", department);
+		Position position4 = new Position("Position firstPage 4", department);
+		Position position5 = new Position("Position firstPage 5", department);
+		Position position6 = new Position("Position firstPage 6", department);
+		Position position7 = new Position("Position firstPage 7", department);
+		Position position8 = new Position("Position firstPage 8", department);
+		Position position9 = new Position("Position firstPage 9", department);
+		positionsService.persistEntities(position1, position2, position3, position4, position5, position6, position7,
 			position8, position9);
 		
-		Department department1Persisted = departmentsService.persistEntity(department1);
-		
-		long departmentId = department1Persisted.getIdentifier();
+		long departmentId = department.getIdentifier();
 		
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/workshop/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2"));
+			URI.create("/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -125,40 +129,41 @@ class SubResourcesCollectionsLinksIT {
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Position 9\"")))
+				Matchers.containsString("\"name\":\"Position firstPage 9\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Position 8\"")))
+				Matchers.containsString("\"name\":\"Position firstPage 8\"")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
-				Matchers.containsString("\"name\":\"Position 7\""))))
+				Matchers.containsString("\"name\":\"Position firstPage 7\""))))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
-				Matchers.containsString("\"name\":\"Position 1\""))));
+				Matchers.containsString("\"name\":\"Position firstPage 1\""))));
 	}
 	
-	@RepeatedTest(3)
+	@Test
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	@Transactional
 	public void departments_Positions_SecondPage_Should_Be_Returned_With_Prev_Next_First_Last_Pages_Links()
 		throws Exception {
 		//GIVEN 9 Positions, 2 Items pageSize for 5 pages
-		Department department1 = new Department("Department 1");
-		Position position1 = new Position("Position 1", department1);
-		Position position2 = new Position("Position 2", department1);
-		Position position3 = new Position("Position 3", department1);
-		Position position4 = new Position("Position 4", department1);
-		Position position5 = new Position("Position 5", department1);
-		Position position6 = new Position("Position 6", department1);
-		Position position7 = new Position("Position 7", department1);
-		Position position8 = new Position("Position 8", department1);
-		Position position9 = new Position("Position 9", department1);
-		department1.addPosition(position1, position2, position3, position4, position5, position6, position7,
+		Department department = new Department("Department secPage 1");
+		departmentsService.persistEntity(department);
+		
+		Position position1 = new Position("Position secPage 1", department);
+		Position position2 = new Position("Position secPage 2", department);
+		Position position3 = new Position("Position secPage 3", department);
+		Position position4 = new Position("Position secPage 4", department);
+		Position position5 = new Position("Position secPage 5", department);
+		Position position6 = new Position("Position secPage 6", department);
+		Position position7 = new Position("Position secPage 7", department);
+		Position position8 = new Position("Position secPage 8", department);
+		Position position9 = new Position("Position secPage 9", department);
+		positionsService.persistEntities(position1, position2, position3, position4, position5, position6, position7,
 			position8, position9);
 		
-		Department department1Persisted = departmentsService.persistEntity(department1);
-		
-		long departmentId = department1Persisted.getIdentifier();
+		long departmentId = department.getIdentifier();
 		
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/workshop/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2&pageNum=2"));
+			URI.create("/internal/departments/" + departmentId + "/positions?order-by=name&order=desc&pageSize=2&pageNum=2"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -166,9 +171,9 @@ class SubResourcesCollectionsLinksIT {
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Position 7\"")))
+				Matchers.containsString("\"name\":\"Position secPage 7\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Position 6\"")))
+				Matchers.containsString("\"name\":\"Position secPage 6\"")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.containsString("\"rel\":\"previousPage\"")))
@@ -188,13 +193,13 @@ class SubResourcesCollectionsLinksIT {
 				Matchers.containsString("\"href\":\"http://localhost/internal/departments/" + departmentId + "/positions")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
-				Matchers.containsString("\"name\":\"Position 9\""))))
+				Matchers.containsString("\"name\":\"Position secPage 9\""))))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.not(
-				Matchers.containsString("\"name\":\"Position 1\""))));
+				Matchers.containsString("\"name\":\"Position secPage 1\""))));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void order_Tasks_Should_Be_Returned() throws Exception {
 		//GIVEN
 		Order order = new Order();
@@ -204,35 +209,33 @@ class SubResourcesCollectionsLinksIT {
 		order = ordersService.persistEntity(order);
 		
 		Classifier classifier = new Classifier();
-		classifier.setName("Classifier 1");
+		classifier.setName("Classifier ordTask 1");
 		
 		classifier = classifiersService.persistEntity(classifier);
 		
 		Task task1 = new Task();
-		task1.setName("Task 1");
+		task1.setName("Task ordTask 1");
 		task1.setOrder(order);
 		task1.addClassifier(classifier);
 		
 		Task task2 = new Task();
-		task2.setName("Task 2");
+		task2.setName("Task ordTask 2");
 		task2.setOrder(order);
 		task2.addClassifier(classifier);
 		
 		Task task3 = new Task();
-		task3.setName("Task 3");
+		task3.setName("Task ordTask 3");
 		task3.setOrder(order);
 		task3.addClassifier(classifier);
 		
-		Task persistedTask1 = tasksService.persistEntity(task1);
-		Task persistedTask2 = tasksService.persistEntity(task2);
-		Task persistedTask3 = tasksService.persistEntity(task3);
-		long task3Identifier = persistedTask3.getIdentifier();
+		tasksService.persistEntities(task1, task2, task3);
 		
-		
+		long task3Identifier = task3.getIdentifier();
 		long orderId = order.getIdentifier();
+		
 		//PageSize=2 of 3 Tasks total
 		MockHttpServletRequestBuilder sortByNameDescRequest = MockMvcRequestBuilders.request("GET",
-			URI.create("/workshop/internal/orders/" + orderId + "/tasks?order-by=name&order=asc&pageSize=2&pageNum=1"));
+			URI.create("/internal/orders/" + orderId + "/tasks?order-by=name&order=asc&pageSize=2&pageNum=1"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(sortByNameDescRequest);
@@ -240,500 +243,434 @@ class SubResourcesCollectionsLinksIT {
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Task 1\"")))
+				Matchers.containsString("\"name\":\"Task ordTask 1\"")))
 			.andExpect(MockMvcResultMatchers.content().string(
-				Matchers.containsString("\"name\":\"Task 2\"")))
+				Matchers.containsString("\"name\":\"Task ordTask 2\"")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(
 				Matchers.not(Matchers.containsString("\"identifier\":\"" + task3Identifier + "\""))));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
-	public void employee_Phones_Should_Be_Included_With_Self_Links() throws Exception {
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
+	public void employee_Phones_Should_Be_Included_As_Employee_Phones_Link() throws Exception {
 		//GIVEN an Employee with Phones
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department phone 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position phone 1", department);
+		positionsService.persistEntity(position);
 		
-		Phone phone1 = new Phone("Home", "8-911-111-11-11");
-		Phone phone2 = new Phone("Home2", "8-911-111-11-12");
-		Phone phone3 = new Phone("Work", "8-911-111-11-13");
+		Phone phone1 = new Phone("Home", "8-911-111-11-113");
+		Phone phone2 = new Phone("Home2", "8-911-111-11-123");
+		Phone phone3 = new Phone("Work", "8-911-111-11-133");
 		
 		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
-		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+			LocalDate.now().minusYears(55), position);
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		phone1.setEmployee(employee);
 		phone2.setEmployee(employee);
 		phone3.setEmployee(employee);
-		long phone1Id = phonesService.persistEntity(phone1).getIdentifier();
-		long phone2Id = phonesService.persistEntity(phone2).getIdentifier();
-		long phone3Id = phonesService.persistEntity(phone3).getIdentifier();
-		
-		employee.setPhones(new HashSet<>(Arrays.asList(phone1, phone2, phone3)));
-		
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId));
+			"GET", URI.create("/internal/employees/" + employeeId));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-11")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-12")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("8-911-111-11-13")))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/phones/" + phone1Id)))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/phones/" + phone2Id)))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/phones/" + phone3Id)));
+				"\"rel\":\"Phones\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/phones\"")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void employee_AppointedTasks_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN an Employee with 3 appointed Tasks
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department appTask 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position appTask 1", department);
+		positionsService.persistEntity(position);
 		
 		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
+			LocalDate.now().minusYears(55), position);
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
-		Order persistedOrder = ordersService.persistEntity(order);
+		order.setDescription("Order appTask 1");
+		ordersService.persistEntity(order);
 		
-		Task task1 = new Task();
-		task1.setName("Task 1");
-		task1.setAppointedTo(employeePersisted);
-		task1.setOrder(persistedOrder);
-		Task persistedTask1 = tasksService.persistEntity(task1);
+		Task task1 = new Task("Task appTask 1", order);
+		task1.setAppointedTo(employee);
 		
-		Task task2 = new Task();
-		task2.setName("Task 2");
-		task2.setAppointedTo(employeePersisted);
-		task2.setOrder(persistedOrder);
-		Task persistedTask2 = tasksService.persistEntity(task2);
+		Task task2 = new Task("Task appTask 2", order);
+		task2.setAppointedTo(employee);
 		
-		Task task3 = new Task();
-		task3.setName("Task 3");
-		task3.setAppointedTo(employeePersisted);
-		task3.setOrder(persistedOrder);
-		Task persistedTask3 = tasksService.persistEntity(task3);
+		Task task3 = new Task("Task appTask 3", order);
+		task3.setAppointedTo(employee);
+		
+		tasksService.persistEntities(task1, task2, task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/appointed_tasks"));
+			"GET", URI.create("/internal/employees/" + employeeId + "/appointed-tasks"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task appTask 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task appTask 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task appTask 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task2.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task3.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/101/appointed_tasks")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/appointed-tasks")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
 	public void employee_TasksModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN an Employee with 3 appointed Tasks
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department taskMod 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position taskMod 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
+		Employee employee = new Employee("FN", "LN", "12345", "empl@workshop.pro",
+			LocalDate.now().minusYears(55), position);
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
-		Order persistedOrder = ordersService.persistEntity(order);
+		order.setDescription("Order taskMod 1");
+		ordersService.persistEntity(order);
 		
-		Task task1 = new Task();
-		task1.setName("Task 1");
-		task1.setAppointedTo(employeePersisted);
-		task1.setModifiedBy(employeePersisted);
-		task1.setOrder(persistedOrder);
-		Task persistedTask1 = tasksService.persistEntity(task1);
+		Task task1 = new Task("Task taskMod 1", order);
+		task1.setAppointedTo(employee);
+		task1.setModifiedBy(employee);
 		
-		Task task2 = new Task();
-		task2.setName("Task 2");
-		task2.setAppointedTo(employeePersisted);
-		task2.setModifiedBy(employeePersisted);
-		task2.setOrder(persistedOrder);
-		Task persistedTask2 = tasksService.persistEntity(task2);
+		Task task2 = new Task("Task taskMod 2", order);
+		task2.setAppointedTo(employee);
+		task2.setModifiedBy(employee);
 		
-		Task task3 = new Task();
-		task3.setName("Task 3");
-		task3.setAppointedTo(employeePersisted);
-		task3.setModifiedBy(employeePersisted);
-		task3.setOrder(persistedOrder);
-		Task persistedTask3 = tasksService.persistEntity(task3);
+		Task task3 = new Task("Task taskMod 3", order);
+		task3.setAppointedTo(employee);
+		task3.setModifiedBy(employee);
+		
+		tasksService.persistEntities(task1, task2, task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/tasks_modified_by"));
+			"GET", URI.create("/internal/employees/" + employeeId + "/tasks-modified-by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskMod 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskMod 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskMod 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task1.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/101/tasks_modified_by")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/tasks-modified-by")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void employee_TasksCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN an Employee with 3 appointed Tasks
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department taskCreated 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position taskCreated 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
+		Employee employee = new Employee("FN", "LN", "12345", "emplo@workshop.pro",
+			LocalDate.now().minusYears(55), position);
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
-		Order persistedOrder = ordersService.persistEntity(order);
+		order.setDescription("Order taskCreated 1");
+		ordersService.persistEntity(order);
 		
-		Task task1 = new Task();
-		task1.setName("Task 1");
-		task1.setCreatedBy(employeePersisted);
-		task1.setOrder(persistedOrder);
-		Task persistedTask1 = tasksService.persistEntity(task1);
+		Task task1 = new Task("Task taskCreated 1", order);
+		task1.setCreatedBy(employee);
+		task1.setOrder(order);
 		
-		Task task2 = new Task();
-		task2.setName("Task 2");
-		task2.setCreatedBy(employeePersisted);
-		task2.setOrder(persistedOrder);
-		Task persistedTask2 = tasksService.persistEntity(task2);
+		Task task2 = new Task("Task taskCreated 2", order);
+		task2.setCreatedBy(employee);
+		task2.setOrder(order);
 		
-		Task task3 = new Task();
-		task3.setName("Task 3");
-		task3.setCreatedBy(employeePersisted);
-		task3.setOrder(persistedOrder);
-		Task persistedTask3 = tasksService.persistEntity(task3);
+		Task task3 = new Task("Task taskCreated 3", order);
+		task3.setCreatedBy(employee);
+		task3.setOrder(order);
+		
+		tasksService.persistEntities(task1, task2, task3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/tasks_created_by"));
+			"GET", URI.create("/internal/employees/" + employeeId + "/tasks-created-by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskCreated 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskCreated 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Task taskCreated 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task2.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/tasks/" + persistedTask3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/tasks/" + task3.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/101/tasks_created_by")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/tasks-created-by")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void employee_OrdersModifiedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN an Employee with 3 appointed Tasks
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department orderMod 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position orderMod 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
+		Employee employee = new Employee("FN", "LN", "12345", "employ@workshop.pro",
+			LocalDate.now().minusYears(55), position);
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		Order order1 = new Order();
-		order1.setDescription("Order 1");
+		order1.setDescription("Order orderMod 1");
 		order1.setModifiedBy(employee);
-		Order persistedOrder1 = ordersService.persistEntity(order1);
 		
 		Order order2 = new Order();
 		order2.setModifiedBy(employee);
-		order2.setDescription("Order 2");
-		Order persistedOrder2 = ordersService.persistEntity(order2);
+		order2.setDescription("Order orderMod 2");
 		
 		Order order3 = new Order();
-		order3.setDescription("Order 3");
+		order3.setDescription("Order orderMod 3");
 		order3.setModifiedBy(employee);
-		Order persistedOrder3 = ordersService.persistEntity(order3);
 		
+		ordersService.persistEntities(order1, order2, order3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/orders_modified_by"));
+			"GET", URI.create("/internal/employees/" + employeeId + "/orders-modified-by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order orderMod 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order orderMod 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order orderMod 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order2.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order3.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/101/orders_modified_by")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/orders-modified-by")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void employee_OrdersCreatedBy_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN an Employee with 3 appointed Tasks
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department ordCreatedBy 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position ordCreatedBy 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
+		Employee employee = new Employee("FN", "LN", "12345", "emp22@workshop.pro",
+			LocalDate.now().minusYears(55), position);
 		
-		Employee employeePersisted = employeesService.persistEntity(employee);
-		long employeeId = employeePersisted.getIdentifier();
+		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
 		Order order1 = new Order();
-		order1.setDescription("Order 1");
+		order1.setDescription("Order ordCreatedBy 1");
 		order1.setCreatedBy(employee);
-		Order persistedOrder1 = ordersService.persistEntity(order1);
 		
 		Order order2 = new Order();
 		order2.setCreatedBy(employee);
-		order2.setDescription("Order 2");
-		Order persistedOrder2 = ordersService.persistEntity(order2);
+		order2.setDescription("Order ordCreatedBy 2");
 		
 		Order order3 = new Order();
-		order3.setDescription("Order 3");
+		order3.setDescription("Order ordCreatedBy 3");
 		order3.setCreatedBy(employee);
-		Order persistedOrder3 = ordersService.persistEntity(order3);
-		
+		ordersService.persistEntities(order1, order2, order3);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/employees/" + employeeId+"/orders_created_by"));
+			"GET", URI.create("/internal/employees/" + employeeId + "/orders-created-by"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order ordCreatedBy 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order ordCreatedBy 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order ordCreatedBy 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order2.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order3.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/101/orders_created_by")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/employees/" + employeeId + "/orders-created-by")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void task_Classifiers_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department taskClass 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position taskClass 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
-		
-		Employee employeePersisted = employeesService.persistEntity(employee);
+		Employee employee = new Employee("FN", "LN", "12345", "emp223@workshop.pro",
+			LocalDate.now().minusYears(55), position);
+		employeesService.persistEntity(employee);
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
-		Order persistedOrder = ordersService.persistEntity(order);
-		
-		Task task1 = new Task();
-		task1.setName("Task 1");
-		task1.setCreatedBy(employeePersisted);
-		task1.setOrder(persistedOrder);
+		order.setDescription("Order taskClass 1");
+		ordersService.persistEntity(order);
 		
 		Classifier classifier1 = new Classifier();
-		classifier1.setName("Classifier 1");
-		classifier1.addTask(task1);
+		classifier1.setName("Classifier taskClass 1");
 		
 		Classifier classifier2 = new Classifier();
-		classifier2.setName("Classifier 2");
-		classifier2.addTask(task1);
+		classifier2.setName("Classifier taskClass 2");
 		
 		Classifier classifier3 = new Classifier();
-		classifier3.setName("Classifier 3");
-		classifier3.addTask(task1);
+		classifier3.setName("Classifier taskClass 3");
+		classifiersService.persistEntities(classifier1, classifier2, classifier3);
 		
-		Classifier persistedClassifier1 = classifiersService.persistEntity(classifier1);
-		Classifier persistedClassifier2 = classifiersService.persistEntity(classifier2);
-		Classifier persistedClassifier3 = classifiersService.persistEntity(classifier3);
-		
-		task1.setClassifiers(new HashSet<>(Arrays.asList(persistedClassifier1, persistedClassifier2, persistedClassifier3)));
-		Task persistedTask1 = tasksService.persistEntity(task1);
+		Task task = new Task("Task taskClass 1", order);
+		task.setCreatedBy(employee);
+		task.addClassifier(classifier1, classifier2, classifier3);
+		tasksService.persistEntity(task);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/tasks/" + task1.getIdentifier()+"/classifiers"));
+			"GET", URI.create("/internal/tasks/" + task.getIdentifier() + "/classifiers"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier 2")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier 3")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier taskClass 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier taskClass 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Classifier taskClass 3")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/classifiers/" + persistedClassifier1.getIdentifier())))
+				"\"href\":\"http://localhost/internal/classifiers/" + classifier1.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/classifiers/" + persistedClassifier2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/classifiers/" + classifier2.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/classifiers/" + persistedClassifier3.getIdentifier())))
+				"\"href\":\"http://localhost/internal/classifiers/" + classifier3.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/tasks/"+task1.getIdentifier()+"/classifiers")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/tasks/" + task.getIdentifier() + "/classifiers")));
 	}
 	
 	@Test
-	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"Admin"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
 	public void user_OrdersCreatedFor_Should_Be_Pageable_Included_With_Self_And_Navigation_Links() throws Exception {
 		//GIVEN
-		Department department = new Department("Department 1");
-		Department departmentPersisted = departmentsService.persistEntity(department);
+		Department department = new Department("Department ordCreatedFor 1");
+		departmentsService.persistEntity(department);
 		
-		Position position = new Position("Position 1", departmentPersisted);
-		Position positionPersisted = positionsService.persistEntity(position);
+		Position position = new Position("Position ordCreatedFor 1", department);
+		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
-			LocalDate.now().minusYears(55), positionPersisted);
-		
-		Employee employeePersisted = employeesService.persistEntity(employee);
+		Employee employee = new Employee("FN", "LN", "12345", "emp225@workshop.pro",
+			LocalDate.now().minusYears(55), position);
+		employeesService.persistEntity(employee);
 		
 		User user = new User();
 		user.setFirstName("UserFN");
 		user.setEmail("user@workshop.pro");
-		User userPersisted = usersService.persistEntity(user);
+		usersService.persistEntity(user);
 		
 		Order order = new Order();
-		order.setDescription("Order 1");
-		order.setCreatedFor(userPersisted);
-		Order persistedOrder = ordersService.persistEntity(order);
+		order.setDescription("Order ordCreatedFor 1");
+		order.setCreatedFor(user);
 		
 		Order order2 = new Order();
-		order2.setDescription("Order 2");
-		order2.setCreatedFor(userPersisted);
-		Order persistedOrder2 = ordersService.persistEntity(order2);
+		order2.setDescription("Order ordCreatedFor 2");
+		order2.setCreatedFor(user);
 		
-		Task task1 = new Task();
-		task1.setName("Task 1");
-		task1.setCreatedBy(employeePersisted);
-		task1.setOrder(persistedOrder);
+		ordersService.persistEntities(order, order2);
 		
 		Classifier classifier1 = new Classifier();
-		classifier1.setName("Classifier 1");
-		classifier1.addTask(task1);
+		classifier1.setName("Classifier ordCreatedFor 1");
 		
 		Classifier classifier2 = new Classifier();
-		classifier2.setName("Classifier 2");
-		classifier2.addTask(task1);
+		classifier2.setName("Classifier ordCreatedFor 2");
 		
 		Classifier classifier3 = new Classifier();
-		classifier3.setName("Classifier 3");
-		classifier3.addTask(task1);
+		classifier3.setName("Classifier ordCreatedFor 3");
 		
-		Classifier persistedClassifier1 = classifiersService.persistEntity(classifier1);
-		Classifier persistedClassifier2 = classifiersService.persistEntity(classifier2);
-		Classifier persistedClassifier3 = classifiersService.persistEntity(classifier3);
+		classifiersService.persistEntities(classifier1, classifier2, classifier3);
 		
-		task1.setClassifiers(new HashSet<>(Arrays.asList(persistedClassifier1, persistedClassifier2, persistedClassifier3)));
-		Task persistedTask1 = tasksService.persistEntity(task1);
-		
-		user.setOrders(Arrays.asList(order, order2));
+		Task task = new Task("Task ordCreatedFor 1", order);
+		task.setCreatedBy(employee);
+		task.setClassifiers(new HashSet<>(Arrays.asList(classifier1, classifier2, classifier3)));
+		tasksService.persistEntity(task);
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.request(
-			"GET", URI.create("/workshop/internal/users/" + user.getIdentifier()+"/orders"));
+			"GET", URI.create("/internal/users/" + user.getIdentifier() + "/orders"));
 		
 		//WHEN
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN
 		resultActions.andDo(MockMvcResultHandlers.print())
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 1")))
-			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order 2")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order ordCreatedFor 1")))
+			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Order ordCreatedFor 2")))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order.getIdentifier())))
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"href\":\"http://localhost/internal/orders/" + persistedOrder2.getIdentifier())))
+				"\"href\":\"http://localhost/internal/orders/" + order2.getIdentifier())))
 			
 			.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(
-				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/users/"+userPersisted.getIdentifier()+"/orders")));
+				"\"rel\":\"currentPage\",\"href\":\"http://localhost/internal/users/" + user.getIdentifier() + "/orders")));
 	}
-	
-	
 }

@@ -46,8 +46,6 @@ class LocalesConfigurationIT {
 	private MessageSource messageSource;
 	@Autowired
 	private MockMvc mockMvc;
-	@Autowired
-	private LoginController loginController;
 	
 	@BeforeEach
 	public void settingUp() {
@@ -56,7 +54,6 @@ class LocalesConfigurationIT {
 	}
 	
 	@Test
-	@Order(1)
 	public void init_Test() {
 		assertNotNull(messageSource);
 		assertNotNull(localeResolver);

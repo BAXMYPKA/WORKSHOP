@@ -208,8 +208,11 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 		Task task = getWorkshopEntitiesService().findById(id);
 		task.addClassifier(classifier);
 		getWorkshopEntitiesService().mergeEntity(task);
-		classifier.addTask(task); //Just to be fulfilled before sending back
-		
+		if (classifier.getTasks() == null) { //Just to be fulfilled before sending back
+			classifier.setTasks(new HashSet<>(Collections.singletonList(task)));
+		} else {
+			classifier.getTasks().add(task);
+		}
 		Resource<Classifier> classifierResource = classifiersResourceAssembler.toResource(classifier);
 		String jsonClassifierResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierResource);
 		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassifierResource);
@@ -235,8 +238,11 @@ public class TasksController extends WorkshopControllerAbstract<Task> {
 		Task task = getWorkshopEntitiesService().findById(id);
 		task.addClassifier(classifier);
 		getWorkshopEntitiesService().mergeEntity(task);
-		classifier.addTask(task); //Just to be fulfilled before sending back
-		
+		if (classifier.getTasks() == null) { //Just to be fulfilled before sending back
+			classifier.setTasks(new HashSet<>(Collections.singletonList(task)));
+		} else {
+			classifier.getTasks().add(task);
+		}
 		Resource<Classifier> classifierResource = classifiersResourceAssembler.toResource(classifier);
 		String jsonClassifierResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierResource);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(jsonClassifierResource);

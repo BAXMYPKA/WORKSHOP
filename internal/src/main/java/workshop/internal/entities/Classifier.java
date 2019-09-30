@@ -75,6 +75,7 @@ public class Classifier extends Trackable implements Serializable {
 	@ManyToMany(mappedBy = "classifiers", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<@Valid Task> tasks;
 	
+/*
 	public void addTask(Task... tasks) {
 		if (tasks == null) {
 			throw new IllegalArgumentException("Task varargs cannot be null!");
@@ -84,6 +85,7 @@ public class Classifier extends Trackable implements Serializable {
 		}
 		this.tasks.addAll(Arrays.asList(tasks));
 	}
+*/
 	
 	@Builder
 	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")

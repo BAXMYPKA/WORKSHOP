@@ -46,10 +46,10 @@ class JwtAuthenticationFilterTest {
 	@InjectMocks
 	JwtAuthenticationFilter jwtAuthenticationFilter;
 	//Valid cookie name
-	String authCookieName = "workshopAuthentication";
-	String authCookieJwtValue = "header.claims.signature";
+	private String authCookieName = "workshopAuthentication";
+	private String authCookieJwtValue = "header.claims.signature";
 	//Valid email from the JWT
-	String validEmail = "workshopEmployee";
+	private String validEmail = "workshopEmployee";
 	
 	@BeforeEach
 	public void init() {
@@ -58,11 +58,12 @@ class JwtAuthenticationFilterTest {
 		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
 		jwtAuthenticationFilter.setRememberMeServices(rememberMeServices);
+		jwtAuthenticationFilter.setAuthenticationCookieName(authCookieName);
 		
 		//TODO: test cookieUtils not return null with this name
 		
 		//CookieUtils must return that valid auth cookie name
-		Mockito.lenient().when(cookieUtils.getAuthenticationCookieName()).thenReturn(authCookieName);
+//		Mockito.lenient().when(cookieUtils.getAuthenticationCookieName()).thenReturn(authCookieName);
 		
 		//Request must contain a valid authentication cookie with a valid name
 		request = Mockito.mock(HttpServletRequestWrapper.class);
@@ -85,7 +86,7 @@ class JwtAuthenticationFilterTest {
 	@Test
 	public void valid_JWT_with_valid_email_will_invoke_successfulAuthentication_and_further_filterChain()
 		throws IOException, ServletException {
-		//GIVEN all inputs are valid from initNewEntities method
+		//GIVEN all inputs are valid from init method
 		
 		//WHEN
 		jwtAuthenticationFilter.doFilter(request, response, filterChain);
@@ -97,7 +98,7 @@ class JwtAuthenticationFilterTest {
 	@Test
 	public void not_valid_cookie_name_invokes_only_filterChain_in_doFiller() throws IOException, ServletException {
 		//GIVEN a different authentication cookie name
-		Mockito.when(cookieUtils.getAuthenticationCookieName()).thenReturn("NotValidName");
+		jwtAuthenticationFilter.setAuthenticationCookieName("NotValidName");
 		
 		//WHEN
 		jwtAuthenticationFilter.doFilter(request, response, filterChain);

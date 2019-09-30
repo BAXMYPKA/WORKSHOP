@@ -45,10 +45,11 @@ class LoginAuthenticationFilterTest {
 	@InjectMocks
 	LoginAuthenticationFilter loginAuthenticationFilter;
 	
-	List<GrantedAuthority> authorities;
-	Authentication authentication;
-	String email = "email@workthop.pro";
-	String password = "123";
+	private List<GrantedAuthority> authorities;
+	private Authentication authentication;
+	private String email = "email@workthop.pro";
+	private String password = "123";
+	private String authenticationCookieName = "workshopJwt";
 	
 	
 	@BeforeEach
@@ -72,7 +73,7 @@ class LoginAuthenticationFilterTest {
 		
 		Mockito.lenient().when(authenticationManager.authenticate(Mockito.any(Authentication.class))).thenReturn(authentication);
 		
-		Mockito.lenient().when(cookieUtils.getAuthenticationCookieName()).thenReturn("workshopJwt");
+		cookieUtils.setAuthenticationCookieName(authenticationCookieName);
 		
 		loginAuthenticationFilter.setRequiresAuthenticationRequestMatcher(matcher);
 		loginAuthenticationFilter.setAuthenticationManager(authenticationManager);

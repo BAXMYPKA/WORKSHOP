@@ -18,6 +18,7 @@ import workshop.internal.dao.DepartmentsDao;
 import workshop.internal.entities.Department;
 import workshop.internal.services.DepartmentsService;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -37,9 +38,9 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 	public void init() {
 		Mockito.when(departmentsDao.getEntityClass()).thenReturn(Department.class);
 		departmentsService = new DepartmentsService(departmentsDao);
+		departmentsService.setDepartmentsDao(departmentsDao);
+		departmentsService.setDEFAULT_ORDER_BY("created");
 
-//		Mockito.when(messageSource.getMessage(Mockito.anyString(), Mockito.any(Object[].class), Mockito.any(Locale.class)))
-//			.thenReturn("MESSAGE");
 		departmentsService.setMessageSource(messageSource);
 	}
 	
@@ -70,9 +71,11 @@ class WorkshopEntitiesServiceAbstractImplementationsTest {
 		ArgumentCaptor<Sort.Direction> capturedDirection = ArgumentCaptor.forClass(Sort.Direction.class);
 		
 		Mockito.when(departmentsDao.findAllEntities(
-			capturedPageSize.capture(), capturedPageNum.capture(), capturedOrderBy.capture(), capturedDirection.capture()))
-			.thenReturn(Optional.of(Collections.singletonList(new Department("Department"))));
-		
+			capturedPageSize.capture(),
+			capturedPageNum.capture(),
+			capturedOrderBy.capture(),
+			capturedDirection.capture())).thenReturn(Optional.of(Collections.singletonList(new Department("Department"))));
+
 		//WHEN
 		Page<Department> emptyAllEntities = departmentsService.findAllEntities(pageable);
 		

@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class CookieUtilsTest {
 	
+	private final String domainName = "workshop.pro";
+	private final String internalPathName = "/internal";
+	
 	@Mock
 	private WebSecurityConfiguration webSecurityConfiguration;
 	@Mock
@@ -27,8 +30,8 @@ class CookieUtilsTest {
 	
 	@BeforeEach
 	public void init() {
-		Mockito.lenient().when(webSecurityConfiguration.getDomainName()).thenReturn("workshop.pro");
-		Mockito.lenient().when(webSecurityConfiguration.getInternalPathName()).thenReturn("/internal/");
+		cookieUtils.setDomainName(domainName);
+		cookieUtils.setInternalPathName(internalPathName);
 	}
 	
 	@Test
@@ -43,8 +46,8 @@ class CookieUtilsTest {
 		Mockito.verify(responseWrapper).addCookie(argumentCaptor.capture());
 		assertEquals("CookieToAdd", argumentCaptor.getValue().getName());
 		assertEquals("CookieValue", argumentCaptor.getValue().getValue());
-		assertEquals(webSecurityConfiguration.getDomainName(), argumentCaptor.getValue().getDomain());
-		assertEquals(webSecurityConfiguration.getInternalPathName(), argumentCaptor.getValue().getPath());
+		assertEquals(domainName, argumentCaptor.getValue().getDomain());
+		assertEquals(internalPathName, argumentCaptor.getValue().getPath());
 		assertEquals(100, argumentCaptor.getValue().getMaxAge());
 		assertTrue(argumentCaptor.getValue().isHttpOnly());
 		//Last control check

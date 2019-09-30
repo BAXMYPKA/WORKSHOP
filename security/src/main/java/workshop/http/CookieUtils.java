@@ -31,11 +31,9 @@ public class CookieUtils {
 	@Value("${internalPathName}")
 	private String internalPathName;
 	
-	@Autowired
-	private WebSecurityConfiguration webSecurityConfiguration;
-	
 	@Value("${authenticationCookieName}")
 	@Getter(AccessLevel.PUBLIC)
+	@Setter(AccessLevel.PUBLIC) //For the test purposes
 	private String authenticationCookieName;
 	
 	/**

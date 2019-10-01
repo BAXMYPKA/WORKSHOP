@@ -4,11 +4,14 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -32,7 +35,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@PropertySource("classpath:applicationTest.properties")
 @AutoConfigureMockMvc
+@DirtiesContext
 public class WorkshopControllersMethodSecurityIT {
 	
 	@Autowired
@@ -46,9 +51,6 @@ public class WorkshopControllersMethodSecurityIT {
 	
 	@Autowired
 	private OrdersService ordersService;
-	
-	@Autowired
-	private EmployeesDetailsService employeesDetailsService;
 	
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
@@ -192,7 +194,7 @@ public class WorkshopControllersMethodSecurityIT {
 	public void methodSecurity_With_AdminFull_Authority_Should_Grant_Access_To_Put_Classifier() throws Exception {
 		//GIVEN
 		Classifier classifier = new Classifier();
-		classifier.setName("Classifier new 1");
+		classifier.setName("Classifier new 11");
 		
 		String jsonClassifier = jsonServiceUtils.workshopEntityObjectsToJson(classifier);
 		
@@ -210,7 +212,7 @@ public class WorkshopControllersMethodSecurityIT {
 		resultActions
 			.andDo(MockMvcResultHandlers.print())
 			.andExpect(MockMvcResultMatchers
-				.content().string(Matchers.containsString("\"name\":\"Classifier new 1\"")));
+				.content().string(Matchers.containsString("\"name\":\"Classifier new 11\"")));
 		
 	}
 	

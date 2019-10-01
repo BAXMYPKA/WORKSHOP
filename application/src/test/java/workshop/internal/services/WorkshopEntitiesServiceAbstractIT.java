@@ -1,5 +1,6 @@
 package workshop.internal.services;
 
+import org.springframework.test.annotation.DirtiesContext;
 import workshop.internal.entities.*;
 import workshop.internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureTestEntityManager
+@DirtiesContext
 @Slf4j
 class WorkshopEntitiesServiceAbstractIT {
 	

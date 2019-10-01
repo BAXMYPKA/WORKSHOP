@@ -3,11 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractImplementationsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtAuthenticationFilterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/LocalesConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/LocalesConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/AppConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/AppConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/LocalesConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/LocalesConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/resources/applicationTest.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/resources/applicationTest.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/resources/testImport.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/resources/testImport.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,78 +135,58 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CookieUtilsTest">
-    <configuration name="CookieUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.http.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.http" />
-      <option name="MAIN_CLASS_NAME" value="workshop.http.CookieUtilsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="JwtUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginAuthenticationFilterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.LoginAuthenticationFilterTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginAuthenticationFilterTest.doFilter_with_valid_Authentication_sets_Cookie_into_HttpResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.LoginAuthenticationFilterTest" />
-      <option name="METHOD_NAME" value="doFilter_with_valid_Authentication_sets_Cookie_into_HttpResponse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="workshop.security in security" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
+  <component name="RunManager" selected="JUnit.All in security">
+    <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in internal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in security" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkshopEntitiesDaoAbstractIT.context_Should_Be_Initialized" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.WorkshopEntitiesDaoAbstractIT" />
+      <option name="METHOD_NAME" value="context_Should_Be_Initialized" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -215,19 +203,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.WorkshopApplication" />
-      <item itemvalue="JUnit.LoginAuthenticationFilterTest" />
-      <item itemvalue="JUnit.JwtUtilsTest" />
-      <item itemvalue="JUnit.LoginAuthenticationFilterTest.doFilter_with_valid_Authentication_sets_Cookie_into_HttpResponse" />
-      <item itemvalue="JUnit.workshop.security in security" />
-      <item itemvalue="JUnit.CookieUtilsTest" />
+      <item itemvalue="JUnit.All in application" />
+      <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.context_Should_Be_Initialized" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+      <item itemvalue="JUnit.All in internal" />
+      <item itemvalue="JUnit.All in security" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CookieUtilsTest" />
-        <item itemvalue="JUnit.workshop.security in security" />
-        <item itemvalue="JUnit.LoginAuthenticationFilterTest" />
-        <item itemvalue="JUnit.LoginAuthenticationFilterTest.doFilter_with_valid_Authentication_sets_Cookie_into_HttpResponse" />
-        <item itemvalue="JUnit.JwtUtilsTest" />
+        <item itemvalue="JUnit.All in security" />
+        <item itemvalue="JUnit.All in internal" />
+        <item itemvalue="JUnit.All in application" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+        <item itemvalue="JUnit.WorkshopEntitiesDaoAbstractIT.context_Should_Be_Initialized" />
       </list>
     </recent_temporary>
   </component>
@@ -265,6 +253,8 @@
       <workItem from="1569771076584" duration="13415000" />
       <workItem from="1569823648277" duration="22059000" />
       <workItem from="1569857978405" duration="3849000" />
+      <workItem from="1569918432570" duration="2535000" />
+      <workItem from="1569923576553" duration="5091000" />
     </task>
     <servers />
   </component>
@@ -287,11 +277,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java</url>
-          <line>368</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java</url>
           <line>116</line>

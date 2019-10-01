@@ -1,4 +1,4 @@
-package workshop;
+package workshop.configurations;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -17,14 +18,12 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.controllers.DepartmentsController;
 import workshop.internal.controllers.PositionsController;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.DepartmentsService;
-import workshop.internal.services.EmployeesService;
 import workshop.internal.services.PositionsService;
 
 import java.net.URI;
@@ -37,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext
 class HateoasIT {
 	
 	@Autowired
@@ -163,7 +163,6 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
-	@Transactional
 	public void secondPage_Resources_Should_Contain_CurrentPageLink_PreviousPageLink_NextPageLink_LastPageLink_FirstPageLink()
 		throws Exception {
 		//GIVEN at least 10 elements by 3 on a page = 4 pages
@@ -199,8 +198,7 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
-	@Transactional
-	public void lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink()	throws Exception {
+	public void lastPage_Resources_Should_Contain_Only_CurrentPageLink_PreviousPageLink_FirstPageLink() throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
 		long departmentId = departmentIdOfTotalPersistedPositions();
 		//Retrieve last page of 4 with 3 elements of 10 total elements
@@ -235,7 +233,6 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
-	@Transactional
 	public void exceeding_LastPageNumber_Should_Return_HttpStatus404_NotFound()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
@@ -257,7 +254,6 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
-	@Transactional
 	public void orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct()
 		throws Exception {
 		//GIVEN least 10 elements by 3 on a page = 4 pages
@@ -293,7 +289,6 @@ class HateoasIT {
 	
 	@Test
 	@WithMockUser(username = "employee@workshop.pro", authorities = {"Admin", "ADMIN_FULL"})
-	@Transactional
 	public void orderBy_Custom_PropertyName_With_Asc_Order_Should_Be_Correct()
 		throws Exception {
 		//GIVEN 10 elements by 3 on a page = 4 pages
@@ -305,8 +300,6 @@ class HateoasIT {
 				"/internal/departments/" + departmentId + "/positions?pageSize=3&pageNum=1&order-by=name&order=asc"));
 		
 		//WHEN
-		int totalRetrieved = positionsService.findAllEntities(0, 0, null, Sort.Direction.DESC).size();
-		
 		ResultActions resultActions = mockMvc.perform(request);
 		
 		//THEN

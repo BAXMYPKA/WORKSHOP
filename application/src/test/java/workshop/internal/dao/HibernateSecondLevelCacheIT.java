@@ -11,9 +11,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureTestEntityManager
+@DirtiesContext
 //Add Hibernate statistics support during the tests
 @TestPropertySource(properties = {"spring.jpa.properties.hibernate.generate_statistics=true"})
 @Sql(scripts = {"classpath:testImport.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)

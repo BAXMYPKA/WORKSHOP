@@ -1,7 +1,8 @@
-package workshop.internal.controllers;
+package workshop.internal.controllers.rest;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import workshop.internal.controllers.WorkshopControllerAbstract;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;

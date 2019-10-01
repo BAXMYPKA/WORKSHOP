@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.EmployeesController;
-import workshop.internal.controllers.PositionsController;
+import workshop.internal.controllers.rest.EmployeesController;
+import workshop.internal.controllers.rest.PositionsController;
 import workshop.internal.entities.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

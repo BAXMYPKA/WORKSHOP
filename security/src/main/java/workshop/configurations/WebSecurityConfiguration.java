@@ -25,7 +25,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
-import workshop.security.WorkshopPermissionEvaluator;
 import workshop.security.*;
 
 import java.util.HashSet;
@@ -106,7 +105,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.logoutUrl("/internal/login?logout=true")
 			.deleteCookies(authenticationCookieName)
 			.clearAuthentication(true)
-			.logoutSuccessUrl("/internal/login?logged_out=true");
+			.logoutSuccessUrl("/internal/login?logged_out=true")
+			.and();
 	}
 	
 	@Bean

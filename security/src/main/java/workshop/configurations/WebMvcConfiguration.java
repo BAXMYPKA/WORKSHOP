@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.config.EnableEntityLinks;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import workshop.http.ResponseHeadersInternalFilter;
 
@@ -50,12 +51,19 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 			.maxAge(corsRegistryMaxAge);
 	}
 	
-	@Bean
+	//TODO: filter to be a bean or no to bean?
+//	@Bean
 	public FilterRegistrationBean<ResponseHeadersInternalFilter> filterRegistrationBean() {
 		FilterRegistrationBean<ResponseHeadersInternalFilter> registrationBean = new FilterRegistrationBean<>();
 		registrationBean.setFilter(new ResponseHeadersInternalFilter(headerAllowValue, headerContentLanguageValue));
 		registrationBean.addUrlPatterns("/internal/*");
 		
 		return registrationBean;
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/dist/internal/**")
+			.addResourceLocations("classpath:/dist/internal/");
 	}
 }

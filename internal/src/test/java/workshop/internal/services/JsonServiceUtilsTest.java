@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-import workshop.internal.controllers.DepartmentsController;
+import workshop.internal.controllers.rest.DepartmentsController;
 import workshop.internal.entities.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 

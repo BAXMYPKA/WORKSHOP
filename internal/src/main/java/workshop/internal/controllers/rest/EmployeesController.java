@@ -1,4 +1,4 @@
-package workshop.internal.controllers;
+package workshop.internal.controllers.rest;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import workshop.internal.controllers.WorkshopControllerAbstract;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.MergingValidation;

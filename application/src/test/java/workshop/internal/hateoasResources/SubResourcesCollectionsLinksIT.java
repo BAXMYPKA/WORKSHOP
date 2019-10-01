@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.controllers.DepartmentsController;
-import workshop.internal.controllers.OrdersController;
+import workshop.internal.controllers.rest.DepartmentsController;
+import workshop.internal.controllers.rest.OrdersController;
 import workshop.internal.entities.*;
 import workshop.internal.services.*;
 

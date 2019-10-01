@@ -1,7 +1,8 @@
-package workshop.internal.controllers;
+package workshop.internal.controllers.rest;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import workshop.internal.controllers.WorkshopControllerAbstract;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;

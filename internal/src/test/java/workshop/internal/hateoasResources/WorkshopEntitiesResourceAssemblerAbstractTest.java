@@ -10,12 +10,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import workshop.internal.controllers.EmployeesController;
+import workshop.internal.controllers.rest.EmployeesController;
 import workshop.internal.dao.EmployeesDao;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Position;
-import workshop.internal.hateoasResources.EmployeesResourceAssembler;
 import workshop.internal.services.EmployeesService;
 
 import java.time.LocalDate;

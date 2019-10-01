@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.UsersController;
-import workshop.internal.controllers.ExternalAuthoritiesController;
+import workshop.internal.controllers.rest.UsersController;
+import workshop.internal.controllers.rest.ExternalAuthoritiesController;
 import workshop.internal.entities.ExternalAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

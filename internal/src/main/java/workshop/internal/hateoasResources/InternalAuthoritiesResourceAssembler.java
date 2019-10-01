@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.InternalAuthoritiesController;
-import workshop.internal.controllers.PositionsController;
+import workshop.internal.controllers.rest.InternalAuthoritiesController;
+import workshop.internal.controllers.rest.PositionsController;
 import workshop.internal.entities.InternalAuthority;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;

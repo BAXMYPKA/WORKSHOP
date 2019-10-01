@@ -1,8 +1,8 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.EmployeesController;
-import workshop.internal.controllers.OrdersController;
-import workshop.internal.controllers.UsersController;
+import workshop.internal.controllers.rest.EmployeesController;
+import workshop.internal.controllers.rest.OrdersController;
+import workshop.internal.controllers.rest.UsersController;
 import workshop.internal.entities.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

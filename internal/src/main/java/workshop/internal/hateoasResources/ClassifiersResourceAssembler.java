@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.ClassifiersController;
-import workshop.internal.controllers.TasksController;
+import workshop.internal.controllers.rest.ClassifiersController;
+import workshop.internal.controllers.rest.TasksController;
 import workshop.internal.entities.Classifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

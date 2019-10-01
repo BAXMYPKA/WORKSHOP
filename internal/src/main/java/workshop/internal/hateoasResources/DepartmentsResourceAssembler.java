@@ -1,6 +1,6 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.DepartmentsController;
+import workshop.internal.controllers.rest.DepartmentsController;
 import workshop.internal.entities.Department;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

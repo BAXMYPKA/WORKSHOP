@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.ClassifiersController;
-import workshop.internal.controllers.EmployeesController;
-import workshop.internal.controllers.OrdersController;
-import workshop.internal.controllers.TasksController;
+import workshop.internal.controllers.rest.ClassifiersController;
+import workshop.internal.controllers.rest.EmployeesController;
+import workshop.internal.controllers.rest.OrdersController;
+import workshop.internal.controllers.rest.TasksController;
 import workshop.internal.entities.Task;
 
 @Slf4j

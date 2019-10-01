@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.AuthorityPermissionsController;
-import workshop.internal.controllers.WorkshopEntityTypesController;
+import workshop.internal.controllers.rest.AuthorityPermissionsController;
+import workshop.internal.controllers.rest.WorkshopEntityTypesController;
 import workshop.internal.entities.WorkshopEntityType;
 
 @Slf4j

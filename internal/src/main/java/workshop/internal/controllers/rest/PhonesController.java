@@ -1,9 +1,10 @@
-package workshop.internal.controllers;
+package workshop.internal.controllers.rest;
 
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import workshop.internal.controllers.WorkshopControllerAbstract;
 import workshop.internal.entities.Phone;
 import workshop.internal.hateoasResources.PhonesResourceAssembler;
 import workshop.internal.services.PhonesService;

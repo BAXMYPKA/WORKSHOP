@@ -5,9 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.DepartmentsController;
-import workshop.internal.controllers.InternalAuthoritiesController;
-import workshop.internal.controllers.PositionsController;
+import workshop.internal.controllers.rest.DepartmentsController;
+import workshop.internal.controllers.rest.InternalAuthoritiesController;
+import workshop.internal.controllers.rest.PositionsController;
 import workshop.internal.entities.Position;
 
 @Slf4j

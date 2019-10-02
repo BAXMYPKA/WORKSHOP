@@ -12,10 +12,9 @@
 	<div class="logo">
 		<div class="logoPicture">
 		</div>
-		<br>
 		<span class="motto" th:text="#{workshop.motto}">
-			Here's the short motto.
-		</span>
+				Here's the short motto.
+			</span>
 	</div>
 	
 	<div class="workshopName" th:text="#{workshop.name}">
@@ -41,12 +40,29 @@
 
 </header>
 
+<nav class="leftNav" th:fragment="thLeftNav">
+	
+	<ul>
+		<li th:text="#{html.ul.li.leftNav.mainPage}">
+			<a href="/internal/login" th:href="@{/workshop.pro}" th:text="#{html.ul.li.leftNav.mainPage}">
+				Workshop main page
+			</a>
+		</li>
+		<li th:text="#{html.ul.li.leftNav.internalPage}">
+			<a href="/internal" th:href="@{/internal}" th:text="#{html.ul.li.leftNav.internalPage}">
+				Workshop internal page
+			</a>
+		</li>
+	</ul>
+	
+</nav>
+
 <footer class="footer" th:fragment="thFooter">
 	
 	<div class="contacts">
 		<ul>
-			<li>
-				Contacts
+			<li >
+				My personal contacts via Github
 			</li>
 		</ul>
 	</div>

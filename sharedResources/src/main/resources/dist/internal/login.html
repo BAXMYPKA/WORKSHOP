@@ -7,32 +7,53 @@
 	<title th:text="#{html.title.login}">LOGIN</title>
 </head>
 <body>
-<div th:class="container" class="container">
+<div class="containerMain">
 	
 	<header class="header" th:replace="thTemplate :: thHeader">
 	
 	</header>
 	
-	<h1 th:text="#{html.h1.login}">
-		Login page for Workshop employees
-	</h1>
+	<div class="containerCenter">
+		
+		
+		<nav class="leftNav" th:replace="thTemplate :: thLeftNav">
+		
+		</nav>
+		
+		<h1 th:text="#{html.h1.login}">
+			Login page for Workshop employees
+		</h1>
+		
+		<div class="login">
+			<form name="loginForm" action="/internal/login" method="post">
+				<input type="text" placeholder="admin@workshop.pro"
+					   th:placeholder="${placeholders.adminLogin}">
+				<br>
+				<input type="text" placeholder="12345"
+					   th:placeholder="${placeholders.adminPassword}">
+				<br>
+				<input type="submit" value="LOGIN"
+					   th:value="#{html.submit.login}">
+			</form>
+		</div>
+		
+		<article>
+			<p>
+				Название компании, переключатель языков<br>
+				Это страница входа во внутренний раздел для сотрудников. <br>
+				Логин - это почта, а пароли у всех, для упрощения, "12345". Список предустановленных сотрудников вы
+				можете
+				видеть справа.<br>
+				У каждого сотрудника своя должность и каждая должность имеет свои права доступа.<br>
+				Самый полный доступ ко всем разделам со всеми разрешениями имеет пользователь "admin@workshop.pro" со
+				стандартным паролем "12345".
+				Языков поддерживается два - Русский и Английский (по-умолчанию). Язык страниц подхватывается
+				автоматически
+				из заголовка браузера "Accept-Language".
+			</p>
+		</article>
 	
-	
-	<p>
-	<ul>
-		<li>
-			Название компании, переключатель языков<br>
-			Это страница входа во внутренний раздел для сотрудников. <br>
-			Логин - это почта, а пароли у всех, для упрощения, "12345". Список предустановленных сотрудников вы можете
-			видеть справа.<br>
-			У каждого сотрудника своя должность и каждая должность имеет свои права доступа.<br>
-			Самый полный доступ ко всем разделам со всеми разрешениями имеет пользователь "admin@workshop.pro" со
-			стандартным паролем "12345".
-			Языков поддерживается два - Русский и Английский (по-умолчанию). Язык страниц подхватывается автоматически
-			из заголовка браузера "Accept-Language".
-		</li>
-	</ul>
-	</p>
+	</div>
 	
 	<footer th:replace="thTemplate :: thFooter">
 	

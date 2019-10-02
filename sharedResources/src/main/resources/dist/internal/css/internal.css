@@ -1,19 +1,49 @@
+.containerMain {
+	flex-direction: column;
+}
+
+.containerCenter {
+	flex-direction: row-reverse;
+	background-color: brown;
+}
+
 .header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	padding: 1em;
 	background-color: orange;
 }
 
+.logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
 .footer {
+	padding: 1em;
 	background-color: darkgrey;
 }
 
 /* ===== CSS ASSETS ===== */
 
-.logo {
-	width: 2em;
-	height: 2em;
+.logoPicture {
+	display: block;
+	width: 50px;
+	height: 50px;
 	background-color: blue;
+	border: aqua solid;
 	border-radius: 50%;
+	content: "";
+}
+
+.motto {
+	/*display: block;*/
+	font: small "Arial Narrow";
+	text-wrap: none;
+	text-align: center;
+}
+.workshopName {
+	font: 3em "Arial Nova";
 }

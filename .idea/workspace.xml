@@ -2,45 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ErrorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ac4f4c70-798d-48a0-a903-777ef7fbe6fe.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ac4f4c70-798d-48a0-a903-777ef7fbe6fe.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/AuthorityPermissionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/AuthorityPermissionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/ClassifiersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/DepartmentsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/EmployeesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/ExternalAuthoritiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/InternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/InternalAuthoritiesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/LocalesConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/LocalesConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PhonesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/PhonesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/PositionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/TasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/TasksController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopEntityTypesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/WorkshopEntityTypesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PhonesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/messages/external.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/messages/external_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/messages/external_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,9 +71,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="HTML File" />
         <option value="Class" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -287,6 +267,7 @@
       <workItem from="1569918432570" duration="2535000" />
       <workItem from="1569923576553" duration="8110000" />
       <workItem from="1569940841290" duration="9204000" />
+      <workItem from="1569997732587" duration="13455000" />
     </task>
     <servers />
   </component>
@@ -313,11 +294,6 @@
           <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java</url>
           <line>116</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

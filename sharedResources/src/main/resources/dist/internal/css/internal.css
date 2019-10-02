@@ -1,0 +1,19 @@
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	background-color: orange;
+}
+
+.footer {
+	background-color: darkgrey;
+}
+
+/* ===== CSS ASSETS ===== */
+
+.logo {
+	width: 2em;
+	height: 2em;
+	background-color: blue;
+	border-radius: 50%;
+}

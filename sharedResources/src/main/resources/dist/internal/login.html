@@ -1,44 +1,42 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en, ru" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
+	<div th:include="thTemplate :: thHead"></div>
 	<link rel="stylesheet" th:href="@{/dist/internal/css/login.css}" href="./css/login.css">
-	<title th:text="#{html.login.title}">LOGIN</title>
+	<title th:text="#{html.title.login}">LOGIN</title>
 </head>
 <body>
 <div th:class="container" class="container">
 	
-	<header class="header">
-		
-		<h1 th:text="#{httpStatus.badRequest}">
-			WORKSHOP
-		</h1>
-		
-		<h3 th:text="#{html.login.title}">
-			Internal site login page
-		</h3>
+	<header class="header" th:replace="thTemplate :: thHeader">
 	
 	</header>
 	
-	<H1 th:text="#{html.login.title}">
-		LOGIN
-	</H1>
+	<h1 th:text="#{html.h1.login}">
+		Login page for Workshop employees
+	</h1>
+	
 	
 	<p>
 	<ul>
 		<li>
 			Название компании, переключатель языков<br>
 			Это страница входа во внутренний раздел для сотрудников. <br>
-			Логин - это	почта, а пароли у всех, для упрощения, "12345". Список предустановленных сотрудников вы можете
+			Логин - это почта, а пароли у всех, для упрощения, "12345". Список предустановленных сотрудников вы можете
 			видеть справа.<br>
-			У каждого сотрудника своя должность и каждая	должность имеет свои права доступа.<br>
-			Самый полный доступ ко всем разделам со всеми разрешениями	имеет пользователь "admin@workshop.pro" со
+			У каждого сотрудника своя должность и каждая должность имеет свои права доступа.<br>
+			Самый полный доступ ко всем разделам со всеми разрешениями имеет пользователь "admin@workshop.pro" со
 			стандартным паролем "12345".
+			Языков поддерживается два - Русский и Английский (по-умолчанию). Язык страниц подхватывается автоматически
+			из заголовка браузера "Accept-Language".
 		</li>
 	</ul>
 	</p>
+	
+	<footer th:replace="thTemplate :: thFooter">
+	
+	</footer>
 
 </div>
 </body>

@@ -53,7 +53,7 @@ public class LocalesConfiguration implements WebMvcConfigurer {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename("classpath:i118n/internal");
+		messageSource.setBasenames("classpath:i118n/internal", "classpath:i118n/external", "classpath:i118n/internalHtml");
 		messageSource.setDefaultEncoding("UTF-8");
 		messageSource.setCacheSeconds(60*30); //Half an hour
 		return messageSource;

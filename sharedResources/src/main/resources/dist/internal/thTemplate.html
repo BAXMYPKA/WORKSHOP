@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="thHead">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./css/internal.css" th:href="@{/dist/internal/css/internal.css}">
+</head>
+<body>
+
+<header class="header" th:fragment="thHeader">
+	
+	<div class="logo">
+		<div class="logoPicture">
+		</div>
+		<br>
+		<span class="motto" th:text="#{workshop.motto}">
+			Here's the short motto.
+		</span>
+	</div>
+	
+	<div class="workshopName" th:text="#{workshop.name}">
+		WORKSHOP
+	</div>
+	
+	<div class="language">
+		
+		<form name="lang" action="/internal/login" method="get"
+			  th:action="@{/internal/login}">
+			<select name="lang" onchange="this.form.submit()">
+				<option value="ru"
+						th:each="lang : ${supportedLanguages}"
+						th:text="${lang}"
+						th:value="${lang}"
+						th:selected="${lang == #request.getParameter('lang')}">
+					RU
+				</option>
+			</select>
+		</form>
+	
+	</div>
+
+</header>
+
+<footer class="footer" th:fragment="thFooter">
+	
+	<div class="contacts">
+		<ul>
+			<li>
+				Contacts
+			</li>
+		</ul>
+	</div>
+
+</footer>
+
+</body>
+</html>

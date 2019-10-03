@@ -2,6 +2,7 @@ package workshop.configurations;
 
 import lombok.AccessLevel;
 import lombok.Setter;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import workshop.http.ResponseHeadersInternalFilter;
 
 @Configuration
@@ -51,8 +53,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 			.maxAge(corsRegistryMaxAge);
 	}
 	
-	//TODO: filter to be a bean or no to bean?
-//	@Bean
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/dist/internal/**")
+			.addResourceLocations("classpath:/dist/internal/");
+	}
+	
+	//	@Bean //Filters don't have to be beans
 	public FilterRegistrationBean<ResponseHeadersInternalFilter> filterRegistrationBean() {
 		FilterRegistrationBean<ResponseHeadersInternalFilter> registrationBean = new FilterRegistrationBean<>();
 		registrationBean.setFilter(new ResponseHeadersInternalFilter(headerAllowValue, headerContentLanguageValue));
@@ -61,9 +68,17 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		return registrationBean;
 	}
 	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/dist/internal/**")
-			.addResourceLocations("classpath:/dist/internal/");
+	@Bean
+	public LayoutDialect layoutDialect() {
+		return new LayoutDialect();
 	}
+	
+/*
+	@Bean
+	public SpringTemplateEngine templateEngine() {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.addDialect(layoutDialect());
+		return templateEngine;
+	}
+*/
 }

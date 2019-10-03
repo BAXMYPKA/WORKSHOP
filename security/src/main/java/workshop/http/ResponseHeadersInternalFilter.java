@@ -11,9 +11,7 @@ import java.util.HashMap;
 public class ResponseHeadersInternalFilter implements Filter {
 	
 	public static final HashMap<String, String> httpHeaders = new HashMap<>();
-	//	@Value("${Allow}")
 	private String headerAllowValue;
-	//	@Value("${Content-Language}")
 	private String headerContentLanguageValue;
 	
 	public ResponseHeadersInternalFilter(String headerAllowValue, String headerContentLanguageValue) {

@@ -5,13 +5,14 @@
 <head>
 	<meta content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="./css/internal.css" th:href="@{/dist/internal/css/internal.css}">
-<!--	<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Base</title>-->
+	<title>Layout</title>
+	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
 <body>
 
 <div class="containerMain" layout:fragment="containerMainLayout">
 	
-	<header class="header" th:fragment="thHeader">
+	<header class="header">
 		
 		<div class="logo">
 			<div class="logoPicture">
@@ -44,22 +45,31 @@
 	
 	</header>
 	
-	<nav class="leftNav" th:fragment="thLeftNav">
+	<div class="containerCenter">
 		
-		<ul>
-			<li th:text="#{html.ul.li.leftNav.mainPage.title}">
-				<a href="/internal/login" th:href="@{/workshop.pro}" th:text="#{html.ul.li.leftNav.mainPage.title}">
-					Workshop main page
-				</a>
-			</li>
-			<li th:text="#{html.ul.li.leftNav.internalPage.title}">
-				<a href="/internal" th:href="@{/internal}" th:text="#{html.ul.li.leftNav.internalPage.title}">
-					Workshop internal page
-				</a>
-			</li>
-		</ul>
+		<nav class="leftNav">
+			
+			<ul>
+				<li>
+					<a href="/internal/login" title="Internal page for Workshop employees"
+					   th:href="@{/workshop.pro}" th:text="#{html.ul.li.leftNav.mainPage.a}" th:title="#{html.ul.li.leftNav.mainPage.title}">
+						MAIN PAGE
+					</a>
+				</li>
+				<li>
+					<a href="/internal" th:href="@{/internal}" th:text="#{html.ul.li.leftNav.internalPage.a}" th:title="#{html.ul.li.leftNav.internalPage.title}">
+						INTERNAL PAGE
+					</a>
+				</li>
+			</ul>
+		
+		</nav>
+		
+		<article class="article">
+			<th:block layout:fragment="articleFragment"/>
+		</article>
 	
-	</nav>
+	</div>
 	
 	<footer class="footer" th:fragment="thFooter">
 		

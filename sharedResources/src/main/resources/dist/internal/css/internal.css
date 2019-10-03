@@ -1,10 +1,13 @@
 .containerMain {
+	display: flex;
 	flex-direction: column;
+	background-color: lavenderblush;
 }
 
 .containerCenter {
-	flex-direction: row-reverse;
-	background-color: brown;
+	display: flex;
+	flex-direction: row;
+	justify-content: end;
 }
 
 .header {
@@ -18,7 +21,17 @@
 .logo {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
+	align-items: center;
+	border: brown solid;
+}
+
+.leftNav {
+	padding: 1em;
+}
+
+.article {
+	padding: 1em;
 }
 
 .footer {

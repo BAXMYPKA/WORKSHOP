@@ -165,7 +165,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return loginAuthenticationFilter;
 	}
 	
-	//TODO: to check double invokation if this
+	//TODO: to check double invocation if this
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(

@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.EmployeesController;
-import workshop.internal.controllers.rest.PositionsController;
+import workshop.controllers.internal.rest.EmployeesRestController;
+import workshop.controllers.internal.rest.PositionsRestController;
 import workshop.internal.entities.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 	private PhonesResourceAssembler phonesResourceAssembler;
 	
 	public EmployeesResourceAssembler() {
-		super(EmployeesController.class, Employee.class);
+		super(EmployeesRestController.class, Employee.class);
 	}
 	
 	/**
@@ -37,9 +37,9 @@ public class EmployeesResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (PositionsController.GET_POSITION_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (PositionsRestController.GET_POSITION_EMPLOYEES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(PositionsController.class).getPositionEmployees(
+				ControllerLinkBuilder.methodOn(PositionsRestController.class).getPositionEmployees(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

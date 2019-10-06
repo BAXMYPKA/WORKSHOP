@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
-import workshop.internal.controllers.rest.EmployeesController;
+import workshop.controllers.internal.rest.EmployeesRestController;
 import workshop.internal.dao.EmployeesDao;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Employee;
@@ -32,7 +32,7 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 	@Mock
 	private EntityLinks entityLinks;
 	private EmployeesResourceAssembler employeesResourceAssembler;
-	private EmployeesController employeesController;
+	private EmployeesRestController employeesController;
 	
 	@BeforeEach
 	public void beforeEach() {
@@ -40,7 +40,7 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 		employeesService = new EmployeesService(employeesDao);
 		employeesResourceAssembler = new EmployeesResourceAssembler();
 		employeesResourceAssembler.setEntityLinks(entityLinks);
-		employeesController = new EmployeesController(employeesService, employeesResourceAssembler);
+		employeesController = new EmployeesRestController(employeesService, employeesResourceAssembler);
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ class WorkshopEntitiesResourceAssemblerAbstractTest {
 		employee.setIdentifier(3);
 		
 		Mockito.when(entityLinks.linkForSingleResource(Employee.class, employee.getIdentifier()))
-			.thenReturn(ControllerLinkBuilder.linkTo(EmployeesController.class));
+			.thenReturn(ControllerLinkBuilder.linkTo(EmployeesRestController.class));
 		
 		//WHEN
 		Resource<Employee> employeeResource = employeesResourceAssembler.toResource(employee);

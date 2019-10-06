@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.UsersController;
-import workshop.internal.controllers.rest.ExternalAuthoritiesController;
+import workshop.controllers.internal.rest.UsersRestController;
+import workshop.controllers.internal.rest.ExternalAuthoritiesRestController;
 import workshop.internal.entities.ExternalAuthority;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ public class ExternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
 	public ExternalAuthoritiesResourceAssembler() {
-		super(ExternalAuthoritiesController.class, ExternalAuthority.class);
+		super(ExternalAuthoritiesRestController.class, ExternalAuthority.class);
 	}
 	
 	@Override
@@ -36,9 +36,9 @@ public class ExternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (UsersController.GET_USER_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (UsersRestController.GET_USER_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(UsersController.class).getUserExternalAuthorities(
+				ControllerLinkBuilder.methodOn(UsersRestController.class).getUserExternalAuthorities(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

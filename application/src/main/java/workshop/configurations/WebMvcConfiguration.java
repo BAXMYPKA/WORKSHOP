@@ -55,8 +55,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/dist/internal/**")
-			.addResourceLocations("classpath:/dist/internal/");
+		registry.addResourceHandler("/dist/assets/**")
+			.addResourceLocations("classpath:/dist/assets/");
 	}
 	
 	//	@Bean //Filters don't have to be beans

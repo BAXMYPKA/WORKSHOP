@@ -1,8 +1,8 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.EmployeesController;
-import workshop.internal.controllers.rest.OrdersController;
-import workshop.internal.controllers.rest.UsersController;
+import workshop.controllers.internal.rest.EmployeesRestController;
+import workshop.controllers.internal.rest.OrdersRestController;
+import workshop.controllers.internal.rest.UsersRestController;
 import workshop.internal.entities.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Order> {
 	
 	public OrdersResourceAssembler() {
-		super(OrdersController.class, Order.class);
+		super(OrdersRestController.class, Order.class);
 	}
 	
 	@Override
@@ -31,9 +31,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (EmployeesController.GET_ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (EmployeesRestController.GET_ORDERS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersModifiedBy(
+				ControllerLinkBuilder.methodOn(EmployeesRestController.class).getOrdersModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -44,9 +44,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				.withMedia(media)
 				.withTitle(title);
 			return link;
-		} else if (EmployeesController.GET_ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesRestController.GET_ORDERS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getOrdersCreatedBy(
+				ControllerLinkBuilder.methodOn(EmployeesRestController.class).getOrdersCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -57,9 +57,9 @@ public class OrdersResourceAssembler extends WorkshopEntitiesResourceAssemblerAb
 				.withMedia(media)
 				.withTitle(title);
 			return link;
-		} else if (UsersController.GET_USER_ORDERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (UsersRestController.GET_USER_ORDERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(UsersController.class).getUserOrders(
+				ControllerLinkBuilder.methodOn(UsersRestController.class).getUserOrders(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

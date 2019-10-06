@@ -9,11 +9,13 @@
         <module name="security" />
         <module name="internal" />
         <module name="sharedResources" />
+        <module name="external" />
         <module name="application" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="application" target="1.8" />
+      <module name="external" target="1.8" />
       <module name="internal" target="1.8" />
       <module name="security" target="1.8" />
       <module name="sharedResources" target="1.8" />
@@ -23,6 +25,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="application" options="-parameters" />
+      <module name="external" options="-parameters" />
       <module name="internal" options="-parameters" />
       <module name="security" options="-parameters" />
       <module name="sharedResources" options="-parameters" />

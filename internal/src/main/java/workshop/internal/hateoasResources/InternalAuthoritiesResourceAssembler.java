@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.InternalAuthoritiesController;
-import workshop.internal.controllers.rest.PositionsController;
+import workshop.controllers.internal.rest.InternalAuthoritiesRestController;
+import workshop.controllers.internal.rest.PositionsRestController;
 import workshop.internal.entities.InternalAuthority;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
@@ -17,7 +17,7 @@ public class InternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
 	public InternalAuthoritiesResourceAssembler() {
-		super(InternalAuthoritiesController.class, InternalAuthority.class);
+		super(InternalAuthoritiesRestController.class, InternalAuthority.class);
 	}
 	
 	@Override
@@ -27,9 +27,9 @@ public class InternalAuthoritiesResourceAssembler extends WorkshopEntitiesResour
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (PositionsController.GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (PositionsRestController.GET_POSITION_INTERNAL_AUTHORITIES_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(PositionsController.class)
+				ControllerLinkBuilder.methodOn(PositionsRestController.class)
 					.getPositionInternalAuthorities(
 						ownerId,
 						pageable.getPageSize(),

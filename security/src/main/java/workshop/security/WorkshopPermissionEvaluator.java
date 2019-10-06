@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 'Task' - literal name of a domain object or target type which the current Authentication is going to have an access,
  * 'read' - literal type of access for the domain object ('read', 'write', 'full')
  * Throws {@link org.springframework.security.access.AccessDeniedException} by SpringSecurity and intercepted by the
- * {@link workshop.internal.controllers.ExceptionHandlerController} then.
+ * ExceptionHandlerController then.
  * }
  */
 @Slf4j

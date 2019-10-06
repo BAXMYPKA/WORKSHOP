@@ -22,6 +22,7 @@
 		<module>sharedResources</module>
 		<module>security</module>
 		<module>application</module>
+		<module>external</module>
 	</modules>
 	
 	<properties>

@@ -1,6 +1,6 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.PhonesController;
+import workshop.controllers.internal.rest.PhonesRestController;
 import workshop.internal.entities.Phone;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class PhonesResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Phone> {
 	
 	public PhonesResourceAssembler() {
-		super(PhonesController.class, Phone.class);
+		super(PhonesRestController.class, Phone.class);
 	}
 	
 	@Override

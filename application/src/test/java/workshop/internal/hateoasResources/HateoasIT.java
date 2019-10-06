@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import workshop.internal.controllers.rest.DepartmentsController;
-import workshop.internal.controllers.rest.PositionsController;
+import workshop.controllers.internal.rest.DepartmentsRestController;
+import workshop.controllers.internal.rest.PositionsRestController;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.exceptions.EntityNotFoundException;
@@ -40,9 +40,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class HateoasIT {
 	
 	@Autowired
-	private DepartmentsController departmentsController;
+	private DepartmentsRestController departmentsController;
 	@Autowired
-	private PositionsController positionsController;
+	private PositionsRestController positionsController;
 	@Autowired
 	private DepartmentsService departmentsService;
 	@Autowired

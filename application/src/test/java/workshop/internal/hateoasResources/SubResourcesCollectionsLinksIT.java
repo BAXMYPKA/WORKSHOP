@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.controllers.rest.DepartmentsController;
-import workshop.internal.controllers.rest.OrdersController;
+import workshop.controllers.internal.rest.DepartmentsRestController;
+import workshop.controllers.internal.rest.OrdersRestController;
 import workshop.internal.entities.*;
 import workshop.internal.services.*;
 
@@ -57,9 +57,9 @@ class SubResourcesCollectionsLinksIT {
 	@Autowired
 	WorkshopEntityTypesService workshopEntityTypesService;
 	@Autowired
-	DepartmentsController departmentsController;
+	DepartmentsRestController departmentsController;
 	@Autowired
-	OrdersController ordersController;
+	OrdersRestController ordersController;
 	
 	@Test
 	@org.junit.jupiter.api.Order(1)

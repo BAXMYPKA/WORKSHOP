@@ -5,9 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.rest.DepartmentsController;
-import workshop.internal.controllers.rest.InternalAuthoritiesController;
-import workshop.internal.controllers.rest.PositionsController;
+import workshop.controllers.internal.rest.DepartmentsRestController;
+import workshop.controllers.internal.rest.InternalAuthoritiesRestController;
+import workshop.controllers.internal.rest.PositionsRestController;
 import workshop.internal.entities.Position;
 
 @Slf4j
@@ -15,7 +15,7 @@ import workshop.internal.entities.Position;
 public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Position> {
 	
 	public PositionsResourceAssembler() {
-		super(PositionsController.class, Position.class);
+		super(PositionsRestController.class, Position.class);
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (DepartmentsController.GET_POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (DepartmentsRestController.GET_POSITIONS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class).getPositions(
+				ControllerLinkBuilder.methodOn(DepartmentsRestController.class).getPositions(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -47,9 +47,9 @@ public class PositionsResourceAssembler extends WorkshopEntitiesResourceAssemble
 				.withMedia(media)
 				.withTitle(title);
 			return link;
-		} else if (InternalAuthoritiesController.GET_INTERNAL_AUTHORITY_POSITIONS.equalsIgnoreCase(controllerMethodName)) {
+		} else if (InternalAuthoritiesRestController.GET_INTERNAL_AUTHORITY_POSITIONS.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(InternalAuthoritiesController.class).getInternalAuthorityPositions(
+				ControllerLinkBuilder.methodOn(InternalAuthoritiesRestController.class).getInternalAuthorityPositions(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

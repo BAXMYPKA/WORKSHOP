@@ -1,6 +1,6 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.DepartmentsController;
+import workshop.controllers.internal.rest.DepartmentsRestController;
 import workshop.internal.entities.Department;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
 	public DepartmentsResourceAssembler() {
-		super(DepartmentsController.class, Department.class);
+		super(DepartmentsRestController.class, Department.class);
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class DepartmentsResourceAssembler extends WorkshopEntitiesResourceAssemb
 	private Resource<Department> addPositionsFromDepartmentLink(Resource<Department> departmentResource) {
 		Link departmentPositionsLink =
 			ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(DepartmentsController.class)
+				ControllerLinkBuilder.methodOn(DepartmentsRestController.class)
 					.getPositions(
 						departmentResource.getContent().getIdentifier(),
 						getDEFAULT_PAGE_SIZE(),

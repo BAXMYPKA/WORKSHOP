@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.rest.ClassifiersController;
-import workshop.internal.controllers.rest.EmployeesController;
-import workshop.internal.controllers.rest.OrdersController;
-import workshop.internal.controllers.rest.TasksController;
+import workshop.controllers.internal.rest.ClassifiersRestController;
+import workshop.controllers.internal.rest.EmployeesRestController;
+import workshop.controllers.internal.rest.OrdersRestController;
+import workshop.controllers.internal.rest.TasksRestController;
 import workshop.internal.entities.Task;
 
 @Slf4j
@@ -16,7 +16,7 @@ import workshop.internal.entities.Task;
 public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbstract<Task> {
 	
 	public TasksResourceAssembler() {
-		super(TasksController.class, Task.class);
+		super(TasksRestController.class, Task.class);
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		Link link;
-		if (EmployeesController.GET_APPOINTED_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (EmployeesRestController.GET_APPOINTED_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getAppointedTasks(
+				ControllerLinkBuilder.methodOn(EmployeesRestController.class).getAppointedTasks(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -46,9 +46,9 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (EmployeesController.GET_TASKS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesRestController.GET_TASKS_MODIFIED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksModifiedBy(
+				ControllerLinkBuilder.methodOn(EmployeesRestController.class).getTasksModifiedBy(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -58,9 +58,9 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (EmployeesController.GET_TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (EmployeesRestController.GET_TASKS_CREATED_BY_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(EmployeesController.class).getTasksCreatedBy(
+				ControllerLinkBuilder.methodOn(EmployeesRestController.class).getTasksCreatedBy(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -70,9 +70,9 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (OrdersController.GET_ORDER_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (OrdersRestController.GET_ORDER_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(OrdersController.class).orderTasks(
+				ControllerLinkBuilder.methodOn(OrdersRestController.class).orderTasks(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,
@@ -82,9 +82,9 @@ public class TasksResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 				.withHreflang(hrefLang)
 				.withMedia(media)
 				.withTitle(title);
-		} else if (ClassifiersController.GET_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		} else if (ClassifiersRestController.GET_TASKS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(ClassifiersController.class).getTasks(
+				ControllerLinkBuilder.methodOn(ClassifiersRestController.class).getTasks(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

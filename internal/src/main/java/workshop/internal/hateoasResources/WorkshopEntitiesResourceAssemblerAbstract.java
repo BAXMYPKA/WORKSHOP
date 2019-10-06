@@ -12,7 +12,7 @@ import org.springframework.hateoas.*;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import workshop.internal.controllers.WorkshopControllerAbstract;
+import workshop.controllers.internal.rest.WorkshopRestControllerAbstract;
 import workshop.internal.entities.WorkshopEntity;
 
 import java.lang.reflect.Method;
@@ -43,7 +43,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	private final String LINK_NEXT_PAGE_REL = "nextPage";
 	private final String LINK_FIRST_PAGE_REL = "firstPage";
 	private final String LINK_LAST_PAGE_REL = "lastPage";
-	private Class<? extends WorkshopControllerAbstract> workshopControllerAbstractClass;
+	private Class<? extends WorkshopRestControllerAbstract> workshopControllerAbstractClass;
 	private Class<T> workshopEntityClass;
 	@Autowired
 	private EntityLinks entityLinks;
@@ -74,7 +74,7 @@ public abstract class WorkshopEntitiesResourceAssemblerAbstract<T extends Worksh
 	 */
 	@Autowired(required = false)
 	public WorkshopEntitiesResourceAssemblerAbstract(
-		Class<? extends WorkshopControllerAbstract<T>> workshopControllerAbstractClass,
+		Class<? extends WorkshopRestControllerAbstract<T>> workshopControllerAbstractClass,
 		Class<T> workshopEntityClass) {
 		
 		this.workshopControllerAbstractClass = workshopControllerAbstractClass;

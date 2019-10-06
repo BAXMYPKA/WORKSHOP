@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.ExternalAuthoritiesController;
-import workshop.internal.controllers.rest.UsersController;
+import workshop.controllers.internal.rest.ExternalAuthoritiesRestController;
+import workshop.controllers.internal.rest.UsersRestController;
 import workshop.internal.entities.Phone;
 import workshop.internal.entities.User;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 	private PhonesResourceAssembler phonesResourceAssembler;
 	
 	public UsersResourceAssembler() {
-		super(UsersController.class, User.class);
+		super(UsersRestController.class, User.class);
 	}
 	
 	
@@ -75,9 +75,9 @@ public class UsersResourceAssembler extends WorkshopEntitiesResourceAssemblerAbs
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		Link link;
-		if (ExternalAuthoritiesController.GET_EXTERNAL_AUTHORITY_USERS.equalsIgnoreCase(controllerMethodName)) {
+		if (ExternalAuthoritiesRestController.GET_EXTERNAL_AUTHORITY_USERS.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(ExternalAuthoritiesController.class).getExternalAuthorityUsers(
+				ControllerLinkBuilder.methodOn(ExternalAuthoritiesRestController.class).getExternalAuthorityUsers(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
-import workshop.internal.controllers.rest.AuthorityPermissionsController;
-import workshop.internal.controllers.rest.WorkshopEntityTypesController;
+import workshop.controllers.internal.rest.AuthorityPermissionsRestController;
+import workshop.controllers.internal.rest.WorkshopEntityTypesRestController;
 import workshop.internal.entities.AuthorityPermission;
 
 @Slf4j
@@ -18,7 +18,7 @@ public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResou
 	 * super(WorkshopControllerInstance.class, WorkshopEntityInstance.class);
 	 */
 	public AuthorityPermissionsResourceAssembler() {
-		super(AuthorityPermissionsController.class, AuthorityPermission.class);
+		super(AuthorityPermissionsRestController.class, AuthorityPermission.class);
 	}
 	
 	@Override
@@ -36,9 +36,9 @@ public class AuthorityPermissionsResourceAssembler extends WorkshopEntitiesResou
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (WorkshopEntityTypesController.GET_ENTITY_TYPE_AUTHORITY_PERMISSIONS.equalsIgnoreCase(controllerMethodName)) {
+		if (WorkshopEntityTypesRestController.GET_ENTITY_TYPE_AUTHORITY_PERMISSIONS.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(WorkshopEntityTypesController.class).getEntityTypeAuthorityPermissions(
+				ControllerLinkBuilder.methodOn(WorkshopEntityTypesRestController.class).getEntityTypeAuthorityPermissions(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

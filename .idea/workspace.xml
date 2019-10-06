@@ -2,12 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/img/line-art-of-bicycle-logo-design-template-vector-png_34891.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/internal.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/internal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/LocalesConfigurationIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/LocalesConfigurationIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllerAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopRestControllerAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopControllersMethodSecurityIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/controllers/WorkshopRestControllersMethodSecurityIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/HateoasIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ErrorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/InternalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/WorkshopRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/WorkshopRestControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/AuthorityPermissionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/AuthorityPermissionsRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/ClassifiersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifiersRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/DepartmentsRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/EmployeesRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/ExternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ExternalAuthoritiesRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/InternalAuthoritiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/InternalAuthoritiesRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/OrdersRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/PhonesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/PhonesRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/PositionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/PositionsRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/TasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/TasksRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/UsersRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/controllers/rest/WorkshopEntityTypesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/WorkshopEntityTypesRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifiersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/DepartmentsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/DepartmentsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/EmployeesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/OrdersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PhonesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PhonesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/PositionsResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/TasksResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/UsersResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstractTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/security/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/internal.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/internal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/img/line-art-of-bicycle-logo-design-template-vector-png_34891.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/img/line-art-of-bicycle-logo-design-template-vector-png_34891.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +127,8 @@
       <list>
         <option value="Class" />
         <option value="CSS File" />
-        <option value="HTML Thymeleaf-Spring" />
         <option value="HTML File" />
+        <option value="HTML Thymeleaf-Spring" />
       </list>
     </option>
   </component>
@@ -100,8 +167,12 @@
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="workshop.internal.controllers" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\css" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\img" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\layouts" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\test" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\test\java\internalTestResources" />
@@ -110,12 +181,8 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.internal" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\test" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\test" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\application\src\test" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\application\src\test\java\applicationTestResources" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\test\java\internalTestResources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="workshop.internal.controllers" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -136,7 +203,15 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="JUnit.LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC">
+    <configuration name="All in WORKSHOP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="WORKSHOP" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <option name="PACKAGE_NAME" value="" />
@@ -153,30 +228,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in security" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="workshop in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
@@ -185,6 +237,22 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="workshop" />
+      <option name="MAIN_CLASS_NAME" value="workshop.LocalesConfigurationIT" />
+      <option name="METHOD_NAME" value="accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="workshop.internal.controllers in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.controllers.internal.rest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -203,19 +271,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.All in application" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
       <item itemvalue="JUnit.All in internal" />
-      <item itemvalue="JUnit.All in security" />
-      <item itemvalue="JUnit.workshop in application" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.workshop.internal.controllers in application" />
+      <item itemvalue="JUnit.All in WORKSHOP" />
+      <item itemvalue="JUnit.LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in internal" />
+        <item itemvalue="JUnit.LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" />
         <item itemvalue="JUnit.All in application" />
-        <item itemvalue="JUnit.workshop in application" />
-        <item itemvalue="JUnit.All in security" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+        <item itemvalue="JUnit.All in WORKSHOP" />
+        <item itemvalue="JUnit.workshop.internal.controllers in application" />
+        <item itemvalue="JUnit.All in internal" />
       </list>
     </recent_temporary>
   </component>
@@ -258,6 +326,8 @@
       <workItem from="1569940841290" duration="9204000" />
       <workItem from="1569997732587" duration="21830000" />
       <workItem from="1570082498469" duration="18600000" />
+      <workItem from="1570361641275" duration="57000" />
+      <workItem from="1570361715246" duration="6125000" />
     </task>
     <servers />
   </component>

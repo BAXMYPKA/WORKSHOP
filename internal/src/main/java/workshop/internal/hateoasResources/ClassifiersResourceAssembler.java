@@ -1,7 +1,7 @@
 package workshop.internal.hateoasResources;
 
-import workshop.internal.controllers.rest.ClassifiersController;
-import workshop.internal.controllers.rest.TasksController;
+import workshop.controllers.internal.rest.ClassifiersRestController;
+import workshop.controllers.internal.rest.TasksRestController;
 import workshop.internal.entities.Classifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ public class ClassifiersResourceAssembler extends WorkshopEntitiesResourceAssemb
 	 * @see WorkshopEntitiesResourceAssemblerAbstract#WorkshopEntitiesResourceAssemblerAbstract(Class, Class)
 	 */
 	public ClassifiersResourceAssembler() {
-		super(ClassifiersController.class, Classifier.class);
+		super(ClassifiersRestController.class, Classifier.class);
 	}
 	
 	@Override
@@ -33,9 +33,9 @@ public class ClassifiersResourceAssembler extends WorkshopEntitiesResourceAssemb
 		String orderBy = pageable.getSort().iterator().next().getProperty();
 		String order = pageable.getSort().getOrderFor(orderBy).getDirection().name();
 		
-		if (TasksController.GET_TASK_CLASSIFIERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
+		if (TasksRestController.GET_TASK_CLASSIFIERS_METHOD_NAME.equalsIgnoreCase(controllerMethodName)) {
 			link = ControllerLinkBuilder.linkTo(
-				ControllerLinkBuilder.methodOn(TasksController.class).taskClassifiers(
+				ControllerLinkBuilder.methodOn(TasksRestController.class).taskClassifiers(
 					ownerId,
 					pageable.getPageSize(),
 					++pageNum,

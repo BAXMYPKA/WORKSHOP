@@ -34,6 +34,12 @@
 			<version>${project-version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>pro.workshop</groupId>
+			<artifactId>external</artifactId>
+			<version>${project-version}</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>

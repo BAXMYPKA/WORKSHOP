@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-import workshop.internal.controllers.rest.DepartmentsController;
+import workshop.controllers.internal.rest.DepartmentsRestController;
 import workshop.internal.entities.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
@@ -28,7 +28,7 @@ class JsonServiceUtilsTest {
 	
 	JsonServiceUtils jsonServiceUtils;
 	Department department;
-	DepartmentsController departmentsController;
+	DepartmentsRestController departmentsController;
 	Position positionOne;
 	Position positionTwo;
 	

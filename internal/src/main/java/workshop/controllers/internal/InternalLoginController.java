@@ -26,10 +26,10 @@ public class InternalLoginController {
 	private String headerContentLanguageValue;
 	
 	@Value("${placeholder.adminPassword}")
-	private String placeholderAdminPassword;
+	private String placeholderAdminPassword; //Just for the presentation purposes
 	
 	@Value("${placeholder.adminLogin}")
-	private String placeholderAdminLogin;
+	private String placeholderAdminLogin; //Just for the presentation purposes
 	
 	@Autowired
 	private MessageSource messageSource;

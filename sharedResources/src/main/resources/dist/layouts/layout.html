@@ -4,11 +4,11 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="../assets/css/internal.css" th:href="@{/dist/assets/css/internal.css}">
+	<link rel="stylesheet" href="../assets/css/layout.css" th:href="@{/dist/assets/css/layout.css}">
 	<title>Layout</title>
 	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
-<body>
+<body th:with="currentURL=${#request.getRequestURL()}">
 
 <div class="containerMain" layout:fragment="containerMainLayout">
 	
@@ -28,8 +28,8 @@
 		
 		<div class="language">
 			
-			<form name="lang" action="/internal/login" method="get"
-				  th:action="@{/internal/login}">
+			<form name="lang" action="/" method="get"
+				  th:action="@{${currentURL}}">
 				<select name="lang" onchange="this.form.submit()">
 					<option value="ru"
 							th:each="lang : ${supportedLanguages}"
@@ -45,19 +45,26 @@
 	
 	</header>
 	
+	<!--	-->
+	
 	<div class="containerCenter">
 		
 		<nav class="leftNav">
 			
 			<ul>
 				<li>
-					<a href="/internal/login" title="Internal page for Workshop employees"
-					   th:href="@{/workshop.pro}" th:text="#{html.ul.li.leftNav.mainPage.a}" th:title="#{html.ul.li.leftNav.mainPage.title}">
+					<a href="/internal/login" title="Workshop main page"
+					   th:href="@{/}"
+					   th:text="#{html.ul.li.leftNav.mainPage.a}"
+					   th:title="#{html.ul.li.leftNav.mainPage.title}">
 						MAIN PAGE
 					</a>
 				</li>
 				<li>
-					<a href="/internal" th:href="@{/internal}" th:text="#{html.ul.li.leftNav.internalPage.a}" th:title="#{html.ul.li.leftNav.internalPage.title}">
+					<a href="./internal/login" title="Workshop Internal domain page"
+					   th:href="@{/internal/login}"
+					   th:text="#{html.ul.li.leftNav.internalPage.a}"
+					   th:title="#{html.ul.li.leftNav.internalPage.title}">
 						INTERNAL PAGE
 					</a>
 				</li>
@@ -66,10 +73,13 @@
 		</nav>
 		
 		<article class="article">
+			<p>ARTICLE</p>
 			<th:block layout:fragment="articleFragment"/>
 		</article>
 	
 	</div>
+	
+	<!--	-->
 	
 	<footer class="footer" th:fragment="thFooter">
 		

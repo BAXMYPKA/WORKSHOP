@@ -2,40 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Description(Rus).txt" beforeDir="false" afterPath="$PROJECT_DIR$/Description(Rus).txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/LocalesConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/LocalesConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/external/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/classes/workshop/controllers/WorkshopControllerAbstract.class" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/classes/workshop/controllers/WorkshopControllerAbstract.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external_en.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/external_ru.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/internalHtml.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/internalHtml_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/internalHtml_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/internal.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -291,7 +268,7 @@
       <workItem from="1570361641275" duration="57000" />
       <workItem from="1570361715246" duration="6125000" />
       <workItem from="1570428663817" duration="265000" />
-      <workItem from="1570428952227" duration="10520000" />
+      <workItem from="1570428952227" duration="20330000" />
     </task>
     <servers />
   </component>

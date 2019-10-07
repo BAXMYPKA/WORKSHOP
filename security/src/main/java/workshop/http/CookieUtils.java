@@ -5,11 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import workshop.configurations.WebSecurityConfiguration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +29,7 @@ public class CookieUtils {
 	@Value("${internalPathName}")
 	private String internalPathName;
 	
-	@Value("${authenticationCookieName}")
+	@Value("${internalAuthCookieName}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC) //For the test purposes
 	private String authenticationCookieName;

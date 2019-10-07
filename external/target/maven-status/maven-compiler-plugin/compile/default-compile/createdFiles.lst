@@ -1,0 +1,3 @@
+workshop\controllers\IndexController.class
+workshop\controllers\WorkshopController.class
+workshop\controllers\WorkshopControllerAbstract.class

@@ -40,16 +40,16 @@ public class InternalLoginController {
 		Map<String, String> placeholders = new HashMap<>();
 		placeholders.put("adminLogin", placeholderAdminLogin);
 		placeholders.put("adminPassword", placeholderAdminPassword);
-
+		
 		model.addAttribute("supportedLanguages", headerContentLanguageValue.split(","));
 		model.addAttribute("placeholders", placeholders);
 		
-		return "login";
+		return "internal/login";
 	}
 	
 	@PostMapping
 	public String postLogin(Model model) {
-		return "login";
+		return "internal/login";
 	}
 	
 }

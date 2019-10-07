@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,16 +27,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
 import workshop.security.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
+ * REST servicing stateless Internal domain for Employees with SPA API.
  * For now works only with cookies for being carried the Authentication information.
  */
-@EnableWebSecurity
+@Configuration
 @EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Order(2)
+public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${authorizationHeaderName}")
 	@Setter(AccessLevel.PACKAGE)
@@ -52,9 +51,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Setter(AccessLevel.PACKAGE)
 	private String internalPathName;
 	
-	@Value("${authenticationCookieName}")
+	@Value("${internalAuthCookieName}")
 	@Setter(AccessLevel.PACKAGE)
-	private String authenticationCookieName;
+	private String internalAuthCookieName;
 	
 	@Autowired
 	private JwtUtils jwtUtils;
@@ -65,8 +64,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private WorkshopPermissionEvaluator workshopPermissionEvaluator;
 	
+	@Autowired
+	private WorkshopAuthenticationManager workshopAuthenticationManager;
+	
 	@Override
-	public void configure(WebSecurity web) throws Exception {
+	public void configure(WebSecurity web) {
 		DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
 		webSecurityExpressionHandler.setPermissionEvaluator(workshopPermissionEvaluator);
 		web.expressionHandler(webSecurityExpressionHandler);
@@ -94,16 +96,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/internal**")
 			.authenticated()
-			.antMatchers("/")
-			.permitAll()
 			.and()
 			.formLogin()
 			.loginPage("/internal/login")
-			.failureHandler(authenticationFailureHandler())
+			.failureHandler(internalAuthenticationFailureHandler())
 			.and()
 			.logout()
 			.logoutUrl("/internal/login?logout=true")
-			.deleteCookies(authenticationCookieName)
+			.deleteCookies(internalAuthCookieName)
 			.clearAuthentication(true)
 			.logoutSuccessUrl("/internal/login?logged_out=true")
 			.and();
@@ -122,28 +122,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new UsersDetailsService();
 	}
 	
-	@Bean
-	@Qualifier("employeesAuthenticationProvider")
-	@DependsOn("employeesDetailsService")
-	public EmployeesAuthenticationProvider employeesAuthenticationProvider() {
-		return new EmployeesAuthenticationProvider();
-	}
-	
-	@Bean
-	@Qualifier("usersAuthenticationProvider")
-	@DependsOn("usersDetailsService")
-	public UsersAuthenticationProvider usersAuthenticationProvider() {
-		return new UsersAuthenticationProvider();
-	}
-	
-	@Bean
-	public Set<AuthenticationProvider> internalAuthenticationProviders() {
-		Set<AuthenticationProvider> authenticationProviders = new HashSet<>(4);
-		authenticationProviders.add(employeesAuthenticationProvider());
-		authenticationProviders.add(usersAuthenticationProvider());
-		return authenticationProviders;
-	}
-	
+/*
 	@Bean
 	@Qualifier("workshopAuthenticationManager")
 	@DependsOn("employeesAuthenticationProvider")
@@ -152,16 +131,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			internalAuthenticationProviders());
 		return authenticationManager;
 	}
+*/
 	
 	//TODO: to check double invocation of this
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 //	@DependsOn(value = {"jwtUtils", "cookieUtils"})
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 		LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
-		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
+		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
 		loginAuthenticationFilter.setCookieUtils(cookieUtils);
 		loginAuthenticationFilter.setJwtUtils(jwtUtils);
-		loginAuthenticationFilter.setAuthenticationCookieName(authenticationCookieName);
+		loginAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 		return loginAuthenticationFilter;
 	}
 	
@@ -170,22 +150,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
 			new AntPathRequestMatcher(internalPathName));
-		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
-		jwtAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
+		jwtAuthenticationFilter.setAuthenticationFailureHandler(internalAuthenticationFailureHandler());
 		jwtAuthenticationFilter.setCookieUtils(cookieUtils);
 		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
-		jwtAuthenticationFilter.setAuthenticationCookieName(authenticationCookieName);
+		jwtAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 		return jwtAuthenticationFilter;
 	}
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder;
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean
-	public SimpleUrlAuthenticationFailureHandler authenticationFailureHandler() {
+	public SimpleUrlAuthenticationFailureHandler internalAuthenticationFailureHandler() {
 		SimpleUrlAuthenticationFailureHandler authenticationFailureHandler =
 			new SimpleUrlAuthenticationFailureHandler("/internal/login?login=failure");
 		return authenticationFailureHandler;

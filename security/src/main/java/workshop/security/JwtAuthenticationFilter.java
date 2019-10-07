@@ -1,7 +1,6 @@
 package workshop.security;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.stereotype.Component;
 import workshop.http.CookieUtils;
 
 import javax.servlet.FilterChain;
@@ -48,7 +46,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	@Autowired
 	private CookieUtils cookieUtils;
 	
-	@Value("${authenticationCookieName}")
+	@Value("${internalAuthCookieName}")
 	@Setter
 	private String authenticationCookieName;
 	

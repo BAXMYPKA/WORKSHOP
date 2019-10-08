@@ -51,7 +51,9 @@
 	<nav class="upNav">
 		<ul class="upperMenu">
 			<li>
-				<a href="layout.html">UPPER MENU</a>
+				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectPurposes}">
+					Project purposes
+				</a>
 				<ul class="subMenu">
 					<li>
 						<a href="layout.html">MENU SUBLIST</a>
@@ -62,16 +64,59 @@
 				</ul>
 			</li>
 			<li>
-				<a href="layout.html">UPPER MENU</a>
+				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectTechnogies}">
+					Project technologies
+				</a>
 			</li>
 			<li>
-				<a href="layout.html">UPPER MENU</a>
+				<a href="layout.html" title="How it works in a nutshell"
+				   th:href="@{/}" th:text="#{html.upNav.upperMenu.projectInDetail}"
+				   th:title="#{html.upNav.upperMenu.projectInDetail.title}">
+					Project in details
+				</a>
+				
+				<ul class="subMenu">
+					<li>
+						<a href="layout.html"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}"
+						   th:href="@{/}">
+							How it should work
+						</a>
+					</li>
+					<li>
+						<a href="layout.html" title="How it checks usernames and passwords"
+						   th:href="@{/}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
+						th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
+							Authentication Security
+						</a>
+					</li>
+					<li>
+						<a href="layout.html" title="How it grants access based on Granted Authorities"
+						   th:href="@{/}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
+						th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
+							Authorization Security
+						</a>
+					</li>
+				
+				</ul>
+			
 			</li>
 			<li>
-				<a href="layout.html">UPPER MENU</a>
+				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.underConstruct}">
+					What is under construction
+				</a>
 			</li>
 			<li>
-				<a href="layout.html">UPPER MENU</a>
+				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.designComplaint}">
+					To complain of design and make-up
+				</a>
+			</li>
+			<li>
+				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.aboutMe}">
+					About me
+				</a>
 			</li>
 		
 		</ul>

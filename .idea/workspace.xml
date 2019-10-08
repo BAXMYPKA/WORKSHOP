@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/img/line-art-of-bicycle-logo-design-template-vector-png_34891.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/img/bicycle-logo.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -271,6 +262,7 @@
       <workItem from="1570428663817" duration="265000" />
       <workItem from="1570428952227" duration="20330000" />
       <workItem from="1570472673031" duration="7626000" />
+      <workItem from="1570531874786" duration="9568000" />
     </task>
     <servers />
   </component>

@@ -1,12 +1,12 @@
 .containerMain {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
 	min-width: 500px;
 	max-width: 1200px;
 	margin-right: auto;
 	margin-left: auto;
 	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
 	background-color: ghostwhite;
 }
 
@@ -157,6 +157,10 @@
 	transition-timing-function: ease-out;
 }
 
+.modalA:active {
+
+}
+
 .leftNav {
 	display: block;
 	overflow: hidden;
@@ -202,6 +206,54 @@
 }
 
 /* ===== COMMON ASSETS ===== */
+
+#modalBackground {
+	display: none;
+	position: absolute;
+	top: 1%;
+	bottom: 1%;
+	right: 1%;
+	left: 1%;
+	border-radius: 2%;
+	pointer-events: auto;
+	background: rgba(0, 0, 0, 0.5)
+}
+
+#modalBackground:target {
+	display: block;
+	z-index: 5;
+	transition-duration: 350ms;
+}
+
+.modalWindow {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	bottom: 20%;
+	right: 20%;
+	border: dimgrey 0.5em solid;
+	border-radius: 1em;
+	box-shadow: inset 0 0 1em 1.5em gainsboro;
+	padding: 2em;
+	background-color: darkgrey;
+	pointer-events: auto;
+}
+
+#modalBackground > .modalWindow > .close {
+	/*position: relative;*/
+	/*left: 70%;*/
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: Arial sans-serif;
+	font-weight: bold;
+	color: sienna;
+	padding: 1em;
+}
+
+#modalBackground > .modalWindow > .close:hover {
+	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
+	color: brown;
+}
 
 input {
 	margin: 0.12em;

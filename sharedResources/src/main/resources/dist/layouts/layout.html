@@ -167,7 +167,10 @@
 				</a>
 			</li>
 			<li>
-				<a href="./design.html" th:href="@{/design}" th:text="#{html.upNav.upperMenu.designComplaint}">
+				<a class="modalA"
+				   href="#modalBackground"
+				   th:href="@{#modalBackground}"
+				   th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
 				</a>
 			</li>
@@ -230,10 +233,26 @@
 		</div>
 	
 	</footer>
-
+	
+	<!--	MODAL WINDOW WITHIN .containerMain -->
+	
+	<div id="modalBackground">
+		
+		<div class="modalWindow">
+			
+			<a class="close" href=""
+			   th:href="#{${currentURL}}"
+			   th:text="#{html.a.close}">Close window</a>
+			
+			<p th:utext="#{html.article.designComplaint}">MODAL TEXT</p>
+		
+		</div>
+		
+	</div>
 </div>
 
 <!-- END MAIN CONTAINER -->
+
 
 </body>
 </html>

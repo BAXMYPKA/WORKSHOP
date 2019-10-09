@@ -6,13 +6,14 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.title.indexPage}">MAIN PAGE</title>
+	<title th:text="#{html.title.underConstructionPage}">What is under construction</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
-	<h1 th:text="#{html.h1.indexPage}">Workshop main page</h1>
-	<p th:utext="#{html.article.indexPage}">Workshop greetings</p>
+	
+	<h1 th:text="#{html.h1.underConstructionPage}">What is under construction</h1>
+	<p th:utext="#{html.article.underConstructionPage}">Under construction description</p>
 </th:block>
 
 </body>

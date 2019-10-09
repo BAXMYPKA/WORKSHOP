@@ -4,8 +4,14 @@
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Description(Rus).txt" beforeDir="false" afterPath="$PROJECT_DIR$/Description(Rus).txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/classes/workshop/controllers/IndexController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login_old.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login_old.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
@@ -95,7 +101,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last.edited.regexp" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/src/test/java/internalTestResources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -104,22 +110,23 @@
     <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\css" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\img" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\layouts" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\test" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="workshop.internal.controllers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\internal\src\test\java\internalTestResources" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\application\src\test\java\testResources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.internal" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="workshop.internal.controllers" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\css" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\img" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\layouts" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\security\src\test" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -271,6 +278,8 @@
       <workItem from="1570531874786" duration="9568000" />
       <workItem from="1570550476041" duration="5537000" />
       <workItem from="1570607631015" duration="9309000" />
+      <workItem from="1570620940489" duration="9208000" />
+      <workItem from="1570632743875" duration="2378000" />
     </task>
     <servers />
   </component>

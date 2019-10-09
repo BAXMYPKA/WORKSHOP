@@ -108,7 +108,8 @@
 }
 
 .upperMenu li:hover {
-	box-shadow: inset 0 0 0.2em 0.3em whitesmoke;
+	background-color: darkgrey;
+	/*box-shadow: inset 0 0 0.2em 0.3em darkgray;*/
 	transition-duration: 200ms;
 }
 
@@ -140,7 +141,8 @@
 .subMenu > li {
 	/*display: block;*/
 	/*margin: 0.0em 0.9em;*/
-	padding: 0.1em 0.2em;
+	/*margin: 0.0em 0.3em;*/
+	padding: 0.1em 0.3em;
 	/*border-top: gray solid 0.2em;*/
 	border-bottom: gray solid 0.2em;
 	/*border-right: gray solid 0.2em;*/

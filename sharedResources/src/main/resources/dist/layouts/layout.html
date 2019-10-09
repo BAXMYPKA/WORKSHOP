@@ -55,51 +55,101 @@
 	<nav class="upNav">
 		<ul class="upperMenu">
 			<li>
-				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectPurposes}">
+				<a href="./purposes.html" th:href="@{/purposes}" th:text="#{html.upNav.upperMenu.projectPurposes}">
 					Project purposes
 				</a>
 				
 				<ul class="subMenu">
 					<li>
-						<a href="layout.html">MENU SUBLIST</a>
+						<a href="./index.html">MENU SUBLIST</a>
 					</li>
 					<li>
-						<a href="layout.html">MENU SUBLIST</a>
+						<a href="./index.html">MENU SUBLIST</a>
 					</li>
 				</ul>
-				
+			
 			</li>
 			<li>
-				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectTechnogies}">
+				<a href="./technologies.html"
+				   th:href="@{/technologies}"
+				   th:text="#{html.upNav.upperMenu.projectTechnogies}">
 					Project technologies
 				</a>
+				
+				<ul class="subMenu">
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
+							Spring Boot
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
+							Spring MVC / Thymeleaf / HTML/CSS
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springSecurity}">
+							Spring Security
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springHateoas}">
+							Spring HATEOAS (REST)
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.jpa}">
+							JPA (Hibernate)
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.sqlH2}">
+							SQL (H2 database)
+						</a>
+					</li>
+				
+				</ul>
+			
+			
 			</li>
-			<li>
-				<a href="layout.html" title="How it works in a nutshell"
-				   th:href="@{/}" th:text="#{html.upNav.upperMenu.projectInDetail}"
+			<li title="How it works in a nutshell">
+				<a href="./details.html"
+				   th:href="@{${currentURL}}" th:text="#{html.upNav.upperMenu.projectInDetail}"
 				   th:title="#{html.upNav.upperMenu.projectInDetail.title}">
 					Project in details
 				</a>
 				
 				<ul class="subMenu">
 					<li>
-						<a href="layout.html"
-						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}"
-						   th:href="@{/}">
+						<a href="./howItWorks.html"
+						   th:href="@{/how-it-works}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}">
 							How it should work
 						</a>
 					</li>
 					<li>
-						<a href="layout.html" title="How it checks usernames and passwords"
-						   th:href="@{/}"
+						<a href="./authentication.html" title="How it checks usernames and passwords"
+						   th:href="@{/authentication}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
 						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
 							Authentication Security
 						</a>
 					</li>
 					<li>
-						<a href="layout.html" title="How it grants access based on Granted Authorities"
-						   th:href="@{/}"
+						<a href="./authorization.html" title="How it grants access based on Granted Authorities"
+						   th:href="@{/authorization}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
 						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
 							Authorization Security
@@ -110,17 +160,19 @@
 			
 			</li>
 			<li>
-				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.underConstruct}">
+				<a href="./underConstruction.html"
+				   th:href="@{/under-construction}"
+				   th:text="#{html.upNav.upperMenu.underConstruction}">
 					What is under construction
 				</a>
 			</li>
 			<li>
-				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.designComplaint}">
+				<a href="./design.html" th:href="@{/design}" th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
 				</a>
 			</li>
 			<li>
-				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.aboutMe}">
+				<a href="./about.html" th:href="@{/about}" th:text="#{html.upNav.upperMenu.aboutMe}">
 					About me
 				</a>
 			</li>
@@ -131,14 +183,14 @@
 	<!-- CENTER CONTAINER	-->
 	
 	<div class="containerCenter">
-	
-<!--	LEFT NAV CONTAINER	-->
+		
+		<!--	LEFT NAV CONTAINER	-->
 		
 		<nav class="leftNav">
 			
 			<ul>
 				<li>
-					<a href="/internal/login" title="Workshop main page"
+					<a href="./index.html" title="Workshop main page"
 					   th:href="@{/}"
 					   th:text="#{html.ul.li.leftNav.mainPage.a}"
 					   th:title="#{html.ul.li.leftNav.mainPage.title}">
@@ -157,7 +209,7 @@
 		
 		</nav>
 		
-<!--	MAIN ARTICLE	-->
+		<!--	MAIN ARTICLE	-->
 		
 		<article class="article">
 			<th:block layout:fragment="articleFragment"/>

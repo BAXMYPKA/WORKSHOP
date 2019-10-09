@@ -6,13 +6,15 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.title.indexPage}">MAIN PAGE</title>
+	<title th:text="#{html.title.tecnologiesPage}">Technologies used</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
-	<h1 th:text="#{html.h1.indexPage}">Workshop main page</h1>
-	<p th:utext="#{html.article.indexPage}">Workshop greetings</p>
+	
+	<h1 th:text="#{html.h1.technologiesPage}">Technologies used in the project</h1>
+	<p th:utext="#{html.article.technologiesPage}">Technologies description</p>
+
 </th:block>
 
 </body>

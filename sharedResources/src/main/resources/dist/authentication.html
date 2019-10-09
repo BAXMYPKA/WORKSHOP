@@ -6,13 +6,16 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.title.indexPage}">MAIN PAGE</title>
+	<title th:text="#{html.title.authenticationPage}">Authentication flow</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
-	<h1 th:text="#{html.h1.indexPage}">Workshop main page</h1>
-	<p th:utext="#{html.article.indexPage}">Workshop greetings</p>
+	
+	<h1 th:text="#{html.h1.authenticationPage}">JWT flow with schema</h1>
+	
+	<p th:utext="#{html.article.authenticationPage}">JWT flow with schema</p>
+	
 </th:block>
 
 </body>

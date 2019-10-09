@@ -99,8 +99,8 @@
 	margin: 0.0em 0.3em;
 	padding: 0.1em 0.5em;
 	border-top: gray groove 0.2em;
-	border-left: gray solid 0.2em;
-	border-right: gray solid 0.2em;
+	/*border-left: gray solid 0.2em;*/
+	/*border-right: gray solid 0.2em;*/
 	border-top-left-radius: 0.5em;
 	border-top-right-radius: 0.5em;
 	background-color: gainsboro;
@@ -129,6 +129,7 @@
 	top: 100%;
 	left: 0;
 	width: 100%;
+	z-index: 2;
 	list-style: none none;
 	padding: 0;
 	/*margin: 0;*/
@@ -179,8 +180,17 @@
 	color: saddlebrown;
 }
 
+.leftNav ul li a:hover {
+	color: brown;
+	transition-duration: 100ms;
+}
+
 .article {
+	display: block;
+	width: 82%;
 	padding: 1em;
+	background-color: ghostwhite;
+	overflow: auto;
 }
 
 .footer {

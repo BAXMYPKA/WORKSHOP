@@ -6,11 +6,14 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<title th:text="#{html.title.index}">MAIN PAGE</title>
 </head>
 <body>
 
-
+<th:block layout:fragment="articleFragment">
+	<h1 th:text="#{html.h1.index}">Workshop main page</h1>
+	<p th:utext="#{html.index.article}">Workshop greetings</p>
+</th:block>
 
 </body>
 </html>

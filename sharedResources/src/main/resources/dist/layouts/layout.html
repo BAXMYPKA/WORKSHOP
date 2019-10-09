@@ -10,7 +10,11 @@
 </head>
 <body th:with="currentURL=${#request.getRequestURL()}">
 
+<!-- MAIN CONTAINER -->
+
 <div class="containerMain" layout:fragment="containerMainLayout">
+	
+	<!-- HEADER	-->
 	
 	<header class="header">
 		
@@ -46,7 +50,7 @@
 	
 	</header>
 	
-	<!--	-->
+	<!-- UPPER NAV MENU	-->
 	
 	<nav class="upNav">
 		<ul class="upperMenu">
@@ -54,6 +58,7 @@
 				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectPurposes}">
 					Project purposes
 				</a>
+				
 				<ul class="subMenu">
 					<li>
 						<a href="layout.html">MENU SUBLIST</a>
@@ -62,6 +67,7 @@
 						<a href="layout.html">MENU SUBLIST</a>
 					</li>
 				</ul>
+				
 			</li>
 			<li>
 				<a href="layout.html" th:href="@{/}" th:text="#{html.upNav.upperMenu.projectTechnogies}">
@@ -87,7 +93,7 @@
 						<a href="layout.html" title="How it checks usernames and passwords"
 						   th:href="@{/}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
-						th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
+						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
 							Authentication Security
 						</a>
 					</li>
@@ -95,7 +101,7 @@
 						<a href="layout.html" title="How it grants access based on Granted Authorities"
 						   th:href="@{/}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
-						th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
+						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
 							Authorization Security
 						</a>
 					</li>
@@ -122,9 +128,11 @@
 		</ul>
 	</nav>
 	
-	<!--	-->
+	<!-- CENTER CONTAINER	-->
 	
 	<div class="containerCenter">
+	
+<!--	LEFT NAV CONTAINER	-->
 		
 		<nav class="leftNav">
 			
@@ -149,8 +157,9 @@
 		
 		</nav>
 		
+<!--	MAIN ARTICLE	-->
+		
 		<article class="article">
-			<p>ARTICLE</p>
 			<th:block layout:fragment="articleFragment"/>
 		</article>
 	
@@ -171,6 +180,8 @@
 	</footer>
 
 </div>
+
+<!-- END MAIN CONTAINER -->
 
 </body>
 </html>

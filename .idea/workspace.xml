@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05fc181d-123d-474a-ba1d-6bb6731b9f93" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/external/target/classes/META-INF/external.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Description(Rus).txt" beforeDir="false" afterPath="$PROJECT_DIR$/Description(Rus).txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/target/classes/META-INF/external.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/external-4.0.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
@@ -142,7 +148,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct">
     <configuration name="All in WORKSHOP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="WORKSHOP" />
       <option name="PACKAGE_NAME" value="" />
@@ -159,10 +165,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in internal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="internal" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+    <configuration name="HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.hateoasResources.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.hateoasResources" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.hateoasResources.HateoasIT" />
+      <option name="METHOD_NAME" value="orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -210,19 +224,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.All in application" />
-      <item itemvalue="JUnit.All in internal" />
       <item itemvalue="JUnit.workshop.internal.controllers in application" />
       <item itemvalue="JUnit.All in WORKSHOP" />
       <item itemvalue="JUnit.LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HateoasIT.orderBy_Custom_PropertyName_With_Default_Desc_Order_Should_Be_Correct" />
         <item itemvalue="JUnit.LocalesConfigurationIT.accept_Language_Header_En_Should_Return_Content_Language_Header_En_Via_MVC" />
         <item itemvalue="JUnit.All in application" />
         <item itemvalue="JUnit.All in WORKSHOP" />
         <item itemvalue="JUnit.workshop.internal.controllers in application" />
-        <item itemvalue="JUnit.All in internal" />
       </list>
     </recent_temporary>
   </component>
@@ -276,6 +290,7 @@
       <workItem from="1570620940489" duration="9208000" />
       <workItem from="1570632743875" duration="3273000" />
       <workItem from="1570639935907" duration="7020000" />
+      <workItem from="1570688124718" duration="23427000" />
     </task>
     <servers />
   </component>

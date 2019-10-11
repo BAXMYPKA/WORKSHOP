@@ -1,0 +1,64 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<link rel="stylesheet" href="../assets/css/login.css" th:href="@{/dist/assets/css/login.css}">
+	<title>Login</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<section>
+	<p>Это страница входа во внутренний раздел для сотрудников.</p>
+	<p>Логин - это почта, а пароли у всех, для упрощения, "12345". Список предустановленных сотрудников вы
+		можете видеть справа.</p>
+	<p>У каждого сотрудника своя должность и каждая должность имеет свои права доступа.</p>
+	<p>Самый полный доступ ко всем разделам со всеми разрешениями имеет пользователь "admin@workshop.pro" со
+		стандартным паролем "12345".</p>
+	<p>Языков поддерживается два - Русский и Английский (по-умолчанию). Язык страниц подхватывается
+		автоматически из заголовка браузера "Accept-Language", после смены записывается в куку.</p>
+	</section>
+	
+	<section>
+		
+		<p>Это вторая колонка. Тут таблица.</p>
+		<table>
+			<title>The predefined users list</title>
+			<tr>
+				<td>User 1</td>
+				<td>User 1</td>
+			</tr>
+			<tr>
+				<td>User 2</td>
+				<td>User 1</td>
+			</tr>
+		</table>
+		
+		<div class="formContainer">
+			<div class="login">
+				<form name="loginForm" action="/internal/login" method="post" class="loginForm">
+					<input type="text" placeholder="admin@workshop.pro"
+						   th:placeholder="${placeholders.adminLogin}">
+					<br>
+					<input type="text" placeholder="12345"
+						   th:placeholder="${placeholders.adminPassword}">
+					<br>
+					<input type="submit" value="LOGIN"
+						   th:value="#{html.submit.login}">
+				</form>
+			</div>
+		
+		</div>
+	
+	</section>
+	
+
+</th:block>
+
+</body>
+</html>

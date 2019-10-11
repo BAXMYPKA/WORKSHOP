@@ -1,0 +1,5 @@
+workshop\configurations\WebMvcConfiguration.class
+workshop\controllers\ErrorController.class
+workshop\configurations\LocalesConfiguration.class
+workshop\controllers\ExceptionHandlerController.class
+workshop\WorkshopApplication.class

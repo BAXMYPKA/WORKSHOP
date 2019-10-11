@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{html.title.howItWorksPage}">How it works</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<h1 th:text="#{html.h1.howItWorksPage}">How it works in a nutshell</h1>
+	
+	<p th:utext="#{html.article.howItWorksPage}">How it works description</p>
+	
+</th:block>
+
+</body>
+</html>

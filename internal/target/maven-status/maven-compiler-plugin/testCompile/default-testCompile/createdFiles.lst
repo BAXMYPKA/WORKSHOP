@@ -1,0 +1,6 @@
+workshop\internal\entities\DepartmentBeanValidationTest.class
+workshop\internal\entities\TrackableBeanValidationTest.class
+workshop\internal\services\OrdersServiceTest.class
+workshop\internal\hateoasResources\WorkshopEntitiesResourceAssemblerAbstractTest.class
+workshop\internal\services\JsonServiceUtilsTest.class
+workshop\internal\services\WorkshopEntitiesServiceAbstractImplementationsTest.class

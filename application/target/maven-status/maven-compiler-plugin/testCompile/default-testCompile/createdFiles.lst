@@ -1,0 +1,9 @@
+workshop\internal\controllers\WorkshopRestControllersMethodSecurityIT.class
+workshop\internal\controllers\WorkshopRestControllerAbstractIT.class
+workshop\internal\hateoasResources\SubResourcesCollectionsLinksIT.class
+workshop\LocalesConfigurationIT.class
+workshop\internal\hateoasResources\HateoasIT.class
+workshop\AppConfigurationIT.class
+workshop\internal\services\WorkshopEntitiesServiceAbstractIT.class
+workshop\internal\dao\WorkshopEntitiesDaoAbstractIT.class
+workshop\internal\dao\HibernateSecondLevelCacheIT.class

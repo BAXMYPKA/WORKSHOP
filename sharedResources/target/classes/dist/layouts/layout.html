@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en, ru" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="../assets/css/layout.css" th:href="@{/dist/assets/css/layout.css}">
+	<title>Layout</title>
+	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
+</head>
+<body th:with="currentURL=${#request.getRequestURL()}">
+
+<!-- MAIN CONTAINER -->
+
+<div class="containerMain" layout:fragment="containerMainLayout">
+	
+	<!-- HEADER	-->
+	
+	<header class="header">
+		
+		<div class="logo">
+			<div class="logoPicture">
+				<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/assets/img/mtb.png}">
+			</div>
+			<span class="motto" th:text="#{workshop.motto}">
+				Here's the short motto.
+			</span>
+		</div>
+		
+		<div class="workshopName" th:text="#{workshop.name}">
+			WORKSHOP
+		</div>
+		
+		<div class="language">
+			
+			<form name="lang" action="/" method="get"
+				  th:action="@{${currentURL}}">
+				<select name="lang" onchange="this.form.submit()">
+					<option value="ru"
+							th:each="lang : ${supportedLanguages}"
+							th:text="${lang}"
+							th:value="${lang}"
+							th:selected="${lang == #request.getParameter('lang')}">
+						RU
+					</option>
+				</select>
+			</form>
+		
+		</div>
+	
+	</header>
+	
+	<!-- UPPER NAV MENU	-->
+	
+	<nav class="upNav">
+		<ul class="upperMenu">
+			<li>
+				<a href="./purposes.html" th:href="@{/purposes}" th:text="#{html.upNav.upperMenu.projectPurposes}">
+					Project purposes
+				</a>
+				
+				<ul class="subMenu">
+					<li>
+						<a href="./index.html">MENU SUBLIST</a>
+					</li>
+					<li>
+						<a href="./index.html">MENU SUBLIST</a>
+					</li>
+				</ul>
+			
+			</li>
+			<li>
+				<a href="./technologies.html"
+				   th:href="@{/technologies}"
+				   th:text="#{html.upNav.upperMenu.projectTechnogies}">
+					Project technologies
+				</a>
+				
+				<ul class="subMenu">
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
+							Spring Boot
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
+							Spring MVC / Thymeleaf / HTML/CSS
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springSecurity}">
+							Spring Security
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springHateoas}">
+							Spring HATEOAS (REST)
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.jpa}">
+							JPA (Hibernate)
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.sqlH2}">
+							SQL (H2 database)
+						</a>
+					</li>
+				
+				</ul>
+			
+			
+			</li>
+			<li title="How it works in a nutshell">
+				<a href="./details.html"
+				   th:href="@{${currentURL}}" th:text="#{html.upNav.upperMenu.projectInDetail}"
+				   th:title="#{html.upNav.upperMenu.projectInDetail.title}">
+					Project in details
+				</a>
+				
+				<ul class="subMenu">
+					<li>
+						<a href="./howItWorks.html"
+						   th:href="@{/how-it-works}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}">
+							How it should work
+						</a>
+					</li>
+					<li>
+						<a href="./authentication.html" title="How it checks usernames and passwords"
+						   th:href="@{/authentication}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
+						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
+							Authentication Security
+						</a>
+					</li>
+					<li>
+						<a href="./authorization.html" title="How it grants access based on Granted Authorities"
+						   th:href="@{/authorization}"
+						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
+						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
+							Authorization Security
+						</a>
+					</li>
+				
+				</ul>
+			
+			</li>
+			<li>
+				<a href="./underConstruction.html"
+				   th:href="@{/under-construction}"
+				   th:text="#{html.upNav.upperMenu.underConstruction}">
+					What is under construction
+				</a>
+			</li>
+			<li>
+				<a class="modalA"
+				   href="#modalBackground"
+				   th:href="@{#modalBackground}"
+				   th:text="#{html.upNav.upperMenu.designComplaint}">
+					To complain of design and make-up
+				</a>
+			</li>
+			<li>
+				<a href="./about.html" th:href="@{/about}" th:text="#{html.upNav.upperMenu.aboutMe}">
+					About me
+				</a>
+			</li>
+		
+		</ul>
+	</nav>
+	
+	<!-- CENTER CONTAINER	-->
+	
+	<div class="containerCenter">
+		
+		<!--	LEFT NAV CONTAINER	-->
+		
+		<nav class="leftNav">
+			
+			<ul>
+				<li>
+					<a href="./index.html" title="Workshop main page"
+					   th:href="@{/}"
+					   th:text="#{html.ul.li.leftNav.mainPage.a}"
+					   th:title="#{html.ul.li.leftNav.mainPage.title}">
+						MAIN PAGE
+					</a>
+				</li>
+				<li>
+					<a href="./internal/login" title="Workshop Internal domain page"
+					   th:href="@{/internal/login}"
+					   th:text="#{html.ul.li.leftNav.internalPage.a}"
+					   th:title="#{html.ul.li.leftNav.internalPage.title}">
+						INTERNAL PAGE
+					</a>
+				</li>
+			</ul>
+		
+		</nav>
+		
+		<!--	MAIN ARTICLE	-->
+		
+		<article class="article">
+			<th:block layout:fragment="articleFragment"/>
+		</article>
+	
+	</div>
+	
+	<!--	-->
+	
+	<footer class="footer" th:fragment="thFooter">
+		
+		<div class="contacts">
+			<ul>
+				<li>
+					My personal contacts via Github
+				</li>
+			</ul>
+		</div>
+	
+	</footer>
+	
+	<!--	MODAL WINDOW WITHIN .containerMain -->
+	
+	<div id="modalBackground">
+		
+		<div class="modalWindow">
+			
+			<a class="close" href=""
+			   th:href="#{${currentURL}}"
+			   th:text="#{html.a.close}">Close window</a>
+			
+			<p th:utext="#{html.article.designComplaint}">MODAL TEXT</p>
+		
+		</div>
+		
+	</div>
+</div>
+
+<!-- END MAIN CONTAINER -->
+
+
+</body>
+</html>

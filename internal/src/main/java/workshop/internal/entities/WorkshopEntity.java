@@ -10,7 +10,7 @@ import java.util.Set;
  * by plural form, e.g. 'Word', 'Task' etc with 'words', 'tasks'.
  * Also the name doesn't have to include intermediate hyphens.
  * All above are for the sake of constructing simple URI paths '/domainPath/words/', '/domainPath/tasks/' etc.
- * In other cases you will need to correct {@link WorkshopPermissionEvaluator#evaluateServletWebRequest} method for
+ * In other cases you will need to correct WorkshopPermissionEvaluator#evaluateServletWebRequest method for
  * proper evaluating {@link WorkshopEntity#getWorkshopEntityName()} from a URI path.
  * <p>
  * Any implementations are intended to be exposed as the Resource for HATEOAS and also have extended Spring

@@ -17,9 +17,9 @@ public class UsersDetailsService implements UserDetailsService {
 	private UsersDao usersDao;
 	
 	/**
-	 * @param emailOrPhone The argument can be either User.email or User.<Set>phone.
+	 * @param emailOrPhone The argument can be either User.email or {@literal User.<Set>phone}.
 	 *                     Method will try to find a User entity sequentially by email and phone.
-	 * @return
+	 * @return {@link UserDetails} containing {@link User}
 	 * @throws UsernameNotFoundException If a User entity wasn't found neither by email nor one of phones.
 	 */
 	@Override

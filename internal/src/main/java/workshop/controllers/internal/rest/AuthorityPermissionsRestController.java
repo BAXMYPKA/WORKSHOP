@@ -1,6 +1,7 @@
 package workshop.controllers.internal.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,9 +37,6 @@ import java.util.HashSet;
 @RequestMapping(path = "/internal/authority-permissions", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 @ExposesResourceFor(AuthorityPermission.class)
 public class AuthorityPermissionsRestController extends WorkshopRestControllerAbstract<AuthorityPermission> {
-	
-	//TODO: where it can be invoked?
-	public static final String GET_INTERNAL_AUTHORITY_METHOD_NAME = "getInternalAuthority";
 	
 	public static final String GET_AUTHORITY_PERMISSION_ENTITY_TYPES = "getWorkshopEntitiesTypes";
 	

@@ -190,7 +190,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	 * @throws PersistenceFailureException 1) With 409 HttpStatus.CONFLICT in case of persistence failure.
 	 *                                     It may happen due to wrong properties.
 	 *                                     2) With 422 HttpStatus.UNPROCESSABLE_ENTITY if its 'identifier' not null
-	 *                                     and > 0. As to be persisted Entities dont't have to have their own ids.
+	 *                                     and greater than 0. As to be persisted Entities dont't have to have their own ids.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public T persistEntity(T entity)
@@ -228,8 +228,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	/**
 	 * @param entity Entity to be merged (updated) in the DataBase
 	 * @return An updated and managed copy of the given entity.
-	 * @throws IllegalArgumentException    If the given entity == null or its id == null or id <= 0. As to be updated
-	 *                                     (merged) this WorkshopEntity has to be exist in the DataBase.
+	 * @throws IllegalArgumentException    {@literal If the given entity == null or its id == null or id <= 0. As to be updated
+	 *                                     (merged) this WorkshopEntity has to be exist in the DataBase.}
 	 * @throws PersistenceFailureException If the given entity is in the removed state (not found in the DataBase)
 	 *                                     with 410 HttpStatus.GONE and the explicit localized message for the end User.
 	 */
@@ -317,7 +317,7 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @param entities
+	 * @param entities {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)}
 	 * @return {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)} If the given collection doesn't exceed
 	 * the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of persisted and managed copy of entities will be returned.
 	 * Otherwise an Collections.emptyList() will be returned (not to overload the memory and JPA first-level cache) and you

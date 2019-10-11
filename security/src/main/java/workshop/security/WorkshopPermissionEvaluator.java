@@ -25,8 +25,7 @@ import java.io.Serializable;
  * 'Task' - literal name of a domain object or target type which the current Authentication is going to have an access,
  * 'read' - literal type of access for the domain object ('read', 'write', 'full')
  * Throws {@link org.springframework.security.access.AccessDeniedException} by SpringSecurity and intercepted by the
- * ExceptionHandlerController then.
- * }
+ * ExceptionHandlerController then.}
  */
 @Slf4j
 @Component
@@ -71,11 +70,11 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 	 * @param authentication     Cannot be null. It is inserted by SpringSecurity automatically, no need to specially
 	 *                           pass it with SPeL expressions onto this method.
 	 * @param targetDomainObject If it is the instance of {@link ServletWebRequest} it is enough to obtain full info
-	 *                           with {@link this#evaluateServletWebRequest(Authentication, ServletWebRequest)}.
+	 *                           with {@link #evaluateServletWebRequest(Authentication, ServletWebRequest)}.
 	 *                           In not, it may be String representation of WorkshopEntity as 'Task' or the object
 	 *                           itself with mandatory overridden .toString() with the explicit name.
 	 * @param permission         Non-null. String representation of PermissionType as 'post', 'get' etc.
-	 * @return true of false
+	 * @return true of false depending on results.
 	 */
 	private boolean evaluateParameters(Authentication authentication, Object targetDomainObject, Object permission) {
 		//Those are cannot be null

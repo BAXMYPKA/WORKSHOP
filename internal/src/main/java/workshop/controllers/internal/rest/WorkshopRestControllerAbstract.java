@@ -39,7 +39,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
+ * {@literal1. Every REST WorkshopController has to have an instance variable of EntitiesServiceAbstract<T extends WorkshopEntity>
  * so that to get the concrete type of WorkshopEntity to operate with.
  * 2. Every REST controller has to be annotated with:
  * a. "@RequestMapping(path = "/internal/<workshop_entities>", produces = {MediaTypes.HAL_JSON_UTF8_VALUE})"
@@ -47,7 +47,7 @@ import java.util.Set;
  * c. '@ExposesResourcesFor(WorkshopEntity.class)' To be Spring EntityLinks capable controller every instance has to be
  * annotated with it and has the method kind of:
  * "@RequestMapping("/{id}")
- * ResponseEntity getOne(@PathVariable("id") … ) { … }"
+ * ResponseEntity getOne(@PathVariable("id") … ) { … }" }
  *
  * @param <T> WorkshopEntity classType
  */

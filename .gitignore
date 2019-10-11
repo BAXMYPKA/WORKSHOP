@@ -1,11 +1,13 @@
 /target
 #.idea
 #/.idea
+applicationWORKSHOP.jar
 /logs
 /security/target/
 /sharedResources/target/
 /logs/
 /internal/target/
+/external/target/
 /internalREST/target/
 /application/target/
 /application/logs/

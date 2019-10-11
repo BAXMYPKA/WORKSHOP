@@ -1,0 +1,13 @@
+body {
+	background-color: lavenderblush;
+}
+
+section {
+	display: inline-block;
+	max-width: 60%;
+}
+
+.formContainer {
+	display: block;
+	margin: 0 50%;
+}

@@ -1,0 +1,277 @@
+.containerMain {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	min-width: 500px;
+	max-width: 1200px;
+	margin-right: auto;
+	margin-left: auto;
+	box-sizing: border-box;
+	background-color: ghostwhite;
+}
+
+.containerCenter {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1em;
+	background-color: gainsboro;
+	box-shadow: inset 0 0 2em 2em whitesmoke;
+}
+
+.logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/*border: brown solid;*/
+	/*width: 18%;*/
+}
+
+.logoPicture {
+	display: block;
+	margin-bottom: 1em;
+	width: 50px;
+	height: 50px;
+	background-color: sandybrown;
+	border: brown solid;
+	border-radius: 50%;
+	content: "";
+}
+
+.mtb {
+	width: 48px;
+	height: 48px;
+}
+
+.motto {
+	font: small Calibri;
+	font-style: italic;
+	text-wrap: none;
+	text-align: center;
+}
+
+.workshopName {
+	margin: auto auto;
+	font-family: "Comic Sans MS", sans-serif;
+	font-weight: bolder;
+	font-size: 4em;
+}
+
+.language {
+	border: 0.3em solid aliceblue;
+	border-radius: 7%;
+	/*background-color: blue;*/
+	/*box-shadow: inset 0 0 50px 50em blueviolet;*/
+}
+
+.language:hover {
+	/*box-shadow: ;*/
+	/*box-shadow: inset 0.6em 0.3em 0.7em 0.7em brown;*/
+	border: 0.3em solid lightblue;
+	transition-duration: 500ms;
+	transition-timing-function: ease-out;
+}
+
+.upNav {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	width: 100%;
+	background-color: lightskyblue;
+}
+
+.upNav .upperMenu {
+	margin: 0;
+	list-style: none none;
+}
+
+.upperMenu > li {
+	position: relative;
+	display: inline-block;
+	margin: 0.0em 0.3em;
+	padding: 0.1em 0.5em;
+	border-top: gray groove 0.2em;
+	/*border-left: gray solid 0.2em;*/
+	/*border-right: gray solid 0.2em;*/
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	background-color: gainsboro;
+	/*opacity: 0.8;*/
+}
+
+.upperMenu li:hover {
+	background-color: darkgrey;
+	/*box-shadow: inset 0 0 0.2em 0.3em darkgray;*/
+	transition-duration: 200ms;
+}
+
+.upperMenu li a {
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 0.7em;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: Candara, sans-serif;*/
+	font-weight: bold;
+	color: black;
+	opacity: 0.5%;
+	
+}
+
+.subMenu {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	list-style: none none;
+	padding: 0;
+	/*margin: 0;*/
+	/*margin: 0 0.2em;*/
+	/*padding: 0.1em 0.1em;*/
+}
+
+.subMenu > li {
+	/*display: block;*/
+	/*margin: 0.0em 0.9em;*/
+	/*margin: 0.0em 0.3em;*/
+	padding: 0.1em 0.3em;
+	/*border-top: gray solid 0.2em;*/
+	border-bottom: gray solid 0.2em;
+	/*border-right: gray solid 0.2em;*/
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	background-color: gainsboro;
+}
+
+.upNav ul li:hover .subMenu {
+	display: block;
+	transition-duration: 400ms;
+	transition-timing-function: ease-out;
+}
+
+.modalA:active {
+
+}
+
+.leftNav {
+	display: block;
+	overflow: hidden;
+	width: 18%;
+	background: linear-gradient(to bottom, lightgray 0%, darkgray 70%);
+	/*background-color: lightgray;*/
+}
+
+.leftNav ul {
+	padding: 0.5em 0.3em;
+	list-style: none none;
+}
+
+.leftNav ul li {
+	margin: 0.5em 0.5em;
+}
+
+.leftNav ul li a {
+	text-decoration: none;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	/*font-family: Candara, sans-serif;*/
+	font-weight: bold;
+	font-size: 0.8em;
+	text-transform: uppercase;
+	color: saddlebrown;
+}
+
+.leftNav ul li a:hover {
+	color: brown;
+	transition-duration: 100ms;
+}
+
+.article {
+	display: block;
+	width: 82%;
+	padding: 1em;
+	background-color: ghostwhite;
+	overflow: auto;
+}
+
+.footer {
+	padding: 1em;
+	background: linear-gradient(to bottom right, darkgray 0%, lightgray 70%);
+	/*background-color: darkgrey;*/
+}
+
+/* ===== COMMON ASSETS ===== */
+
+#modalBackground {
+	display: none;
+	position: absolute;
+	top: 1%;
+	bottom: 1%;
+	right: 1%;
+	left: 1%;
+	border-radius: 2%;
+	pointer-events: auto;
+	background: rgba(0, 0, 0, 0.5)
+}
+
+#modalBackground:target {
+	display: block;
+	z-index: 5;
+	transition-duration: 350ms;
+}
+
+.modalWindow {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	bottom: 20%;
+	right: 20%;
+	border: dimgrey 0.5em solid;
+	border-radius: 1em;
+	box-shadow: inset 0 0 1em 1.5em gainsboro;
+	padding: 2em;
+	background-color: darkgrey;
+	pointer-events: auto;
+}
+
+#modalBackground > .modalWindow > .close {
+	/*position: relative;*/
+	/*left: 70%;*/
+	text-decoration: none;
+	text-transform: uppercase;
+	font-family: Arial sans-serif;
+	font-weight: bold;
+	color: sienna;
+	padding: 1em;
+}
+
+#modalBackground > .modalWindow > .close:hover {
+	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
+	color: brown;
+}
+
+input {
+	margin: 0.12em;
+	padding: 0;
+	border: dodgerblue solid 0.3em;
+	border-radius: 0.3em;
+	box-shadow: inset 0 0 1.1em 0.5em lightblue;
+	width: 18em;
+}
+
+input:hover {
+	box-shadow: inset 0 0 0.7em 0.2em lightblue;
+	transition-duration: 300ms;
+}
+
+/* ===== CSS ASSETS ===== */
+
+

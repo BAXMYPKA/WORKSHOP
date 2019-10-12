@@ -39,9 +39,9 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 * Every instance has to
 	 * '@Override
 	 * public long getIdentifier() {
-	 * 		return super.getIdentifier();
-	 * 	}'
-	 * 	method so that not to clash ResourceSupport.getIdentifier() with WorkshopEntity.getIdentifier()
+	 * return super.getIdentifier();
+	 * }'
+	 * method so that not to clash ResourceSupport.getIdentifier() with WorkshopEntity.getIdentifier()
 	 */
 	@Id
 	@Column(name = "id")
@@ -60,7 +60,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 */
 	@Column(nullable = false, updatable = false)
 	@PastOrPresent(groups = {PersistEmployeeValidation.class},
-		message = "{validation.pastOrPresent}")
+				   message = "{validation.pastOrPresent}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private ZonedDateTime created;
 	
@@ -68,6 +68,12 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
 	private ZonedDateTime modified;
 	
+	/**
+	 * For {@link Order} and {@link Task} classes it is MUST BE null at creation time. But later after being set it is
+	 * MAY BE an indicator of a finished work to send an {@link workshop.internal.entities.utils.OrderFinishedEvent}
+	 * to {@link User} if all the {@link Task}s in the particular {@link Order} have their property {@link Task#finished}
+	 * set.
+	 */
 	@Column
 	@PastOrPresent(message = "{validation.pastOrPresent}")
 	private ZonedDateTime finished;

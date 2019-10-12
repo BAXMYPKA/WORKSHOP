@@ -9,10 +9,13 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
+import workshop.internal.entities.utils.OrderFinishedEvent;
+import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
@@ -46,6 +49,12 @@ public class Order extends Trackable {
 	private String description;
 	
 	/**
+	 * This will be sent to {@link #createdFor} when this Order is finished or cancelled.
+	 */
+	@Column(nullable = true)
+	private String messageToUser;
+	
+	/**
 	 * Enabled by @EnableJpaAudition
 	 * If an Order is created by User himself - this field is filling in automatically in the DaoAbstract.persistEntity()
 	 * (if an User is presented in the SecurityContext).
@@ -59,7 +68,7 @@ public class Order extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER,
-		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Task> tasks;
 	
 	/**
@@ -68,7 +77,7 @@ public class Order extends Trackable {
 	 */
 	@Column(scale = 2)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
-		message = "{validation.positiveOrZero}")
+					message = "{validation.positiveOrZero}")
 	@EqualsAndHashCode.Include
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
@@ -99,7 +108,6 @@ public class Order extends Trackable {
 	/**
 	 * Add a Task and adds its price to the Order.overallPrice.
 	 * FetchType of {@link #tasks} MUST BY EAGER!
-	 *
 	 */
 	public void addTask(@Valid Task task) {
 		if (tasks == null) {
@@ -120,6 +128,29 @@ public class Order extends Trackable {
 		setOverallPrice(overallPrice.subtract(task.getPrice()));
 	}
 	
+	private void recalculateOverallPrice() throws IllegalArgumentException {
+		if (tasks != null && !tasks.isEmpty()) { //Sets the sum of all included Task's prices
+			setOverallPrice(getTasks().stream().map(Task::getPrice).reduce((a, b) -> a.add(b)).orElseThrow(
+				() -> new IllegalArgumentException("Task prices cannot be null!")));
+		}
+	}
+	
+	private void sendOrderFinishedEvent() {
+		WorkshopEntitiesEventPublisher.publishOrderFinishedEvent(this);
+	}
+	
+	/**
+	 * When being set the {@link OrderFinishedEvent} will be generated to notify {@link User} by email or {@link Phone}
+	 * that this Order is ready.
+	 *
+	 * @param finished Accepts {@link ZonedDateTime} only in past or present time!
+	 */
+	@Override
+	public void setFinished(@PastOrPresent(message = "{validation.pastOrPresent}") ZonedDateTime finished) {
+		super.setFinished(finished);
+		sendOrderFinishedEvent();
+	}
+	
 	/**
 	 * Before being persisted the Order recalculates overall price that depends on the price of every Task
 	 */
@@ -131,18 +162,19 @@ public class Order extends Trackable {
 	}
 	
 	/**
-	 * Before being updated the Order recalculates overall price that depends on the price of every Task
+	 * 1. Before being updated the Order recalculates overall price that depends on the price of every Task.
+	 * 2. Every included Task during their own {@literal @PreUpdate} methods invoke this method of their parent
+	 * {@link Order}. Then an Order looks through all included Tasks and if all their "finished" properties are not null
+	 * it sends the {@link OrderFinishedEvent} as an indicator that all the work is done
+	 * and we have to notify {@link User} by email or {@link Phone}.
+	 * 2.2 {@link OrderFinishedEvent} will not be sent if {@link #getFinished()} has been already set.
 	 */
 	@PreUpdate
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
-	}
-	
-	private void recalculateOverallPrice() throws IllegalArgumentException {
-		if (tasks != null && !tasks.isEmpty()) { //Sets the sum of all included Task's prices
-			setOverallPrice(getTasks().stream().map(Task::getPrice).reduce((a, b) -> a.add(b)).orElseThrow(
-				() -> new IllegalArgumentException("Task prices cannot be null!")));
+		if (tasks != null && getFinished() == null && tasks.stream().noneMatch(task -> task.getFinished() == null)) {
+			sendOrderFinishedEvent();
 		}
 	}
 }

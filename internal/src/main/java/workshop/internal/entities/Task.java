@@ -153,20 +153,6 @@ public class Task extends Trackable {
 	}
 	
 	/**
-	 * Forces the included Order to be pre-updated (so that that Order also be updated with this renewed Task).
-	 * If this Task hasn't been given a name, it concatenates all the names of the included Classifiers for this.
-	 */
-	@PreUpdate
-	@Override
-	public void preUpdate() {
-		super.preUpdate();
-		getOrder().preUpdate();
-		if (this.name == null && this.classifiers != null) {
-			this.classifiers.forEach(classifier -> this.name += classifier.getName() + "&");
-		}
-	}
-	
-	/**
 	 * Checks if the Order this Task belongs to is not finished (finished Orders cannot be modified).
 	 *
 	 * @throws PersistenceFailureException If the Order this Task belongs to is already finished and cannot be modified.
@@ -185,5 +171,19 @@ public class Task extends Trackable {
 	@Override
 	public Long getIdentifier() {
 		return super.getIdentifier();
+	}
+	
+	/**
+	 * Forces the included Order to be pre-updated (so that that Order also be updated with this renewed Task).
+	 * If this Task hasn't been given a name, it concatenates all the names of the included Classifiers for this.
+	 */
+	@PreUpdate
+	@Override
+	public void preUpdate() {
+		super.preUpdate();
+		getOrder().preUpdate();
+		if (this.name == null && this.classifiers != null) {
+			this.classifiers.forEach(classifier -> this.name += classifier.getName() + "&");
+		}
 	}
 }

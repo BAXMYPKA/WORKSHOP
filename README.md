@@ -22,10 +22,8 @@
     * 18080 для функционирования сервера. *Его можно изменить в файле "application.properties" в строке "server.port="*
     * 9092 *Его можно изменить в файле "application.properties" в строке "р2.port="*
 
-//////////////УКАЗАТЬ ПУТЬ К ФАЙЛУ В АРХИВЕ 
-
 ## КАК ЗАПУСКАТЬ ПРИЛОЖЕНИЕ
-Приложение представлено самозапускающимся архивом [applicationWORKSHOP.jar](https://github.com/BAXMYPKA/WORKSHOP/blob/master/applicationWORKSHOP.jar). Его можно скачать и запустить у себя локально.
+Приложение представлено самозапускающимся архивом [applicationWORKSHOP.jar](https://github.com/BAXMYPKA/WORKSHOP/raw/master/applicationWORKSHOP.jar). Его можно скачать и запустить у себя локально.
 
 *Так как .jar - это обычный архив, то открывается он так же обычным архиватором, а файл "application.properties
 " - это обычный текстовый файл с конфигурацией и находится он внутри архива **applicationWORKSHOP.jar\BOOT-INF\classes\application.properties***
@@ -236,8 +234,7 @@
 *Также внутри содержится немного внутренней кухни, как то, Департаменты, Отделы, Должности и разрешения для сотрудников Отдела Кадров (HR) по управлению персоналом.* 
 
 ## ДОКУМЕНТАЦИЯ
-Она скудна но есть в папке [doc](https://github.com/BAXMYPKA/WORKSHOP/blob/master/.gitignore
-) ///////////////УКАЗАТЬ ПРАВИЛЬНЫЙ ПУТЬ
+Она скудна но есть в папке [doc](https://github.com/BAXMYPKA/WORKSHOP/tree/master/docs)
 
 ### БЛАГОДАРНОСТИ
 Все было сделано при помощи такой-то матери, [StackOverFlow](https://stackoverflow.com/) и [Google](https://www.google.com/).
@@ -245,4 +242,4 @@
 От саомучки спасибо всем бесплатным статьям по Java, Java-фреймворкам, HTTP и SQL в Интернете, написанным энтузиастами или продвигающими свои учебные ресурсы людьми.
 
 ### АВТОР
-Контакты.
+Имя в миру Сергей, в гитхабе - [BAXMYPKA](https://github.com/BAXMYPKA).

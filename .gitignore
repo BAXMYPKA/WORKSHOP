@@ -1,7 +1,13 @@
+#COMMENT FOR MASTER BRANCH ONLY
+.idea
+*.txt
+*.iml
+######################
+#UNCOMMENT FOR MASTER BRANCH ONLY
+#applicationWORKSHOP.jar
+######################
+
 /target
-#.idea
-#/.idea
-applicationWORKSHOP.jar
 /logs
 /security/target/
 /sharedResources/target/

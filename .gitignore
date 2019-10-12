@@ -1,11 +1,19 @@
+#COMMENT NOT TO BE VISIBLE ON MASTER BRANCH ONLY
+.idea
+*.txt
+*.iml
+######################
+#UNCOMMENT TO BE VISIBLE MASTER BRANCH ONLY
+applicationWORKSHOP.jar
+######################
+
 /target
-#.idea
-#/.idea
 /logs
 /security/target/
 /sharedResources/target/
 /logs/
 /internal/target/
+/external/target/
 /internalREST/target/
 /application/target/
 /application/logs/

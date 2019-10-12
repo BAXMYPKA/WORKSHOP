@@ -62,12 +62,38 @@
 	margin: auto auto;
 	font-family: "Comic Sans MS", sans-serif;
 	font-weight: bolder;
-	font-size: 4em;
+	font-size: 3em;
+}
+
+.langAndShutdown {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
+.shutdown {
+	/*display: inline-block;*/
+	margin-bottom: 1em;
+	width: 1.4em;
+	height: 1.4em;
+	/*text-decoration: none;*/
+	text-transform: uppercase;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	font-size: 1.5em;
+	border-radius: 50%;
+	color: saddlebrown;
+}
+
+.shutdown:hover {
+	box-shadow: inset 0 0 0.3em 0.1em darkgray;
 }
 
 .language {
 	border: 0.3em solid aliceblue;
 	border-radius: 7%;
+	align-self: center;
 	/*background-color: blue;*/
 	/*box-shadow: inset 0 0 50px 50em blueviolet;*/
 }
@@ -242,7 +268,7 @@
 	pointer-events: auto;
 }
 
-#modalBackground > .modalWindow > .close {
+#modalBackground > .modalWindow > .shutdown {
 	/*position: relative;*/
 	/*left: 70%;*/
 	text-decoration: none;
@@ -253,7 +279,7 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .close:hover {
+#modalBackground > .modalWindow > .shutdown:hover {
 	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
 	color: brown;
 }

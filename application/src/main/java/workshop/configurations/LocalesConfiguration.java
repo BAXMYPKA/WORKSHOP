@@ -1,5 +1,6 @@
 package workshop.configurations;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,9 @@ import java.util.Locale;
 @Configuration
 public class LocalesConfiguration implements WebMvcConfigurer {
 	
+	@Value("${langCookieName}")
+	private String langCookieName;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(this.localeChangeInterceptor());
@@ -37,7 +41,7 @@ public class LocalesConfiguration implements WebMvcConfigurer {
 	@Bean(name = "localeResolver")
 	public LocaleResolver localeResolver() {
 		CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-		cookieLocaleResolver.setCookieName("lang");
+		cookieLocaleResolver.setCookieName(langCookieName);
 		cookieLocaleResolver.setCookieMaxAge(60 * 60 * 24 * 30);//30 days
 		cookieLocaleResolver.setCookieHttpOnly(true);
 		return cookieLocaleResolver;
@@ -46,7 +50,7 @@ public class LocalesConfiguration implements WebMvcConfigurer {
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("lang");
+		localeChangeInterceptor.setParamName(langCookieName);
 		return localeChangeInterceptor;
 	}
 	

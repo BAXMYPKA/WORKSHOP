@@ -31,20 +31,35 @@
 			WORKSHOP
 		</div>
 		
-		<div class="language">
+		<div class="langAndShutdown">
 			
-			<form name="lang" action="/" method="get"
-				  th:action="@{${currentURL}}">
-				<select name="lang" onchange="this.form.submit()">
-					<option value="ru"
-							th:each="lang : ${supportedLanguages}"
-							th:text="${lang}"
-							th:value="${lang}"
-							th:selected="${lang == #request.getParameter('lang')}">
-						RU
-					</option>
-				</select>
+			<form name="shutdownForm" action="/shutdown" method="get"
+				  th:action="@{/shutdown}">
+				<button class="shutdown"
+						title="CLOSE THE APPLICATION"
+						th:text="#{html.a.shutdown}"
+						th:title="#{html.button.title.shutdown}"
+						onclick="this.form.submit()">
+					SHUTDOWN APPLICATION
+				</button>
 			</form>
+			
+			<div class="language">
+				
+				<form name="lang" action="/" method="get"
+					  th:action="@{${currentURL}}">
+					<select name="lang" onchange="this.form.submit()">
+						<option value="ru"
+								th:each="lang : ${supportedLanguages}"
+								th:text="${lang}"
+								th:value="${lang}"
+								th:selected="${lang == language}">
+							RU
+						</option>
+					</select>
+				</form>
+			
+			</div>
 		
 		</div>
 	
@@ -254,14 +269,14 @@
 		
 		<div class="modalWindow">
 			
-			<a class="close" href=""
+			<a class="shutdown" href=""
 			   th:href="#{${currentURL}}"
 			   th:text="#{html.a.close}">Close window</a>
 			
 			<p th:utext="#{html.article.designComplaint}">MODAL TEXT</p>
 		
 		</div>
-		
+	
 	</div>
 </div>
 

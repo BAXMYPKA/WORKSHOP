@@ -19,9 +19,11 @@
 	<header class="header">
 		
 		<div class="logo">
-			<div class="logoPicture">
-				<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/assets/img/mtb.png}">
-			</div>
+			<a href="./index.html" th:href="@{/}">
+				<div class="logoPicture">
+					<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/assets/img/mtb.png}">
+				</div>
+			</a>
 			<span class="motto" th:text="#{workshop.motto}">
 				Here's the short motto.
 			</span>
@@ -37,7 +39,7 @@
 				  th:action="@{/shutdown}">
 				<button class="shutdown"
 						title="CLOSE THE APPLICATION"
-						th:text="#{html.a.shutdown}"
+						th:text="#{html.a.text.shutdown}"
 						th:title="#{html.button.title.shutdown}"
 						onclick="this.form.submit()">
 					SHUTDOWN APPLICATION
@@ -73,16 +75,6 @@
 				<a href="./purposes.html" th:href="@{/purposes}" th:text="#{html.upNav.upperMenu.projectPurposes}">
 					Project purposes
 				</a>
-				
-				<ul class="subMenu">
-					<li>
-						<a href="./index.html">MENU SUBLIST</a>
-					</li>
-					<li>
-						<a href="./index.html">MENU SUBLIST</a>
-					</li>
-				</ul>
-			
 			</li>
 			<li>
 				<a href="./technologies.html"
@@ -103,7 +95,14 @@
 						<a href="./technologies.html"
 						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
-							Spring MVC / Thymeleaf / HTML/CSS
+							Spring MVC
+						</a>
+					</li>
+					<li>
+						<a href="./technologies.html"
+						   th:href="@{/technologies}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.thymeleafHtmlCss}">
+							Thymeleaf / HTML/CSS
 						</a>
 					</li>
 					<li>
@@ -254,9 +253,14 @@
 	<footer class="footer" th:fragment="thFooter">
 		
 		<div class="contacts">
+			<h4 th:text="#{html.h4.contacts}">My personal contacts:</h4>
 			<ul>
 				<li>
-					My personal contacts via Github
+					<a href="https://github.com/BAXMYPKA"
+					   th:href="#{html.a.href.contacts.gitHub}"
+					   th:text="#{html.a.text.contacts.gitHub}">
+						My personal contacts via Github
+					</a>
 				</li>
 			</ul>
 		</div>
@@ -271,7 +275,7 @@
 			
 			<a class="shutdown" href=""
 			   th:href="#{${currentURL}}"
-			   th:text="#{html.a.close}">Close window</a>
+			   th:text="#{html.a.text.close}">Close window</a>
 			
 			<p th:utext="#{html.article.designComplaint}">MODAL TEXT</p>
 		

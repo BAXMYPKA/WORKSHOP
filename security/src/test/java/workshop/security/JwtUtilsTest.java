@@ -31,6 +31,7 @@ class JwtUtilsTest {
 	public SimpleGrantedAuthority grantedAuthorityUser = new SimpleGrantedAuthority(userAuthorityName);
 	public Authentication authentication;
 	
+/*
 	@BeforeAll
 	public static void overallPreparation() {
 		securityUtils = new SecurityUtils("WORKSHOP", SignatureAlgorithm.HS256);
@@ -38,7 +39,9 @@ class JwtUtilsTest {
 		jwtUtils.setSecurityUtils(securityUtils);
 		jwtUtils.setAudience("workshop.pro/internal");
 		jwtUtils.setIssuer("workshop.pro");
+		jwtUtils.setExpirationTime(30*60);
 	}
+*/
 	
 	@BeforeEach
 	public void methodPreparation() {
@@ -47,6 +50,13 @@ class JwtUtilsTest {
 			LocalDate.now().minusYears(17), position);
 		authentication = new UsernamePasswordAuthenticationToken(
 			employee, employee.getPassword(), Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
+		
+		securityUtils = new SecurityUtils("WORKSHOP", SignatureAlgorithm.HS256);
+		jwtUtils = new JwtUtils();
+		jwtUtils.setSecurityUtils(securityUtils);
+		jwtUtils.setAudience("workshop.pro/internal");
+		jwtUtils.setIssuer("workshop.pro");
+		jwtUtils.setExpirationTime(30*60);
 	}
 	
 	@Test

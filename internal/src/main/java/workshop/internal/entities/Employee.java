@@ -13,6 +13,7 @@ import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -76,6 +77,16 @@ public class Employee extends Trackable {
 	 */
 	@Column
 	private Boolean isEnabled = true;
+	
+	/**
+	 * Is set by {@link workshop.internal.services.UsersService#persistEntity(User)} when it is possible to obtain the
+	 * {@link Locale} and its LanguageTag from creator's context.
+	 * It is accepted when no special "languageTag" was set during creation then it will be set from the creator's
+	 * context.
+	 */
+	@Column
+	private String languageTag;
+	
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)

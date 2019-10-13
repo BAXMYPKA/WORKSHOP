@@ -17,10 +17,7 @@ import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -97,6 +94,15 @@ public class User extends WorkshopEntityAbstract {
 	
 	@Column(name = "enabled")
 	private Boolean isEnabled = true;
+	
+	/**
+	 * Is set by {@link workshop.internal.services.UsersService#persistEntity(User)} when it is possible to obtain the
+	 * {@link Locale} and its LanguageTag from creator's context.
+	 * It is accepted when no special "languageTag" was set during creation then it will be set from the creator's
+	 * context.
+	 */
+	@Column
+	private String languageTag;
 	
 	/**
 	 * One of the Phones can be used as a Login identity.

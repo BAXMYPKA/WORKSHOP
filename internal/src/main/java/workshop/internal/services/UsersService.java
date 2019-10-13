@@ -1,7 +1,10 @@
 package workshop.internal.services;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import workshop.internal.dao.UsersDao;
 import workshop.internal.entities.User;
+import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.internal.exceptions.PersistenceFailureException;
 
+import javax.persistence.EntityExistsException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Slf4j
@@ -24,6 +31,9 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	@Autowired
 	private UsersDao usersDao;
 	
+	@Value("${default.languageTag}")
+	private String defaultLanguageTag;
+	
 	/**
 	 * @param usersDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
 	 *                 implementation of this EntitiesServiceAbstract<T>.
@@ -32,6 +42,23 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	 */
 	public UsersService(UsersDao usersDao) {
 		super(usersDao);
+	}
+	
+	/**
+	 * Partly overridden method so that {@link User#getLanguageTag()} will be set.
+	 * {@link User#getLanguageTag()} will be set if it is null. If it is wrong - {@link #defaultLanguageTag} will be set
+	 *
+	 * @see WorkshopEntitiesServiceAbstract#persistEntity(WorkshopEntity)
+	 */
+	@Override
+	public User persistEntity(User entity)
+		throws IllegalArgumentException, IllegalArgumentsException, EntityExistsException, PersistenceFailureException {
+		if (entity.getLanguageTag() == null) {
+			entity.setLanguageTag(LocaleContextHolder.getLocale().toLanguageTag());
+		} else if (Locale.forLanguageTag(entity.getLanguageTag()).toLanguageTag() == null) {
+			entity.setLanguageTag(defaultLanguageTag);
+		}
+		return super.persistEntity(entity);
 	}
 	
 	/**
@@ -47,7 +74,7 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	}
 	
 	/**
-	 * @param pageable Info with desired pageNum, pageSize, orderBy and order to op
+	 * @param pageable    Info with desired pageNum, pageSize, orderBy and order to op
 	 * @param authorityId
 	 * @return
 	 * @throws EntityNotFoundException

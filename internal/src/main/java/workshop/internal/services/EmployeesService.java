@@ -1,8 +1,11 @@
 package workshop.internal.services;
 
+import org.springframework.beans.factory.annotation.Value;
 import workshop.internal.dao.EmployeesDao;
 import workshop.internal.dao.PhonesDao;
 import workshop.internal.entities.Employee;
+import workshop.internal.entities.User;
+import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.internal.exceptions.PersistenceFailureException;
 
+import javax.persistence.EntityExistsException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Slf4j
@@ -25,13 +32,30 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 	
 	@Autowired
 	private PositionsService positionsService;
-	@Autowired
-	private PhonesService phonesService;
-	@Autowired
-	private PhonesDao phonesDao;
+	
+	@Value("${default.languageTag}")
+	private String defaultLanguageTag;
 	
 	public EmployeesService(EmployeesDao employeesDao) {
 		super(employeesDao);
+	}
+	
+	/**
+	 * Partly overridden method so that {@link Employee#getLanguageTag()} will be set.
+	 * {@link Employee#getLanguageTag()} will be set if it is null. If it is wrong - {@link #defaultLanguageTag} will be
+	 * set.
+	 *
+	 * @see WorkshopEntitiesServiceAbstract#persistEntity(WorkshopEntity)
+	 */
+	@Override
+	public Employee persistEntity(Employee entity)
+		throws IllegalArgumentException, IllegalArgumentsException, EntityExistsException, PersistenceFailureException {
+		if (entity.getLanguageTag() == null) {
+			entity.setLanguageTag(LocaleContextHolder.getLocale().toLanguageTag());
+		} else if (Locale.forLanguageTag(entity.getLanguageTag()).toLanguageTag() == null) {
+			entity.setLanguageTag(defaultLanguageTag);
+		}
+		return super.persistEntity(entity);
 	}
 	
 	/**
@@ -46,7 +70,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		if (email == null) {
 			throw new IllegalArgumentException("Email cannot be null!");
 		}
-		Optional<Employee> employee = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).findEmployeeByEmail(email);
+		Optional<Employee> employee = ((EmployeesDao) getWorkshopEntitiesDaoAbstract()).findEmployeeByEmail(email);
 		return employee.orElseThrow(() -> new EntityNotFoundException("No Employee found!", HttpStatus.NOT_FOUND,
 			getMessageSource().getMessage("httpStatus.notFound(2)", new Object[]{"Employee", email},
 				LocaleContextHolder.getLocale())));
@@ -70,7 +94,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 		Pageable verifiedPageable = super.getVerifiedAndCorrectedPageable(pageable);
 		String order = verifiedPageable.getSort().iterator().next().getProperty();
 		
-		List<Employee> employeesByPosition = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).findAllEmployeesByPosition(
+		List<Employee> employeesByPosition = ((EmployeesDao) getWorkshopEntitiesDaoAbstract()).findAllEmployeesByPosition(
 			verifiedPageable.getPageSize(),
 			verifiedPageable.getPageNumber(),
 			order,
@@ -80,7 +104,7 @@ public class EmployeesService extends WorkshopEntitiesServiceAbstract<Employee> 
 				getMessageSource().getMessage(
 					"httpStatus.notFound(1)", new Object[]{"Employees"}, LocaleContextHolder.getLocale())));
 		
-		long totalEmployees = ((EmployeesDao)getWorkshopEntitiesDaoAbstract()).countAllEntities();
+		long totalEmployees = ((EmployeesDao) getWorkshopEntitiesDaoAbstract()).countAllEntities();
 		
 		Page<Employee> employeesPage = new PageImpl<>(employeesByPosition, verifiedPageable, totalEmployees);
 		

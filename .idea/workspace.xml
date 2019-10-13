@@ -5,186 +5,252 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_stephenc_jcip_jcip_annotations_1_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_199.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_lang_tag_1_4_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_nimbus_jose_jwt_6_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_oauth2_oidc_sdk_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_5_4_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_javax_mail_1_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_15.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_jsonwebtoken_jjwt_api_0_10_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_jsonwebtoken_jjwt_impl_0_10_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_jsonwebtoken_jjwt_jackson_0_10_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_2_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_persistence_javax_persistence_api_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_transaction_javax_transaction_api_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_expression_processor_1_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_2_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_1_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_5_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_dom4j_dom4j_2_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_107_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_api_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_core_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_impl_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_management_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_xml_3_7_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_sizeof_0_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_4_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_3_10_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_jcache_5_3_10_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_16_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_23_2_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_5_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_runner_1_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_3_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_3_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_8.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_amqp_2_1_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_rabbit_2_1_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_amqp_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_hateoas_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_integration_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_oauth2_client_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_oauth2_resource_server_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_1_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_1_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_hateoas_spring_hateoas_0_25_1_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_integration_spring_integration_core_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_plugin_spring_plugin_core_1_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_restdocs_spring_restdocs_core_2_0_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_restdocs_spring_restdocs_mockmvc_2_0_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_retry_spring_retry_1_2_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_client_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_core_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_jose_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_resource_server_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_7_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_management_management_model_2_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_management_management_registry_2_5_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_offheap_store_2_4_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_statistics_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/applicationWORKSHOP.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_stephenc_jcip_jcip_annotations_1_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_lang_tag_1_4_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_nimbus_jose_jwt_6_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_oauth2_oidc_sdk_6_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_rabbitmq_amqp_client_5_4_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_2_9_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_amqp_2_1_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_amqp_spring_rabbit_2_1_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_amqp_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_integration_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_oauth2_client_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_oauth2_resource_server_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_integration_spring_integration_core_5_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_retry_spring_retry_1_2_4_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_client_5_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_core_5_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_jose_5_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_resource_server_5_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_messaging_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ShutdownController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ShutdownController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SECURITY_FLOW.md" beforeDir="false" afterPath="$PROJECT_DIR$/SECURITY_FLOW.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/EmailTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/EmailTemplates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEventListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/applicationWORKSHOP.jar" beforeDir="false" afterPath="$PROJECT_DIR$/applicationWORKSHOP.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allclasses-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allclasses-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allclasses-noframe.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allclasses-noframe.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/constant-values.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/deprecated-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/deprecated-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/help-doc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-13.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-14.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-15.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-16.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-16.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-17.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-17.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-18.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-18.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-19.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-19.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-20.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-20.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-21.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-21.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-22.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-22.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-9.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/package-list" beforeDir="false" afterPath="$PROJECT_DIR$/docs/package-list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/WorkshopApplication.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/WorkshopApplication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/ExternalSecurityConfiguration.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/ExternalSecurityConfiguration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/InternalSecurityConfiguration.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/InternalSecurityConfiguration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/LocalesConfiguration.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/LocalesConfiguration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/WebMvcConfiguration.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/WebMvcConfiguration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/configurations/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/configurations/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/ErrorController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/ErrorController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/ExceptionHandlerController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/ExceptionHandlerController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/ShutdownController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/ShutdownController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/WorkshopController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/WorkshopController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/WorkshopControllerAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/WorkshopControllerAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/external/IndexController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/external/IndexController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/external/UpperMenuController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/external/UpperMenuController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/external/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/external/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/external/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/external/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/external/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/external/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/InternalController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/InternalController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/InternalLoginController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/InternalLoginController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/AuthorityPermissionsRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/AuthorityPermissionsRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/ClassifiersRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/ClassifiersRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/DepartmentsRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/DepartmentsRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/EmployeesRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/EmployeesRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/ExternalAuthoritiesRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/ExternalAuthoritiesRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/InternalAuthoritiesRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/InternalAuthoritiesRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/OrdersRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/OrdersRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/PhonesRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/PhonesRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/PositionsRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/PositionsRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/TasksRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/TasksRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/UsersRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/UsersRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopEntityTypesRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopEntityTypesRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopRestController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopRestController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopRestControllerAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/WorkshopRestControllerAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/internal/rest/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/controllers/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/controllers/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/http/CookieUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/http/CookieUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/http/ResponseHeadersInternalFilter.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/http/ResponseHeadersInternalFilter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/http/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/http/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/http/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/http/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/http/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/http/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/AuthorityPermissionsDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/AuthorityPermissionsDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/ClassifiersDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/ClassifiersDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/DepartmentsDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/DepartmentsDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/EmployeesDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/EmployeesDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/ExternalAuthoritiesDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/ExternalAuthoritiesDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/InternalAuthoritiesDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/InternalAuthoritiesDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/OrdersDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/OrdersDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/PhonesDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/PhonesDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/PositionsDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/PositionsDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/TasksDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/TasksDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/UsersDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/UsersDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntitiesDaoAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntitiesDaoAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntitiesDaoInterface.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntitiesDaoInterface.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntityTypesDao.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/WorkshopEntityTypesDao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/dao/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/dao/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/AuthorityPermission.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/AuthorityPermission.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Classifier.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Classifier.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Department.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Department.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Employee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/ExternalAuthority.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/ExternalAuthority.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/InternalAuthority.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/InternalAuthority.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Order.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Phone.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Phone.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Position.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Position.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Task.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Task.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Trackable.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Trackable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/User.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/User.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntity.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntity.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityType.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityType.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/MergingValidation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/MergingValidation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/PersistEmployeeValidation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/PersistEmployeeValidation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/PersistenceValidation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/PersistenceValidation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/hibernateValidation/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/CachesListener.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/CachesListener.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/PermissionType.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/PermissionType.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/PermissionTypeToPropertyConverter.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/PermissionTypeToPropertyConverter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/EntityNotFoundException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/EntityNotFoundException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/IllegalArgumentsException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/IllegalArgumentsException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/InternalServerErrorException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/InternalServerErrorException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/InvalidMethodArgumentsException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/InvalidMethodArgumentsException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/PersistenceFailureException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/PersistenceFailureException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/WorkshopException.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/WorkshopException.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/exceptions/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/AuthorityPermissionsResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/ClassifiersResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/ClassifiersResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/DepartmentsResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/DepartmentsResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/EmployeesResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/EmployeesResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/ExternalAuthoritiesResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/InternalAuthoritiesResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/OrdersResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/OrdersResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/PhonesResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/PhonesResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/PositionsResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/PositionsResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/TasksResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/TasksResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/UsersResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/UsersResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/WorkshopEntitiesResourceAssemblerAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/WorkshopEntityTypesResourceAssembler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/hateoasResources/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/AuthorityPermissionsService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/AuthorityPermissionsService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/ClassifiersService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/ClassifiersService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/DepartmentsService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/DepartmentsService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/EmployeesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/EmployeesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/ExternalAuthoritiesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/ExternalAuthoritiesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/InternalAuthoritiesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/InternalAuthoritiesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/OrdersService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/OrdersService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/PhonesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/PhonesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/PositionsService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/PositionsService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/TasksService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/TasksService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/UsersService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/UsersService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/WorkshopEntitiesServiceAbstract.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/WorkshopEntitiesServiceAbstract.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/WorkshopEntityTypesService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/WorkshopEntityTypesService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/JsonServiceUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/JsonServiceUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/services/serviceUtils/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/EmployeesAuthenticationProvider.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/EmployeesAuthenticationProvider.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/EmployeesDetailsService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/EmployeesDetailsService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/InternalAuthority.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/InternalAuthority.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/JwtAuthenticationFilter.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/JwtAuthenticationFilter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/JwtUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/JwtUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/LoginAuthenticationFilter.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/LoginAuthenticationFilter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/SecurityUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/SecurityUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/UserAuditorAware.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/UserAuditorAware.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/UserDetailsEmployee.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/UserDetailsEmployee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/UserDetailsUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/UserDetailsUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/UsersAuthenticationProvider.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/UsersAuthenticationProvider.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/UsersDetailsService.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/UsersDetailsService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/WorkshopAuthenticationManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/WorkshopAuthenticationManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/WorkshopPermissionEvaluator.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/WorkshopPermissionEvaluator.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/package-frame.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/package-frame.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/security/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/security/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/EmployeesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/EmployeesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -203,8 +269,33 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand />
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="EXTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+      </path>
+    </expand>
     <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="WORKSHOP" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -215,6 +306,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -228,6 +325,7 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="h2" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -240,7 +338,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Markdown" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -259,7 +357,78 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+    <configuration name="All in security" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtUtilsTest.not_valid_jwt_return_false" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="not_valid_jwt_return_false" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="unsigned_or_wrong_singed_tokens_always_return_false" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JwtUtilsTest.valid_JWT_return_true_and_wont_be_expired" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.security.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="valid_JWT_return_true_and_wont_be_expired" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WorkshopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="application" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="workshop.WorkshopApplication" />
@@ -271,6 +440,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in security" />
+        <item itemvalue="JUnit.JwtUtilsTest" />
+        <item itemvalue="JUnit.JwtUtilsTest.valid_JWT_return_true_and_wont_be_expired" />
+        <item itemvalue="JUnit.JwtUtilsTest.not_valid_jwt_return_false" />
+        <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7bcefc18" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="StructureViewFactory">
     <option name="ACTIVE_ACTIONS" value=",GROUP_BY_PREFIXES" />
@@ -289,6 +482,7 @@
       <workItem from="1570882431851" duration="42000" />
       <workItem from="1570887197602" duration="2353000" />
       <workItem from="1570893815410" duration="10080000" />
+      <workItem from="1570964305657" duration="21239000" />
     </task>
     <servers />
   </component>

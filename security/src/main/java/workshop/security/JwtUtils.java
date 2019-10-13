@@ -1,5 +1,6 @@
 package workshop.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.User;
 import io.jsonwebtoken.*;
@@ -28,9 +29,14 @@ public class JwtUtils {
 	/**
 	 * Jwt token expiration time in seconds. Default = 1800 (30minutes)
 	 */
-	private int expirationTime = 60 * 30;
-	private String issuer = "workshop.pro";
-	private String audience = "workshop.pro/internal";
+	@Value("${jwt.expirationTime}")
+	private Integer expirationTime;
+	
+	@Value("${jwt.issuer}")
+	private String issuer;
+	
+	@Value("${jwt.audience}")
+	private String audience = "workshop.pro/";
 	
 	/**
 	 * @param usernameAuthenticationToken where .getPrincipal = String(Username)

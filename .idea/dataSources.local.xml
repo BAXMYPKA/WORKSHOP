@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="WorkshopDataBase" uuid="ac4f4c70-798d-48a0-a903-777ef7fbe6fe">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="H2" exact-version="0" />
-      <secret-storage>forget</secret-storage>
+    <data-source name="WorshopDataBase" uuid="9b06b6c0-b136-4c33-b196-272c54ad842c">
+      <database-info product="H2" version="1.4.196 (2017-06-10)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.196 (2017-06-10)" dbms="H2" exact-version="1.4.196" exact-driver-version="1.4">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>Admin</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema">
-              <name qname="EXTERNAL" />
-              <name qname="INTERNAL" />
-            </node>
+          <node kind="database" qname="WORKSHOP">
+            <node kind="schema" qname="EXTERNAL" />
+            <node kind="schema" qname="INTERNAL" />
           </node>
         </introspection-scope>
       </schema-mapping>

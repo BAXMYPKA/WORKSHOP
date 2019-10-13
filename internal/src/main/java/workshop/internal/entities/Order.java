@@ -140,18 +140,6 @@ public class Order extends Trackable {
 	}
 	
 	/**
-	 * When being set the {@link OrderFinishedEvent} will be generated to notify {@link User} by email or {@link Phone}
-	 * that this Order is ready.
-	 *
-	 * @param finished Accepts {@link ZonedDateTime} only in past or present time!
-	 */
-	@Override
-	public void setFinished(@PastOrPresent(message = "{validation.pastOrPresent}") ZonedDateTime finished) {
-		super.setFinished(finished);
-		sendOrderFinishedEvent();
-	}
-	
-	/**
 	 * Before being persisted the Order recalculates overall price that depends on the price of every Task
 	 */
 	@PrePersist
@@ -168,12 +156,18 @@ public class Order extends Trackable {
 	 * it sends the {@link OrderFinishedEvent} as an indicator that all the work is done
 	 * and we have to notify {@link User} by email or {@link Phone}.
 	 * 2.2 {@link OrderFinishedEvent} will not be sent if {@link #getFinished()} has been already set.
+	 * 3. Checks if {@link #getFinished()} is being set. If so, {@link OrderFinishedEvent} will be generated to notify
+	 * {@link User} by  email or {@link Phone} that this Order is ready.
 	 */
 	@PreUpdate
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
 		if (tasks != null && getFinished() == null && tasks.stream().noneMatch(task -> task.getFinished() == null)) {
+			setFinished(ZonedDateTime.now());
+			sendOrderFinishedEvent();
+		} else if (super.getFinished() != null) {
+			setFinished(ZonedDateTime.now());
 			sendOrderFinishedEvent();
 		}
 	}

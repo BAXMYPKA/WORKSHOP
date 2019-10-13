@@ -14,3 +14,4 @@ workshop.internal.hateoasResources
 workshop.internal.services
 workshop.internal.services.serviceUtils
 workshop.security
+workshop.utils

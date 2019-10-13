@@ -21,7 +21,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1em;
+	padding: 0.5em;
 	background-color: gainsboro;
 	box-shadow: inset 0 0 2em 2em whitesmoke;
 }
@@ -31,17 +31,15 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	/*border: brown solid;*/
-	/*width: 18%;*/
 }
 
 .logoPicture {
 	display: block;
-	margin-bottom: 1em;
+	margin-bottom: 0.7em;
 	width: 50px;
 	height: 50px;
 	background-color: sandybrown;
-	border: brown solid;
+	border: red solid 0.4em;
 	border-radius: 50%;
 	content: "";
 }
@@ -52,7 +50,9 @@
 }
 
 .motto {
-	font: small Calibri;
+	/*font: small Calibri;*/
+	font-family: "Comic Sans MS", sans-serif;
+	font-size: 0.8em;
 	font-style: italic;
 	text-wrap: none;
 	text-align: center;
@@ -73,11 +73,9 @@
 }
 
 .shutdown {
-	/*display: inline-block;*/
-	margin-bottom: 1em;
+	margin-bottom: 0.7em;
 	width: 1.4em;
 	height: 1.4em;
-	/*text-decoration: none;*/
 	text-transform: uppercase;
 	font-family: Arial, sans-serif;
 	font-weight: bold;

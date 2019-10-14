@@ -248,6 +248,39 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			HttpStatus.GONE));
 	}
 	
+	/**
+	 * @param entities {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)}
+	 * @return A collection of only those entities which were able to be persisted.
+	 * If the given collection doesn't exceed the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of
+	 * persisted and managed copy of entities will be returned.
+	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
+	 * and you will have to get entities from your collection yourself.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public Collection<T> mergeEntities(Collection<T> entities) {
+		if (entities == null || entities.size() == 0) {
+			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
+		}
+		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFoundException(
+			"Internal services failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
+			"error.unknownError", null, LocaleContextHolder.getLocale())));
+	}
+	
+	/**
+	 * @param entities {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)}
+	 * @return A collection of only those entities which were able to be persisted.
+	 * If the given collection doesn't exceed the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of
+	 * persisted and managed copy of entities will be returned.
+	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
+	 * and you will have to get entities from your collection yourself.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public Collection<T> mergeEntities(T... entities) {
+		if (entities == null || entities.length == 0) {
+			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
+		}
+		return mergeEntities(Arrays.asList(entities));
+	}
 	
 	/**
 	 * @param entity The WorkshopEntity to be removed
@@ -329,24 +362,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
 		}
 		return workshopEntitiesDaoAbstract.persistEntities(entities).orElse(Collections.emptyList());
-	}
-	
-	/**
-	 * @param entities {@link WorkshopEntitiesServiceAbstract#persistEntities(Collection)}
-	 * @return A collection of only those entities which were able to be persisted.
-	 * If the given collection doesn't exceed the {@link WorkshopEntitiesDaoAbstract#getBatchSize()} a collection of
-	 * persisted and managed copy of entities will be returned.
-	 * Otherwise the collection of detached entities will be returned (not to overload the memory and JPA first-level cache)
-	 * and you will have to get entities from your collection yourself.
-	 */
-	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-	public Collection<T> mergeEntities(Collection<T> entities) {
-		if (entities == null || entities.size() == 0) {
-			throw new IllegalArgumentException("Collection<Entity> cannot be null or have a zero size!");
-		}
-		return workshopEntitiesDaoAbstract.mergeEntities(entities).orElseThrow(() -> new EntityNotFoundException(
-			"Internal services failure!", HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
-			"error.unknownError", null, LocaleContextHolder.getLocale())));
 	}
 	
 	

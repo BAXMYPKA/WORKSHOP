@@ -11,8 +11,10 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="database" qname="WORKSHOP">
-            <node kind="schema" qname="EXTERNAL" />
-            <node kind="schema" qname="INTERNAL" />
+            <node kind="schema">
+              <name qname="EXTERNAL" />
+              <name qname="INTERNAL" />
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>

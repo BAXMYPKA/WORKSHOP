@@ -3,12 +3,12 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.utils.OrderFinishedEvent;
 import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
 
@@ -68,8 +68,9 @@ public class Order extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER,
-			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<@Valid Task> tasks;
+		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+	private Set<@Valid Task> tasks = new HashSet<>(5);
+//	private Set<@Valid Task> tasks;
 	
 	/**
 	 * Sets automatically as the sum of the all included Tasks.
@@ -77,7 +78,7 @@ public class Order extends Trackable {
 	 */
 	@Column(scale = 2)
 	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
-					message = "{validation.positiveOrZero}")
+		message = "{validation.positiveOrZero}")
 	@EqualsAndHashCode.Include
 	private BigDecimal overallPrice = BigDecimal.ZERO;
 	
@@ -140,6 +141,18 @@ public class Order extends Trackable {
 	}
 	
 	/**
+	 * After being set generates {@link OrderFinishedEvent} to notify {@link User} by email or {@link Phone}
+	 * that this Order is ready.
+	 *
+	 * @param finished Accepts only present or past dates.
+	 */
+	@Override
+	public void setFinished(ZonedDateTime finished) {
+		super.setFinished(finished);
+		sendOrderFinishedEvent();
+	}
+	
+	/**
 	 * Before being persisted the Order recalculates overall price that depends on the price of every Task
 	 */
 	@PrePersist
@@ -155,20 +168,16 @@ public class Order extends Trackable {
 	 * {@link Order}. Then an Order looks through all included Tasks and if all their "finished" properties are not null
 	 * it sends the {@link OrderFinishedEvent} as an indicator that all the work is done
 	 * and we have to notify {@link User} by email or {@link Phone}.
-	 * 2.2 {@link OrderFinishedEvent} will not be sent if {@link #getFinished()} has been already set.
-	 * 3. Checks if {@link #getFinished()} is being set. If so, {@link OrderFinishedEvent} will be generated to notify
-	 * {@link User} by  email or {@link Phone} that this Order is ready.
+	 * 2.2 {@link OrderFinishedEvent} will not be sent if {@link #getFinished()} had been previously set.
 	 */
 	@PreUpdate
 	@Override
 	public void preUpdate() throws IllegalArgumentException {
 		super.preUpdate();
-		if (tasks != null && getFinished() == null && tasks.stream().noneMatch(task -> task.getFinished() == null)) {
+		if (tasks != null && tasks.size() > 0 && getFinished() == null &&
+			tasks.stream().noneMatch(task -> task.getFinished() == null)) {
+			
 			setFinished(ZonedDateTime.now());
-			sendOrderFinishedEvent();
-		} else if (super.getFinished() != null) {
-			setFinished(ZonedDateTime.now());
-			sendOrderFinishedEvent();
 		}
 	}
 }

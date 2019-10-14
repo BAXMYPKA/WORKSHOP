@@ -3,35 +3,35 @@ package workshop.internal.entities.utils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.Order;
 
 /**
- * As {@link workshop.internal.entities.WorkshopEntity} cannot be Beans and hold {@link org.springframework.beans.factory.annotation.Autowired}
- * properties, this class lets Entities to send ApplicationEvents by static {@link #publishOrderFinishedEvent(Order)}
- * method.
+ * Helper class.
+ * As all the {@link workshop.internal.entities.WorkshopEntity} classes are only {@link javax.persistence.Entity}
+ * but not Beans and cannot hold any {@link org.springframework.beans.factory.annotation.Autowired}
+ * properties, this class lets those WorkshopEntities to send ApplicationEvents (such as {@link OrderFinishedEvent})
+ * via static {@link #publishOrderFinishedEvent(Order)} method.
  */
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
+@Slf4j
 @Component
-public class WorkshopEntitiesEventPublisher implements ApplicationContextAware {
+public class WorkshopEntitiesEventPublisher implements ApplicationEventPublisherAware {
 	
-	private static ApplicationContext applicationContext;
+	private static ApplicationEventPublisher applicationEventPublisher;
 	
 	public static void publishOrderFinishedEvent(Order finishedOrder) {
-		ApplicationEventPublisher eventPublisher =
-			(ApplicationEventPublisher) applicationContext.getBean("eventPublisher");
 		OrderFinishedEvent event = new OrderFinishedEvent(finishedOrder);
-		eventPublisher.publishEvent(event);
-		
+		applicationEventPublisher.publishEvent(event);
+		log.debug("OrderFinishedEvent for the finished Order.ID={} has been sent.", finishedOrder.getIdentifier());
 	}
 	
 	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		applicationContext = context;
+	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+		WorkshopEntitiesEventPublisher.applicationEventPublisher = applicationEventPublisher;
 	}
 }

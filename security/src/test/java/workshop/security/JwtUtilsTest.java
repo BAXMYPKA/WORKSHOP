@@ -151,47 +151,13 @@ class JwtUtilsTest {
 		String jwt = jwtUtils.generateJwt(authentication);
 		String spoiledJwt = jwt.substring(0, jwt.length() - 7).concat("spoiled");
 		
-		System.out.println("Original: " + jwt + "\n" + "Spoiled: " + spoiledJwt);
+//		System.out.println("Original: " + jwt + "\n" + "Spoiled: " + spoiledJwt);
 		
 		//WHEN
 		boolean isValid = jwtUtils.validateJwt(spoiledJwt);
 		
 		//THEN
 		assertFalse(isValid);
-	}
-	
-	@Test
-	@DisplayName("First generate not valid JWTs")
-	public void not_valid_jwt_return_false() {
-		//GIVEN default JWT
-		authentication = new UsernamePasswordAuthenticationToken(
-			new Employee("fn", "ln", "ppppp", "email@oid.oro",
-				LocalDate.now().minusYears(17), new Position()), "",
-			Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
-		String validJwt = jwtUtils.generateJwt(authentication);
-		
-		//GIVEN changed issuer
-		jwtUtils.setIssuer("wrongIssuer");
-		
-		String notValidIssuerJwt = jwtUtils.generateJwt(authentication);
-		
-		//GIVEN changed audience (resource name)
-		jwtUtils.setAudience("wrongAudience");
-		
-		String notValidAudience = jwtUtils.generateJwt(authentication);
-		
-		//WHEN after setting the JwtUtils to default check all generated JWTs
-		jwtUtils = new JwtUtils();
-		jwtUtils.setSecurityUtils(securityUtils); //This instance HAS TO be the same
-		
-		boolean isValid = jwtUtils.validateJwt(validJwt);
-		boolean isNotValidIssuer = jwtUtils.validateJwt(notValidIssuerJwt);
-		boolean isNotValidAudience = jwtUtils.validateJwt(notValidAudience);
-		
-		//THEN
-		assertTrue(isValid);
-		assertFalse(isNotValidIssuer);
-		assertFalse(isNotValidAudience);
 	}
 	
 	@Test

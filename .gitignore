@@ -1,10 +1,10 @@
-#COMMENT FOR MASTER BRANCH ONLY
-#.idea
-#*.txt
-#*.iml
+#NOT TO BE VISIBLE ON MASTER BRANCH ONLY
+.idea
+*.txt
+*.iml
 ######################
-#UNCOMMENT FOR MASTER BRANCH ONLY
-#applicationWORKSHOP.jar
+#TO BE VISIBLE MASTER BRANCH ONLY
+applicationWORKSHOP.jar
 ######################
 
 /target

@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/applicationWORKSHOP.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalLoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +133,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished">
+  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
     <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <option name="PACKAGE_NAME" value="" />
@@ -255,6 +255,7 @@
       <workItem from="1571034584528" duration="22387000" />
       <workItem from="1571119479298" duration="306000" />
       <workItem from="1571119815508" duration="4365000" />
+      <workItem from="1571130821984" duration="7366000" />
     </task>
     <servers />
   </component>

@@ -3,11 +3,13 @@ body {
 }
 
 section {
-	display: inline-block;
-	max-width: 60%;
+	/*display: inline-block;*/
+	/*max-width: 60%;*/
+	background-color: aliceblue;
+	box-shadow: 0 0 2em 3em aliceblue;
 }
 
 .formContainer {
-	display: block;
-	margin: 0 50%;
+	/*display: block;*/
+	margin: 2em 0;
 }

@@ -1,7 +1,7 @@
 #NOT TO BE VISIBLE ON MASTER BRANCH ONLY
-.idea
-*.txt
-*.iml
+#.idea
+#*.txt
+#*.iml
 ######################
 #TO BE VISIBLE MASTER BRANCH ONLY
 applicationWORKSHOP.jar

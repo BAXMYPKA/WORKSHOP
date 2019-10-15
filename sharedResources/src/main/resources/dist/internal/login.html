@@ -42,7 +42,9 @@
 		
 		<table >
 			
-			<thead title th:text="#{html.table.thead.internal.login.predefinedEmployees}">The predefined users list</thead>
+			<caption title th:text="#{html.table.thead.internal.login.predefinedEmployees}">
+				The predefined users list
+			</caption>
 			<tr>
 				<th th:text="#{properties.fullName}">
 					Full name
@@ -73,7 +75,7 @@
 				<td th:text="${employee.position.department.name}">
 					User 1 Department
 				</td>
-				<td th:text="${employee.languageTag}">
+				<td th:text="${employee.languageTag}" style="text-transform: uppercase">
 					User 1 Language
 				</td>
 			</tr>

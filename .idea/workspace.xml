@@ -5,42 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/entities/utils/WorkshopEventListenerIT.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/applicationWORKSHOP.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_lang_tag_1_4_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_oauth2_oidc_sdk_6_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_expression_processor_1_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_2_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_1_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_5_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_jcache_5_3_10_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_1_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_oauth2_client_2_1_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_1_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_oauth2_client_5_1_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/OrderFinishedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/OrderFinishedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/WorkshopEntitiesEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/WorkshopEntitiesEventPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,8 +63,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -128,7 +100,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/src/test" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/WORKSHOP-master" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15296052" />
@@ -137,6 +109,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -160,7 +133,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in application">
+  <component name="RunManager" selected="JUnit.TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished">
     <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <option name="PACKAGE_NAME" value="" />
@@ -169,64 +142,57 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEventListenerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="All in internal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEventListenerIT.finished_Order_Should_Generate_OrderFinishedEvent_For_That_Order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="internal" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
+          <option name="PATTERN" value="workshop.internal.entities.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
-      <option name="METHOD_NAME" value="finished_Order_Should_Generate_OrderFinishedEvent_For_That_Order" />
+      <option name="PACKAGE_NAME" value="workshop.internal.entities" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.TrackableBeanValidationTest" />
+      <option name="METHOD_NAME" value="default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEventListenerIT.finished_Order_With_All_Tasks_Finished_Should_Generate_OrderFinishedEvent_With_That_Order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
+          <option name="PATTERN" value="workshop.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
-      <option name="METHOD_NAME" value="finished_Order_With_All_Tasks_Finished_Should_Generate_OrderFinishedEvent_With_That_Order" />
+      <option name="PACKAGE_NAME" value="workshop.utils" />
+      <option name="MAIN_CLASS_NAME" value="workshop.utils.WorkshopEmailServiceIT" />
+      <option name="METHOD_NAME" value="_Email_Message_Should_Throw_MailException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEventListenerIT.not_Finished_Tasks_Should_Not_Generate_OrderFinishedEvent_With_That_Order" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEmailServiceIT.undelivered_Email_Message_Should_Throw_MailException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
+          <option name="PATTERN" value="workshop.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
-      <option name="METHOD_NAME" value="not_Finished_Tasks_Should_Not_Generate_OrderFinishedEvent_With_That_Order" />
+      <option name="PACKAGE_NAME" value="workshop.utils" />
+      <option name="MAIN_CLASS_NAME" value="workshop.utils.WorkshopEmailServiceIT" />
+      <option name="METHOD_NAME" value="undelivered_Email_Message_Should_Throw_MailException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -245,11 +211,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
+        <item itemvalue="JUnit.All in internal" />
+        <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
+        <item itemvalue="JUnit.WorkshopEmailServiceIT.undelivered_Email_Message_Should_Throw_MailException" />
         <item itemvalue="JUnit.All in application" />
-        <item itemvalue="JUnit.WorkshopEventListenerIT" />
-        <item itemvalue="JUnit.WorkshopEventListenerIT.finished_Order_With_All_Tasks_Finished_Should_Generate_OrderFinishedEvent_With_That_Order" />
-        <item itemvalue="JUnit.WorkshopEventListenerIT.not_Finished_Tasks_Should_Not_Generate_OrderFinishedEvent_With_That_Order" />
-        <item itemvalue="JUnit.WorkshopEventListenerIT.finished_Order_Should_Generate_OrderFinishedEvent_For_That_Order" />
       </list>
     </recent_temporary>
   </component>
@@ -287,6 +253,8 @@
       <workItem from="1570893815410" duration="10080000" />
       <workItem from="1570964305657" duration="21239000" />
       <workItem from="1571034584528" duration="22387000" />
+      <workItem from="1571119479298" duration="306000" />
+      <workItem from="1571119815508" duration="4365000" />
     </task>
     <servers />
   </component>

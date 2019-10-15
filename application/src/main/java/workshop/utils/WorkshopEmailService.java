@@ -2,8 +2,7 @@ package workshop.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.*;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +27,14 @@ public class WorkshopEmailService {
 	public void sendSimpleMessage(SimpleMailMessage mailMessage) throws MailException {
 		log.debug("SimpleMailMessage to={} will be sent",
 			Objects.requireNonNull(mailMessage.getTo(), "'to' property cannot be null!")[0]);
-		//TODO: to handle SendMailException
-		javaMailSender.send(mailMessage);
+		try {
+			javaMailSender.send(mailMessage);
+		} catch (MailParseException mpe) {
+			log.error("Mail template is unprocessable! It is impossible to send mails!\n\t" + mpe.getMessage(), mpe);
+		} catch (MailAuthenticationException mae) {
+			log.error("Impossible to send mail due to error authorization! Check email credentials!\n\t" + mae.getMessage(), mae);
+		} catch (MailSendException mse) {
+			log.info("It is look like recipient's email address is wrong! Check email credentials for={}", mailMessage.getTo()[0], mse);
+		}
 	}
 }

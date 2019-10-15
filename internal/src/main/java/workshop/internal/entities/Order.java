@@ -70,7 +70,6 @@ public class Order extends Trackable {
 	@OneToMany(orphanRemoval = true, mappedBy = "order", fetch = FetchType.EAGER,
 		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Task> tasks = new HashSet<>(5);
-//	private Set<@Valid Task> tasks;
 	
 	/**
 	 * Sets automatically as the sum of the all included Tasks.

@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.Mockito;
+import org.springframework.context.ApplicationEventPublisher;
 import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -125,7 +128,12 @@ class TrackableBeanValidationTest {
 	@Test
 	public void default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished() {
 		//GIVEN
+		ApplicationEventPublisher eventPublisher = Mockito.mock(ApplicationEventPublisher.class);
+		WorkshopEntitiesEventPublisher publisher = new WorkshopEntitiesEventPublisher();
+		publisher.setApplicationEventPublisher(eventPublisher);
+		
 		Order orderWithIncorrectFinished = new Order();
+		
 		orderWithIncorrectFinished.setFinished(ZonedDateTime.now().plusMinutes(1));
 		orderWithIncorrectFinished.setIdentifier(1L);
 		

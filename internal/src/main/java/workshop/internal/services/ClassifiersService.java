@@ -1,7 +1,10 @@
 package workshop.internal.services;
 
+import workshop.internal.dao.ClassifierTypesDao;
 import workshop.internal.dao.ClassifiersDao;
 import workshop.internal.entities.Classifier;
+import workshop.internal.entities.ClassifierType;
+import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.exceptions.IllegalArgumentsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class ClassifiersService extends WorkshopEntitiesServiceAbstract<Classifi
 	
 	@Autowired
 	private ClassifiersDao classifiersDao;
+	
+	@Autowired
+	private ClassifierTypesDao classifierTypesDao;
 	
 	public ClassifiersService(ClassifiersDao classifiersDao) {
 		super(classifiersDao);
@@ -56,4 +62,19 @@ public class ClassifiersService extends WorkshopEntitiesServiceAbstract<Classifi
 		return verifiedClassifiersPageFromDao;
 	}
 	
+	/**
+	 * @return {@link Classifier} with a new {@link ClassifierType} set
+	 * @throws EntityNotFoundException if neither {@link Classifier} no {@link ClassifierType} were found by IDs
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public Classifier setClassifierType(Long classifierId, Long classifierTypeId) throws EntityNotFoundException {
+		
+		super.verifyIdForNullZeroBelowZero(classifierId, classifierTypeId);
+		
+		Classifier classifier = super.getVerifiedEntity(classifiersDao.findById(classifierId));
+		ClassifierType classifierType =
+			(ClassifierType) super.getVerifiedWorkshopEntity(classifierTypesDao.findById(classifierTypeId));
+		classifier.setClassifierType(classifierType);
+		return classifier;
+	}
 }

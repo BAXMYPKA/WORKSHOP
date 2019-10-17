@@ -72,10 +72,10 @@
 
 .loginRegistration a {
 	text-decoration: none;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	font-weight: bolder;
-	color: saddlebrown;
+	color: cornflowerblue;
 }
 
 .langAndShutdown {
@@ -85,7 +85,9 @@
 	align-items: flex-end;
 }
 
-.shutdown {
+.shutdownA {
+	display: block;
+	/*justify-self: right;*/
 	margin-bottom: 0.7em;
 	width: 1.4em;
 	height: 1.4em;
@@ -97,8 +99,9 @@
 	color: saddlebrown;
 }
 
-.shutdown:hover {
+.shutdownA:hover {
 	box-shadow: inset 0 0 0.3em 0.1em darkgray;
+	color: red;
 }
 
 .language {
@@ -256,7 +259,7 @@
 	left: 1%;
 	border-radius: 2%;
 	pointer-events: auto;
-	background: rgba(0, 0, 0, 0.5)
+	background: rgba(0, 0, 0, 0.3)
 }
 
 #loginModalBackground:target {
@@ -266,22 +269,32 @@
 }
 
 .loginModalWindow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	position: absolute;
 	top: 20%;
 	left: 20%;
 	bottom: 20%;
 	right: 20%;
+	overflow: auto;
 	border: dimgrey 0.5em solid;
 	border-radius: 1em;
 	box-shadow: inset 0 0 1em 1.5em gainsboro;
 	padding: 2em;
-	background-color: lightcyan;
+	background-color: ghostwhite;
 	pointer-events: auto;
 }
 
-#loginModalBackground > .loginModalWindow > .shutdown {
+.usersTable {
+	margin-top: 2em;
+}
+
+#loginModalBackground > .loginModalWindow > .closeA {
+	display: inline-block;
+	align-self: flex-end;
 	/*position: relative;*/
-	/*left: 70%;*/
+	/*left: 100%;*/
 	padding: 1em 2em;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -290,9 +303,13 @@
 	color: sienna;
 }
 
-#loginModalBackground > .loginModalWindow > .shutdown:hover {
+#loginModalBackground > .loginModalWindow > .closeA:hover {
 	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
-	color: brown;
+	color: red;
+}
+
+.formContainer {
+
 }
 
 /* ===== FORMS ===== */

@@ -72,7 +72,7 @@
 	align-items: flex-end;
 }
 
-.shutdown {
+.shutdownA {
 	margin-bottom: 0.7em;
 	width: 1.4em;
 	height: 1.4em;
@@ -84,7 +84,7 @@
 	color: saddlebrown;
 }
 
-.shutdown:hover {
+.shutdownA:hover {
 	box-shadow: inset 0 0 0.3em 0.1em darkgray;
 }
 
@@ -268,7 +268,7 @@
 	pointer-events: auto;
 }
 
-#modalBackground > .modalWindow > .shutdown {
+#modalBackground > .modalWindow > .shutdownA {
 	/*position: relative;*/
 	/*left: 70%;*/
 	text-decoration: none;
@@ -279,7 +279,7 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .shutdown:hover {
+#modalBackground > .modalWindow > .shutdownA:hover {
 	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
 	color: brown;
 }

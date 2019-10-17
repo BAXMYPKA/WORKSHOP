@@ -35,7 +35,7 @@ import java.util.Set;
 						@AttributeOverride(name = "finished", column = @Column(name = "gotFired")),
 						@AttributeOverride(name = "createdBy", column = @Column(name = "createdBy", nullable = true)),
 						@AttributeOverride(name = "created", column = @Column(name = "employed"))})
-public class Employee extends Trackable {
+public class Employee extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
@@ -122,22 +122,22 @@ public class Employee extends Trackable {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Task.class,
 			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Trackable> tasksModifiedBy;
+	private Set<WorkshopAudibleEntityAbstract> tasksModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Task.class,
 			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Trackable> tasksCreatedBy;
+	private Set<WorkshopAudibleEntityAbstract> tasksCreatedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY, targetEntity = Order.class,
 			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Trackable> ordersModifiedBy;
+	private Set<WorkshopAudibleEntityAbstract> ordersModifiedBy;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, targetEntity = Order.class,
 			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	private Set<Trackable> ordersCreatedBy;
+	private Set<WorkshopAudibleEntityAbstract> ordersCreatedBy;
 	
 	/**
 	 * All the arguments of this constructor are obligatory to be set!

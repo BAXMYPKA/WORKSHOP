@@ -20,7 +20,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TrackableBeanValidationTest {
+class WorkshopAudibleEntityAbstractBeanValidationTest {
 	
 	private static Validator validator;
 	

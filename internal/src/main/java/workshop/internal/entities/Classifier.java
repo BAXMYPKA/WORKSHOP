@@ -2,6 +2,7 @@ package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.MergingValidation;
@@ -15,8 +16,6 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -39,7 +38,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Classifiers", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
-public class Classifier extends Trackable implements Serializable {
+public class Classifier extends WorkshopAudibleEntityAbstract implements Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
@@ -71,21 +70,14 @@ public class Classifier extends Trackable implements Serializable {
 		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "classifier_type_id", referencedColumnName = "id", nullable = true)
+	private ClassifierType classifierType;
+	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "classifiers", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
 	private Set<@Valid Task> tasks;
-	
-/*
-	public void addTask(Task... tasks) {
-		if (tasks == null) {
-			throw new IllegalArgumentException("Task varargs cannot be null!");
-		}
-		if (this.tasks == null) {
-			this.tasks = new HashSet<>(100);
-		}
-		this.tasks.addAll(Arrays.asList(tasks));
-	}
-*/
 	
 	@Builder
 	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")

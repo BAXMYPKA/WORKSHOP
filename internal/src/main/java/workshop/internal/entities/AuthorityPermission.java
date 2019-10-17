@@ -36,7 +36,7 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity(name = "Authority_Permission")
 @Table(name = "Authority_Permissions", schema = "INTERNAL")
-public class AuthorityPermission extends Trackable {
+public class AuthorityPermission extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	@Getter(AccessLevel.PRIVATE)

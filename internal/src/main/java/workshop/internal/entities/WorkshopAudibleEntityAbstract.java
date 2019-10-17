@@ -30,7 +30,7 @@ import java.time.ZonedDateTime;
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MappedSuperclass
-public abstract class Trackable extends WorkshopEntityAbstract {
+public abstract class WorkshopAudibleEntityAbstract extends WorkshopEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
@@ -45,8 +45,8 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	 */
 	@Id
 	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trackable_sequence")
-	@SequenceGenerator(name = "trackable_sequence", schema = "INTERNAL", initialValue = 150, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "audible_sequence")
+	@SequenceGenerator(name = "audible_sequence", schema = "INTERNAL", initialValue = 150, allocationSize = 1)
 	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
 	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
 	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
@@ -94,7 +94,7 @@ public abstract class Trackable extends WorkshopEntityAbstract {
 	@Valid
 	private Employee modifiedBy;
 	
-	public Trackable(Employee createdBy) {
+	public WorkshopAudibleEntityAbstract(Employee createdBy) {
 		this.createdBy = createdBy;
 	}
 	

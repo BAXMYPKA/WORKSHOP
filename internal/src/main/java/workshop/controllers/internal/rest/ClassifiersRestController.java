@@ -14,12 +14,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import workshop.internal.entities.Classifier;
-import workshop.internal.entities.Task;
+import sun.reflect.generics.tree.ClassTypeSignature;
+import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.hateoasResources.ClassifierTypesResourceAssembler;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
+import workshop.internal.services.ClassifierTypesService;
 import workshop.internal.services.ClassifiersService;
 import workshop.internal.services.TasksService;
 
@@ -31,10 +33,16 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 	public static final String GET_TASKS_METHOD_NAME = "getTasks";
 	
 	@Autowired
+	private ClassifierTypesService classifierTypesService;
+	
+	@Autowired
 	private TasksService tasksService;
 	
 	@Autowired
 	private TasksResourceAssembler tasksResourceAssembler;
+	
+	@Autowired
+	private ClassifierTypesResourceAssembler classifierTypesResourceAssembler;
 	
 	/**
 	 * @param classifiersService           By this instance we set the concrete instance of WorkshopServiceAbstract
@@ -45,6 +53,77 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 	public ClassifiersRestController(
 		ClassifiersService classifiersService, ClassifiersResourceAssembler classifiersResourceAssembler) {
 		super(classifiersService, classifiersResourceAssembler);
+	}
+	
+	@GetMapping(path = "/{id}/classifier-type")
+	@PreAuthorize("hasPermission('ClassifierType', 'get')")
+	public ResponseEntity<String> getClassifierType(@PathVariable("id") Long id) {
+		ClassifierType classifierTypeByClassifier = classifierTypesService.findClassifierTypeByClassifier(id);
+		Resource<ClassifierType> classifierTypeResource =
+			classifierTypesResourceAssembler.toResource(classifierTypeByClassifier);
+		String jsonClassifierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierTypeResource);
+		return ResponseEntity.ok(jsonClassifierTypeResource);
+	}
+	
+	@PostMapping(path = "/{id}/classifier-type",
+				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('Classifier', 'put') and hasPermission('ClassifierType', 'post')")
+	public ResponseEntity<String> postClassifierType(
+		@PathVariable(name = "id") Long id,
+		@Validated(PersistenceValidation.class) @RequestBody ClassifierType classifierType,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		
+		Classifier classifier = getWorkshopEntitiesService().findById(id);
+		classifierTypesService.persistEntity(classifierType);
+		((ClassifiersService)getWorkshopEntitiesService()).setClassifierType(
+			classifier.getIdentifier(),	classifierType.getIdentifier());
+		classifierType = classifierTypesService.findById(classifierType.getIdentifier());
+		
+		Resource<ClassifierType> classifierTypeResource =
+			classifierTypesResourceAssembler.toResource(classifierType);
+		String jsonClassirierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierTypeResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassirierTypeResource);
+	}
+	
+	@PutMapping(path = "/{id}/classifier-type",
+				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PreAuthorize("hasPermission('ClassifierType', 'put') and hasPermission('Classifier', 'put')")
+	public ResponseEntity<String> putClassifierType(
+		@PathVariable(name = "id") Long id,
+		@Validated(PersistenceValidation.class) @RequestBody ClassifierType classifierType,
+		BindingResult bindingResult) {
+		
+		super.validateBindingResult(bindingResult);
+		classifierType = classifierTypesService.mergeEntity(classifierType);
+		Resource<ClassifierType> classifierTypeResource = classifierTypesResourceAssembler.toResource(classifierType);
+		String jsonClassifierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierTypeResource);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(jsonClassifierTypeResource);
+	}
+	
+	/**
+	 * Just deletes the {@link ClassifierType} from this {@link Classifier}
+	 *
+	 * @param id         {@link Classifier#getIdentifier()}
+	 * @param classifierTypeId Self-description.
+	 * @return HATEOAS JSON Resource with the given {@link ClassifierType} by id.
+	 */
+	@DeleteMapping(path = "/{id}/classifier-type/{classifierTypeId}")
+	@PreAuthorize("hasPermission('ClassifierType', 'put') and hasPermission('Classifier', 'put')")
+	public ResponseEntity<String> deleteClassifierClassifierType(
+		@PathVariable(name = "id") Long id,
+		@PathVariable(name = "classifierTypeId") Long classifierTypeId) {
+		
+		Classifier classifier = getWorkshopEntitiesService().findById(id);
+		classifier.setClassifierType(null);
+		//TODO: to test if the above will have the effect
+		getWorkshopEntitiesService().mergeEntity(classifier);
+		
+		ClassifierType classifierType = classifierTypesService.findById(classifierTypeId);
+		Resource<ClassifierType> classifierTypeResource = classifierTypesResourceAssembler.toResource(classifierType);
+		String jsonClassifierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifierTypeResource);
+		return ResponseEntity.status(HttpStatus.OK).body(jsonClassifierTypeResource);
 	}
 	
 	@GetMapping(path = "/{id}/tasks")

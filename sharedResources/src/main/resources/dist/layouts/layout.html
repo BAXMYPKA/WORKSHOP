@@ -49,7 +49,7 @@
 			
 			<form name="shutdownForm" action="/shutdown" method="post"
 				  th:action="@{/shutdown}">
-				<button class="shutdown"
+				<button class="shutdownA"
 						title="CLOSE THE APPLICATION"
 						th:text="#{html.a.text.shutdown}"
 						th:title="#{html.button.title.shutdown}"
@@ -76,7 +76,7 @@
 			</div>
 		
 		</div>
-		
+	
 	</header>
 	
 	<!-- UPPER NAV MENU	-->
@@ -282,17 +282,56 @@
 	
 	</footer>
 	
-	<!--	MODAL WINDOW WITHIN .containerMain -->
+	<!--	MODAL LOGIN WINDOW WITHIN .containerMain -->
 	
 	<div id="loginModalBackground">
 		
 		<div class="loginModalWindow">
 			
-			<a class="shutdown" href=""
+			<a class="closeA" href=""
 			   th:href="#{${currentURL}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			
-			<p th:utext="#{html.article.designComplaint}">MODAL TEXT</p>
+			<p th:utext="#{html.article.login}">MODAL TEXT</p>
+			
+			<div class="formContainer">
+				<div class="login">
+					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
+						<input type="text" name="username" placeholder="user@email.pro"
+							   th:value="#{html.a.text.contacts.gitHub}">
+						<br>
+						<input type="text" name="password" placeholder="12345"
+							   th:value="#{html.a.text.contacts.gitHub}">
+						<br>
+						<button class="buttonLogin" onclick="this.form.submit()" th:text="#{html.submit.login}">
+							LOGIN
+						</button>
+					</form>
+				</div>
+			</div>
+			
+			<table class="usersTable">
+				
+				<caption title th:text="#{html.thead.external.login.predefinedUsers}">
+					The predefined users list
+				</caption>
+				<tr>
+					<th th:text="#{properties.fullName}">
+						Full name
+					</th>
+					<th th:text="#{properties.email}">
+						Email
+					</th>
+					<th th:text="#{properties.enabled}">
+						Department
+					</th>
+					<th th:text="#{properties.language}">
+						Language
+					</th>
+				</tr>
+			
+			</table>
+		
 		
 		</div>
 	

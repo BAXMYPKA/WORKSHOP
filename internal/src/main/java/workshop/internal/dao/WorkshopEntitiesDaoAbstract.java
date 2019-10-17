@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import workshop.internal.entities.Employee;
-import workshop.internal.entities.Trackable;
+import workshop.internal.entities.WorkshopAudibleEntityAbstract;
 import workshop.internal.entities.WorkshopEntity;
 
 import javax.persistence.*;
@@ -280,10 +280,10 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 		//Set Trackable.createdBy(Employee employee)
-		if (entity instanceof Trackable) {
+		if (entity instanceof WorkshopAudibleEntityAbstract) {
 			Authentication currentAuthentication = getCurrentAuthentication();
 			if ("Employee".equals(currentAuthentication.getPrincipal().getClass().getSimpleName())) {
-				((Trackable) entity).setCreatedBy((Employee) currentAuthentication.getPrincipal());
+				((WorkshopAudibleEntityAbstract) entity).setCreatedBy((Employee) currentAuthentication.getPrincipal());
 				log.debug("{}.createdBy set to {}", entityClass.getSimpleName(), currentAuthentication.getName());
 			}
 		}
@@ -369,10 +369,10 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			throw new IllegalArgumentException("Entity cannot be null!");
 		}
 //		Set 'modifiedBy' field if an Entity instance of Trackable and the SecurityContext contains an Employee who is merging the changes
-		if (entity instanceof Trackable && getCurrentAuthentication() != null) {
+		if (entity instanceof WorkshopAudibleEntityAbstract && getCurrentAuthentication() != null) {
 			Authentication authentication = getCurrentAuthentication();
 			if ("Employee".equals(authentication.getPrincipal().getClass().getSimpleName())) {
-				((Trackable) entity).setModifiedBy((Employee) authentication.getPrincipal());
+				((WorkshopAudibleEntityAbstract) entity).setModifiedBy((Employee) authentication.getPrincipal());
 				log.debug("{}.createdBy set to '{}'", entityClass.getSimpleName(), authentication.getName());
 			}
 		}

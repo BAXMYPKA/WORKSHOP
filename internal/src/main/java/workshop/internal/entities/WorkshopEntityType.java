@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Workshop_Entity_Type", schema = "INTERNAL")
-public class WorkshopEntityType extends Trackable {
+public class WorkshopEntityType extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	@Getter(AccessLevel.PRIVATE)

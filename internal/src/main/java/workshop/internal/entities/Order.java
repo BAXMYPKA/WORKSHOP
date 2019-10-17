@@ -15,7 +15,6 @@ import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
@@ -33,7 +32,7 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Orders", schema = "INTERNAL")
-public class Order extends Trackable {
+public class Order extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;

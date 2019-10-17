@@ -5,15 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index-demo.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout-demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifierTypesRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/ClassifierTypesDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/ClassifierType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/hateoasResources/ClassifierTypesResourceAssembler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/ClassifierTypesService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/IndexController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/constant-values.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/AuthorityPermission.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/AuthorityPermission.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Classifier.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Classifier.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Employee.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Employee.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/ExternalAuthority.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/ExternalAuthority.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/InternalAuthority.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/InternalAuthority.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Order.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Position.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Position.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Task.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Task.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/Trackable.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/Trackable.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityType.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/WorkshopEntityType.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifiersRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifiersRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/AuthorityPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/AuthorityPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Classifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Classifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/ExternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/ExternalAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/InternalAuthority.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/InternalAuthority.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Trackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopAudibleEntityAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityType.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/ClassifiersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/ClassifiersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/TrackableBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/WorkshopAudibleEntityAbstractBeanValidationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout-demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout-demo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/thTemplate.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
@@ -41,6 +69,17 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="WorshopDataBase" type="feb32156:DbDataSourceImpl" />
+        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
+        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
+      </path>
     </expand>
     <select />
   </component>
@@ -50,8 +89,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -145,7 +184,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internal" />
       <extension name="coverage">
         <pattern>
@@ -154,7 +193,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="workshop.internal.entities" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.TrackableBeanValidationTest" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.WorkshopAudibleEntityAbstractBeanValidationTest" />
       <option name="METHOD_NAME" value="default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -206,7 +245,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TrackableBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
+        <item itemvalue="JUnit.WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
         <item itemvalue="JUnit.All in internal" />
         <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
         <item itemvalue="JUnit.WorkshopEmailServiceIT.undelivered_Email_Message_Should_Throw_MailException" />
@@ -253,6 +292,7 @@
       <workItem from="1571130821984" duration="7366000" />
       <workItem from="1571155659393" duration="7351000" />
       <workItem from="1571292675102" duration="10917000" />
+      <workItem from="1571312400112" duration="13537000" />
     </task>
     <servers />
   </component>

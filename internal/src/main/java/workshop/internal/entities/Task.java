@@ -39,7 +39,7 @@ import java.util.stream.Stream;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "Tasks", schema = "INTERNAL")
-public class Task extends Trackable {
+public class Task extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;

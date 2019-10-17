@@ -35,7 +35,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Positions", schema = "INTERNAL")
 @AttributeOverride(name = "finished", column = @Column(name = "deleted"))
-public class Position extends Trackable {
+public class Position extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;

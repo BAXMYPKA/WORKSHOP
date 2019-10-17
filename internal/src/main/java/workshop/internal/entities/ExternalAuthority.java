@@ -31,7 +31,7 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "External_Authorities", schema = "EXTERNAL")
-public class ExternalAuthority extends Trackable implements GrantedAuthority {
+public class ExternalAuthority extends WorkshopAudibleEntityAbstract implements GrantedAuthority {
 	
 	
 	//TODO: to make enum from import.sql

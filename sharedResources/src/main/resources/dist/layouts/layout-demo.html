@@ -4,7 +4,7 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="../assets/css/layout.css" th:href="@{/dist/assets/css/layout.css}">
+	<link rel="stylesheet" href="../assets/css/layout-demo.css" th:href="@{/dist/assets/css/layout-demo.css}">
 	<title>Layout</title>
 	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
@@ -14,7 +14,7 @@
 
 <div class="root" layout:fragment="containerMainLayout">
 	
-	<!-- ===== HEADER =====	-->
+	<!-- HEADER	-->
 	
 	<header class="header">
 		
@@ -31,18 +31,6 @@
 		
 		<div class="workshopName" th:text="#{workshop.name}">
 			WORKSHOP
-		</div>
-		
-		<div class="loginRegistration">
-			
-			<a href="#loginModalBackground"
-			   th:href="@{#loginModalBackground}"
-			   th:text="#{html.a.index.loginRegistration}">
-				Login/Registration
-			</a>
-			<br>
-			<span><i>Greetings if logged in</i></span>
-		
 		</div>
 		
 		<div class="langAndShutdown">
@@ -76,7 +64,7 @@
 			</div>
 		
 		</div>
-		
+	
 	</header>
 	
 	<!-- UPPER NAV MENU	-->
@@ -98,63 +86,63 @@
 				<ul class="subMenu">
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#springBoot}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
 							Spring Boot
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#springMvc}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
 							Spring MVC
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#thymeleaf}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.thymeleafHtmlCss}">
 							Thymeleaf / HTML/CSS
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#springSecurity}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springSecurity}">
 							Spring Security
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#springHateoas}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springHateoas}">
 							Spring HATEOAS (REST)
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#jpa}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.jpa}">
 							JPA (Hibernate)
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#sql}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.sqlH2}">
 							SQL (H2 database)
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#hibernateValidation}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.etc}">
 							Hibernate Validation, Jackson JSON, Lombok ...
 						</a>
 					</li>
 					<li>
 						<a href="./technologies.html"
-						   th:href="@{/technologies#test}"
+						   th:href="@{/technologies}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.test}">
 							JUnit / Mockito
 						</a>
@@ -208,17 +196,22 @@
 			</li>
 			<li>
 				<a class="modalA"
-				   href="#loginModalBackground"
-				   th:href="@{#loginModalBackground}"
+				   href="#modalBackground"
+				   th:href="@{#modalBackground}"
 				   th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
+				</a>
+			</li>
+			<li>
+				<a href="./about.html" th:href="@{/about}" th:text="#{html.upNav.upperMenu.aboutMe}">
+					About me
 				</a>
 			</li>
 		
 		</ul>
 	</nav>
 	
-	<!-- ===== CENTER CONTAINER	===== -->
+	<!-- CENTER CONTAINER	-->
 	
 	<div class="containerCenter">
 		
@@ -284,9 +277,9 @@
 	
 	<!--	MODAL WINDOW WITHIN .containerMain -->
 	
-	<div id="loginModalBackground">
+	<div id="modalBackground">
 		
-		<div class="loginModalWindow">
+		<div class="modalWindow">
 			
 			<a class="shutdown" href=""
 			   th:href="#{${currentURL}}"

@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{./layouts/layout.html}">
+	  layout:decorate="~{./layouts/layout-demo.html}">
 <head>
 	<meta charset="UTF-8">
 	<title th:text="#{html.title.indexPage}">MAIN PAGE</title>
@@ -11,13 +11,8 @@
 <body>
 
 <th:block layout:fragment="articleFragment">
-	<h1 th:text="#{html.h1.index}">Workshop main page</h1>
-	<p th:utext="#{html.article.index}">
-		Workshop greetings
-	
-	
-	
-	</p>
+	<h1 th:text="#{html.h1.index-demo}">Workshop main page</h1>
+	<p th:utext="#{html.article.index-demo}">Workshop greetings</p>
 </th:block>
 
 </body>

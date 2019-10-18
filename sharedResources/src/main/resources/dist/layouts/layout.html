@@ -100,74 +100,18 @@
 			
 			</li>
 			<li>
-				<a href="./technologies.html"
-				   th:href="@{/technologies}"
-				   th:text="#{html.upNav.upperMenu.projectTechnogies}">
-					Project technologies
+				<a href="./workshop.html"
+				   th:href="@{/workshop}"
+				   th:text="#{html.a.text.ourWorkshop}">
+					Our workshop
 				</a>
 				
 				<ul class="subMenu">
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#springBoot}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
+						<a href="./workshopStuff.html"
+						   th:href="@{/workshop-stuff}"
+						   th:text="#{html.a.text.workshopStuff}">
 							Spring Boot
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#springMvc}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
-							Spring MVC
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#thymeleaf}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.thymeleafHtmlCss}">
-							Thymeleaf / HTML/CSS
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#springSecurity}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.springSecurity}">
-							Spring Security
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#springHateoas}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.springHateoas}">
-							Spring HATEOAS (REST)
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#jpa}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.jpa}">
-							JPA (Hibernate)
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#sql}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.sqlH2}">
-							SQL (H2 database)
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#hibernateValidation}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.etc}">
-							Hibernate Validation, Jackson JSON, Lombok ...
-						</a>
-					</li>
-					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies#test}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.test}">
-							JUnit / Mockito
 						</a>
 					</li>
 				
@@ -279,13 +223,32 @@
 	<footer class="footer" th:fragment="thFooter">
 		
 		<div class="contacts">
-			<h4 th:text="#{html.h4.contacts}">My personal contacts:</h4>
+			<h4 th:text="#{html.h4.contacts}">Contacts:</h4>
 			<ul>
 				<li>
-					<a href="https://github.com/BAXMYPKA"
-					   th:href="#{html.a.href.contacts.gitHub}"
-					   th:text="#{html.a.text.contacts.gitHub}">
-						My personal contacts via Github
+					<a href="address.html"
+					   th:href="#{/address}"
+					   th:text="#{html.a.text.address}">
+						Address
+					</a>
+				</li>
+				<li>
+					<a href="howToGet.html"
+					   th:href="#{/howToGet}"
+					   th:text="#{html.a.text.howToGetToUs}">
+						How to get to us
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="contacts">
+			<ul>
+				<li>
+					<a href="contacts.html"
+					   th:href="#{/contacts}"
+					   th:text="#{html.a.text.contacts}">
+						Address
 					</a>
 				</li>
 			</ul>
@@ -309,14 +272,25 @@
 				<div class="login">
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
 						<input type="text" name="username" placeholder="user@email.pro"
-							   th:value="#{html.a.text.contacts.gitHub}">
+							   th:value="#{html.a.text.gitHubPfofile}">
 						<br>
 						<input type="text" name="password" placeholder="12345"
-							   th:value="#{html.a.text.contacts.gitHub}">
+							   th:value="#{html.a.text.gitHubPfofile}">
 						<br>
-						<button class="buttonLogin" onclick="this.form.submit()" th:text="#{html.submit.login}">
+						<button class="buttonLogin"
+								onclick="this.form.submit()"
+								th:text="#{html.submit.login}">
 							LOGIN
 						</button>
+						<br>
+						<button class="buttonLogin buttonRegistration"
+								title="Registration advantages description"
+								onclick="this.form.submit()"
+								th:text="#{html.submit.registration}"
+								th:title="#{html.button.title.registration}">
+							REGISTRATION
+						</button>
+					
 					</form>
 				</div>
 			</div>

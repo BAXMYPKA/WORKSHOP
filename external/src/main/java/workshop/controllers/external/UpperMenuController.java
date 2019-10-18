@@ -38,9 +38,12 @@ public class UpperMenuController extends WorkshopControllerAbstract {
 	}
 */
 	
-	/**
+/*
+	*/
+/**
 	 * Adds ClassifierGroupsNames as Strings for the Services List dropdown UpperMenu
-	 */
+	 *//*
+
 	@ModelAttribute(name = "classifiersGroupsNames")
 	public void setClassifiersGroups(Model model) {
 		List<String> classifiersGroupsNames =
@@ -50,5 +53,6 @@ public class UpperMenuController extends WorkshopControllerAbstract {
 			.collect(Collectors.toList());
 		model.addAttribute("classifiersGroupsNames", classifiersGroupsNames);
 	}
-	
+*/
+
 }

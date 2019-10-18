@@ -2,15 +2,21 @@ package workshop.controllers;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import workshop.internal.entities.ClassifiersGroup;
+import workshop.internal.services.ClassifiersGroupsService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Slf4j
@@ -27,6 +33,9 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	
 	@Value("${langCookieName}")
 	private String langCookieName;
+	
+	@Autowired
+	private ClassifiersGroupsService classifiersGroupsService;
 	
 	/**
 	 * Adds a List of currently supported languages to the current session for html language selector to pick up from.
@@ -54,4 +63,18 @@ public class WorkshopControllerAbstract implements WorkshopController {
 					.getValue().toUpperCase());
 		}
 	}
+	
+	/**
+	 * Adds ClassifierGroupsNames as Strings for the Services List dropdown UpperMenu
+	 */
+	@ModelAttribute(name = "classifiersGroupsNames")
+	public void setClassifiersGroups(Model model) {
+		List<String> classifiersGroupsNames =
+			  classifiersGroupsService.findAllEntities(0, 0, "name", Sort.Direction.ASC)
+					.stream()
+					.map(ClassifiersGroup::getName)
+					.collect(Collectors.toList());
+		model.addAttribute("classifiersGroupsNames", classifiersGroupsNames);
+	}
+	
 }

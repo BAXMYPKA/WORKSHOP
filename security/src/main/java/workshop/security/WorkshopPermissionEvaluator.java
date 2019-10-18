@@ -144,8 +144,8 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 				workshopEntityName = "AuthorityPermission";
 			} else if (workshopEntityName.startsWith("Entity-type")) {
 				workshopEntityName = "WorkshopEntityType";
-			} else if (workshopEntityName.startsWith("Classifier-type")) {
-				workshopEntityName = "ClassifierType";
+			} else if (workshopEntityName.startsWith("Classifiers-group")) {
+				workshopEntityName = "ClassifiersGroup";
 			}
 			
 			String finalWorkshopEntityName = workshopEntityName;

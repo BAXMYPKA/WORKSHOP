@@ -49,7 +49,7 @@
 			
 			<form name="shutdownForm" action="/shutdown" method="post"
 				  th:action="@{/shutdown}">
-				<button class="shutdownA"
+				<button class="shutdown"
 						title="CLOSE THE APPLICATION"
 						th:text="#{html.a.text.shutdown}"
 						th:title="#{html.button.title.shutdown}"
@@ -84,9 +84,20 @@
 	<nav class="upNav">
 		<ul class="upperMenu">
 			<li>
-				<a href="./purposes.html" th:href="@{/purposes}" th:text="#{html.upNav.upperMenu.projectPurposes}">
-					Project purposes
+				<a href="./services.html" th:href="@{/services}" th:text="#{html.a.text.services}">
+					Services list
 				</a>
+				<ul class="subMenu">
+					<li>
+						<a href="./services.html"
+						   th:href="@{/services#springBoot}"
+						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
+							Service one
+						</a>
+					</li>
+				
+				</ul>
+			
 			</li>
 			<li>
 				<a href="./technologies.html"

@@ -85,7 +85,7 @@
 	align-items: flex-end;
 }
 
-.shutdownA {
+.shutdown {
 	display: block;
 	/*justify-self: right;*/
 	margin-bottom: 0.7em;
@@ -99,7 +99,7 @@
 	color: saddlebrown;
 }
 
-.shutdownA:hover {
+.shutdown:hover {
 	box-shadow: inset 0 0 0.3em 0.1em darkgray;
 	color: red;
 }

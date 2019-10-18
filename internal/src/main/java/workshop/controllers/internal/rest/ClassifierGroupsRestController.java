@@ -1,45 +1,31 @@
 package workshop.controllers.internal.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import workshop.internal.entities.Classifier;
-import workshop.internal.entities.ClassifierType;
-import workshop.internal.entities.Task;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.hateoasResources.ClassifierTypesResourceAssembler;
-import workshop.internal.services.ClassifierTypesService;
+import workshop.internal.entities.ClassifiersGroup;
+import workshop.internal.hateoasResources.ClassifiersGroupsResourceAssembler;
+import workshop.internal.services.ClassifiersGroupsService;
 
 @RestController
 @RequestMapping(path = "/internal/classifier-types", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
-@ExposesResourceFor(value = ClassifierType.class)
-public class ClassifierTypesRestController extends WorkshopRestControllerAbstract<ClassifierType> {
+@ExposesResourceFor(value = ClassifiersGroup.class)
+public class ClassifierGroupsRestController extends WorkshopRestControllerAbstract<ClassifiersGroup> {
 	
 	public static String GET_CLASSIFIERS_METHOD_NAME = "getClassifiers";
 	
 	@Autowired
-	private ClassifierTypesResourceAssembler classifierTypesResourceAssembler;
+	private ClassifiersGroupsResourceAssembler classifiersGroupsResourceAssembler;
 	
 	/**
-	 * @param classifierTypesService           By this instance we set the concrete instance of WorkshopServiceAbstract
+	 * @param classifiersGroupsService           By this instance we set the concrete instance of WorkshopServiceAbstract
 	 *                                             and through it set the concrete type of WorkshopEntity as {@link #getWorkshopEntityClass()}
 	 *                                             to operate with.
 	 */
-	public ClassifierTypesRestController(
-		ClassifierTypesService classifierTypesService,	ClassifierTypesResourceAssembler classifierTypesResourceAssembler) {
-		super(classifierTypesService, classifierTypesResourceAssembler);
+	public ClassifierGroupsRestController(
+		ClassifiersGroupsService classifiersGroupsService, ClassifiersGroupsResourceAssembler classifiersGroupsResourceAssembler) {
+		super(classifiersGroupsService, classifiersGroupsResourceAssembler);
 	}
 	
 	//TODO: to complete the following

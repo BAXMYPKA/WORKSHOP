@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.dao.ClassifierTypesDao;
+import workshop.internal.dao.ClassifiersGroupsDao;
 import workshop.internal.dao.ClassifiersDao;
 import workshop.internal.entities.Classifier;
-import workshop.internal.entities.ClassifierType;
-import workshop.internal.entities.Department;
-import workshop.internal.entities.Position;
+import workshop.internal.entities.ClassifiersGroup;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.exceptions.IllegalArgumentsException;
 
@@ -20,35 +18,35 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class ClassifierTypesService extends WorkshopEntitiesServiceAbstract<ClassifierType> {
+public class ClassifiersGroupsService extends WorkshopEntitiesServiceAbstract<ClassifiersGroup> {
 	
 	@Autowired
 	private ClassifiersDao classifiersDao;
 	
 	@Autowired
-	private ClassifierTypesDao classifierTypesDao;
+	private ClassifiersGroupsDao classifiersGroupsDao;
 	
-	public ClassifierTypesService(ClassifierTypesDao classifierTypesDao) {
-		super(classifierTypesDao);
+	public ClassifiersGroupsService(ClassifiersGroupsDao classifiersGroupsDao) {
+		super(classifiersGroupsDao);
 	}
 	
 	/**
-	 * @param classifierId {@link Classifier} ID its {@link ClassifierType} to be found from.
+	 * @param classifierId {@link Classifier} ID its {@link ClassifiersGroup} to be found from.
 	 * @return The ClassifierType for that Classifier
 	 * @throws EntityNotFoundException   If no Classifier found for that positionId.
 	 * @throws IllegalArgumentsException If a given classifierId is null, zero or below.
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, isolation = Isolation.READ_COMMITTED)
-	public ClassifierType findClassifierTypeByClassifier(Long classifierId)
+	public ClassifiersGroup findClassifiersGroupByClassifier(Long classifierId)
 		throws IllegalArgumentsException, EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(classifierId);
 		
 		Optional<Classifier> classifierById = classifiersDao.findById(classifierId);
-		ClassifierType classifierTypeByClassifier = classifierById.orElseThrow(() -> new EntityNotFoundException(
-			"No ClassifierType with such an ID", "httpStatus.notFound", HttpStatus.NOT_FOUND))
-			.getClassifierType();
-		return classifierTypeByClassifier;
+		ClassifiersGroup classifiersGroupByClassifiers = classifierById.orElseThrow(() -> new EntityNotFoundException(
+			"No ClassifiersGroup with such an ID", "httpStatus.notFound", HttpStatus.NOT_FOUND))
+			.getClassifiersGroup();
+		return classifiersGroupByClassifiers;
 	}
 	
 }

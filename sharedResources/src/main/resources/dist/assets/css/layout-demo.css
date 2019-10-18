@@ -72,7 +72,8 @@
 	align-items: flex-end;
 }
 
-.shutdownA {
+.shutdown {
+	display: block;
 	margin-bottom: 0.7em;
 	width: 1.4em;
 	height: 1.4em;
@@ -84,8 +85,9 @@
 	color: saddlebrown;
 }
 
-.shutdownA:hover {
+.shutdown:hover {
 	box-shadow: inset 0 0 0.3em 0.1em darkgray;
+	color: red;
 }
 
 .language {
@@ -268,7 +270,7 @@
 	pointer-events: auto;
 }
 
-#modalBackground > .modalWindow > .shutdownA {
+#modalBackground > .modalWindow > .closeA {
 	/*position: relative;*/
 	/*left: 70%;*/
 	text-decoration: none;
@@ -279,9 +281,8 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .shutdownA:hover {
-	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
-	color: brown;
+#modalBackground > .modalWindow > .closeA:hover {
+	color: red;
 }
 
 /* ===== FORMS ===== */

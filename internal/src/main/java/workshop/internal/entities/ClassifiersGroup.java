@@ -28,8 +28,8 @@ import java.util.Set;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
-@Table(name = "Classifier_Types", schema = "INTERNAL")
-public class ClassifierType extends WorkshopAudibleEntityAbstract {
+@Table(name = "Classifiers_Groups", schema = "INTERNAL")
+public class ClassifiersGroup extends WorkshopAudibleEntityAbstract {
 	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
@@ -45,7 +45,7 @@ public class ClassifierType extends WorkshopAudibleEntityAbstract {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@OneToMany(mappedBy = "classifierType", orphanRemoval = false, fetch = FetchType.EAGER,
+	@OneToMany(mappedBy = "classifiersGroup", orphanRemoval = false, fetch = FetchType.EAGER,
 			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	private Set<@Valid Classifier> classifiers;
 }

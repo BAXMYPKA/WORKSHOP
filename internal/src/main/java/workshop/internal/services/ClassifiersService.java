@@ -1,10 +1,9 @@
 package workshop.internal.services;
 
-import workshop.internal.dao.ClassifierTypesDao;
+import workshop.internal.dao.ClassifiersGroupsDao;
 import workshop.internal.dao.ClassifiersDao;
 import workshop.internal.entities.Classifier;
-import workshop.internal.entities.ClassifierType;
-import workshop.internal.entities.WorkshopEntity;
+import workshop.internal.entities.ClassifiersGroup;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.exceptions.IllegalArgumentsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class ClassifiersService extends WorkshopEntitiesServiceAbstract<Classifi
 	private ClassifiersDao classifiersDao;
 	
 	@Autowired
-	private ClassifierTypesDao classifierTypesDao;
+	private ClassifiersGroupsDao classifiersGroupsDao;
 	
 	public ClassifiersService(ClassifiersDao classifiersDao) {
 		super(classifiersDao);
@@ -63,18 +62,18 @@ public class ClassifiersService extends WorkshopEntitiesServiceAbstract<Classifi
 	}
 	
 	/**
-	 * @return {@link Classifier} with a new {@link ClassifierType} set
-	 * @throws EntityNotFoundException if neither {@link Classifier} no {@link ClassifierType} were found by IDs
+	 * @return {@link Classifier} with a new {@link ClassifiersGroup} set
+	 * @throws EntityNotFoundException if neither {@link Classifier} no {@link ClassifiersGroup} were found by IDs
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-	public Classifier setClassifierType(Long classifierId, Long classifierTypeId) throws EntityNotFoundException {
+	public Classifier setClassifierGroup(Long classifierId, Long classifierGroupId) throws EntityNotFoundException {
 		
-		super.verifyIdForNullZeroBelowZero(classifierId, classifierTypeId);
+		super.verifyIdForNullZeroBelowZero(classifierId, classifierGroupId);
 		
 		Classifier classifier = super.getVerifiedEntity(classifiersDao.findById(classifierId));
-		ClassifierType classifierType =
-			(ClassifierType) super.getVerifiedWorkshopEntity(classifierTypesDao.findById(classifierTypeId));
-		classifier.setClassifierType(classifierType);
+		ClassifiersGroup classifiersGroup =
+			(ClassifiersGroup) super.getVerifiedWorkshopEntity(classifiersGroupsDao.findById(classifierGroupId));
+		classifier.setClassifiersGroup(classifiersGroup);
 		return classifier;
 	}
 }

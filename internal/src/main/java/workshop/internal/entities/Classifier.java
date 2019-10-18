@@ -72,8 +72,8 @@ public class Classifier extends WorkshopAudibleEntityAbstract implements Seriali
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@ManyToOne(fetch = FetchType.EAGER, optional = true, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinColumn(name = "classifier_type_id", referencedColumnName = "id", nullable = true)
-	private ClassifierType classifierType;
+	@JoinColumn(name = "classifiers_group_id", referencedColumnName = "id", nullable = true)
+	private ClassifiersGroup classifiersGroup;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToMany(mappedBy = "classifiers", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})

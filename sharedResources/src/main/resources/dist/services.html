@@ -12,6 +12,11 @@
 
 <th:block layout:fragment="articleFragment">
 	<h1 th:text="#{html.h1.services}">Our services list</h1>
+	<ul >
+		<li th:each="classifierGroupName : ${classifiersGroupsNames}" th:text="${classifierGroupName}">
+			Service one
+		</li>
+	</ul>
 <!--	<p th:utext="#{html.article.index}">-->
 <!--		Workshop greetings-->
 <!--	</p>-->

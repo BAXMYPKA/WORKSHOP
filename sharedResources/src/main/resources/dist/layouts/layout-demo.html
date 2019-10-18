@@ -19,7 +19,7 @@
 	<header class="header">
 		
 		<div class="logo">
-			<a href="./index.html" th:href="@{/}">
+			<a href="./index-demo.html" th:href="@{/index-demo}">
 				<div class="logoPicture">
 					<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/assets/img/mtb.png}">
 				</div>
@@ -72,77 +72,77 @@
 	<nav class="upNav">
 		<ul class="upperMenu">
 			<li>
-				<a href="./purposes.html" th:href="@{/purposes}" th:text="#{html.upNav.upperMenu.projectPurposes}">
+				<a href="./purposes-demo.html" th:href="@{/purposes-demo}" th:text="#{html.upNav.upperMenu.projectPurposes}">
 					Project purposes
 				</a>
 			</li>
 			<li>
-				<a href="./technologies.html"
-				   th:href="@{/technologies}"
+				<a href="./technologies-demo.html"
+				   th:href="@{/technologies-demo}"
 				   th:text="#{html.upNav.upperMenu.projectTechnogies}">
 					Project technologies
 				</a>
 				
 				<ul class="subMenu">
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
 							Spring Boot
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springMvc}">
 							Spring MVC
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.thymeleafHtmlCss}">
 							Thymeleaf / HTML/CSS
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springSecurity}">
 							Spring Security
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.springHateoas}">
 							Spring HATEOAS (REST)
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.jpa}">
 							JPA (Hibernate)
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.sqlH2}">
 							SQL (H2 database)
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.etc}">
 							Hibernate Validation, Jackson JSON, Lombok ...
 						</a>
 					</li>
 					<li>
-						<a href="./technologies.html"
-						   th:href="@{/technologies}"
+						<a href="./technologies-demo.html"
+						   th:href="@{/technologies-demo}"
 						   th:text="#{html.upNav.upperMenu.projectTechnogies.test}">
 							JUnit / Mockito
 						</a>
@@ -153,7 +153,7 @@
 			
 			</li>
 			<li title="How it works in a nutshell">
-				<a href="./details.html"
+				<a href="./details-demo.html"
 				   th:href="@{${currentURL}}" th:text="#{html.upNav.upperMenu.projectInDetail}"
 				   th:title="#{html.upNav.upperMenu.projectInDetail.title}">
 					Project in details
@@ -161,23 +161,23 @@
 				
 				<ul class="subMenu">
 					<li>
-						<a href="./howItWorks.html"
+						<a href="./howItWorks-demo.html"
 						   th:href="@{/how-it-works}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}">
 							How it should work
 						</a>
 					</li>
 					<li>
-						<a href="./authentication.html" title="How it checks usernames and passwords"
-						   th:href="@{/authentication}"
+						<a href="./authentication-demo.html" title="How it checks usernames and passwords"
+						   th:href="@{/authentication-demo}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
 						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
 							Authentication Security
 						</a>
 					</li>
 					<li>
-						<a href="./authorization.html" title="How it grants access based on Granted Authorities"
-						   th:href="@{/authorization}"
+						<a href="./authorization-demo.html" title="How it grants access based on Granted Authorities"
+						   th:href="@{/authorization-demo}"
 						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
 						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
 							Authorization Security
@@ -188,8 +188,8 @@
 			
 			</li>
 			<li>
-				<a href="./underConstruction.html"
-				   th:href="@{/under-construction}"
+				<a href="./underConstruction-demo.html"
+				   th:href="@{/under-construction-demo}"
 				   th:text="#{html.upNav.upperMenu.underConstruction}">
 					What is under construction
 				</a>
@@ -203,7 +203,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="./about.html" th:href="@{/about}" th:text="#{html.upNav.upperMenu.aboutMe}">
+				<a href="./about-demo.html" th:href="@{/about-demo}" th:text="#{html.upNav.upperMenu.aboutMe}">
 					About me
 				</a>
 			</li>

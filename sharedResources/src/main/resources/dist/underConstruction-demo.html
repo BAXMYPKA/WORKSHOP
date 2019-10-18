@@ -3,19 +3,17 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{./layouts/layout.html}">
+	  layout:decorate="~{./layouts/layout-demo.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.title.aboutPage}">About</title>
+	<title th:text="#{html.title.underConstructionPage}">What is under construction</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
 	
-	<h1 th:text="#{html.h1.aboutMe}">About me</h1>
-	
-	<p th:utext="#{html.article.aboutMe}">About me article</p>
-	
+	<h1 th:text="#{html.h1.underConstructionPage}">What is under construction</h1>
+	<p th:utext="#{html.article.underConstructionPage}">Under construction description</p>
 </th:block>
 
 </body>

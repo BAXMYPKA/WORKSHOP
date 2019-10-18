@@ -3,18 +3,18 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{./layouts/layout.html}">
+	  layout:decorate="~{./layouts/layout-demo.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.title.authenticationPage}">Authentication flow</title>
+	<title th:text="#{html.title.howItWorksPage}">How it works</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
 	
-	<h1 th:text="#{html.h1.authenticationPage}">JWT flow with schema</h1>
+	<h1 th:text="#{html.h1.howItWorksPage}">How it works in a nutshell</h1>
 	
-	<p th:utext="#{html.article.authenticationPage}">JWT flow with schema</p>
+	<p th:utext="#{html.article.howItWorksPage}">How it works description</p>
 	
 </th:block>
 

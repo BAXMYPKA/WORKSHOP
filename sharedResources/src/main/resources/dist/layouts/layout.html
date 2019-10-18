@@ -88,10 +88,10 @@
 					Services list
 				</a>
 				<ul class="subMenu">
-					<li>
+					<li th:each="service : ${classifiersGroupsNames}">
 						<a href="./services.html"
-						   th:href="@{/services#springBoot}"
-						   th:text="#{html.upNav.upperMenu.projectTechnogies.springBoot}">
+						   th:href="@{/services#__${service}__}"
+						   th:text="${service}">
 							Service one
 						</a>
 					</li>

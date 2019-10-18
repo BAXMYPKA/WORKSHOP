@@ -3,19 +3,18 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{./layouts/layout.html}">
+	  layout:decorate="~{./layouts/layout-demo.html}">
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{html.upNav.upperMenu.projectPurposes}">PROJECT PURPOSES</title>
+	<title th:text="#{html.title.tecnologiesPage}">Technologies used</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
 	
-	<h1 th:text="#{html.upNav.upperMenu.projectPurposes}">Project purposes</h1>
-	
-	<p th:utext="#{html.article.purposesPage}">Purposes description</p>
-	
+	<h1 th:text="#{html.h1.technologiesPage}">Technologies used in the project</h1>
+	<p th:utext="#{html.article.technologiesPage}">Technologies description</p>
+
 </th:block>
 
 </body>

@@ -16,6 +16,12 @@
 		
 		<dependency>
 			<groupId>pro.workshop</groupId>
+			<artifactId>internal</artifactId>
+			<version>${project-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>pro.workshop</groupId>
 			<artifactId>sharedResources</artifactId>
 			<version>${project-version}</version>
 		</dependency>

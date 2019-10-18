@@ -398,9 +398,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @param pageSize min = 1, max = {@link #MAX_PAGE_SIZE} In case of incorrect values the size
-	 *                 will be set in between min and max.
-	 * @param pageNum  min = 1, max = {@link #MAX_PAGE_NUM}.
+	 * @param pageSize min = 0 (will be set to {@link #MAX_PAGE_SIZE}). In case of incorrect values the size
+	 *                 will also be set in between 1 and max.
+	 * @param pageNum  min = 0, max = {@link #MAX_PAGE_NUM}.
 	 *                 In case of incorrect values the page will be set in between min and max
 	 * @param orderBy  If "default" or empty - a List will be ordered by CreationDate
 	 * @param order    ENUM from Sort.Direction with "ASC" or "DESC" values

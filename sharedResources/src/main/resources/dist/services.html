@@ -6,20 +6,38 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./assets/css/services.css" th:href="@{/dist/assets/css/services.css}">
 	<title th:text="#{html.a.title.services}">MAIN PAGE</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
+	
 	<h1 th:text="#{html.h1.services}">Our services list</h1>
-	<ul >
-		<li th:each="classifierGroupName : ${classifiersGroupsNames}" th:text="${classifierGroupName}">
-			Service one
-		</li>
+	
+	<ul th:each="classifierGroup : ${classifiersGroups}">
+		<details th:id="${classifierGroup.name}">
+			<summary th:text="${classifierGroup.name}"  class="groupName">
+				Services group name
+			</summary>
+			
+			<p class="description" th:text="${classifierGroup?.description}">Services group description</p>
+			
+			<li th:each="classifier : ${classifierGroup.classifiers}">
+				<span class="service" th:text="${classifier.name + ' = ' + classifier.price + 'руб'}">
+					Service
+				</span>
+				<br>
+				<span class="description" th:text="${classifier?.description}">
+					Service description
+				</span>
+			</li>
+			
+			<p class="description" th:text="${classifier?.description}">Service description</p>
+		
+		</details>
 	</ul>
-<!--	<p th:utext="#{html.article.index}">-->
-<!--		Workshop greetings-->
-<!--	</p>-->
+	
 </th:block>
 
 </body>

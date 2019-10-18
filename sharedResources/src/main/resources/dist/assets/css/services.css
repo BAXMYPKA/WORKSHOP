@@ -1,0 +1,18 @@
+.groupName {
+	margin-bottom: 1em;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: Arial, sans-serif;
+}
+
+.groupName:hover {
+	cursor: copy;
+}
+
+.description {
+	font-style: italic;
+}
+
+.service {
+	font-weight: bold;
+}

@@ -19,8 +19,15 @@ public class UpperMenuController extends WorkshopControllerAbstract {
 	@Autowired
 	private ClassifiersGroupsService classifiersGroupsService;
 	
+	/**
+	 * Also adds {@link ClassifiersGroup}s with all included {@link workshop.internal.entities.Classifier}s for being
+	 * parsed in html.
+	 */
 	@GetMapping(path = "/services")
 	public String getPurposes(Model model) {
+		List<ClassifiersGroup> classifiersGroups =
+			classifiersGroupsService.findAllEntities(0, 0, "name", Sort.Direction.ASC);
+		model.addAttribute("classifiersGroups", classifiersGroups);
 		return "services";
 	}
 	

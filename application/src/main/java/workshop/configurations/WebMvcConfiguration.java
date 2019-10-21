@@ -28,7 +28,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Setter(AccessLevel.PACKAGE)
 	private String corsAllowedOrigins;
 	
-	@Value("@{Allow}")
+	@Value("${Allow}")
 	@Setter(AccessLevel.PACKAGE)
 	private String allowedMethods;
 	
@@ -55,8 +55,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/dist/assets/**")
-			.addResourceLocations("classpath:/dist/assets/");
+		registry.addResourceHandler("/dist/**")
+			.addResourceLocations("classpath:/dist/");
 	}
 	
 	//	@Bean //Filters don't have to be beans

@@ -16,6 +16,6 @@ public class IndexController extends WorkshopControllerAbstract {
 	
 	@GetMapping(path = "/index-demo")
 	public String getIndexDemo() {
-		return "index-demo";
+		return "indexDemo";
 	}
 }

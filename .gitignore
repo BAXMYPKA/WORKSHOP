@@ -17,3 +17,4 @@ applicationWORKSHOP.jar
 /internalREST/target/
 /application/target/
 /application/logs/
+/sharedResources/src/main/resources/node_modules/

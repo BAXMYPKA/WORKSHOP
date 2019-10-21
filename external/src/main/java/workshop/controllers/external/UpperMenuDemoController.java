@@ -9,36 +9,36 @@ public class UpperMenuDemoController extends WorkshopControllerAbstract {
 	
 	@GetMapping(path = "/purposes-demo")
 	public String getPurposes() {
-		return "purposes-demo";
+		return "purposesDemo";
 	}
 	
 	@GetMapping(path = "/how-it-works-demo")
 	public String getHowItWorks() {
-		return "howItWorks-demo";
+		return "howItWorksDemo";
 	}
 	
 	@GetMapping(path = "/authentication-demo")
 	public String getAuthentication() {
-		return "authentication-demo";
+		return "authenticationDemo";
 	}
 	
 	@GetMapping(path = "/authorization-demo")
 	public String getAuthorization() {
-		return "authorization-demo";
+		return "authorizationDemo";
 	}
 	
 	@GetMapping(path = "/under-construction-demo")
 	public String getUnderConstruction() {
-		return "underConstruction-demo";
+		return "underConstructionDemo";
 	}
 	
 	@GetMapping(path = "/technologies-demo")
 	public String getTechnologies() {
-		return "technologies-demo";
+		return "technologiesDemo";
 	}
 	
 	@GetMapping(path = "/about-demo")
 	public String getAbout() {
-		return "about-demo";
+		return "aboutDemo";
 	}
 }

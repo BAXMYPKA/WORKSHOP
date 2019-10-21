@@ -4,7 +4,7 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="../assets/css/layout.css" th:href="@{/dist/assets/css/layout.css}">
+	<link rel="stylesheet" href="../css/layout.css" th:href="@{/dist/css/layout.css}">
 	<title>Layout</title>
 	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
@@ -21,15 +21,15 @@
 		<div class="logo">
 			<a href="./index.html" th:href="@{/}">
 				<div class="logoPicture">
-					<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/assets/img/mtb.png}">
+					<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/img/mtb.png}">
 				</div>
 			</a>
-			<span class="motto" th:text="#{workshop.motto}">
+			<span class="motto" th:text="#{html.span.workshopMotto}">
 				Here's the short motto.
 			</span>
 		</div>
 		
-		<div class="workshopName" th:text="#{workshop.name}">
+		<div class="workshopName" th:text="#{html.div.workshopBicyclesName}">
 			WORKSHOP
 		</div>
 		

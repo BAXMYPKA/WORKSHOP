@@ -1,12 +1,12 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
 	entry: {
-	index: './src/js/index.js'
+		index: './src/js/index.js'
 	},
-	devtool: 'inline-source-map',
+	devtool: 'source-map',
 	plugins: [
 		new CleanWebpackPlugin(),
 	],
@@ -14,4 +14,29 @@ module.exports = {
 		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist/js'),
 	},
+	devServer: {
+		contentBase: path.join(__dirname, "dist/js"),
+		compress: true,
+		port: 9000,
+		watchContentBase: true,
+		progress: true
+	},
+	watchOptions: {
+		aggregateTimeout: 700,
+		poll: 1000
+	},
+	module: {
+		rules: [
+			{
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env']
+					}
+				}
+			}
+		]
+	}
 };

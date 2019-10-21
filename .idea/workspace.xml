@@ -5,33 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuDemoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuDemoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/about-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/aboutDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout-demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout-demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/css/services.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/services.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/img/bicycle-logo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/img/bicycle-logo.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/assets/img/mtb.png" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/img/mtb.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/authentication-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/authenticationDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/authorization-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/authorizationDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/howItWorks-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/howItWorksDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/indexDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout-demo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/purposes-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/purposesDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/services.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/services.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/technologies-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/technologiesDemo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/underConstruction-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/underConstructionDemo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -128,13 +122,13 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Bower" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -175,14 +169,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
-    <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Compound.Webpack watch WorkshopApplication">
+    <configuration name="Webpack watch WorkshopApplication" type="CompoundRunConfigurationType">
+      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType">
+      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <method v="2" />
     </configuration>
     <configuration name="All in internal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internal" />
@@ -240,24 +236,62 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="WorkshopApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" singleton="false">
       <module name="application" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="workshop.WorkshopApplication" />
       <option name="HIDE_BANNER" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateResources" />
       <method v="2">
+        <option name="NpmBeforeRunTask" enabled="true">
+          <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
+          <command value="run" />
+          <scripts>
+            <script value="webpack" />
+          </scripts>
+          <node-interpreter value="project" />
+          <envs />
+        </option>
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Webpack --watch" type="js.build_tools.npm" singleton="false">
+      <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <arguments value="--config webpack.config.js" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Compound.Webpack watch WorkshopApplication" />
+      <item itemvalue="JUnit.All in internal" />
+      <item itemvalue="JUnit.WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
+      <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
+      <item itemvalue="JUnit.WorkshopEmailServiceIT.undelivered_Email_Message_Should_Throw_MailException" />
+      <item itemvalue="npm.Webpack --watch" />
+      <item itemvalue="Spring Boot.WorkshopApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
         <item itemvalue="JUnit.All in internal" />
         <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
         <item itemvalue="JUnit.WorkshopEmailServiceIT.undelivered_Email_Message_Should_Throw_MailException" />
-        <item itemvalue="JUnit.All in application" />
       </list>
     </recent_temporary>
   </component>
@@ -300,6 +334,7 @@
       <workItem from="1571396534365" duration="7264000" />
       <workItem from="1571420149478" duration="4942000" />
       <workItem from="1571558865587" duration="9678000" />
+      <workItem from="1571665805408" duration="13069000" />
     </task>
     <servers />
   </component>

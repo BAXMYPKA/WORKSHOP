@@ -4,8 +4,8 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8">
+	<script src="../js/index.js" th:src="@{/dist/js/index.js}" defer></script>
 	<link rel="stylesheet" href="../css/layout.css" th:href="@{/dist/css/layout.css}">
-	<title>Layout</title>
 	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
 <body th:with="currentURL=${#request.getRequestURL()}">
@@ -271,11 +271,11 @@
 			<div class="formContainer">
 				<div class="login">
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
-						<input type="text" name="username" placeholder="user@email.pro"
-							   th:value="#{html.a.text.gitHubPfofile}">
+						<input type="text" id="inputUsername" name="username" value="user@email.pro"
+							   th:value="#{html.input.login.loginUsername}">
 						<br>
-						<input type="text" name="password" placeholder="12345"
-							   th:value="#{html.a.text.gitHubPfofile}">
+						<input type="text" id="inputPassword" name="password" value="12345"
+							   th:value="#{html.input.password.loginPassword}">
 						<br>
 						<button class="buttonLogin"
 								onclick="this.form.submit()"

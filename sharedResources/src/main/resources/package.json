@@ -1,27 +1,31 @@
 {
-  "name": "workshop",
-  "version": "1.5.0",
-  "description": "Workshop Bicycles External and Internal domains Web-recources",
-  "main": "./src/js/index.js",
-  "scripts": {
-    "webpack": "webpack",
-    "watch": "webpack --watch",
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "no git yet"
-  },
-  "keywords": [
-    "no",
-    "keywords",
-    "yet"
-  ],
-  "author": "BAXMYPKA",
-  "license": "ISC",
-  "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
-  }
+	"name": "workshop",
+	"version": "1.5.0",
+	"description": "Workshop Bicycles External and Internal domains Web-recources",
+	"main": "./src/js/index.js",
+	"scripts": {
+		"webpack": "webpack",
+		"watch": "webpack --watch --progress",
+		"test": "test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "no git yet"
+	},
+	"keywords": [
+		"no",
+		"keywords",
+		"yet"
+	],
+	"author": "BAXMYPKA",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.6.4",
+		"@babel/preset-env": "^7.6.3",
+		"@babel/preset-react": "^7.6.3",
+		"babel-loader": "^8.0.6",
+		"clean-webpack-plugin": "^3.0.0",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.9"
+	}
 }

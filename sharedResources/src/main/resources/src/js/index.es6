@@ -1,4 +1,4 @@
-import {passwordCheck} from './passwordCheck';
+import {passwordCheck} from './passwordCheck.es6';
 
 const usernameInput = document.querySelector("#inputUsername");
 const passwordInput = document.querySelector("#inputPassword");

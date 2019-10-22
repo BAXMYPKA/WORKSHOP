@@ -81,40 +81,43 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/index.es6");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/index.js":
-/*!*************************!*\
-  !*** ./src/js/index.js ***!
-  \*************************/
+/***/ "./src/js/index.es6":
+/*!**************************!*\
+  !*** ./src/js/index.es6 ***!
+  \**************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _passwordCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck */ "./src/js/passwordCheck.js");
+/* harmony import */ var _passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck.es6 */ "./src/js/passwordCheck.es6");
 
-var usernameInput = document.querySelector("#inputUsername");
-var passwordInput = document.querySelector("#inputPassword");
-passwordInput.addEventListener("input", function (env) {
-  if (Object(_passwordCheck__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
-    passwordInput.style.color = "green";
-    passwordInput.removeAttribute("title");
-  } else {
-    passwordInput.style.color = "red";
-    passwordInput.setAttribute("title", "At least 5 symbols required!");
-  }
+
+const usernameInput = document.querySelector("#inputUsername");
+const passwordInput = document.querySelector("#inputPassword");
+
+passwordInput.addEventListener("input", (env) => {
+	if (Object(_passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
+		passwordInput.style.color = "green";
+		passwordInput.removeAttribute("title");
+	} else {
+		passwordInput.style.color = "red";
+		passwordInput.setAttribute("title", "At least 5 symbols required!");
+	}
 });
+
 
 /***/ }),
 
-/***/ "./src/js/passwordCheck.js":
-/*!*********************************!*\
-  !*** ./src/js/passwordCheck.js ***!
-  \*********************************/
+/***/ "./src/js/passwordCheck.es6":
+/*!**********************************!*\
+  !*** ./src/js/passwordCheck.es6 ***!
+  \**********************************/
 /*! exports provided: passwordCheck */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -122,14 +125,14 @@ passwordInput.addEventListener("input", function (env) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordCheck", function() { return passwordCheck; });
 function passwordCheck(password) {
-  if (password.length < 5) {
-    return false;
-  } else {
-    return true;
-  }
+	if (password.length < 5) {
+		return false;
+	} else {
+		return true;
+	}
 }
+
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map

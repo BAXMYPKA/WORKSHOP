@@ -13,6 +13,16 @@
 	<packaging>jar</packaging>
 	
 	<build>
+		
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/node_modules/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		
 		<plugins>
 			<plugin>
 				<artifactId>maven-remote-resources-plugin</artifactId>
@@ -29,8 +39,12 @@
 					<includes>
 						<include>*.*</include>
 					</includes>
+					<excludes>
+						<exclude>**/node_modules/**</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 	

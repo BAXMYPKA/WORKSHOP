@@ -5,27 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/babel.config.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordCheck.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,10 +124,11 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.1.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.general" />
@@ -134,13 +137,6 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.controllers.external" />
@@ -151,9 +147,17 @@
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\layouts" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="mvn clean" />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -169,10 +173,10 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Compound.Webpack watch WorkshopApplication">
-    <configuration name="Webpack watch WorkshopApplication" type="CompoundRunConfigurationType">
-      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+    <configuration name="Webpack --watch WorkshopApplication" type="CompoundRunConfigurationType">
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="CompoundRunConfigurationType">
@@ -278,7 +282,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Compound.Webpack watch WorkshopApplication" />
+      <item itemvalue="Compound.Webpack --watch WorkshopApplication" />
       <item itemvalue="JUnit.All in internal" />
       <item itemvalue="JUnit.WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
       <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
@@ -335,6 +339,9 @@
       <workItem from="1571420149478" duration="4942000" />
       <workItem from="1571558865587" duration="9678000" />
       <workItem from="1571665805408" duration="13069000" />
+      <workItem from="1571724854407" duration="1386000" />
+      <workItem from="1571727669159" duration="3325000" />
+      <workItem from="1571731023857" duration="1432000" />
     </task>
     <servers />
   </component>

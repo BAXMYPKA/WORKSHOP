@@ -1,11 +1,11 @@
 {
 	"name": "workshop",
 	"version": "1.5.0",
-	"description": "Workshop Bicycles External and Internal domains Web-recources",
+	"description": "Workshop Bicycles External and Internal domains Web-resources",
 	"main": "./src/js/index.js",
 	"scripts": {
-		"webpack": "webpack",
-		"watch": "webpack --watch --progress",
+		"webpack": "webpack --config webpack.config.es6",
+		"watch": "webpack --watch --progress --config webpack.config.es6",
 		"test": "test"
 	},
 	"repository": {

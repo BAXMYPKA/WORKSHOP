@@ -86,6 +86,34 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/emailCheck.es6":
+/*!*******************************!*\
+  !*** ./src/js/emailCheck.es6 ***!
+  \*******************************/
+/*! exports provided: emailCheck, userEmailExist */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emailCheck", function() { return emailCheck; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEmailExist", function() { return userEmailExist; });
+function emailCheck(email) {
+	
+	let regexp = /^user@email.pro$/i;
+	
+	if (typeof email === "string" && email.match(regexp)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+function userEmailExist(userEmail) {
+	return true;
+}
+
+/***/ }),
+
 /***/ "./src/js/index.es6":
 /*!**************************!*\
   !*** ./src/js/index.es6 ***!
@@ -96,21 +124,46 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck.es6 */ "./src/js/passwordCheck.es6");
+/* harmony import */ var _emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./emailCheck.es6 */ "./src/js/emailCheck.es6");
 
 
+
+const PASSWORD_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+const USER_EMAIL_ERROR_MESSAGE = "Имя должно соответствовать формату электронного адреса!";
+const USER_NOT_FOUND = "Такого пользователя в базе не обнаружено!";
 const usernameInput = document.querySelector("#inputUsername");
 const passwordInput = document.querySelector("#inputPassword");
+const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
+const userErrorMessageSpan = document.querySelector("#userErrorMessage");
 
 passwordInput.addEventListener("input", (env) => {
 	if (Object(_passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
 		passwordInput.style.color = "green";
 		passwordInput.removeAttribute("title");
+		passwordErrorMessageSpan.style.display = "none";
 	} else {
 		passwordInput.style.color = "red";
-		passwordInput.setAttribute("title", "At least 5 symbols required!");
+		passwordInput.setAttribute("title", PASSWORD_ERROR_MESSAGE);
+		passwordErrorMessageSpan.style.display = "block";
+		passwordErrorMessageSpan.innerHTML = PASSWORD_ERROR_MESSAGE;
 	}
 });
 
+usernameInput.addEventListener("input", (evt) => {
+	if (!Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailCheck"])(usernameInput.value)) {
+		usernameInput.setAttribute("title", USER_EMAIL_ERROR_MESSAGE);
+		usernameInput.style.color = "red";
+	} else if (Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailCheck"])(usernameInput.value) && !Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["userEmailExist"])(usernameInput.value)) {
+		usernameInput.removeAttribute("title");
+		usernameInput.style.color = "green";
+		passwordErrorMessageSpan.style.display = "block";
+		passwordErrorMessageSpan.innerHTML = USER_NOT_FOUND;
+	} else {
+		usernameInput.removeAttribute("title");
+		usernameInput.style.color = "green";
+		passwordErrorMessageSpan.style.display = "none";
+	}
+});
 
 /***/ }),
 
@@ -125,7 +178,7 @@ passwordInput.addEventListener("input", (env) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordCheck", function() { return passwordCheck; });
 function passwordCheck(password) {
-	if (password.length < 5) {
+	if ( (typeof password === "string" || typeof password === "number") && password.length < 5) {
 		return false;
 	} else {
 		return true;

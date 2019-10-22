@@ -354,6 +354,18 @@ input:hover {
 	transition-duration: 200ms;
 }
 
+/* */
+
+.errorMessage {
+	display: none;
+	font-style: italic;
+	color: red;
+}
+
+.errorMessage:before {
+	content: "* ";
+}
+
 /* ===== TABLES ===== */
 
 table {

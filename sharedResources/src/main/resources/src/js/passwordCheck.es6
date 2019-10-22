@@ -1,5 +1,5 @@
 export function passwordCheck(password) {
-	if (password.length < 5) {
+	if ( (typeof password === "string" || typeof password === "number") && password.length < 5) {
 		return false;
 	} else {
 		return true;

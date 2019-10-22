@@ -4,7 +4,7 @@
 	  xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 	<meta content="text/html; charset=UTF-8">
-	<script src="../js/index.es6" th:src="@{/dist/js/index.es6}" defer></script>
+	<script src="../js/index.es6" type="application/javascript" th:src="@{/dist/js/index.es6}" defer></script>
 	<link rel="stylesheet" href="../css/layout.css" th:href="@{/dist/css/layout.css}">
 	<title layout:title-pattern="$LAYOUT_TITLE $CONTENT_TITLE">WORKSHOP</title>
 </head>
@@ -273,9 +273,11 @@
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
 						<input type="text" id="inputUsername" name="username" value="user@email.pro"
 							   th:value="#{html.input.login.loginUsername}">
+						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
 						<br>
 						<input type="text" id="inputPassword" name="password" value="12345"
 							   th:value="#{html.input.password.loginPassword}">
+						<span class="errorMessage" id="passwordErrorMessage">Possible error message</span>
 						<br>
 						<button class="buttonLogin"
 								onclick="this.form.submit()"

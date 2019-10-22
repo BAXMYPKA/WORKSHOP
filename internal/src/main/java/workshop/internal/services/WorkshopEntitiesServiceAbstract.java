@@ -120,8 +120,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	}
 	
 	/**
-	 * @param propertyName  E.g., "name" as WorkshopEntity.name
-	 * @param propertyValue E.g., "Cisco phone" as the desired value of the WorkshopEntity.name
+	 * @param propertyName  Any existing {@link WorkshopEntity}.propertyName
+	 * @param propertyValue Any desired {@link WorkshopEntity}.propertyName.getValue
 	 * @return WorkshopEntity of the given type with the desired value.
 	 * @throws PersistenceException    In case of problems with the DataBase.
 	 * @throws EntityNotFoundException If nothing was found.

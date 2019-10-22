@@ -1,5 +1,5 @@
 import {passwordCheck} from './passwordCheck.es6';
-import {emailCheck, userEmailExist} from "./emailCheck.es6";
+import {emailRegexpCheck, userEmailExist} from "./emailCheck.es6";
 
 const PASSWORD_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
 const USER_EMAIL_ERROR_MESSAGE = "Имя должно соответствовать формату электронного адреса!";
@@ -23,10 +23,10 @@ passwordInput.addEventListener("input", (env) => {
 });
 
 usernameInput.addEventListener("input", (evt) => {
-	if (!emailCheck(usernameInput.value)) {
+	if (!emailRegexpCheck(usernameInput.value)) {
 		usernameInput.setAttribute("title", USER_EMAIL_ERROR_MESSAGE);
 		usernameInput.style.color = "red";
-	} else if (emailCheck(usernameInput.value) && !userEmailExist(usernameInput.value)) {
+	} else if (emailRegexpCheck(usernameInput.value) && !userEmailExist(usernameInput.value)) {
 		usernameInput.removeAttribute("title");
 		usernameInput.style.color = "green";
 		passwordErrorMessageSpan.style.display = "block";

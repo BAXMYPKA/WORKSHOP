@@ -88,9 +88,9 @@
 
 /***/ "./src/js/emailCheck.es6":
 /*!*******************************!*\
-  !*** ./src/js/emailCheck.es6 ***!
+  !*** ./src/js/emailRegexpCheck.es6 ***!
   \*******************************/
-/*! exports provided: emailCheck, userEmailExist */
+/*! exports provided: emailRegexpCheck, userEmailExist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124,7 +124,7 @@ function userEmailExist(userEmail) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck.es6 */ "./src/js/passwordCheck.es6");
-/* harmony import */ var _emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./emailCheck.es6 */ "./src/js/emailCheck.es6");
+/* harmony import */ var _emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./emailRegexpCheck.es6 */ "./src/js/emailCheck.es6");
 
 
 

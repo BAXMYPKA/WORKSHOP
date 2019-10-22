@@ -1,8 +1,8 @@
-export function emailCheck(email) {
+export function emailRegexpCheck(email) {
 	
-	let regexp = /^user@email.pro$/i;
+	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\w]|[\d]){2,10}$/i;
 	
-	if (typeof email === "string" && email.match(regexp)) {
+	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;
 	} else {
 		return false;
@@ -10,5 +10,10 @@ export function emailCheck(email) {
 };
 
 export function userEmailExist(userEmail) {
+	
+	let prom = new Promise(function (resolve, reject) {
+	
+	});
+	
 	return true;
 }

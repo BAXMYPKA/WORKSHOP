@@ -15,7 +15,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8_221" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8.0_221" project-jdk-type="JavaSDK" />
   <component name="WebPackConfiguration">
     <option name="path" value="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.js" />
   </component>

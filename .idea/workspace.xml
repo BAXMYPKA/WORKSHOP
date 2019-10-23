@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/IsExistAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/SearchAjaxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/emailCheck.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/emailCheck.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.es6" afterDir="false" />
@@ -172,17 +163,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
-    <configuration name="Webpack --watch WorkshopApplication" type="CompoundRunConfigurationType">
-      <toRun name="Webpack --watch" type="js.build_tools.npm" />
-      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="CompoundRunConfigurationType">
-      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
-      <toRun name="Webpack --watch" type="js.build_tools.npm" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="npm.Webpack --watch">
     <configuration name="All in internal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="internal" />
       <option name="PACKAGE_NAME" value="" />
@@ -281,7 +262,6 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Compound.Webpack --watch WorkshopApplication" />
       <item itemvalue="JUnit.All in internal" />
       <item itemvalue="JUnit.WorkshopAudibleEntityAbstractBeanValidationTest.default_Validation_Group_Should_Accept_Only_PastOrPresent_Finished" />
       <item itemvalue="JUnit.WorkshopEmailServiceIT._Email_Message_Should_Throw_MailException" />
@@ -301,16 +281,16 @@
   <component name="ServiceViewManager">
     <option name="allServicesViewState">
       <serviceView>
-        <option name="contentProportion" value="0.2805986" />
+        <option name="contentProportion" value="0.1373597" />
         <treeState>
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@1b0aab35" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@84c8c4b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@5b6a2e7c" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2dd24353" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -353,6 +333,8 @@
       <workItem from="1571731023857" duration="14006000" />
       <workItem from="1571762596252" duration="519000" />
       <workItem from="1571763199304" duration="2003000" />
+      <workItem from="1571810545638" duration="13239000" />
+      <workItem from="1571841544026" duration="824000" />
     </task>
     <servers />
   </component>

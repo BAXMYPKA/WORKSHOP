@@ -31,7 +31,7 @@ usernameInput.addEventListener("input", (evt) => {
 		usernameInput.style.color = "green";
 		passwordErrorMessageSpan.style.display = "block";
 		passwordErrorMessageSpan.innerHTML = USER_NOT_FOUND;
-	} else {
+	} else if (userEmailExist(usernameInput.value)){
 		usernameInput.removeAttribute("title");
 		usernameInput.style.color = "green";
 		passwordErrorMessageSpan.style.display = "none";

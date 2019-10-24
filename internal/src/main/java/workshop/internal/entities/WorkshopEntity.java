@@ -23,6 +23,8 @@ public interface WorkshopEntity extends Serializable, Comparable<WorkshopEntity>
 	 */
 	public static final Set<String> workshopEntitiesNames = new HashSet<>();
 	
+	public static final Set<String> workshopEntitiesFullyQualifiedNames = new HashSet<>();
+	
 	/**
 	 * Obligatory to be set in every class as:
 	 * '@Transient

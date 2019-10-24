@@ -1,19 +1,21 @@
 package workshop.internal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
 
 @JsonIgnoreProperties(value = {"workshopEntityName"}, allowGetters = true)
 public abstract class WorkshopEntityAbstract implements WorkshopEntity {
 	
-	public static String workshopEntityName;
+	@Getter
+	private String workshopEntityName;
+	@Getter
+	private String workshopEntityFullyQualifiedName;
 	
 	WorkshopEntityAbstract() {
-		workshopEntityName = this.getClass().getSimpleName();
-		WorkshopEntity.workshopEntitiesNames.add(workshopEntityName);
-	}
-	
-	public String getWorkshopEntityName() {
-		return workshopEntityName;
+		this.workshopEntityName = this.getClass().getSimpleName();
+		this.workshopEntityFullyQualifiedName = this.getClass().getName();
+		WorkshopEntity.workshopEntitiesNames.add(this.workshopEntityName);
+		WorkshopEntity.workshopEntitiesFullyQualifiedNames.add(this.workshopEntityFullyQualifiedName);
 	}
 	
 	/**

@@ -24,6 +24,7 @@ import workshop.internal.exceptions.IllegalArgumentsException;
 import workshop.internal.exceptions.InternalServerErrorException;
 import workshop.internal.exceptions.PersistenceFailureException;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import java.util.*;
@@ -47,41 +48,35 @@ import java.util.stream.Stream;
 @Service
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
+	public static Map<Class<? extends WorkshopEntity>, WorkshopEntitiesServiceAbstract<? extends WorkshopEntity>>
+		workshopEntitiesServicesBeans = new HashMap<>();
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
 	private int DEFAULT_PAGE_SIZE;
-	
 	@Value("${page.max_num}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
 	private int MAX_PAGE_NUM;
-	
 	@Value("${page.size.max}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
 	private int MAX_PAGE_SIZE;
-	
 	@Value("${default.orderBy}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PROTECTED)
 	private String DEFAULT_ORDER_BY;
-	
 	@Value("${default.order}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PROTECTED)
 	private String DEFAULT_ORDER;
-	
 	@Autowired
 	@Setter(AccessLevel.PUBLIC)
 	private MessageSource messageSource;
-	
 	@Getter(AccessLevel.PUBLIC)
 	private WorkshopEntitiesDaoAbstract<T, Long> workshopEntitiesDaoAbstract;
-	
 	@Getter(AccessLevel.PUBLIC)
 	private Class<T> entityClass;
-	
 	private String entityClassSimpleName;
 	
 	/**
@@ -95,6 +90,84 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		setEntityClass(workshopEntitiesDaoAbstract.getEntityClass());
 		entityClassSimpleName = entityClass.getSimpleName();
 		log.trace("{} initialized successfully", entityClass.getSimpleName());
+	}
+	
+	/**
+	 * @param workshopEntityType {@link String} with one of the {@link WorkshopEntity#workshopEntitiesNames}
+	 * @param propertyName       {@link String} with any existing {@link WorkshopEntity} property.
+	 * @param propertyValue      {@link String} as the value of any existing {@link WorkshopEntity} property.
+	 * @return {@literal List<WorkshopEntity> } with the found {@link WorkshopEntity}s in it.
+	 * @throws EntityNotFoundException With the corresponding {@link HttpStatus} and a message for the end Users
+	 *                                 If such a 'workshopEntityType' doesn't exist or cannot be found by either such a
+	 *                                 'propertyName' or 'propertyValue'.
+	 */
+	public static List<WorkshopEntity> findByWorkshopEntityType(
+		String workshopEntityType, String propertyName, String propertyValue) throws EntityNotFoundException {
+		
+		WorkshopEntitiesServiceAbstract.verifyPropertiesForNull(workshopEntityType, propertyName, propertyValue);
+		
+		WorkshopEntitiesServiceAbstract workshopEntitiesServiceBeanByEntityType =
+			WorkshopEntitiesServiceAbstract.getWorkshopEntitiesServiceBeanByEntityType(workshopEntityType);
+		
+		try {
+			List<WorkshopEntity> workshopEntitiesByProperty =
+				workshopEntitiesServiceBeanByEntityType.findByProperty(propertyName, propertyValue);
+			
+			return workshopEntitiesByProperty;
+			
+		} catch (ClassCastException e) {
+			log.debug("Wrong WorkshopEntityClass={}", workshopEntitiesServiceBeanByEntityType.getEntityClassSimpleName(), e);
+			throw new EntityNotFoundException(workshopEntitiesServiceBeanByEntityType.getEntityClassSimpleName() + " class not found!");
+		}
+	}
+	
+	/**
+	 * @param workshopEntityType {@link workshop.internal.entities.WorkshopEntityType} as {@link String} to obtain
+	 *                           {@link WorkshopEntitiesServiceAbstract} for its type.
+	 * @return A concrete {@link WorkshopEntitiesServiceAbstract} as a
+	 * {@link org.springframework.context.annotation.Bean} of desired {@link WorkshopEntity} type
+	 */
+	public static WorkshopEntitiesServiceAbstract getWorkshopEntitiesServiceBeanByEntityType(String workshopEntityType) {
+		WorkshopEntitiesServiceAbstract.verifyPropertiesForNull(workshopEntityType);
+		
+		String workshopEntityFullyQualifiedName = WorkshopEntity.workshopEntitiesFullyQualifiedNames.stream()
+			.filter(s -> s.contains(workshopEntityType))
+			.findFirst()
+			.orElseThrow(() -> new EntityNotFoundException(""));
+		try {
+			Class<? extends WorkshopEntity> workshopEntityClass =
+				(Class<? extends WorkshopEntity>) Class.forName(workshopEntityFullyQualifiedName, true, WorkshopEntitiesServiceAbstract.class.getClassLoader());
+			
+			WorkshopEntitiesServiceAbstract workshopEntitiesService =
+				WorkshopEntitiesServiceAbstract.workshopEntitiesServicesBeans.get(workshopEntityClass);
+			return workshopEntitiesService;
+			
+		} catch (ClassNotFoundException | ClassCastException e) {
+			log.debug("Wrong WorkshopEntityClass={}", workshopEntityFullyQualifiedName, e);
+			throw new EntityNotFoundException("");
+		}
+		
+	}
+	
+	private static void verifyPropertiesForNull(String... property) throws IllegalArgumentsException {
+		if (property == null || Arrays.stream(property).anyMatch(Objects::isNull)) {
+			log.error("The given property cannot be null!");
+			throw new IllegalArgumentsException(
+				"The given property cannot be null!",
+				"httpStatus.notAcceptable.property",
+				HttpStatus.NOT_ACCEPTABLE);
+		} else if (property.length == 0) {
+			log.error("The given properties cannot be the empty array!");
+			throw new IllegalArgumentsException(
+				"The given properties cannot be the empty array!",
+				"httpStatus.notAcceptable.property",
+				HttpStatus.NOT_ACCEPTABLE);
+		}
+	}
+	
+	@PostConstruct
+	void addThisBeanToMap() {
+		workshopEntitiesServicesBeans.put(entityClass, this);
 	}
 	
 	/**
@@ -364,7 +437,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		return workshopEntitiesDaoAbstract.persistEntities(entities).orElse(Collections.emptyList());
 	}
 	
-	
 	/**
 	 * @param pageable If doesn't contain 'Sort' with property to be ordered by and Sort.Direction,
 	 *                 {@link #DEFAULT_ORDER_BY} with {@link #DEFAULT_ORDER} will be used
@@ -396,6 +468,8 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 				LocaleContextHolder.getLocale()), e);
 		}
 	}
+	
+	//TODO: to complete null check and docs
 	
 	/**
 	 * @param pageSize min = 0 (will be set to {@link #MAX_PAGE_SIZE}). In case of incorrect values the size
@@ -447,7 +521,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		verifyIdForNullZeroBelowZero(id);
 		return workshopEntitiesDaoAbstract.isExist(id);
 	}
-	
 	
 	/**
 	 * Convenient method to receive a raw data from DAO and transform it to Page<T> or throw localized {@link EntityNotFoundException}

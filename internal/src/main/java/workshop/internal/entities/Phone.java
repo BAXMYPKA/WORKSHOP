@@ -26,19 +26,6 @@ import java.time.ZonedDateTime;
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone extends WorkshopEntityAbstract {
 	
-	public Phone(String name,
-				 @NotNull(
-					 groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
-					 message = "{validation.notNull}")
-				 @Pattern(
-					 groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
-					 message = "{validation.pattern.phone}",
-					 regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
-					 String phone) {
-		this.name = name;
-		this.phone = phone;
-	}
-	
 	@Transient
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
@@ -83,6 +70,19 @@ public class Phone extends WorkshopEntityAbstract {
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;
+	
+	public Phone(String name,
+		@NotNull(
+			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			message = "{validation.notNull}")
+		@Pattern(
+			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			message = "{validation.pattern.phone}",
+			regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
+			String phone) {
+		this.name = name;
+		this.phone = phone;
+	}
 	
 	@PrePersist
 	public void prePersist() {

@@ -1,12 +1,11 @@
 package workshop.internal.services;
 
-import org.springframework.test.annotation.DirtiesContext;
-import workshop.internal.entities.*;
-import workshop.internal.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -15,9 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.services.*;
+import workshop.internal.entities.*;
+import workshop.internal.exceptions.EntityNotFoundException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -536,6 +538,65 @@ class WorkshopEntitiesServiceAbstractIT {
 		
 		//THEN
 		assertTrue(user.getPhones().contains(phone));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"Department", "Position", "Employee"})
+	public void workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService(String workshopEntityType) {
+		//GIVEN
+		
+		//WHEN
+		WorkshopEntitiesServiceAbstract workshopEntitiesService =
+			WorkshopEntitiesServiceAbstract.getWorkshopEntitiesServiceBeanByEntityType(workshopEntityType);
+		
+		//THEN
+		assertEquals(workshopEntityType, workshopEntitiesService.getEntityClass().getSimpleName());
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"Department", "Position", "Employee"})
+	@WithMockUser(username = "admin@workshop.pro", password = "12345", authorities = {"ADMIN_FULL"})
+	@Transactional
+	@Rollback
+	public void workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities(
+		String workshopEntityType) {
+		
+		//GIVEN
+		Department department1 = new Department("Department newType");
+		departmentsService.persistEntity(department1);
+		
+		Position position1 = new Position();
+		position1.setName("Position newType");
+		position1.setDepartment(department1);
+		positionsService.persistEntity(position1);
+		
+		Employee employee1 = new Employee("Employee newType", "LN", "12345", "emailNewType@pro1.pro",
+			LocalDate.now().minusYears(28), position1);
+		employeesService.persistEntities(employee1);
+		
+		//WHEN
+		WorkshopEntitiesServiceAbstract workshopEntitiesService =
+			WorkshopEntitiesServiceAbstract.getWorkshopEntitiesServiceBeanByEntityType(workshopEntityType);
+		
+		//THEN
+		List<WorkshopEntity> workshopEntityByProperty = null;
+		
+		if (workshopEntityType.equals("Department")) {
+			workshopEntityByProperty =
+				workshopEntitiesService.findByProperty("name", "Department newType");
+			assertEquals(1, workshopEntityByProperty.size());
+			assertEquals(department1.getIdentifier(), workshopEntityByProperty.get(0).getIdentifier());
+		} else if (workshopEntityType.equals("Position")) {
+			workshopEntityByProperty =
+				workshopEntitiesService.findByProperty("name", "Position newType");
+			assertEquals(1, workshopEntityByProperty.size());
+			assertEquals(position1.getIdentifier(), workshopEntityByProperty.get(0).getIdentifier());
+		} else if (workshopEntityType.equals("Employee")) {
+			workshopEntityByProperty =
+				workshopEntitiesService.findByProperty("firstName", "Employee newType");
+			assertEquals(1, workshopEntityByProperty.size());
+			assertEquals(employee1.getIdentifier(), workshopEntityByProperty.get(0).getIdentifier());
+		}
 	}
 	
 }

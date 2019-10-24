@@ -86,48 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/AjaxSearchObject.es6":
-/*!*************************************!*\
-  !*** ./src/js/AjaxSearchObject.es6 ***!
-  \*************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AjaxSearchObject; });
-class AjaxSearchObject {
-	constructor(
-		urlEntityExist = "http://localhost:18080/workshop.pro/ajax/entity-exist",
-		methodEntityExist = "POST",
-		bodyFormDataEntityExist = function () {
-			return new FormData();
-		},
-		headersEntityExist = {
-			"Content-Type": "application/x-www-form-urlencoded"
-		}) {
-		
-		this.urlEntityExist = urlEntityExist;
-		this.methodEntityExist = methodEntityExist;
-		this.bodyFormDataEntityExist = bodyFormDataEntityExist();
-		this.headersEntityExist = headersEntityExist;
-	}
-	
-	set entityExistEntityType(workshopEntityType) {
-		this.bodyFormDataEntityExist.append("workshopEntityType", workshopEntityType);
-	}
-	
-	set entityExistEntityPropertyName(propertyName) {
-		this.bodyFormDataEntityExist.append("propertyName", propertyName);
-	}
-	
-	set entityExistEntityPropertyValue(propertyValue) {
-		this.bodyFormDataEntityExist.append("propertyValue", propertyValue);
-	}
-}
-
-/***/ }),
-
 /***/ "./src/js/emailCheck.es6":
 /*!*******************************!*\
   !*** ./src/js/emailCheck.es6 ***!
@@ -139,44 +97,33 @@ class AjaxSearchObject {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emailRegexpCheck", function() { return emailRegexpCheck; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEmailExist", function() { return userEmailExist; });
-/* harmony import */ var _AjaxSearchObject_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AjaxSearchObject.es6 */ "./src/js/AjaxSearchObject.es6");
+/* harmony import */ var _workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntityExist.es6 */ "./src/js/workshopEntityExist.es6");
 
 
 function emailRegexpCheck(email) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\w]|[\d]){2,10}$/i;
+	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
 	
 	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;
 	} else {
 		return false;
 	}
-};
+}
 
+/**
+ * Async function!
+ *
+ * @param userEmail
+ * @returns {Promise<unknown>} with '.exist' additional boolean property.
+ */
 function userEmailExist(userEmail) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\w]|[\d]){2,10}$/i;
-	
-	if (typeof userEmail === "string" && userEmail.match(emailRegexp)) {
-		return false;
-	}
-	
-	let searchObject = new _AjaxSearchObject_es6__WEBPACK_IMPORTED_MODULE_0__["default"]();
-	
-	searchObject.entityExistEntityType = "User";
-	searchObject.entityExistEntityPropertyName = "email";
-	searchObject.entityExistEntityPropertyValue = userEmail;
-	
-	let promise = fetch(searchObject.urlEntityExist, {
-		method: searchObject.methodEntityExist,
-		body: searchObject.bodyFormDataEntityExist,
-		headers: searchObject.headersEntityExist
-	}).then(function (response) {
-			console.log(response.status);
-			console.log(response.body)
+	return Object(_workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__["default"])("User", "email", userEmail)
+		.then((promise) => {
+			promise.exist = promise.ok;
+			return promise;
 		});
-	
-	return true;
 }
 
 /***/ }),
@@ -192,16 +139,40 @@ function userEmailExist(userEmail) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck.es6 */ "./src/js/passwordCheck.es6");
 /* harmony import */ var _emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./emailCheck.es6 */ "./src/js/emailCheck.es6");
+/* harmony import */ var _workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./workshopEntityExist.es6 */ "./src/js/workshopEntityExist.es6");
 
 
 
-const PASSWORD_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
-const USER_EMAIL_ERROR_MESSAGE = "Имя должно соответствовать формату электронного адреса!";
-const USER_NOT_FOUND = "Такого пользователя в базе не обнаружено!";
+
+const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
+const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
 const usernameInput = document.querySelector("#inputUsername");
 const passwordInput = document.querySelector("#inputPassword");
 const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
 const userErrorMessageSpan = document.querySelector("#userErrorMessage");
+
+usernameInput.addEventListener("input", (evt) => {
+	if (!Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailRegexpCheck"])(usernameInput.value)) {
+		usernameInput.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
+		usernameInput.style.color = "red";
+		userErrorMessageSpan.style.display = "none";
+		return;
+	} else {
+		usernameInput.removeAttribute("title");
+		usernameInput.style.color = "green";
+		userErrorMessageSpan.style.display = "none";
+	}
+	Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["userEmailExist"])(usernameInput.value)
+		.then((exist) => {
+			if (exist.exist) {
+				userErrorMessageSpan.style.display = "none";
+			} else {
+				userErrorMessageSpan.style.display = "block";
+				userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
+			}
+		});
+});
 
 passwordInput.addEventListener("input", (env) => {
 	if (Object(_passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
@@ -210,27 +181,13 @@ passwordInput.addEventListener("input", (env) => {
 		passwordErrorMessageSpan.style.display = "none";
 	} else {
 		passwordInput.style.color = "red";
-		passwordInput.setAttribute("title", PASSWORD_ERROR_MESSAGE);
+		passwordInput.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
 		passwordErrorMessageSpan.style.display = "block";
-		passwordErrorMessageSpan.innerHTML = PASSWORD_ERROR_MESSAGE;
+		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
 	}
 });
 
-usernameInput.addEventListener("input", (evt) => {
-	if (!Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailRegexpCheck"])(usernameInput.value)) {
-		usernameInput.setAttribute("title", USER_EMAIL_ERROR_MESSAGE);
-		usernameInput.style.color = "red";
-	} else if (Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailRegexpCheck"])(usernameInput.value) && !Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["userEmailExist"])(usernameInput.value)) {
-		usernameInput.removeAttribute("title");
-		usernameInput.style.color = "green";
-		passwordErrorMessageSpan.style.display = "block";
-		passwordErrorMessageSpan.innerHTML = USER_NOT_FOUND;
-	} else if (Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["userEmailExist"])(usernameInput.value)){
-		usernameInput.removeAttribute("title");
-		usernameInput.style.color = "green";
-		passwordErrorMessageSpan.style.display = "none";
-	}
-});
+
 
 /***/ }),
 
@@ -252,6 +209,36 @@ function passwordCheck(password) {
 	}
 }
 
+
+/***/ }),
+
+/***/ "./src/js/workshopEntityExist.es6":
+/*!****************************************!*\
+  !*** ./src/js/workshopEntityExist.es6 ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return workshopEntityExist; });
+function workshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
+	
+	const formData = new FormData();
+	formData.append("workshopEntityType", workshopEntityType);
+	formData.append("propertyName", propertyName);
+	formData.append("propertyValue", propertyValue);
+	
+	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
+		method: "POST",
+		body: formData,
+		// headers: new Headers({
+		// 	"Content-Type": "application/x-www-form-urlencoded"
+		// })
+	}).then(function (promise) {
+		return promise;
+	});
+}
 
 /***/ })
 

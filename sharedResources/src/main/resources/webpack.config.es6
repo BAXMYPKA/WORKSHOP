@@ -22,8 +22,8 @@ module.exports = {
 		progress: true
 	},
 	watchOptions: {
-		aggregateTimeout: 700,
-		poll: 1000
+		aggregateTimeout: 500,
+		poll: 800
 	},
 	module: {
 		rules: [

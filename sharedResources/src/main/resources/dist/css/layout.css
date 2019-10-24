@@ -309,7 +309,9 @@
 }
 
 .formContainer {
-
+	flex-basis: 100%;
+}
+.login {
 }
 
 /* ===== FORMS ===== */

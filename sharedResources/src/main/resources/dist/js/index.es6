@@ -222,6 +222,13 @@ function passwordCheck(password) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return workshopEntityExist; });
+/**
+ *
+ * @param workshopEntityType String representations for WorkshopEntityType to be found
+ * @param propertyName The name of any existing property of that WorkshopEntity
+ * @param propertyValue A value of that property
+ * @returns {Promise<Response>} with status.ok === true or status.ok === false
+ */
 function workshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
 	
 	const formData = new FormData();

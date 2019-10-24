@@ -5,24 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/workshopEntityExist.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/SearchAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/SearchAjaxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopEntityAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/AjaxSearchObject.es6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/emailCheck.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/emailCheck.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/index.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/workshopEntityExist.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/workshopEntityExist.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,8 +71,9 @@
       <list>
         <option value="JUnit5 Test Class" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="JavaScript File" />
+        <option value="HTML Thymeleaf-Layout-Spring" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -134,13 +132,6 @@
       <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.controllers.external" />
     </key>
@@ -148,6 +139,13 @@
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\dist" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\css" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\layouts" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
     </key>
   </component>
@@ -169,7 +167,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities">
+  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
     <configuration name="WorkshopEntitiesServiceAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
@@ -291,13 +289,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="npm.Webpack --watch" />
-      <item itemvalue="Spring Boot.WorkshopApplication" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types (1)" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService" />
       <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities" />
+      <item itemvalue="npm.Webpack --watch" />
+      <item itemvalue="Spring Boot.WorkshopApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -359,6 +357,7 @@
       <workItem from="1571841544026" duration="824000" />
       <workItem from="1571852528532" duration="13429000" />
       <workItem from="1571895127171" duration="17766000" />
+      <workItem from="1571916316792" duration="14653000" />
     </task>
     <servers />
   </component>

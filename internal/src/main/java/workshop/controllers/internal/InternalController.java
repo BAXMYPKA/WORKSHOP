@@ -17,10 +17,4 @@ public class InternalController {
 		log.error("MAIN");
 		return "Success";
 	}
-	
-	@GetMapping(path = "/a", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public String getTest() {
-		log.error("MAIN");
-		return "Success";
-	}
 }

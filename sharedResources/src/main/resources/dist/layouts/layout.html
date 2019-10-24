@@ -33,7 +33,7 @@
 			WORKSHOP
 		</div>
 		
-		<div class="loginRegistration">
+		<div class="loginRegistration" th:with = "loggedUsername = ${#session.getAttribute('loggedUsername')}">
 			
 			<a href="#loginModalBackground"
 			   th:href="@{#loginModalBackground}"
@@ -41,7 +41,7 @@
 				Login/Registration
 			</a>
 			<br>
-			<span><i>Greetings if logged in</i></span>
+			<span th:text="${loggedUsername}"><i>Greetings if logged in</i></span>
 		
 		</div>
 		
@@ -271,7 +271,7 @@
 			<div class="formContainer">
 				<div class="login">
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
-						<input type="text" id="inputUsername" name="username" value="user@email.pro"
+						<input type="text" id="inputUsername" name="email" value="user@email.pro"
 							   th:value="#{html.input.login.loginUsername}">
 						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
 						<br>

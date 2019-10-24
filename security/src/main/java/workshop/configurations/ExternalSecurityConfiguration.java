@@ -15,8 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
 import workshop.security.*;
@@ -70,6 +71,7 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.formLogin()
 			.loginPage("/login")
 			.failureHandler(externalAuthenticationFailureHandler())
+			.successHandler(externalAuthenticationSuccessHandler())
 			.and()
 			.logout()
 			.logoutUrl("/login?logout=true")
@@ -84,6 +86,8 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 //	@DependsOn(value = {"jwtUtils", "cookieUtils"})
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 		LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
+		loginAuthenticationFilter.setAuthenticationFailureHandler(externalAuthenticationFailureHandler());
+		loginAuthenticationFilter.setAuthenticationSuccessHandler(externalAuthenticationSuccessHandler());
 		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		loginAuthenticationFilter.setCookieUtils(cookieUtils);
 		loginAuthenticationFilter.setJwtUtils(jwtUtils);
@@ -101,6 +105,12 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
 		jwtAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 		return jwtAuthenticationFilter;
+	}
+	
+	@Bean
+	@DependsOn("usersDao")
+	public UsersDetailsService usersDetailsService() {
+		return new UsersDetailsService();
 	}
 	
 	@Bean
@@ -135,9 +145,17 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	}
 	
 	@Bean
-	public SimpleUrlAuthenticationFailureHandler externalAuthenticationFailureHandler() {
-		SimpleUrlAuthenticationFailureHandler externalAuthenticationFailureHandler =
-			new SimpleUrlAuthenticationFailureHandler("/login?login=failure");
+	public ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler() {
+		ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler =
+			new ExternalAuthenticationFailureHandler("/login?login=false");
 		return externalAuthenticationFailureHandler;
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler externalAuthenticationSuccessHandler() {
+		SimpleUrlAuthenticationSuccessHandler successHandler =
+			new SimpleUrlAuthenticationSuccessHandler();
+		successHandler.setUseReferer(true);
+		return successHandler;
 	}
 }

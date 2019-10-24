@@ -100,12 +100,13 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.formLogin()
 			.loginPage("/internal/login")
 			.failureHandler(internalAuthenticationFailureHandler())
+			.successHandler(internalAuthenticationSuccessHandler())
 			.and()
 			.logout()
 			.logoutUrl("/internal/login?logout=true")
 			.deleteCookies(internalAuthCookieName)
 			.clearAuthentication(true)
-			.logoutSuccessUrl("/internal/login?logged_out=true")
+			.logoutSuccessUrl("/internal/login?login=true")
 			.and();
 	}
 	
@@ -116,28 +117,12 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		return new EmployeesDetailsService();
 	}
 	
-	@Bean
-	@DependsOn("usersDao")
-	public UsersDetailsService usersDetailsService() {
-		return new UsersDetailsService();
-	}
-	
-/*
-	@Bean
-	@Qualifier("workshopAuthenticationManager")
-	@DependsOn("employeesAuthenticationProvider")
-	public WorkshopAuthenticationManager workshopAuthenticationManager() {
-		WorkshopAuthenticationManager authenticationManager = new WorkshopAuthenticationManager(
-			internalAuthenticationProviders());
-		return authenticationManager;
-	}
-*/
-	
-	//TODO: to check double invocation of this
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 //	@DependsOn(value = {"jwtUtils", "cookieUtils"})
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 		LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
+		loginAuthenticationFilter.setAuthenticationFailureHandler(internalAuthenticationFailureHandler());
+		loginAuthenticationFilter.setAuthenticationSuccessHandler(internalAuthenticationSuccessHandler());
 		loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
 		loginAuthenticationFilter.setCookieUtils(cookieUtils);
 		loginAuthenticationFilter.setJwtUtils(jwtUtils);
@@ -145,7 +130,6 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		return loginAuthenticationFilter;
 	}
 	
-	//TODO: to check double invocation if this
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
@@ -166,14 +150,15 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Bean
 	public SimpleUrlAuthenticationFailureHandler internalAuthenticationFailureHandler() {
 		SimpleUrlAuthenticationFailureHandler authenticationFailureHandler =
-			new SimpleUrlAuthenticationFailureHandler("/internal/login?login=failure");
+			new SimpleUrlAuthenticationFailureHandler("/internal/login?login=false");
 		return authenticationFailureHandler;
 	}
 	
 	@Bean
-	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+	public AuthenticationSuccessHandler internalAuthenticationSuccessHandler() {
 		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
-		successHandler.setDefaultTargetUrl("/internal/a");
+		successHandler.setDefaultTargetUrl("/internal/main");
+		successHandler.setUseReferer(true);
 		return successHandler;
 	}
 	

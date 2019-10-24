@@ -33,14 +33,6 @@ public class EmployeesDetailsService implements UserDetailsService {
 		try {
 			Employee employee = employeesDao.findEmployeeByEmail(email).orElseThrow(() ->
 				new UsernameNotFoundException("Such an email=(" + email + ") is not found."));
-/*
-			//User.builder.authorities can receive String as a name for an WorkshopGrantedAuthority and cannot be null
-			UserDetails userDetails = User.builder()
-				.username(employee.getEmail())
-				.password(employee.getPassword())
-				.authorities(employee.getPosition() != null ? employee.getPosition().getName() : "")
-				.build();
-*/
 			UserDetailsEmployee userDetailsEmployee = new UserDetailsEmployee(employee);
 			
 			log.debug("User={} is found by email and passing to the AuthenticationProvider to check the password",

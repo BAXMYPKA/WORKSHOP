@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import workshop.internal.services.ClassifiersGroupsService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +23,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Slf4j
 @Controller
-@SessionAttributes(names = {"headerContentLanguageValue", "language"})
+@SessionAttributes(names = {"headerContentLanguageValue", "language", "loggedUsername"})
 public class WorkshopControllerAbstract implements WorkshopController {
 	
 	/**
@@ -70,11 +72,20 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	@ModelAttribute(name = "classifiersGroupsNames")
 	public void setClassifiersGroups(Model model) {
 		List<String> classifiersGroupsNames =
-			  classifiersGroupsService.findAllEntities(0, 0, "name", Sort.Direction.ASC)
-					.stream()
-					.map(ClassifiersGroup::getName)
-					.collect(Collectors.toList());
+			classifiersGroupsService.findAllEntities(0, 0, "name", Sort.Direction.ASC)
+				.stream()
+				.map(ClassifiersGroup::getName)
+				.collect(Collectors.toList());
 		model.addAttribute("classifiersGroupsNames", classifiersGroupsNames);
 	}
 	
+	@ModelAttribute(name = "username")
+	public void setAuthenticationName(Model model, Authentication authentication) {
+		if (authentication != null && !authentication.getName().contains("Anonymous")) {
+			System.out.println(authentication.getName());
+			model.addAttribute("loggedUsername", authentication.getName());
+		} else {
+			model.addAttribute("loggedUsername", "");
+		}
+	}
 }

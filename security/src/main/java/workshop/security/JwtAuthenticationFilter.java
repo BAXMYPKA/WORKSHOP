@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import workshop.http.CookieUtils;
 
@@ -169,7 +170,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		}
 		
 		super.getRememberMeServices().loginFail(request, response);
-		
 		super.getFailureHandler().onAuthenticationFailure(request, response, failed);
 	}
 }

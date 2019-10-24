@@ -7,17 +7,27 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import workshop.internal.entities.WorkshopEntity;
 import workshop.internal.services.UsersService;
 import workshop.internal.services.WorkshopEntitiesServiceAbstract;
+
+import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping(path = "/ajax")
 public class SearchAjaxController {
 	
-	@Autowired
-	private UsersService usersService;
 	
+	/**
+	 * @param workshopEntityType {@link String} as a representation for {@link workshop.internal.entities.WorkshopEntityType}
+	 * @param propertyName       {@link String} as a representation for any existing
+	 *                           {@link workshop.internal.entities.WorkshopEntityType} property.
+	 * @param propertyValue      {@link String} as a representation for any existing property value.
+	 * @return {@link HttpStatus#OK} if such an {@link workshop.internal.entities.WorkshopEntityType} with such a
+	 * property with such a value exist.
+	 * Otherwise returns {@link HttpStatus#NOT_FOUND}
+	 */
 	@PostMapping(path = "/entity-exist", consumes = {
 		MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 		MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -27,13 +37,13 @@ public class SearchAjaxController {
 		@RequestParam(name = "propertyName") String propertyName,
 		@RequestParam(name = "propertyValue") String propertyValue) {
 		
-//		usersService.findByWorkshopEntityType(workshopEntityType, propertyName, propertyValue);
+		List<WorkshopEntity> workshopEntities =
+			WorkshopEntitiesServiceAbstract.findByWorkshopEntityType(workshopEntityType, propertyName, propertyValue);
 		
-		boolean exist = propertyValue.contains("pro");
-		if (exist) {
-			return ResponseEntity.ok("FOUND");
+		if (workshopEntities.size() > 0) {
+			return ResponseEntity.ok("");
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 }

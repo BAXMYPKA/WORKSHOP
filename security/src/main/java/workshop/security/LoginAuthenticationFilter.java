@@ -30,11 +30,9 @@ import java.io.IOException;
 @NoArgsConstructor
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
-//	@Autowired
 	@Setter
 	private JwtUtils jwtUtils;
 	
-//	@Autowired
 	@Setter
 	private CookieUtils cookieUtils;
 	

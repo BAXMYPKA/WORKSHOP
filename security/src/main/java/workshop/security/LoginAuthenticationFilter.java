@@ -36,7 +36,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	@Setter
 	private CookieUtils cookieUtils;
 	
-	@Value("${internalAuthCookieName}")
+//	@Value("${internalAuthCookieName}")
 	@Setter
 	private String authenticationCookieName;
 	
@@ -77,8 +77,11 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 		log.trace("Extraction email & password from header...");
 		
-		String email = request.getHeader("email");
-		String password = request.getHeader("password");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+//		String email = request.getHeader("email");
+//		String password = request.getHeader("password");
 		
 		if ((email == null || password == null) || (email.isEmpty() && password.isEmpty())) {
 			throw new BadCredentialsException("Email or password is null or empty!");

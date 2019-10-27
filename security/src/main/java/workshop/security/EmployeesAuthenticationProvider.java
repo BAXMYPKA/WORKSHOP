@@ -47,7 +47,10 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 		
-		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
+		UsernamePasswordAuthenticationToken authenticatedToken =
+			new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
+		authenticatedToken.setAuthenticated(true);
+		return authenticatedToken;
 	}
 	
 	@Override
@@ -61,13 +64,16 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 	 * Use this method when prerequisites (JWT or something else) are valid and checked!
 	 * Also this method has to be supported by all the further implementations of custom Authentication providers
 	 */
-	public Authentication getAuthenticationByEmail(String email) {
-		if (email == null || email.isEmpty()) {
+	public Authentication authenticateByEmail(String employeeEmail) {
+		if (employeeEmail == null || employeeEmail.isEmpty()) {
 			throw new BadCredentialsException("Email cannot be null or empty!");
 		}
-		log.trace("Trying to find Employee by email {}", email);
-		UserDetailsEmployee employee = employeesDetailsService.loadUserByUsername(email);
-		log.trace("User={} is found", employee.getUsername());
-		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
+		log.trace("Trying to find Employee by email {}", employeeEmail);
+		UserDetailsEmployee userDetailsEmployee = employeesDetailsService.loadUserByUsername(employeeEmail);
+		log.trace("User={} is found", userDetailsEmployee.getUsername());
+		UsernamePasswordAuthenticationToken authenticatedToken =
+			new UsernamePasswordAuthenticationToken(userDetailsEmployee,"", userDetailsEmployee.getAuthorities());
+		authenticatedToken.setAuthenticated(true);
+		return authenticatedToken;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.*;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
 import workshop.security.*;
@@ -54,6 +56,13 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Autowired
 	private CookieUtils cookieUtils;
 	
+/*
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().mvcMatchers("/dist/css/**", "/dist/img/**", "/dist/css/**").anyRequest();
+	}
+*/
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -62,11 +71,14 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.and()
 			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.addFilterAt(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
+//			.addFilterAt(jwtAuthenticationFilter(), SessionManagementFilter.class)
 			.authorizeRequests()
-			.antMatchers("/", "/login**")
+			.antMatchers("/**")
 			.permitAll()
 			.antMatchers("/profile**")
 			.authenticated()
+			.antMatchers("/**", "/login**")
+			.permitAll()
 			.and()
 			.formLogin()
 			.loginPage("/login")
@@ -98,12 +110,12 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
-			new AntPathRequestMatcher("/"));
+			new AntPathRequestMatcher("/**"));
 		jwtAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 		jwtAuthenticationFilter.setAuthenticationFailureHandler(externalAuthenticationFailureHandler());
 		jwtAuthenticationFilter.setCookieUtils(cookieUtils);
 		jwtAuthenticationFilter.setJwtUtils(jwtUtils);
-		jwtAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
+		jwtAuthenticationFilter.setAuthenticationCookieName(externalAuthCookieName);
 		return jwtAuthenticationFilter;
 	}
 	

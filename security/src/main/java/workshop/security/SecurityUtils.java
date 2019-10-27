@@ -3,7 +3,6 @@ package workshop.security;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 
 @Slf4j
-@NoArgsConstructor
 @Component
 class SecurityUtils {
 	
@@ -26,11 +24,23 @@ class SecurityUtils {
 	@Setter(AccessLevel.PACKAGE)
 	private String secretWord;
 	@Getter
-	private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+	private SignatureAlgorithm signatureAlgorithm;
 	@Getter
 	private Key key;
 	private KeyGenerator keyGenerator;
 	
+	public SecurityUtils() {
+		this.signatureAlgorithm = SignatureAlgorithm.HS256;
+		try {
+			keyGenerator = KeyGenerator.getInstance(signatureAlgorithm.getJcaName());
+			keyGenerator.init(256);
+		} catch (NoSuchAlgorithmException e) {
+			log.error("Fatal security initialization!", e);
+		}
+		key = keyGenerator.generateKey();
+	}
+	
+/*
 	public SecurityUtils(String secretWord, SignatureAlgorithm signatureAlgorithm) {
 		this.secretWord = secretWord;
 		this.signatureAlgorithm = signatureAlgorithm;
@@ -43,4 +53,5 @@ class SecurityUtils {
 		key = keyGenerator.generateKey();
 		
 	}
+*/
 }

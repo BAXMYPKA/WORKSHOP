@@ -46,8 +46,8 @@ public class CookieUtils {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
-		cookie.setDomain(domainName);
-		cookie.setPath(internalPathName);
+		//TODO: to set or not to set
+//		cookie.setDomain(domainName);
 		response.addCookie(cookie);
 	}
 	

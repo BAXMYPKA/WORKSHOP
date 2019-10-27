@@ -6,20 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/SearchAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/SearchAjaxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/InternalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesAuthenticationProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/layouts/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/workshopEntityExist.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/workshopEntityExist.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopAuthenticationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopAuthenticationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +126,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15296052" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.selected.configurable" value="liveEdit" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -168,80 +169,80 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.WorkshopApplication">
-    <configuration name="WorkshopEntitiesServiceAbstractIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="JwtUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.services" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.WorkshopEntitiesServiceAbstractIT" />
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.types (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="JwtUtilsTest.check_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.services" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="types(java.lang.String)" />
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="check_expired_token" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.types" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="JwtUtilsTest.check_non_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.services" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="types" />
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="check_non_expired_token" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.services" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities(java.lang.String)" />
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEntitiesServiceAbstractIT.workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
+    <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="security" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="PATTERN" value="workshop.security.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.services" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.WorkshopEntitiesServiceAbstractIT" />
-      <option name="METHOD_NAME" value="workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService(java.lang.String)" />
+      <option name="PACKAGE_NAME" value="workshop.security" />
+      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
+      <option name="METHOD_NAME" value="unsigned_or_wrong_singed_tokens_always_return_false" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -253,7 +254,6 @@
       <option name="HIDE_BANNER" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <method v="2">
         <option name="NpmBeforeRunTask" enabled="true">
           <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
@@ -289,21 +289,21 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types (1)" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService" />
-      <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities" />
+      <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
+      <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
+      <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
+      <item itemvalue="JUnit.JwtUtilsTest" />
+      <item itemvalue="JUnit.JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
       <item itemvalue="npm.Webpack --watch" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntitiesServices_From_WorkshopEntitiesTypes_Strings_Should_Return_Corresponding_WorkshopEntities" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.workshopEntityTypes_as_String_Should_Return_Corresponding_WorkshopEntitiesService" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types (1)" />
-        <item itemvalue="JUnit.WorkshopEntitiesServiceAbstractIT.types" />
+        <item itemvalue="JUnit.JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
+        <item itemvalue="JUnit.JwtUtilsTest" />
+        <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
+        <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
+        <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
       </list>
     </recent_temporary>
   </component>
@@ -358,6 +358,8 @@
       <workItem from="1571852528532" duration="13429000" />
       <workItem from="1571895127171" duration="17766000" />
       <workItem from="1571916316792" duration="14653000" />
+      <workItem from="1572190804025" duration="3548000" />
+      <workItem from="1572194409004" duration="17369000" />
     </task>
     <servers />
   </component>

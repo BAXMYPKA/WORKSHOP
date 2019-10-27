@@ -56,7 +56,8 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	 */
 	@ModelAttribute(name = "language")
 	public void addCurrentLanguage(Model model, HttpServletRequest request) {
-		if (Arrays.stream(request.getCookies()).anyMatch(cookie -> cookie.getName().equals(langCookieName))) {
+		if (request.getCookies() != null &&
+			Arrays.stream(request.getCookies()).anyMatch(cookie -> cookie.getName().equals(langCookieName))) {
 			model.addAttribute("language",
 				Arrays.stream(request.getCookies())
 					.filter(cookie -> cookie.getName().equals(langCookieName))

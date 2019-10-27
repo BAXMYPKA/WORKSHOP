@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 public class WorkshopAuthenticationManager implements AuthenticationManager {
 	
-	private Set<AuthenticationProvider> internalAuthenticationProviders;
+	private Set<AuthenticationProvider> workshopAuthenticationProviders;
 	
 	@Autowired
 	private EmployeesAuthenticationProvider employeesAuthenticationProvider;
@@ -26,8 +26,8 @@ public class WorkshopAuthenticationManager implements AuthenticationManager {
 	private UsersAuthenticationProvider usersAuthenticationProvider;
 	
 	@Autowired
-	public WorkshopAuthenticationManager(Set<AuthenticationProvider> internalAuthenticationProviders) {
-		this.internalAuthenticationProviders = internalAuthenticationProviders;
+	public WorkshopAuthenticationManager(Set<AuthenticationProvider> workshopAuthenticationProviders) {
+		this.workshopAuthenticationProviders = workshopAuthenticationProviders;
 	}
 	
 	/**
@@ -39,8 +39,12 @@ public class WorkshopAuthenticationManager implements AuthenticationManager {
 	public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
 		log.trace("Receiving authenticationToken={}", authenticationToken.getName());
 		Authentication authentication;
-		for (AuthenticationProvider authProvider : internalAuthenticationProviders) {
-			authentication = authProvider.authenticate(authenticationToken);
+		for (AuthenticationProvider authProvider : workshopAuthenticationProviders) {
+			try {
+				authentication = authProvider.authenticate(authenticationToken);
+			} catch (AuthenticationException e) {
+				continue;
+			}
 			if (authentication != null) {
 				return authentication;
 			}
@@ -50,11 +54,22 @@ public class WorkshopAuthenticationManager implements AuthenticationManager {
 	}
 	
 	public Authentication getAuthenticationByEmail(String email) {
-		Authentication authentication = employeesAuthenticationProvider.getAuthenticationByEmail(email);
+		Authentication authentication = null;
+		try {
+			authentication = employeesAuthenticationProvider.authenticateByEmail(email);
+		} catch (AuthenticationException e) {
+			log.debug("No Employee found for email={}", email);
+			try {
+				authentication = usersAuthenticationProvider.authenticateByEmail(email);
+			} catch (AuthenticationException ae) {
+				log.debug("No User found for email={}", email);
+			}
+		}
 		if (authentication != null) {
 			return authentication;
+		} else {
+			throw new UsernameNotFoundException(
+				"No such a username or a password has been found in any AuthenticationProvider!");
 		}
-		throw new UsernameNotFoundException(
-			"No such a username or a password has been found in any AuthenticationProvider!");
 	}
 }

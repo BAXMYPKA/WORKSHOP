@@ -39,7 +39,27 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 		
-		return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+		UsernamePasswordAuthenticationToken authenticatedToken =
+		 new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+		authenticatedToken.setAuthenticated(true);
+		return authenticatedToken;
+	}
+	
+	/**
+	 * Just returns the Authentication with email and Authorities.
+	 * Use this method when prerequisites (JWT or something else) are valid and checked!
+	 * Also this method has to be supported by all the further implementations of custom Authentication providers
+	 */
+	public Authentication authenticateByEmail(String userEmail) {
+		if (userEmail == null || userEmail.isEmpty()) {
+			throw new BadCredentialsException("User's email cannot be null or empty!");
+		}
+		log.trace("Trying to find User by email {}", userEmail);
+		UserDetailsUser userDetailsUser = usersDetailsService.loadUserByUsername(userEmail);
+		log.trace("User={} is found", userDetailsUser.getUsername());
+		UsernamePasswordAuthenticationToken authenticatedToken =
+		new  UsernamePasswordAuthenticationToken(userDetailsUser, "", userDetailsUser.getAuthorities());
+		return authenticatedToken;
 	}
 	
 	@Override

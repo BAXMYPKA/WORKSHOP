@@ -31,27 +31,19 @@ class JwtUtilsTest {
 	public SimpleGrantedAuthority grantedAuthorityUser = new SimpleGrantedAuthority(userAuthorityName);
 	public Authentication authentication;
 	
-/*
-	@BeforeAll
-	public static void overallPreparation() {
-		securityUtils = new SecurityUtils("WORKSHOP", SignatureAlgorithm.HS256);
-		jwtUtils = new JwtUtils();
-		jwtUtils.setSecurityUtils(securityUtils);
-		jwtUtils.setAudience("workshop.pro/internal");
-		jwtUtils.setIssuer("workshop.pro");
-		jwtUtils.setExpirationTime(30*60);
-	}
-*/
 	
 	@BeforeEach
 	public void methodPreparation() {
 		Position position = Position.builder().name("Position").department(new Department()).build();
 		Employee employee = new Employee("TestUser", "ln", "ppppp", "TestUser@pro.pro",
 			LocalDate.now().minusYears(17), position);
+		UserDetailsEmployee userDetailsEmployee = new UserDetailsEmployee(employee);
 		authentication = new UsernamePasswordAuthenticationToken(
-			employee, employee.getPassword(), Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
+			userDetailsEmployee, employee.getPassword(), Arrays.asList(grantedAuthorityAdmin, grantedAuthorityUser));
 		
-		securityUtils = new SecurityUtils("WORKSHOP", SignatureAlgorithm.HS256);
+		securityUtils = new SecurityUtils();
+		securityUtils.setSecretWord("WORKSHOP");
+		
 		jwtUtils = new JwtUtils();
 		jwtUtils.setSecurityUtils(securityUtils);
 		jwtUtils.setAudience("workshop.pro/internal");
@@ -223,8 +215,10 @@ class JwtUtilsTest {
 			"NameUnbearableStringForBeingStoredIntoThisFieldAndNotToBeExceededWith4KilobytesSize",
 			new Department()));
 		
+		UserDetailsEmployee userDetailsEmployee = new UserDetailsEmployee(employee);
+		
 		Authentication bigSizeAuthentication = new UsernamePasswordAuthenticationToken(
-			employee,
+			userDetailsEmployee,
 			employee.getPassword(),
 			authorities);
 		

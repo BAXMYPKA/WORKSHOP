@@ -31,29 +31,19 @@ import java.util.Arrays;
  * authenticate
  */
 @Slf4j
-//@Component
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 	
 	@Setter
-	@Autowired
-	private JwtUtils jwtUtils;
-	
 //	@Autowired
-//	@Setter
-//	private WorkshopAuthenticationManager workshopAuthenticationManager;
+	private JwtUtils jwtUtils;
 	
 	@Getter
 	@Setter
-	@Autowired
 	private CookieUtils cookieUtils;
 	
-	@Value("${internalAuthCookieName}")
+	//	@Value("${internalAuthCookieName}")
 	@Setter
 	private String authenticationCookieName;
-	
-	public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
-		super(defaultFilterProcessesUrl);
-	}
 	
 	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
 		super(requiresAuthenticationRequestMatcher);
@@ -77,7 +67,10 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
+//		log.warn("requestURL={}", request.getRequestURL());
+		
 		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
+			log.warn("ignoredURL={}", request.getRequestURL());
 			chain.doFilter(request, response);
 			return;
 		} else if (request.getCookies() == null || Arrays.stream(request.getCookies())
@@ -130,7 +123,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 			String email = jwtUtils.getUsernameFromJwt(jwtFromCookie);
 //			Authentication authenticationByEmail = workshopAuthenticationManager.getAuthenticationByEmail(email);
 			Authentication authenticationByEmail =
-				((WorkshopAuthenticationManager)getAuthenticationManager()).getAuthenticationByEmail(email);
+				((WorkshopAuthenticationManager) getAuthenticationManager()).getAuthenticationByEmail(email);
 			return authenticationByEmail;
 		} else { //If JWT is not valid
 			log.trace("JWT is not valid!");
@@ -162,6 +155,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		AuthenticationException failed) throws IOException, ServletException {
 		
 		SecurityContextHolder.clearContext();
+		
+		cookieUtils.deleteCookieFromResponse(request, response, authenticationCookieName);
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug("Authentication request failed: " + failed.getMessage());

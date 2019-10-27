@@ -58,16 +58,17 @@ public class JwtUtils {
 		}
 		
 		String subject = null; //Employee.email either User.email or User.Set<Phones>.iterator.next
-		if ("Employee".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
-			subject = ((Employee) usernameAuthenticationToken.getPrincipal()).getEmail();
-		} else if ("User".equals(usernameAuthenticationToken.getPrincipal().getClass().getSimpleName())) {
+		if (UserDetailsEmployee.class.isAssignableFrom(usernameAuthenticationToken.getPrincipal().getClass())) {
+			Employee employee = ((UserDetailsEmployee)usernameAuthenticationToken.getPrincipal()).getEmployee();
+			subject = employee.getEmail();
+		} else if (UserDetailsUser.class.isAssignableFrom(usernameAuthenticationToken.getPrincipal().getClass())) {
 			
 			//TODO: how to distinguish a particular Phone to be used as a login???
-			
-			subject = ((User) usernameAuthenticationToken.getPrincipal()).getEmail() != null &&
-				!((User) usernameAuthenticationToken.getPrincipal()).getEmail().isEmpty() ?
-				((User) usernameAuthenticationToken.getPrincipal()).getEmail() :
-				((User) usernameAuthenticationToken.getPrincipal()).getPhones().iterator().next().getPhone();
+			User user = ((UserDetailsUser)usernameAuthenticationToken.getPrincipal()).getUser();
+			subject = user.getEmail() != null &&
+				!user.getEmail().isEmpty() ?
+				user.getEmail() :
+				user.getPhones().iterator().next().getPhone();
 		} else {
 			throw new BadCredentialsException("Principal object in the AuthenticationToken neither Employee nor User!");
 		}
@@ -142,14 +143,4 @@ public class JwtUtils {
 			throw e;
 		}
 	}
-
-//	public String getAuthiritiesFromJwt(String jwt) throws IllegalArgumentException, JwtException {
-//		if (jwt == null || jwt.isEmpty()) {
-//			throw new IllegalArgumentException("Jwt cannot be null or empty!");
-//		}
-//		try {
-//			Jwts.parser().setSigningKey(securityUtils.getKey()).parseClaimsJws(jwt).getBody().get("scope")
-//		}
-//		return null;
-//	}
 }

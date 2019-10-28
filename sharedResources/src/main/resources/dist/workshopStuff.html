@@ -1,0 +1,21 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+<!--	<link rel="stylesheet" href="css/services.css" th:href="@{/dist/css/services.css}">-->
+	<title th:text="#{html.a.title.workshopStuff}">Our Workshop Stuff</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<h1 th:text="#{html.a.title.workshopStuff}">Our Bicycle Workshop Stuff</h1>
+
+</th:block>
+
+</body>
+</html>

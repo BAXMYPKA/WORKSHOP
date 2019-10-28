@@ -32,6 +32,16 @@ public class UpperMenuController extends WorkshopControllerAbstract {
 		return "services";
 	}
 	
+	@GetMapping(path = "/workshop")
+	public String getWorkshop(Model model) {
+		return "workshop";
+	}
+	
+	@GetMapping(path = "/workshop-stuff")
+	public String getWorkshopStuff(Model model) {
+		return "workshopStuff";
+	}
+
 /*
 	@GetMapping(path = "/how-it-works-demo")
 	public String getHowItWorks() {

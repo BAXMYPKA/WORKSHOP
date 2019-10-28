@@ -80,7 +80,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-		log.warn("requestURL={}", request.getRequestURL());
+		log.debug("requestURL={}", request.getRequestURL());
 		
 		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
 			log.debug("non-requiredAuthenticationURL={}", request.getRequestURL());

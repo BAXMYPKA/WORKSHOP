@@ -2,6 +2,7 @@ workshop
 workshop.configurations
 workshop.controllers
 workshop.controllers.external
+workshop.controllers.external.ajax
 workshop.controllers.internal
 workshop.controllers.internal.rest
 workshop.http

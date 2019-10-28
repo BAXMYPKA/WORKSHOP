@@ -46,7 +46,7 @@ public class CookieUtils {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
-		//TODO: to set or not to set
+		//TODO: cannot be set for localhost
 //		cookie.setDomain(domainName);
 		response.addCookie(cookie);
 	}

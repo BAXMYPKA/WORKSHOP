@@ -47,10 +47,7 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 		
-		UsernamePasswordAuthenticationToken authenticatedToken =
-			new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
-		authenticatedToken.setAuthenticated(true);
-		return authenticatedToken;
+		return new UsernamePasswordAuthenticationToken(employee, "", employee.getAuthorities());
 	}
 	
 	@Override

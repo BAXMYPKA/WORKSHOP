@@ -83,7 +83,6 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	@ModelAttribute(name = "username")
 	public void setAuthenticationName(Model model, Authentication authentication) {
 		if (authentication != null && !authentication.getName().contains("Anonymous")) {
-			System.out.println(authentication.getName());
 			model.addAttribute("loggedUsername", authentication.getName());
 		} else {
 			model.addAttribute("loggedUsername", "");

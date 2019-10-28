@@ -1,6 +1,7 @@
 package workshop.security;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Component;
 import workshop.http.CookieUtils;
 
 import javax.servlet.FilterChain;
@@ -31,6 +33,7 @@ import java.util.Arrays;
  * authenticate
  */
 @Slf4j
+//@Component
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 	
 	@Setter
@@ -45,16 +48,26 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	@Setter
 	private String authenticationCookieName;
 	
+	public JwtAuthenticationFilter(String defaultFilterProcessesUrl) {
+		super(defaultFilterProcessesUrl);
+	}
+
 	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
 		super(requiresAuthenticationRequestMatcher);
 	}
 	
 /*
-	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher, JwtUtils jwtUtils) {
+	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
 		super(requiresAuthenticationRequestMatcher);
-		this.jwtUtils = jwtUtils;
 	}
 */
+
+	public JwtAuthenticationFilter(
+		RequestMatcher requiresAuthenticationRequestMatcher, JwtUtils jwtUtils,	CookieUtils cookieUtils) {
+		super(requiresAuthenticationRequestMatcher);
+		this.jwtUtils = jwtUtils;
+		this.cookieUtils = cookieUtils;
+	}
 	
 	/**
 	 * Checks incoming cookies for authentication.
@@ -67,10 +80,10 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		
-//		log.warn("requestURL={}", request.getRequestURL());
+		log.warn("requestURL={}", request.getRequestURL());
 		
 		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
-			log.warn("ignoredURL={}", request.getRequestURL());
+			log.debug("non-requiredAuthenticationURL={}", request.getRequestURL());
 			chain.doFilter(request, response);
 			return;
 		} else if (request.getCookies() == null || Arrays.stream(request.getCookies())
@@ -121,7 +134,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		//Check if the JWT is valid
 		if (jwtUtils.validateJwt(jwtFromCookie)) {
 			String email = jwtUtils.getUsernameFromJwt(jwtFromCookie);
-//			Authentication authenticationByEmail = workshopAuthenticationManager.getAuthenticationByEmail(email);
 			Authentication authenticationByEmail =
 				((WorkshopAuthenticationManager) getAuthenticationManager()).getAuthenticationByEmail(email);
 			return authenticationByEmail;
@@ -150,9 +162,8 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	 */
 	@Override
 	protected void unsuccessfulAuthentication(
-		HttpServletRequest request,
-		HttpServletResponse response,
-		AuthenticationException failed) throws IOException, ServletException {
+		HttpServletRequest request,	HttpServletResponse response, AuthenticationException failed)
+		throws IOException,	ServletException {
 		
 		SecurityContextHolder.clearContext();
 		

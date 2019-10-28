@@ -6,21 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/configurations/WebMvcConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/import.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UpperMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/EmployeesAuthenticationProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/SecurityUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/UsersAuthenticationProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopAuthenticationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopAuthenticationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/JwtUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -360,6 +353,7 @@
       <workItem from="1571916316792" duration="14653000" />
       <workItem from="1572190804025" duration="3548000" />
       <workItem from="1572194409004" duration="17369000" />
+      <workItem from="1572245570263" duration="3968000" />
     </task>
     <servers />
   </component>

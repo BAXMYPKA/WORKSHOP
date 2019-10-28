@@ -80,7 +80,6 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	 * PermitAll to /internal/login**
 	 * Authenticated() to /internal**
 	 */
-/*
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -96,7 +95,7 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.antMatchers("/internal/login**")
 			.permitAll()
 			.antMatchers("/internal**")
-			.authenticated()
+			.hasAnyAuthority("EMPLOYEE_READ")
 			.and()
 			.formLogin()
 			.loginPage("/internal/login")
@@ -110,7 +109,6 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.logoutSuccessUrl("/internal/login?login=true")
 			.and();
 	}
-*/
 	
 	@Bean
 	@Qualifier("employeesDetailsService")
@@ -121,7 +119,6 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
 //	@DependsOn(value = {"jwtUtils", "cookieUtils"})
-/*
 	public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 		LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
 		loginAuthenticationFilter.setAuthenticationFailureHandler(internalAuthenticationFailureHandler());
@@ -132,10 +129,8 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		loginAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 		return loginAuthenticationFilter;
 	}
-*/
 
 //	@Bean //Filters must not be injected as beans. Spring does it automatically for every Filter subclass
-/*
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
 			new AntPathRequestMatcher(internalPathName));
@@ -146,7 +141,6 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		jwtAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 		return jwtAuthenticationFilter;
 	}
-*/
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {

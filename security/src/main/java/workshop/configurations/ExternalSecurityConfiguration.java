@@ -56,12 +56,10 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Autowired
 	private CookieUtils cookieUtils;
 	
-/*
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().mvcMatchers("/dist/css/**", "/dist/img/**", "/dist/css/**").anyRequest();
+		web.ignoring().antMatchers("/dist/css/**", "/dist/img/**", "/dist/css/**", "/dist/js/**");
 	}
-*/
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -71,12 +69,9 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.and()
 			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.addFilterAt(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
-//			.addFilterAt(jwtAuthenticationFilter(), SessionManagementFilter.class)
 			.authorizeRequests()
-			.antMatchers("/**")
-			.permitAll()
 			.antMatchers("/profile**")
-			.authenticated()
+			.hasAuthority("READ-PROFILE")
 			.antMatchers("/**", "/login**")
 			.permitAll()
 			.and()

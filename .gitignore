@@ -4,7 +4,7 @@
 *.iml
 ######################
 #TO BE VISIBLE MASTER BRANCH ONLY
-applicationWORKSHOP.jar
+#applicationWORKSHOP.jar
 ######################
 
 /target

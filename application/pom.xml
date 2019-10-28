@@ -57,6 +57,9 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<mainClass>${main-class}</mainClass>
+				</configuration>
 			</plugin>
 			
 			

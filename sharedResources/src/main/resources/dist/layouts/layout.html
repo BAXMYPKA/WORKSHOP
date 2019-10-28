@@ -19,9 +19,9 @@
 	<header class="header">
 		
 		<div class="logo">
-			<a href="./index.html" th:href="@{/}">
+			<a href="../index.html" th:href="@{/}">
 				<div class="logoPicture">
-					<img class="mtb" src="./assets/img/mtb.png" th:src="@{/dist/img/mtb.png}">
+					<img class="mtb" src="../img/mtb.png" th:src="@{/dist/img/mtb.png}">
 				</div>
 			</a>
 			<span class="motto" th:text="#{html.span.workshopMotto}">
@@ -33,15 +33,34 @@
 			WORKSHOP
 		</div>
 		
-		<div class="loginRegistration" th:with = "loggedUsername = ${#session.getAttribute('loggedUsername')}">
-			
-			<a href="#loginModalBackground"
-			   th:href="@{#loginModalBackground}"
-			   th:text="#{html.a.index.loginRegistration}">
-				Login/Registration
-			</a>
-			<br>
-			<span th:text="${loggedUsername}"><i>Greetings if logged in</i></span>
+		<div class="loginRegistration" th:with="loggedUsername = ${#session.getAttribute('loggedUsername')}">
+			<!--	===== CONDITIONAL SECTION =====	-->
+			<!--	NOT LOGGED IN LOGIN SECTION		-->
+			<div th:if="${#strings.isEmpty(loggedUsername)}">
+				<a href="#loginModalBackground"
+				   th:href="@{#loginModalBackground}"
+				   th:text="#{html.a.index.loginRegistration}">
+					Login/Registration
+				</a>
+				<br>
+				<span class="profileLink" th:text="${loggedUsername}"><i>Message for not logged in users</i></span>
+			</div>
+			<!--	LOGGED IN LOGIN SECTION		-->
+			<div th:unless="${#strings.isEmpty(loggedUsername)}">
+				<a href="../login.html"
+				   th:href="@{/logout}"
+				   th:text="#{html.a.text.logout}">
+					Logout
+				</a>
+				<br>
+				<a class="profileLink"
+				   th:href="@{/profile(email=${loggedUsername})}"
+				   th:text="${loggedUsername}"
+				   th:title="#{html.a.title.profile}">
+					<b><i>Profile link</i></b>
+				</a>
+			</div>
+			<!--	===== END OF CONDITIONAL SECTION =====	-->
 		
 		</div>
 		
@@ -67,7 +86,7 @@
 								th:each="lang : ${supportedLanguages}"
 								th:text="${lang}"
 								th:value="${lang}"
-								th:selected="${lang == language}">
+								th:selected="${lang} == ${#request.getParameter('lang') != null ? #request.getParameter('lang') : language}">
 							RU
 						</option>
 					</select>
@@ -84,12 +103,12 @@
 	<nav class="upNav">
 		<ul class="upperMenu">
 			<li>
-				<a href="./services.html" th:href="@{/services}" th:text="#{html.a.text.services}">
+				<a href="../services.html" th:href="@{/services}" th:text="#{html.a.text.services}">
 					Services list
 				</a>
 				<ul class="subMenu">
 					<li th:each="service : ${classifiersGroupsNames}">
-						<a href="./services.html"
+						<a href="../services.html"
 						   th:href="@{/services#__${service}__}"
 						   th:text="${service}">
 							Service one
@@ -100,7 +119,7 @@
 			
 			</li>
 			<li>
-				<a href="./workshop.html"
+				<a href="../workshop.html"
 				   th:href="@{/workshop}"
 				   th:text="#{html.a.text.ourWorkshop}">
 					Our workshop
@@ -108,7 +127,7 @@
 				
 				<ul class="subMenu">
 					<li>
-						<a href="./workshopStuff.html"
+						<a href="../workshopStuff.html"
 						   th:href="@{/workshop-stuff}"
 						   th:text="#{html.a.text.workshopStuff}">
 							Spring Boot
@@ -119,52 +138,21 @@
 			
 			
 			</li>
-			<li title="How it works in a nutshell">
-				<a href="./details.html"
-				   th:href="@{${currentURL}}" th:text="#{html.upNav.upperMenu.projectInDetail}"
-				   th:title="#{html.upNav.upperMenu.projectInDetail.title}">
-					Project in details
+			
+			<li th:unless="${#strings.isEmpty(loggedUsername)}"
+				title="To build your own Order">
+				<a href="../buildOrder.html"
+				   th:href="@{/build-order}" th:text="#{html.a.text.buildOrder}"
+				   th:title="#{html.a.title.buildOrder}">
+					Build online Order
 				</a>
-				
-				<ul class="subMenu">
-					<li>
-						<a href="./howItWorks.html"
-						   th:href="@{/how-it-works}"
-						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.howItWorks}">
-							How it should work
-						</a>
-					</li>
-					<li>
-						<a href="./authentication.html" title="How it checks usernames and passwords"
-						   th:href="@{/authentication}"
-						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity}"
-						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authenticationSecurity.title}">
-							Authentication Security
-						</a>
-					</li>
-					<li>
-						<a href="./authorization.html" title="How it grants access based on Granted Authorities"
-						   th:href="@{/authorization}"
-						   th:text="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity}"
-						   th:title="#{html.upNav.upperMenu.projectInDetail.submenu.authorizationSecurity.title}">
-							Authorization Security
-						</a>
-					</li>
-				
-				</ul>
 			
 			</li>
-			<li>
-				<a href="./underConstruction.html"
-				   th:href="@{/under-construction}"
-				   th:text="#{html.upNav.upperMenu.underConstruction}">
-					What is under construction
-				</a>
-			</li>
+			
 			<li>
 				<a class="modalA"
-				   href="#loginModalBackground"
-				   th:href="@{#loginModalBackground}"
+				   href="#modalBackground"
+				   th:href="@{#modalBackground}"
 				   th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
 				</a>
@@ -263,7 +251,7 @@
 		<div class="loginModalWindow">
 			
 			<a class="closeA" href=""
-			   th:href="#{${currentURL}}"
+			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			
 			<p th:utext="#{html.article.login}">MODAL TEXT</p>
@@ -323,6 +311,23 @@
 		</div>
 	
 	</div>
+	
+	<!-- ===== DESIGN COMPLIANT MODAL WINDOW =====	-->
+	
+	<div id="modalBackground">
+		
+		<div class="modalWindow">
+			
+			<a class="closeA" href=""
+			   th:href="@{${#request.getRequestURL()}}"
+			   th:text="#{html.a.text.close}">Close window</a>
+			
+			<p th:utext="#{html.article.designComplaint}">MODAL DESIGN COMPLIANT TEXT</p>
+		
+		</div>
+	
+	</div>
+
 </div>
 
 <!-- END MAIN CONTAINER -->

@@ -103,10 +103,11 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.successHandler(internalAuthenticationSuccessHandler())
 			.and()
 			.logout()
-			.logoutUrl("/internal/login?logout=true")
-			.deleteCookies(internalAuthCookieName)
+			.logoutUrl("/logout")
+			.deleteCookies(internalAuthCookieName, "JSESSIONID")
+			.invalidateHttpSession(true)
 			.clearAuthentication(true)
-			.logoutSuccessUrl("/internal/login?login=true")
+			.logoutSuccessUrl("/internal/login")
 			.and();
 	}
 	

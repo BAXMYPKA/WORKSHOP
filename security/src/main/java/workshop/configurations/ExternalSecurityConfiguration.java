@@ -43,10 +43,6 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Setter(AccessLevel.PACKAGE)
 	private String domainName;
 	
-	@Value("${internalAuthCookieName}")
-	@Setter(AccessLevel.PACKAGE)
-	private String internalAuthCookieName;
-	
 	@Value("${externalAuthCookieName}")
 	private String externalAuthCookieName;
 	
@@ -82,7 +78,8 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.and()
 			.logout()
 			.logoutUrl("/logout")
-			.deleteCookies(externalAuthCookieName)
+			.deleteCookies(externalAuthCookieName, "JSESSIONID")
+			.invalidateHttpSession(true)
 			.clearAuthentication(true)
 			.logoutSuccessUrl("/")
 			.and();

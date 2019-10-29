@@ -1,5 +1,7 @@
 package workshop.http;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 /**
  * Add HttpHeaders to REST HttpServletResponses within 'workshop.internal' domain.
  */
+@Slf4j
 public class ResponseHeadersInternalFilter implements Filter {
 	
 	public static final HashMap<String, String> httpHeaders = new HashMap<>();

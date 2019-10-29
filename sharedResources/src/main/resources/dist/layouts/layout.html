@@ -52,9 +52,9 @@
 				   th:text="#{html.a.text.logout}">
 					Logout
 				</a>
-				<br>
+				<hr/>
 				<a class="profileLink"
-				   th:href="@{/profile(email=${loggedUsername})}"
+				   th:href="@{/profile}"
 				   th:text="${loggedUsername}"
 				   th:title="#{html.a.title.profile}">
 					<b><i>Profile link</i></b>
@@ -254,7 +254,7 @@
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			
-			<p th:utext="#{html.article.login}">MODAL TEXT</p>
+			<p th:utext="#{html.article.login}">Login process description</p>
 			
 			<div class="formContainer">
 				<div class="login">
@@ -285,7 +285,7 @@
 				</div>
 			</div>
 			
-			<table class="usersTable">
+			<table class="usersTable" th:unless="${usersTable == null}">
 				
 				<caption title th:text="#{html.thead.external.login.predefinedUsers}">
 					The predefined users list
@@ -297,12 +297,27 @@
 					<th th:text="#{properties.email}">
 						Email
 					</th>
-					<th th:text="#{properties.enabled}">
-						Department
+					<th th:text="#{properties.created}">
+						Created
 					</th>
 					<th th:text="#{properties.language}">
 						Language
 					</th>
+				</tr>
+				
+				<tr th:unless="${usersTable == null}" th:each="user : ${usersTable}">
+					<td th:text="${user?.lastName + ' ' + user?.firstName}">
+						User full name
+					</td>
+					<td th:text="${user?.email}">
+						User email
+					</td>
+					<td th:text="${#temporals.format(user?.created, 'yyyy-MM-dd HH:mm')}">
+						User creation date
+					</td>
+					<td th:text="${user?.languageTag}">
+						User language
+					</td>
 				</tr>
 			
 			</table>

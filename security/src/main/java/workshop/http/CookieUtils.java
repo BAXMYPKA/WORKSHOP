@@ -48,6 +48,7 @@ public class CookieUtils {
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
 		//TODO: cannot be set for localhost
 //		cookie.setDomain(domainName);
+		cookie.setPath("/workshop.pro/"); //Should be set to be identical
 		response.addCookie(cookie);
 	}
 	
@@ -61,6 +62,7 @@ public class CookieUtils {
 			.findFirst()
 			.ifPresent(cookie -> {
 				cookie.setMaxAge(0);
+				cookie.setValue("");
 				response.addCookie(cookie);
 			});
 	}

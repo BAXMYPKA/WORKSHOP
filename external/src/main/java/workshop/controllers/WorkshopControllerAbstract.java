@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import workshop.internal.entities.ClassifiersGroup;
 import workshop.internal.services.ClassifiersGroupsService;
+import workshop.internal.services.UsersService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	
 	@Autowired
 	private ClassifiersGroupsService classifiersGroupsService;
+	
+	@Autowired
+	private UsersService usersService;
 	
 	/**
 	 * Adds a List of currently supported languages to the current session for html language selector to pick up from.
@@ -88,4 +92,20 @@ public class WorkshopControllerAbstract implements WorkshopController {
 			model.addAttribute("loggedUsername", "");
 		}
 	}
+	
+	/**
+	 * Adds all predefined Users for the table only for not logged in Users to observe.
+	 * @param model
+	 * @param authentication
+	 */
+	@ModelAttribute(name = "usersTable")
+	public void setPredefinedUsersTable(Model model, Authentication authentication) {
+		if (authentication != null && !authentication.getName().contains("Anonymous")) {
+			model.addAttribute("usersTable", null);
+		} else {
+			model.addAttribute("usersTable",
+				usersService.findAllEntities(10, 0, "lastName", Sort.Direction.ASC));
+		}
+	}
+	
 }

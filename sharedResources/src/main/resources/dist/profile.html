@@ -86,7 +86,10 @@
 					<td></td>
 					<td></td>
 					<td>
-						<input type="submit" value="Save changes" th:value="#{html.submit.saveChanges}">
+						<button class="buttonLogin" value="Save changes" onclick="this.form.submit()"
+								th:text="#{html.submit.saveChanges}">
+							Save changes
+						</button>
 					</td>
 				</tr>
 			

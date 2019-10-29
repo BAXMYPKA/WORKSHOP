@@ -389,6 +389,12 @@ input {
 	width: 18em;
 }
 
+input[type=submit] {
+	/*margin: 0.16em 0;*/
+	/*padding: 0.1em 0;*/
+	/*width: 15em;*/
+}
+
 .buttonLogin {
 	margin: 0.16em 0;
 	padding: 0.1em;

@@ -27,6 +27,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="internal" />
+    <orderEntry type="module" module-name="sharedResources" />
+    <orderEntry type="module" module-name="internal" />
     <orderEntry type="module" module-name="security" />
     <orderEntry type="module" module-name="sharedResources" />
     <orderEntry type="module" module-name="external" />

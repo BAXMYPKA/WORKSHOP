@@ -15,6 +15,87 @@
 	
 	<h1 th:text="#{html.h1.profile}">Your profile</h1>
 	
+	<div>
+		
+		<form class="userProfileForm" action="profile.html" method="POST" name="userProfile"
+			  th:action="@{/profile}">
+			
+			<table class="userProfileTable" th:unless="${user == null}">
+				
+				<caption title th:text="#{html.thead.profile.tableName}">
+					User profile details
+				</caption>
+				<tr>
+					<th th:text="#{properties.firstName}">
+						First name
+					</th>
+					<td th:text="${user?.firstName}">
+						User first name
+					</td>
+					<td>
+						<input type="text" placeholder="First name" th:placeholder="${user?.firstName}">
+					</td>
+				
+				</tr>
+				<tr>
+					<th th:text="#{properties.lastName}">
+						Last name
+					</th>
+					<td th:text="${user?.lastName}">
+						User last name
+					</td>
+					<td>
+						<input type="text" placeholder="Last name" th:placeholder="${user?.lastName}">
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.email}">
+						Email
+					</th>
+					<td th:text="${user?.email}">
+						User email
+					</td>
+					<td>
+						<input type="text" placeholder="user@mail.pro" th:placeholder="${user?.email}">
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.birthday}">
+						Birthday
+					</th>
+					<td th:text="${#temporals.format(user?.birthday, 'yyyy-MM-dd')}">
+						User date of birth
+					</td>
+					<td>
+						<input type="date" th:placeholder="${user?.birthday}">
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.language}">
+						Language
+					</th>
+					<td th:text="${#strings.toUpperCase(user?.languageTag)}">
+						User language
+					</td>
+					<td>
+						<input type="text" placeholder="RU" th:placeholder="${#strings.toUpperCase(user?.languageTag)}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<input type="submit" value="Save changes" th:value="#{html.submit.saveChanges}">
+					</td>
+				</tr>
+			
+			</table>
+		
+		</form>
+	
+	</div>
+
 </th:block>
 
 </body>

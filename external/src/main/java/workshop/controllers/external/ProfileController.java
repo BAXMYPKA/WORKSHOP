@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import workshop.controllers.WorkshopControllerAbstract;
 import workshop.internal.entities.User;
+import workshop.internal.entities.hibernateValidation.MergingValidation;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 
+import javax.validation.groups.Default;
 import java.util.Locale;
 
 @Controller
@@ -55,14 +57,15 @@ public class ProfileController extends WorkshopControllerAbstract {
 	}
 	
 	@PostMapping
-	public String postProfile(@Validated(PersistenceValidation.class) @ModelAttribute(name = "user") User user,
-							  BindingResult bindingResult, Model model, Locale locale) {
+	public String postProfile(@Validated({MergingValidation.class, Default.class})
+							  @ModelAttribute(name = "user") User user, BindingResult bindingResult,
+							  Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());
-			model.addAttribute("errors", bindingResult);
+//			model.addAttribute("errors", bindingResult);
 			return "profile";
 		}
-		return "profile";
+		return "redirect:/profile";
 	}
 	
 /*

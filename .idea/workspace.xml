@@ -5,33 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9b06b6c0-b136-4c33-b196-272c54ad842c.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WORKSHOP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ExternalLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ExternalLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/ExternalSecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout-demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout-demo.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -390,6 +369,7 @@
       <workItem from="1572350140161" duration="3731000" />
       <workItem from="1572368440044" duration="1391000" />
       <workItem from="1572416031099" duration="15057000" />
+      <workItem from="1572435712292" duration="9851000" />
     </task>
     <servers />
   </component>
@@ -408,16 +388,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

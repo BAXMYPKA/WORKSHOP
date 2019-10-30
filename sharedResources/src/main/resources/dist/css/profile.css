@@ -7,3 +7,9 @@
 .buttonLogin {
 	width: 18.7em;
 }
+
+.errorMessage {
+	display: table-cell;
+	font-style: italic;
+	color: red;
+}

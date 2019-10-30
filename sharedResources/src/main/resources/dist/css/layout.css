@@ -439,6 +439,11 @@ input:hover {
 	content: "* ";
 }
 
+/*.fieldErrorMessage {*/
+/*	font-style: italic;*/
+/*	color: red;*/
+/*}*/
+
 /* ===== TABLES ===== */
 
 table {

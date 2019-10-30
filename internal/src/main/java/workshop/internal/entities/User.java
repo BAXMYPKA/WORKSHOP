@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import workshop.internal.entities.hibernateValidation.PersistenceValidation;
 import workshop.internal.entities.hibernateValidation.MergingValidation;
@@ -88,6 +89,7 @@ public class User extends WorkshopEntityAbstract {
 	private ZonedDateTime modified;
 	
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Past(message = "{validation.past}")
 	@EqualsAndHashCode.Include
 	private LocalDate birthday;

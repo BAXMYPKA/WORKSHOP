@@ -36,7 +36,6 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	@Setter
 	private CookieUtils cookieUtils;
 	
-//	@Value("${internalAuthCookieName}")
 	@Setter
 	private String authenticationCookieName;
 	

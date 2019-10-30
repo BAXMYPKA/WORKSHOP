@@ -6,8 +6,8 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/services.css" th:href="@{/dist/css/services.css}">
-	<title th:text="#{html.a.title.profile}">MAIN PAGE</title>
+	<link rel="stylesheet" href="css/profile.css" th:href="@{/dist/css/profile.css}">
+	<title th:text="#{html.a.title.profile}">Profile</title>
 </head>
 <body>
 
@@ -15,9 +15,9 @@
 	
 	<h1 th:text="#{html.h1.profile}">Your profile</h1>
 	
-	<div>
+	<div class="profileTableContainer">
 		
-		<form class="userProfileForm" action="profile.html" method="POST" name="userProfile"
+		<form class="userProfileForm" action="profile.html" method="POST" name="user"
 			  th:action="@{/profile}">
 			
 			<table class="userProfileTable" th:unless="${user == null}">
@@ -33,7 +33,11 @@
 						User first name
 					</td>
 					<td>
-						<input type="text" placeholder="First name" th:placeholder="${user?.firstName}">
+						<input type="text" placeholder="First name" name="firstName" th:value="${user?.firstName}">
+					</td>
+					<td class="errorMessage" th:if="${#fields.hasErrors('user.firstName')}"
+						th:errors="*{user.firstName}">
+						Possible error
 					</td>
 				
 				</tr>
@@ -45,8 +49,12 @@
 						User last name
 					</td>
 					<td>
-						<input type="text" placeholder="Last name" th:placeholder="${user?.lastName}">
+						<input type="text" placeholder="Last name" name="lastName" th:value="${user?.lastName}">
 					</td>
+					<td class="errorMessage" th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.lastName}">
+						Possible error
+					</td>
+				
 				</tr>
 				<tr>
 					<th th:text="#{properties.email}">
@@ -56,8 +64,12 @@
 						User email
 					</td>
 					<td>
-						<input type="text" placeholder="user@mail.pro" th:placeholder="${user?.email}">
+						<input type="text" placeholder="user@mail.pro" name="email" th:value="${user?.email}">
 					</td>
+					<td class="errorMessage" th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}">
+						Possible error
+					</td>
+				
 				</tr>
 				<tr>
 					<th th:text="#{properties.birthday}">
@@ -67,9 +79,13 @@
 						User date of birth
 					</td>
 					<td>
-						<input type="date" th:placeholder="${user?.birthday}">
+						<input type="date" name="birthday" th:value="${user?.birthday}">
 					</td>
 				</tr>
+				<td class="errorMessage" th:if="${#fields.hasErrors('user.birthday')}" th:errors="*{user.birthday}">
+					Possible error
+				</td>
+				
 				<tr>
 					<th th:text="#{properties.language}">
 						Language
@@ -78,7 +94,22 @@
 						User language
 					</td>
 					<td>
-						<input type="text" placeholder="RU" th:placeholder="${#strings.toUpperCase(user?.languageTag)}">
+						<input hidden type="text" placeholder="RU" name="languageTag" th:value="${user?.languageTag}">
+					</td>
+				</tr>
+				
+				<tr th:unless="${user.phones == null}" th:each="phone : ${user?.phones}">
+					<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
+						Phone name
+					</th>
+					<td th:text="${phone.phone}">
+						Phone
+					</td>
+					<td>
+						<input type="tel" th:value="${phone.phone}">
+					</td>
+					<td class="errorMessage" th:if="${#fields.hasErrors('user.phones')}" th:errors="*{user.phones}">
+						Possible error
 					</td>
 				</tr>
 				

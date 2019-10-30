@@ -1,0 +1,9 @@
+.profileTableContainer {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.buttonLogin {
+	width: 18.7em;
+}

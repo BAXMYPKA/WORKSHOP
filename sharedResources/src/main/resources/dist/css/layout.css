@@ -173,7 +173,7 @@
 	/*font-family: Candara, sans-serif;*/
 	font-weight: bold;
 	color: black;
-	opacity: 0.5%;
+	opacity: 0.8;
 	
 }
 
@@ -245,6 +245,7 @@
 .article {
 	display: flex;
 	flex-direction: column;
+	align-content: center;
 	width: 82%;
 	padding: 1em;
 	background-color: ghostwhite;

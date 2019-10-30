@@ -33,18 +33,15 @@ import java.util.Arrays;
  * authenticate
  */
 @Slf4j
-//@Component
 public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 	
 	@Setter
-//	@Autowired
 	private JwtUtils jwtUtils;
 	
 	@Getter
 	@Setter
 	private CookieUtils cookieUtils;
 	
-	//	@Value("${internalAuthCookieName}")
 	@Setter
 	private String authenticationCookieName;
 	
@@ -56,12 +53,6 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		super(requiresAuthenticationRequestMatcher);
 	}
 	
-/*
-	public JwtAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
-		super(requiresAuthenticationRequestMatcher);
-	}
-*/
-
 	public JwtAuthenticationFilter(
 		RequestMatcher requiresAuthenticationRequestMatcher, JwtUtils jwtUtils,	CookieUtils cookieUtils) {
 		super(requiresAuthenticationRequestMatcher);
@@ -81,7 +72,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		HttpServletResponse response = (HttpServletResponse) res;
 		
 		log.debug("requestURL={}", request.getRequestURL());
-		
+
 		if (!requiresAuthentication(request, response)) { //Super method depending on path matcher
 			log.debug("non-requiredAuthenticationURL={}", request.getRequestURL());
 			chain.doFilter(request, response);

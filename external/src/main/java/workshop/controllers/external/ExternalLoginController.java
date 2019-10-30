@@ -13,14 +13,12 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 	
 	@GetMapping(path = "/login")
 	public String getLogin(WebRequest webRequest) {
-		log.info("LOGIN GET PAGE");
-		return "login";
+		return "redirect:/#loginModalWindow";
 	}
 	
 	
 	@PostMapping(path = "/login")
 	public String postLogin(WebRequest webRequest) {
-		log.info("LOGIN POST PAGE");
 		return "login";
 	}
 }

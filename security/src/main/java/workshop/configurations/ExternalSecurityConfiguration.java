@@ -151,7 +151,7 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Bean
 	public ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler() {
 		ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler =
-			new ExternalAuthenticationFailureHandler("/login?login=false");
+			new ExternalAuthenticationFailureHandler("/#loginModalBackground");
 		return externalAuthenticationFailureHandler;
 	}
 	

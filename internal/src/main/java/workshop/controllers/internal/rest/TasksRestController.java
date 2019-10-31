@@ -19,8 +19,8 @@ import workshop.internal.entities.Classifier;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
 import workshop.internal.hateoasResources.EmployeesResourceAssembler;
@@ -99,7 +99,7 @@ public class TasksRestController extends WorkshopRestControllerAbstract<Task> {
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Task', 'put')")
 	public ResponseEntity<String> putEmployeeAppointedTo(@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Employee employee,
+		@Validated(Merge.class) @RequestBody Employee employee,
 		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Task task = getWorkshopEntitiesService().findById(id);
@@ -200,7 +200,7 @@ public class TasksRestController extends WorkshopRestControllerAbstract<Task> {
 	@PreAuthorize("hasPermission('Classifier', 'post') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> postClassifier(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Classifier classifier,
+		@Validated(Persist.class) @RequestBody Classifier classifier,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -230,7 +230,7 @@ public class TasksRestController extends WorkshopRestControllerAbstract<Task> {
 	@PreAuthorize("hasPermission('Classifier', 'put') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> putClassifier(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Classifier classifier,
+		@Validated(Merge.class) @RequestBody Classifier classifier,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

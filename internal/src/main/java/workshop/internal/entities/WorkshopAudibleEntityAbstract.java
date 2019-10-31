@@ -3,9 +3,9 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistEmployeeValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.PersistEmployee;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -47,9 +47,9 @@ public abstract class WorkshopAudibleEntityAbstract extends WorkshopEntityAbstra
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "audible_sequence")
 	@SequenceGenerator(name = "audible_sequence", schema = "INTERNAL", initialValue = 150, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private Long identifier;
@@ -59,13 +59,13 @@ public abstract class WorkshopAudibleEntityAbstract extends WorkshopEntityAbstra
 	 * Also for this entity can be set manually with PersistEmployeeValidation.class validation group to be set.
 	 */
 	@Column(nullable = false, updatable = false)
-	@PastOrPresent(groups = {PersistEmployeeValidation.class},
+	@PastOrPresent(groups = {PersistEmployee.class},
 				   message = "{validation.pastOrPresent}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	private ZonedDateTime created;
 	
 	@Column
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	private ZonedDateTime modified;
 	
 	/**

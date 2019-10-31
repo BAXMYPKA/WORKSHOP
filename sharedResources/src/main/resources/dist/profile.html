@@ -17,7 +17,7 @@
 	
 	<div class="profileTableContainer">
 		
-		<form class="userProfileForm" action="profile.html" method="POST" name="user"
+		<form class="userProfileForm" action="profile.html" method="POST" name="userDto"
 			  th:object="${user}"
 			  th:action="@{/profile}">
 			
@@ -123,7 +123,7 @@
 					</td>
 					<td>
 <!--						<input type="tel" th:value="${phone}" th:name="user.phones">-->
-						<input th:field="*{phones[__${stat.index}__].phone}">
+						<input th:field="*{phones[__${stat.index}__]}">
 					</td>
 					<!--					<td class="errorMessage" th:if="${#fields.hasErrors('user.phones')}" th:errors="*{user.phones}">-->
 					<!--						Possible error-->

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -44,7 +44,7 @@ public class Classifier extends WorkshopAudibleEntityAbstract implements Seriali
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Merge.class, Persist.class, Default.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	
@@ -66,7 +66,7 @@ public class Classifier extends WorkshopAudibleEntityAbstract implements Seriali
 	 * Default = 0.00;
 	 */
 	@Column(nullable = false, scale = 2)
-	@PositiveOrZero(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
+	@PositiveOrZero(groups = {Persist.class, Merge.class, Default.class},
 		message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	
@@ -80,7 +80,7 @@ public class Classifier extends WorkshopAudibleEntityAbstract implements Seriali
 	private Set<@Valid Task> tasks;
 	
 	@Builder
-	public Classifier(@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class}, message = "{validation.notBlank}")
+	public Classifier(@NotBlank(groups = {Merge.class, Persist.class}, message = "{validation.notBlank}")
 						  String name,
 					  String description,
 					  boolean isOfficial,

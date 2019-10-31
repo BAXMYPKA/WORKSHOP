@@ -5,8 +5,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.hateoasResources.OrdersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
 import workshop.internal.hateoasResources.UsersResourceAssembler;
@@ -76,7 +76,7 @@ public class OrdersRestController extends WorkshopRestControllerAbstract<Order> 
 	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('User', 'post')")
 	public ResponseEntity<String> postUserCreatedFor(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody User user,
+		@Validated(Persist.class) @RequestBody User user,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -99,7 +99,7 @@ public class OrdersRestController extends WorkshopRestControllerAbstract<Order> 
 	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putUserCreatedFor(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody User user,
+		@Validated(Merge.class) @RequestBody User user,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -156,7 +156,7 @@ public class OrdersRestController extends WorkshopRestControllerAbstract<Order> 
 	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Task task,
+		@Validated(Persist.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -181,7 +181,7 @@ public class OrdersRestController extends WorkshopRestControllerAbstract<Order> 
 	@PreAuthorize("hasPermission('Order', 'put') or hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Task task,
+		@Validated(Merge.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

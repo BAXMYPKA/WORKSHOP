@@ -4,8 +4,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.PositionsResourceAssembler;
@@ -89,7 +89,7 @@ public class DepartmentsRestController extends WorkshopRestControllerAbstract<De
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Position', 'post')")
 	public ResponseEntity<String> postPosition(@PathVariable(name = "id") long id,
-		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		@Validated(Persist.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -105,7 +105,7 @@ public class DepartmentsRestController extends WorkshopRestControllerAbstract<De
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Position', 'put')")
 	public ResponseEntity<String> putPosition(@PathVariable(name = "id") long id,
-		@Validated(MergingValidation.class) @RequestBody Position position,
+		@Validated(Merge.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

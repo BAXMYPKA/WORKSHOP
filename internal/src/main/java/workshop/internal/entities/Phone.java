@@ -3,8 +3,8 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,9 +33,9 @@ public class Phone extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 200, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
@@ -43,7 +43,7 @@ public class Phone extends WorkshopEntityAbstract {
 	private String name;
 	
 	@Column(updatable = false)
-	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {Persist.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	/**
@@ -52,8 +52,8 @@ public class Phone extends WorkshopEntityAbstract {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
-	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
-	@Pattern(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.pattern.phone}",
+	@NotNull(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notNull}")
+	@Pattern(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.pattern.phone}",
 			 regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 	@EqualsAndHashCode.Include
 	private String phone;
@@ -73,10 +73,10 @@ public class Phone extends WorkshopEntityAbstract {
 	
 	public Phone(String name,
 		@NotNull(
-			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			groups = {Default.class, Persist.class, Merge.class},
 			message = "{validation.notNull}")
 		@Pattern(
-			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			groups = {Default.class, Persist.class, Merge.class},
 			message = "{validation.pattern.phone}",
 			regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 			String phone) {

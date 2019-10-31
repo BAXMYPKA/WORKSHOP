@@ -25,8 +25,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.exceptions.IllegalArgumentsException;
 import workshop.internal.exceptions.InvalidMethodArgumentsException;
 import workshop.internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;
@@ -175,7 +175,7 @@ public abstract class WorkshopRestControllerAbstract<T extends WorkshopEntity> i
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission(#webRequest, 'post')")
 	public ResponseEntity<String> postOne(
-		@Validated(value = {PersistenceValidation.class}) @RequestBody T workshopEntity,
+		@Validated(value = {Persist.class}) @RequestBody T workshopEntity,
 		BindingResult bindingResult,
 		WebRequest webRequest) {
 		
@@ -192,7 +192,7 @@ public abstract class WorkshopRestControllerAbstract<T extends WorkshopEntity> i
 	@PreAuthorize("hasPermission(#webRequest, 'put')")
 	public ResponseEntity<String> putOne(
 		@PathVariable(name = "id") Long id,
-		@Validated(value = {MergingValidation.class, Default.class})
+		@Validated(value = {Merge.class, Default.class})
 		@RequestBody T workshopEntity,
 		BindingResult bindingResult,
 		WebRequest webRequest) {

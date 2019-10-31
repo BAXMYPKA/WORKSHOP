@@ -1,8 +1,8 @@
 package workshop.controllers.external;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import workshop.controllers.WorkshopControllerAbstract;
-import workshop.internal.entities.Phone;
+import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 
 import javax.validation.groups.Default;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -32,6 +29,9 @@ public class ProfileController extends WorkshopControllerAbstract {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@Autowired
 	private UsersService usersService;
@@ -60,11 +60,11 @@ public class ProfileController extends WorkshopControllerAbstract {
 	}
 	
 	@PostMapping
-	public String postProfile(@Validated({MergingValidation.class, Default.class})
-							  @ModelAttribute(name = "user") User user, BindingResult bindingResult,
+	public String postProfile(@Validated({Merge.class, Default.class})
+							  @ModelAttribute(name = "userDto") UserDto userDto, BindingResult bindingResult,
 							  Model model, Locale locale) {
 		
-		System.out.println(user.getPhones());
+		System.out.println(userDto.getPhones());
 		
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.getAllErrors());

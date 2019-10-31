@@ -7,8 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.utils.PermissionType;
 
 import javax.persistence.*;
@@ -38,7 +38,7 @@ public class InternalAuthority extends WorkshopAudibleEntityAbstract implements 
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private String name;
@@ -49,7 +49,7 @@ public class InternalAuthority extends WorkshopAudibleEntityAbstract implements 
 	private Set<@Valid AuthorityPermission> authorityPermissions;
 	
 	@Column
-	@Length(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, max = 254,
+	@Length(groups = {Default.class, Persist.class, Merge.class}, max = 254,
 			message = "{validation.length}")
 	private String description;
 	

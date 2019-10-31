@@ -8,8 +8,8 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -49,9 +49,9 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
@@ -85,7 +85,7 @@ public class User extends WorkshopEntityAbstract {
 	private ZonedDateTime created;
 	
 	@Column
-	@Null(groups = PersistenceValidation.class, message = "{validation.null}")
+	@Null(groups = Persist.class, message = "{validation.null}")
 	private ZonedDateTime modified;
 	
 	@Column
@@ -113,8 +113,8 @@ public class User extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
 		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-//	private Set<@Valid Phone> phones = new HashSet<>(2);
-	private List<@Valid Phone> phones = new ArrayList<>(2);
+	private Set<@Valid Phone> phones = new HashSet<>(2);
+//	private List<@Valid Phone> phones = new ArrayList<>(2);
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -140,7 +140,7 @@ public class User extends WorkshopEntityAbstract {
 		this.email = email;
 	}
 	
-	public User(List<@Valid Phone> phones) {
+	public User(Set<@Valid Phone> phones) {
 		this.phones = phones;
 	}
 	
@@ -153,8 +153,8 @@ public class User extends WorkshopEntityAbstract {
 			throw new IllegalArgumentException("Phone object cannot be null!");
 		}
 		if (phones == null) {
-//			phones = new HashSet<>(3);
-			phones = new ArrayList<>(3);
+			phones = new HashSet<>(3);
+//			phones = new ArrayList<>(3);
 		}
 		phones.addAll(Arrays.asList(phone));
 	}

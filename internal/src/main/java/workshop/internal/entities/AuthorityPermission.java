@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.utils.PermissionType;
 import workshop.internal.entities.utils.PermissionTypeToPropertyConverter;
 import workshop.internal.exceptions.IllegalArgumentsException;
@@ -45,16 +45,16 @@ public class AuthorityPermission extends WorkshopAudibleEntityAbstract {
 	@Column(unique = false, nullable = false)
 	@Enumerated(EnumType.STRING)
 	@Convert(converter = PermissionTypeToPropertyConverter.class)
-	@NotBlank(groups = {PersistenceValidation.class, MergingValidation.class, Default.class},
+	@NotBlank(groups = {Persist.class, Merge.class, Default.class},
 			  message = "{validation.notBlank}")
 	@Pattern(regexp = "^(GET|PUT|POST|DELETE)$", message = "{validation.pattern.authorityPermission}",
-			 groups = {PersistenceValidation.class, MergingValidation.class, Default.class})
+			 groups = {Persist.class, Merge.class, Default.class})
 	@EqualsAndHashCode.Include
 	@ToString.Include
 	private PermissionType permissionType;
 	
 	@Column
-	@Size(groups = {PersistenceValidation.class, MergingValidation.class, Default.class}, max = 254,
+	@Size(groups = {Persist.class, Merge.class, Default.class}, max = 254,
 		  message = "{validation.size}")
 	@EqualsAndHashCode.Include
 	private String description;

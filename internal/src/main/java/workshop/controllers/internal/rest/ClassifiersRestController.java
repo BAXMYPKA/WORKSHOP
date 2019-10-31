@@ -82,8 +82,8 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 		
 		Resource<ClassifiersGroup> classifiersGroupResource =
 			classifiersGroupsResourceAssembler.toResource(classifiersGroup);
-		String jsonClassirierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifiersGroupResource);
-		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassirierTypeResource);
+		String jsonClassifierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifiersGroupResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassifierTypeResource);
 	}
 	
 	@PutMapping(path = "/{id}/classifiers-group",

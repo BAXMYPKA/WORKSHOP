@@ -7,9 +7,10 @@
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifiersRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/ClassifiersRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/services/JsonServiceUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/security/WorkshopPermissionEvaluator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,13 +51,6 @@
         <item name="Workshop mem" type="feb32156:DbDataSourceImpl" />
         <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
         <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="Workshop mem" type="feb32156:DbDataSourceImpl" />
-        <item name="WORKSHOP: database" type="2aa06773:H2ImplModel$Database" />
-        <item name="INTERNAL: schema" type="7f85d983:H2ImplModel$Schema" />
-        <item name="PHONES: table" type="818c1b4a:H2ImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -169,80 +163,73 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.WorkshopApplication">
-    <configuration name="JwtUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.check_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
+    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
+          <option name="PATTERN" value="workshop.internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="check_expired_token" />
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.check_non_expired_token" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
+    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
+          <option name="PATTERN" value="workshop.internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="check_non_expired_token" />
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
+      <option name="METHOD_NAME" value="inherited_Method_Post_Should_Return_Persisted_Classifier" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
+    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
+          <option name="PATTERN" value="workshop.internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
+      <option name="METHOD_NAME" value="inherited_Method_Put_Should_Return_Updated_Classifier" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="security" />
+    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.security.*" />
+          <option name="PATTERN" value="workshop.internal.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.security" />
-      <option name="MAIN_CLASS_NAME" value="workshop.security.JwtUtilsTest" />
-      <option name="METHOD_NAME" value="unsigned_or_wrong_singed_tokens_always_return_false" />
+      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
+      <option name="METHOD_NAME" value="inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -289,21 +276,21 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
-      <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
-      <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
-      <item itemvalue="JUnit.JwtUtilsTest" />
-      <item itemvalue="JUnit.JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
       <item itemvalue="npm.Webpack --watch" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.All in application" />
+      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" />
+      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" />
+      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.JwtUtilsTest.jwt_Size_Doesnt_Exceed_Four_kb_Of_Cookies_Limitation_in_UTF" />
-        <item itemvalue="JUnit.JwtUtilsTest" />
-        <item itemvalue="JUnit.JwtUtilsTest.unsigned_or_wrong_singed_tokens_always_return_false" />
-        <item itemvalue="JUnit.JwtUtilsTest.check_expired_token" />
-        <item itemvalue="JUnit.JwtUtilsTest.check_non_expired_token" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
+        <item itemvalue="JUnit.All in application" />
+        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" />
+        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
+        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" />
       </list>
     </recent_temporary>
   </component>
@@ -370,6 +357,7 @@
       <workItem from="1572368440044" duration="1391000" />
       <workItem from="1572416031099" duration="15057000" />
       <workItem from="1572435712292" duration="9851000" />
+      <workItem from="1572501850604" duration="14271000" />
     </task>
     <servers />
   </component>

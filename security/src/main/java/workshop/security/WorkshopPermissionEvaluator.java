@@ -150,7 +150,8 @@ public class WorkshopPermissionEvaluator implements PermissionEvaluator {
 			
 			String finalWorkshopEntityName = workshopEntityName;
 			workshopEntityName = WorkshopEntity.workshopEntitiesNames.stream()
-				.filter(ename -> ename.contains(finalWorkshopEntityName))
+//				.filter(ename -> ename.contains(finalWorkshopEntityName))
+				.filter(ename -> ename.equals(finalWorkshopEntityName))
 				.findFirst()
 				.orElseThrow(() -> new IllegalArgumentException(
 					"TargetType=" + finalWorkshopEntityName + " of the given WorkshopEntity name cannot be evaluated" +

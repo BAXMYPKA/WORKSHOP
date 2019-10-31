@@ -21,6 +21,8 @@
 			  th:object="${user}"
 			  th:action="@{/profile}">
 			
+			<input type="hidden" th:field="*{identifier}">
+			
 			<table class="userProfileTable" th:unless="${user == null}">
 				
 				<caption title th:text="#{html.thead.profile.tableName}">
@@ -111,7 +113,8 @@
 					</td>
 				</tr>
 				
-				<tr th:unless="${user.phones == null}" th:each="phone,stat : ${user?.phones}">
+				
+				<tr th:unless="${user.phones == null}" th:each="phone,stat : ${user.phones}">
 					<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
 						Phone name
 					</th>
@@ -119,13 +122,12 @@
 						Phone
 					</td>
 					<td>
-<!--						<input type="tel" th:value="${phone.phone}" hidden>-->
-						<p th:text="${'PHONE'+ user.phones[__${stat.index}__].phone}"></p>
-						<input hidden th:name="'phone'" th:value="${user.phones[__${stat.index}__].phone}">
+<!--						<input type="tel" th:value="${phone}" th:name="user.phones">-->
+						<input th:field="*{phones[__${stat.index}__].phone}">
 					</td>
-<!--					<td class="errorMessage" th:if="${#fields.hasErrors('user.phones')}" th:errors="*{user.phones}">-->
-<!--						Possible error-->
-<!--					</td>-->
+					<!--					<td class="errorMessage" th:if="${#fields.hasErrors('user.phones')}" th:errors="*{user.phones}">-->
+					<!--						Possible error-->
+					<!--					</td>-->
 				</tr>
 				
 				<tr>

@@ -113,7 +113,8 @@ public class User extends WorkshopEntityAbstract {
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
 		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
-	private Set<@Valid Phone> phones = new HashSet<>(2);
+//	private Set<@Valid Phone> phones = new HashSet<>(2);
+	private List<@Valid Phone> phones = new ArrayList<>(2);
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -139,7 +140,7 @@ public class User extends WorkshopEntityAbstract {
 		this.email = email;
 	}
 	
-	public User(Set<@Valid Phone> phones) {
+	public User(List<@Valid Phone> phones) {
 		this.phones = phones;
 	}
 	
@@ -152,7 +153,8 @@ public class User extends WorkshopEntityAbstract {
 			throw new IllegalArgumentException("Phone object cannot be null!");
 		}
 		if (phones == null) {
-			phones = new HashSet<>(3);
+//			phones = new HashSet<>(3);
+			phones = new ArrayList<>(3);
 		}
 		phones.addAll(Arrays.asList(phone));
 	}

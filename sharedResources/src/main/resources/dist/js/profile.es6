@@ -86,13 +86,74 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/phoneFetch.es6":
+/*!*******************************!*\
+  !*** ./src/js/phoneFetch.es6 ***!
+  \*******************************/
+/*! exports provided: deletePhone, addPhone */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePhone", function() { return deletePhone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPhone", function() { return addPhone; });
+function deletePhone(phoneId) {
+	
+	return fetch(`http://localhost:18080/workshop.pro/ajax/phones/${phoneId}`,
+		{
+			method: "DELETE",
+			credentials: "same-origin"
+		})
+		.then((resolve) => {
+			return resolve;
+		})
+		.catch((reject) => {
+			return reject;
+		})
+}
+
+function addPhone(phoneNum, phoneName) {
+
+}
+
+
+
+/***/ }),
+
 /***/ "./src/js/profile.es6":
 /*!****************************!*\
   !*** ./src/js/profile.es6 ***!
   \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./phoneFetch.es6 */ "./src/js/phoneFetch.es6");
+
+
+const PHONE_DELETION_ERROR_MESSAGE = "Не удалось удалить телефон!";
+const deleteButtons = document.querySelectorAll(".deleteButton");
+let phoneIdToOperateOn;
+
+deleteButtons.forEach(function (button, key, parent) {
+	button.addEventListener("click", (buttonEvent) => {
+		buttonEvent.preventDefault();
+		phoneIdToOperateOn = buttonEvent.currentTarget.value;
+		Object(_phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__["deletePhone"])(buttonEvent.currentTarget.value)
+			.then((promise) => {
+				if (promise.ok) {
+					let rowToHide = document.getElementById(`phoneId=${phoneIdToOperateOn}`);
+					rowToHide.style.display = "none";
+				} else {
+					let phoneErrorMessageId = document.getElementById(`phoneErrorId=${phoneIdToOperateOn}`);
+					phoneErrorMessageId.innerHTML = PHONE_DELETION_ERROR_MESSAGE;
+					phoneErrorMessageId.style.color = "red";
+					phoneErrorMessageId.style.fontStyle = "italic";
+				}
+			});
+	});
+});
 
 
 /***/ })

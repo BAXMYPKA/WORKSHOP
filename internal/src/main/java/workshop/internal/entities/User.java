@@ -112,7 +112,7 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
-		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+		cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones = new HashSet<>(2);
 //	private List<@Valid Phone> phones = new ArrayList<>(2);
 	

@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -90,4 +92,20 @@ public class Phone extends WorkshopEntityAbstract {
 			created = ZonedDateTime.now();
 		}
 	}
+	
+/*
+	@PreRemove
+	public void preRemove() {
+		if (user != null) {
+			Set<Phone> userPhones = new HashSet<>(user.getPhones());
+			boolean contains = userPhones.contains(this);
+			userPhones.forEach(phone1 -> System.out.println("INCLUDED HASH: "+phone1.hashCode()));
+			System.out.println("THIS HASH: "+this.hashCode());
+			userPhones.remove(this);
+			user.setPhones(userPhones);
+		} else if (employee != null) {
+			employee.getPhones().remove(this);
+		}
+	}
+*/
 }

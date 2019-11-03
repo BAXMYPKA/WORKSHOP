@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/profile.css" th:href="@{/dist/css/profile.css}">
+	<script src="../src/js/profile.es6" th:src="@{/dist/js/profile.es6}" defer></script>
 	<title th:text="#{html.a.title.profile}">Profile</title>
 </head>
 <body>
@@ -18,12 +19,12 @@
 	<div class="profileTableContainer">
 		
 		<form class="userProfileForm" action="profile.html" method="POST" name="userDto"
-			  th:object="${user}"
+			  th:object="${userDto}"
 			  th:action="@{/profile}">
 			
 			<input type="hidden" th:field="*{identifier}">
 			
-			<table class="userProfileTable" th:unless="${user == null}">
+			<table class="userProfileTable" th:unless="${userDto == null}">
 				
 				<caption title th:text="#{html.thead.profile.tableName}">
 					User profile details
@@ -32,103 +33,143 @@
 					<th th:text="#{properties.firstName}">
 						First name
 					</th>
-					<td th:text="${user?.firstName}">
+					<td th:text="${userDto?.firstName}">
 						User first name
 					</td>
 					<td>
-						<input type="text" placeholder="First name" name="firstName" th:value="${user?.firstName}">
+						<input type="text" placeholder="First name" name="firstName" th:value="${userDto?.firstName}">
 					</td>
 				
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td class="errorMessage" th:if="${#fields.hasErrors('firstName')}"
-						th:errors="*{firstName}">
-						Possible error
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('firstName')}"
+							  th:errors="*{firstName}">
+							Possible error
+						</span>
 					</td>
 				</tr>
 				<tr>
 					<th th:text="#{properties.lastName}">
 						Last name
 					</th>
-					<td th:text="${user?.lastName}">
+					<td th:text="${userDto?.lastName}">
 						User last name
 					</td>
 					<td>
-						<input type="text" placeholder="Last name" name="lastName" th:value="${user?.lastName}">
+						<input type="text" placeholder="Last name" name="lastName" th:value="${userDto?.lastName}">
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td class="errorMessage" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
-						Possible error
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('lastName')}"
+							  th:errors="*{lastName}">
+							Possible error
+						</span>
 					</td>
 				</tr>
 				<tr>
 					<th th:text="#{properties.email}">
 						Email
 					</th>
-					<td th:text="${user?.email}">
+					<td th:text="${userDto?.email}">
 						User email
 					</td>
 					<td>
-						<input type="text" placeholder="user@mail.pro" th:field="*{email}" th:value="${user?.email}">
+						<input type="text" placeholder="user@mail.pro" th:field="*{email}" th:value="${userDto?.email}">
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td class="errorMessage" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
-						Possible error
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('email')}"
+							  th:errors="*{email}">
+							Possible errors
+						</span>
 					</td>
 				</tr>
 				<tr>
 					<th th:text="#{properties.birthday}">
 						Birthday
 					</th>
-					<td th:text="${#temporals.format(user?.birthday, 'yyyy-MM-dd')}">
+					<td th:text="${#temporals.format(userDto?.birthday, 'yyyy-MM-dd')}">
 						User date of birth
 					</td>
 					<td>
-						<input type="date" th:field="*{birthday}" th:value="${user?.birthday}">
+						<input type="date" th:field="*{birthday}" th:value="${userDto?.birthday}">
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td class="errorMessage" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">
-						Possible error
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('birthday')}"
+							  th:errors="*{birthday}">
+							Possible error
+						</span>
 					</td>
 				<tr>
 					<th th:text="#{properties.language}">
 						Language
 					</th>
-					<td th:text="${#strings.toUpperCase(user?.languageTag)}">
+					<td th:text="${#strings.toUpperCase(userDto?.languageTag)}">
 						User language
 					</td>
 					<td>
-						<input hidden type="text" placeholder="RU" name="languageTag" th:value="${user?.languageTag}">
+						<input hidden type="text" placeholder="RU" name="languageTag"
+							   th:value="${userDto?.languageTag}">
 					</td>
 				</tr>
 				
-				
-				<tr th:unless="${user.phones == null}" th:each="phone,stat : ${user.phones}">
-					<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
-						Phone name
-					</th>
-					<td th:text="${phone.phone}">
-						Phone
-					</td>
-					<td>
-<!--						<input type="tel" th:value="${phone}" th:name="user.phones">-->
-						<input th:field="*{phones[__${stat.index}__]}">
-					</td>
-					<!--					<td class="errorMessage" th:if="${#fields.hasErrors('user.phones')}" th:errors="*{user.phones}">-->
-					<!--						Possible error-->
-					<!--					</td>-->
-				</tr>
+				<th:block th:unless="${userDto.phones == null}" th:each="phone,stat : ${userDto.phones}">
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
+							Phone name
+						</th>
+						<td th:text="${phone.phone}">
+							Phone
+						</td>
+						<td>
+							<input type="tel" th:value="${phone.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
+							<input type="hidden" th:field="*{phones[__${stat.index}__]?.name}">
+							<input type="hidden" th:field="*{phones[__${stat.index}__].identifier}">
+						</td>
+						<td>
+							<button class="deleteButton" th:value="${phone.identifier}"
+									th:title="#{html.button.title.deletePhone}">
+								X
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="errorMessage"
+								  th:if="${#fields.hasErrors('phones['+__${stat.index}__+'].phone')}"
+								  th:errors="*{phones[__${stat.index}__].phone}"></span>
+						</td>
+					</tr>
+				</th:block>
 				
 				<tr>
 					<td></td>

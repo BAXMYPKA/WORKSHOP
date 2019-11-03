@@ -1,6 +1,8 @@
 package workshop.controllers.external;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,9 @@ public class ProfileController extends WorkshopControllerAbstract {
 	private ModelMapper modelMapper;
 	
 	@Autowired
+	private UserDto userDto;
+	
+	@Autowired
 	private UsersService usersService;
 	
 	/**
@@ -54,7 +59,8 @@ public class ProfileController extends WorkshopControllerAbstract {
 					authentication.getName() + " not found in the DataBase!",
 					HttpStatus.NOT_FOUND,
 					messageSource.getMessage("message.notFound(1)", new Object[]{authentication.getName()}, locale)));
-			model.addAttribute("user", userByLogin);
+			userDto.setUser(userByLogin);
+			model.addAttribute("userDto", userDto);
 		}
 		return "profile";
 	}
@@ -64,30 +70,11 @@ public class ProfileController extends WorkshopControllerAbstract {
 							  @ModelAttribute(name = "userDto") UserDto userDto, BindingResult bindingResult,
 							  Model model, Locale locale) {
 		
-		System.out.println(userDto.getPhones());
-		
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors());
-//			model.addAttribute("errors", bindingResult);
 			return "profile";
 		}
 		return "redirect:/profile";
 	}
 	
-/*
-	@ModelAttribute(name = "user")
-	public void setUser(Model model, Authentication authentication, Locale locale) {
-		if (authentication == null || authentication.getPrincipal().toString().equals("Anonymous")) {
-			return;
-		} else {
-			User userByLogin = usersService.findByLogin(authentication.getName())
-				.orElseThrow(() -> new EntityNotFoundException(
-					authentication.getName()+" not found in the DataBase!",
-					HttpStatus.NOT_FOUND,
-					messageSource.getMessage("message.notFound(1)", new Object[]{authentication.getName()}, locale)));
-			model.addAttribute("user", userByLogin);
-		}
-	}
-*/
 }
 

@@ -135,7 +135,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 		@PathVariable(name = "id") long id,
 		@PathVariable(name = "phoneId") Long phoneId) {
 		
-		phonesService.deletePhoneFromEmployee(id, phoneId);
+		phonesService.removePhoneFromEmployee(id, phoneId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT)
 			.body(getDeleteMessageSuccessLocalized("Phone.ID" + phoneId));
 	}

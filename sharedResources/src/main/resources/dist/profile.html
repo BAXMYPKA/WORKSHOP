@@ -130,6 +130,18 @@
 					</td>
 				</tr>
 				
+				<tr>
+					<th th:text="#{properties.created}">
+						Profile created
+					</th>
+					<td th:text="${#temporals.format(userDto?.created, 'yyyy-MM-dd	HH:mm:ss.SSSXXX')}">
+						User profile creation date
+					</td>
+					<td>
+						<input type="hidden" th:field="*{created}" th:value="${userDto?.created}">
+					</td>
+				</tr>
+				
 				<th:block th:unless="${userDto.phones == null}" th:each="phone,stat : ${userDto.phones}">
 					<tr>
 						<td></td>

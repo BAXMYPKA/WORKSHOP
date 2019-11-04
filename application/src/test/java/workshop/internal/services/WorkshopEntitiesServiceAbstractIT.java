@@ -339,7 +339,7 @@ class WorkshopEntitiesServiceAbstractIT {
 		employeesService.persistEntities(employee1);
 		
 		//WHEN
-		phonesService.deletePhoneFromEmployee(employee1.getIdentifier(), phone1.getIdentifier());
+		phonesService.removePhoneFromEmployee(employee1.getIdentifier(), phone1.getIdentifier());
 		
 		Employee employeeWithSinglePhone2 = employeesService.findById(employee1.getIdentifier());
 		

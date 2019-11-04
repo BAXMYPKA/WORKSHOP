@@ -109,7 +109,7 @@ function deletePhone(phoneId) {
 		})
 		.catch((reject) => {
 			return reject;
-		})
+		});
 }
 
 function addPhone(phoneNum, phoneName) {

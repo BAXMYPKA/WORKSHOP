@@ -24,7 +24,7 @@ import java.util.Set;
 @ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user", "workshopEntityName"})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone extends WorkshopEntityAbstract {
 	
@@ -97,12 +97,11 @@ public class Phone extends WorkshopEntityAbstract {
 	@PreRemove
 	public void preRemove() {
 		if (user != null) {
-			Set<Phone> userPhones = new HashSet<>(user.getPhones());
-			boolean contains = userPhones.contains(this);
-			userPhones.forEach(phone1 -> System.out.println("INCLUDED HASH: "+phone1.hashCode()));
-			System.out.println("THIS HASH: "+this.hashCode());
-			userPhones.remove(this);
-			user.setPhones(userPhones);
+//			Set<Phone> userPhones = new HashSet<>(user.getPhones());
+//			boolean contains = userPhones.contains(this);
+//			userPhones.forEach(phone1 -> System.out.println("INCLUDED HASH: "+phone1.hashCode()));
+//			System.out.println("THIS HASH: "+this.hashCode());
+			user.getPhones().remove(this);
 		} else if (employee != null) {
 			employee.getPhones().remove(this);
 		}

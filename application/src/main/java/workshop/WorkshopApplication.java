@@ -11,8 +11,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.TimeZone;
 
 @SpringBootApplication(scanBasePackages = {"workshop"})
 @EntityScan(basePackages = "workshop.internal.entities")
@@ -27,6 +29,11 @@ public class WorkshopApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(WorkshopApplication.class, args);
+	}
+	
+	@PostConstruct
+	public void setTimeZone() {
+		TimeZone.setDefault(TimeZone.getDefault());
 	}
 	
 	@Bean(initMethod = "start", destroyMethod = "stop")

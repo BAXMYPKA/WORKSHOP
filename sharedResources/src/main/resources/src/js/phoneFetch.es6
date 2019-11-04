@@ -10,7 +10,7 @@ export function deletePhone(phoneId) {
 		})
 		.catch((reject) => {
 			return reject;
-		})
+		});
 }
 
 export function addPhone(phoneNum, phoneName) {

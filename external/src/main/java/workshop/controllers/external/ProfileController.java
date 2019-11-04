@@ -20,6 +20,7 @@ import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.services.PhonesService;
 import workshop.internal.services.UsersService;
 
 import javax.validation.groups.Default;
@@ -40,6 +41,9 @@ public class ProfileController extends WorkshopControllerAbstract {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private PhonesService phonesService;
 	
 	/**
 	 * By every request adds the "user" attribute as the {@link User} obtained from the given {@link Authentication}
@@ -73,6 +77,9 @@ public class ProfileController extends WorkshopControllerAbstract {
 		if (bindingResult.hasErrors()) {
 			return "profile";
 		}
+		
+		User user = modelMapper.map(userDto, User.class);
+		user = usersService.mergeEntity(user);
 		return "redirect:/profile";
 	}
 	

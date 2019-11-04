@@ -24,7 +24,7 @@ module.exports = {
 	},
 	watchOptions: {
 		aggregateTimeout: 500,
-		poll: 800
+		poll: 1000
 	},
 	module: {
 		rules: [

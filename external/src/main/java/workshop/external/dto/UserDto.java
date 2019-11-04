@@ -54,7 +54,7 @@ public class UserDto implements Serializable {
 	@EqualsAndHashCode.Include
 	private String email;
 	
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@PastOrPresent(message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	

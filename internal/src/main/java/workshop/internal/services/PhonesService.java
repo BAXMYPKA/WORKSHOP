@@ -2,16 +2,17 @@ package workshop.internal.services;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.dao.EmployeesDao;
 import workshop.internal.dao.PhonesDao;
-import workshop.internal.dao.UsersDao;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Phone;
 import workshop.internal.exceptions.EntityNotFoundException;
@@ -24,8 +25,6 @@ import java.util.Optional;
 @Service
 public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 	
-	@Autowired
-	private UsersDao usersDao;
 	@Autowired
 	private EmployeesDao employeesDao;
 	
@@ -63,6 +62,7 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 	 * @return Non-paged "Collection<Phone>" or throw EntityNotFoundException
 	 * @throws EntityNotFoundException If no such "Employee" or "Employee.Set<Phone>" was found.
 	 */
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = true, isolation = Isolation.READ_COMMITTED)
 	public Page<Phone> findAllPhonesByEmployee(Pageable pageable, Long employeeId) throws EntityNotFoundException {
 		
 		super.verifyIdForNullZeroBelowZero(employeeId);
@@ -135,7 +135,7 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 	 * @throws EntityNotFoundException      If a given Employee of Phone doesn't exist.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
-	public void deletePhoneFromEmployee(Long employeeId, Long phoneId)
+	public void removePhoneFromEmployee(Long employeeId, Long phoneId)
 		throws InternalServerErrorException, EntityNotFoundException {
 		
 		Phone phone = getWorkshopEntitiesDaoAbstract().findById(phoneId).orElseThrow(() ->
@@ -143,11 +143,29 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 		
 		if (phone.getEmployee().getIdentifier().equals(employeeId)) {
 			Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
-				getEntityNotFoundException("Employee.ID="+employeeId));
+				getEntityNotFoundException("Employee.ID=" + employeeId));
 			employee.getPhones().remove(phone);
 			getWorkshopEntitiesDaoAbstract().removeEntity(phone);
 		} else {
 			throw getEntityNotFoundException("Employee.ID=" + employeeId);
 		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	@Override
+	public void removeEntity(long phoneId) throws IllegalArgumentException, EntityNotFoundException {
+		super.verifyIdForNullBelowZero(phoneId);
+		Phone phone = getWorkshopEntitiesDaoAbstract().findById(phoneId).orElseThrow(() ->
+			new EntityNotFoundException(
+				"No " + getEntityClass().getSimpleName() + " for identifier=" + phoneId + " was found to be deleted!",
+				HttpStatus.NOT_FOUND,
+				getMessageSource().getMessage("error.removeNotFoundFailure(2)",
+					new Object[]{getEntityClass().getSimpleName(), phoneId}, LocaleContextHolder.getLocale())));
+		if (phone.getUser() != null) {
+			phone.getUser().getPhones().removeIf(phone1 -> phone1.getIdentifier().equals(phoneId));
+		} else if (phone.getEmployee() != null) {
+			phone.getEmployee().getPhones().removeIf(phone1 -> phone1.getIdentifier().equals(phoneId));
+		}
+		getWorkshopEntitiesDaoAbstract().removeEntity(phone);
 	}
 }

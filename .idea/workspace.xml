@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/external/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/external/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/EmployeesRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/internal/rest/EmployeesRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/profile.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/profile.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/phoneFetch.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/phoneFetch.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,7 +172,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="Compound.Watch and Debug">
+    <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
+      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType">
+      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <method v="2" />
+    </configuration>
     <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <option name="PACKAGE_NAME" value="" />
@@ -280,6 +296,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Compound.Watch and Debug" />
       <item itemvalue="JUnit.All in application" />
       <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" />
       <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" />
@@ -365,6 +382,9 @@
       <workItem from="1572523955555" duration="5557000" />
       <workItem from="1572766021910" duration="16889000" />
       <workItem from="1572787536642" duration="12455000" />
+      <workItem from="1572806482650" duration="1297000" />
+      <workItem from="1572851461262" duration="1934000" />
+      <workItem from="1572857304212" duration="4045000" />
     </task>
     <servers />
   </component>
@@ -383,5 +403,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ProfileController.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

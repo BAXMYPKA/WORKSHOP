@@ -30,7 +30,7 @@ public class UserAuditorAware implements AuditorAware<User> {
 		if (login == null || login.isEmpty()){
 			return Optional.empty();
 		} else {
-			return usersService.findByLogin(login);
+			return Optional.of(usersService.findByLogin(login));
 		}
 	}
 }

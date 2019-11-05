@@ -42,11 +42,13 @@ public class Employee extends WorkshopAudibleEntityAbstract {
 	
 	@Column(name = "first_name", nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notBlank}")
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column(name = "last_name", nullable = false, length = 100)
 	@NotBlank(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notBlank}")
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
@@ -57,7 +59,7 @@ public class Employee extends WorkshopAudibleEntityAbstract {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(nullable = false, length = 255) //Uses for storing BCrypt encoded passwords with the min length = 60
-	@Pattern(groups = {Persist.class}, regexp = "\\w{5,}", message = "{validation.passwordStrength}")
+	@Pattern(regexp = "^[\\p{LD}-_+=()*&%$#@!<>\\[\\{\\]\\}\\'\\\"\\;\\:\\?\\/]{5,36}$", message = "{validation.passwordStrength}")
 	private String password;
 	
 	@Column(nullable = false, length = 100)

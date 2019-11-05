@@ -18,10 +18,9 @@
 	
 	<div class="profileTableContainer">
 		
-		<form class="userProfileForm" action="profile.html" method="POST" name="userDto"
+		<form class="userProfileForm" action="profile.html" method="post" name="userDto"
 			  th:object="${userDto}"
 			  th:action="@{/profile}">
-			
 			<input type="hidden" th:field="*{identifier}">
 			
 			<table class="userProfileTable" th:unless="${userDto == null}">
@@ -29,6 +28,7 @@
 				<caption title th:text="#{html.thead.profile.tableName}">
 					User profile details
 				</caption>
+				
 				<tr>
 					<th th:text="#{properties.firstName}">
 						First name
@@ -131,24 +131,30 @@
 				</tr>
 				
 				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
 					<th th:text="#{properties.created}">
 						Profile created
 					</th>
-					<td th:text="${#temporals.format(userDto?.created, 'yyyy-MM-dd	HH:mm:ss.SSSXXX')}">
+					<td th:text="${#temporals.format(userDto?.created, 'yyyy-MM-dd	HH:mm')}">
 						User profile creation date
 					</td>
 					<td>
 						<input type="hidden" th:field="*{created}" th:value="${userDto?.created}">
 					</td>
 				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
 				
 				<th:block th:unless="${userDto.phones == null}" th:each="phone,stat : ${userDto.phones}">
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
 					<tr th:id="${'phoneId='+phone.identifier}">
 						<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
 							Phone name
@@ -160,6 +166,7 @@
 							<input type="tel" th:value="${phone.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
 							<input type="hidden" th:field="*{phones[__${stat.index}__]?.name}">
 							<input type="hidden" th:field="*{phones[__${stat.index}__].identifier}">
+							<!--							<input type="hidden" th:field="*{phones[__${stat.index}__].user}">-->
 						</td>
 						<td>
 							<button class="deleteButton" th:value="${phone.identifier}"
@@ -167,12 +174,6 @@
 								X
 							</button>
 						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 					</tr>
 					<tr>
 						<td colspan="4" th:id="${'phoneErrorId='+phone.identifier}">

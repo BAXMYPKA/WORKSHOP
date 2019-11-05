@@ -56,10 +56,12 @@ public class User extends WorkshopEntityAbstract {
 	private Long identifier;
 	
 	@Column
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
@@ -69,7 +71,7 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
-	@Pattern(regexp = "^(\\w){5,36}$", message = "{validation.passwordStrength}")
+	@Pattern(regexp = "^[\\p{LD}-_+=()*&%$#@!<>\\[{\\]}'\";:?/]{5,254}$", message = "{validation.passwordStrength}")
 	private String password;
 	
 	/**
@@ -80,8 +82,8 @@ public class User extends WorkshopEntityAbstract {
 	@EqualsAndHashCode.Include
 	private String email;
 	
-	@Column(nullable = false)
-	@PastOrPresent(message = "{validation.pastOrPresent}")
+	@Column(nullable = false, updatable = false)
+	@PastOrPresent(groups = {Persist.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	@Column

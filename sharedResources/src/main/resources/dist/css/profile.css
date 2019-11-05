@@ -22,3 +22,7 @@
 	font-weight: bolder;
 	border-radius: 50%;
 }
+
+.deleteButton:hover {
+	background-color: firebrick;
+}

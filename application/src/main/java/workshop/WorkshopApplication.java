@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.TimeZone;
 
@@ -33,7 +35,7 @@ public class WorkshopApplication {
 	
 	@PostConstruct
 	public void setTimeZone() {
-		TimeZone.setDefault(TimeZone.getDefault());
+//		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Moscow"));
 	}
 	
 	@Bean(initMethod = "start", destroyMethod = "stop")

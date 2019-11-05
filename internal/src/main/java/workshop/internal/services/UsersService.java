@@ -67,10 +67,8 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	 * @return Optional.ofNullable
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public Optional<User> findByLogin(String emailOrPhone) {
-		Optional user = usersDao.findByEmail(emailOrPhone).isPresent() ? usersDao.findByEmail(emailOrPhone) :
-			usersDao.findByPhone(emailOrPhone);
-		return user;
+	public User findByLogin(String emailOrPhone) {
+		return usersDao.findByEmail(emailOrPhone).orElseThrow(() -> getEntityNotFoundException("User"));
 	}
 	
 	/**

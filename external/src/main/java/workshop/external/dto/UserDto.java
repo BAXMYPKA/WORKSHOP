@@ -29,31 +29,36 @@ import java.util.*;
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserDto implements Serializable {
 	
+	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
+	
 	private User user;
 	
 	private List<@Valid Phone> phones = new ArrayList<>(2);
 	
-	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
-	
-	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@NotNull(message = "{validation.notNull}")
+	@Positive(message = "{validation.positive}")
 	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
+	@NotEmpty(message = "{validation.notNull}")
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
-	@Pattern(regexp = "^(\\w){5,36}$", message = "{validation.passwordStrength}")
-	private String password;
+//	@Pattern(regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
+//	private String password;
 	
+	@NotEmpty(message = "{validation.notNull}")
 	@Email(message = "{validation.email}")
 	@EqualsAndHashCode.Include
 	private String email;
 	
+	@NotNull(message = "{validation.notNull}")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@PastOrPresent(message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;

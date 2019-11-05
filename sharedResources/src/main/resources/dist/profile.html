@@ -185,6 +185,31 @@
 				</th:block>
 				
 				<tr>
+					<th th:utext="#{properties.phone} + #{properties.phoneNotice}">
+						Phone
+					</th>
+					<td>
+						<input type="text" placeholder="Phone name" name="newPhoneName"
+							   th:placeholder="#{properties.phoneName}">
+					</td>
+					<td>
+						<input type="tel" placeholder="Phone number" name="newPhoneNumber"
+							   th:placeholder="#{properties.phoneNumber}">
+					</td>
+					<td>
+						<button class="addButton"
+								th:title="#{html.button.title.addPhone}">
+							V
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td hidden colspan="4" id="phoneErrorIdNew">
+						<span class="errorMessage" id="phoneErrorNew"></span>
+					</td>
+				</tr>
+				
+				<tr>
 					<td></td>
 					<td></td>
 					<td>

@@ -14,6 +14,22 @@ export function deletePhone(phoneId) {
 }
 
 export function addPhone(phoneNum, phoneName) {
-
-}
+	let phoneForm = new FormData;
+	phoneForm.append("name", phoneName);
+	phoneForm.append("phone", phoneNum);
+	
+	return fetch("http://localhost:18080/workshop.pro/ajax/phones",
+		{
+			method: "POST",
+			credentials: "same-origin",
+			body: phoneForm
+		});
+		// .then((promise) => {
+		// 	// console.log(promise.json());
+		// 	return promise;
+		// });
+		// .catch((promise) => {
+		// 	return promise;
+		// })
+};
 

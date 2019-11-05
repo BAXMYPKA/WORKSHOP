@@ -26,3 +26,16 @@
 .deleteButton:hover {
 	background-color: firebrick;
 }
+
+.addButton {
+	width: 1.8em;
+	height: 1.8em;
+	background-color: green;
+	color: white;
+	font-weight: bolder;
+	border-radius: 50%;
+}
+
+.addButton:hover {
+	background-color: darkgreen;
+}

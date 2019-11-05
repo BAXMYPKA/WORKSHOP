@@ -1,6 +1,6 @@
-import {passwordCheck} from './passwordCheck.es6';
-import {emailRegexpCheck, userEmailExist} from "./emailCheck.es6";
-import workshopEntityExist from "./workshopEntityExist.es6";
+// import {passwordCheck} from './passwordCheck.es6';
+import {emailRegexpCheck, userEmailExist, passwordCheck} from "./verifications.es6";
+// import workshopEntityExist from "./workshopEntityExist.es6";
 
 const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
 const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";

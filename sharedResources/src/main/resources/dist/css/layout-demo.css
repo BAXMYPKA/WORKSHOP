@@ -45,6 +45,8 @@
 }
 
 .mtb {
+	opacity: 0.2;
+	transform: revert;
 	width: 48px;
 	height: 48px;
 }

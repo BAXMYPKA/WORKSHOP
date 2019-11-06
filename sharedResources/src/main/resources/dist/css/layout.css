@@ -45,6 +45,11 @@
 }
 
 .mtb {
+	opacity: 0.9;
+	transform: rotate(-360deg);
+	transition: all;
+	transition-duration: 4s;
+	transition-timing-function: ease-in-out;
 	width: 48px;
 	height: 48px;
 }

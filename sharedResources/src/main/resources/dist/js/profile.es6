@@ -298,7 +298,7 @@ function phoneNumberCheck(phoneNumber) {
 
 function phoneNameCheck(phoneName) {
 	
-	let phoneNameRegexp = /^[\w\sа-яА-Я]{2,15}$/;
+	let phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
 	
 	if (typeof phoneName !== "string") {
 		return false;

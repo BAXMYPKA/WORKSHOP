@@ -1,3 +1,8 @@
+.ordersHref {
+	display: block;
+	align-self: center;
+}
+
 .ordersTableContainer {
 	align-self: center;
 	display: flex;

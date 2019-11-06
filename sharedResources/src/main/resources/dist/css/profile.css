@@ -1,6 +1,6 @@
-.ordersA {
-	/*display: block;*/
-	text-decoration: none;
+.ordersHref {
+	display: block;
+	/*text-decoration: none;*/
 	align-self: center;
 }
 

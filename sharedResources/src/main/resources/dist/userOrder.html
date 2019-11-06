@@ -1,0 +1,151 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../dist/css/userOrder.css" th:href="@{/dist/css/userOrder.css}">
+	<script src="../src/js/userOrder.es6" th:src="@{/dist/js/userOrder.es6}" defer></script>
+	<title th:text="#{html.a.title.userOrder}">Your Order</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<a class="ordersHref" href="./userOrders.html" th:href="@{/profile/orders}">
+		<h1 th:text="#{html.h1.orders}">Your Orders</h1>
+	</a>
+	
+	<h1 th:text="#{html.a.title.userOrder}">Order</h1>
+	
+	<div class="orderTableContainer">
+		
+		<table class="userOrderTable" th:unless="${order == null}">
+			
+			<caption title th:text="#{html.thead.profile.orderDetails}">
+				User Order details
+			</caption>
+			
+			<tr>
+				<th th:text="#{properties.id}">
+					OrderID
+				</th>
+				<th th:text="#{properties.created}">
+					Created
+				</th>
+				<th th:text="#{properties.finished}">
+					Finished
+				</th>
+				<th th:text="#{properties.description}">
+					Description
+				</th>
+				<th th:text="#{properties.messageToUser}">
+					Message to User
+				</th>
+				<th th:text="#{properties.overallPrice}">
+					Overall Price
+				</th>
+				<th th:text="#{properties.tasks}">
+					TASKS
+				</th>
+			
+			</tr>
+			
+			<tr>
+				<td>
+					<a href="orderId"
+					   th:href="@{/profile/orders/__${order?.identifier}__}"
+					   th:text="${order?.identifier}">
+						OrderId
+					</a>
+				</td>
+				<td th:text="${#temporals.format(order?.created, 'dd-MM-yyyy')}">
+					Created
+				</td>
+				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy')}">
+					Finished
+				</td>
+				<td th:utext="${order?.description}">
+					Description
+				</td>
+				<td th:utext="${order?.messageToUser}">
+					Message to User
+				</td>
+				<td th:text="${order?.overallPrice}">
+					Overall price
+				</td>
+				<td>
+					<a class="unrollHref" th:text="#{properties.unroll}" href="">
+						UNROLL
+					</a>
+				</td>
+			</tr>
+		
+		</table>
+		
+		<!--	HIDDEN TASKS TABLE	-->
+		
+		<table hidden class="orderTasksTable" th:unless="${order.tasks == null}">
+			
+			<caption title th:text="#{html.thead.profile.tasks}">
+				Order Tasks details
+			</caption>
+			
+			<tr>
+				<th th:text="#{properties.id}">
+					TaskID
+				</th>
+				<th th:text="#{properties.name}">
+					Name
+				</th>
+				<th th:text="#{properties.created}">
+					Created
+				</th>
+				<th th:text="#{properties.deadline}">
+					Deadline
+				</th>
+				<th th:text="#{properties.finished}">
+					Finished
+				</th>
+				<th th:text="#{properties.price}">
+					Price
+				</th>
+				<th th:text="#{properties.appointedTo}">
+					Accountable person
+				</th>
+			</tr>
+			
+			<tr th:each="task : ${order.tasks}">
+				<td th:text="${task?.identifier}">
+					Task ID
+				</td>
+				<td th:utext="${task?.name}">
+					Task name
+				</td>
+				<td th:text="${#temporals.format(task?.created, 'dd-MM-yyyy HH:mm')}">
+					Created
+				</td>
+				<td th:text="${#temporals.format(task?.deadline, 'dd-MM-yyyy HH:mm')}">
+					Deadline
+				</td>
+				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy HH:mm')}">
+					Finished
+				</td>
+				<td th:text="${task?.price}">
+					Overall price
+				</td>
+				<td th:text="${task?.appointedTo?.lastName + ' ' + task?.appointedTo?.firstName}">
+					Accountable person
+				</td>
+			</tr>
+		
+		</table>
+	
+	</div>
+
+</th:block>
+
+</body>
+</html>

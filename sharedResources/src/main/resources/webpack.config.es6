@@ -5,7 +5,8 @@ module.exports = {
 	mode: 'development',
 	entry: {
 		index: './src/js/index.es6',
-		profile: './src/js/profile.es6'
+		profile: './src/js/profile.es6',
+		userOrder: './src/js/userOrder.es6'
 	},
 	devtool: 'source-map',
 	plugins: [

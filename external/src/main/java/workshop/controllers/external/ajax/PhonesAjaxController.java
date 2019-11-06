@@ -7,43 +7,41 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import workshop.controllers.utils.ErrorMessagesJsonMapper;
 import workshop.internal.entities.Phone;
+import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.services.PhonesService;
+import workshop.internal.services.UsersService;
 
 @Controller
 @RequestMapping(path = "/ajax")
 public class PhonesAjaxController {
 	
 	@Autowired
+	private ErrorMessagesJsonMapper errorMessagesJsonMapper;
+	
+	@Autowired
 	private PhonesService phonesService;
 	
+	@Autowired
+	private UsersService usersService;
+	
 	@PostMapping(path = "/phones", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> postPhone(@Validated({Persist.class}) @ModelAttribute(name = "phone") Phone phone,
-		BindingResult bindingResult) {
+	public ResponseEntity<String> postPhone(@Validated({Persist.class}) @ModelAttribute(name = "phone")
+		Phone phone, BindingResult bindingResult, Authentication authentication) {
 		
 		if (bindingResult.hasErrors()) {
-			StringBuilder errors = new StringBuilder();
-			for (ObjectError objectError : bindingResult.getAllErrors()) {
-				errors.append("\"errorFieldName\":\"")
-					.append(objectError.getObjectName())
-					.append("\",")
-					.append("\"errorFieldMessage\":\"")
-					.append(objectError.getDefaultMessage().replace("'", "\"").replace("+", "\\+"))
-					.append("\"");
-			}
-			errors.insert(0, "{").insert(errors.length(), "}");
-			
-			bindingResult.getAllErrors().stream()
-				.forEach(objectError -> {
-						System.out.println(objectError.getObjectName() + " + " + objectError.getDefaultMessage());
-					}
-				);
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errors.toString());
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+				.body(errorMessagesJsonMapper.convertBindingResultToJson(bindingResult));
 		}
+		User user = usersService.findByLogin(authentication.getName());
+		phone.setUser(user);
+		phonesService.persistEntity(phone);
+		user.getPhones().add(phone);
+		usersService.mergeEntity(user);
 		return ResponseEntity.ok().build();
 	}
 	

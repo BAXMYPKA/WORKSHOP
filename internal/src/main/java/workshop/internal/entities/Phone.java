@@ -41,6 +41,9 @@ public class Phone extends WorkshopEntityAbstract {
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
+	@Size(min = 2, max = 50, message = "{validation.sizeMin3Max50}")
+	@Pattern(groups = {Persist.class, Default.class}, regexp = "^[\\p{L}\\d]{2,50}$",
+			 message = "{validation.pattern.phoneName}")
 	@Column(unique = false)
 	private String name;
 	

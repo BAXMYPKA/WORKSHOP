@@ -48,43 +48,40 @@ phoneNumberInput.addEventListener("input", (inputNumberEvent) => {
 addPhoneButton.addEventListener("click", (buttonEvent) => {
 	buttonEvent.preventDefault();
 	
-	// if (phoneNameInput.style.color.match("red") || phoneNumberInput.style.color.match("red")) {
-	// 	let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-	// 	phoneErrorTd.hidden = false;
-	// 	let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-	// 	phoneErrorMessageSpan.textContent = PHONE_NAME_OR_NUMBER_ERROR_MESSAGE;
-	// 	return;
-	// } else {
-	// 	let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-	// 	phoneErrorTd.hidden = true;
-	// }
+	if (phoneNameInput.style.color.match("red") || phoneNumberInput.style.color.match("red")) {
+		let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+		phoneErrorTd.hidden = false;
+		let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
+		phoneErrorMessageSpan.textContent = PHONE_NAME_OR_NUMBER_ERROR_MESSAGE;
+		return;
+	} else {
+		let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+		phoneErrorTd.hidden = true;
+	}
 	
-	addPhone(phoneNumberInput.value.trim(), phoneNameInput.value.trim())
+	addPhone(phoneNumberInput.value.toString().trim(), phoneNameInput.value)
 		.then((result) => {
-			if (result.statusCode){
-				console.log("RESOLVED");
+			if (result.ok){
 				let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
 				phoneErrorTd.hidden = true;
 				let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
 				phoneErrorMessageSpan.textContent = "";
+				window.location.reload();
 			} else {
-				console.log("NOT RESOLVED");
 				result.json().then(json => {
 					let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
 					phoneErrorTd.hidden = false;
 					let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-					// let message = JSON.parse(json);
-					console.log(json);
-					// let j = '{"errorFieldName":"errorFieldValue"}';
-					let parsed = JSON.parse(json);
-					console.log("CESS: "+parsed['errorFieldName']);
-					console.log("MESS: "+JSON.parse(json)['errorFieldName']);
-					// phoneErrorMessageSpan.textContent = JSON.parse(JSON.stringify(json));
+					if (json['phone']){
+						phoneErrorMessageSpan.textContent = "Телефон: "+json['phone'];
+					}
+					if (json['name']) {
+						phoneErrorMessageSpan.textContent += " Имя: "+json['name'];
+					}
 				});
 			}
 		})
 		.catch((reject) => {
-			console.log("NETWORK ERROR");
 			let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
 			phoneErrorTd.hidden = false;
 			let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");

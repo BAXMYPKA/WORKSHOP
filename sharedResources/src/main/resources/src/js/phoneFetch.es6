@@ -24,12 +24,5 @@ export function addPhone(phoneNum, phoneName) {
 			credentials: "same-origin",
 			body: phoneForm
 		});
-		// .then((promise) => {
-		// 	// console.log(promise.json());
-		// 	return promise;
-		// });
-		// .catch((promise) => {
-		// 	return promise;
-		// })
 };
 

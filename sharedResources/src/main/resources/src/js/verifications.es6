@@ -36,7 +36,7 @@ export function passwordCheck(password) {
 
 export function phoneNumberCheck(phoneNumber) {
 	
-	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,25}$/;
+	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
 	
 	if (typeof phoneNumber !== "string") {
 		return false;
@@ -48,7 +48,7 @@ export function phoneNumberCheck(phoneNumber) {
 
 export function phoneNameCheck(phoneName) {
 	
-	let phoneNameRegexp = /^[\w\sа-яА-Я]{3,15}$/;
+	let phoneNameRegexp = /^[\w\sа-яА-Я]{2,15}$/;
 	
 	if (typeof phoneName !== "string") {
 		return false;

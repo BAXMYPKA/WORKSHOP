@@ -166,7 +166,6 @@
 							<input type="tel" th:value="${phone.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
 							<input type="hidden" th:field="*{phones[__${stat.index}__]?.name}">
 							<input type="hidden" th:field="*{phones[__${stat.index}__].identifier}">
-							<!--							<input type="hidden" th:field="*{phones[__${stat.index}__].user}">-->
 						</td>
 						<td>
 							<button class="deleteButton" th:value="${phone.identifier}"
@@ -207,6 +206,19 @@
 					<td hidden colspan="4" id="phoneErrorIdNew">
 						<span class="errorMessage" id="phoneErrorNew"></span>
 					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 				
 				<tr>

@@ -1,10 +1,4 @@
-.ordersA {
-	/*display: block;*/
-	text-decoration: none;
-	align-self: center;
-}
-
-.profileTableContainer {
+.ordersTableContainer {
 	align-self: center;
 	display: flex;
 	flex-direction: column;
@@ -38,7 +32,7 @@
 	height: 1.8em;
 	background-color: green;
 	color: white;
-	font-size: 0.9em;
+	font-size: 150%;
 	font-weight: bolder;
 	border-radius: 50%;
 }

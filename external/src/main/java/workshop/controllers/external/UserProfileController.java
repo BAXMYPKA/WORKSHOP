@@ -2,7 +2,6 @@ package workshop.controllers.external;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +23,7 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping(path = "/profile")
-public class ProfileController extends WorkshopControllerAbstract {
-	
-	@Autowired
-	private MessageSource messageSource;
+public class UserProfileController extends WorkshopControllerAbstract {
 	
 	@Autowired
 	private ModelMapper modelMapper;

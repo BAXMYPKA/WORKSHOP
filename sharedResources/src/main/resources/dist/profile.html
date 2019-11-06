@@ -6,13 +6,17 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/profile.css" th:href="@{/dist/css/profile.css}">
+	<link rel="stylesheet" href="../dist/css/profile.css" th:href="@{/dist/css/profile.css}">
 	<script src="../src/js/profile.es6" th:src="@{/dist/js/profile.es6}" defer></script>
 	<title th:text="#{html.a.title.profile}">Profile</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
+	
+	<a class="ordersA" href="./userOrders.html" th:href="@{/profile/orders}">
+		<h1 th:text="#{html.h1.orders}">Your Orders</h1>
+	</a>
 	
 	<h1 th:text="#{html.h1.profile}">Your profile</h1>
 	
@@ -159,23 +163,23 @@
 						<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
 							Phone name
 						</th>
-						<td th:text="${phone.phone}">
+						<td th:text="${phone?.phone}">
 							Phone
 						</td>
 						<td>
-							<input type="tel" th:value="${phone.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
+							<input type="tel" th:value="${phone?.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
 							<input type="hidden" th:field="*{phones[__${stat.index}__]?.name}">
-							<input type="hidden" th:field="*{phones[__${stat.index}__].identifier}">
+							<input type="hidden" th:field="*{phones[__${stat.index}__]?.identifier}">
 						</td>
 						<td>
-							<button class="deleteButton" th:value="${phone.identifier}"
+							<button class="deleteButton" th:value="${phone?.identifier}"
 									th:title="#{html.button.title.deletePhone}">
 								X
 							</button>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" th:id="${'phoneErrorId='+phone.identifier}">
+						<td colspan="4" th:id="${'phoneErrorId='+phone?.identifier}">
 							<span class="errorMessage"
 								  th:if="${#fields.hasErrors('phones['+__${stat.index}__+'].phone')}"
 								  th:errors="*{phones[__${stat.index}__].phone}"></span>
@@ -198,7 +202,7 @@
 					<td>
 						<button class="addButton"
 								th:title="#{html.button.title.addPhone}">
-							V
+							+
 						</button>
 					</td>
 				</tr>

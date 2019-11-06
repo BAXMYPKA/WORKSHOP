@@ -66,7 +66,7 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.addFilterAt(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/profile**", "/build**")
+			.antMatchers("/profile**", "/profile/**", "/build**")
 			.hasAuthority("READ-PROFILE")
 			.antMatchers("/**", "/login**")
 			.permitAll()

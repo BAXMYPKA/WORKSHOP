@@ -1,0 +1,76 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../dist/css/userOrders.css" th:href="@{/dist/css/userOrders.css}">
+	<script src="../src/js/userOrders.es6" th:src="@{/dist/js/userOrders.es6}" defer></script>
+	<title th:text="#{html.a.title.userOrders}">Your Orders</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<h1 th:text="#{html.h1.orders}">Your Orders</h1>
+	
+	<div class="ordersTableContainer">
+		
+		<table class="userOrdersTable" th:unless="${orders == null}">
+			
+			<caption title th:text="#{html.thead.profile.orders.ordersList}">
+				User Orders list
+			</caption>
+			
+			<tr>
+				<th th:text="#{properties.id}">
+					OrderID
+				</th>
+				<th th:text="#{properties.created}">
+					Created
+				</th>
+				<th th:text="#{properties.finished}">
+					Finished
+				</th>
+				<th th:text="#{properties.description}">
+					Description
+				</th>
+				<th th:text="#{properties.overallPrice}">
+					Overall Price
+				</th>
+			
+			</tr>
+			<tr th:each="order : ${orders}">
+				<td>
+					<a href="orderId"
+					   th:href="@{/profile/orders/__${order?.identifier}__}"
+					   th:text="${order?.identifier}">
+						OrderId
+					</a>
+				</td>
+				<td th:text="${#temporals.format(order?.created, 'dd-MM-yyyy')}">
+					Created
+				</td>
+				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy')}">
+					Finished
+				</td>
+				<td th:utext="${order?.description}">
+					Description
+				</td>
+				<td th:text="${order?.overallPrice}">
+					Overall price
+				</td>
+			</tr>
+		
+		</table>
+		
+		</form>
+	
+	</div>
+
+</th:block>
+
+</body>
+</html>

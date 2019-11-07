@@ -2,15 +2,14 @@ package workshop.controllers.external;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import workshop.controllers.WorkshopControllerAbstract;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
@@ -19,6 +18,8 @@ import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 
 import javax.validation.groups.Default;
+import java.awt.*;
+import java.io.IOException;
 import java.util.Locale;
 
 @Controller
@@ -67,8 +68,8 @@ public class UserProfileController extends WorkshopControllerAbstract {
 	 */
 	@PostMapping
 	public String putProfile(@Validated({Merge.class, Default.class})
-	@ModelAttribute(name = "userDto") UserDto userDto, BindingResult bindingResult,
-		Authentication authentication) {
+							 @ModelAttribute(name = "userDto") UserDto userDto, BindingResult bindingResult,
+							 Authentication authentication) {
 		if (bindingResult.hasErrors()) {
 			return "profile";
 		}
@@ -79,6 +80,27 @@ public class UserProfileController extends WorkshopControllerAbstract {
 		return "redirect:/profile";
 	}
 	
+	/**
+	 * If a give image exceeds the server size limit the
+	 * {@link org.springframework.web.multipart.MaxUploadSizeExceededException} will be intercepted and treated in the
+	 *  ExceptionHandlerController.maxUploadFileSizeExceeded() method.
+	 * @param photo {@link MultipartFile} with a photo
+	 * @return redirect to the User profile page if the photo is either null or empty or not an image.
+	 */
+	@PostMapping(path = "/photo",
+		consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+	public String postImage(@RequestParam(name = "photo") MultipartFile photo, Authentication authentication) {
+		if (photo.isEmpty() || photo.getContentType() == null ||!photo.getContentType().startsWith("image/")) {
+			return "redirect:/profile";
+		}
+		User user = usersService.findByLogin(authentication.getName());
+		try {
+			user.setPhoto(photo.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/profile";
+	}
 	
 	private void mapDtoToUserPhones(UserDto userDto, User user) {
 		user.getPhones().forEach(userPhone -> {

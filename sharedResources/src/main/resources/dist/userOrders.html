@@ -18,7 +18,7 @@
 	
 	<div class="ordersTableContainer">
 		
-		<table class="userOrdersTable" th:unless="${orders == null}">
+		<table class="userOrdersTable" th:unless="${orderDtos == null}">
 			
 			<caption title th:text="#{html.thead.profile.orders.ordersList}">
 				User Orders list
@@ -42,24 +42,24 @@
 				</th>
 			
 			</tr>
-			<tr th:each="order : ${orders}">
+			<tr th:each="orderDto : ${orderDtos}">
 				<td>
 					<a href="orderId"
-					   th:href="@{/profile/orders/__${order?.identifier}__}"
-					   th:text="${order?.identifier}">
+					   th:href="@{/profile/orders/__${orderDto?.identifier}__}"
+					   th:text="${orderDto?.identifier}">
 						OrderId
 					</a>
 				</td>
-				<td th:text="${#temporals.format(order?.created, 'dd-MM-yyyy')}">
+				<td th:text="${#temporals.format(orderDto?.created, 'dd-MM-yyyy')}">
 					Created
 				</td>
-				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy')}">
+				<td th:text="${#temporals.format(orderDto?.finished, 'dd-MM-yyyy')}">
 					Finished
 				</td>
-				<td th:utext="${order?.description}">
+				<td th:utext="${orderDto?.description}">
 					Description
 				</td>
-				<td th:text="${order?.overallPrice}">
+				<td th:text="${orderDto?.overallPrice}">
 					Overall price
 				</td>
 			</tr>

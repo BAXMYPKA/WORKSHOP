@@ -22,7 +22,7 @@
 	
 	<div class="orderTableContainer">
 		
-		<table class="userOrderTable" th:unless="${order == null}">
+		<table class="userOrderTable" th:unless="${orderDto == null}">
 			
 			<caption title th:text="#{html.thead.profile.orderDetails}">
 				User Order details
@@ -56,24 +56,24 @@
 			<tr>
 				<td>
 					<a href="orderId"
-					   th:href="@{/profile/orders/__${order?.identifier}__}"
-					   th:text="${order?.identifier}">
+					   th:href="@{/profile/orders/__${orderDto?.identifier}__}"
+					   th:text="${orderDto?.identifier}">
 						OrderId
 					</a>
 				</td>
-				<td th:text="${#temporals.format(order?.created, 'dd-MM-yyyy')}">
+				<td th:text="${#temporals.format(orderDto?.created, 'dd-MM-yyyy')}">
 					Created
 				</td>
-				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy')}">
+				<td th:text="${#temporals.format(orderDto?.finished, 'dd-MM-yyyy')}">
 					Finished
 				</td>
-				<td th:utext="${order?.description}">
+				<td th:utext="${orderDto?.description}">
 					Description
 				</td>
-				<td th:utext="${order?.messageToUser}">
+				<td th:utext="${orderDto?.messageToUser}">
 					Message to User
 				</td>
-				<td th:text="${order?.overallPrice}">
+				<td th:text="${orderDto?.overallPrice}">
 					Overall price
 				</td>
 				<td>
@@ -87,7 +87,7 @@
 		
 		<!--	HIDDEN TASKS TABLE	-->
 		
-		<table hidden class="orderTasksTable" th:unless="${order.tasks == null}">
+		<table hidden class="orderTasksTable" th:unless="${orderDto.tasks == null}">
 			
 			<caption title th:text="#{html.thead.profile.tasks}">
 				Order Tasks details
@@ -117,7 +117,7 @@
 				</th>
 			</tr>
 			
-			<tr th:each="task : ${order.tasks}">
+			<tr th:each="task : ${orderDto.tasks}">
 				<td th:text="${task?.identifier}">
 					Task ID
 				</td>
@@ -130,7 +130,7 @@
 				<td th:text="${#temporals.format(task?.deadline, 'dd-MM-yyyy HH:mm')}">
 					Deadline
 				</td>
-				<td th:text="${#temporals.format(order?.finished, 'dd-MM-yyyy HH:mm')}">
+				<td th:text="${#temporals.format(orderDto?.finished, 'dd-MM-yyyy HH:mm')}">
 					Finished
 				</td>
 				<td th:text="${task?.price}">

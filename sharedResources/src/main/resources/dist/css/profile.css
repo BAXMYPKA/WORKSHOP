@@ -1,5 +1,6 @@
 .ordersHref {
 	display: block;
+	margin-bottom: 0;
 	/*text-decoration: none;*/
 	align-self: center;
 }
@@ -8,6 +9,11 @@
 	align-self: center;
 	display: flex;
 	flex-direction: column;
+}
+
+.photoTableData {
+	opacity: 0.4;
+	text-align: center;
 }
 
 .buttonLogin {
@@ -23,10 +29,13 @@
 .deleteButton {
 	width: 1.8em;
 	height: 1.8em;
+	padding: 0;
+	border-radius: 50%;
+	text-align: center;
 	background-color: red;
 	color: white;
+	font-size: 0.9em;
 	font-weight: bolder;
-	border-radius: 50%;
 }
 
 .deleteButton:hover {
@@ -36,11 +45,13 @@
 .addButton {
 	width: 1.8em;
 	height: 1.8em;
+	padding: 0;
+	border-radius: 50%;
+	text-align: center;
 	background-color: green;
 	color: white;
 	font-size: 0.9em;
 	font-weight: bolder;
-	border-radius: 50%;
 }
 
 .addButton:hover {

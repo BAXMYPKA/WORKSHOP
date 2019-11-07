@@ -46,9 +46,17 @@
 
 .mtb {
 	opacity: 0.2;
-	transform: revert;
+	transition: all;
+	transition-duration: 1s;
 	width: 48px;
 	height: 48px;
+}
+
+.mtb:hover {
+	opacity: 0.4;
+	transform: scaleX(-1);
+	transition: all;
+	transition-duration: 1s;
 }
 
 .motto {

@@ -138,6 +138,12 @@ public class User extends WorkshopEntityAbstract {
 		inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
 	private Set<@Valid ExternalAuthority> externalAuthorities;
 	
+	@JsonIgnore
+	@Lob
+	@Column(length = 5242880) //5Mb
+	@Size(max = 5242880, message = "{validation.photoSize}")
+	private byte[] photo;
+	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;
 	}

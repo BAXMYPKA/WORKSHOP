@@ -8,12 +8,10 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.*;
-import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.hibernateValidation.Persist;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -23,7 +21,7 @@ import java.util.*;
 @Setter
 @Slf4j
 @ToString(of = {"identifier", "firstName", "email"})
-@groovy.transform.EqualsAndHashCode
+@EqualsAndHashCode
 @NoArgsConstructor
 @Component
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -75,6 +73,9 @@ public class UserDto implements Serializable {
 	private Collection<@Valid Order> orders;
 	
 	private Set<@Valid ExternalAuthority> externalAuthorities;
+	
+	@Size(max = 5242880, message = "{validation.photoSize}")
+	private byte[] photo;
 	
 	public void setUser(User user) {
 		BeanUtils.copyProperties(Objects.requireNonNull(user), this);

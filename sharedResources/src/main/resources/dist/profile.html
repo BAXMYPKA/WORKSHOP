@@ -22,17 +22,43 @@
 	
 	<div class="profileTableContainer">
 		
-		<form class="userProfileForm" action="profile.html" method="post" name="userDto"
-			  th:object="${userDto}"
-			  th:action="@{/profile}">
-			<input type="hidden" th:field="*{identifier}">
+		<table class="userProfileTable" th:unless="${userDto == null}">
 			
-			<table class="userProfileTable" th:unless="${userDto == null}">
-				
-				<caption title th:text="#{html.thead.profile.tableName}">
-					User profile details
-				</caption>
-				
+			<caption title th:text="#{html.thead.profile.tableName}">
+				User profile details
+			</caption>
+			
+			<form class="loadImageForm" action="profile.html" method="post" name="photo" enctype="multipart/form-data"
+				  th:if="${userDto.photo == null}" th:action="@{/profile/photo}">
+				<tr>
+					<th th:text="#{properties.photo}"></th>
+					<td class="photoTableData">
+						<img src="../dist/img/bicycle-logo.jpg" alt="User photo" width="70em" height="70em"
+							 th:alt="#{properties.photo}" th:src="@{/dist/img/bicycle-logo.jpg}">
+					</td>
+					<td>
+						<input type="file" name="photo">
+						<input type="submit" value="Load photo"
+							   th:value="#{properties.loadPhoto}"
+							   style="text-align: center; font-style: italic">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td colspan="3">
+						<span class="errorMessage">
+							Possible error
+						</span>
+					</td>
+				</tr>
+			
+			</form>
+			
+			<form class="userProfileForm" action="profile.html" method="post" name="userDto"
+				  th:object="${userDto}"
+				  th:action="@{/profile}">
+				<input type="hidden" th:field="*{identifier}">
 				<tr>
 					<th th:text="#{properties.firstName}">
 						First name
@@ -45,6 +71,7 @@
 					</td>
 				
 				</tr>
+				
 				<tr>
 					<td></td>
 					<td></td>
@@ -174,7 +201,7 @@
 						<td>
 							<button class="deleteButton" th:value="${phone?.identifier}"
 									th:title="#{html.button.title.deletePhone}">
-								X
+								x
 							</button>
 						</td>
 					</tr>
@@ -235,8 +262,8 @@
 						</button>
 					</td>
 				</tr>
-			
-			</table>
+		
+		</table>
 		
 		</form>
 	

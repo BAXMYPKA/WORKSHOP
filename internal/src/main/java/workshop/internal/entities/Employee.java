@@ -109,9 +109,6 @@ public class Employee extends WorkshopAudibleEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
-//	@JoinTable(name = "Employees_to_Positions", schema = "INTERNAL",
-//			   joinColumns = @JoinColumn(table = "Employees", name = "employee_id", referencedColumnName = "id"),
-//			   inverseJoinColumns = @JoinColumn(table = "Positions", name = "position_id", referencedColumnName = "id"))
 	@NotNull(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notNull}")
 	@Valid
 	private Position position;

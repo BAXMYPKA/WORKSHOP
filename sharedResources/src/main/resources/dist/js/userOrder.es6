@@ -101,7 +101,7 @@ unrollHref.addEventListener("click", (clickEvent) => {
 	clickEvent.preventDefault();
 	orderTasksTable.hidden = orderTasksTable.hidden ? false : true;
 	if (orderTasksTable.hidden) {
-		unrollHref.textContent = "РАЗВЕНУТЬ";
+		unrollHref.textContent = "РАЗВЕРНУТЬ";
 	} else {
 		unrollHref.textContent = "СВЕРНУТЬ";
 	}

@@ -1,10 +1,12 @@
 package workshop.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.thymeleaf.exceptions.TemplateAssertionException;
 import org.thymeleaf.exceptions.TemplateEngineException;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -31,6 +34,7 @@ import workshop.internal.exceptions.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -47,8 +51,12 @@ public class ExceptionHandlerController {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
+	
+	@Value("${spring.servlet.multipart.max-request-size}")
+	private String maxUploadImageSize;
 	
 	@ExceptionHandler({HttpMessageConversionException.class})
 	@ResponseBody
@@ -238,6 +246,15 @@ public class ExceptionHandlerController {
 		log.error(iex.getMessage(), iex);
 		return getResponseEntityWithErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, messageSource.getMessage(
 			"httpStatus.internalServerError.common", null, LocaleContextHolder.getLocale()));
+	}
+	
+	@ExceptionHandler({MaxUploadSizeExceededException.class})
+	public ResponseEntity<String> maxUploadFileSizeExceeded(MaxUploadSizeExceededException ex, Locale locale) {
+		log.info(ex.getMessage(), ex);
+		return getResponseEntityWithErrorMessage(HttpStatus.NOT_ACCEPTABLE, getMessageSource().getMessage(
+			"message.uploadImageSizeExceeded(1)",
+			new Object[]{maxUploadImageSize},
+			locale));
 	}
 	
 	@ExceptionHandler({Throwable.class})

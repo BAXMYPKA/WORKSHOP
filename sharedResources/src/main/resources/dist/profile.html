@@ -45,7 +45,9 @@
 							   style="text-align: center; font-style: italic">
 					</td>
 					<td>
-						<button id="deletePhotoButton" class="deleteButton" th:value="${userDto?.identifier}"
+						<button id="deletePhotoButton" class="deleteButton"
+								th:unless="${userDto.photo == null}"
+								th:value="${userDto?.identifier}"
 								th:title="#{html.button.title.deletePhoto}">
 							x
 						</button>

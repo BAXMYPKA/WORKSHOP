@@ -68,7 +68,7 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.authorizeRequests()
 			.antMatchers("/profile**", "/profile/**", "/build**")
 			.hasAuthority("READ-PROFILE")
-			.antMatchers("/**", "/login**")
+			.antMatchers("/**", "/login**", "/registration**", "/registration/**")
 			.permitAll()
 			.and()
 			.formLogin()

@@ -42,7 +42,7 @@ public class Phone extends WorkshopEntityAbstract {
 	private Long identifier;
 	
 	@Size(min = 2, max = 50, message = "{validation.sizeMin3Max50}")
-	@Pattern(groups = {Persist.class, Default.class}, regexp = "^[\\p{L}\\d]{2,50}\\s?[\\p{L}\\d]{2,50}$",
+	@Pattern(groups = {Persist.class, Default.class}, regexp = "^[\\p{LD}]{1,50}\\s?[\\p{LD}]{0,50}$",
 			 message = "{validation.pattern.phoneName}")
 	@Column(unique = false)
 	private String name;

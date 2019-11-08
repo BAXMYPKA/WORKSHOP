@@ -200,6 +200,7 @@ deletePhoneButton.forEach(function (button, key, parent) {
 					}
 				})
 		});
+		return;
 	};
 	
 	button.addEventListener("click", (buttonEvent) => {
@@ -267,7 +268,7 @@ addPhoneButton.addEventListener("click", (buttonEvent) => {
 						phoneErrorMessageSpan.textContent = "Телефон: " + json['phone'];
 					}
 					if (json['name']) {
-						phoneErrorMessageSpan.textContent += " Имя: " + json['name'];
+						phoneErrorMessageSpan.textContent = " Имя: " + json['name'];
 					}
 				});
 			}

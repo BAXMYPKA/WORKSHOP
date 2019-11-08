@@ -1,6 +1,8 @@
 package workshop.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,9 +29,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.exceptions.TemplateAssertionException;
 import org.thymeleaf.exceptions.TemplateEngineException;
 import org.thymeleaf.exceptions.TemplateProcessingException;
+import workshop.controllers.utils.UserMessagesJsonCreator;
 import workshop.internal.exceptions.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
@@ -40,8 +44,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Returns MediaType.APPLICATION_JSON_UTF8 with a JsonObject as:
- * {"errorMessage":"Localized exception message text."}
+ * Approaches differently for External and Internal parts of the application.
+ *
+ * For the Internal it should return MediaType.APPLICATION_JSON_UTF8 with a JsonObject as:
+ * {"userMessage":"Localized exception message text."}
+ * For the External it should either return the message as above and/or redirect User to another page.
  */
 @Slf4j
 @Getter
@@ -54,6 +61,9 @@ public class ExceptionHandlerController {
 	
 	@Autowired
 	private JsonServiceUtils jsonServiceUtils;
+	
+	@Autowired
+	private UserMessagesJsonCreator userMessagesJsonCreator;
 	
 	@Value("${spring.servlet.multipart.max-request-size}")
 	private String maxUploadImageSize;
@@ -255,6 +265,22 @@ public class ExceptionHandlerController {
 			"message.uploadImageSizeExceeded(1)",
 			new Object[]{maxUploadImageSize},
 			locale));
+	}
+	
+	@ExceptionHandler({JwtException.class, ExpiredJwtException.class})
+	public ResponseEntity jwtExceptions(JwtException jwte, HttpServletRequest request, Locale locale) {
+		log.info(jwte.getMessage(), jwte);
+		if (jwte instanceof ExpiredJwtException) {
+			String userMessage = messageSource.getMessage(
+				"message.jwtTokenExpired", null, locale);
+			if (!request.getHeader("Referer").contains("/internal/")) { //External redirection
+				return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).header("Location", "/").body(userMessage);
+			} else { //Internal error message
+				return ResponseEntity.status(HttpStatus.FORBIDDEN)
+					.body(userMessagesJsonCreator.getJsonMessageForUser(userMessage));
+			}
+		}
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 	}
 	
 	@ExceptionHandler({Throwable.class})

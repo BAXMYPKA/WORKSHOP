@@ -6,19 +6,17 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../dist/css/buildOrder.css" th:href="@{/dist/css/buildOrder.css}">
-	<script src="../src/js/buildOrder.es6" th:src="@{/dist/js/buildOrder.es6}" defer></script>
-	<title th:text="#{html.a.title.buildOrderOnline}">Build Order</title>
+	<link rel="stylesheet" href="../dist/css/registration.css" th:href="@{/dist/css/registration.css}">
+	<script src="../src/js/registration.es6" th:src="@{/dist/js/registration.es6}" defer></script>
+	<title th:text="#{html.a.title.registration}">Registration</title>
 </head>
 <body>
 
 <th:block layout:fragment="articleFragment">
 	
-	<h1 th:text="#{html.a.title.buildOrder}">Order building</h1>
+	<h1 th:text="#{html.h1.registration}">Registration</h1>
 	
-	<h2 th:text="#{properties.uderConstruction}">Under construction</h2>
-	
-	<div class="orderTableContainer">
+	<div class="registrationTableContainer">
 	
 	</div>
 

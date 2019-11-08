@@ -1,8 +1,11 @@
 package workshop.controllers.external;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import workshop.controllers.WorkshopControllerAbstract;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
@@ -22,6 +26,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Locale;
 
+@Slf4j
 @Controller
 @RequestMapping(path = "/profile")
 public class UserProfileController extends WorkshopControllerAbstract {
@@ -80,24 +85,48 @@ public class UserProfileController extends WorkshopControllerAbstract {
 		return "redirect:/profile";
 	}
 	
+	@GetMapping(path = "/{userDtoId}/photo")
+	public ResponseEntity getPhoto(@PathVariable(name = "userDtoId") Long userDtoId,
+								   Authentication authentication,
+								   Locale locale) {
+		User user = usersService.findByLogin(authentication.getName());
+		if (!user.getIdentifier().equals(userDtoId)) {
+			log.info("The requested user.id={} photo doesnt match logged User={}!", userDtoId, authentication.getName());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(getMessageSource().getMessage(
+				"message.loginNotValidForRequestedPhoto", null, locale));
+		}
+		return ResponseEntity.ok(user.getPhoto());
+	}
+	
 	/**
 	 * If a give image exceeds the server size limit the
 	 * {@link org.springframework.web.multipart.MaxUploadSizeExceededException} will be intercepted and treated in the
-	 *  ExceptionHandlerController.maxUploadFileSizeExceeded() method.
+	 * ExceptionHandlerController.maxUploadFileSizeExceeded() method.
+	 *
 	 * @param photo {@link MultipartFile} with a photo
 	 * @return redirect to the User profile page if the photo is either null or empty or not an image.
 	 */
 	@PostMapping(path = "/photo",
 		consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE})
-	public String postImage(@RequestParam(name = "photo") MultipartFile photo, Authentication authentication) {
-		if (photo.isEmpty() || photo.getContentType() == null ||!photo.getContentType().startsWith("image/")) {
+	public String postPhoto(@RequestParam(name = "photo") MultipartFile photo,
+							Authentication authentication,
+							Locale locale,
+							RedirectAttributes redirectAttributes) {
+		
+		if (photo.isEmpty() || photo.getContentType() == null || !photo.getContentType().startsWith("image/")) {
+			redirectAttributes.addAttribute("messageForUser", getMessageSource().getMessage(
+				"message.PhotoUploadError", null, locale));
 			return "redirect:/profile";
 		}
 		User user = usersService.findByLogin(authentication.getName());
 		try {
 			user.setPhoto(photo.getBytes());
+			usersService.mergeEntity(user);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.debug(e.getMessage(), e);
+			redirectAttributes.addAttribute("messageForUser", getMessageSource().getMessage(
+				"message.PhotoUploadError", null, locale));
+			return "redirect:/profile";
 		}
 		return "redirect:/profile";
 	}

@@ -1,9 +1,12 @@
 package workshop.controllers;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,10 @@ import java.util.stream.Collectors;
 @Controller
 @SessionAttributes(names = {"headerContentLanguageValue", "language", "loggedUsername"})
 public class WorkshopControllerAbstract implements WorkshopController {
+	
+	@Getter(AccessLevel.PROTECTED)
+	@Autowired
+	private MessageSource messageSource;
 	
 	/**
 	 * The value of http header 'Content-Language' for currently supported languages to be passed into views

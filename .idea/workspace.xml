@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserOrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserOrdersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/ErrorMessagesJsonMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/UserMessagesJsonCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/profile.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/profile.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +167,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="npm.Webpack --watch">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
@@ -396,6 +392,7 @@
       <workItem from="1573032548096" duration="21777000" />
       <workItem from="1573106804453" duration="24319000" />
       <workItem from="1573193017464" duration="7225000" />
+      <workItem from="1573204195737" duration="5698000" />
     </task>
     <servers />
   </component>

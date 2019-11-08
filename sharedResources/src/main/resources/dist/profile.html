@@ -34,7 +34,7 @@
 				<tr>
 					<th th:text="#{properties.photo}"></th>
 					<td class="photoTableData">
-						<img src="../dist/img/bicycle-logo.jpg" alt="User photo" width="70em" height="70em"
+						<img id="userPhoto" src="../dist/img/bicycle-logo.jpg" alt="User photo" width="70em" height="70em"
 							 th:alt="#{properties.photo}"
 							 th:src="@{${userDto.photo != null ? '/profile/' + (userDto?.identifier) + '/photo' : './dist/img/bicycle-logo.jpg'}}">
 					</td>
@@ -51,16 +51,16 @@
 						</button>
 				</tr>
 				<tr>
-					<td th:hidden="${#request.getParameter('messageForUser') == null && messageForUser == null}" colspan="3">
-						<span class="errorMessage" id="messageForUser"
-							  th:text="${#request.getParameter('messageForUser') != null ? #request.getParameter('messageForUser') : messageForUser}">
+					<td id="userMessageContainer"
+						th:hidden="${#request.getParameter('userMessage') == null && userMessage == null}" colspan="3">
+						<span class="errorMessage" id="userMessage"
+							  th:text="${#request.getParameter('userMessage') != null ? #request.getParameter('userMessage') : userMessage}">
 							Possible error
 						</span>
 					</td>
 				</tr>
 			
 			</form>
-			
 			
 			<form class="userProfileForm" action="profile.html" method="post" name="userDto"
 				  th:object="${userDto}"

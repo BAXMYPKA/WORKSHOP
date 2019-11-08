@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import workshop.controllers.utils.ErrorMessagesJsonMapper;
+import workshop.controllers.utils.UserMessagesJsonCreator;
 import workshop.internal.entities.Phone;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Persist;
@@ -21,7 +21,7 @@ import workshop.internal.services.UsersService;
 public class PhonesAjaxController {
 	
 	@Autowired
-	private ErrorMessagesJsonMapper errorMessagesJsonMapper;
+	private UserMessagesJsonCreator userMessagesJsonCreator;
 	
 	@Autowired
 	private PhonesService phonesService;
@@ -35,7 +35,7 @@ public class PhonesAjaxController {
 		
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-				.body(errorMessagesJsonMapper.convertBindingResultToJson(bindingResult));
+				.body(userMessagesJsonCreator.convertBindingResultToJson(bindingResult));
 		}
 		User user = usersService.findByLogin(authentication.getName());
 		phone.setUser(user);

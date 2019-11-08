@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import workshop.controllers.WorkshopControllerAbstract;
+import workshop.controllers.utils.UserMessagesJsonCreator;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Merge;
@@ -22,7 +23,6 @@ import workshop.internal.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 
 import javax.validation.groups.Default;
-import java.awt.*;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -33,6 +33,9 @@ public class UserProfileController extends WorkshopControllerAbstract {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private UserMessagesJsonCreator userMessagesJsonCreator;
 	
 	@Autowired
 	private UserDto userDto;
@@ -114,7 +117,7 @@ public class UserProfileController extends WorkshopControllerAbstract {
 							RedirectAttributes redirectAttributes) {
 		
 		if (photo.isEmpty() || photo.getContentType() == null || !photo.getContentType().startsWith("image/")) {
-			redirectAttributes.addAttribute("messageForUser", getMessageSource().getMessage(
+			redirectAttributes.addAttribute("userMessage", getMessageSource().getMessage(
 				"message.PhotoUploadError", null, locale));
 			return "redirect:/profile";
 		}
@@ -124,11 +127,27 @@ public class UserProfileController extends WorkshopControllerAbstract {
 			usersService.mergeEntity(user);
 		} catch (IOException e) {
 			log.debug(e.getMessage(), e);
-			redirectAttributes.addAttribute("messageForUser", getMessageSource().getMessage(
+			redirectAttributes.addAttribute("userMessage", getMessageSource().getMessage(
 				"message.PhotoUploadError", null, locale));
 			return "redirect:/profile";
 		}
 		return "redirect:/profile";
+	}
+	
+	@DeleteMapping(path = "/{userDtoId}/photo")
+	public ResponseEntity<String> deletePhoto(@PathVariable(name = "userDtoId") Long userDtoId,
+											  Authentication authentication,
+											  Locale locale) {
+		
+		User user = usersService.findByLogin(authentication.getName());
+		if (!user.getIdentifier().equals(userDtoId)) {
+			String jsonMessageForUser = userMessagesJsonCreator.getJsonMessageForUser(
+				getMessageSource().getMessage("message.loginNotValidForRequestedPhoto", null, locale));
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(jsonMessageForUser);
+		}
+		user.setPhoto(null);
+		usersService.mergeEntity(user);
+		return ResponseEntity.ok().build();
 	}
 	
 	private void mapDtoToUserPhones(UserDto userDto, User user) {

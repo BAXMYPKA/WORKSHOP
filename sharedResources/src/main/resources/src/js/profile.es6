@@ -1,16 +1,44 @@
 import {deletePhone, addPhone} from "./phoneFetch.es6";
 import {phoneNumberCheck, phoneNameCheck} from "./verifications.es6";
+import {deleteUserPhoto} from "./photoFetch.es6";
 
 const PHONE_DELETION_ERROR_MESSAGE = "Не удалось удалить телефон!";
 const PHONE_NAME_OR_NUMBER_ERROR_MESSAGE = "Имя или номер телефона содержат неверный формат!";
 const deletePhoneButton = document.querySelectorAll(".deleteButton");
 const addPhoneButton = document.querySelector(".addButton");
+// const deletePhotoButton = document.querySelector("#deletePhotoButton");
 let phoneIdToOperateOn;
 let phoneNameInput = document.querySelector('input[name="newPhoneName"]');
 let phoneNumberInput = document.querySelector('input[name="newPhoneNumber"]');
 
 
 deletePhoneButton.forEach(function (button, key, parent) {
+	
+	const userMessageContainer = document.querySelector("#userMessageContainer");
+	const userMessageSpan = document.querySelector("#userMessage");
+	
+	if (button.id === 'deletePhotoButton') {
+		button.addEventListener('click', (buttonEvent) => {
+			buttonEvent.preventDefault();
+			const userPhotoImg = document.querySelector("#userPhoto");
+			let scr = userPhotoImg.src;
+			deleteUserPhoto(scr)
+				.then((promise) => {
+					if (promise.ok) {
+						userMessageContainer.hidden = true;
+						let userPhotoImg = document.querySelector("#userPhoto");
+						userPhotoImg.src = "../dist/img/bicycle-logo.jpg";
+					} else {
+						promise.json()
+							.then((json) => {
+								userMessageContainer.hidden = false;
+								userMessageSpan.textContent = JSON.parse(json)['userMessage'];
+							});
+					}
+				})
+		});
+	};
+	
 	button.addEventListener("click", (buttonEvent) => {
 		buttonEvent.preventDefault();
 		phoneIdToOperateOn = buttonEvent.currentTarget.value;
@@ -61,7 +89,7 @@ addPhoneButton.addEventListener("click", (buttonEvent) => {
 	
 	addPhone(phoneNumberInput.value.toString().trim(), phoneNameInput.value)
 		.then((result) => {
-			if (result.ok){
+			if (result.ok) {
 				let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
 				phoneErrorTd.hidden = true;
 				let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
@@ -72,11 +100,11 @@ addPhoneButton.addEventListener("click", (buttonEvent) => {
 					let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
 					phoneErrorTd.hidden = false;
 					let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-					if (json['phone']){
-						phoneErrorMessageSpan.textContent = "Телефон: "+json['phone'];
+					if (json['phone']) {
+						phoneErrorMessageSpan.textContent = "Телефон: " + json['phone'];
 					}
 					if (json['name']) {
-						phoneErrorMessageSpan.textContent += " Имя: "+json['name'];
+						phoneErrorMessageSpan.textContent += " Имя: " + json['name'];
 					}
 				});
 			}
@@ -86,5 +114,5 @@ addPhoneButton.addEventListener("click", (buttonEvent) => {
 			phoneErrorTd.hidden = false;
 			let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
 			phoneErrorMessageSpan.textContent = "NETWORK ERROR";
-		})
+		});
 });

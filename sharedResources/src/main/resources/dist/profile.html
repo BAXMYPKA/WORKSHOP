@@ -40,16 +40,15 @@
 					</td>
 					<td>
 						<input type="file" name="photo">
-						<input type="submit" value="Load photo"
+						<input type="submit" value="Load photo" id="loadPhotoSubmit"
 							   th:value="#{properties.savePhoto}"
 							   style="text-align: center; font-style: italic">
 					</td>
-					<td>
+					<td th:unless="${userDto.photo == null}">
 						<button id="deletePhotoButton" class="deleteButton"
-								th:unless="${userDto.photo == null}"
 								th:value="${userDto?.identifier}"
 								th:title="#{html.button.title.deletePhoto}">
-							x
+							X
 						</button>
 				</tr>
 				<tr>
@@ -266,7 +265,7 @@
 					<td></td>
 					<td>
 						<button class="buttonLogin" value="Save changes" onclick="this.form.submit()"
-								th:text="#{html.submit.saveChanges}">
+								th:text="#{html.submit.text.saveChanges}">
 							Save changes
 						</button>
 					</td>

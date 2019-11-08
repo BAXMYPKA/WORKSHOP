@@ -46,7 +46,7 @@
 				<td>
 					<a href="orderId"
 					   th:href="@{/profile/orders/__${orderDto?.identifier}__}"
-					   th:text="${orderDto?.identifier}">
+					   th:text="${orderDto?.identifier} + ' (' + #{properties.details}  + ')'">
 						OrderId
 					</a>
 				</td>

@@ -17,8 +17,70 @@
 	<h1 th:text="#{html.h1.registration}">Registration</h1>
 	
 	<div class="registrationTableContainer">
+		
+		<div class="login">
+			<form name="registrationForm" action="registration.html" method="post" class="loginForm"
+				  th:action="@{/registration}" th:object="${userDto}">
+				
+				<input type="text" id="inputFirstName" name="firstName" placeholder="Enter your first name"
+					   th:placeholder="#{properties.firstName}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="firstNameErrorMessage">Possible error message</span>
+				<br>
+				<input type="text" id="inputLastName" name="lastName" placeholder="Enter your last name"
+					   th:placeholder="#{properties.lastName}">
+				<br>
+				<span class="errorMessage" id="lastNameErrorMessage">Possible error message</span>
+				<br>
+				<input type="date" id="inputBirthday" name="birthday" placeholder="Enter your birthday"
+					   th:placeholder="#{properties.birthday}">
+				<br>
+				<span class="errorMessage" id="birthdayErrorMessage">Possible error message</span>
+				<br>
+				<span th:text="#{html.span.text.selectYourLanguage}">Select your language </span>
+				<select id="inputLanguageTag" name="languageTag" title="Select your language">
+					<option>RU</option>
+					<option>EN</option>
+				</select>
+				<br><br>
+				<input type="text" id="inputEmail" name="email" placeholder="Enter your email"
+					   th:placeholder="#{html.input.placeholder.enterYourEmail}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="emailErrorMessage">Possible error message</span>
+				<br>
+				<input type="text" id="inputPassword" name="password" placeholder="12345"
+					   th:placeholder="#{html.input.placeholder.enterYourPassword}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="passwordErrorMessage">Possible error message</span>
+				<br>
+				<input type="text" id="inputConfirmPassword" name="confirmPassword" placeholder="12345"
+					   th:placeholder="#{html.input.placeholder.confirmYourPassword}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="confirmPasswordErrorMessage">Possible error message</span>
+				<br>
+				<br>
+				<button class="buttonLogin buttonRegistration"
+						title="Registration advantages description"
+						onclick="this.form.submit()"
+						th:text="#{html.submit.text.registration}"
+						th:title="#{html.submit.text.registration}">
+					Create account!
+				</button>
+			
+			</form>
+		
+		</div>
+		
+		<section id="registrationDescription">
+			Registration process description
+		</section>
 	
 	</div>
+	
 
 </th:block>
 

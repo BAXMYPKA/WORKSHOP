@@ -39,8 +39,14 @@
 			<div th:if="${#strings.isEmpty(loggedUsername)}">
 				<a href="#loginModalBackground"
 				   th:href="@{#loginModalBackground}"
-				   th:text="#{html.a.index.loginRegistration}">
-					Login/Registration
+				   th:text="#{html.a.index.login}">
+					Login
+				</a>
+				<span> / </span>
+				<a href="../registration.html"
+				   th:href="@{/registration}"
+				   th:text="#{html.a.index.registration}">
+					Registration
 				</a>
 				<br>
 				<span class="profileLink" th:text="${loggedUsername}"><i>Message for not logged in users</i></span>
@@ -269,7 +275,7 @@
 						<br>
 						<button class="buttonLogin"
 								onclick="this.form.submit()"
-								th:text="#{html.submit.login}">
+								th:text="#{html.submit.text.login}">
 							LOGIN
 						</button>
 						<br>

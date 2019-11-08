@@ -389,9 +389,6 @@
 	flex-basis: 100%;
 }
 
-.login {
-}
-
 /* ===== FORMS ===== */
 
 input {
@@ -401,12 +398,6 @@ input {
 	border-radius: 0.3em;
 	box-shadow: inset 0 0 1.1em 0.5em lightskyblue;
 	width: 18em;
-}
-
-input[type=submit] {
-	/*margin: 0.16em 0;*/
-	/*padding: 0.1em 0;*/
-	/*width: 15em;*/
 }
 
 .buttonLogin {
@@ -450,6 +441,10 @@ input:hover {
 
 .errorMessage:before {
 	content: "* ";
+}
+
+.redAsterisk {
+	color: red;
 }
 
 /* ===== TABLES ===== */

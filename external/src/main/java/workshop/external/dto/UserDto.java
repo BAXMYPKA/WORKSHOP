@@ -48,8 +48,8 @@ public class UserDto implements Serializable {
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
-//	@Pattern(regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
-//	private String password;
+	@Pattern(regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
+	private String confirmPassword;
 	
 	@NotEmpty(message = "{validation.notNull}")
 	@Email(message = "{validation.email}")

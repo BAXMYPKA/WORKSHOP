@@ -105,6 +105,7 @@ public class User extends WorkshopEntityAbstract {
 	 * It is accepted when no special "languageTag" was set during creation then it will be set from the creator's
 	 * context.
 	 */
+	@Pattern(groups = {Persist.class, Merge.class}, regexp = "^[a-zA-z]{2,3}$")
 	@Column
 	private String languageTag;
 	

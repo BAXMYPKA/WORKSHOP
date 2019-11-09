@@ -2,6 +2,7 @@ package workshop.internal.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import workshop.internal.dao.UsersDao;
 import workshop.internal.entities.User;
 import workshop.internal.entities.WorkshopEntity;
@@ -20,6 +21,7 @@ import workshop.internal.exceptions.IllegalArgumentsException;
 import workshop.internal.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -30,6 +32,9 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Value("${default.languageTag}")
 	private String defaultLanguageTag;
@@ -94,5 +99,20 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 		long totalUsers = getWorkshopEntitiesDaoAbstract().countAllEntities();
 		
 		return new PageImpl<>(usersByExternalAuthority, verifiedPageable, totalUsers);
+	}
+	
+	/**
+	 * @param userDto {@link User} with a raw (non-encoded) password.
+	 * @return Persisted {@link User} from the DataBase.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	public User createNewUser(@Valid User userDto) {
+		userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+		userDto.setLanguageTag(userDto.getLanguageTag() == null ? defaultLanguageTag : userDto.getLanguageTag());
+		userDto.setIsEnabled(false);
+		if (userDto.getExternalAuthorities() == null || userDto.getExternalAuthorities().isEmpty()) {
+			//
+		}
+		return persistEntity(userDto);
 	}
 }

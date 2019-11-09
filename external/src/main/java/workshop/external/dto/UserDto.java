@@ -8,10 +8,12 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.*;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.hibernateValidation.Persist;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -40,19 +42,21 @@ public class UserDto implements Serializable {
 	private Long identifier;
 	
 	@NotEmpty(message = "{validation.notNull}")
-	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
+	@Pattern(groups = {Persist.class, Default.class}, message = "{validation.pattern.name}",
+			 regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
-	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
+	@Pattern(groups = {Persist.class, Default.class}, message = "{validation.pattern.name}",
+			 regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
-	@Pattern(regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
+	@Pattern(groups = Persist.class, regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
 	private String confirmPassword;
 	
-	@NotEmpty(message = "{validation.notNull}")
-	@Email(message = "{validation.email}")
+	@NotEmpty(groups = {Persist.class, Default.class}, message = "{validation.notNull}")
+	@Email(groups = {Persist.class, Default.class}, message = "{validation.email}")
 	@EqualsAndHashCode.Include
 	private String email;
 	
@@ -62,12 +66,13 @@ public class UserDto implements Serializable {
 	private ZonedDateTime created;
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Past(message = "{validation.past}")
+	@Past(groups = {Persist.class, Default.class}, message = "{validation.past}")
 	@EqualsAndHashCode.Include
 	private LocalDate birthday;
 	
 	private Boolean isEnabled = true;
 	
+	@Pattern(groups = {Persist.class, Merge.class}, regexp = "^[a-zA-z]{2,3}$")
 	private String languageTag;
 	
 	private Collection<@Valid Order> orders;
@@ -77,18 +82,18 @@ public class UserDto implements Serializable {
 	@Size(max = 5242880, message = "{validation.photoSize}")
 	private byte[] photo;
 	
-	public void setUser(User user) {
-		BeanUtils.copyProperties(Objects.requireNonNull(user), this);
-		if (user.getPhones() != null) {
-			this.phones.addAll(user.getPhones());
-		}
-	}
-	
 	public User getUser() {
 		if (this.phones != null && this.phones.size() > 0) {
 			Objects.requireNonNull(this.user).getPhones().addAll(this.phones);
 		}
 		return this.user;
+	}
+	
+	public void setUser(User user) {
+		BeanUtils.copyProperties(Objects.requireNonNull(user), this);
+		if (user.getPhones() != null) {
+			this.phones.addAll(user.getPhones());
+		}
 	}
 	
 	/*

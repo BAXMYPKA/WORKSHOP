@@ -9,8 +9,8 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
 import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.hibernateValidation.Persist;
-import workshop.internal.entities.utils.OrderFinishedEvent;
-import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
+import workshop.applicationEvents.OrderFinishedEvent;
+import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
 
 import javax.persistence.*;
 import javax.validation.Valid;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import workshop.controllers.WorkshopControllerAbstract;
-import workshop.controllers.utils.UserMessagesJsonCreator;
+import workshop.controllers.utils.UserMessagesCreator;
 import workshop.external.dto.OrderDto;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
@@ -25,7 +25,7 @@ public class UserOrdersController extends WorkshopControllerAbstract {
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private UserMessagesJsonCreator userMessagesJsonCreator;
+	private UserMessagesCreator userMessagesCreator;
 	
 	@Autowired
 	private UsersService usersService;

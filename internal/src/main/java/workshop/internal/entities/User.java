@@ -71,7 +71,8 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
-	@Pattern(regexp = "^[\\p{LD}-_+=()*&%$#@!<>\\[{\\]}'\";:?/]{5,254}$", message = "{validation.passwordStrength}")
+	@Pattern(regexp = "^[\\p{LD}\\-._+=()*&%$#@!<>\\[{\\]}'\"^;:?/~`]{5,254}$",
+			 message = "{validation.passwordStrength}")
 	private String password;
 	
 	/**
@@ -117,7 +118,6 @@ public class User extends WorkshopEntityAbstract {
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
 		cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones = new HashSet<>(2);
-//	private List<@Valid Phone> phones = new ArrayList<>(2);
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -145,6 +145,11 @@ public class User extends WorkshopEntityAbstract {
 	@Size(max = 5242880, message = "{validation.photoSize}")
 	private byte[] photo;
 	
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true,
+			  cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	@Valid
+	private Uuid uuid;
+	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;
 	}
@@ -163,7 +168,6 @@ public class User extends WorkshopEntityAbstract {
 		}
 		if (phones == null) {
 			phones = new HashSet<>(3);
-//			phones = new ArrayList<>(3);
 		}
 		phones.addAll(Arrays.asList(phone));
 	}

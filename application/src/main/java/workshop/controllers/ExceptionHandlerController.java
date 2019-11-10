@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.exceptions.TemplateAssertionException;
 import org.thymeleaf.exceptions.TemplateEngineException;
 import org.thymeleaf.exceptions.TemplateProcessingException;
-import workshop.controllers.utils.UserMessagesJsonCreator;
+import workshop.controllers.utils.UserMessagesCreator;
 import workshop.internal.exceptions.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
@@ -63,7 +63,7 @@ public class ExceptionHandlerController {
 	private JsonServiceUtils jsonServiceUtils;
 	
 	@Autowired
-	private UserMessagesJsonCreator userMessagesJsonCreator;
+	private UserMessagesCreator userMessagesCreator;
 	
 	@Value("${spring.servlet.multipart.max-request-size}")
 	private String maxUploadImageSize;
@@ -277,7 +277,7 @@ public class ExceptionHandlerController {
 				return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).header("Location", "/").body(userMessage);
 			} else { //Internal error message
 				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-					.body(userMessagesJsonCreator.getJsonMessageForUser(userMessage));
+					.body(userMessagesCreator.getJsonMessageForUser(userMessage));
 			}
 		}
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

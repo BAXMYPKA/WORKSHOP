@@ -3,6 +3,7 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import workshop.applicationEvents.OrderFinishedEvent;
 import workshop.internal.entities.hibernateValidation.PersistEmployee;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
@@ -70,7 +71,7 @@ public abstract class WorkshopAudibleEntityAbstract extends WorkshopEntityAbstra
 	
 	/**
 	 * For {@link Order} and {@link Task} classes it is MUST BE null at creation time. But later after being set it is
-	 * MAY BE an indicator of a finished work to send an {@link workshop.internal.entities.utils.OrderFinishedEvent}
+	 * MAY BE an indicator of a finished work to send an {@link OrderFinishedEvent}
 	 * to {@link User} if all the {@link Task}s in the particular {@link Order} have their property {@link Task#finished}
 	 * set.
 	 */

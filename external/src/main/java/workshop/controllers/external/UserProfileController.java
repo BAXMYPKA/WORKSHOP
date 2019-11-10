@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import workshop.controllers.WorkshopControllerAbstract;
-import workshop.controllers.utils.UserMessagesJsonCreator;
+import workshop.controllers.utils.UserMessagesCreator;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Merge;
@@ -35,7 +35,7 @@ public class UserProfileController extends WorkshopControllerAbstract {
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private UserMessagesJsonCreator userMessagesJsonCreator;
+	private UserMessagesCreator userMessagesCreator;
 	
 	@Autowired
 	private UserDto userDto;
@@ -141,7 +141,7 @@ public class UserProfileController extends WorkshopControllerAbstract {
 		
 		User user = usersService.findByLogin(authentication.getName());
 		if (!user.getIdentifier().equals(userDtoId)) {
-			String jsonMessageForUser = userMessagesJsonCreator.getJsonMessageForUser(
+			String jsonMessageForUser = userMessagesCreator.getJsonMessageForUser(
 				getMessageSource().getMessage("message.loginNotValidForRequestedPhoto", null, locale));
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(jsonMessageForUser);
 		}

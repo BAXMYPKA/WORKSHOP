@@ -143,10 +143,12 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		return jwtAuthenticationFilter;
 	}
 	
+/*
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+*/
 	
 	@Bean
 	public SimpleUrlAuthenticationFailureHandler internalAuthenticationFailureHandler() {

@@ -52,7 +52,11 @@ public class UserDto implements Serializable {
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
-	@Pattern(groups = Persist.class, regexp = "^(\\w){5,254}$", message = "{validation.passwordStrength}")
+	/**
+	 * The raw, non-encoded password
+	 */
+	@Pattern(groups = Persist.class, regexp = "^[\\p{LD}\\-._+=()*&%$#@!<>\\[{\\]}'\"^;:?/~`]{5,254}$",
+			 message = "{validation.passwordStrength}")
 	private String confirmPassword;
 	
 	@NotEmpty(groups = {Persist.class, Default.class}, message = "{validation.notNull}")
@@ -95,10 +99,4 @@ public class UserDto implements Serializable {
 			this.phones.addAll(user.getPhones());
 		}
 	}
-	
-	/*
-	@PostConstruct
-	void createUser() {
-	}
-*/
 }

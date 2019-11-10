@@ -1,4 +1,4 @@
-package workshop.internal.entities.utils;
+package workshop.applicationEvents;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

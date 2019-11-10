@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.context.ApplicationEventPublisher;
 import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.hibernateValidation.Persist;
-import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
+import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

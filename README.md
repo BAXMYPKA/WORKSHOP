@@ -240,7 +240,9 @@
  Если, в соответствии с правами доступа, пользователю, запросившему данные Positions, нельзя видеть подробности сущностей Department, то вложенное свойство "department" будет содержать только 'identifier' и 'name'.
 
 ## БЕЗОПАСНОСТЬ (АУТЕНТИФИКАЦИЯ И АВТОРИЗАЦИЯ)
-Они вкратце расписаны в файле [SECURITY_FLOW](https://github.com/BAXMYPKA/WORKSHOP/blob/master/SECURITY_FLOW.md)
+В таком сыром виде все работает без HTTPS и передается открыто.
+
+Процессы проверки пользователей и их доступов вкратце расписаны в файле [SECURITY_FLOW](https://github.com/BAXMYPKA/WORKSHOP/blob/master/SECURITY_FLOW.md)
 
 ## ЧТО В ПРОЦЕССЕ (И ДАЖЕ РАБОТАЕТ!)
 

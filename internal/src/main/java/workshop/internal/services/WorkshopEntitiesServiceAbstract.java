@@ -48,6 +48,11 @@ import java.util.stream.Stream;
 @Service
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
+	/**
+	 * Concrete instances of {@link WorkshopEntitiesServiceAbstract} class by {@link WorkshopEntity#getClass()}
+	 */
+	public static Map<Class<? extends WorkshopEntity>, WorkshopEntitiesServiceAbstract<? extends WorkshopEntity>>
+		workshopEntitiesServicesBeans = new HashMap<>();
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
@@ -76,11 +81,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	@Getter(AccessLevel.PUBLIC)
 	private Class<T> entityClass;
 	private String entityClassSimpleName;
-	/**
-	 * Concrete instances of {@link WorkshopEntitiesServiceAbstract} class by {@link WorkshopEntity#getClass()}
-	 */
-	public static Map<Class<? extends WorkshopEntity>, WorkshopEntitiesServiceAbstract<? extends WorkshopEntity>>
-		workshopEntitiesServicesBeans = new HashMap<>();
 	
 	/**
 	 * @param workshopEntitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -198,7 +198,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	/**
 	 * @param propertyName  Any existing {@link WorkshopEntity}.propertyName
 	 * @param propertyValue Any desired {@link WorkshopEntity}.propertyName.getValue
-	 * @return WorkshopEntity of the given type with the desired value.
+	 * @return Non-null and non-empty {@link List<T>} with at least one WorkshopEntity of the given type with the
+	 * desired value.
+	 * Otherwise throws {@link EntityNotFoundException}
 	 * @throws PersistenceException    In case of problems with the DataBase.
 	 * @throws EntityNotFoundException If nothing was found.
 	 */

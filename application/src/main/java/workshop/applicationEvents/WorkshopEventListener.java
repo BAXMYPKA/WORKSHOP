@@ -1,13 +1,17 @@
-package workshop.utils;
+package workshop.applicationEvents;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.Order;
-import workshop.internal.entities.utils.OrderFinishedEvent;
+import workshop.applicationEvents.OrderFinishedEvent;
+import workshop.internal.entities.User;
+import workshop.utils.EmailTemplates;
+import workshop.utils.WorkshopEmailService;
 
 /**
  * Depending on kind of caught {@link ApplicationEvent} this class reacts accordingly:
@@ -29,6 +33,7 @@ public class WorkshopEventListener {
 	 *              is ready (its {@link Order#getFinished()} is set or all its {@link Order#getTasks()} same
 	 *              properties are set).
 	 */
+	@Async
 	@EventListener
 	public void orderFinishedEventListener(OrderFinishedEvent event) {
 		log.debug("Order finished event for Order.ID={} to send an Email to User.ID={}",
@@ -41,6 +46,18 @@ public class WorkshopEventListener {
 		}
 		if (finishedOrder.getCreatedFor().getPhones() != null) {
 			//TODO: Phone service is not ready yet
+		}
+	}
+	
+	@Async
+	@EventListener()
+	public void userRegisteredEventListener(UserRegisteredEvent event) {
+		log.debug("New User registered event for User.ID={} to send an Email to", event.getUser().getIdentifier());
+		User registeredUser = event.getUser();
+		if (registeredUser.getEmail() != null) {
+//			SimpleMailMessage registrationConfirmationEmail =
+//				emailTemplates.getOrderFinishedEmailTemplate(null);
+//			emailService.sendSimpleMessage(registrationConfirmationEmail);
 		}
 	}
 }

@@ -3,8 +3,11 @@ package workshop.controllers.utils;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+
+import java.util.Objects;
 
 /**
  * {@literal External Json Errors Object:
@@ -13,7 +16,7 @@ import org.springframework.validation.FieldError;
 @NoArgsConstructor
 @Slf4j
 @Component
-public class UserMessagesJsonCreator {
+public class UserMessagesCreator {
 	
 	private StringBuilder jsonErrorObject;
 	
@@ -25,6 +28,18 @@ public class UserMessagesJsonCreator {
 		return getFinishedString(jsonErrorObject);
 	}
 	
+	/**
+	 * Just sets any kind of {@link String} messages as a special formatted 'userMessage' attribute into the given
+	 * {@link Model} to be displayed onto html pages which support 'userMessage' attribute.
+	 *
+	 * @param model          The {@link Model} from any WorkshopController the following message for User has to be inserted into
+	 * @param messageForUser {@link String} with localized (or not) special message for the end Users to be displayed
+	 *                       onto any html page that supports this kind of messages.
+	 */
+	public void setMessageForUser(Model model, String messageForUser) {
+		Objects.requireNonNull(model.addAttribute(model), Objects.requireNonNull(messageForUser));
+	}
+	
 	public String convertBindingResultToJson(BindingResult bindingResult) {
 		jsonErrorObject = new StringBuilder();
 		for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -33,12 +48,6 @@ public class UserMessagesJsonCreator {
 			
 			jsonErrorObject.append(getObjectFieldName(fieldError.getField()))
 				.append(getObjectFieldValue(fieldError.getDefaultMessage()));
-/*
-			jsonErrorObject
-				.append("\"").append(fieldError.getField()).append("\"")
-				.append(":")
-				.append("\"").append(fieldError.getDefaultMessage()).append("\"");
-*/
 		}
 		return getFinishedString(jsonErrorObject);
 	}

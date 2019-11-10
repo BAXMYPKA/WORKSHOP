@@ -26,7 +26,7 @@ public class EmailTemplates {
 	@Value("${email.orderFinished.from}")
 	private String orderFinishedFrom;
 	
-	SimpleMailMessage getOrderFinishedEmailTemplate(Order finishedOrder) {
+	public SimpleMailMessage getOrderFinishedEmailTemplate(Order finishedOrder) {
 		
 		Locale locale =
 			Locale.forLanguageTag(finishedOrder.getCreatedFor().getLanguageTag()).toLanguageTag() != null ?

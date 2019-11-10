@@ -5,16 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/applicationEvents/UserRegisteredEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/UuidsDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Uuid.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UuidsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/EmailTemplates.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/utils/EmailTemplates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/utils/WorkshopEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/applicationEvents/WorkshopEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/entities/utils/WorkshopEventListenerIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/entities/utils/WorkshopEventListenerIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-15.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/OrderFinishedEvent.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/OrderFinishedEvent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/WorkshopEntitiesEventPublisher.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/internal/entities/utils/WorkshopEntitiesEventPublisher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/workshop/utils/WorkshopEventListener.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/workshop/utils/WorkshopEventListener.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/WorkshopControllerAbstract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserOrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserOrdersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PhonesAjaxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/external/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/external/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/UserMessagesJsonCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/UserMessagesCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopAudibleEntityAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/WorkshopAudibleEntityAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/OrderFinishedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/applicationEvents/OrderFinishedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/utils/WorkshopEntitiesEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/applicationEvents/WorkshopEntitiesEventPublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UsersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/registration.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/resources/i118n/internal_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/WorkshopAudibleEntityAbstractBeanValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/test/java/workshop/internal/entities/WorkshopAudibleEntityAbstractBeanValidationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/configurations/InternalSecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/registration.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +143,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
-    <property name="last.edited.regexp" value="" />
+    <property name="last.edited.regexp" value="12345%%@#$%" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -399,6 +429,7 @@
       <workItem from="1573240980933" duration="929000" />
       <workItem from="1573241940522" duration="7649000" />
       <workItem from="1573286240412" duration="10670000" />
+      <workItem from="1573371369707" duration="15798000" />
     </task>
     <servers />
   </component>
@@ -417,5 +448,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/application/src/main/java/workshop/applicationEvents/WorkshopEventListener.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

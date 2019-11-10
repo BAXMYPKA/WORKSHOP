@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import workshop.controllers.utils.UserMessagesCreator;
 import workshop.internal.entities.ClassifiersGroup;
 import workshop.internal.services.ClassifiersGroupsService;
 import workshop.internal.services.UsersService;
@@ -49,6 +50,10 @@ public class WorkshopControllerAbstract implements WorkshopController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Getter(AccessLevel.PROTECTED)
+	@Autowired
+	private UserMessagesCreator userMessagesCreator;
 	
 	/**
 	 * Adds a List of currently supported languages to the current session for html language selector to pick up from.

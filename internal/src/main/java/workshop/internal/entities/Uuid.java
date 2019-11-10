@@ -73,6 +73,20 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 		}
 	}
 	
+/*
+	*/
+/**
+	 * Also removes all the unconfirmed WorkshopEntities linked with this {@link Uuid}
+	 *//*
+
+	@PreRemove
+	void preRemove() {
+		if (user != null && !user.getIsEnabled()) {
+			return;
+		}
+	}
+*/
+	
 	/**
 	 * This instance of {@link Uuid} will be automatically inserted into the given {@link User#setUuid(Uuid)}
 	 *

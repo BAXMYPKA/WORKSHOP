@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import workshop.internal.dao.ExternalAuthoritiesDao;
 import workshop.internal.dao.UsersDao;
+import workshop.internal.dao.UuidsDao;
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
 import workshop.internal.entities.Uuid;
@@ -37,6 +38,9 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private UuidsDao uuidsDao;
 	
 	@Autowired
 	private ExternalAuthoritiesDao externalAuthoritiesDao;
@@ -115,6 +119,7 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	 * Creates an absolutely new User with only "READ-PROFILE" {@link ExternalAuthority}, {@link User#getIsEnabled()}
 	 * = false.
 	 * Also creates a new {@link workshop.internal.entities.Uuid} for that User.
+	 *
 	 * @param userDto {@link User} with a raw (non-encoded) password.
 	 * @return Persisted {@link User} from the DataBase.
 	 */
@@ -123,25 +128,91 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 		if (userDto.getPassword() == null || userDto.getPassword().isEmpty()) {
 			throw new IllegalArgumentsException("Password cannot be null or empty!", getMessageSource().getMessage(
 				"httpStatus.notAcceptable.nullEmpty(1)",
-					new Object[]{"password"},
-					LocaleContextHolder.getLocale()),
+				new Object[]{"password"},
+				LocaleContextHolder.getLocale()),
 				HttpStatus.NOT_ACCEPTABLE);
 		}
 		userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 		userDto.setLanguageTag(userDto.getLanguageTag() == null ? defaultLanguageTag : userDto.getLanguageTag());
 		userDto.setIsEnabled(false);
-		
-		if (userDto.getExternalAuthorities() == null || userDto.getExternalAuthorities().isEmpty()) {
-			ExternalAuthority readProfileAuthority =
-				externalAuthoritiesDao.findByProperty("name", "READ-PROFILE")
-					.orElseThrow(() -> new InternalServerErrorException(
-						"The default ExternalAuthority 'READ-PROFILE' doesn't exist!",
-						"httpStatus.internalServerError.common",
-						HttpStatus.INTERNAL_SERVER_ERROR))
-					.get(0);
-			userDto.setExternalAuthorities(Collections.singleton(readProfileAuthority));
-		}
+		setNewUserExternalAuthorities(userDto);
 		Uuid uuid = new Uuid(userDto);
 		return persistEntity(userDto);
+	}
+	
+	/**
+	 * 1. Search {@link Uuid} by the given String.
+	 * <p>
+	 * 2. Set the derived {@link User#setIsEnabled(Boolean)} to 'true'
+	 * <p>
+	 * 3. Set all the default {@link User#setExternalAuthorities(Set)} for enabled Users.
+	 * <p>
+	 * 4. Deleted the found {@link Uuid} linked with the enabled {@link User#getUuid()}
+	 *
+	 * @param uuid String with {@link UUID} to be found in the DataBase
+	 * @return Confirmed
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+	public User confirmNewUserByUuid(String uuid) {
+		Uuid uuidEntity = uuidsDao.findByProperty("uuid", uuid)
+			.orElseThrow(() -> getEntityNotFoundException("Uuid")).get(0);
+		User confirmedUser = uuidEntity.getUser();
+		
+		confirmedUser.setUuid(null);
+		confirmedUser.setIsEnabled(true);
+		setDefaultExternalAuthorities(confirmedUser);
+		confirmedUser = usersDao.mergeEntity(confirmedUser).get();
+		uuidsDao.removeEntity(uuidEntity);
+		return confirmedUser;
+	}
+	
+	private void setNewUserExternalAuthorities(User newUser) {
+		ExternalAuthority readProfileAuthority =
+			externalAuthoritiesDao.findByProperty("name", "READ-PROFILE")
+				.orElseThrow(() -> new InternalServerErrorException(
+					"The default ExternalAuthority 'READ-PROFILE' doesn't exist!",
+					"httpStatus.internalServerError.common",
+					HttpStatus.INTERNAL_SERVER_ERROR))
+				.get(0);
+		newUser.setExternalAuthorities(Collections.singleton(readProfileAuthority));
+		
+	}
+	
+	private void setDefaultExternalAuthorities(User user) {
+		ExternalAuthority readProfileAuthority =
+			externalAuthoritiesDao.findByProperty("name", "READ-PROFILE")
+				.orElseThrow(() -> new InternalServerErrorException(
+					"The default ExternalAuthority 'READ-PROFILE' doesn't exist!",
+					"httpStatus.internalServerError.common",
+					HttpStatus.INTERNAL_SERVER_ERROR))
+				.get(0);
+		ExternalAuthority writeProfileAuthority =
+			externalAuthoritiesDao.findByProperty("name", "WRITE-PROFILE")
+				.orElseThrow(() -> new InternalServerErrorException(
+					"The default ExternalAuthority 'WRITE-PROFILE' doesn't exist!",
+					"httpStatus.internalServerError.common",
+					HttpStatus.INTERNAL_SERVER_ERROR))
+				.get(0);
+		ExternalAuthority readOrderAuthority =
+			externalAuthoritiesDao.findByProperty("name", "READ-ORDER")
+				.orElseThrow(() -> new InternalServerErrorException(
+					"The default ExternalAuthority 'READ-ORDER' doesn't exist!",
+					"httpStatus.internalServerError.common",
+					HttpStatus.INTERNAL_SERVER_ERROR))
+				.get(0);
+		ExternalAuthority writeOrderAuthority =
+			externalAuthoritiesDao.findByProperty("name", "WRITE-ORDER")
+				.orElseThrow(() -> new InternalServerErrorException(
+					"The default ExternalAuthority 'WRITE-ORDER' doesn't exist!",
+					"httpStatus.internalServerError.common",
+					HttpStatus.INTERNAL_SERVER_ERROR))
+				.get(0);
+		Set<ExternalAuthority> authorities = new HashSet<>(Arrays.asList(
+			readProfileAuthority, writeProfileAuthority, readOrderAuthority, writeOrderAuthority));
+		if (user.getExternalAuthorities() == null) {
+			user.setExternalAuthorities(authorities);
+		} else {
+			user.getExternalAuthorities().addAll(authorities);
+		}
 	}
 }

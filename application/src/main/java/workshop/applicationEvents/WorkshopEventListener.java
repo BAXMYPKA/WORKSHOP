@@ -55,6 +55,9 @@ public class WorkshopEventListener {
 		log.debug("New User registered event for User.ID={} to send an Email to", event.getUser().getIdentifier());
 		User registeredUser = event.getUser();
 		if (registeredUser.getEmail() != null) {
+			
+			//TODO: to complete an email with a link creation
+			
 //			SimpleMailMessage registrationConfirmationEmail =
 //				emailTemplates.getOrderFinishedEmailTemplate(null);
 //			emailService.sendSimpleMessage(registrationConfirmationEmail);

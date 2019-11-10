@@ -1,7 +1,9 @@
 package workshop.internal.entities;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
+import workshop.internal.exceptions.IllegalArgumentsException;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
@@ -40,7 +42,7 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 	@Column(nullable = false, unique = true, updatable = true)
 	private String uuid;
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", unique = true, updatable = false, referencedColumnName = "id")
 	@Valid
 	private User user;
@@ -73,26 +75,21 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 		}
 	}
 	
-/*
-	*/
-/**
-	 * Also removes all the unconfirmed WorkshopEntities linked with this {@link Uuid}
-	 *//*
-
-	@PreRemove
-	void preRemove() {
-		if (user != null && !user.getIsEnabled()) {
-			return;
-		}
-	}
-*/
-	
 	/**
 	 * This instance of {@link Uuid} will be automatically inserted into the given {@link User#setUuid(Uuid)}
 	 *
 	 * @param user A newly-created {@link User}
 	 */
 	public void setUser(User user) {
+		if (user == null) {
+			this.user = user;
+			return;
+		}
+		if (user.getIsEnabled()) {
+			throw new IllegalArgumentsException("UUID cannot be associated with enabled User!",
+				"httpStatus.notAcceptable.uuidForEnabledUser",
+				HttpStatus.NOT_ACCEPTABLE);
+		}
 		user.setUuid(this);
 		this.user = user;
 	}

@@ -146,7 +146,7 @@ public class User extends WorkshopEntityAbstract {
 	private byte[] photo;
 	
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true,
-			  cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+			  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Valid
 	private Uuid uuid;
 	

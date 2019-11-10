@@ -207,7 +207,11 @@
 		<!--	MAIN ARTICLE	-->
 		
 		<article class="article">
+			
+			<div class="userMessage"  th:utext="${userMessage}"></div>
+			
 			<th:block layout:fragment="articleFragment"/>
+		
 		</article>
 	
 	</div>

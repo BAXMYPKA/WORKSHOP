@@ -68,6 +68,8 @@ public class ExceptionHandlerController {
 	@Value("${spring.servlet.multipart.max-request-size}")
 	private String maxUploadImageSize;
 	
+	//TODO: to distinguish Internal and External errors treatment. E.g., org.springframework.dao.DataIntegrityViolationException
+	
 	@ExceptionHandler({HttpMessageConversionException.class})
 	@ResponseBody
 	public ResponseEntity<String> httpMessageNotReadableException(Exception ex, Locale locale) {

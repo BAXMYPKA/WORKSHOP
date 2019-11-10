@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.WorkshopAudibleEntityAbstract;
 import workshop.internal.entities.WorkshopEntity;

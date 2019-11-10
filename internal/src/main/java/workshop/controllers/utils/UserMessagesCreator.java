@@ -18,6 +18,8 @@ import java.util.Objects;
 @Component
 public class UserMessagesCreator {
 	
+	private final String USER_MESSAGE_ATTRIBUTE_NAME = "userMessage";
+	
 	private StringBuilder jsonErrorObject;
 	
 	public String getJsonMessageForUser(String userMessage) {
@@ -37,7 +39,7 @@ public class UserMessagesCreator {
 	 *                       onto any html page that supports this kind of messages.
 	 */
 	public void setMessageForUser(Model model, String messageForUser) {
-		Objects.requireNonNull(model.addAttribute(model), Objects.requireNonNull(messageForUser));
+		Objects.requireNonNull(model).addAttribute(USER_MESSAGE_ATTRIBUTE_NAME, Objects.requireNonNull(messageForUser));
 	}
 	
 	public String convertBindingResultToJson(BindingResult bindingResult) {

@@ -51,8 +51,6 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	@Value("${default.languageTag}")
 	private String defaultLanguageTag;
 	
-	private Set<ExternalAuthority> unconfirmedUsersDefaultExternalAuthorities;
-	
 	/**
 	 * @param usersDao A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
 	 *                 implementation of this EntitiesServiceAbstract<T>.
@@ -156,13 +154,14 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	public User confirmNewUserByUuid(String uuid) {
 		Uuid uuidEntity = uuidsDao.findByProperty("uuid", uuid)
 			.orElseThrow(() -> getEntityNotFoundException("Uuid")).get(0);
+		
 		User confirmedUser = uuidEntity.getUser();
 		
-		confirmedUser.setUuid(null);
-		confirmedUser.setIsEnabled(true);
-		setDefaultExternalAuthorities(confirmedUser);
-		confirmedUser = usersDao.mergeEntity(confirmedUser).get();
 		uuidsDao.removeEntity(uuidEntity);
+		
+		confirmedUser.setIsEnabled(true);
+		confirmedUser.setUuid(null);
+		setDefaultExternalAuthorities(confirmedUser);
 		return confirmedUser;
 	}
 	

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import workshop.controllers.WorkshopControllerAbstract;
 import workshop.controllers.utils.UserMessagesCreator;
 import workshop.external.dto.UserDto;
@@ -28,9 +29,6 @@ import java.util.Locale;
 @Controller
 @RequestMapping(path = "/registration")
 public class RegistrationController extends WorkshopControllerAbstract {
-	
-	private final String REGISTRATION_CONFIRMATION_LINK = "<a href=\"/registrationConfirmation?uuid=\">Подтвердить " +
-		"регистрацию</a>.";
 	
 	@Autowired
 	private UserDto userDto;
@@ -53,34 +51,21 @@ public class RegistrationController extends WorkshopControllerAbstract {
 		return "registration";
 	}
 	
-	@GetMapping(params = "success")
+	@GetMapping(params = {"success", "uuid"})
 	public String getRegistrationSuccess(@RequestParam(name = "success") Boolean success, Model model, Locale locale,
 		HttpServletRequest request) {
-		
 		model.addAttribute("userDto", userDto);
 		
-		System.out.println(request.getRequestURL());
-		
-		if (success) {
-			//The commented code is intended to be the real code
-/*
-			//This is an original user message for the registration confirmation
-			String userMessageRegistrationConfirmation = getMessageSource().getMessage
-				("message.confirmRegistration", null, locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessageRegistrationConfirmation);
-
-*/
-			
-			//The following only for the demo purposes only
-			if (request.getHeader("UUID") == null || request.getHeader("UUID").isEmpty()) {
+		if (success) { //The following code for the demo purposes only. The real one will be a bit different.
+			if (request.getParameter("uuid") == null || request.getParameter("uuid").isEmpty()) {
 				getUserMessagesCreator()
 					.setMessageForUser(model, "Request header 'UUID' cannot be null or empty!");
 				return "registration";
 			}
-			Long uuidId = Long.parseLong(request.getHeader("UUID"));
+			long uuidId = Long.parseLong(request.getParameter("uuid"));
 			Uuid uuid = uuidsService.findById(uuidId);
 			String registrationConfirmationUrl = request.getRequestURL().append("?uuid=").append(uuid.getUuid()).toString();
-			String confirmRegistrationLink = "<a href=\""+registrationConfirmationUrl+"\">Подтвердить регистрацию</a>.";
+			String confirmRegistrationLink = "<a href=\"" + registrationConfirmationUrl + "\">Подтвердить регистрацию</a>.";
 			String userMessageRegistrationConfirmation2 =
 				getMessageSource().getMessage("message.confirmRegistration(3)",
 					new Object[]{uuid.getUser().getEmail(), uuid.getUuid(), confirmRegistrationLink}, locale);
@@ -89,12 +74,12 @@ public class RegistrationController extends WorkshopControllerAbstract {
 			//TODO: to complete after the RequestParameter 'success=false' will be implemented
 			String userMessageRegistrationUnsuccessful = "";
 		}
-		
 		return "registration";
 	}
 	
 	@GetMapping(params = "uuid")
 	public String getRegistrationConfirmation(@RequestParam(name = "uuid") String uuid, Model model, Locale locale) {
+		model.addAttribute("userDto", userDto);
 		if (uuid == null || uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
 			getUserMessagesCreator().setMessageForUser(model, userMessageNullUuid);
@@ -102,22 +87,25 @@ public class RegistrationController extends WorkshopControllerAbstract {
 		}
 		try {
 			User confirmedUser = usersService.confirmNewUserByUuid(uuid);
-		} catch (EntityNotFoundException e) {
-			//
+		} catch (EntityNotFoundException e) { //UUID is not valid or outdated
+			log.debug("UUID={} not found in the DataBase!", uuid);
+			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidNotValid", null, locale);
+			getUserMessagesCreator().setMessageForUser(model, userMessageUuidNotValid);
+			return "registration";
 		}
 		return "registration";
 	}
 	
 	@PostMapping
 	public String postRegistration(@Validated({Persist.class}) @ModelAttribute(name = "userDto") UserDto userDto,
-		BindingResult bindingResult, HttpServletResponse response) {
+		BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
 		User newUser = modelMapper.map(userDto, User.class);
 		usersService.createNewUser(newUser);
 		Uuid uuid = uuidsService.findByProperty("uuid", newUser.getUuid().getUuid()).get(0);
-		response.addHeader("UUID", uuid.getIdentifier().toString());
+		redirectAttributes.addAttribute("uuid", uuid.getIdentifier().toString());
 		return "redirect:/registration?success=true";
 	}
 }

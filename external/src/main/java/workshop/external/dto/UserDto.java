@@ -74,7 +74,7 @@ public class UserDto implements Serializable {
 	@EqualsAndHashCode.Include
 	private LocalDate birthday;
 	
-	private Boolean isEnabled = true;
+	private Boolean isEnabled;
 	
 	@Pattern(groups = {Persist.class, Merge.class}, regexp = "^[a-zA-z]{2,3}$")
 	private String languageTag;

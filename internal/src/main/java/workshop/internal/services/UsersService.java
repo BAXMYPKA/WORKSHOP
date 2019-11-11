@@ -139,16 +139,16 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	}
 	
 	/**
-	 * 1. Search {@link Uuid} by the given String.
+	 * 1. Searches {@link Uuid} by the given String.
 	 * <p>
-	 * 2. Set the derived {@link User#setIsEnabled(Boolean)} to 'true'
+	 * 2. Sets the derived {@link Uuid#getUser()} {@link User#setIsEnabled(Boolean)} to 'true'
 	 * <p>
-	 * 3. Set all the default {@link User#setExternalAuthorities(Set)} for enabled Users.
+	 * 3. Sets all the default {@link User#setExternalAuthorities(Set)} for enabled Users.
 	 * <p>
-	 * 4. Deleted the found {@link Uuid} linked with the enabled {@link User#getUuid()}
+	 * 4. And deletes this {@link Uuid} as no longer needed.
 	 *
 	 * @param uuid String with {@link UUID} to be found in the DataBase
-	 * @return Confirmed
+	 * @return Confirmed, enabled and ready to use {@link User}
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public User confirmNewUserByUuid(String uuid) {
@@ -167,9 +167,9 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	
 	private void setNewUserExternalAuthorities(User newUser) {
 		ExternalAuthority readProfileAuthority =
-			externalAuthoritiesDao.findByProperty("name", "READ-PROFILE")
+			externalAuthoritiesDao.findByProperty("name", "READ-ORDER")
 				.orElseThrow(() -> new InternalServerErrorException(
-					"The default ExternalAuthority 'READ-PROFILE' doesn't exist!",
+					"The default ExternalAuthority 'READ-ORDER' doesn't exist!",
 					"httpStatus.internalServerError.common",
 					HttpStatus.INTERNAL_SERVER_ERROR))
 				.get(0);

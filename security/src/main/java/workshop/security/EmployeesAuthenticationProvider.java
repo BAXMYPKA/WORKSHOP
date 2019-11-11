@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Objects;
 
 @Slf4j
 @Setter
@@ -40,7 +43,9 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 
 		UserDetailsEmployee employee = employeesDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
 		
-		log.debug("Employee={} is found. Proceeding with matching passwords...", employee.getUsername());
+		log.debug("Employee={} is found.", employee.getUsername());
+		
+		isEmployeeEnabled(employee);
 		
 		//The raw password must match an encoded one from the Employee with that email
 		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), employee.getPassword())) {
@@ -68,9 +73,19 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 		log.trace("Trying to find Employee by email {}", employeeEmail);
 		UserDetailsEmployee userDetailsEmployee = employeesDetailsService.loadUserByUsername(employeeEmail);
 		log.trace("User={} is found", userDetailsEmployee.getUsername());
+		
+		isEmployeeEnabled(userDetailsEmployee);
+		
 		UsernamePasswordAuthenticationToken authenticatedToken =
 			new UsernamePasswordAuthenticationToken(userDetailsEmployee,"", userDetailsEmployee.getAuthorities());
 		authenticatedToken.setAuthenticated(true);
 		return authenticatedToken;
 	}
+	
+	private void isEmployeeEnabled(UserDetailsEmployee employee) {
+		if (!Objects.requireNonNull(employee).isEnabled()) {
+			throw new InsufficientAuthenticationException("User " + employee.getEmployee() + " is not enabled!");
+		}
+	}
+	
 }

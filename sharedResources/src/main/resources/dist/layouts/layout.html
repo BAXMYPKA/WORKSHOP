@@ -208,7 +208,15 @@
 		
 		<article class="article">
 			
-			<div class="userMessage"  th:utext="${userMessage}"></div>
+			<!--	If 'userMessage' is in the Model as an attribute (utext)		-->
+			<div class="userMessage" th:unless="${userMessage == null}"
+				 th:utext="${userMessage}">
+			</div>
+			<!--	If 'userMessage is in the Request as a parameter (text)		-->
+			<div class="userMessage" th:unless="${#request.getParameter('userMessage') == null}"
+				 th:text="${#request.getParameter('userMessage')}">
+			</div>
+			
 			
 			<th:block layout:fragment="articleFragment"/>
 		

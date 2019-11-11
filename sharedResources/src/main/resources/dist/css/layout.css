@@ -477,6 +477,18 @@ input[type='file'] {
 	box-sizing: border-box;
 }
 
+.userMessage {
+	align-self: center;
+	width: 80%;
+	padding: 1em;
+	border: lavender 0.1em solid;
+	border-radius: 1em;
+	box-shadow: lightgrey inset 0 0 0.5em 0.8em;
+	background-color: whitesmoke;
+	color: saddlebrown;
+	font-style: italic;
+}
+
 /* ===== COMMON HTML ===== */
 
 h1 {

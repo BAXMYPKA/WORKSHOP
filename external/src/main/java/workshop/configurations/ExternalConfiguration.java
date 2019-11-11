@@ -33,7 +33,6 @@ public class ExternalConfiguration {
 				skip(destination.getExternalAuthorities());
 				skip(destination.getOrders());
 				skip(destination.getIsEnabled());
-//				skip(destination.getPassword());
 			}
 		});
 		

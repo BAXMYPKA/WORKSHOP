@@ -2,12 +2,99 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-	<title>LOGIN</title>
+	<link rel="stylesheet" href="../dist/css/login.css" th:href="@{/dist/css/login.css}">
+	<script src="../src/js/login.es6" th:src="@{/dist/js/login.es6}" defer></script>
+	<title th:text="#{html.a.title.login}">Login page</title>
 </head>
 <body>
-<h2>LOGIN PAGE</h2>
+
+<th:block layout:fragment="articleFragment">
+	
+	<h1 th:text="#{html.a.title.login}">Login page</h1>
+	
+	<div class="profileContainer">
+		
+		<div class="loginWindow">
+			
+			<p th:utext="#{html.article.login}">Login process description</p>
+			
+			<div class="formContainer">
+				<div class="login">
+					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
+						<input type="text" id="inputUsername" name="email" value="user@email.pro"
+							   th:value="#{html.input.login.loginUsername}">
+						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
+						<br>
+						<input type="text" id="inputPassword" name="password" value="12345"
+							   th:value="#{html.input.password.loginPassword}">
+						<span class="errorMessage" id="passwordErrorMessage">Possible error message</span>
+						<br>
+						<button class="buttonLogin"
+								onclick="this.form.submit()"
+								th:text="#{html.submit.text.login}">
+							LOGIN
+						</button>
+						<br>
+						<button class="buttonLogin buttonRegistration"
+								title="Registration advantages description"
+								onclick="this.form.submit()"
+								th:text="#{html.submit.registration}"
+								th:title="#{html.button.title.registration}">
+							REGISTRATION
+						</button>
+					
+					</form>
+				</div>
+			</div>
+			
+			<table class="usersTable" th:unless="${usersTable == null}">
+				
+				<caption title th:text="#{html.thead.external.login.predefinedUsers}">
+					The predefined users list
+				</caption>
+				<tr>
+					<th th:text="#{properties.fullName}">
+						Full name
+					</th>
+					<th th:text="#{properties.email}">
+						Email
+					</th>
+					<th th:text="#{properties.created}">
+						Created
+					</th>
+					<th th:text="#{properties.language}">
+						Language
+					</th>
+				</tr>
+				
+				<tr th:unless="${usersTable == null}" th:each="user : ${usersTable}">
+					<td th:text="${user?.lastName + ' ' + user?.firstName}">
+						User full name
+					</td>
+					<td th:text="${user?.email}">
+						User email
+					</td>
+					<td th:text="${#temporals.format(user?.created, 'yyyy-MM-dd HH:mm')}">
+						User creation date
+					</td>
+					<td th:text="${user?.languageTag}">
+						User language
+					</td>
+				</tr>
+			
+			</table>
+		
+		
+		</div>
+	
+	
+	</div>
+
+</th:block>
+
 </body>
 </html>

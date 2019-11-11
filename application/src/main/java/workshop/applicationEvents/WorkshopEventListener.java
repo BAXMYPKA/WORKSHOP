@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.Order;
@@ -12,6 +13,9 @@ import workshop.applicationEvents.OrderFinishedEvent;
 import workshop.internal.entities.User;
 import workshop.utils.EmailTemplates;
 import workshop.utils.WorkshopEmailService;
+
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 
 /**
  * Depending on kind of caught {@link ApplicationEvent} this class reacts accordingly:
@@ -52,12 +56,11 @@ public class WorkshopEventListener {
 	@Async
 	@EventListener()
 	public void userRegisteredEventListener(UserRegisteredEvent event) {
-		log.debug("New User registered event for User.ID={} to send an Email to", event.getUser().getIdentifier());
-		User registeredUser = event.getUser();
+		log.debug("New User registered event for User.ID={} to send an Email to", event.getUuid().getUser().getIdentifier());
+		User registeredUser = event.getUuid().getUser();
 		if (registeredUser.getEmail() != null) {
 			
 			//TODO: to complete an email with a link creation
-			
 //			SimpleMailMessage registrationConfirmationEmail =
 //				emailTemplates.getOrderFinishedEmailTemplate(null);
 //			emailService.sendSimpleMessage(registrationConfirmationEmail);

@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Objects;
 
 @Slf4j
 @Setter
@@ -32,7 +35,9 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		UserDetailsUser user =
 			usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
 		
-		log.debug("User={} is found. Proceeding with matching passwords...", user.getUsername());
+		log.debug("User={} is found.", user.getUsername());
+		
+		isUserEnabled(user);
 		
 		//The raw password must match an encoded one from the Employee with that email
 		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
@@ -40,6 +45,11 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		}
 		
 		return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+	}
+	
+	@Override
+	public boolean supports(Class<?> aClass) {
+		return false;
 	}
 	
 	/**
@@ -54,13 +64,17 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		log.trace("Trying to find User by email {}", userEmail);
 		UserDetailsUser userDetailsUser = usersDetailsService.loadUserByUsername(userEmail);
 		log.trace("User={} is found", userDetailsUser.getUsername());
+		
+		isUserEnabled(userDetailsUser);
+		
 		UsernamePasswordAuthenticationToken authenticatedToken =
-		new  UsernamePasswordAuthenticationToken(userDetailsUser, "", userDetailsUser.getAuthorities());
+			new UsernamePasswordAuthenticationToken(userDetailsUser, "", userDetailsUser.getAuthorities());
 		return authenticatedToken;
 	}
 	
-	@Override
-	public boolean supports(Class<?> aClass) {
-		return false;
+	private void isUserEnabled(UserDetailsUser user) {
+		if (!Objects.requireNonNull(user).isEnabled()) {
+			throw new InsufficientAuthenticationException("User " + user.getUser() + " is not enabled!");
+		}
 	}
 }

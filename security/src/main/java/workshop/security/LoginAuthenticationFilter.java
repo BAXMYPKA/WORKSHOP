@@ -79,9 +79,6 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-//		String email = request.getHeader("email");
-//		String password = request.getHeader("password");
-		
 		if ((email == null || password == null) || (email.isEmpty() && password.isEmpty())) {
 			throw new BadCredentialsException("Email or password is null or empty!");
 		}

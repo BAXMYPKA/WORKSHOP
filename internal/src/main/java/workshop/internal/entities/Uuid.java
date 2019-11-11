@@ -71,7 +71,7 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 	@PostPersist
 	void publishWorkshopEvent() {
 		if (user != null) {
-			WorkshopEntitiesEventPublisher.publishUserRegisteredEvent(user);
+			WorkshopEntitiesEventPublisher.publishUserRegisteredEvent(this);
 		}
 	}
 	

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.User;
+import workshop.internal.entities.Uuid;
 
 /**
  * Helper class.
@@ -31,10 +32,10 @@ public class WorkshopEntitiesEventPublisher implements ApplicationEventPublisher
 		log.debug("OrderFinishedEvent for the finished Order.ID={} has been published.", finishedOrder.getIdentifier());
 	}
 	
-	public static void publishUserRegisteredEvent(User user) {
-		UserRegisteredEvent event = new UserRegisteredEvent(user);
+	public static void publishUserRegisteredEvent(Uuid uuid) {
+		UserRegisteredEvent event = new UserRegisteredEvent(uuid);
 		applicationEventPublisher.publishEvent(event);
-		log.debug("UserRegisteredEvent for the User.ID={} has been published.", user.getIdentifier());
+		log.debug("UserRegisteredEvent for the User.ID={} has been published.", uuid.getUser().getIdentifier());
 	}
 	
 	@Override

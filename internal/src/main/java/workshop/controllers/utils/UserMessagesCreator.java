@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Objects;
 
@@ -35,11 +36,24 @@ public class UserMessagesCreator {
 	 * {@link Model} to be displayed onto html pages which support 'userMessage' attribute.
 	 *
 	 * @param model          The {@link Model} from any WorkshopController the following message for User has to be inserted into
-	 * @param messageForUser {@link String} with localized (or not) special message for the end Users to be displayed
+	 * @param userMessage {@link String} with localized (or not) special message for the end Users to be displayed
 	 *                       onto any html page that supports this kind of messages.
 	 */
-	public void setMessageForUser(Model model, String messageForUser) {
-		Objects.requireNonNull(model).addAttribute(USER_MESSAGE_ATTRIBUTE_NAME, Objects.requireNonNull(messageForUser));
+	public void setMessageForUser(Model model, String userMessage) {
+		Objects.requireNonNull(model).addAttribute(USER_MESSAGE_ATTRIBUTE_NAME, Objects.requireNonNull(userMessage));
+	}
+	
+	/**
+	 * Just sets any kind of {@link String} messages as a special formatted 'userMessage' attribute into the given
+	 * {@link Model} to be displayed onto html pages which support 'userMessage' attribute.
+	 *
+	 * @param redirectAttributes          The {@link RedirectAttributes} from any WorkshopController the following message for User has to be inserted into
+	 * @param userMessage {@link String} with localized (or not) special message for the end Users to be displayed
+	 *                       onto any html page that supports this kind of messages.
+	 */
+	public void setMessageForUser(RedirectAttributes redirectAttributes, String userMessage) {
+		Objects.requireNonNull(redirectAttributes)
+			.addAttribute(USER_MESSAGE_ATTRIBUTE_NAME, Objects.requireNonNull(userMessage));
 	}
 	
 	public String convertBindingResultToJson(BindingResult bindingResult) {

@@ -31,6 +31,7 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 	/**
 	 * !!! If {@link Authentication} != null and 'Referer' contains '/login', all these mean User has come here after
 	 * successful logging in on '/login' page as a 'Referer' and needs to be redirected to '/profile' page !!!
+	 *
 	 * @param request
 	 * @param authentication
 	 * @return
@@ -45,18 +46,20 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 	}
 	
 	/**
-	 * For newly-created {@link User}s with the confirmation registration link who have to enter the site for the first
+	 * For newly-created {@link User}s with the confirmation registration link who have to enter the site exactly here for the first
 	 * time to confirm their registration.
 	 * This method adds the 'uuid' hidden parameter to 'login.html' page. The LoginAuthenticationFilter intercepts the
-	 *  'uuid' parameter and issues the UsernamePasswordUuidAuthenticationToken which is validated by
-	 *  UsersAuthenticationProvider.
-	 * @param uuid
-	 * @param model
-	 * @return
+	 * 'uuid' parameter and issues the UsernamePasswordUuidAuthenticationToken which is validated by
+	 * UsersAuthenticationProvider.
+	 *
+	 * @param uuid  The {@link Uuid} object to be evaluated.
+	 * @param model If the given {@link Uuid} is valid it will be added into this {@link Model}
+	 *              to be the hidden 'uuid' parameter that will be passed along with 'username' and 'password'
+	 *              and further will be evaluated by the LoginAuthenticationFilter.
 	 */
 	@GetMapping(params = "uuid")
 	public String getLoginRegistrationConfirmation(
-		@RequestParam(name = "uuid") String uuid, HttpServletRequest request, HttpServletResponse response, Model model, Locale locale, RedirectAttributes redirectAttributes) {
+		@RequestParam(name = "uuid") String uuid,Model model, Locale locale, RedirectAttributes redirectAttributes) {
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
 			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageNullUuid);
@@ -65,6 +68,9 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 		try { //Check if the UUID is presented in the DataBase
 			uuidsService.findByProperty("uuid", uuid).get(0);
 			model.addAttribute("uuid", uuid);
+			String userMessageConfirmationFirstTime = getMessageSource().getMessage(
+				"message.confirmRegistrationFirstTime", null, locale);
+			getUserMessagesCreator().setMessageForUser(model, userMessageConfirmationFirstTime);
 			return "login";
 		} catch (EntityNotFoundException e) { //UUID is not valid or outdated
 			log.debug("UUID={} not found in the DataBase!", uuid);
@@ -74,9 +80,14 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 		}
 	}
 	
+	@PostMapping
+	public String postLogin() {
+		return "login";
+	}
+	
 	@PostMapping(params = "uuid")
 	public String postLoginWithRegistrationConfirmation(
-		@RequestParam(name = "uuid") String uuid, Model model, Locale locale, RedirectAttributes redirectAttributes) {
+		@RequestParam(name = "uuid") String uuid, Model model, RedirectAttributes redirectAttributes, Locale locale) {
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
 			getUserMessagesCreator().setMessageForUser(model, userMessageNullUuid);
@@ -85,12 +96,12 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 		try {
 			Uuid uuidEntity = uuidsService.findByProperty("uuid", uuid).get(0);
 			
-			String username =	uuidEntity.getUser().getFirstName() != null ?
+			String username = uuidEntity.getUser().getFirstName() != null ?
 				uuidEntity.getUser().getFirstName() :
 				"" + " " + uuidEntity.getUser().getLastName();
 			
 			String userMessageConfirmationNeeded = getMessageSource().getMessage(
-				"message.confirmRegistrationNeeded(1)", new Object[]{username}, locale);
+				"message.confirmRegistrationRequired(1)", new Object[]{username}, locale);
 			
 			getUserMessagesCreator().setMessageForUser(model, userMessageConfirmationNeeded);
 			return "login";
@@ -98,13 +109,8 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 		} catch (EntityNotFoundException e) { //UUID is not valid or outdated
 			log.debug("UUID={} not found in the DataBase!", uuid);
 			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidNotValid", null, locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessageUuidNotValid);
-			return "registration";
+			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageUuidNotValid);
+			return "redirect:/login";
 		}
-	}
-	
-	@PostMapping
-	public String postLogin() {
-		return "login";
 	}
 }

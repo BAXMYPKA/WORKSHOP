@@ -3,11 +3,16 @@ package workshop.exceptions;
 /**
  * To be thrown in the UsersAuthenticationProvider.authenticateUuid(UsernamePasswordUuidAuthenticationToken)
  * and bubbled up by LoginAuthenticationFilter.doFilter(ServletRequest, ServletResponse, FilterChain)
- * to ExceptionHandlerController to inform than the given UUID doesn't math the new
- * {@link workshop.internal.entities.User} who is trying to login and confirm the registration with it.
+ *  to inform that the given UUID doesn't math the new {@link workshop.internal.entities.User} who is trying to login
+ *  and confirm the registration for the first time with it.
  */
 
 public class UuidAuthenticationException extends WorkshopException {
+	
+	private boolean validUsernamePassword;
+	
+	private boolean validUuid;
+	
 	public UuidAuthenticationException(String message, Throwable cause, org.springframework.http.HttpStatus httpStatus, String localizedMessage, String messageSourceKey) {
 		super(message, cause, httpStatus, localizedMessage, messageSourceKey);
 	}

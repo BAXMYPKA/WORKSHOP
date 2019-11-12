@@ -28,7 +28,7 @@
 				  th:action="@{/registration}" th:object="${userDto}">
 				
 				<input type="text" id="inputFirstName" name="firstName" placeholder="Enter your first name"
-					   th:placeholder="#{properties.firstName}">
+					   th:placeholder="#{properties.firstName}" th:value="${userDto?.firstName}">
 				<span class="redAsterisk">*</span>
 				<br>
 				<span class="errorMessage" id="firstNameErrorMessage"
@@ -37,14 +37,14 @@
 				</span>
 				
 				<input type="text" id="inputLastName" name="lastName" placeholder="Enter your last name"
-					   th:placeholder="#{properties.lastName}">
+					   th:placeholder="#{properties.lastName}" th:value="${userDto?.lastName}">
 				<span class="errorMessage" id="lastNameErrorMessage"
 					  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
 					Possible error message
 				</span>
 				<br>
 				<input type="date" id="inputBirthday" name="birthday" placeholder="Enter your birthday"
-					   th:placeholder="#{properties.birthday}">
+					   th:placeholder="#{properties.birthday}" th:value="${userDto?.birthday}">
 				<span class="errorMessage" id="birthdayErrorMessage"
 					  th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">
 					Possible error message
@@ -54,17 +54,18 @@
 					<span class="selectLanguageSpan" th:text="#{html.span.text.selectYourLanguage}">
 						Select your language
 					</span>
+					<!--		//TODO: to complete interception and filling this property			-->
 					<select id="inputLanguageTag" name="languageTag" title="Select your language">
 						<option>RU</option>
 						<option>EN</option>
 					</select>
 				</div>
 				<input type="text" id="inputEmail" name="email" placeholder="Enter your email"
-					   th:placeholder="#{html.input.placeholder.enterYourEmail}">
+					   th:placeholder="#{html.input.placeholder.enterYourEmail}" th:value="${userDto?.email}">
 				<span class="redAsterisk">*</span>
 				<br>
 				<span class="errorMessage" id="emailErrorMessage"
-				th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+					  th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
 					Possible error message
 				</span>
 				

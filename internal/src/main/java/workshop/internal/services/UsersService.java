@@ -79,10 +79,11 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	/**
 	 * @param emailOrPhone User can by logged by email or phone that's why this method will sequentially look for
 	 *                     the User by one of those fields.
-	 * @return Optional.ofNullable
+	 * @return {@link User} with such a login or throws the {@link EntityNotFoundException}
+	 * @throws EntityNotFoundException If nothing found.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-	public User findByLogin(String emailOrPhone) {
+	public User findByLogin(String emailOrPhone) throws EntityNotFoundException {
 		return usersDao.findByEmail(emailOrPhone).orElseThrow(() -> getEntityNotFoundException("User"));
 	}
 	

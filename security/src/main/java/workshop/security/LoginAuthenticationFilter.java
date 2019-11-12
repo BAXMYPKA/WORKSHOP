@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
@@ -62,7 +63,9 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			successfulAuthentication(request, response, chain, authentication);
 		} catch (UuidAuthenticationException e) {
 			log.debug(e.getMessage(), e);
-			throw new UuidAuthenticationException(e.getMessage(), e);
+//			response.sendRedirect("login");
+			request.setAttribute("uuid", "notValid");
+			request.getRequestDispatcher("/login").forward(request, response);
 		} catch (AuthenticationException e) {
 			log.debug(e.getMessage(), e);
 			super.unsuccessfulAuthentication(request, response, e);

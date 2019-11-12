@@ -19,7 +19,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.entities.*;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

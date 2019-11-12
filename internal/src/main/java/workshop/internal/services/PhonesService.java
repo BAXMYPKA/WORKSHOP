@@ -15,8 +15,8 @@ import workshop.internal.dao.EmployeesDao;
 import workshop.internal.dao.PhonesDao;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Phone;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.InternalServerErrorException;
 
 import java.util.List;
 import java.util.Optional;

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.entities.utils.PermissionType;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.IllegalArgumentsException;
 
 import javax.persistence.*;
 import javax.validation.Valid;

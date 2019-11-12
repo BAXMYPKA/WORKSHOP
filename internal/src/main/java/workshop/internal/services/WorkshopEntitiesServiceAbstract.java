@@ -19,10 +19,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
-import workshop.internal.exceptions.PersistenceFailureException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
+import workshop.exceptions.InternalServerErrorException;
+import workshop.exceptions.PersistenceFailureException;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityExistsException;

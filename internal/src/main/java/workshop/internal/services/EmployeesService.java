@@ -2,11 +2,9 @@ package workshop.internal.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import workshop.internal.dao.EmployeesDao;
-import workshop.internal.dao.PhonesDao;
 import workshop.internal.entities.Employee;
-import workshop.internal.entities.User;
 import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -18,8 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.PersistenceFailureException;
+import workshop.exceptions.IllegalArgumentsException;
+import workshop.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
 import java.util.List;

@@ -4,9 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,11 +15,10 @@ import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
 import workshop.internal.entities.Uuid;
 import workshop.internal.entities.hibernateValidation.Persist;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 import workshop.internal.services.UuidsService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Slf4j
@@ -62,7 +58,6 @@ public class RegistrationController extends WorkshopControllerAbstract {
 	 *
 	 * @param success Obligatory
 	 * @param uuid    Obligatory
-	 * @param request Just now only for demo purposes to construct a link from.
 	 * @return '/registration' page with the message states that email with a confirmation link has been sent to the
 	 * {@link User}.
 	 */
@@ -86,7 +81,7 @@ public class RegistrationController extends WorkshopControllerAbstract {
 				"message.confirmRegistration(3)",
 				new Object[]{uuidEntity.getUser().getEmail(), uuidEntity.getUuid(), confirmRegistrationLink},
 				locale);
-			getUserMessagesCreator().setMessageForUser(rmodel, userMessageRegistrationConfirmation);
+			getUserMessagesCreator().setMessageForUser(model, userMessageRegistrationConfirmation);
 		} else {
 			//TODO: to complete after the RequestParameter 'success=false' will be implemented
 			String userMessageRegistrationUnsuccessful = "";
@@ -120,7 +115,7 @@ public class RegistrationController extends WorkshopControllerAbstract {
 			String username = user.getFirstName() != null ? user.getFirstName() : "" + " " + user.getLastName();
 			String userMessageConfirmed =
 				getMessageSource().getMessage("message.confirmRegistrationSuccess(1)", new Object[]{username}, locale);
-			String userMessageConfirmationNeeded = getMessageSource().getMessage("message.confirmRegistrationNeeded(1)")
+//			String userMessageConfirmationNeeded = getMessageSource().getMessage("message.confirmRegistrationNeeded(1)")
 			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageConfirmed);
 			return "redirect:/login";
 		} catch (EntityNotFoundException e) { //UUID is not valid or outdated

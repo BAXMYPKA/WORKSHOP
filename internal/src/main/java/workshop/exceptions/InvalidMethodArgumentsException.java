@@ -1,4 +1,4 @@
-package workshop.internal.exceptions;
+package workshop.exceptions;
 
 import lombok.Getter;
 import org.springframework.validation.BindingResult;

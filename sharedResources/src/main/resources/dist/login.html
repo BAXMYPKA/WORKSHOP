@@ -25,6 +25,9 @@
 			<div class="formContainer">
 				<div class="login">
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
+						
+						<input th:unless="${uuid == null}" type="hidden" name="uuid" th:value="${uuid}">
+						
 						<input type="text" id="inputUsername" name="email" value="user@email.pro"
 							   th:value="#{html.input.login.loginUsername}">
 						<span class="errorMessage" id="userErrorMessage">Possible error message</span>

@@ -2,7 +2,7 @@ package workshop.internal.dao;
 
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.exceptions.InternalServerErrorException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

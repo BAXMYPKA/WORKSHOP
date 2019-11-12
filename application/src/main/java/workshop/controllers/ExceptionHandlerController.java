@@ -3,14 +3,12 @@ package workshop.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
-import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.BindingResult;
@@ -30,15 +27,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.exceptions.TemplateAssertionException;
-import org.thymeleaf.exceptions.TemplateEngineException;
-import org.thymeleaf.exceptions.TemplateProcessingException;
 import workshop.controllers.utils.UserMessagesCreator;
-import workshop.internal.exceptions.*;
+import workshop.exceptions.*;
 import workshop.internal.services.serviceUtils.JsonServiceUtils;
 
 import javax.persistence.*;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -167,7 +164,8 @@ public class ExceptionHandlerController {
 	 */
 	@ExceptionHandler({WorkshopException.class})
 	@ResponseBody
-	public ResponseEntity<String> persistenceFailed(WorkshopException wx, Locale locale) {
+	public ResponseEntity<String> catchWorkshopExceptions(
+		WorkshopException wx, Locale locale, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws ServletException, IOException {
 		log.info(wx.getMessage(), wx);
 		
 		String message;
@@ -179,8 +177,8 @@ public class ExceptionHandlerController {
 			message = wx.getMessage();
 		}
 		
-		if (wx instanceof workshop.internal.exceptions.EntityNotFoundException) {
-			workshop.internal.exceptions.EntityNotFoundException enf = (workshop.internal.exceptions.EntityNotFoundException) wx;
+		if (wx instanceof workshop.exceptions.EntityNotFoundException) {
+			workshop.exceptions.EntityNotFoundException enf = (workshop.exceptions.EntityNotFoundException) wx;
 			log.info(enf.getMessage(), enf);
 			return getResponseEntityWithErrorMessage(
 				enf.getHttpStatus() != null ? enf.getHttpStatus() : HttpStatus.NOT_FOUND,
@@ -207,6 +205,19 @@ public class ExceptionHandlerController {
 				iae.getHttpStatus() != null ? iae.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY,
 				message);
 			
+		} else if (wx instanceof UuidAuthenticationException) {
+			UuidAuthenticationException uuidex = (UuidAuthenticationException) wx;
+			log.info(uuidex.getMessage(), uuidex);
+			if (!request.getRequestURL().toString().contains("/internal")) {
+				//TODO: to complete
+				redirectAttributes.addAttribute("TEST", "TEST VALUE");
+				request.setAttribute("TEST", "TEST VALUE");
+				request.getRequestDispatcher("/login").forward(request, response);
+			}
+			return getResponseEntityWithErrorMessage(
+				uuidex.getHttpStatus() != null ? uuidex.getHttpStatus() : HttpStatus.UNPROCESSABLE_ENTITY,
+				message);
+			
 		}
 		//In case of not enlisted instance has been caught
 		return getResponseEntityWithErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, wx.getMessage());
@@ -220,7 +231,7 @@ public class ExceptionHandlerController {
 	 */
 	@ExceptionHandler({PersistenceException.class})
 	@ResponseBody
-	public ResponseEntity<String> persistenceFailed(PersistenceException exception, Locale locale) {
+	public ResponseEntity<String> catchWorkshopExceptions(PersistenceException exception, Locale locale) {
 		if (exception instanceof EntityExistsException) {
 			log.debug(exception.getMessage(), exception);
 			return getResponseEntityWithErrorMessage(HttpStatus.UNPROCESSABLE_ENTITY,

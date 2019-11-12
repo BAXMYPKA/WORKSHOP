@@ -3,7 +3,7 @@ package workshop.internal.entities;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.IllegalArgumentsException;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;

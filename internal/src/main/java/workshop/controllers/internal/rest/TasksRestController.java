@@ -21,7 +21,7 @@ import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
 import workshop.internal.hateoasResources.EmployeesResourceAssembler;
 import workshop.internal.hateoasResources.OrdersResourceAssembler;

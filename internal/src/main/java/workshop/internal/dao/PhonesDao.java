@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Phone;
 import workshop.internal.entities.User;
-import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.exceptions.InternalServerErrorException;
 
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;

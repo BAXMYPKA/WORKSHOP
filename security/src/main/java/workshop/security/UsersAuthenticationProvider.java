@@ -11,6 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import workshop.exceptions.UuidAuthenticationException;
+import workshop.internal.entities.Uuid;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.internal.services.UuidsService;
 
 import java.util.Objects;
 
@@ -22,6 +26,8 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 	@Qualifier("usersDetailsService")
 	private UsersDetailsService usersDetailsService;
 	@Autowired
+	private UuidsService uuidsService;
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
@@ -29,6 +35,9 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		if (authenticationToken == null || authenticationToken.getPrincipal() == null ||
 			authenticationToken.getPrincipal().toString().isEmpty()) {
 			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
+		}
+		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
+			authenticateUuid((UsernamePasswordUuidAuthenticationToken) authenticationToken);
 		}
 		log.trace("Provide authentication...");
 		
@@ -50,6 +59,24 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public boolean supports(Class<?> aClass) {
 		return false;
+	}
+	
+	void authenticateUuid(UsernamePasswordUuidAuthenticationToken uuidAuthenticationToken) throws AuthenticationException {
+		if (uuidAuthenticationToken.getUuid() == null ||
+			uuidAuthenticationToken.getUuid().isEmpty()) {
+			throw new BadCredentialsException("Neither Authentication nor Principal nor Uuid cannot be null or empty!");
+		}
+		log.trace("Provide authentication with UUID...");
+		try {
+			Uuid uuid = uuidsService.findByProperty("uuid", uuidAuthenticationToken.getUuid()).get(0);
+			log.debug("Uuid={} is found.", uuid.getUuid());
+			if (!uuid.getUser().getEmail().equals(uuidAuthenticationToken.getPrincipal())) {
+				throw new UuidAuthenticationException(
+					"The given User="+uuidAuthenticationToken.getName()+" doesn't math the given UUID="+uuid.getUuid()+" !");
+			}
+		} catch (EntityNotFoundException e) {
+			throw new workshop.exceptions.UuidAuthenticationException("The given UUID cannot be found in the DataBase!", e);
+		}
 	}
 	
 	/**

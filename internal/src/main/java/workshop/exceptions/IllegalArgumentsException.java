@@ -1,4 +1,4 @@
-package workshop.internal.exceptions;
+package workshop.exceptions;
 
 import org.springframework.http.HttpStatus;
 

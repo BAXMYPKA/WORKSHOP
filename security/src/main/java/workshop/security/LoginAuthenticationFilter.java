@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import workshop.exceptions.UuidAuthenticationException;
 import workshop.http.CookieUtils;
 
 import javax.servlet.FilterChain;
@@ -59,34 +60,16 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			log.debug("Authentication={} with Authorities={} is received for being set into SecurityContext",
 				authentication.getName(), authentication.getAuthorities());
 			successfulAuthentication(request, response, chain, authentication);
+		} catch (UuidAuthenticationException e) {
+			log.debug(e.getMessage(), e);
+			throw new UuidAuthenticationException(e.getMessage(), e);
 		} catch (AuthenticationException e) {
-			log.debug(e.getMessage());
+			log.debug(e.getMessage(), e);
 			super.unsuccessfulAuthentication(request, response, e);
 		} catch (Exception e) {
 			log.warn("There is a possible critical error occurred: ", e);
 			super.unsuccessfulAuthentication(request, response, new AuthenticationServiceException(e.getMessage()));
 		}
-	}
-	
-	/**
-	 * UsernamePasswordAuthenticationToken.getPrincipal() returns a username String
-	 * UsernamePasswordAuthenticationToken.getCredentials() returns a password String
-	 */
-	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-		log.trace("Extraction email & password from header...");
-		
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		
-		if ((email == null || password == null) || (email.isEmpty() && password.isEmpty())) {
-			throw new BadCredentialsException("Email or password is null or empty!");
-		}
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
-		Authentication authentication = getAuthenticationManager().authenticate(authenticationToken);
-		// Allow subclasses to set the "details" property (given from the superclass)
-		setDetails(request, authenticationToken);
-		return authentication;
 	}
 	
 	/**
@@ -114,5 +97,32 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 		cookieUtils.addCookieToResponse(response, authenticationCookieName, jwt, null);
 		
 		getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+	}
+	
+	/**
+	 * UsernamePasswordAuthenticationToken.getPrincipal() returns a username String
+	 * UsernamePasswordAuthenticationToken.getCredentials() returns a password String
+	 */
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+		log.trace("Extraction email & password from header...");
+		
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String uuid = request.getParameter("uuid");
+		
+		if ((email == null || password == null) || (email.isEmpty() && password.isEmpty())) {
+			throw new BadCredentialsException("Email or password is null or empty!");
+		}
+		UsernamePasswordAuthenticationToken authenticationToken;
+		if (uuid != null && !uuid.isEmpty()) {
+			authenticationToken = new UsernamePasswordUuidAuthenticationToken(email, password, uuid);
+		} else {
+			authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+		}
+		Authentication authentication = getAuthenticationManager().authenticate(authenticationToken);
+		// Allow subclasses to set the "details" property (given from the superclass)
+		setDetails(request, authenticationToken);
+		return authentication;
 	}
 }

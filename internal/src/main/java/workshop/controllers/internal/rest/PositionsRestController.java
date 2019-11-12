@@ -20,7 +20,7 @@ import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.EmployeesResourceAssembler;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;

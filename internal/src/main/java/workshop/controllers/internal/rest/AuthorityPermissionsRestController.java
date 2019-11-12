@@ -20,7 +20,7 @@ import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.WorkshopEntityType;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.AuthorityPermissionsResourceAssembler;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.WorkshopEntityTypesResourceAssembler;

@@ -1,11 +1,9 @@
 package workshop.internal.services;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import workshop.internal.dao.ExternalAuthoritiesDao;
 import workshop.internal.dao.UsersDao;
 import workshop.internal.dao.UuidsDao;
@@ -13,7 +11,7 @@ import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
 import workshop.internal.entities.Uuid;
 import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,9 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
-import workshop.internal.exceptions.PersistenceFailureException;
+import workshop.exceptions.IllegalArgumentsException;
+import workshop.exceptions.InternalServerErrorException;
+import workshop.exceptions.PersistenceFailureException;
 
 import javax.persistence.EntityExistsException;
 import javax.validation.Valid;

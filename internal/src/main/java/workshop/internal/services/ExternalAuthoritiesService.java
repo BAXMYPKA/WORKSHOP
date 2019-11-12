@@ -2,8 +2,8 @@ package workshop.internal.services;
 
 import workshop.internal.dao.ExternalAuthoritiesDao;
 import workshop.internal.entities.ExternalAuthority;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

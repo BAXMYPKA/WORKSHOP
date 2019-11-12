@@ -22,7 +22,7 @@ import workshop.controllers.internal.rest.DepartmentsRestController;
 import workshop.controllers.internal.rest.PositionsRestController;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.services.DepartmentsService;
 import workshop.internal.services.PositionsService;
 

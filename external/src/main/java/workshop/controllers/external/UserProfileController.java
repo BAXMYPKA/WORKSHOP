@@ -19,7 +19,7 @@ import workshop.controllers.utils.UserMessagesCreator;
 import workshop.external.dto.UserDto;
 import workshop.internal.entities.User;
 import workshop.internal.entities.hibernateValidation.Merge;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 
 import javax.validation.groups.Default;

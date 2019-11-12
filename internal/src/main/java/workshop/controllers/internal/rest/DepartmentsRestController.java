@@ -6,7 +6,7 @@ import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
 import workshop.internal.entities.hibernateValidation.Persist;
 import workshop.internal.entities.hibernateValidation.Merge;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.PositionsResourceAssembler;
 import workshop.internal.hateoasResources.WorkshopEntitiesResourceAssemblerAbstract;

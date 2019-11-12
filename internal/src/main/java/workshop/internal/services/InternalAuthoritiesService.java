@@ -6,7 +6,7 @@ import workshop.internal.dao.PositionsDao;
 import workshop.internal.entities.AuthorityPermission;
 import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.Position;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;

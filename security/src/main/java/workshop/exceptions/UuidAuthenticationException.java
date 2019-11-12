@@ -1,5 +1,8 @@
 package workshop.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * To be thrown in the UsersAuthenticationProvider.authenticateUuid(UsernamePasswordUuidAuthenticationToken)
  * and bubbled up by LoginAuthenticationFilter.doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -9,9 +12,13 @@ package workshop.exceptions;
 
 public class UuidAuthenticationException extends WorkshopException {
 	
-	private boolean validUsernamePassword;
-	
-	private boolean validUuid;
+	//TODO: to fill up
+	/**
+	 *
+	 */
+	@Setter
+	@Getter
+	private boolean isUuidValid;
 	
 	public UuidAuthenticationException(String message, Throwable cause, org.springframework.http.HttpStatus httpStatus, String localizedMessage, String messageSourceKey) {
 		super(message, cause, httpStatus, localizedMessage, messageSourceKey);

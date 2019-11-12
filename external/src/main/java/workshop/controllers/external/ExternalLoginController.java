@@ -59,7 +59,7 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 	 */
 	@GetMapping(params = "uuid")
 	public String getLoginRegistrationConfirmation(
-		@RequestParam(name = "uuid") String uuid,Model model, Locale locale, RedirectAttributes redirectAttributes) {
+		@RequestParam(name = "uuid") String uuid, Model model, Locale locale, RedirectAttributes redirectAttributes) {
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
 			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageNullUuid);
@@ -87,23 +87,25 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 	
 	@PostMapping(params = "uuid")
 	public String postLoginWithRegistrationConfirmation(
-		@RequestParam(name = "uuid") String uuid, Model model, RedirectAttributes redirectAttributes, Locale locale) {
+		@RequestParam(name = "uuid") String uuid,
+		HttpServletRequest request,
+		Model model,
+		RedirectAttributes redirectAttributes,
+		Locale locale) {
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
 			getUserMessagesCreator().setMessageForUser(model, userMessageNullUuid);
 			return "registration";
 		}
 		try {
+			
+			//TODO: here we have to confirm or cancel the new User
+			
 			Uuid uuidEntity = uuidsService.findByProperty("uuid", uuid).get(0);
 			
-			String username = uuidEntity.getUser().getFirstName() != null ?
-				uuidEntity.getUser().getFirstName() :
-				"" + " " + uuidEntity.getUser().getLastName();
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
 			
-			String userMessageConfirmationNeeded = getMessageSource().getMessage(
-				"message.confirmRegistrationRequired(1)", new Object[]{username}, locale);
-			
-			getUserMessagesCreator().setMessageForUser(model, userMessageConfirmationNeeded);
 			return "login";
 			
 		} catch (EntityNotFoundException e) { //UUID is not valid or outdated

@@ -36,24 +36,22 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 			authenticationToken.getPrincipal().toString().isEmpty()) {
 			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
 		}
+		//Here's the newcomer with UUID confirmation code
 		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
 			authenticateUuid((UsernamePasswordUuidAuthenticationToken) authenticationToken);
 		}
-		log.trace("Provide authentication...");
-		
-		UserDetailsUser user =
-			usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
-		
-		log.debug("User={} is found.", user.getUsername());
-		
-		isUserEnabled(user);
-		
-		//The raw password must match an encoded one from the Employee with that email
-		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
-			throw new BadCredentialsException("Username or Password is incorrect!");
+		UserDetailsUser user = usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
+		matchPassword((String) authenticationToken.getCredentials(), user.getPassword());
+		//Checks for newcomers to be logged in with the confirmation UUID
+		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
+			return new UsernamePasswordUuidAuthenticationToken(
+				user, "", user.getAuthorities(), ((UsernamePasswordUuidAuthenticationToken) authenticationToken).getUuid());
+		} else { //Checks for registered users for simple logging in
+			isUserEnabled(user);
+			return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
 		}
 		
-		return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+		
 	}
 	
 	@Override
@@ -61,7 +59,7 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		return false;
 	}
 	
-	void authenticateUuid(UsernamePasswordUuidAuthenticationToken uuidAuthenticationToken) throws AuthenticationException {
+	private void authenticateUuid(UsernamePasswordUuidAuthenticationToken uuidAuthenticationToken) throws AuthenticationException {
 		if (uuidAuthenticationToken.getUuid() == null ||
 			uuidAuthenticationToken.getUuid().isEmpty()) {
 			throw new BadCredentialsException("Neither Authentication nor Principal nor Uuid cannot be null or empty!");
@@ -71,11 +69,13 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 			Uuid uuid = uuidsService.findByProperty("uuid", uuidAuthenticationToken.getUuid()).get(0);
 			log.debug("Uuid={} is found.", uuid.getUuid());
 			if (!uuid.getUser().getEmail().equals(uuidAuthenticationToken.getPrincipal())) {
-				throw new UuidAuthenticationException(
-					"The given User="+uuidAuthenticationToken.getName()+" doesn't math the given UUID="+uuid.getUuid()+" !");
+				UuidAuthenticationException uuidAuthException = new UuidAuthenticationException(
+					"The given User=" + uuidAuthenticationToken.getName() + " doesn't math the given UUID=" + uuid.getUuid() + " !");
+				uuidAuthException.setUuidValid(true);
+				throw uuidAuthException;
 			}
 		} catch (EntityNotFoundException e) {
-			throw new workshop.exceptions.UuidAuthenticationException("The given UUID cannot be found in the DataBase!", e);
+			throw new UuidAuthenticationException("The given UUID cannot be found in the DataBase!", e);
 		}
 	}
 	
@@ -102,6 +102,15 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 	private void isUserEnabled(UserDetailsUser user) {
 		if (!Objects.requireNonNull(user).isEnabled()) {
 			throw new InsufficientAuthenticationException("User " + user.getUser() + " is not enabled!");
+		}
+	}
+	
+	/**
+	 * The raw password must match the encoded one from the User or Employee
+	 */
+	private void matchPassword(String rawPassword, String encodedPassword) {
+		if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+			throw new BadCredentialsException("Username or Password is incorrect!");
 		}
 	}
 }

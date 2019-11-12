@@ -61,11 +61,14 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			log.debug("Authentication={} with Authorities={} is received for being set into SecurityContext",
 				authentication.getName(), authentication.getAuthorities());
 			successfulAuthentication(request, response, chain, authentication);
-		} catch (UuidAuthenticationException e) {
+		} catch (UuidAuthenticationException e) { //The caught POST loginAuthentication request with wrong UUID
 			log.debug(e.getMessage(), e);
-//			response.sendRedirect("login");
-			request.setAttribute("uuid", "notValid");
-			request.getRequestDispatcher("/login").forward(request, response);
+			if (e.isUuidValid()) {
+				request.getRequestDispatcher("/login").forward(request, response);
+			} else {
+				request.setAttribute("uuid", "notValid");
+				response.sendRedirect("login?uuid=notValid");
+			}
 		} catch (AuthenticationException e) {
 			log.debug(e.getMessage(), e);
 			super.unsuccessfulAuthentication(request, response, e);
@@ -81,7 +84,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request,
-											HttpServletResponse response, FilterChain chain, Authentication authResult)
+		HttpServletResponse response, FilterChain chain, Authentication authResult)
 		throws IOException, ServletException {
 		log.debug("Authentication success. Setting JWT into request and updating SecurityContextHolder to contain: {}",
 			authResult);
@@ -95,7 +98,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(
 				authResult, this.getClass()));
 		}
-		
+		//TODO: to treat the UsernamePasswordUuidAuthentication
 		String jwt = jwtUtils.generateJwt(authResult);
 		cookieUtils.addCookieToResponse(response, authenticationCookieName, jwt, null);
 		

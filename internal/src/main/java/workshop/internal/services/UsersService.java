@@ -1,30 +1,29 @@
 package workshop.internal.services;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import workshop.internal.dao.ExternalAuthoritiesDao;
-import workshop.internal.dao.UsersDao;
-import workshop.internal.dao.UuidsDao;
-import workshop.internal.entities.ExternalAuthority;
-import workshop.internal.entities.User;
-import workshop.internal.entities.Uuid;
-import workshop.internal.entities.WorkshopEntity;
-import workshop.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.exceptions.IllegalArgumentsException;
 import workshop.exceptions.InternalServerErrorException;
 import workshop.exceptions.PersistenceFailureException;
+import workshop.internal.dao.ExternalAuthoritiesDao;
+import workshop.internal.dao.UsersDao;
+import workshop.internal.entities.ExternalAuthority;
+import workshop.internal.entities.User;
+import workshop.internal.entities.Uuid;
+import workshop.internal.entities.WorkshopEntity;
 
 import javax.persistence.EntityExistsException;
 import javax.validation.Valid;
@@ -36,9 +35,6 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 	
 	@Autowired
 	private UsersDao usersDao;
-	
-	@Autowired
-	private UuidsDao uuidsDao;
 	
 	@Autowired
 	private ExternalAuthoritiesDao externalAuthoritiesDao;
@@ -137,18 +133,19 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 		return persistEntity(userDto);
 	}
 	
-	/**
-	 * 1. Searches {@link Uuid} by the given String.
-	 * <p>
-	 * 2. Sets the derived {@link Uuid#getUser()} {@link User#setIsEnabled(Boolean)} to 'true'
-	 * <p>
-	 * 3. Sets all the default {@link User#setExternalAuthorities(Set)} for enabled Users.
-	 * <p>
-	 * 4. And deletes this {@link Uuid} as no longer needed.
-	 *
-	 * @param uuid String with {@link UUID} to be found in the DataBase
-	 * @return Confirmed, enabled and ready to use {@link User}
-	 */
+//	/**
+//	 * 1. Searches {@link Uuid} by the given String.
+//	 * <p>
+//	 * 2. Sets the derived {@link Uuid#getUser()} {@link User#setIsEnabled(Boolean)} to 'true'
+//	 * <p>
+//	 * 3. Sets all the default {@link User#setExternalAuthorities(Set)} for enabled Users.
+//	 * <p>
+//	 * 4. And deletes this {@link Uuid} as no longer needed.
+//	 *
+//	 * @param uuid String with {@link UUID} to be found in the DataBase
+//	 * @return Confirmed, enabled and ready to use {@link User}
+//	 */
+/*
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public User confirmNewUserByUuid(String uuid) {
 		Uuid uuidEntity = uuidsDao.findByProperty("uuid", uuid)
@@ -163,6 +160,7 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 		setDefaultExternalAuthorities(confirmedUser);
 		return confirmedUser;
 	}
+*/
 	
 	private void setNewUserExternalAuthorities(User newUser) {
 		ExternalAuthority readProfileAuthority =
@@ -176,7 +174,7 @@ public class UsersService extends WorkshopEntitiesServiceAbstract<User> {
 		
 	}
 	
-	private void setDefaultExternalAuthorities(User user) {
+	public void setDefaultExternalAuthorities(User user) {
 		ExternalAuthority readProfileAuthority =
 			externalAuthoritiesDao.findByProperty("name", "READ-PROFILE")
 				.orElseThrow(() -> new InternalServerErrorException(

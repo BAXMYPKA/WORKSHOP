@@ -25,8 +25,7 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	@Qualifier("usersDetailsService")
 	private UsersDetailsService usersDetailsService;
-	@Autowired
-	private UuidsService uuidsService;
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -36,47 +35,20 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 			authenticationToken.getPrincipal().toString().isEmpty()) {
 			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
 		}
-		//Here's the newcomer with UUID confirmation code
+		//Here's the newcomer with UUID confirmation code.
 		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
-			authenticateUuid((UsernamePasswordUuidAuthenticationToken) authenticationToken);
+			return usersDetailsService.authenticateNewUserByUuid((UsernamePasswordUuidAuthenticationToken) authenticationToken);
 		}
+		//Checks for registered users for simple logging in
 		UserDetailsUser user = usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
 		matchPassword((String) authenticationToken.getCredentials(), user.getPassword());
-		//Checks for newcomers to be logged in with the confirmation UUID
-		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
-			return new UsernamePasswordUuidAuthenticationToken(
-				user, "", user.getAuthorities(), ((UsernamePasswordUuidAuthenticationToken) authenticationToken).getUuid());
-		} else { //Checks for registered users for simple logging in
-			isUserEnabled(user);
-			return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
-		}
-		
-		
+		isUserEnabled(user);
+		return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
 	}
 	
 	@Override
 	public boolean supports(Class<?> aClass) {
 		return false;
-	}
-	
-	private void authenticateUuid(UsernamePasswordUuidAuthenticationToken uuidAuthenticationToken) throws AuthenticationException {
-		if (uuidAuthenticationToken.getUuid() == null ||
-			uuidAuthenticationToken.getUuid().isEmpty()) {
-			throw new BadCredentialsException("Neither Authentication nor Principal nor Uuid cannot be null or empty!");
-		}
-		log.trace("Provide authentication with UUID...");
-		try {
-			Uuid uuid = uuidsService.findByProperty("uuid", uuidAuthenticationToken.getUuid()).get(0);
-			log.debug("Uuid={} is found.", uuid.getUuid());
-			if (!uuid.getUser().getEmail().equals(uuidAuthenticationToken.getPrincipal())) {
-				UuidAuthenticationException uuidAuthException = new UuidAuthenticationException(
-					"The given User=" + uuidAuthenticationToken.getName() + " doesn't math the given UUID=" + uuid.getUuid() + " !");
-				uuidAuthException.setUuidValid(true);
-				throw uuidAuthException;
-			}
-		} catch (EntityNotFoundException e) {
-			throw new UuidAuthenticationException("The given UUID cannot be found in the DataBase!", e);
-		}
 	}
 	
 	/**

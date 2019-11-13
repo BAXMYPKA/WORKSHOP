@@ -63,13 +63,14 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			successfulAuthentication(request, response, chain, authentication);
 		} catch (UuidAuthenticationException e) { //The caught POST loginAuthentication request with wrong UUID
 			log.debug(e.getMessage(), e);
-			if (e.isUuidValid()) {
-				request.getRequestDispatcher("/login").forward(request, response);
+			if (e.getValidUuid() != null) { //Informs User to reenter wrong credentials with this valid UUID
+				request.setAttribute("uuid", e.getValidUuid().getUuid());
+				response.sendRedirect("login?uuid="+e.getValidUuid().getUuid());
 			} else {
 				request.setAttribute("uuid", "notValid");
 				response.sendRedirect("login?uuid=notValid");
 			}
-		} catch (AuthenticationException e) {
+		} catch (AuthenticationException e) { //Other types of not valid credentials
 			log.debug(e.getMessage(), e);
 			super.unsuccessfulAuthentication(request, response, e);
 		} catch (Exception e) {
@@ -83,8 +84,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 	 * Except inserting a Cookie with a valid JWT into the response.
 	 */
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request,
-		HttpServletResponse response, FilterChain chain, Authentication authResult)
+	protected void successfulAuthentication(
+		HttpServletRequest request,	HttpServletResponse response, FilterChain chain, Authentication authResult)
 		throws IOException, ServletException {
 		log.debug("Authentication success. Setting JWT into request and updating SecurityContextHolder to contain: {}",
 			authResult);
@@ -98,7 +99,6 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
 			eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(
 				authResult, this.getClass()));
 		}
-		//TODO: to treat the UsernamePasswordUuidAuthentication
 		String jwt = jwtUtils.generateJwt(authResult);
 		cookieUtils.addCookieToResponse(response, authenticationCookieName, jwt, null);
 		

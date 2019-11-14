@@ -16,8 +16,9 @@
 	
 	<h1 th:text="#{html.h1.registration}">Registration</h1>
 	
-	<a class="repeatedActivationLink" href="#repeatedRegistrationLinkModalBackground"
-	   th:href="@{#repeatedRegistrationLinkModalBackground}" th:text="#{html.a.text.repeatedActivationLink}">
+	<a class="repeatedActivationLink" href="#repeatedRegistrationLinkModalBackground" title="Reactivate account"
+	   th:href="@{#repeatedRegistrationLinkModalBackground}" th:text="#{html.a.text.repeatedActivationLink}"
+	th:title="#{html.a.title.repeatedAccountActivation}">
 		Send activation link again
 	</a>
 	
@@ -131,11 +132,12 @@
 					
 					<form name="repeatedActivationLinkForm" action="/registration" method="post" class="loginForm"
 						  th:action="@{/ajax/registration/repeated-activation-link}">
-						<input type="text" id="inactiveEmail" name="email" value="user@email.pro"
-							   th:value="#{html.input.login.loginUsername}">
+						
+						<input type="text" id="repeatedActivationEmail" name="email" placeholder="Registration email"
+							   th:placeholder="#{html.input.placeholder.enterRegistrationEmail}">
 						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
 						<br>
-						<button class="buttonLogin"
+						<button class="buttonLogin" id="buttonResendActivation"
 								th:text="#{html.submit.text.reactivation}">
 							Send activation link
 						</button>

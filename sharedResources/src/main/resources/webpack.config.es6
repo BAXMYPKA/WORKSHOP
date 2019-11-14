@@ -6,7 +6,8 @@ module.exports = {
 	entry: {
 		index: './src/js/index.es6',
 		profile: './src/js/profile.es6',
-		userOrder: './src/js/userOrder.es6'
+		userOrder: './src/js/userOrder.es6',
+		registration: './src/js/registration.es6'
 	},
 	devtool: 'source-map',
 	plugins: [

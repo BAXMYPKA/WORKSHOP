@@ -157,8 +157,8 @@
 			
 			<li>
 				<a class="modalA"
-				   href="#modalBackground"
-				   th:href="@{#modalBackground}"
+				   href="#designCompliantModalBackground"
+				   th:href="@{#designCompliantModalBackground}"
 				   th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
 				</a>
@@ -264,13 +264,13 @@
 	
 	<!--	MODAL LOGIN WINDOW WITHIN .containerMain -->
 	
-	<div id="loginModalBackground">
+	<div id="loginModalBackground" class="modalBackground">
 		
-		<div class="loginModalWindow">
+		<div class="modalWindow loginModalWindow">
 			
 			<h3>Password reset</h3>
 			
-			<a class="closeA" href=""
+			<a class="closeHref" href=""
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			
@@ -349,11 +349,11 @@
 	
 	<!-- ===== DESIGN COMPLIANT MODAL WINDOW =====	-->
 	
-	<div id="modalBackground">
+	<div id="designCompliantModalBackground" class="modalBackground">
 		
-		<div class="modalWindow">
+		<div class="modalWindow designCompliantModalWindow">
 			
-			<a class="closeA" href=""
+			<a class="closeHref" href=""
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			

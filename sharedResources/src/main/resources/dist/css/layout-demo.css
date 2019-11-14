@@ -280,7 +280,7 @@
 	pointer-events: auto;
 }
 
-#modalBackground > .modalWindow > .closeA {
+#modalBackground > .modalWindow > .closeHref {
 	/*position: relative;*/
 	/*left: 70%;*/
 	text-decoration: none;
@@ -291,7 +291,7 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .closeA:hover {
+#modalBackground > .modalWindow > .closeHref:hover {
 	color: red;
 }
 

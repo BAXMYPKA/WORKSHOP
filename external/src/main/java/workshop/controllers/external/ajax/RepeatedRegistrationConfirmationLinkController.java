@@ -19,7 +19,7 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping(path = "/ajax/registration")
-public class RegistrationRecurrentConfirmationLinkController {
+public class RepeatedRegistrationConfirmationLinkController {
 	
 	@Autowired
 	private UserMessagesCreator userMessagesCreator;
@@ -33,8 +33,8 @@ public class RegistrationRecurrentConfirmationLinkController {
 	@Value("${url}")
 	private String workshopUrl;
 	
-	@PostMapping(path = "/recurrent-confirmation-link")
-	public ResponseEntity<String> postConfirmationLinkCredentials(@RequestParam(name = "email") String email,
+	@PostMapping(path = "/repeated-activation-link")
+	public ResponseEntity<String> postRepeatedActivationLinkCredentials(@RequestParam(name = "email") String email,
 		Locale locale) {
 		try {
 			User user = usersService.findByLogin(email != null ? email : "");

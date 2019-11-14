@@ -16,7 +16,10 @@
 	
 	<h1 th:text="#{html.h1.registration}">Registration</h1>
 	
-	<h3>Send activation link again</h3>
+	<a class="repeatedActivationLink" href="#repeatedRegistrationLinkModalBackground"
+	   th:href="@{#repeatedRegistrationLinkModalBackground}" th:text="#{html.a.text.repeatedActivationLink}">
+		Send activation link again
+	</a>
 	
 	<div class="registrationTableContainer">
 		
@@ -104,6 +107,44 @@
 		<section class="registrationDescription">
 			Registration process description
 		</section>
+	
+	</div>
+	
+	
+	<!--===== REGISTRATION REPEATED LINK MODAL WINDOW =====-->
+	
+	<div id="repeatedRegistrationLinkModalBackground" class="modalBackground">
+		
+		<div class="modalWindow repeatedRegistrationLinkModalWindow">
+			
+			<a class="closeHref" href=""
+			   th:href="@{${#request.getRequestURL()}}"
+			   th:text="#{html.a.text.close}">Close window</a>
+			
+			<p th:utext="#{html.article.registration.repeatedAccountActivationLinkRequestDemo}">
+				Repeated account activation link request process description
+			</p>
+			
+			<div class="formContainer">
+				
+				<div class="login">
+					
+					<form name="repeatedActivationLinkForm" action="/registration" method="post" class="loginForm"
+						  th:action="@{/ajax/registration/repeated-activation-link}">
+						<input type="text" id="inactiveEmail" name="email" value="user@email.pro"
+							   th:value="#{html.input.login.loginUsername}">
+						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
+						<br>
+						<button class="buttonLogin"
+								th:text="#{html.submit.text.reactivation}">
+							Send activation link
+						</button>
+					
+					</form>
+				</div>
+			</div>
+		
+		</div>
 	
 	</div>
 

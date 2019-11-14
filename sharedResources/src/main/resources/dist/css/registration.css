@@ -53,3 +53,14 @@ input {
 	padding: 0.2em;
 	width: 14em;
 }
+
+.repeatedActivationLink {
+	display: inline-block;
+	text-decoration: none;
+}
+
+#repeatedRegistrationLinkModalBackground:target {
+	display: block;
+	z-index: 5;
+	transition-duration: 350ms;
+}

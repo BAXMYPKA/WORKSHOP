@@ -287,22 +287,28 @@ addPhoneButton.addEventListener("click", (buttonEvent) => {
 /*!**********************************!*\
   !*** ./src/js/verifications.es6 ***!
   \**********************************/
-/*! exports provided: emailRegexpCheck, userEmailExist, passwordCheck, phoneNumberCheck, phoneNameCheck */
+/*! exports provided: emailRegexpCheck, isUserEmailExist, isNonEnabledUserEmailExist, passwordCheck, phoneNumberCheck, phoneNameCheck */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emailRegexpCheck", function() { return emailRegexpCheck; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEmailExist", function() { return userEmailExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUserEmailExist", function() { return isUserEmailExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEnabledUserEmailExist", function() { return isNonEnabledUserEmailExist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordCheck", function() { return passwordCheck; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNumberCheck", function() { return phoneNumberCheck; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNameCheck", function() { return phoneNameCheck; });
-/* harmony import */ var _workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntityExist.es6 */ "./src/js/workshopEntityExist.es6");
+/* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
 
+/**
+ * Still in development as I don't know all the permitted symbols in the email string
+ * @param email
+ * @returns {boolean}
+ */
 function emailRegexpCheck(email) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
+	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
 	
 	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;
@@ -317,9 +323,25 @@ function emailRegexpCheck(email) {
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
-function userEmailExist(userEmail) {
+function isUserEmailExist(userEmail) {
 	
-	return Object(_workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__["default"])("User", "email", userEmail)
+	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail)
+		.then((promise) => {
+			promise.exist = promise.ok;
+			return promise;
+		});
+}
+
+
+/**
+ * Async function!
+ *
+ * @param userEmail
+ * @returns {Promise<unknown>} with '.exist' additional boolean property.
+ */
+function isNonEnabledUserEmailExist(userEmail) {
+	
+	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail)
 		.then((promise) => {
 			promise.exist = promise.ok;
 			return promise;
@@ -359,16 +381,17 @@ function phoneNameCheck(phoneName) {
 
 /***/ }),
 
-/***/ "./src/js/workshopEntityExist.es6":
-/*!****************************************!*\
-  !*** ./src/js/workshopEntityExist.es6 ***!
-  \****************************************/
-/*! exports provided: default */
+/***/ "./src/js/workshopEntitiesFetches.es6":
+/*!********************************************!*\
+  !*** ./src/js/workshopEntitiesFetches.es6 ***!
+  \********************************************/
+/*! exports provided: checkWorkshopEntityExist, checkNonEnabledUserExist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return workshopEntityExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkWorkshopEntityExist", function() { return checkWorkshopEntityExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkNonEnabledUserExist", function() { return checkNonEnabledUserExist; });
 /**
  *
  * @param workshopEntityType String representations for WorkshopEntityType to be found
@@ -376,7 +399,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param propertyValue A value of that property
  * @returns {Promise<Response>} with status.ok === true or status.ok === false
  */
-function workshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
+function checkWorkshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
 	
 	const formData = new FormData();
 	formData.append("workshopEntityType", workshopEntityType);
@@ -385,13 +408,33 @@ function workshopEntityExist(workshopEntityType = "default", propertyName = "def
 	
 	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
 		method: "POST",
-		body: formData,
+		body: formData
+		// credentials: "same-origin"
 		// headers: new Headers({
 		// 	"Content-Type": "application/x-www-form-urlencoded"
 		// })
 	}).then(function (promise) {
 		return promise;
 	});
+}
+
+/**
+ * Checks if the given email exist AND belongs to non-enabled User
+ * @param nonEnabledUserEmail
+ * @returns {Promise<Response>}
+ */
+function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
+	
+	const formData = new FormData();
+	formData.append("email", nonEnabledUserEmail);
+	
+	return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
+		method: "POST",
+		body: formData
+		// credentials: "same-origin"
+	}).then((promise) => {
+		return promise;
+	})
 }
 
 /***/ })

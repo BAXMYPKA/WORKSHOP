@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,11 +34,12 @@ public class RepeatedRegistrationConfirmationLinkController {
 	@Value("${url}")
 	private String workshopUrl;
 	
-	@PostMapping(path = "/repeated-activation-link")
-	public ResponseEntity<String> postRepeatedActivationLinkCredentials(@RequestParam(name = "email") String email,
-		Locale locale) {
+	@PostMapping(path = "/repeated-activation-link", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> postRepeatedActivationLinkCredentials(
+		@RequestParam(name = "email") String email,	Locale locale) {
 		try {
 			User user = usersService.findByLogin(email != null ? email : "");
+			
 			if (user.getIsEnabled()) { //We have to create links only for non-enabled Users with Uuid
 				String userMessageUserExists =
 					messageSource.getMessage("message.emailEnabledExist(1)", new Object[]{email}, locale);
@@ -58,4 +60,6 @@ public class RepeatedRegistrationConfirmationLinkController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(userMessagesCreator.getJsonMessageForUser(userMessage));
 		}
 	}
+	
+	
 }

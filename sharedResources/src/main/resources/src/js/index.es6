@@ -1,6 +1,6 @@
 // import {passwordCheck} from './passwordCheck.es6';
-import {emailRegexpCheck, userEmailExist, passwordCheck} from "./verifications.es6";
-// import workshopEntityExist from "./workshopEntityExist.es6";
+import {emailRegexpCheck, isUserEmailExist, passwordCheck} from "./verifications.es6";
+// import workshopEntityExist from "./workshopEntitiesFetches.es6";
 
 const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
 const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
@@ -21,7 +21,7 @@ usernameInput.addEventListener("input", (evt) => {
 		usernameInput.style.color = "green";
 		userErrorMessageSpan.style.display = "none";
 	}
-	userEmailExist(usernameInput.value)
+	isUserEmailExist(usernameInput.value)
 		.then((exist) => {
 			if (exist.exist) {
 				userErrorMessageSpan.style.display = "none";

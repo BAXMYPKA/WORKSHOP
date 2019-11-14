@@ -7,6 +7,8 @@
 }
 
 .login {
+	display: flex;
+	flex-direction: column;
 	flex-basis: 40%;
 	margin: 0.6em;
 	padding: 0.6em;
@@ -38,6 +40,7 @@
 }
 
 input {
+	justify-self: center;
 	display: inline-block;
 	margin: 0.5em 0.1em;
 }
@@ -59,11 +62,18 @@ input {
 	align-self: center;
 	text-decoration: none;
 	font-style: italic;
-	color: dimgrey;
+	color: saddlebrown;
 }
 
 #repeatedRegistrationLinkModalBackground:target {
 	display: block;
 	z-index: 5;
 	transition-duration: 350ms;
+}
+
+#emailReactivationUserMessage {
+	display: none;
+	margin: 0;
+	padding: 0;
+	width: 20%;
 }

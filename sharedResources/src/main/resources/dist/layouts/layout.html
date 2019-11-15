@@ -269,8 +269,6 @@
 		
 		<div class="modalWindow loginModalWindow">
 			
-			<h3>Password reset</h3>
-			
 			<a class="closeHref" href=""
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
@@ -291,15 +289,22 @@
 						<button class="buttonLogin"
 								onclick="this.form.submit()"
 								th:text="#{html.submit.text.login}">
-							LOGIN
+							Login
+						</button>
+						<br>
+						<button class="buttonLogin buttonResetPassword"
+								title="Request password reset"
+								th:text="#{html.submit.text.resetPassword}"
+								th:title="#{html.button.title.resetPasswordProcessDescription}">
+							Reset password
 						</button>
 						<br>
 						<button class="buttonLogin buttonRegistration"
 								title="Registration advantages description"
 								onclick="this.form.submit()"
-								th:text="#{html.submit.registration}"
-								th:title="#{html.button.title.registration}">
-							REGISTRATION
+								th:text="#{html.submit.text.registrationSuggest}"
+								th:title="#{html.button.title.registrationProcessDescription}">
+							Registration
 						</button>
 					
 					</form>

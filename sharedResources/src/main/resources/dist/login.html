@@ -7,7 +7,6 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../dist/css/login.css" th:href="@{/dist/css/login.css}">
-	<script src="../src/js/login.es6" th:src="@{/dist/js/login.es6}" defer></script>
 	<title th:text="#{html.a.title.login}">Login page</title>
 </head>
 <body>
@@ -16,11 +15,9 @@
 	
 	<h1 th:text="#{html.a.title.login}">Login page</h1>
 	
-	<h3>Password reset</h3>
-	
 	<div class="profileContainer">
 		
-		<div class="modalWindow loginWindow">
+		<div class="loginWindow">
 			
 			<p th:utext="#{html.article.login}">Login process description</p>
 			
@@ -44,11 +41,18 @@
 							LOGIN
 						</button>
 						<br>
+						<button class="buttonLogin buttonResetPassword"
+								title="Request password reset"
+								th:text="#{html.submit.text.resetPassword}"
+								th:title="#{html.button.title.resetPasswordProcessDescription}">
+							Reset password
+						</button>
+						<br>
 						<button class="buttonLogin buttonRegistration"
 								title="Registration advantages description"
 								onclick="this.form.submit()"
-								th:text="#{html.submit.registration}"
-								th:title="#{html.button.title.registration}">
+								th:text="#{html.submit.text.registrationSuggest}"
+								th:title="#{html.button.title.registrationProcessDescription}">
 							REGISTRATION
 						</button>
 					
@@ -93,9 +97,7 @@
 			
 			</table>
 		
-		
 		</div>
-	
 	
 	</div>
 

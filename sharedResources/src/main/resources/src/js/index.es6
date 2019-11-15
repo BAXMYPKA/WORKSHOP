@@ -1,16 +1,13 @@
-// import {passwordCheck} from './passwordCheck.es6';
 import {emailRegexpCheck, isUserEmailExist, passwordCheck} from "./verifications.es6";
-// import workshopEntityExist from "./workshopEntitiesFetches.es6";
 
-const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
-const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
-const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
 const usernameInput = document.querySelector("#inputUsername");
 const passwordInput = document.querySelector("#inputPassword");
-const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
-const userErrorMessageSpan = document.querySelector("#userErrorMessage");
 
 usernameInput.addEventListener("input", (evt) => {
+	const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
+	const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
+	const userErrorMessageSpan = document.querySelector("#userErrorMessage");
+	
 	if (!emailRegexpCheck(usernameInput.value)) {
 		usernameInput.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
 		usernameInput.style.color = "red";
@@ -33,6 +30,9 @@ usernameInput.addEventListener("input", (evt) => {
 });
 
 passwordInput.addEventListener("input", (env) => {
+	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+	const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
+	
 	if (passwordCheck(passwordInput.value) === true) {
 		passwordInput.style.color = "green";
 		passwordInput.removeAttribute("title");
@@ -43,5 +43,10 @@ passwordInput.addEventListener("input", (env) => {
 		passwordErrorMessageSpan.style.display = "block";
 		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
 	}
+});
+
+document.querySelector(".buttonResetPassword").addEventListener("click", (env) => {
+	env.preventDefault();
+	location.href = location.origin + "/workshop.pro/password-reset";
 });
 

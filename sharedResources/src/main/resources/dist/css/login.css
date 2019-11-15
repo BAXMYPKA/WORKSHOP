@@ -3,3 +3,17 @@
 	flex-direction: column;
 }
 
+.loginWindow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	overflow: auto;
+	border: darkgrey 0.5em solid;
+	border-radius: 1em;
+	box-shadow: inset 0 0 1em 1.5em gainsboro;
+	padding: 1.5em;
+	background-color: ghostwhite;
+	pointer-events: auto;
+	
+}

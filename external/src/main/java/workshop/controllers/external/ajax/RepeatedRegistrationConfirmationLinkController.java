@@ -18,6 +18,11 @@ import workshop.internal.services.UsersService;
 
 import java.util.Locale;
 
+/**
+ * Interacts with AJAX requests about recurrent account activation links for new {@link User}s.
+ * Checks if such emails exist and linked accounts are not enabled yet.
+ * Returns {@link HttpStatus#OK} if affirmative or {@link HttpStatus} 400-x series otherwise.
+ */
 @Controller
 @RequestMapping(path = "/ajax/registration")
 public class RepeatedRegistrationConfirmationLinkController {

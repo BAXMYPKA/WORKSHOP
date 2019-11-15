@@ -209,10 +209,11 @@
 		<article class="article">
 			
 			<!--	If 'userMessage' is in the Model as an attribute (utext)		-->
-			<div class="userMessage" th:unless="${userMessage == null}"
-				 th:utext="${userMessage}">
+			<div id="userMessage" class="userMessage"
+				 th:style="${userMessage != null ? 'display:block' : 'display:none'}"
+				 th:utext="${userMessage != null ? userMessage : ''}">
 			</div>
-			<!--	If 'userMessage is in the Request as a parameter (text)		-->
+			<!--	If 'userMessage is in the Request as a parameter (text) here will be the additional div		-->
 			<div class="userMessage" th:unless="${#request.getParameter('userMessage') == null}"
 				 th:text="${#request.getParameter('userMessage')}">
 			</div>

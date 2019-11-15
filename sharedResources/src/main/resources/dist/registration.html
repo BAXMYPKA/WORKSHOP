@@ -130,12 +130,15 @@
 				
 				<div class="login">
 					
-					<form name="repeatedActivationLinkForm" action="/registration" method="post" class="loginForm"
+					<div class="errorMessage" id="emailReactivationUserMessage">Possible error message</div>
+					
+					<form name="repeatedActivationLinkForm" action="/registration" method="post"
+						  class="loginForm repeatedActivationLinkFormClass"
 						  th:action="@{/ajax/registration/repeated-activation-link}">
 						
 						<input type="text" id="repeatedActivationEmail" name="email" placeholder="Registration email"
 							   th:placeholder="#{html.input.placeholder.enterRegistrationEmail}">
-						<div class="errorMessage" id="emailReactivationUserMessage">Possible error message</div>
+						<br>
 						<br>
 						<button class="buttonLogin" id="buttonResendActivation"
 								th:text="#{html.submit.text.reactivation}">

@@ -48,12 +48,13 @@ public class RepeatedRegistrationConfirmationLinkController {
 			} else { //Non-enabled Users MUST contain Uuid. Otherwise it is the fatal error
 				Uuid uuid = user.getUuid();
 				String registrationConfirmationUrl = workshopUrl + "login?uuid=" + uuid.getUuid();
-				String confirmRegistrationLink = "<a href=\"" + registrationConfirmationUrl + "\">Подтвердить регистрацию</a>.";
+				String confirmRegistrationLink = "<a href='" + registrationConfirmationUrl + "'>Подтвердить регистрацию</a>.";
 				String userMessageRegistrationConfirmation = messageSource.getMessage(
 					"message.confirmRegistrationRequiredDemo(3)",
 					new Object[]{uuid.getUser().getEmail(), uuid.getUuid(), confirmRegistrationLink},
 					locale);
-				return ResponseEntity.ok(userMessagesCreator.getJsonMessageForUser(userMessageRegistrationConfirmation));
+				String jsonUserMessage = userMessagesCreator.getJsonMessageForUser(userMessageRegistrationConfirmation);
+				return ResponseEntity.ok(jsonUserMessage);
 			}
 		} catch (EntityNotFoundException e) {
 			String userMessage = messageSource.getMessage("message.notFound(1)", new Object[]{email}, locale);

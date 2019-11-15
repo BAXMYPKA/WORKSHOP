@@ -332,6 +332,11 @@
 	color: red;
 }
 
+#designCompliantModalWindow{
+	top: 15%;
+	bottom: 15%;
+}
+
 .formContainer {
 	flex-basis: 100%;
 }

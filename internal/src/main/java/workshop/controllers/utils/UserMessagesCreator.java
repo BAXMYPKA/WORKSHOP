@@ -78,6 +78,6 @@ public class UserMessagesCreator {
 	
 	private String getFinishedString(StringBuilder jsonErrorObject) {
 		jsonErrorObject.insert(0, "{").insert(jsonErrorObject.length(), "}");
-		return jsonErrorObject.toString().replace("'", "\"");
+		return jsonErrorObject.toString().replace("'", "\\\\'");
 	}
 }

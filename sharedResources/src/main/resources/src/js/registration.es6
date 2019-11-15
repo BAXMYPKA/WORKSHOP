@@ -1,4 +1,5 @@
 import {emailRegexpCheck, isNonEnabledUserEmailExist} from "./verifications.es6";
+import {setUserMessage} from "./userMessaging.es6";
 
 const nonEmailMessage = "Введенный адрес не похож на правильный!";
 const repeatedActivationEmailInput = document.querySelector("#repeatedActivationEmail");
@@ -17,7 +18,7 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 	clickEvent.preventDefault();
 	const emailReactivationMessageSpan = document.querySelector("#emailReactivationUserMessage");
 	
-	if (repeatedActivationEmailInput.style.color === "red") {
+	if (repeatedActivationEmailInput.style.color === "red" || !repeatedActivationEmailInput.value) {
 		emailReactivationMessageSpan.style.display = "block";
 		emailReactivationMessageSpan.innerHTML = nonEmailMessage;
 		return
@@ -25,10 +26,15 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 	isNonEnabledUserEmailExist(repeatedActivationEmailInput.value)
 		.then(promise => {
 			if (promise.exist) {
-				emailReactivationMessageSpan.style.display = "none";
-				console.log("EXIST");
+				promise.json()
+					.then((json) => {
+						emailReactivationMessageSpan.style.display = "none";
+						let userMessage = JSON.stringify(json);
+						setUserMessage(JSON.parse(userMessage)['userMessage']);
+						console.log(JSON.parse(userMessage)['userMessage']);
+						history.back();
+					});
 			} else {
-				console.log("NOT EXIST");
 				promise.json()
 					.then((json) => {
 						let userMessage = JSON.stringify(json);
@@ -37,5 +43,4 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 					})
 			}
 		})
-	
 });

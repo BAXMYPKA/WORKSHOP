@@ -7,7 +7,7 @@ import {checkWorkshopEntityExist, checkNonEnabledUserExist} from "./workshopEnti
  */
 export function emailRegexpCheck(email) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
+	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 	
 	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;

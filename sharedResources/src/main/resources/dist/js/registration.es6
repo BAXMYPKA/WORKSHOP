@@ -96,6 +96,8 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
+/* harmony import */ var _userMessaging_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./userMessaging.es6 */ "./src/js/userMessaging.es6");
+
 
 
 const nonEmailMessage = "Введенный адрес не похож на правильный!";
@@ -115,7 +117,7 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 	clickEvent.preventDefault();
 	const emailReactivationMessageSpan = document.querySelector("#emailReactivationUserMessage");
 	
-	if (repeatedActivationEmailInput.style.color === "red") {
+	if (repeatedActivationEmailInput.style.color === "red" || !repeatedActivationEmailInput.value) {
 		emailReactivationMessageSpan.style.display = "block";
 		emailReactivationMessageSpan.innerHTML = nonEmailMessage;
 		return
@@ -123,10 +125,15 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isNonEnabledUserEmailExist"])(repeatedActivationEmailInput.value)
 		.then(promise => {
 			if (promise.exist) {
-				emailReactivationMessageSpan.style.display = "none";
-				console.log("EXIST");
+				promise.json()
+					.then((json) => {
+						emailReactivationMessageSpan.style.display = "none";
+						let userMessage = JSON.stringify(json);
+						Object(_userMessaging_es6__WEBPACK_IMPORTED_MODULE_1__["setUserMessage"])(JSON.parse(userMessage)['userMessage']);
+						console.log(JSON.parse(userMessage)['userMessage']);
+						history.back();
+					});
 			} else {
-				console.log("NOT EXIST");
 				promise.json()
 					.then((json) => {
 						let userMessage = JSON.stringify(json);
@@ -135,8 +142,39 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 					})
 			}
 		})
-	
 });
+
+/***/ }),
+
+/***/ "./src/js/userMessaging.es6":
+/*!**********************************!*\
+  !*** ./src/js/userMessaging.es6 ***!
+  \**********************************/
+/*! exports provided: deleteUserMessage, setUserMessage, addUserMessage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteUserMessage", function() { return deleteUserMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserMessage", function() { return setUserMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUserMessage", function() { return addUserMessage; });
+function deleteUserMessage() {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.innerHTML = "";
+	userMessageDiv.style.display = "none";
+}
+
+function setUserMessage(userMessage = "") {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.style.display = "block";
+	userMessageDiv.innerHTML = userMessage;
+}
+
+function addUserMessage(additionalUserMessage = "") {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.style.display = "block";
+	userMessageDiv.innerHTML.concat("<br>").concat(additionalUserMessage);
+}
 
 /***/ }),
 
@@ -165,7 +203,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 function emailRegexpCheck(email) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
+	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 	
 	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;

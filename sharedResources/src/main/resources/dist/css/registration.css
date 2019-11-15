@@ -5,11 +5,19 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
-
+.repeatedActivationLinkFormClass {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
 .login {
+	align-self: center;
+	justify-self: center;
 	display: flex;
 	flex-direction: column;
 	flex-basis: 40%;
+	justify-content: center;
+	align-content: center;
 	margin: 0.6em;
 	padding: 0.6em;
 	border: ghostwhite 0.5em solid;
@@ -26,6 +34,10 @@
 	background-color: whitesmoke;
 }
 
+.redAsterisk {
+	display: inline-block;
+}
+
 .redAsteriskWarning {
 	display: block;
 	margin: 1em;
@@ -35,14 +47,20 @@
 }
 
 .errorMessage {
-	display: block;
-	/*display: none;*/
+	/*display: block;*/
+	display: none;
 }
 
 input {
 	justify-self: center;
+	align-self: center;
 	display: inline-block;
 	margin: 0.5em 0.1em;
+}
+
+.buttonLogin {
+	align-self: center;
+	justify-self: center;
 }
 
 .selectLanguageSpan {
@@ -60,7 +78,7 @@ input {
 .repeatedActivationLink {
 	display: inline-block;
 	align-self: center;
-	text-decoration: none;
+	text-decoration: dashed;
 	font-style: italic;
 	color: saddlebrown;
 }
@@ -73,7 +91,9 @@ input {
 
 #emailReactivationUserMessage {
 	display: none;
+	justify-self: center;
+	align-self: center;
 	margin: 0;
 	padding: 0;
-	width: 20%;
+	max-width: 70%;
 }

@@ -20,7 +20,6 @@ import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.services.UsersService;
 import workshop.internal.services.UuidsService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -86,7 +85,7 @@ public class RegistrationController extends WorkshopControllerAbstract {
 			return "registration";
 		} catch (EntityNotFoundException e) {
 			log.debug("UUID={} not found in the DataBase!", uuid);
-			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidNotValid", null, locale);
+			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidRegConfirmNotValid", null, locale);
 			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageUuidNotValid);
 			return "redirect:/registration";
 		}

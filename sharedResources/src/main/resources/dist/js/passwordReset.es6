@@ -97,6 +97,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
 /* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
+/* harmony import */ var _userMessaging_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./userMessaging.es6 */ "./src/js/userMessaging.es6");
+
 
 
 
@@ -130,7 +132,11 @@ if (document.querySelector("#notLoggedUsersForm") !== null) {
 						.then(promise => {
 							promise.json()
 								.then(json => {
-									console.log(json);
+									emailInput.style.color = "green";
+									userErrorMessageEmail.textContent = "";
+									userErrorMessageEmail.style.display = "none";
+									let userMessage = JSON.stringify(json);
+									Object(_userMessaging_es6__WEBPACK_IMPORTED_MODULE_2__["setUserMessage"])(JSON.parse(userMessage)['userMessage']);
 								})
 						})
 				} else {
@@ -143,6 +149,38 @@ if (document.querySelector("#notLoggedUsersForm") !== null) {
 }
 
 
+
+/***/ }),
+
+/***/ "./src/js/userMessaging.es6":
+/*!**********************************!*\
+  !*** ./src/js/userMessaging.es6 ***!
+  \**********************************/
+/*! exports provided: deleteUserMessage, setUserMessage, addUserMessage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteUserMessage", function() { return deleteUserMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserMessage", function() { return setUserMessage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUserMessage", function() { return addUserMessage; });
+function deleteUserMessage() {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.innerHTML = "";
+	userMessageDiv.style.display = "none";
+}
+
+function setUserMessage(userMessage = "") {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.style.display = "block";
+	userMessageDiv.innerHTML = userMessage;
+}
+
+function addUserMessage(additionalUserMessage = "") {
+	const userMessageDiv = document.querySelector("#userMessage");
+	userMessageDiv.style.display = "block";
+	userMessageDiv.innerHTML.concat("<br>").concat(additionalUserMessage);
+}
 
 /***/ }),
 

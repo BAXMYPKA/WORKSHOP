@@ -52,8 +52,8 @@ public class RepeatedRegistrationAjaxController {
 					body(userMessagesCreator.getJsonMessageForUser(userMessageUserExists));
 			} else { //Non-enabled Users MUST contain Uuid. Otherwise it is the fatal error
 				Uuid uuid = user.getUuid();
-				String registrationConfirmationUrl = workshopUrl + "login?uuid=" + uuid.getUuid();
-				String confirmRegistrationLink = "<a href='" + registrationConfirmationUrl + "'>Подтвердить регистрацию</a>.";
+				String regConfirmUrl = workshopUrl + "login?uuid=" + uuid.getUuid();
+				String confirmRegistrationLink = "<a href=\\\"" + regConfirmUrl + "\\\">Подтвердить регистрацию</a>.";
 				String userMessageRegistrationConfirmation = messageSource.getMessage(
 					"message.confirmRegistrationRequiredDemo(3)",
 					new Object[]{uuid.getUser().getEmail(), uuid.getUuid(), confirmRegistrationLink},

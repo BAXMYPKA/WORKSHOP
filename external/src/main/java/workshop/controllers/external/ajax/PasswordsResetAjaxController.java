@@ -42,24 +42,25 @@ public class PasswordsResetAjaxController {
 	public ResponseEntity<String> postEmailPasswordResetForUser(@RequestParam(name = "email") String email, Locale locale) {
 		try {
 			User user = usersService.findByLogin(email);
-			Uuid resetUserPassUuid = new Uuid();
-			resetUserPassUuid.setPasswordResetUser(user);
+			Uuid resetUserPassUuid;
 			
-			uuidsService.persistEntity(resetUserPassUuid);
-			
-			user.setPasswordResetUuid(resetUserPassUuid);
-			
-			usersService.mergeEntity(user);
-			
-			String resetPasswordLink = "<a href=\"" + workshopUrl + "/password-reset?uuid=" + resetUserPassUuid.getUuid() +
-				"\">Сбросить пароль</a>";
+			if (user.getPasswordResetUuid() == null) { //User doesn't have the Uuid
+				resetUserPassUuid = new Uuid();
+				resetUserPassUuid.setPasswordResetUser(user);
+				uuidsService.persistEntity(resetUserPassUuid);
+				user.setPasswordResetUuid(resetUserPassUuid);
+				usersService.mergeEntity(user);
+			} else { //User already has the Uuid and need it again
+				resetUserPassUuid = user.getPasswordResetUuid();
+			}
+			String resetPasswordUrl = workshopUrl +  "password-reset?uuid=" + resetUserPassUuid.getUuid();
+			String resetPasswordLink = "<a href=\\\"" + resetPasswordUrl + "\\\">Сбросить пароль</a>.";
 			String userMessage = messageSource.getMessage(
 				"message.passwordResetByEmailDemo(3)",
 				new Object[]{user.getEmail(), resetUserPassUuid.getUuid(), resetPasswordLink}, locale);
 			String jsonMessageForUser = userMessagesCreator.getJsonMessageForUser(userMessage);
 			
 			return ResponseEntity.ok(jsonMessageForUser);
-			
 		} catch (EntityNotFoundException e) {
 			String userMessageNotFound = messageSource.getMessage(
 				"message.notFound(1)", new Object[]{email}, locale);

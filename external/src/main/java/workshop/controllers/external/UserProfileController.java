@@ -118,7 +118,7 @@ public class UserProfileController extends WorkshopControllerAbstract {
 		
 		if (photo.isEmpty() || photo.getContentType() == null || !photo.getContentType().startsWith("image/")) {
 			redirectAttributes.addAttribute("userMessage", getMessageSource().getMessage(
-				"message.PhotoUploadError", null, locale));
+				"message.photoUploadError", null, locale));
 			return "redirect:/profile";
 		}
 		User user = usersService.findByLogin(authentication.getName());
@@ -128,7 +128,7 @@ public class UserProfileController extends WorkshopControllerAbstract {
 		} catch (IOException e) {
 			log.debug(e.getMessage(), e);
 			redirectAttributes.addAttribute("userMessage", getMessageSource().getMessage(
-				"message.PhotoUploadError", null, locale));
+				"message.photoUploadError", null, locale));
 			return "redirect:/profile";
 		}
 		return "redirect:/profile";

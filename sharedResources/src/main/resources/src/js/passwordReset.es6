@@ -1,5 +1,6 @@
 import {emailRegexpCheck} from "./verifications.es6";
 import {checkWorkshopEntityExist, passwordResetEmail} from "./workshopEntitiesFetches.es6";
+import {setUserMessage} from "./userMessaging.es6";
 
 if (document.querySelector("#loggedUsersResetForm") !== null) {
 	//
@@ -31,7 +32,11 @@ if (document.querySelector("#notLoggedUsersForm") !== null) {
 						.then(promise => {
 							promise.json()
 								.then(json => {
-									console.log(json);
+									emailInput.style.color = "green";
+									userErrorMessageEmail.textContent = "";
+									userErrorMessageEmail.style.display = "none";
+									let userMessage = JSON.stringify(json);
+									setUserMessage(JSON.parse(userMessage)['userMessage']);
 								})
 						})
 				} else {

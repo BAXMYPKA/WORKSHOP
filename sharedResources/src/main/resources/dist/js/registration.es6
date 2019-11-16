@@ -130,7 +130,6 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 						emailReactivationMessageSpan.style.display = "none";
 						let userMessage = JSON.stringify(json);
 						Object(_userMessaging_es6__WEBPACK_IMPORTED_MODULE_1__["setUserMessage"])(JSON.parse(userMessage)['userMessage']);
-						console.log(JSON.parse(userMessage)['userMessage']);
 						history.back();
 					});
 			} else {

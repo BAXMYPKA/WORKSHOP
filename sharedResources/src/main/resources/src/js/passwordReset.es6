@@ -2,10 +2,16 @@ import {emailRegexpCheck} from "./verifications.es6";
 import {checkWorkshopEntityExist, passwordResetEmail} from "./workshopEntitiesFetches.es6";
 import {setUserMessage} from "./userMessaging.es6";
 
+/**
+ * If a logged and authenticated Users requested the page
+ */
 if (document.querySelector("#loggedUsersResetForm") !== null) {
 	//
 }
 
+/**
+ * If a not logged User requested the page
+ */
 if (document.querySelector("#notLoggedUsersForm") !== null) {
 	
 	const emailInput = document.querySelector("#userEmail");

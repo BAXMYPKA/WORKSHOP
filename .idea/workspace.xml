@@ -6,21 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ExternalLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ExternalLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/PasswordResetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/PasswordResetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/UserProfileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PasswordsResetAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/PasswordsResetAjaxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/RepeatedRegistrationAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/ajax/RepeatedRegistrationAjaxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/passwordReset.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/css/passwordReset.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/passwordReset.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/passwordReset.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/registration.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/registration.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/passwordReset.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/passwordReset.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/messages_ru.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordReset.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordReset.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/registration.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/registration.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -430,6 +421,7 @@
       <workItem from="1573819633152" duration="7720000" />
       <workItem from="1573897338134" duration="7692000" />
       <workItem from="1573911196052" duration="7091000" />
+      <workItem from="1573923604574" duration="2880000" />
     </task>
     <servers />
   </component>

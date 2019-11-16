@@ -25,7 +25,7 @@ import java.util.Locale;
  */
 @Controller
 @RequestMapping(path = "/ajax/registration")
-public class RepeatedRegistrationConfirmationLinkController {
+public class RepeatedRegistrationAjaxController {
 	
 	@Autowired
 	private UserMessagesCreator userMessagesCreator;

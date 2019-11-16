@@ -81,72 +81,66 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/index.es6");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/passwordReset.es6");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/index.es6":
-/*!**************************!*\
-  !*** ./src/js/index.es6 ***!
-  \**************************/
+/***/ "./src/js/passwordReset.es6":
+/*!**********************************!*\
+  !*** ./src/js/passwordReset.es6 ***!
+  \**********************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
+/* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
 
-const usernameInput = document.querySelector("#inputUsername");
-const passwordInput = document.querySelector("#inputPassword");
 
-usernameInput.addEventListener("input", (evt) => {
-	const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
-	const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
-	const userErrorMessageSpan = document.querySelector("#userErrorMessage");
+if (document.querySelector("#loggedUsersResetForm") !== null) {
+	//
+}
+
+if (document.querySelector("#notLoggedUsersForm") !== null) {
 	
-	if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(usernameInput.value)) {
-		usernameInput.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
-		usernameInput.style.color = "red";
-		userErrorMessageSpan.style.display = "none";
-		return;
-	} else {
-		usernameInput.removeAttribute("title");
-		usernameInput.style.color = "green";
-		userErrorMessageSpan.style.display = "none";
-	}
-	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(usernameInput.value)
-		.then((exist) => {
-			if (exist.exist) {
-				userErrorMessageSpan.style.display = "none";
-			} else {
-				userErrorMessageSpan.style.display = "block";
-				userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
-			}
-		});
-});
-
-passwordInput.addEventListener("input", (env) => {
-	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
-	const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
+	const emailInput = document.querySelector("#userEmail");
+	const buttonLogin = document.querySelector(".buttonLogin");
+	const userErrorMessageEmail = document.querySelector("#userErrorMessageEmail");
+	const emailNotExistMessage = "Такого адреса в базе нет!";
 	
-	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
-		passwordInput.style.color = "green";
-		passwordInput.removeAttribute("title");
-		passwordErrorMessageSpan.style.display = "none";
-	} else {
-		passwordInput.style.color = "red";
-		passwordInput.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
-		passwordErrorMessageSpan.style.display = "block";
-		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
-	}
-});
-
-document.querySelector(".buttonResetPassword").addEventListener("click", (env) => {
-	env.preventDefault();
-	location.href = location.origin + "/workshop.pro/password-reset";
-});
+	document.querySelector("#userEmail").addEventListener("input", (evn) => {
+		if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(emailInput.value)) {
+			emailInput.style.color = "red";
+			buttonLogin.disabled = true;
+		} else {
+			emailInput.style.color = "green";
+			buttonLogin.disabled = false;
+		}
+	});
+	
+	document.querySelector(".buttonLogin").addEventListener("click", (env) => {
+		env.preventDefault();
+		Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["checkWorkshopEntityExist"])('User', 'email', emailInput.value)
+			.then(promise => {
+				if (promise.ok) {
+					Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["passwordResetEmail"])(emailInput.value)
+						.then(promise => {
+							promise.json()
+								.then(json => {
+									console.log(json);
+								})
+						})
+				} else {
+					emailInput.style.color = "red";
+					userErrorMessageEmail.style.display = "block";
+					userErrorMessageEmail.textContent = emailNotExistMessage;
+				}
+			})
+	})
+}
 
 
 

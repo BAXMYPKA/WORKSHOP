@@ -47,6 +47,11 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 	@Valid
 	private User user;
 	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "password_reset_user_id", unique = true, updatable = false, referencedColumnName = "id")
+	@Valid
+	private User passwordResetUser;
+	
 	/**
 	 * 1. {@link #uuid} property generates automatically.
 	 * <p>
@@ -72,6 +77,9 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 	void publishWorkshopEvent() {
 		if (user != null) {
 			WorkshopEntitiesEventPublisher.publishUserRegisteredEvent(this);
+		} else if (passwordResetUser != null) {
+			//TODO: to complete
+			//Send publish reset pass event
 		}
 	}
 	
@@ -93,4 +101,21 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 		user.setUuid(this);
 		this.user = user;
 	}
+	
+	/**
+	 * The enabled {@link User} whose password needs to be reset by sending the secure email link with this {@link Uuid}
+	 * Also automatically generates the UUID while inserting.
+	 *
+	 * @param passwordResetUser Enabled {@link User} who needs an email with a secure link for password resetting.
+	 */
+	public void setPasswordResetUser(User passwordResetUser) {
+		if (passwordResetUser == null || this.user != null) {
+			throw new IllegalArgumentsException("This UUID cannot be associated with null or not enabled User!",
+				"httpStatus.notAcceptable.uuidForEnabledUser",
+				HttpStatus.NOT_ACCEPTABLE);
+		}
+		this.passwordResetUser = passwordResetUser;
+		this.uuid = UUID.randomUUID().toString();
+	}
+	
 }

@@ -42,3 +42,16 @@ export function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
 		return promise;
 	})
 }
+
+export function passwordResetEmail(email = "") {
+	
+	const formData = new FormData();
+	formData.append("email", email);
+	
+	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+		method: "POST",
+		body: formData
+	}) .then((promise) => {
+		return promise;
+	})
+}

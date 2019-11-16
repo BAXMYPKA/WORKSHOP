@@ -280,13 +280,14 @@ function phoneNameCheck(phoneName) {
 /*!********************************************!*\
   !*** ./src/js/workshopEntitiesFetches.es6 ***!
   \********************************************/
-/*! exports provided: checkWorkshopEntityExist, checkNonEnabledUserExist */
+/*! exports provided: checkWorkshopEntityExist, checkNonEnabledUserExist, passwordResetEmail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkWorkshopEntityExist", function() { return checkWorkshopEntityExist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkNonEnabledUserExist", function() { return checkNonEnabledUserExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordResetEmail", function() { return passwordResetEmail; });
 /**
  *
  * @param workshopEntityType String representations for WorkshopEntityType to be found
@@ -328,6 +329,19 @@ function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
 		body: formData
 		// credentials: "same-origin"
 	}).then((promise) => {
+		return promise;
+	})
+}
+
+function passwordResetEmail(email = "") {
+	
+	const formData = new FormData();
+	formData.append("email", email);
+	
+	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+		method: "POST",
+		body: formData
+	}) .then((promise) => {
 		return promise;
 	})
 }

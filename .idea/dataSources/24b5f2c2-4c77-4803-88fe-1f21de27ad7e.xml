@@ -1198,130 +1198,150 @@ CLASSIFIER_ID</ColNames>
       <Position>7</Position>
       <DataType>BIGINT(19)|-5s</DataType>
     </column>
-    <column id="271" parent="23" name="USER_ID">
+    <column id="271" parent="23" name="PASSWORD_RESET_USER_ID">
       <Position>8</Position>
       <DataType>BIGINT(19)|-5s</DataType>
     </column>
-    <index id="272" parent="23" name="PRIMARY_KEY_4D">
+    <column id="272" parent="23" name="USER_ID">
+      <Position>9</Position>
+      <DataType>BIGINT(19)|-5s</DataType>
+    </column>
+    <index id="273" parent="23" name="PRIMARY_KEY_4D">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="273" parent="23" name="UK_OOF5XFGSBIGHTF2DAA7A6JD97_INDEX_4">
+    <index id="274" parent="23" name="UK_OOF5XFGSBIGHTF2DAA7A6JD97_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>UUID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="274" parent="23" name="UK_IGMKPECEG20F29SYG1O5WNIJB_INDEX_4">
+    <index id="275" parent="23" name="UK_KLF8YS30BFYWJAMC9RP0A1V6I_INDEX_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>PASSWORD_RESET_USER_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="276" parent="23" name="UK_IGMKPECEG20F29SYG1O5WNIJB_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="275" parent="23" name="FKHNDR2BABXU5TH0NTFJ4TNMEW_INDEX_4">
+    <index id="277" parent="23" name="FKHNDR2BABXU5TH0NTFJ4TNMEW_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>CREATED_BY</ColNames>
     </index>
-    <index id="276" parent="23" name="FK1934I9R1790G0LW0P5KDR4G6O_INDEX_4">
+    <index id="278" parent="23" name="FK1934I9R1790G0LW0P5KDR4G6O_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>MODIFIED_BY</ColNames>
     </index>
-    <key id="277" parent="23" name="CONSTRAINT_4D">
+    <key id="279" parent="23" name="CONSTRAINT_4D">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="278" parent="23" name="UK_OOF5XFGSBIGHTF2DAA7A6JD97_INDEX_4">
+    <key id="280" parent="23" name="UK_OOF5XFGSBIGHTF2DAA7A6JD97_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>UUID</ColNames>
     </key>
-    <key id="279" parent="23" name="UK_IGMKPECEG20F29SYG1O5WNIJB_INDEX_4">
+    <key id="281" parent="23" name="UK_KLF8YS30BFYWJAMC9RP0A1V6I_INDEX_4">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>PASSWORD_RESET_USER_ID</ColNames>
+    </key>
+    <key id="282" parent="23" name="UK_IGMKPECEG20F29SYG1O5WNIJB_INDEX_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID</ColNames>
     </key>
-    <foreign-key id="280" parent="23" name="FKHNDR2BABXU5TH0NTFJ4TNMEW">
+    <foreign-key id="283" parent="23" name="FKHNDR2BABXU5TH0NTFJ4TNMEW">
       <ColNames>CREATED_BY</ColNames>
       <RefTableName>EMPLOYEES</RefTableName>
       <RefKeyName>CONSTRAINT_43</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="281" parent="23" name="FK1934I9R1790G0LW0P5KDR4G6O">
+    <foreign-key id="284" parent="23" name="FK1934I9R1790G0LW0P5KDR4G6O">
       <ColNames>MODIFIED_BY</ColNames>
       <RefTableName>EMPLOYEES</RefTableName>
       <RefKeyName>CONSTRAINT_43</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="282" parent="23" name="FKNY98TY2YOMNYHW2C2WY5AB4HB">
+    <foreign-key id="285" parent="23" name="FKR9431NFEYU9BT1KJKKGTOST75">
+      <ColNames>PASSWORD_RESET_USER_ID</ColNames>
+      <RefSchemaName>EXTERNAL</RefSchemaName>
+      <RefTableName>USERS</RefTableName>
+      <RefKeyName>CONSTRAINT_4</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="286" parent="23" name="FKNY98TY2YOMNYHW2C2WY5AB4HB">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>EXTERNAL</RefSchemaName>
       <RefTableName>USERS</RefTableName>
       <RefKeyName>CONSTRAINT_4</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="283" parent="24" name="ID">
+    <column id="287" parent="24" name="ID">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="284" parent="24" name="CREATED">
+    <column id="288" parent="24" name="CREATED">
       <Position>2</Position>
       <DataType>TIMESTAMP(26,6)|93s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="285" parent="24" name="FINISHED">
+    <column id="289" parent="24" name="FINISHED">
       <Position>3</Position>
       <DataType>TIMESTAMP(26,6)|93s</DataType>
     </column>
-    <column id="286" parent="24" name="MODIFIED">
+    <column id="290" parent="24" name="MODIFIED">
       <Position>4</Position>
       <DataType>TIMESTAMP(26,6)|93s</DataType>
     </column>
-    <column id="287" parent="24" name="NAME">
+    <column id="291" parent="24" name="NAME">
       <Position>5</Position>
       <DataType>VARCHAR(255)|12s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="288" parent="24" name="CREATED_BY">
+    <column id="292" parent="24" name="CREATED_BY">
       <Position>6</Position>
       <DataType>BIGINT(19)|-5s</DataType>
     </column>
-    <column id="289" parent="24" name="MODIFIED_BY">
+    <column id="293" parent="24" name="MODIFIED_BY">
       <Position>7</Position>
       <DataType>BIGINT(19)|-5s</DataType>
     </column>
-    <index id="290" parent="24" name="PRIMARY_KEY_15">
+    <index id="294" parent="24" name="PRIMARY_KEY_15">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="291" parent="24" name="UK_2M3LFGNBETWYOOTJN3MGAE14_INDEX_1">
+    <index id="295" parent="24" name="UK_2M3LFGNBETWYOOTJN3MGAE14_INDEX_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>NAME</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="292" parent="24" name="FKSVBVTNS65QTHDGXH7G6AW4F8M_INDEX_1">
+    <index id="296" parent="24" name="FKSVBVTNS65QTHDGXH7G6AW4F8M_INDEX_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>CREATED_BY</ColNames>
     </index>
-    <index id="293" parent="24" name="FKPCHJEORA2HROCRBESMNFCUBT8_INDEX_1">
+    <index id="297" parent="24" name="FKPCHJEORA2HROCRBESMNFCUBT8_INDEX_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>MODIFIED_BY</ColNames>
     </index>
-    <key id="294" parent="24" name="CONSTRAINT_15">
+    <key id="298" parent="24" name="CONSTRAINT_15">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="295" parent="24" name="UK_2M3LFGNBETWYOOTJN3MGAE14_INDEX_1">
+    <key id="299" parent="24" name="UK_2M3LFGNBETWYOOTJN3MGAE14_INDEX_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>NAME</ColNames>
     </key>
-    <foreign-key id="296" parent="24" name="FKSVBVTNS65QTHDGXH7G6AW4F8M">
+    <foreign-key id="300" parent="24" name="FKSVBVTNS65QTHDGXH7G6AW4F8M">
       <ColNames>CREATED_BY</ColNames>
       <RefTableName>EMPLOYEES</RefTableName>
       <RefKeyName>CONSTRAINT_43</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="297" parent="24" name="FKPCHJEORA2HROCRBESMNFCUBT8">
+    <foreign-key id="301" parent="24" name="FKPCHJEORA2HROCRBESMNFCUBT8">
       <ColNames>MODIFIED_BY</ColNames>
       <RefTableName>EMPLOYEES</RefTableName>
       <RefKeyName>CONSTRAINT_43</RefKeyName>

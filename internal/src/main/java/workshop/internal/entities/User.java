@@ -116,14 +116,14 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
-		cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones = new HashSet<>(2);
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, fetch = FetchType.LAZY,
-		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Order> orders;
 	
 	/**
@@ -133,10 +133,10 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = ExternalAuthority.class, fetch = FetchType.EAGER,
-		cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+				cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_External_Authorities", schema = "EXTERNAL",
-		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
+			   joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
+			   inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
 	private Set<@Valid ExternalAuthority> externalAuthorities;
 	
 	@JsonIgnore
@@ -149,6 +149,10 @@ public class User extends WorkshopEntityAbstract {
 			  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Valid
 	private Uuid uuid;
+	
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "passwordResetUser", orphanRemoval = true, cascade = CascadeType.REMOVE)
+	@Valid
+	private Uuid passwordResetUuid;
 	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;

@@ -2,6 +2,7 @@ package workshop.controllers.external;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import workshop.controllers.WorkshopControllerAbstract;
 import workshop.exceptions.EntityNotFoundException;
 import workshop.exceptions.IllegalArgumentsException;
-import workshop.exceptions.WorkshopException;
+import workshop.internal.entities.User;
 import workshop.internal.entities.Uuid;
+import workshop.internal.services.UsersService;
 import workshop.internal.services.UuidsService;
 
 import java.util.Locale;
@@ -22,6 +25,9 @@ import java.util.Locale;
 @Controller
 @RequestMapping(path = "/password-reset")
 public class PasswordResetController extends WorkshopControllerAbstract {
+	
+	@Autowired
+	private UsersService usersService;
 	
 	@Autowired
 	private UuidsService uuidsService;
@@ -50,29 +56,76 @@ public class PasswordResetController extends WorkshopControllerAbstract {
 		}
 	}
 	
-	@PostMapping
-	public String postPasswordReset(
-		@RequestParam(name = "passwordResetUuid") String passwordResetUuid,
-		@RequestParam(name = "loggedUsername") String loggedUsername,
+	/**
+	 * Only for {@link User}s obtained their links from emails with secure {@link Uuid} for password resetting.
+	 * @param uuid {@link Uuid} with {@link Uuid#getPasswordResetUser()}
+	 * @param password A new one
+	 */
+	@PostMapping(params = "uuid")
+	public String postPasswordResetWithUuid(
+		@RequestParam(name = "uuid") String uuid,
 		@RequestParam(name = "password") String password,
 		Model model,
+		RedirectAttributes redirectAttributes,
 		Locale locale) {
 		try {
-			Uuid uuid = uuidsService.findByProperty("uuid", passwordResetUuid).get(0);
-			if (!uuid.getPasswordResetUser().getEmail().equals(loggedUsername)) {
-				throw new EntityNotFoundException("Uuid passwordResetUser property mismatches loggedUsername!");
+			Uuid uuidEntity = uuidsService.findByProperty("uuid", uuid).get(0);
+			if (uuidEntity.getPasswordResetUser() == null) {
+				throw new EntityNotFoundException("Uuid.getPasswordResetUser() not found!");
 			}
 			if (!isPasswordValid(password)) {
 				throw new IllegalArgumentsException("Password incorrect!");
 			}
-			//TODO: to set the new password and delete UUID
-			return "passwordReset";
+			User user = uuidEntity.getPasswordResetUser();
+			String newEncodedPass = passwordEncoder.encode(password);
+			user.setPassword(newEncodedPass);
+			
+			usersService.mergeEntity(user);
+			uuidsService.removeEntity(uuidEntity);
+			
+			String userMessageSuccess = getMessageSource().getMessage(
+				"message.passwordChangedSuccessfully", null, locale);
+			getUserMessagesCreator().setUserMessage(redirectAttributes, userMessageSuccess);
+			return "redirect:/login";
+			
 		} catch (EntityNotFoundException e) {
 			return returnError(e, model, locale);
 		} catch (IllegalArgumentsException e) {
 			String userMessagePasswordMismatch = getMessageSource().getMessage(
 				"message.passwordIncorrect", null, locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessagePasswordMismatch);
+			getUserMessagesCreator().setUserMessage(model, userMessagePasswordMismatch);
+			return "passwordReset";
+		}
+	}
+	
+	@PostMapping
+	public String postPasswordReset(
+		@RequestParam(name = "password") String password,
+		Authentication authentication,
+		Model model,
+		RedirectAttributes redirectAttributes,
+		Locale locale) {
+		try {
+			User user = usersService.findByLogin(authentication.getName());
+			if (!isPasswordValid(password)) {
+				throw new IllegalArgumentsException("Password incorrect!");
+			}
+			String newEncodedPass = passwordEncoder.encode(password);
+			user.setPassword(newEncodedPass);
+			
+			usersService.mergeEntity(user);
+			
+			String userMessageSuccess = getMessageSource().getMessage(
+				"message.passwordChangedSuccessfully", null, locale);
+			getUserMessagesCreator().setUserMessage(redirectAttributes, userMessageSuccess);
+			return "redirect:/profile";
+			
+		} catch (EntityNotFoundException e) {
+			return returnError(e, model, locale);
+		} catch (IllegalArgumentsException e) {
+			String userMessagePasswordMismatch = getMessageSource().getMessage(
+				"message.passwordIncorrect", null, locale);
+			getUserMessagesCreator().setUserMessage(model, userMessagePasswordMismatch);
 			return "passwordReset";
 		}
 	}
@@ -81,7 +134,7 @@ public class PasswordResetController extends WorkshopControllerAbstract {
 		log.debug(e.getMessage(), e);
 		String userMessageUuidNotValid = getMessageSource().getMessage(
 			"message.uuidPassResetNotValid", null, locale);
-		getUserMessagesCreator().setMessageForUser(model, userMessageUuidNotValid);
+		getUserMessagesCreator().setUserMessage(model, userMessageUuidNotValid);
 		return "passwordReset";
 		
 	}

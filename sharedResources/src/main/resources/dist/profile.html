@@ -52,13 +52,7 @@
 						</button>
 				</tr>
 				<tr>
-					<td id="userMessageContainer"
-						th:hidden="${#request.getParameter('userMessage') == null && userMessage == null}" colspan="3">
-						<span class="errorMessage" id="userMessage"
-							  th:text="${#request.getParameter('userMessage') != null ? #request.getParameter('userMessage') : userMessage}">
-							Possible error
-						</span>
-					</td>
+					<td></td>
 				</tr>
 			
 			</form>
@@ -193,6 +187,29 @@
 					<td></td>
 				</tr>
 				
+				
+				<tr>
+					<td></td>
+					<td>
+						<button class="buttonLogin" id="changePasswordButton" value="Change password"
+								th:text="#{html.submit.text.resetPassword}">
+							Change password
+						</button>
+					</td>
+					<td>
+						<button class="buttonLogin" value="Save changes" onclick="this.form.submit()"
+								th:text="#{html.submit.text.saveChanges}">
+							Save changes
+						</button>
+					</td>
+				</tr>
+				
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>
+				
 				<th:block th:unless="${userDto.phones == null}" th:each="phone,stat : ${userDto.phones}">
 					<tr th:id="${'phoneId='+phone.identifier}">
 						<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
@@ -254,22 +271,6 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				
-				<tr>
-					<td></td>
-					<td></td>
-					<td>
-						<button class="buttonLogin" value="Save changes" onclick="this.form.submit()"
-								th:text="#{html.submit.text.saveChanges}">
-							Save changes
-						</button>
-					</td>
-				</tr>
 		
 		</table>
 		

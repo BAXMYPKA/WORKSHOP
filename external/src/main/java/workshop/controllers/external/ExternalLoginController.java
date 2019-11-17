@@ -68,7 +68,7 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 		}
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
-			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageNullUuid);
+			getUserMessagesCreator().setUserMessage(redirectAttributes, userMessageNullUuid);
 			return "redirect:/login";
 		}
 		try { //Check if the UUID is presented in the DataBase
@@ -76,12 +76,12 @@ public class ExternalLoginController extends WorkshopControllerAbstract {
 			model.addAttribute("uuid", uuid);
 			String userMessageConfirmationFirstTime = getMessageSource().getMessage(
 				"message.confirmRegistrationFirstTime", null, locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessageConfirmationFirstTime);
+			getUserMessagesCreator().setUserMessage(model, userMessageConfirmationFirstTime);
 			return "login";
 		} catch (EntityNotFoundException e) { //UUID is not valid or outdated
 			log.debug("UUID={} not found in the DataBase!", uuid);
 			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidRegConfirmNotValid", null, locale);
-			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageUuidNotValid);
+			getUserMessagesCreator().setUserMessage(redirectAttributes, userMessageUuidNotValid);
 			return "redirect:/login";
 		}
 	}

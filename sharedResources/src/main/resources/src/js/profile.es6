@@ -4,15 +4,16 @@ import {deleteUserPhoto} from "./photoFetch.es6";
 
 const PHONE_DELETION_ERROR_MESSAGE = "Не удалось удалить телефон!";
 const PHONE_NAME_OR_NUMBER_ERROR_MESSAGE = "Имя или номер телефона содержат неверный формат!";
-const deletePhoneButton = document.querySelectorAll(".deleteButton");
-const addPhoneButton = document.querySelector(".addButton");
-// const deletePhotoButton = document.querySelector("#deletePhotoButton");
 let phoneIdToOperateOn;
 let phoneNameInput = document.querySelector('input[name="newPhoneName"]');
 let phoneNumberInput = document.querySelector('input[name="newPhoneNumber"]');
 
+document.querySelector("#changePasswordButton").addEventListener("click", (env) => {
+	env.preventDefault();
+	location.href = "/workshop.pro/password-reset";
+});
 
-deletePhoneButton.forEach(function (button, key, parent) {
+document.querySelectorAll(".deleteButton").forEach(function (button, key, parent) {
 	
 	const userMessageContainer = document.querySelector("#userMessageContainer");
 	const userMessageSpan = document.querySelector("#userMessage");
@@ -74,7 +75,7 @@ phoneNumberInput.addEventListener("input", (inputNumberEvent) => {
 	}
 });
 
-addPhoneButton.addEventListener("click", (buttonEvent) => {
+document.querySelector(".addButton").addEventListener("click", (buttonEvent) => {
 	buttonEvent.preventDefault();
 	
 	if (phoneNameInput.style.color.match("red") || phoneNumberInput.style.color.match("red")) {

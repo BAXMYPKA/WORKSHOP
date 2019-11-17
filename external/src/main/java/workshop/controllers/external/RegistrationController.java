@@ -70,7 +70,7 @@ public class RegistrationController extends WorkshopControllerAbstract {
 		
 		if (uuid.isEmpty()) {
 			String userMessageNullUuid = getMessageSource().getMessage("message.uuidNull", null, locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessageNullUuid);
+			getUserMessagesCreator().setUserMessage(model, userMessageNullUuid);
 			return "registration";
 		}
 		try {  //The following code for the demo purposes only. The real one will be a bit different.
@@ -81,12 +81,12 @@ public class RegistrationController extends WorkshopControllerAbstract {
 				"message.confirmRegistrationRequiredDemo(3)",
 				new Object[]{uuidEntity.getUser().getEmail(), uuidEntity.getUuid(), confirmRegistrationLink},
 				locale);
-			getUserMessagesCreator().setMessageForUser(model, userMessageRegistrationConfirmation);
+			getUserMessagesCreator().setUserMessage(model, userMessageRegistrationConfirmation);
 			return "registration";
 		} catch (EntityNotFoundException e) {
 			log.debug("UUID={} not found in the DataBase!", uuid);
 			String userMessageUuidNotValid = getMessageSource().getMessage("message.uuidRegConfirmNotValid", null, locale);
-			getUserMessagesCreator().setMessageForUser(redirectAttributes, userMessageUuidNotValid);
+			getUserMessagesCreator().setUserMessage(redirectAttributes, userMessageUuidNotValid);
 			return "redirect:/registration";
 		}
 	}

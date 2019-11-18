@@ -21,9 +21,9 @@ public class ExternalConfiguration {
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration()
-			.setFieldMatchingEnabled(true)
+//			.setFieldMatchingEnabled(true) // Extremely slows down the boot process!!!
 			.setSkipNullEnabled(true)
-			.setPropertyCondition(Conditions.isNotNull())
+//			.setPropertyCondition(Conditions.isNotNull())
 			.setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
 		
 		modelMapper.addMappings(new PropertyMap<UserDto, User>() {

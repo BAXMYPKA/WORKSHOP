@@ -29,11 +29,11 @@
 						
 						<input type="text" id="inputUsername" name="email" value="user@email.pro"
 							   th:value="#{html.input.login.loginUsername}">
-						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
+						<span class="jsErrorMessage" id="userErrorMessage">Possible error message</span>
 						<br>
 						<input type="text" id="inputPassword" name="password" value="12345"
 							   th:value="#{html.input.password.loginPassword}">
-						<span class="errorMessage" id="passwordErrorMessage">Possible error message</span>
+						<span class="jsErrorMessage" id="passwordErrorMessage">Possible error message</span>
 						<br>
 						<button class="buttonLogin"
 								onclick="this.form.submit()"
@@ -48,16 +48,19 @@
 							Reset password
 						</button>
 						<br>
-						<button class="buttonLogin buttonRegistration"
-								title="Registration advantages description"
-								onclick="this.form.submit()"
-								th:text="#{html.submit.text.registrationSuggest}"
-								th:title="#{html.button.title.registrationProcessDescription}">
-							REGISTRATION
-						</button>
 					
 					</form>
+					
+					<button class="buttonLogin buttonRegistration"
+							id="buttonRegistration"
+							title="Registration advantages description"
+							th:text="#{html.submit.text.registrationSuggest}"
+							th:title="#{html.button.title.registrationProcessDescription}">
+						Registration page
+					</button>
+				
 				</div>
+				
 			</div>
 			
 			<table class="usersTable" th:unless="${usersTable == null}">

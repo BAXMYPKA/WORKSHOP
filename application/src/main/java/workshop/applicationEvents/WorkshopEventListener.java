@@ -66,4 +66,19 @@ public class WorkshopEventListener {
 //			emailService.sendSimpleMessage(registrationConfirmationEmail);
 		}
 	}
+	
+	@Async
+	@EventListener()
+	public void userPasswordResetEventListener(UserPasswordResetEvent event) {
+		log.debug("Requested password reset event for User.ID={} to send an Email to",
+			event.getUuid().getPasswordResetUser().getIdentifier());
+		User registeredUser = event.getUuid().getPasswordResetUser();
+		if (registeredUser.getEmail() != null) {
+			
+			//TODO: to complete an email with a link creation
+//			SimpleMailMessage passwordResetUuidEmail =
+//				emailTemplates.getOrderFinishedEmailTemplate(null);
+//			emailService.sendSimpleMessage(registrationConfirmationEmail);
+		}
+	}
 }

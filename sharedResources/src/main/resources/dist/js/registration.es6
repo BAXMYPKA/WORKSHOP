@@ -143,6 +143,26 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 		})
 });
 
+document.querySelector("#inputNewPassword").addEventListener("input", evt => {
+	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+	const passwordErrorMessageSpan = document.querySelector("#newPasswordErrorMessage");
+	
+	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(evt.currentTarget.value) === true) {
+		evt.currentTarget.style.color = "green";
+		evt.currentTarget.removeAttribute("title");
+		passwordErrorMessageSpan.style.display = "none";
+	} else {
+		evt.currentTarget.style.color = "red";
+		evt.currentTarget.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
+	}
+});
+
+document.querySelector("#buttonRegistration").addEventListener("click", evt => {
+	evt.preventDefault();
+	location.href = location.origin + "/workshop.pro/registration";
+});
+
+
 /***/ }),
 
 /***/ "./src/js/userMessaging.es6":
@@ -243,7 +263,7 @@ function isNonEnabledUserEmailExist(userEmail) {
 }
 
 function passwordCheck(password) {
-	if ((typeof password === "string" || typeof password === "number") && password.length < 5) {
+	if (typeof password !== "string" || password.length < 5) {
 		return false;
 	} else {
 		return true;

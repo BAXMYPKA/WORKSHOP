@@ -47,8 +47,8 @@
 }
 
 .errorMessage {
-	/*display: block;*/
-	display: none;
+	display: block;
+	/*display: none;*/
 }
 
 input {

@@ -98,25 +98,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
 
 
-const usernameInput = document.querySelector("#inputUsername");
-const passwordInput = document.querySelector("#inputPassword");
+const inputUsername = document.querySelector("#inputUsername");
+const inputPassword = document.querySelector("#inputPassword");
 
-usernameInput.addEventListener("input", (evt) => {
+inputUsername.addEventListener("input", (evt) => {
 	const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
 	const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
 	const userErrorMessageSpan = document.querySelector("#userErrorMessage");
 	
-	if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(usernameInput.value)) {
-		usernameInput.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
-		usernameInput.style.color = "red";
+	if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(inputUsername.value)) {
+		inputUsername.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
+		inputUsername.style.color = "red";
 		userErrorMessageSpan.style.display = "none";
 		return;
 	} else {
-		usernameInput.removeAttribute("title");
-		usernameInput.style.color = "green";
+		inputUsername.removeAttribute("title");
+		inputUsername.style.color = "green";
 		userErrorMessageSpan.style.display = "none";
 	}
-	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(usernameInput.value)
+	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(inputUsername.value)
 		.then((exist) => {
 			if (exist.exist) {
 				userErrorMessageSpan.style.display = "none";
@@ -127,25 +127,30 @@ usernameInput.addEventListener("input", (evt) => {
 		});
 });
 
-passwordInput.addEventListener("input", (env) => {
+inputPassword.addEventListener("input", (evt) => {
 	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
 	const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
 	
-	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
-		passwordInput.style.color = "green";
-		passwordInput.removeAttribute("title");
+	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(inputPassword.value) === true) {
+		inputPassword.style.color = "green";
+		inputPassword.removeAttribute("title");
 		passwordErrorMessageSpan.style.display = "none";
 	} else {
-		passwordInput.style.color = "red";
-		passwordInput.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
+		inputPassword.style.color = "red";
+		inputPassword.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
 		passwordErrorMessageSpan.style.display = "block";
 		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
 	}
 });
 
-document.querySelector(".buttonResetPassword").addEventListener("click", (env) => {
-	env.preventDefault();
+document.querySelector(".buttonResetPassword").addEventListener("click", (evt) => {
+	evt.preventDefault();
 	location.href = location.origin + "/workshop.pro/password-reset";
+});
+
+document.querySelector("#buttonRegistration").addEventListener("click", evt => {
+	evt.preventDefault();
+	location.href = location.origin + "/workshop.pro/registration";
 });
 
 
@@ -218,7 +223,7 @@ function isNonEnabledUserEmailExist(userEmail) {
 }
 
 function passwordCheck(password) {
-	if ((typeof password === "string" || typeof password === "number") && password.length < 5) {
+	if (typeof password !== "string" || password.length < 5) {
 		return false;
 	} else {
 		return true;

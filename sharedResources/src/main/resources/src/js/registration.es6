@@ -1,4 +1,4 @@
-import {emailRegexpCheck, isNonEnabledUserEmailExist} from "./verifications.es6";
+import {emailRegexpCheck, isNonEnabledUserEmailExist, passwordCheck} from "./verifications.es6";
 import {setUserMessage} from "./userMessaging.es6";
 
 const nonEmailMessage = "Введенный адрес не похож на правильный!";
@@ -42,4 +42,23 @@ buttonResendActivation.addEventListener("click", (clickEvent) => {
 					})
 			}
 		})
+});
+
+document.querySelector("#inputNewPassword").addEventListener("input", evt => {
+	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+	const passwordErrorMessageSpan = document.querySelector("#newPasswordErrorMessage");
+	
+	if (passwordCheck(evt.currentTarget.value) === true) {
+		evt.currentTarget.style.color = "green";
+		evt.currentTarget.removeAttribute("title");
+		passwordErrorMessageSpan.style.display = "none";
+	} else {
+		evt.currentTarget.style.color = "red";
+		evt.currentTarget.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
+	}
+});
+
+document.querySelector("#buttonRegistration").addEventListener("click", evt => {
+	evt.preventDefault();
+	location.href = location.origin + "/workshop.pro/registration";
 });

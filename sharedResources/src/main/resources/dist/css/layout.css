@@ -383,7 +383,14 @@ input:hover {
 }
 
 .errorMessage {
+	/*display: none;*/
+	font-style: italic;
+	color: red;
+}
+
+.jsErrorMessage {
 	display: none;
+	align-self: center;
 	font-style: italic;
 	color: red;
 }

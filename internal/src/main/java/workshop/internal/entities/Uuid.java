@@ -78,8 +78,7 @@ public class Uuid extends WorkshopAudibleEntityAbstract {
 		if (user != null) {
 			WorkshopEntitiesEventPublisher.publishUserRegisteredEvent(this);
 		} else if (passwordResetUser != null) {
-			//TODO: to complete
-			//Send publish reset pass event
+			WorkshopEntitiesEventPublisher.publishUserPasswordResetEvent(this);
 		}
 	}
 	

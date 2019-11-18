@@ -75,11 +75,11 @@
 					Possible error message
 				</span>
 				
-				<input type="text" id="inputPassword" name="password" placeholder="12345"
+				<input type="text" id="inputNewPassword" name="password" placeholder="12345"
 					   th:placeholder="#{html.input.placeholder.enterYourPassword}">
 				<span class="redAsterisk">*</span>
 				<br>
-				<span class="errorMessage" id="passwordErrorMessage"
+				<span class="errorMessage" id="newPasswordErrorMessage"
 					  th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">
 					Possible error message
 				</span>
@@ -94,6 +94,7 @@
 				</span>
 				
 				<button class="buttonLogin buttonRegistration"
+						id="buttonSubmitRegistration"
 						title="Registration advantages description"
 						onclick="this.form.submit()"
 						th:text="#{html.submit.text.registration}"

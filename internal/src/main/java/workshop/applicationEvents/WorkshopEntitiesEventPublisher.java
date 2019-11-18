@@ -4,19 +4,24 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.User;
 import workshop.internal.entities.Uuid;
+import workshop.internal.entities.WorkshopEntity;
+
+import javax.persistence.Entity;
 
 /**
  * Helper class.
- * As all the {@link workshop.internal.entities.WorkshopEntity} classes are only {@link javax.persistence.Entity}
- * but not Beans and cannot hold any {@link org.springframework.beans.factory.annotation.Autowired}
- * instances, this class lets those WorkshopEntities to send ApplicationEvents (such as {@link OrderFinishedEvent})
- * via static {@link #publishOrderFinishedEvent(Order)} method.
+ * As all the {@link WorkshopEntity} classes are only {@link Entity}
+ * but not Beans and cannot hold any {@link Autowired} instances, this class lets those WorkshopEntities to send
+ * {@link ApplicationEvent}s (such as {@link OrderFinishedEvent} etc) via static methods
+ * (e.g. {@link #publishOrderFinishedEvent(Order)}) .
  */
 @Getter(AccessLevel.PRIVATE)
 @Setter(AccessLevel.PRIVATE)
@@ -36,6 +41,12 @@ public class WorkshopEntitiesEventPublisher implements ApplicationEventPublisher
 		UserRegisteredEvent event = new UserRegisteredEvent(uuid);
 		applicationEventPublisher.publishEvent(event);
 		log.debug("UserRegisteredEvent for the User.ID={} has been published.", uuid.getUser().getIdentifier());
+	}
+	
+	public static void publishUserPasswordResetEvent(Uuid uuid) {
+		UserPasswordResetEvent event = new UserPasswordResetEvent(uuid);
+		applicationEventPublisher.publishEvent(event);
+		log.debug("UserPasswordResetEvent for the User.ID={} has been published.", uuid.getPasswordResetUser().getIdentifier());
 	}
 	
 	@Override

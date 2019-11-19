@@ -18,8 +18,11 @@ import workshop.internal.entities.Phone;
 import workshop.exceptions.EntityNotFoundException;
 import workshop.exceptions.InternalServerErrorException;
 
+import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -142,9 +145,13 @@ public class PhonesService extends WorkshopEntitiesServiceAbstract<Phone> {
 			getEntityNotFoundException(getEntityClassSimpleName() + ".ID=" + phoneId));
 		
 		if (phone.getEmployee().getIdentifier().equals(employeeId)) {
-			Employee employee = employeesDao.findById(employeeId).orElseThrow(() ->
-				getEntityNotFoundException("Employee.ID=" + employeeId));
-			employee.getPhones().remove(phone);
+			Employee employee = phone.getEmployee();
+			employee.getPhones().removeIf(ph -> ph.getIdentifier().equals(phoneId));
+			
+			phone.setEmployee(null);
+
+			//TODO: the following doesn't work! It need to be investigated!
+			//TODO: ебаный JPA и Hibernate! Не работает, сука, то, что просто должно работать.
 			getWorkshopEntitiesDaoAbstract().removeEntity(phone);
 		} else {
 			throw getEntityNotFoundException("Employee.ID=" + employeeId);

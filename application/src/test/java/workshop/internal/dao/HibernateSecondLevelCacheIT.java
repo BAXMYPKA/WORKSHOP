@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestEntityManager
 @DirtiesContext
-//Add Hibernate statistics support during the tests
+//Adds the Hibernate statistics support during the tests
 @TestPropertySource(properties = {"spring.jpa.properties.hibernate.generate_statistics=true"})
 @Sql(scripts = {"classpath:testImport.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class HibernateSecondLevelCacheIT {
@@ -58,6 +58,8 @@ public class HibernateSecondLevelCacheIT {
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Task").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Order").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Phone").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.Classifier").executeUpdate();
+		entityManager.createQuery("DELETE FROM workshop.internal.entities.ClassifiersGroup").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Employee").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Position").executeUpdate();
 		entityManager.createQuery("DELETE FROM workshop.internal.entities.Department").executeUpdate();

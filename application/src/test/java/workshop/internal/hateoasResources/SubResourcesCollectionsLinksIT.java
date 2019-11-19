@@ -267,7 +267,7 @@ class SubResourcesCollectionsLinksIT {
 		Phone phone2 = new Phone("Home2", "8-911-111-11-123");
 		Phone phone3 = new Phone("Work", "8-911-111-11-133");
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emp@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
 		
@@ -297,7 +297,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position appTask 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emp@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
@@ -350,7 +350,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position taskMod 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "empl@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "empl@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
@@ -406,7 +406,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position taskCreated 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emplo@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emplo@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
@@ -462,7 +462,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position orderMod 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "employ@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "employ@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
@@ -514,7 +514,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position ordCreatedBy 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp22@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emp22@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		
 		long employeeId = employeesService.persistEntity(employee).getIdentifier();
@@ -565,7 +565,7 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position taskClass 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp223@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emp223@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		employeesService.persistEntity(employee);
 		
@@ -621,12 +621,12 @@ class SubResourcesCollectionsLinksIT {
 		Position position = new Position("Position ordCreatedFor 1", department);
 		positionsService.persistEntity(position);
 		
-		Employee employee = new Employee("FN", "LN", "12345", "emp225@workshop.pro",
+		Employee employee = new Employee("Fname", "LName", "12345", "emp225@workshop.pro",
 			LocalDate.now().minusYears(55), position);
 		employeesService.persistEntity(employee);
 		
 		User user = new User();
-		user.setFirstName("UserFN");
+		user.setFirstName("UserFname");
 		user.setEmail("user@workshop.pro");
 		usersService.persistEntity(user);
 		

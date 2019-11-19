@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @NoArgsConstructor
 @ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user", "workshopEntityName"})
@@ -64,14 +64,13 @@ public class Phone extends WorkshopEntityAbstract {
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER,
-			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id", referencedColumnName = "id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;

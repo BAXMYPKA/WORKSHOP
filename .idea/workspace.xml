@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/configurations/ExternalConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/configurations/ExternalConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SECURITY_FLOW.md" beforeDir="false" afterPath="$PROJECT_DIR$/SECURITY_FLOW.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +116,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.1.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
     <property name="last.edited.regexp" value="sebastian-pidorin@ms.ss" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -161,7 +173,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="JUnit.All in application">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
@@ -180,7 +192,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
@@ -190,56 +202,54 @@
       </extension>
       <option name="PACKAGE_NAME" value="workshop.internal.dao" />
       <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="HibernateSecondLevelCacheIT.initTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.internal.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
-      <option name="METHOD_NAME" value="inherited_Method_Post_Should_Return_Persisted_Classifier" />
+      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="METHOD_NAME" value="initTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkshopEventListenerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
+          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
-      <option name="METHOD_NAME" value="inherited_Method_Put_Should_Return_Updated_Classifier" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshop.internal.controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.controllers" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.controllers.WorkshopRestControllerAbstractIT" />
-      <option name="METHOD_NAME" value="inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -286,21 +296,21 @@
     </configuration>
     <list>
       <item itemvalue="Compound.Watch and Debug" />
-      <item itemvalue="JUnit.All in application" />
-      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" />
-      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" />
-      <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
       <item itemvalue="npm.Webpack --watch" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.WorkshopEventListenerIT" />
+      <item itemvalue="JUnit.All in application" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
+      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction_With_String_Transactional" />
         <item itemvalue="JUnit.All in application" />
-        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Post_Should_Return_Persisted_Classifier" />
-        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_getAll_Should_Return_All_Default_Paged_WorkshopEntities" />
-        <item itemvalue="JUnit.WorkshopRestControllerAbstractIT.inherited_Method_Put_Should_Return_Updated_Classifier" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest" />
+        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
+        <item itemvalue="JUnit.WorkshopEventListenerIT" />
       </list>
     </recent_temporary>
   </component>
@@ -410,6 +420,7 @@
       <workItem from="1573980848980" duration="13928000" />
       <workItem from="1574057235547" duration="10625000" />
       <workItem from="1574071765187" duration="5227000" />
+      <workItem from="1574170928899" duration="15505000" />
     </task>
     <servers />
   </component>
@@ -441,6 +452,11 @@
           <url>file://$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java</url>
           <line>169</line>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

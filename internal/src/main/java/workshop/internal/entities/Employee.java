@@ -94,10 +94,8 @@ public class Employee extends WorkshopAudibleEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, orphanRemoval = true,
-			   cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+			   cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones;
-	
-	//TODO: to implement a photo loader Controller method
 	
 	@JsonIgnore
 	@Lob

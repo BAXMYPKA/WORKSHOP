@@ -203,7 +203,7 @@ class WorkshopEntitiesDaoAbstractIT {
 		String employeeEmail = "employeeToBeFoune@workshop.pro";
 		String userEmail = "userToBeFound@user.com";
 		//Entities to be persisted
-		Employee employee = new Employee("fn", "ln", "12345", employeeEmail,
+		Employee employee = new Employee("fname", "lname", "12345", employeeEmail,
 			LocalDate.now().minusYears(50), position);
 		employeesDao.persistEntity(employee);
 		

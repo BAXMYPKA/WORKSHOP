@@ -22,16 +22,20 @@ import java.util.Arrays;
 public class CookieUtils {
 	
 	private final String COOKIE_PATH = "/workshop.pro/";
+	
 	@Setter(AccessLevel.PACKAGE)
 	@Value("${domainName}")
 	private String domainName;
+	
 	@Setter(AccessLevel.PACKAGE)
 	@Value("${internalPathName}")
 	private String internalPathName;
+	
 	@Value("${internalAuthCookieName}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC) //For the test purposes
 	private String authenticationCookieName;
+	
 	/**
 	 * In seconds. Default is 259_200 (3 days)
 	 */

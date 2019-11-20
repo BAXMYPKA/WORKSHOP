@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SECURITY_FLOW.md" beforeDir="false" afterPath="$PROJECT_DIR$/SECURITY_FLOW.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
@@ -412,7 +411,7 @@
       <workItem from="1574057235547" duration="10625000" />
       <workItem from="1574071765187" duration="5227000" />
       <workItem from="1574170928899" duration="15505000" />
-      <workItem from="1574230388793" duration="8067000" />
+      <workItem from="1574230388793" duration="11202000" />
     </task>
     <servers />
   </component>

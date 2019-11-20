@@ -7,18 +7,14 @@
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SECURITY_FLOW.md" beforeDir="false" afterPath="$PROJECT_DIR$/SECURITY_FLOW.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/HibernateSecondLevelCacheIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/dao/WorkshopEntitiesDaoAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/hateoasResources/SubResourcesCollectionsLinksIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/WorkshopEntitiesServiceAbstractIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/Phone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/PhonesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/main/java/workshop/http/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/http/CookieUtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/security/src/test/java/workshop/security/LoginAuthenticationFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/PasswordResetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/external/src/main/java/workshop/controllers/external/PasswordResetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/UserMessagesCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/controllers/utils/UserMessagesCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/index.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/passwordReset.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/passwordReset.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/profile.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/registration.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/js/registration.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordReset.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/passwordReset.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/verifications.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/js/verifications.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +112,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.1.0" />
     <property name="last.edited.regexp" value="sebastian-pidorin@ms.ss" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -173,7 +169,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in application">
+  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
@@ -296,13 +292,13 @@
     </configuration>
     <list>
       <item itemvalue="Compound.Watch and Debug" />
-      <item itemvalue="npm.Webpack --watch" />
-      <item itemvalue="Spring Boot.WorkshopApplication" />
       <item itemvalue="JUnit.WorkshopEventListenerIT" />
       <item itemvalue="JUnit.All in application" />
       <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest" />
       <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
       <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
+      <item itemvalue="npm.Webpack --watch" />
+      <item itemvalue="Spring Boot.WorkshopApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -421,6 +417,7 @@
       <workItem from="1574057235547" duration="10625000" />
       <workItem from="1574071765187" duration="5227000" />
       <workItem from="1574170928899" duration="15505000" />
+      <workItem from="1574230388793" duration="4103000" />
     </task>
     <servers />
   </component>
@@ -452,11 +449,6 @@
           <url>file://$PROJECT_DIR$/application/src/main/java/workshop/controllers/ExceptionHandlerController.java</url>
           <line>169</line>
           <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/security/src/main/java/workshop/security/LoginAuthenticationFilter.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

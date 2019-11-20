@@ -223,7 +223,7 @@ function isNonEnabledUserEmailExist(userEmail) {
 }
 
 function passwordCheck(password) {
-	if (typeof password !== "string" || password.length < 5) {
+	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
 		return false;
 	} else {
 		return true;

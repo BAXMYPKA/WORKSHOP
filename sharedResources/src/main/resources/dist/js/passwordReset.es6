@@ -148,7 +148,7 @@ if (document.querySelector("#loggedUsersResetForm") !== null) {
 			userErrorConfirmPassword.style.display = "block";
 			userErrorConfirmPassword.textContent = errorMessagePasswordsCoincidence;
 			return;
-		} else if (userErrorPassword.style.color !== "green" && userErrorConfirmPassword.style.color !== "green") {
+		} else if (passwordInput.style.color !== "green" && passwordConfirmInput.style.color !== "green") {
 			userErrorPassword.style.display = "block";
 			userErrorPassword.textContent = errorMessagePasswordRules;
 			return;
@@ -187,6 +187,7 @@ if (document.querySelector("#notLoggedUsersForm") !== null) {
 							promise.json()
 								.then(json => {
 									emailInput.style.color = "green";
+									emailInput.value = "";
 									userErrorMessageEmail.textContent = "";
 									userErrorMessageEmail.style.display = "none";
 									let userMessage = JSON.stringify(json);
@@ -304,7 +305,7 @@ function isNonEnabledUserEmailExist(userEmail) {
 }
 
 function passwordCheck(password) {
-	if (typeof password !== "string" || password.length < 5) {
+	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
 		return false;
 	} else {
 		return true;

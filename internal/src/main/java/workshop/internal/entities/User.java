@@ -145,11 +145,18 @@ public class User extends WorkshopEntityAbstract {
 	@Size(max = 5242880, message = "{validation.photoSize}")
 	private byte[] photo;
 	
+	/**
+	 * The UUID only for the new Users to be send by email for their emails confirmation. Confirmed and permanently
+	 * persisted Users  don't have one.
+	 */
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true,
 			  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@Valid
 	private Uuid uuid;
 	
+	/**
+	 * To send by email to Users who forget their passwords.
+	 */
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "passwordResetUser", orphanRemoval = true, cascade = CascadeType.REMOVE)
 	@Valid
 	private Uuid passwordResetUuid;

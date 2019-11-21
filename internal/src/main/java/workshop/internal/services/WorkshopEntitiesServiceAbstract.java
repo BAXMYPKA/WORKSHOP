@@ -474,6 +474,24 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		}
 	}
 	
+	/**
+	 * @return A List<WorkshopEntity> with a collection of Entities or {@link EntityNotFoundException} will be thrown if
+	 * nothing found or something went wrong during the search.
+	 * @throws EntityNotFoundException      If nothing was found.
+	 * @throws InternalServerErrorException In case of database problems.
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	List<T> findAllEntities() throws InternalServerErrorException, EntityNotFoundException {
+		try {
+			return workshopEntitiesDaoAbstract.findAllEntities()
+				.orElseThrow(() -> new EntityNotFoundException("No "+getEntityClassSimpleName()+" were found!"));
+		} catch (PersistenceException e) {
+			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), "created"},
+				LocaleContextHolder.getLocale()), e);
+		}
+	}
+	
 	//TODO: to complete null check and docs
 	
 	/**

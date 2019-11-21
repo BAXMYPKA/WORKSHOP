@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +26,7 @@ import java.util.TimeZone;
 @EnableJpaRepositories(basePackages = "workshop.internal.dao")
 @EnableCaching
 @EnableAsync
+@EnableScheduling
 @PropertySources({
 	@PropertySource(value = "classpath:configs/workshop.properties", encoding = "UTF-8")})
 public class WorkshopApplication {

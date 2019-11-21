@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/application/src/test/java/workshop/internal/services/UuidsServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/application/src/main/java/workshop/WorkshopApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/dao/WorkshopEntitiesDaoAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UuidsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/UuidsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" beforeDir="false" afterPath="$PROJECT_DIR$/internal/src/main/java/workshop/internal/services/WorkshopEntitiesServiceAbstract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/configs/workshop.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/i118n/html_ru.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,11 +65,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
         <option value="HTML Thymeleaf-Layout-Spring" />
         <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -106,7 +113,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.1.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
     <property name="last.edited.regexp" value="sebastian-pidorin@ms.ss" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -124,8 +131,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="workshop.internal.services" />
       <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.controllers.external" />
@@ -136,13 +151,6 @@
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\css" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\assets\css" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -163,7 +171,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="JUnit.UuidsServiceTest">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
@@ -174,72 +182,81 @@
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
       <method v="2" />
     </configuration>
-    <configuration name="All in application" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="application" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HibernateSecondLevelCacheIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UuidsServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
+      <option name="PACKAGE_NAME" value="workshop.internal.services" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.UuidsServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UuidsServiceTest.not_Outdated_NewUserUuids_Less_Than_24hrs_Should_Not_Be_Deleted" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="cache_Region_Order_Works_After_Second_Transaction" />
+      <option name="PACKAGE_NAME" value="workshop.internal.services" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.UuidsServiceTest" />
+      <option name="METHOD_NAME" value="not_Outdated_NewUserUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HibernateSecondLevelCacheIT.initTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UuidsServiceTest.not_Outdated_PasswordResetUuids_Less_Than_24hrs_Should_Not_Be_Deleted" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.dao.*" />
+          <option name="PATTERN" value="workshop.internal.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.dao" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.dao.HibernateSecondLevelCacheIT" />
-      <option name="METHOD_NAME" value="initTest" />
+      <option name="PACKAGE_NAME" value="workshop.internal.services" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.UuidsServiceTest" />
+      <option name="METHOD_NAME" value="not_Outdated_PasswordResetUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkshopEventListenerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UuidsServiceTest.outdated_NewUserUuids_More_Than_24hrs_Should_Be_Deleted" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="application" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="workshop.internal.entities.utils.*" />
+          <option name="PATTERN" value="workshop.internal.services.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="workshop.internal.entities.utils" />
-      <option name="MAIN_CLASS_NAME" value="workshop.internal.entities.utils.WorkshopEventListenerIT" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="workshop.internal.services" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.UuidsServiceTest" />
+      <option name="METHOD_NAME" value="outdated_NewUserUuids_More_Than_24hrs_Should_Be_Deleted" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UuidsServiceTest.outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshop.internal.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshop.internal.services" />
+      <option name="MAIN_CLASS_NAME" value="workshop.internal.services.UuidsServiceTest" />
+      <option name="METHOD_NAME" value="outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -286,21 +303,21 @@
     </configuration>
     <list>
       <item itemvalue="Compound.Watch and Debug" />
-      <item itemvalue="JUnit.WorkshopEventListenerIT" />
-      <item itemvalue="JUnit.All in application" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
-      <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
       <item itemvalue="npm.Webpack --watch" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
+      <item itemvalue="JUnit.UuidsServiceTest.outdated_NewUserUuids_More_Than_24hrs_Should_Be_Deleted" />
+      <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_NewUserUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
+      <item itemvalue="JUnit.UuidsServiceTest.outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" />
+      <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_PasswordResetUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
+      <item itemvalue="JUnit.UuidsServiceTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in application" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.initTest" />
-        <item itemvalue="JUnit.HibernateSecondLevelCacheIT.cache_Region_Order_Works_After_Second_Transaction" />
-        <item itemvalue="JUnit.WorkshopEventListenerIT" />
+        <item itemvalue="JUnit.UuidsServiceTest" />
+        <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_PasswordResetUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
+        <item itemvalue="JUnit.UuidsServiceTest.outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" />
+        <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_NewUserUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
+        <item itemvalue="JUnit.UuidsServiceTest.outdated_NewUserUuids_More_Than_24hrs_Should_Be_Deleted" />
       </list>
     </recent_temporary>
   </component>
@@ -412,6 +429,7 @@
       <workItem from="1574071765187" duration="5227000" />
       <workItem from="1574170928899" duration="15505000" />
       <workItem from="1574230388793" duration="11202000" />
+      <workItem from="1574326284923" duration="12446000" />
     </task>
     <servers />
   </component>

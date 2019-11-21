@@ -221,6 +221,35 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 	}
 	
 	/**
+	 * Spring Page interface starts count pages from 0.
+	 * Page formula is: (pageNum)*pageSize
+	 *
+	 * @return 'Optional.of(List<WorkshopEntity>)' or 'Optional.empty()' if nothing found.
+	 * @throws IllegalArgumentException If pageSize < 0 either pageSize > PAGE_SIZE_MAX or pageNum < 0
+	 * @throws PersistenceException     if the query execution exceeds the query timeout value set
+	 *                                  and the transaction is rolled back
+	 */
+	public Optional<List<T>> findAllEntities() throws IllegalArgumentException, PersistenceException {
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> root = cq.from(entityClass);
+		cq.select(root);
+		
+		TypedQuery<T> query = entityManager.createQuery(cq);
+		
+		List<T> resultList = query.getResultList();
+		
+		if (!resultList.isEmpty()) {
+			log.debug("{}s were found", entityClass.getSimpleName());
+			return Optional.of(resultList);
+		} else {
+			log.debug("{}s were not found", entityClass.getSimpleName());
+			return Optional.empty();
+		}
+	}
+	
+	/**
 	 * The search by manually entered Entity.property name and its value.
 	 * Also accepts ZonedDateTime, LocalDateTime and LocalDate to be parsed if Entity.property instanceof Temporal.class.
 	 *

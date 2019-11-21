@@ -225,7 +225,7 @@
 	
 	</div>
 	
-	<!--	-->
+	<!-- ===== FOOTER =====	-->
 	
 	<footer class="footer" th:fragment="thFooter">
 		
@@ -233,14 +233,14 @@
 			<h4 th:text="#{html.h4.contacts}">Contacts:</h4>
 			<ul>
 				<li>
-					<a href="address.html"
+					<a href="address.html" class="footerHref"
 					   th:href="#{/address}"
 					   th:text="#{html.a.text.address}">
 						Address
 					</a>
 				</li>
 				<li>
-					<a href="howToGet.html"
+					<a href="howToGet.html" class="footerHref"
 					   th:href="#{/howToGet}"
 					   th:text="#{html.a.text.howToGetToUs}">
 						How to get to us
@@ -252,7 +252,7 @@
 		<div class="contacts">
 			<ul>
 				<li>
-					<a href="contacts.html"
+					<a href="contacts.html" class="footerHref"
 					   th:href="#{/contacts}"
 					   th:text="#{html.a.text.contacts}">
 						Address

@@ -445,6 +445,11 @@ input[type='file'] {
 	font-style: italic;
 }
 
+.footerHref {
+	text-decoration: none;
+	color: dimgrey;
+}
+
 /* ===== COMMON HTML ===== */
 
 h1 {

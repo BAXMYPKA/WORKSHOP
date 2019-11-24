@@ -19,8 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import workshop.internal.entities.*;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.hateoasResources.*;
 import workshop.internal.services.*;
 
@@ -94,7 +94,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'post')")
 	public ResponseEntity<String> postPhone(
 		@PathVariable(name = "id") long id,
-		@Validated(PersistenceValidation.class) @RequestBody Phone phone,
+		@Validated(Persist.class) @RequestBody Phone phone,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -114,7 +114,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Phone', 'put')")
 	public ResponseEntity<String> putPhone(
 		@PathVariable(name = "id") long id,
-		@Validated(MergingValidation.class) @RequestBody Phone phone,
+		@Validated(Merge.class) @RequestBody Phone phone,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -135,7 +135,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 		@PathVariable(name = "id") long id,
 		@PathVariable(name = "phoneId") Long phoneId) {
 		
-		phonesService.deletePhoneFromEmployee(id, phoneId);
+		phonesService.removePhoneFromEmployee(id, phoneId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT)
 			.body(getDeleteMessageSuccessLocalized("Phone.ID" + phoneId));
 	}
@@ -155,7 +155,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Position', 'post')")
 	public ResponseEntity<String> postPosition(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		@Validated(Persist.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -170,7 +170,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Employee', 'put') and hasPermission('Position', 'put')")
 	public ResponseEntity<String> putPosition(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Position position,
+		@Validated(Persist.class) @RequestBody Position position,
 		BindingResult bindingResult) {
 		return postPosition(id, position, bindingResult);
 	}
@@ -221,7 +221,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postAppointedTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Task task,
+		@Validated(Persist.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -240,7 +240,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putAppointedTask(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Task task,
+		@Validated(Merge.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		return postAppointedTask(id, task, bindingResult);
@@ -331,7 +331,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Task task,
+		@Validated(Persist.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -353,7 +353,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Task', 'put')")
 	public ResponseEntity<String> putTaskCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Task task,
+		@Validated(Merge.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -455,7 +455,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Order', 'post')")
 	public ResponseEntity<String> postOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Order order,
+		@Validated(Persist.class) @RequestBody Order order,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -477,7 +477,7 @@ public class EmployeesRestController extends WorkshopRestControllerAbstract<Empl
 	@PreAuthorize("hasPermission('Order', 'put')")
 	public ResponseEntity<String> putOrderCreatedBy(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Order order,
+		@Validated(Merge.class) @RequestBody Order order,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

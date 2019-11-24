@@ -6,7 +6,7 @@
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
 	<meta charset="UTF-8">
-<!--	<link rel="stylesheet" href="css/services.css" th:href="@{/dist/css/services.css}">-->
+	<!--	<link rel="stylesheet" href="css/services.css" th:href="@{/dist/css/services.css}">-->
 	<title th:text="#{html.a.title.workshopStuff}">Our Workshop Stuff</title>
 </head>
 <body>
@@ -14,6 +14,13 @@
 <th:block layout:fragment="articleFragment">
 	
 	<h1 th:text="#{html.a.title.workshopStuff}">Our Bicycle Workshop Stuff</h1>
+	
+	<picture style="display: flex; justify-content: center; align-content: center">
+		
+		<img src="../dist/img/bicycle-workshop-stuff.jpg" alt="WORKSHOP STUFF" width="750" height="422"
+			 th:src="@{/dist/img/bicycle-workshop-stuff.jpg}">
+	
+	</picture>
 
 </th:block>
 

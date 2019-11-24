@@ -3,9 +3,9 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.exceptions.PersistenceFailureException;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.exceptions.PersistenceFailureException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
@@ -52,7 +52,7 @@ public class Task extends WorkshopAudibleEntityAbstract {
 	private String name;
 	
 	@Column
-	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
+	@Future(groups = {Persist.class}, message = "{validation.future}")
 	private ZonedDateTime deadline;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -77,7 +77,7 @@ public class Task extends WorkshopAudibleEntityAbstract {
 	@ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "order_id", referencedColumnName = "id")
 	@Valid
-	@NotNull(groups = {PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
+	@NotNull(groups = {Persist.class, Merge.class}, message = "{validation.notNull}")
 	private Order order;
 	
 	/**
@@ -88,7 +88,7 @@ public class Task extends WorkshopAudibleEntityAbstract {
 	 * Default = 0.00
 	 */
 	@Column(scale = 2, nullable = false)
-	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+	@PositiveOrZero(groups = {Default.class, Persist.class, Merge.class},
 					message = "{validation.positiveOrZero}")
 	private BigDecimal price = BigDecimal.ZERO;
 	

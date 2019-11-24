@@ -10,14 +10,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Collections;
+import java.util.TimeZone;
 
 @SpringBootApplication(scanBasePackages = {"workshop"})
 @EntityScan(basePackages = "workshop.internal.entities")
 @EnableJpaRepositories(basePackages = "workshop.internal.dao")
 @EnableCaching
+@EnableAsync
+@EnableScheduling
 @PropertySources({
 	@PropertySource(value = "classpath:configs/workshop.properties", encoding = "UTF-8")})
 public class WorkshopApplication {
@@ -32,5 +41,10 @@ public class WorkshopApplication {
 	@Bean(initMethod = "start", destroyMethod = "stop")
 	public Server h2Server() throws SQLException {
 		return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", h2port);
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 }

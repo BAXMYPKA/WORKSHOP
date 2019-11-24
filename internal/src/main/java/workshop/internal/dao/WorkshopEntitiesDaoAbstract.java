@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.WorkshopAudibleEntityAbstract;
 import workshop.internal.entities.WorkshopEntity;
@@ -210,6 +212,35 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			String finalOrderBy = DEFAULT_ORDER_BY;
 //			resultList.sort(Comparator.comparing(e -> getComparablePropertyValue(finalOrderBy, e).get()).reversed());
 			sortEntitiesResultList(resultList, DEFAULT_ORDER_BY, Sort.Direction.fromString(DEFAULT_ORDER));
+			log.debug("{}s were found", entityClass.getSimpleName());
+			return Optional.of(resultList);
+		} else {
+			log.debug("{}s were not found", entityClass.getSimpleName());
+			return Optional.empty();
+		}
+	}
+	
+	/**
+	 * Spring Page interface starts count pages from 0.
+	 * Page formula is: (pageNum)*pageSize
+	 *
+	 * @return 'Optional.of(List<WorkshopEntity>)' or 'Optional.empty()' if nothing found.
+	 * @throws IllegalArgumentException If pageSize < 0 either pageSize > PAGE_SIZE_MAX or pageNum < 0
+	 * @throws PersistenceException     if the query execution exceeds the query timeout value set
+	 *                                  and the transaction is rolled back
+	 */
+	public Optional<List<T>> findAllEntities() throws IllegalArgumentException, PersistenceException {
+		
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(entityClass);
+		Root<T> root = cq.from(entityClass);
+		cq.select(root);
+		
+		TypedQuery<T> query = entityManager.createQuery(cq);
+		
+		List<T> resultList = query.getResultList();
+		
+		if (!resultList.isEmpty()) {
 			log.debug("{}s were found", entityClass.getSimpleName());
 			return Optional.of(resultList);
 		} else {
@@ -424,7 +455,8 @@ public abstract class WorkshopEntitiesDaoAbstract<T extends WorkshopEntity, K> i
 			entity = mergeEntity(entity).orElseThrow(() ->
 				new EntityNotFoundException("The given Entity cannot be merged before removing!"));
 		}
-		entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+//		entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+		entityManager.remove(entity);
 		log.debug("{} successfully removed", entityClass.getSimpleName());
 	}
 	

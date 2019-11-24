@@ -19,10 +19,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 import workshop.internal.entities.WorkshopEntity;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
-import workshop.internal.exceptions.PersistenceFailureException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
+import workshop.exceptions.InternalServerErrorException;
+import workshop.exceptions.PersistenceFailureException;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityExistsException;
@@ -48,6 +48,11 @@ import java.util.stream.Stream;
 @Service
 public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> {
 	
+	/**
+	 * Concrete instances of {@link WorkshopEntitiesServiceAbstract} class by {@link WorkshopEntity#getClass()}
+	 */
+	public static Map<Class<? extends WorkshopEntity>, WorkshopEntitiesServiceAbstract<? extends WorkshopEntity>>
+		workshopEntitiesServicesBeans = new HashMap<>();
 	@Value("${page.size.default}")
 	@Getter(AccessLevel.PUBLIC)
 	@Setter(AccessLevel.PUBLIC)
@@ -76,11 +81,6 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	@Getter(AccessLevel.PUBLIC)
 	private Class<T> entityClass;
 	private String entityClassSimpleName;
-	/**
-	 * Concrete instances of {@link WorkshopEntitiesServiceAbstract} class by {@link WorkshopEntity#getClass()}
-	 */
-	public static Map<Class<? extends WorkshopEntity>, WorkshopEntitiesServiceAbstract<? extends WorkshopEntity>>
-		workshopEntitiesServicesBeans = new HashMap<>();
 	
 	/**
 	 * @param workshopEntitiesDaoAbstract A concrete implementation of the EntitiesDaoAbstract<T,K> for the concrete
@@ -198,7 +198,9 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 	/**
 	 * @param propertyName  Any existing {@link WorkshopEntity}.propertyName
 	 * @param propertyValue Any desired {@link WorkshopEntity}.propertyName.getValue
-	 * @return WorkshopEntity of the given type with the desired value.
+	 * @return Non-null and non-empty {@link List<T>} with at least one WorkshopEntity of the given type with the
+	 * desired value.
+	 * Otherwise throws {@link EntityNotFoundException}
 	 * @throws PersistenceException    In case of problems with the DataBase.
 	 * @throws EntityNotFoundException If nothing was found.
 	 */
@@ -468,6 +470,24 @@ public abstract class WorkshopEntitiesServiceAbstract<T extends WorkshopEntity> 
 		} catch (PersistenceException e) {
 			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
 				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), orderBy},
+				LocaleContextHolder.getLocale()), e);
+		}
+	}
+	
+	/**
+	 * @return A List<WorkshopEntity> with a collection of Entities or {@link EntityNotFoundException} will be thrown if
+	 * nothing found or something went wrong during the search.
+	 * @throws EntityNotFoundException      If nothing was found.
+	 * @throws InternalServerErrorException In case of database problems.
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
+	List<T> findAllEntities() throws InternalServerErrorException, EntityNotFoundException {
+		try {
+			return workshopEntitiesDaoAbstract.findAllEntities()
+				.orElseThrow(() -> new EntityNotFoundException("No "+getEntityClassSimpleName()+" were found!"));
+		} catch (PersistenceException e) {
+			throw new EntityNotFoundException(e.getMessage(), HttpStatus.NOT_FOUND, messageSource.getMessage(
+				"error.notFoundByProperty(2)", new Object[]{entityClass.getSimpleName(), "created"},
 				LocaleContextHolder.getLocale()), e);
 		}
 	}

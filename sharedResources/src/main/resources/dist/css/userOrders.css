@@ -1,0 +1,47 @@
+.ordersHref {
+	display: block;
+	align-self: center;
+}
+
+.ordersTableContainer {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.buttonLogin {
+	width: 18.8em;
+}
+
+.errorMessage {
+	display: table-cell;
+	font-style: italic;
+	color: red;
+}
+
+.deleteButton {
+	width: 1.8em;
+	height: 1.8em;
+	background-color: red;
+	color: white;
+	font-weight: bolder;
+	border-radius: 50%;
+}
+
+.deleteButton:hover {
+	background-color: firebrick;
+}
+
+.addButton {
+	width: 1.8em;
+	height: 1.8em;
+	background-color: green;
+	color: white;
+	font-size: 150%;
+	font-weight: bolder;
+	border-radius: 50%;
+}
+
+.addButton:hover {
+	background-color: darkgreen;
+}

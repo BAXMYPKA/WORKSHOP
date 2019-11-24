@@ -4,7 +4,11 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	entry: {
-		index: './src/js/index.es6'
+		index: './src/js/index.es6',
+		profile: './src/js/profile.es6',
+		userOrder: './src/js/userOrder.es6',
+		registration: './src/js/registration.es6',
+		passwordReset: './src/js/passwordReset.es6'
 	},
 	devtool: 'source-map',
 	plugins: [
@@ -23,7 +27,7 @@ module.exports = {
 	},
 	watchOptions: {
 		aggregateTimeout: 500,
-		poll: 800
+		poll: 1000
 	},
 	module: {
 		rules: [

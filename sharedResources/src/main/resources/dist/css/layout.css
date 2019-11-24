@@ -45,12 +45,24 @@
 }
 
 .mtb {
+	opacity: 0.7;
+	transform: rotate(0deg);
+	transition: all;
+	transition-duration: 2s;
+	transition-timing-function: ease-in-out;
 	width: 48px;
 	height: 48px;
 }
 
+.mtb:hover {
+	opacity: 0.9;
+	transform: rotate(-360deg);
+	transition: all;
+	transition-duration: 3s;
+	transition-timing-function: ease-in-out;
+}
+
 .motto {
-	/*font: small Calibri;*/
 	font-family: "Comic Sans MS", sans-serif;
 	font-size: 0.8em;
 	font-style: italic;
@@ -67,7 +79,6 @@
 
 .loginRegistration {
 	margin-right: 1.5em;
-	/*border: red 0.5em solid;*/
 }
 
 .loginRegistration a {
@@ -80,7 +91,6 @@
 
 .profileLink {
 	text-decoration: none;
-	/*font-size: 2em;*/
 	font-weight: bolder;
 	color: saddlebrown;
 	font-style: italic;
@@ -99,7 +109,6 @@
 
 .shutdown {
 	display: block;
-	/*justify-self: right;*/
 	margin-bottom: 0.7em;
 	width: 1.4em;
 	height: 1.4em;
@@ -120,13 +129,9 @@
 	border: 0.3em solid aliceblue;
 	border-radius: 7%;
 	align-self: center;
-	/*background-color: blue;*/
-	/*box-shadow: inset 0 0 50px 50em blueviolet;*/
 }
 
 .language:hover {
-	/*box-shadow: ;*/
-	/*box-shadow: inset 0.6em 0.3em 0.7em 0.7em brown;*/
 	border: 0.3em solid lightblue;
 	transition-duration: 500ms;
 	transition-timing-function: ease-out;
@@ -151,17 +156,13 @@
 	margin: 0.0em 0.3em;
 	padding: 0.1em 0.5em;
 	border-top: gray groove 0.2em;
-	/*border-left: gray solid 0.2em;*/
-	/*border-right: gray solid 0.2em;*/
 	border-top-left-radius: 0.5em;
 	border-top-right-radius: 0.5em;
 	background-color: gainsboro;
-	/*opacity: 0.8;*/
 }
 
 .upperMenu li:hover {
 	background-color: darkgrey;
-	/*box-shadow: inset 0 0 0.2em 0.3em darkgray;*/
 	transition-duration: 200ms;
 }
 
@@ -170,10 +171,9 @@
 	text-transform: uppercase;
 	font-size: 0.7em;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	/*font-family: Candara, sans-serif;*/
 	font-weight: bold;
 	color: black;
-	opacity: 0.5%;
+	opacity: 0.8;
 	
 }
 
@@ -186,19 +186,11 @@
 	z-index: 2;
 	list-style: none none;
 	padding: 0;
-	/*margin: 0;*/
-	/*margin: 0 0.2em;*/
-	/*padding: 0.1em 0.1em;*/
 }
 
 .subMenu > li {
-	/*display: block;*/
-	/*margin: 0.0em 0.9em;*/
-	/*margin: 0.0em 0.3em;*/
 	padding: 0.1em 0.3em;
-	/*border-top: gray solid 0.2em;*/
 	border-bottom: gray solid 0.2em;
-	/*border-right: gray solid 0.2em;*/
 	border-bottom-left-radius: 0.5em;
 	border-bottom-right-radius: 0.5em;
 	background-color: gainsboro;
@@ -215,7 +207,6 @@
 	overflow: hidden;
 	width: 18%;
 	background: linear-gradient(to bottom, lightgray 0%, darkgray 70%);
-	/*background-color: lightgray;*/
 }
 
 .leftNav ul {
@@ -230,7 +221,6 @@
 .leftNav ul li a {
 	text-decoration: none;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	/*font-family: Candara, sans-serif;*/
 	font-weight: bold;
 	font-size: 0.8em;
 	text-transform: uppercase;
@@ -245,34 +235,22 @@
 .article {
 	display: flex;
 	flex-direction: column;
+	align-content: center;
+	justify-content: center;
 	width: 82%;
 	padding: 1em;
 	background-color: ghostwhite;
 	overflow: auto;
-	/*overflow: hidden;*/
 }
 
 .footer {
 	padding: 1em;
 	background: linear-gradient(to bottom right, darkgray 0%, lightgray 70%);
-	/*background-color: darkgrey;*/
 }
 
 /* ===== COMMON ASSETS ===== */
 
 /* LOGIN / REGISTRATION MODAL WINDOW*/
-
-#loginModalBackground {
-	display: none;
-	position: absolute;
-	top: 1%;
-	bottom: 1%;
-	right: 1%;
-	left: 1%;
-	border-radius: 2%;
-	pointer-events: auto;
-	background: rgba(0, 0, 0, 0.3)
-}
 
 #loginModalBackground:target {
 	display: block;
@@ -280,34 +258,15 @@
 	transition-duration: 350ms;
 }
 
-.loginModalWindow{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: absolute;
-	top: 20%;
-	left: 20%;
-	bottom: 20%;
-	right: 20%;
-	overflow: auto;
-	border: dimgrey 0.5em solid;
-	border-radius: 1em;
-	box-shadow: inset 0 0 1em 1.5em gainsboro;
-	padding: 2em;
-	background-color: ghostwhite;
-	pointer-events: auto;
-}
-
 .usersTable {
-	margin-top: 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
-#loginModalBackground > .loginModalWindow > .closeA {
+.closeHref {
 	display: inline-block;
 	align-self: flex-end;
-	/*position: relative;*/
-	/*left: 100%;*/
-	padding: 1em 2em;
+	padding: 1em 2em 0.5em 2em;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-family: Arial sans-serif;
@@ -315,14 +274,20 @@
 	color: sienna;
 }
 
-#loginModalBackground > .loginModalWindow > .closeA:hover {
-	/*box-shadow: inset 0 0 0.5em 1em dimgray;*/
+#loginModalBackground > .loginModalWindow > .closeHref:hover {
 	color: red;
 }
 
 /* ===== DESIGN COMPLIANT MODAL WINDOW =====*/
 
-#modalBackground {
+
+#designCompliantModalBackground:target {
+	display: block;
+	z-index: 5;
+	transition-duration: 350ms;
+}
+
+.modalBackground {
 	display: none;
 	position: absolute;
 	top: 1%;
@@ -334,29 +299,27 @@
 	background: rgba(0, 0, 0, 0.5)
 }
 
-#modalBackground:target {
-	display: block;
-	z-index: 5;
-	transition-duration: 350ms;
-}
-
 .modalWindow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
 	position: absolute;
-	top: 20%;
-	left: 20%;
-	bottom: 20%;
-	right: 20%;
+	top: 5%;
+	left: 15%;
+	bottom: 5%;
+	right: 15%;
+	overflow: auto;
 	border: dimgrey 0.5em solid;
 	border-radius: 1em;
 	box-shadow: inset 0 0 1em 1.5em gainsboro;
-	padding: 2em;
-	background-color: darkgrey;
+	padding: 1.5em;
+	background-color: ghostwhite;
 	pointer-events: auto;
+	
 }
 
-#modalBackground > .modalWindow > .closeA {
-	/*position: relative;*/
-	/*left: 70%;*/
+.modalBackground > .modalWindow > .closeHref {
 	text-decoration: none;
 	text-transform: uppercase;
 	font-family: Arial sans-serif;
@@ -365,22 +328,23 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .closeA:hover {
+.modalBackground > .modalWindow > .closeHref:hover {
 	color: red;
 }
 
-/*=====*/
+#designCompliantModalWindow{
+	top: 15%;
+	bottom: 15%;
+}
 
 .formContainer {
 	flex-basis: 100%;
-}
-.login {
 }
 
 /* ===== FORMS ===== */
 
 input {
-	margin: 0.16em 0;
+	margin: 0.4em 0;
 	padding: 0.1em;
 	border: lightslategrey solid 0.1em;
 	border-radius: 0.3em;
@@ -389,7 +353,7 @@ input {
 }
 
 .buttonLogin {
-	margin: 0.16em 0;
+	margin: 0.5em 0;
 	padding: 0.1em;
 	border: lightslategrey solid 0.1em;
 	border-radius: 0.3em;
@@ -407,7 +371,6 @@ input {
 	margin-top: 0.8em;
 	border: darkgrey solid 0.2em;
 	box-shadow: inset 0 0 1.1em 0.9em lightskyblue;
-	/*color: blue;*/
 }
 
 .buttonRegistration:hover {
@@ -419,16 +382,25 @@ input:hover {
 	transition-duration: 200ms;
 }
 
-/* */
-
 .errorMessage {
+	/*display: none;*/
+	font-style: italic;
+	color: red;
+}
+
+.jsErrorMessage {
 	display: none;
+	align-self: center;
 	font-style: italic;
 	color: red;
 }
 
 .errorMessage:before {
 	content: "* ";
+}
+
+.redAsterisk {
+	color: red;
 }
 
 /* ===== TABLES ===== */
@@ -447,7 +419,6 @@ table > caption {
 	font-family: Arial, sans-serif;
 	font-weight: bold;
 	background-color: darkgray;
-	/*color: blue;*/
 }
 
 th {
@@ -456,6 +427,27 @@ th {
 
 tr:nth-child(odd) {
 	background-color: gainsboro;
+}
+
+input[type='file'] {
+	box-sizing: border-box;
+}
+
+.userMessage {
+	align-self: center;
+	width: 80%;
+	padding: 1em;
+	border: lavender 0.1em solid;
+	border-radius: 1em;
+	box-shadow: lightgrey inset 0 0 0.5em 0.8em;
+	background-color: whitesmoke;
+	color: saddlebrown;
+	font-style: italic;
+}
+
+.footerHref {
+	text-decoration: none;
+	color: dimgrey;
 }
 
 /* ===== COMMON HTML ===== */

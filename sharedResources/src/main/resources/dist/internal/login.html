@@ -6,7 +6,7 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{./layouts/layout.html}">
 <head>
-	<link rel="stylesheet" href="../css/login.css" th:href="@{/dist/css/login.css}">
+	<link rel="stylesheet" href="../internal/css/login.css" th:href="@{/dist/internal/css/login.css}">
 	<title th:text="#{html.h1.internal.login}">Login</title>
 </head>
 <body>
@@ -29,9 +29,9 @@
 					   th:placeholder="${placeholders.adminPassword}">
 				<br>
 				<!--					<input type="submit" value="LOGIN"-->
-				<!--						   th:value="#{html.submit.login}">-->
+				<!--						   th:value="#{html.submit.text.login}">-->
 				<!--					<br>-->
-				<button class="buttonLogin" onclick="this.form.submit()" th:text="#{html.submit.login}">
+				<button class="buttonLogin" onclick="this.form.submit()" th:text="#{html.submit.text.login}">
 					LOGIN
 				</button>
 			</form>

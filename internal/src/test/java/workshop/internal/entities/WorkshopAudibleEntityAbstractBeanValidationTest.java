@@ -7,9 +7,9 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationEventPublisher;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -62,7 +62,7 @@ class WorkshopAudibleEntityAbstractBeanValidationTest {
 		orderWithIncorrectId.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, MergingValidation.class);
+		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, Merge.class);
 		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
 		
 		//THEN
@@ -84,7 +84,7 @@ class WorkshopAudibleEntityAbstractBeanValidationTest {
 		orderWithIncorrectId.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, PersistenceValidation.class);
+		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithIncorrectId, Persist.class);
 		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
 		
 		//THEN
@@ -100,7 +100,7 @@ class WorkshopAudibleEntityAbstractBeanValidationTest {
 		orderWithCorrectCreated.setCreated(ZonedDateTime.now().minusMinutes(1));
 		
 		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithCorrectCreated, PersistenceValidation.class);
+		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithCorrectCreated, Persist.class);
 		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
 		
 		//THEN
@@ -116,7 +116,7 @@ class WorkshopAudibleEntityAbstractBeanValidationTest {
 		orderWithCorrectModified.setModified(ZonedDateTime.now().plusMinutes(1));
 		
 		//WHEN
-		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithCorrectModified, PersistenceValidation.class);
+		Set<ConstraintViolation<Order>> validatedOrder = validator.validate(orderWithCorrectModified, Persist.class);
 		ConstraintViolation<Order> violation = validatedOrder.iterator().next();
 		
 		//THEN

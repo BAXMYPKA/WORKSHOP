@@ -21,6 +21,8 @@ import java.util.Arrays;
 @Component
 public class CookieUtils {
 	
+	private final String COOKIE_PATH = "/workshop.pro/";
+	
 	@Setter(AccessLevel.PACKAGE)
 	@Value("${domainName}")
 	private String domainName;
@@ -46,11 +48,16 @@ public class CookieUtils {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(ttl == null ? authenticationCookieTtl : ttl);
-		//TODO: cannot be set for localhost
+		//TODO: 'workshop.pro' cannot be set for localhost
 //		cookie.setDomain(domainName);
+		cookie.setPath(COOKIE_PATH); //Should be set to be identical
 		response.addCookie(cookie);
 	}
 	
+	/**
+	 * ALL the Cookie parameters MUST BE identical to those which had been added in
+	 * {@link #addCookieToResponse(HttpServletResponse, String, String, Integer)} for the Cookie to be deleted!
+	 */
 	public void deleteCookieFromResponse(HttpServletRequest request, HttpServletResponse response, String cookieName) {
 		if (request == null || response == null || cookieName == null || cookieName.isEmpty()) {
 			throw new IllegalArgumentException("Request or CookieName is null or empty!");
@@ -61,6 +68,9 @@ public class CookieUtils {
 			.findFirst()
 			.ifPresent(cookie -> {
 				cookie.setMaxAge(0);
+				cookie.setValue("");
+				cookie.setHttpOnly(true);
+				cookie.setPath(COOKIE_PATH);
 				response.addCookie(cookie);
 			});
 	}

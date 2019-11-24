@@ -86,23 +86,103 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/emailCheck.es6":
-/*!*******************************!*\
-  !*** ./src/js/emailCheck.es6 ***!
-  \*******************************/
-/*! exports provided: emailRegexpCheck, userEmailExist */
+/***/ "./src/js/index.es6":
+/*!**************************!*\
+  !*** ./src/js/index.es6 ***!
+  \**************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
+
+
+const inputUsername = document.querySelector("#inputUsername");
+const inputPassword = document.querySelector("#inputPassword");
+
+inputUsername.addEventListener("input", (evt) => {
+	const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
+	const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
+	const userErrorMessageSpan = document.querySelector("#userErrorMessage");
+	
+	if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(inputUsername.value)) {
+		inputUsername.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
+		inputUsername.style.color = "red";
+		userErrorMessageSpan.style.display = "none";
+		return;
+	} else {
+		inputUsername.removeAttribute("title");
+		inputUsername.style.color = "green";
+		userErrorMessageSpan.style.display = "none";
+	}
+	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(inputUsername.value)
+		.then((exist) => {
+			if (exist.exist) {
+				userErrorMessageSpan.style.display = "none";
+			} else {
+				userErrorMessageSpan.style.display = "block";
+				userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
+			}
+		});
+});
+
+inputPassword.addEventListener("input", (evt) => {
+	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+	const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
+	
+	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(inputPassword.value) === true) {
+		inputPassword.style.color = "green";
+		inputPassword.removeAttribute("title");
+		passwordErrorMessageSpan.style.display = "none";
+	} else {
+		inputPassword.style.color = "red";
+		inputPassword.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
+		passwordErrorMessageSpan.style.display = "block";
+		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
+	}
+});
+
+document.querySelector(".buttonResetPassword").addEventListener("click", (evt) => {
+	evt.preventDefault();
+	location.href = location.origin + "/workshop.pro/password-reset";
+});
+
+document.querySelector("#buttonRegistration").addEventListener("click", evt => {
+	evt.preventDefault();
+	location.href = location.origin + "/workshop.pro/registration";
+});
+
+
+
+/***/ }),
+
+/***/ "./src/js/verifications.es6":
+/*!**********************************!*\
+  !*** ./src/js/verifications.es6 ***!
+  \**********************************/
+/*! exports provided: emailRegexpCheck, isUserEmailExist, isNonEnabledUserEmailExist, passwordCheck, phoneNumberCheck, phoneNameCheck */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "emailRegexpCheck", function() { return emailRegexpCheck; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userEmailExist", function() { return userEmailExist; });
-/* harmony import */ var _workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntityExist.es6 */ "./src/js/workshopEntityExist.es6");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isUserEmailExist", function() { return isUserEmailExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEnabledUserEmailExist", function() { return isNonEnabledUserEmailExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordCheck", function() { return passwordCheck; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNumberCheck", function() { return phoneNumberCheck; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNameCheck", function() { return phoneNameCheck; });
+/* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
 
+/**
+ * Still in development as I don't know all the permitted symbols in the email string
+ * @param email
+ * @returns {boolean}
+ */
 function emailRegexpCheck(email) {
 	
-	let emailRegexp = /^([^\s][\d]|[\w]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,10}$/i;
+	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 	
 	if (typeof email === "string" && email.match(emailRegexp)) {
 		return true;
@@ -117,111 +197,76 @@ function emailRegexpCheck(email) {
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
-function userEmailExist(userEmail) {
+function isUserEmailExist(userEmail) {
 	
-	return Object(_workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_0__["default"])("User", "email", userEmail)
+	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail)
 		.then((promise) => {
 			promise.exist = promise.ok;
 			return promise;
 		});
 }
 
-/***/ }),
 
-/***/ "./src/js/index.es6":
-/*!**************************!*\
-  !*** ./src/js/index.es6 ***!
-  \**************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passwordCheck.es6 */ "./src/js/passwordCheck.es6");
-/* harmony import */ var _emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./emailCheck.es6 */ "./src/js/emailCheck.es6");
-/* harmony import */ var _workshopEntityExist_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./workshopEntityExist.es6 */ "./src/js/workshopEntityExist.es6");
-
-
-
-
-const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
-const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
-const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
-const usernameInput = document.querySelector("#inputUsername");
-const passwordInput = document.querySelector("#inputPassword");
-const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
-const userErrorMessageSpan = document.querySelector("#userErrorMessage");
-
-usernameInput.addEventListener("input", (evt) => {
-	if (!Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["emailRegexpCheck"])(usernameInput.value)) {
-		usernameInput.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
-		usernameInput.style.color = "red";
-		userErrorMessageSpan.style.display = "none";
-		return;
-	} else {
-		usernameInput.removeAttribute("title");
-		usernameInput.style.color = "green";
-		userErrorMessageSpan.style.display = "none";
-	}
-	Object(_emailCheck_es6__WEBPACK_IMPORTED_MODULE_1__["userEmailExist"])(usernameInput.value)
-		.then((exist) => {
-			if (exist.exist) {
-				userErrorMessageSpan.style.display = "none";
-			} else {
-				userErrorMessageSpan.style.display = "block";
-				userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
-			}
+/**
+ * Async function!
+ *
+ * @param userEmail
+ * @returns {Promise<unknown>} with '.exist' additional boolean property.
+ */
+function isNonEnabledUserEmailExist(userEmail) {
+	
+	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail)
+		.then((promise) => {
+			promise.exist = promise.ok;
+			return promise;
 		});
-});
+}
 
-passwordInput.addEventListener("input", (env) => {
-	if (Object(_passwordCheck_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordInput.value) === true) {
-		passwordInput.style.color = "green";
-		passwordInput.removeAttribute("title");
-		passwordErrorMessageSpan.style.display = "none";
-	} else {
-		passwordInput.style.color = "red";
-		passwordInput.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
-		passwordErrorMessageSpan.style.display = "block";
-		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
-	}
-});
-
-
-
-/***/ }),
-
-/***/ "./src/js/passwordCheck.es6":
-/*!**********************************!*\
-  !*** ./src/js/passwordCheck.es6 ***!
-  \**********************************/
-/*! exports provided: passwordCheck */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordCheck", function() { return passwordCheck; });
 function passwordCheck(password) {
-	if ( (typeof password === "string" || typeof password === "number") && password.length < 5) {
+	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
 		return false;
 	} else {
 		return true;
 	}
 }
 
+function phoneNumberCheck(phoneNumber) {
+	
+	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
+	
+	if (typeof phoneNumber !== "string") {
+		return false;
+	} else {
+		let stringNumber = phoneNumber.toString();
+		return stringNumber.match(phoneNumberRegexp);
+	}
+}
+
+function phoneNameCheck(phoneName) {
+	
+	let phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
+	
+	if (typeof phoneName !== "string") {
+		return false;
+	} else {
+		return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
+	}
+}
 
 /***/ }),
 
-/***/ "./src/js/workshopEntityExist.es6":
-/*!****************************************!*\
-  !*** ./src/js/workshopEntityExist.es6 ***!
-  \****************************************/
-/*! exports provided: default */
+/***/ "./src/js/workshopEntitiesFetches.es6":
+/*!********************************************!*\
+  !*** ./src/js/workshopEntitiesFetches.es6 ***!
+  \********************************************/
+/*! exports provided: checkWorkshopEntityExist, checkNonEnabledUserExist, passwordResetEmail */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return workshopEntityExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkWorkshopEntityExist", function() { return checkWorkshopEntityExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkNonEnabledUserExist", function() { return checkNonEnabledUserExist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "passwordResetEmail", function() { return passwordResetEmail; });
 /**
  *
  * @param workshopEntityType String representations for WorkshopEntityType to be found
@@ -229,7 +274,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param propertyValue A value of that property
  * @returns {Promise<Response>} with status.ok === true or status.ok === false
  */
-function workshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
+function checkWorkshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
 	
 	const formData = new FormData();
 	formData.append("workshopEntityType", workshopEntityType);
@@ -238,13 +283,46 @@ function workshopEntityExist(workshopEntityType = "default", propertyName = "def
 	
 	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
 		method: "POST",
-		body: formData,
+		body: formData
+		// credentials: "same-origin"
 		// headers: new Headers({
 		// 	"Content-Type": "application/x-www-form-urlencoded"
 		// })
 	}).then(function (promise) {
 		return promise;
 	});
+}
+
+/**
+ * Checks if the given email exist AND belongs to non-enabled User
+ * @param nonEnabledUserEmail
+ * @returns {Promise<Response>}
+ */
+function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
+	
+	const formData = new FormData();
+	formData.append("email", nonEnabledUserEmail);
+	
+	return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
+		method: "POST",
+		body: formData
+		// credentials: "same-origin"
+	}).then((promise) => {
+		return promise;
+	})
+}
+
+function passwordResetEmail(email = "") {
+	
+	const formData = new FormData();
+	formData.append("email", email);
+	
+	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+		method: "POST",
+		body: formData
+	}) .then((promise) => {
+		return promise;
+	})
 }
 
 /***/ })

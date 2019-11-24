@@ -18,9 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.DepartmentsResourceAssembler;
 import workshop.internal.hateoasResources.EmployeesResourceAssembler;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
@@ -126,7 +126,7 @@ public class PositionsRestController extends WorkshopRestControllerAbstract<Posi
 		
 		Position position = getWorkshopEntitiesService().findById(id);
 		employee.setPosition(position);
-		smartValidator.validate(employee, bindingResult, PersistenceValidation.class);
+		smartValidator.validate(employee, bindingResult, Persist.class);
 		super.validateBindingResult(bindingResult);
 		employeesService.persistEntity(employee);
 		Resource<Employee> employeeResource = employeesResourceAssembler.toResource(employee);
@@ -143,7 +143,7 @@ public class PositionsRestController extends WorkshopRestControllerAbstract<Posi
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Employee', 'put')")
 	public ResponseEntity<String> putPositionEmployee(@PathVariable(name = "id") Long id,
-													  @Validated(MergingValidation.class) @RequestBody Employee employee,
+													  @Validated(Merge.class) @RequestBody Employee employee,
 													  BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Position position = getWorkshopEntitiesService().findById(id);
@@ -204,7 +204,7 @@ public class PositionsRestController extends WorkshopRestControllerAbstract<Posi
 	@PreAuthorize("hasPermission('InternalAuthority', 'post')")
 	public ResponseEntity<String> postForbiddenMethodPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(Persist.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult,
 		HttpServletRequest request) {
 		
@@ -227,7 +227,7 @@ public class PositionsRestController extends WorkshopRestControllerAbstract<Posi
 	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> putPositionInternalAuthority(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(Merge.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		Position position = getWorkshopEntitiesService().findById(id);

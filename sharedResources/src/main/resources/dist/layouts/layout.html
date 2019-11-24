@@ -39,8 +39,14 @@
 			<div th:if="${#strings.isEmpty(loggedUsername)}">
 				<a href="#loginModalBackground"
 				   th:href="@{#loginModalBackground}"
-				   th:text="#{html.a.index.loginRegistration}">
-					Login/Registration
+				   th:text="#{html.a.index.login}">
+					Login
+				</a>
+				<span> / </span>
+				<a href="../registration.html"
+				   th:href="@{/registration}"
+				   th:text="#{html.a.index.registration}">
+					Registration
 				</a>
 				<br>
 				<span class="profileLink" th:text="${loggedUsername}"><i>Message for not logged in users</i></span>
@@ -52,9 +58,9 @@
 				   th:text="#{html.a.text.logout}">
 					Logout
 				</a>
-				<br>
+				<hr/>
 				<a class="profileLink"
-				   th:href="@{/profile(email=${loggedUsername})}"
+				   th:href="@{/profile}"
 				   th:text="${loggedUsername}"
 				   th:title="#{html.a.title.profile}">
 					<b><i>Profile link</i></b>
@@ -151,8 +157,8 @@
 			
 			<li>
 				<a class="modalA"
-				   href="#modalBackground"
-				   th:href="@{#modalBackground}"
+				   href="#designCompliantModalBackground"
+				   th:href="@{#designCompliantModalBackground}"
 				   th:text="#{html.upNav.upperMenu.designComplaint}">
 					To complain of design and make-up
 				</a>
@@ -201,12 +207,25 @@
 		<!--	MAIN ARTICLE	-->
 		
 		<article class="article">
+			
+			<!--	If 'userMessage' is in the Model as an attribute (utext)		-->
+			<div id="userMessage" class="userMessage"
+				 th:style="${userMessage != null ? 'display:block' : 'display:none'}"
+				 th:utext="${userMessage != null ? userMessage : ''}">
+			</div>
+			<!--	If 'userMessage is in the Request as a parameter (text) here will be the additional div		-->
+			<div class="userMessage" th:unless="${#request.getParameter('userMessage') == null}"
+				 th:text="${#request.getParameter('userMessage')}">
+			</div>
+			
+			
 			<th:block layout:fragment="articleFragment"/>
+		
 		</article>
 	
 	</div>
 	
-	<!--	-->
+	<!-- ===== FOOTER =====	-->
 	
 	<footer class="footer" th:fragment="thFooter">
 		
@@ -214,14 +233,14 @@
 			<h4 th:text="#{html.h4.contacts}">Contacts:</h4>
 			<ul>
 				<li>
-					<a href="address.html"
+					<a href="address.html" class="footerHref"
 					   th:href="#{/address}"
 					   th:text="#{html.a.text.address}">
 						Address
 					</a>
 				</li>
 				<li>
-					<a href="howToGet.html"
+					<a href="howToGet.html" class="footerHref"
 					   th:href="#{/howToGet}"
 					   th:text="#{html.a.text.howToGetToUs}">
 						How to get to us
@@ -233,7 +252,7 @@
 		<div class="contacts">
 			<ul>
 				<li>
-					<a href="contacts.html"
+					<a href="contacts.html" class="footerHref"
 					   th:href="#{/contacts}"
 					   th:text="#{html.a.text.contacts}">
 						Address
@@ -246,46 +265,55 @@
 	
 	<!--	MODAL LOGIN WINDOW WITHIN .containerMain -->
 	
-	<div id="loginModalBackground">
+	<div id="loginModalBackground" class="modalBackground">
 		
-		<div class="loginModalWindow">
+		<div class="modalWindow loginModalWindow">
 			
-			<a class="closeA" href=""
+			<a class="closeHref" href=""
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			
-			<p th:utext="#{html.article.login}">MODAL TEXT</p>
+			<p th:utext="#{html.article.login}">Login process description</p>
 			
 			<div class="formContainer">
 				<div class="login">
 					<form name="loginForm" action="/login" method="post" class="loginForm" th:action="@{/login}">
 						<input type="text" id="inputUsername" name="email" value="user@email.pro"
 							   th:value="#{html.input.login.loginUsername}">
-						<span class="errorMessage" id="userErrorMessage">Possible error message</span>
+						<span class="jsErrorMessage" id="userErrorMessage">Possible error message</span>
 						<br>
 						<input type="text" id="inputPassword" name="password" value="12345"
 							   th:value="#{html.input.password.loginPassword}">
-						<span class="errorMessage" id="passwordErrorMessage">Possible error message</span>
+						<span class="jsErrorMessage" id="passwordErrorMessage">Possible error message</span>
 						<br>
 						<button class="buttonLogin"
 								onclick="this.form.submit()"
-								th:text="#{html.submit.login}">
-							LOGIN
+								th:text="#{html.submit.text.login}">
+							Login
 						</button>
 						<br>
-						<button class="buttonLogin buttonRegistration"
-								title="Registration advantages description"
-								onclick="this.form.submit()"
-								th:text="#{html.submit.registration}"
-								th:title="#{html.button.title.registration}">
-							REGISTRATION
+						<button class="buttonLogin buttonResetPassword"
+								title="Request password reset"
+								th:text="#{html.submit.text.resetPassword}"
+								th:title="#{html.button.title.resetPasswordProcessDescription}">
+							Reset password
 						</button>
+						<br>
 					
 					</form>
+					
+					<button class="buttonLogin buttonRegistration"
+							id="buttonRegistration"
+							title="Registration advantages description"
+							th:text="#{html.submit.text.registrationSuggest}"
+							th:title="#{html.button.title.registrationProcessDescription}">
+						Registration
+					</button>
+				
 				</div>
 			</div>
 			
-			<table class="usersTable">
+			<table class="usersTable" th:unless="${usersTable == null}">
 				
 				<caption title th:text="#{html.thead.external.login.predefinedUsers}">
 					The predefined users list
@@ -297,12 +325,27 @@
 					<th th:text="#{properties.email}">
 						Email
 					</th>
-					<th th:text="#{properties.enabled}">
-						Department
+					<th th:text="#{properties.created}">
+						Created
 					</th>
 					<th th:text="#{properties.language}">
 						Language
 					</th>
+				</tr>
+				
+				<tr th:unless="${usersTable == null}" th:each="user : ${usersTable}">
+					<td th:text="${user?.lastName + ' ' + user?.firstName}">
+						User full name
+					</td>
+					<td th:text="${user?.email}">
+						User email
+					</td>
+					<td th:text="${#temporals.format(user?.created, 'yyyy-MM-dd HH:mm')}">
+						User creation date
+					</td>
+					<td th:text="${user?.languageTag}">
+						User language
+					</td>
 				</tr>
 			
 			</table>
@@ -314,11 +357,11 @@
 	
 	<!-- ===== DESIGN COMPLIANT MODAL WINDOW =====	-->
 	
-	<div id="modalBackground">
+	<div id="designCompliantModalBackground" class="modalBackground">
 		
-		<div class="modalWindow">
+		<div class="modalWindow designCompliantModalWindow">
 			
-			<a class="closeA" href=""
+			<a class="closeHref" href=""
 			   th:href="@{${#request.getRequestURL()}}"
 			   th:text="#{html.a.text.close}">Close window</a>
 			

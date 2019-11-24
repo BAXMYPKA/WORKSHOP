@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -12,11 +11,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import workshop.internal.dao.DepartmentsDao;
 import workshop.internal.dao.PositionsDao;
-import workshop.internal.dao.WorkshopEntitiesDaoAbstract;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Position;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
 
 import java.util.Optional;
 

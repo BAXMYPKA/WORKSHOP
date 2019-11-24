@@ -1,7 +1,7 @@
 package workshop.internal.entities;
 
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.internal.entities.hibernateValidation.Persist;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -73,7 +73,7 @@ class DepartmentBeanValidationTest {
 		department.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, MergingValidation.class);
+		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, Merge.class);
 		
 		//THEN
 		ConstraintViolation<Department> violationIterator = validatedDepartment.iterator().next();
@@ -91,7 +91,7 @@ class DepartmentBeanValidationTest {
 		department.setIdentifier(incorrectIdentifier);
 		
 		//WHEN
-		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, PersistenceValidation.class);
+		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department, Persist.class);
 		
 		//THEN
 		ConstraintViolation<Department> violationIterator = validatedDepartment.iterator().next();
@@ -127,7 +127,7 @@ class DepartmentBeanValidationTest {
 		
 		//WHEN
 		Set<ConstraintViolation<Department>> validatedDepartment = validator.validate(department,
-			PersistenceValidation.class);
+			Persist.class);
 		
 		//THEN
 		ConstraintViolation<Department> violationIterator = validatedDepartment.iterator().next();

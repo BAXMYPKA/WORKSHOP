@@ -6,10 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import workshop.exceptions.UuidAuthenticationException;
+import workshop.internal.entities.Uuid;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.internal.services.UuidsService;
+
+import java.util.Objects;
 
 @Slf4j
 @Setter
@@ -18,6 +25,7 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 	@Autowired
 	@Qualifier("usersDetailsService")
 	private UsersDetailsService usersDetailsService;
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -27,19 +35,20 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 			authenticationToken.getPrincipal().toString().isEmpty()) {
 			throw new BadCredentialsException("Authentication or Principal cannot be null or empty!");
 		}
-		log.trace("Provide authentication...");
-		
-		UserDetailsUser user =
-			usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
-		
-		log.debug("User={} is found. Proceeding with matching passwords...", user.getUsername());
-		
-		//The raw password must match an encoded one from the Employee with that email
-		if (!passwordEncoder.matches((String) authenticationToken.getCredentials(), user.getPassword())) {
-			throw new BadCredentialsException("Username or Password is incorrect!");
+		//Here's the newcomer with UUID confirmation code.
+		if (UsernamePasswordUuidAuthenticationToken.class.isAssignableFrom(authenticationToken.getClass())) {
+			return usersDetailsService.authenticateNewUserByUuid((UsernamePasswordUuidAuthenticationToken) authenticationToken);
 		}
-		
+		//Checks for registered users for simple logging in
+		UserDetailsUser user = usersDetailsService.loadUserByUsername(authenticationToken.getPrincipal().toString());
+		matchPassword((String) authenticationToken.getCredentials(), user.getPassword());
+		isUserEnabled(user);
 		return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
+	}
+	
+	@Override
+	public boolean supports(Class<?> aClass) {
+		return false;
 	}
 	
 	/**
@@ -54,13 +63,26 @@ public class UsersAuthenticationProvider implements AuthenticationProvider {
 		log.trace("Trying to find User by email {}", userEmail);
 		UserDetailsUser userDetailsUser = usersDetailsService.loadUserByUsername(userEmail);
 		log.trace("User={} is found", userDetailsUser.getUsername());
+		
+		isUserEnabled(userDetailsUser);
+		
 		UsernamePasswordAuthenticationToken authenticatedToken =
-		new  UsernamePasswordAuthenticationToken(userDetailsUser, "", userDetailsUser.getAuthorities());
+			new UsernamePasswordAuthenticationToken(userDetailsUser, "", userDetailsUser.getAuthorities());
 		return authenticatedToken;
 	}
 	
-	@Override
-	public boolean supports(Class<?> aClass) {
-		return false;
+	private void isUserEnabled(UserDetailsUser user) {
+		if (!Objects.requireNonNull(user).isEnabled()) {
+			throw new InsufficientAuthenticationException("User " + user.getUser() + " is not enabled!");
+		}
+	}
+	
+	/**
+	 * The raw password must match the encoded one from the User or Employee
+	 */
+	private void matchPassword(String rawPassword, String encodedPassword) {
+		if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+			throw new BadCredentialsException("Username or Password is incorrect!");
+		}
 	}
 }

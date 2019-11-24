@@ -45,8 +45,18 @@
 }
 
 .mtb {
+	opacity: 0.2;
+	transition: all;
+	transition-duration: 1s;
 	width: 48px;
 	height: 48px;
+}
+
+.mtb:hover {
+	opacity: 0.4;
+	transform: scaleX(-1);
+	transition: all;
+	transition-duration: 1s;
 }
 
 .motto {
@@ -147,7 +157,7 @@
 	/*font-family: Candara, sans-serif;*/
 	font-weight: bold;
 	color: black;
-	opacity: 0.5%;
+	opacity: 0.8;
 	
 }
 
@@ -270,7 +280,7 @@
 	pointer-events: auto;
 }
 
-#modalBackground > .modalWindow > .closeA {
+#modalBackground > .modalWindow > .closeHref {
 	/*position: relative;*/
 	/*left: 70%;*/
 	text-decoration: none;
@@ -281,7 +291,7 @@
 	padding: 1em;
 }
 
-#modalBackground > .modalWindow > .closeA:hover {
+#modalBackground > .modalWindow > .closeHref:hover {
 	color: red;
 }
 

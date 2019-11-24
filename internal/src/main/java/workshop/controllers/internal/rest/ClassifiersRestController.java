@@ -15,8 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.*;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.hateoasResources.ClassifiersGroupsResourceAssembler;
 import workshop.internal.hateoasResources.ClassifiersResourceAssembler;
 import workshop.internal.hateoasResources.TasksResourceAssembler;
@@ -69,7 +69,7 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 	@PreAuthorize("hasPermission('Classifier', 'put') and hasPermission('ClassifiersGroup', 'post')")
 	public ResponseEntity<String> postClassifierGroup(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody ClassifiersGroup classifiersGroup,
+		@Validated(Persist.class) @RequestBody ClassifiersGroup classifiersGroup,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -82,8 +82,8 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 		
 		Resource<ClassifiersGroup> classifiersGroupResource =
 			classifiersGroupsResourceAssembler.toResource(classifiersGroup);
-		String jsonClassirierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifiersGroupResource);
-		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassirierTypeResource);
+		String jsonClassifierTypeResource = getJsonServiceUtils().workshopEntityObjectsToJson(classifiersGroupResource);
+		return ResponseEntity.status(HttpStatus.CREATED).body(jsonClassifierTypeResource);
 	}
 	
 	@PutMapping(path = "/{id}/classifiers-group",
@@ -91,7 +91,7 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 	@PreAuthorize("hasPermission('ClassifiersGroup', 'put') and hasPermission('Classifier', 'put')")
 	public ResponseEntity<String> putClassifierGroup(
 		@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody ClassifiersGroup classifiersGroup,
+		@Validated(Persist.class) @RequestBody ClassifiersGroup classifiersGroup,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -147,7 +147,7 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Task', 'post')")
 	public ResponseEntity<String> postTask(@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody Task task,
+		@Validated(Persist.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -164,7 +164,7 @@ public class ClassifiersRestController extends WorkshopRestControllerAbstract<Cl
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission(#authentication, 'Task', 'put')")
 	public ResponseEntity<String> putTask(@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody Task task,
+		@Validated(Merge.class) @RequestBody Task task,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

@@ -1,0 +1,284 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../dist/css/profile.css" th:href="@{/dist/css/profile.css}">
+	<script src="../src/js/profile.es6" th:src="@{/dist/js/profile.es6}" defer></script>
+	<title th:text="#{html.a.title.profile}">Profile</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<a class="ordersHref" href="./userOrders.html" th:href="@{/profile/orders}">
+		<h1 th:text="#{html.h1.orders}">Your Orders</h1>
+	</a>
+	
+	<h1 th:text="#{html.h1.profile}">Your profile</h1>
+	
+	<div class="profileTableContainer">
+		
+		<table class="userProfileTable" th:unless="${userDto == null}">
+			
+			<caption title th:text="#{html.thead.profile.tableName}">
+				User profile details
+			</caption>
+			
+			<form class="loadImageForm" action="profile.html" method="post" name="photo" enctype="multipart/form-data"
+				  id="loadImageForm" th:action="@{/profile/photo}">
+				
+				<tr>
+					<th th:text="#{properties.photo}"></th>
+					<td class="photoTableData">
+						<img id="userPhoto" src="../dist/img/bicycle-logo.jpg" alt="User photo" width="70em" height="70em"
+							 th:alt="#{properties.photo}"
+							 th:src="@{${userDto.photo != null ? '/profile/' + (userDto?.identifier) + '/photo' : './dist/img/bicycle-logo.jpg'}}">
+					</td>
+					<td>
+						<input type="file" name="photo">
+						<input type="submit" value="Load photo" id="loadPhotoSubmit"
+							   th:value="#{properties.savePhoto}"
+							   style="text-align: center; font-style: italic">
+					</td>
+					<td th:unless="${userDto.photo == null}">
+						<button id="deletePhotoButton" class="deleteButton"
+								th:value="${userDto?.identifier}"
+								th:title="#{html.button.title.deletePhoto}">
+							X
+						</button>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+			
+			</form>
+			
+			<form class="userProfileForm" action="profile.html" method="post" name="userDto"
+				  th:object="${userDto}"
+				  th:action="@{/profile}">
+				<input type="hidden" th:field="*{identifier}">
+				<tr>
+					<th th:text="#{properties.firstName}">
+						First name
+					</th>
+					<td th:text="${userDto?.firstName}">
+						User first name
+					</td>
+					<td>
+						<input type="text" placeholder="First name" name="firstName" th:value="${userDto?.firstName}">
+					</td>
+				
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('firstName')}"
+							  th:errors="*{firstName}">
+							Possible error
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.lastName}">
+						Last name
+					</th>
+					<td th:text="${userDto?.lastName}">
+						User last name
+					</td>
+					<td>
+						<input type="text" placeholder="Last name" name="lastName" th:value="${userDto?.lastName}">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('lastName')}"
+							  th:errors="*{lastName}">
+							Possible error
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.email}">
+						Email
+					</th>
+					<td th:text="${userDto?.email}">
+						User email
+					</td>
+					<td>
+						<input type="text" placeholder="user@mail.pro" th:field="*{email}" th:value="${userDto?.email}">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('email')}"
+							  th:errors="*{email}">
+							Possible errors
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th th:text="#{properties.birthday}">
+						Birthday
+					</th>
+					<td th:text="${#temporals.format(userDto?.birthday, 'yyyy-MM-dd')}">
+						User date of birth
+					</td>
+					<td>
+						<input type="date" th:field="*{birthday}" th:value="${userDto?.birthday}">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td colspan="3">
+						<span class="errorMessage"
+							  th:if="${#fields.hasErrors('birthday')}"
+							  th:errors="*{birthday}">
+							Possible error
+						</span>
+					</td>
+				<tr>
+					<th th:text="#{properties.language}">
+						Language
+					</th>
+					<td th:text="${#strings.toUpperCase(userDto?.languageTag)}">
+						User language
+					</td>
+					<td>
+						<input hidden type="text" placeholder="RU" name="languageTag"
+							   th:value="${userDto?.languageTag}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<th th:text="#{properties.created}">
+						Profile created
+					</th>
+					<td th:text="${#temporals.format(userDto?.created, 'yyyy-MM-dd	HH:mm')}">
+						User profile creation date
+					</td>
+					<td>
+						<input type="hidden" th:field="*{created}" th:value="${userDto?.created}">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				<tr>
+					<td></td>
+					<td>
+						<button class="buttonLogin" id="changePasswordButton" value="Change password"
+								th:text="#{html.submit.text.resetPassword}">
+							Change password
+						</button>
+					</td>
+					<td>
+						<button class="buttonLogin" value="Save changes" onclick="this.form.submit()"
+								th:text="#{html.submit.text.saveChanges}">
+							Save changes
+						</button>
+					</td>
+				</tr>
+				
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>
+				
+				<th:block th:unless="${userDto.phones == null}" th:each="phone,stat : ${userDto.phones}">
+					<tr th:id="${'phoneId='+phone.identifier}">
+						<th th:text="#{properties.phone} + ': ' + ${phone?.name}">
+							Phone name
+						</th>
+						<td th:text="${phone?.phone}">
+							Phone
+						</td>
+						<td>
+							<input type="tel" th:value="${phone?.phone}" th:field="*{phones[__${stat.index}__]?.phone}">
+							<input type="hidden" th:field="*{phones[__${stat.index}__]?.name}">
+							<input type="hidden" th:field="*{phones[__${stat.index}__]?.identifier}">
+						</td>
+						<td>
+							<button class="deleteButton" th:value="${phone?.identifier}"
+									th:title="#{html.button.title.deletePhone}">
+								x
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" th:id="${'phoneErrorId='+phone?.identifier}">
+							<span class="errorMessage"
+								  th:if="${#fields.hasErrors('phones['+__${stat.index}__+'].phone')}"
+								  th:errors="*{phones[__${stat.index}__].phone}"></span>
+						</td>
+					</tr>
+				</th:block>
+				
+				<tr>
+					<th th:utext="#{properties.phone} + #{properties.phoneNotice}">
+						Phone
+					</th>
+					<td>
+						<input type="text" placeholder="Phone name" name="newPhoneName"
+							   th:placeholder="#{properties.phoneName}">
+					</td>
+					<td>
+						<input type="tel" placeholder="Phone number" name="newPhoneNumber"
+							   th:placeholder="#{properties.phoneNumber}">
+					</td>
+					<td>
+						<button class="addButton"
+								th:title="#{html.button.title.addPhone}">
+							+
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td hidden colspan="4" id="phoneErrorIdNew">
+						<span class="errorMessage" id="phoneErrorNew"></span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+		
+		</table>
+		
+		</form>
+	
+	</div>
+
+</th:block>
+
+</body>
+</html>

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.exceptions.IllegalArgumentsException;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.http.HttpStatus;
@@ -44,7 +44,7 @@ public class Position extends WorkshopAudibleEntityAbstract {
 	 * Also uses as the WorkshopGrantedAuthority name
 	 */
 	@Column(unique = true, nullable = false)
-	@NotBlank(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	
@@ -66,7 +66,7 @@ public class Position extends WorkshopAudibleEntityAbstract {
 	@ManyToOne(optional = false, cascade = {CascadeType.REFRESH, CascadeType.MERGE},
 		fetch = FetchType.EAGER)
 	@Valid
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
 	private Department department;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
@@ -74,7 +74,7 @@ public class Position extends WorkshopAudibleEntityAbstract {
 	private Set<@Valid InternalAuthority> internalAuthorities;
 	
 	@Builder
-	public Position(@NotBlank(groups = {Default.class, PersistenceValidation.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
+	public Position(@NotBlank(groups = {Default.class, Persist.class}, message = "{validation.notBlank}") String name, @Valid Department department) {
 		this.name = name;
 		this.department = department;
 	}

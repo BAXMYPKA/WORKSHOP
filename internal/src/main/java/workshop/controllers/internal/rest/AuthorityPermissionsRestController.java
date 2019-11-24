@@ -1,7 +1,6 @@
 package workshop.controllers.internal.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import workshop.internal.entities.AuthorityPermission;
 import workshop.internal.entities.InternalAuthority;
 import workshop.internal.entities.WorkshopEntityType;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.exceptions.EntityNotFoundException;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.exceptions.EntityNotFoundException;
 import workshop.internal.hateoasResources.AuthorityPermissionsResourceAssembler;
 import workshop.internal.hateoasResources.InternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.WorkshopEntityTypesResourceAssembler;
@@ -88,7 +87,7 @@ public class AuthorityPermissionsRestController extends WorkshopRestControllerAb
 				 consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('InternalAuthority', 'post')")
 	public ResponseEntity<String> postInternalAuthority(@PathVariable(name = "id") Long id,
-		@Validated(PersistenceValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(Persist.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -117,7 +116,7 @@ public class AuthorityPermissionsRestController extends WorkshopRestControllerAb
 				consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('InternalAuthority', 'put')")
 	public ResponseEntity<String> putInternalAuthority(@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody InternalAuthority internalAuthority,
+		@Validated(Merge.class) @RequestBody InternalAuthority internalAuthority,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
@@ -211,7 +210,7 @@ public class AuthorityPermissionsRestController extends WorkshopRestControllerAb
 	@PreAuthorize("hasPermission('WorkshopEntityType', 'post') and hasPermission('AuthorityPermission', 'put')")
 	public ResponseEntity<String> postAuthorityPermissionWorkshopEntityType(
 		@PathVariable(name = "id") Long id,
-		@Validated({PersistenceValidation.class}) WorkshopEntityType workshopEntityType, BindingResult bindingResult) {
+		@Validated({Persist.class}) WorkshopEntityType workshopEntityType, BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);
 		AuthorityPermission authorityPermission = getWorkshopEntitiesService().findById(id);
@@ -237,7 +236,7 @@ public class AuthorityPermissionsRestController extends WorkshopRestControllerAb
 	@PreAuthorize("hasPermission('WorkshopEntityType', 'put') and hasPermission('AuthorityPermission', 'put')")
 	public ResponseEntity<String> putAuthorityPermissionWorkshopEntityType(
 		@PathVariable(name = "id") Long id,
-		@Validated({MergingValidation.class, Default.class}) WorkshopEntityType workshopEntityType,
+		@Validated({Merge.class, Default.class}) WorkshopEntityType workshopEntityType,
 		BindingResult bindingResult) {
 		
 		super.validateBindingResult(bindingResult);

@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.internal.entities.hibernateValidation.Persist;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -35,7 +35,7 @@ public class ClassifiersGroup extends WorkshopAudibleEntityAbstract {
 	private static final long serialVersionUID = WorkshopEntity.serialVersionUID;
 	
 	@Column(nullable = false, unique = true)
-	@NotBlank(groups = {MergingValidation.class, PersistenceValidation.class, Default.class}, message = "{validation.notBlank}")
+	@NotBlank(groups = {Merge.class, Persist.class, Default.class}, message = "{validation.notBlank}")
 	@EqualsAndHashCode.Include
 	private String name;
 	

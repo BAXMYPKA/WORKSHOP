@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -48,17 +49,19 @@ public class User extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_sequence")
 	@SequenceGenerator(name = "users_sequence", schema = "EXTERNAL", initialValue = 100, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
 	@Column
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String firstName;
 	
 	@Column
+	@Pattern(regexp = "^([\\p{LD}-]){3,50}\\s?([\\p{LD}-]){0,50}\\s?([\\p{LD}-]){0,50}", message = "{validation.pattern.name}")
 	@EqualsAndHashCode.Include
 	private String lastName;
 	
@@ -68,7 +71,8 @@ public class User extends WorkshopEntityAbstract {
 	 */
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
-	@Pattern(regexp = "^(\\w){5,36}$", message = "{validation.passwordStrength}")
+	@Pattern(regexp = "^[\\p{LD}\\-._+=()*&%$#@!<>\\[{\\]}'\"^;:?/~`]{5,254}$",
+			 message = "{validation.passwordStrength}")
 	private String password;
 	
 	/**
@@ -79,15 +83,16 @@ public class User extends WorkshopEntityAbstract {
 	@EqualsAndHashCode.Include
 	private String email;
 	
-	@Column(nullable = false)
-	@PastOrPresent(message = "{validation.pastOrPresent}")
+	@Column(nullable = false, updatable = false)
+	@PastOrPresent(groups = {Persist.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	@Column
-	@Null(groups = PersistenceValidation.class, message = "{validation.null}")
+	@Null(groups = Persist.class, message = "{validation.null}")
 	private ZonedDateTime modified;
 	
 	@Column
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Past(message = "{validation.past}")
 	@EqualsAndHashCode.Include
 	private LocalDate birthday;
@@ -101,6 +106,7 @@ public class User extends WorkshopEntityAbstract {
 	 * It is accepted when no special "languageTag" was set during creation then it will be set from the creator's
 	 * context.
 	 */
+	@Pattern(groups = {Persist.class, Merge.class}, regexp = "^[a-zA-z]{2,3}$")
 	@Column
 	private String languageTag;
 	
@@ -110,14 +116,14 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER,
-		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
+			   cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
 	private Set<@Valid Phone> phones = new HashSet<>(2);
 	
 	@JsonIgnore
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "createdFor", orphanRemoval = false, fetch = FetchType.LAZY,
-		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Collection<@Valid Order> orders;
 	
 	/**
@@ -127,11 +133,33 @@ public class User extends WorkshopEntityAbstract {
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(targetEntity = ExternalAuthority.class, fetch = FetchType.EAGER,
-		cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+				cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 	@JoinTable(name = "Users_To_External_Authorities", schema = "EXTERNAL",
-		joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
+			   joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
+			   inverseJoinColumns = {@JoinColumn(name = "external_authority_id", nullable = false)})
 	private Set<@Valid ExternalAuthority> externalAuthorities;
+	
+	@JsonIgnore
+	@Lob
+	@Column(length = 5242880) //5Mb
+	@Size(max = 5242880, message = "{validation.photoSize}")
+	private byte[] photo;
+	
+	/**
+	 * The UUID only for the new Users to be send by email for their emails confirmation. Confirmed and permanently
+	 * persisted Users  don't have one.
+	 */
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true,
+			  cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@Valid
+	private Uuid uuid;
+	
+	/**
+	 * To send by email to Users who forget their passwords.
+	 */
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "passwordResetUser", orphanRemoval = true, cascade = CascadeType.REMOVE)
+	@Valid
+	private Uuid passwordResetUuid;
 	
 	public User(@Email(message = "{validation.email}") String email) {
 		this.email = email;

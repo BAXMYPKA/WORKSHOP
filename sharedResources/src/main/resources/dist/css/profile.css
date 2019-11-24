@@ -1,0 +1,77 @@
+.ordersHref {
+	display: block;
+	margin-bottom: 0;
+	/*text-decoration: none;*/
+	align-self: center;
+}
+
+.profileTableContainer {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.photoTableData {
+	/*opacity: 0.4;*/
+	text-align: center;
+}
+
+input[name='photo'] {
+	width: 18.5em;
+}
+
+#loadPhotoSubmit {
+	width: 18.5em;
+	font-weight: bold;
+}
+
+#loadPhotoSubmit:hover {
+	box-shadow: inset 0 0 0.7em 0.2em dodgerblue;
+	transition-duration: 200ms;
+}
+
+.buttonLogin {
+	width: 18.8em;
+}
+
+.errorMessage {
+	display: table-cell;
+	font-style: italic;
+	color: red;
+}
+
+.deleteButton {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	width: 1.8em;
+	height: 1.8em;
+	padding: 0;
+	border-radius: 50%;
+	background-color: red;
+	color: white;
+	font-size: 0.9em;
+	font-weight: bolder;
+}
+
+.deleteButton:hover {
+	background-color: firebrick;
+}
+
+.addButton {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	width: 1.8em;
+	height: 1.8em;
+	padding: 0;
+	border-radius: 50%;
+	background-color: green;
+	color: white;
+	font-size: 0.9em;
+	font-weight: bolder;
+}
+
+.addButton:hover {
+	background-color: darkgreen;
+}

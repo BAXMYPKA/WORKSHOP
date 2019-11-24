@@ -43,10 +43,6 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Setter(AccessLevel.PACKAGE)
 	private String domainName;
 	
-	@Value("${internalAuthCookieName}")
-	@Setter(AccessLevel.PACKAGE)
-	private String internalAuthCookieName;
-	
 	@Value("${externalAuthCookieName}")
 	private String externalAuthCookieName;
 	
@@ -70,9 +66,9 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.addFilterAt(jwtAuthenticationFilter(), BearerTokenAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/profile**", "/build**")
+			.antMatchers("/profile**", "/profile/**", "/build**")
 			.hasAuthority("READ-PROFILE")
-			.antMatchers("/**", "/login**")
+			.antMatchers("/**", "/login**", "/registration**", "/registration/**")
 			.permitAll()
 			.and()
 			.formLogin()
@@ -82,7 +78,8 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			.and()
 			.logout()
 			.logoutUrl("/logout")
-			.deleteCookies(externalAuthCookieName)
+			.deleteCookies(externalAuthCookieName, "JSESSIONID")
+			.invalidateHttpSession(true)
 			.clearAuthentication(true)
 			.logoutSuccessUrl("/")
 			.and();
@@ -154,7 +151,7 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Bean
 	public ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler() {
 		ExternalAuthenticationFailureHandler externalAuthenticationFailureHandler =
-			new ExternalAuthenticationFailureHandler("/login?login=false");
+			new ExternalAuthenticationFailureHandler("/#loginModalBackground");
 		return externalAuthenticationFailureHandler;
 	}
 	

@@ -10,13 +10,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import workshop.applicationEvents.OrderFinishedEvent;
 import workshop.internal.entities.Order;
 import workshop.internal.entities.Task;
 import workshop.internal.entities.User;
 import workshop.internal.services.OrdersService;
 import workshop.internal.services.TasksService;
 import workshop.internal.services.UsersService;
-import workshop.utils.WorkshopEventListener;
+import workshop.applicationEvents.WorkshopEventListener;
 
 import java.time.ZonedDateTime;
 import java.util.Collection;

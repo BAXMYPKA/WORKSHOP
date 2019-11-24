@@ -365,6 +365,7 @@ class JsonServiceUtilsTest {
 		
 		user.setOrders(new HashSet<>(Collections.singleton(order)));
 		user.setPhones(new HashSet<>(Collections.singleton(phone)));
+//		user.setPhones(new ArrayList<>(Collections.singleton(phone)));
 		
 		order.setCreatedFor(user);
 		order.setTasks(new HashSet<>(Collections.singleton(task)));

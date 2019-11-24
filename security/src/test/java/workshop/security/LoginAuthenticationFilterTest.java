@@ -66,8 +66,8 @@ class LoginAuthenticationFilterTest {
 		Mockito.lenient().when(request.getContextPath()).thenReturn("workshop.pro/internal");
 		Mockito.lenient().when(request.getRequestURI()).thenReturn("/login");
 		Mockito.lenient().when(request.getMethod()).thenReturn("POST");
-		Mockito.lenient().when(request.getHeader("email")).thenReturn(email);
-		Mockito.lenient().when(request.getHeader("password")).thenReturn(password);
+		Mockito.lenient().when(request.getParameter("email")).thenReturn(email);
+		Mockito.lenient().when(request.getParameter("password")).thenReturn(password);
 		
 		Mockito.lenient().when(matcher.matches(request)).thenReturn(true);
 		

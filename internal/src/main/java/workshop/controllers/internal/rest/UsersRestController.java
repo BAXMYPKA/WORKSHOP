@@ -18,8 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import workshop.internal.entities.*;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import workshop.internal.hateoasResources.ExternalAuthoritiesResourceAssembler;
 import workshop.internal.hateoasResources.OrdersResourceAssembler;
 import workshop.internal.hateoasResources.PhonesResourceAssembler;
@@ -92,7 +92,7 @@ public class UsersRestController extends WorkshopRestControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Order', 'post') and hasPermission('User', 'put')")
 	public ResponseEntity<String> postUserOrder(@PathVariable(name = "id") Long id,
-												@Validated(PersistenceValidation.class) @RequestBody Order order,
+												@Validated(Persist.class) @RequestBody Order order,
 												BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -114,7 +114,7 @@ public class UsersRestController extends WorkshopRestControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Order', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserOrder(@PathVariable(name = "id") Long id,
-											   @Validated(MergingValidation.class) @RequestBody Order order,
+											   @Validated(Merge.class) @RequestBody Order order,
 											   BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -164,7 +164,7 @@ public class UsersRestController extends WorkshopRestControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Phone', 'post') and hasPermission('User', 'put')")
 	public ResponseEntity<String> postUserPhone(@PathVariable(name = "id") Long id,
-												@Validated(PersistenceValidation.class) @RequestBody Phone phone,
+												@Validated(Persist.class) @RequestBody Phone phone,
 												BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -179,7 +179,7 @@ public class UsersRestController extends WorkshopRestControllerAbstract<User> {
 		consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	@PreAuthorize("hasPermission('Phone', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserPhone(@PathVariable(name = "id") Long id,
-											   @Validated(MergingValidation.class) @RequestBody Phone phone,
+											   @Validated(Merge.class) @RequestBody Phone phone,
 											   BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);
@@ -261,7 +261,7 @@ public class UsersRestController extends WorkshopRestControllerAbstract<User> {
 	@PreAuthorize("hasPermission('ExternalAuthority', 'put') and hasPermission('User', 'put')")
 	public ResponseEntity<String> putUserExternalAuthority(
 		@PathVariable(name = "id") Long id,
-		@Validated(MergingValidation.class) @RequestBody ExternalAuthority externalAuthority,
+		@Validated(Merge.class) @RequestBody ExternalAuthority externalAuthority,
 		BindingResult bindingResult) {
 		super.validateBindingResult(bindingResult);
 		User user = getWorkshopEntitiesService().findById(id);

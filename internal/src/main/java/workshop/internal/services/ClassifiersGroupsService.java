@@ -11,8 +11,8 @@ import workshop.internal.dao.ClassifiersGroupsDao;
 import workshop.internal.dao.ClassifiersDao;
 import workshop.internal.entities.Classifier;
 import workshop.internal.entities.ClassifiersGroup;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
 
 import java.util.Optional;
 

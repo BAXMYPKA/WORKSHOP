@@ -2,7 +2,7 @@ package workshop.internal.dao;
 
 import workshop.internal.entities.ExternalAuthority;
 import workshop.internal.entities.User;
-import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.exceptions.InternalServerErrorException;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;

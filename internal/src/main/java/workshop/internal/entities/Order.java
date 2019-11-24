@@ -7,10 +7,10 @@ import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.format.annotation.DateTimeFormat;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.utils.OrderFinishedEvent;
-import workshop.internal.entities.utils.WorkshopEntitiesEventPublisher;
+import workshop.internal.entities.hibernateValidation.Merge;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.applicationEvents.OrderFinishedEvent;
+import workshop.applicationEvents.WorkshopEntitiesEventPublisher;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -39,7 +39,7 @@ public class Order extends WorkshopAudibleEntityAbstract {
 	
 	@Column
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-	@Future(groups = {PersistenceValidation.class}, message = "{validation.future}")
+	@Future(groups = {Persist.class}, message = "{validation.future}")
 	@EqualsAndHashCode.Include
 	private ZonedDateTime deadline;
 	
@@ -75,7 +75,7 @@ public class Order extends WorkshopAudibleEntityAbstract {
 	 * Also can be set or corrected manually.
 	 */
 	@Column(scale = 2)
-	@PositiveOrZero(groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+	@PositiveOrZero(groups = {Default.class, Persist.class, Merge.class},
 		message = "{validation.positiveOrZero}")
 	@EqualsAndHashCode.Include
 	private BigDecimal overallPrice = BigDecimal.ZERO;

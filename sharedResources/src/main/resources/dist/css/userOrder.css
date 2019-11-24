@@ -1,0 +1,20 @@
+.ordersHref {
+	display: block;
+	margin-bottom: 0;
+	align-self: center;
+}
+
+.orderTableContainer {
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.unrollHref {
+	text-transform: uppercase;
+}
+
+.orderTasksTable {
+	transition: all;
+	transition-duration: 1s;
+}

@@ -19,9 +19,9 @@ import workshop.internal.dao.PositionsDao;
 import workshop.internal.entities.Department;
 import workshop.internal.entities.Employee;
 import workshop.internal.entities.Position;
-import workshop.internal.exceptions.EntityNotFoundException;
-import workshop.internal.exceptions.IllegalArgumentsException;
-import workshop.internal.exceptions.InternalServerErrorException;
+import workshop.exceptions.EntityNotFoundException;
+import workshop.exceptions.IllegalArgumentsException;
+import workshop.exceptions.InternalServerErrorException;
 
 import java.util.Collections;
 import java.util.HashSet;

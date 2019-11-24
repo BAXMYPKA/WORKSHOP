@@ -1,7 +1,7 @@
 package workshop.internal.entities.utils;
 
 import org.springframework.http.HttpStatus;
-import workshop.internal.exceptions.IllegalArgumentsException;
+import workshop.exceptions.IllegalArgumentsException;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

@@ -3,8 +3,8 @@ package workshop.internal.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import workshop.internal.entities.hibernateValidation.PersistenceValidation;
-import workshop.internal.entities.hibernateValidation.MergingValidation;
+import workshop.internal.entities.hibernateValidation.Persist;
+import workshop.internal.entities.hibernateValidation.Merge;
 import lombok.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -13,16 +13,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.validation.groups.Default;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @NoArgsConstructor
 @ToString(of = {"identifier", "phone"})
 @JsonIgnoreProperties(value = {"employee", "user", "workshopEntityName"})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "Phones", schema = "INTERNAL")
 public class Phone extends WorkshopEntityAbstract {
 	
@@ -33,17 +35,20 @@ public class Phone extends WorkshopEntityAbstract {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phones_sequence")
 	@SequenceGenerator(name = "phones_sequence", schema = "INTERNAL", initialValue = 200, allocationSize = 1)
-	@NotNull(groups = {MergingValidation.class, Default.class}, message = "{validation.notNull}")
-	@Positive(groups = {MergingValidation.class, Default.class}, message = "{validation.positive}")
-	@Null(groups = {PersistenceValidation.class}, message = "{validation.null}")
+	@NotNull(groups = {Merge.class, Default.class}, message = "{validation.notNull}")
+	@Positive(groups = {Merge.class, Default.class}, message = "{validation.positive}")
+	@Null(groups = {Persist.class}, message = "{validation.null}")
 	@EqualsAndHashCode.Include
 	private Long identifier;
 	
-	@Column
+	@Size(min = 2, max = 50, message = "{validation.sizeMin3Max50}")
+	@Pattern(groups = {Persist.class, Default.class}, regexp = "^[\\p{LD}]{1,50}\\s?[\\p{LD}]{0,50}$",
+			 message = "{validation.pattern.phoneName}")
+	@Column(unique = false)
 	private String name;
 	
 	@Column(updatable = false)
-	@PastOrPresent(groups = {PersistenceValidation.class}, message = "{validation.pastOrPresent}")
+	@PastOrPresent(groups = {Persist.class}, message = "{validation.pastOrPresent}")
 	private ZonedDateTime created;
 	
 	/**
@@ -52,31 +57,30 @@ public class Phone extends WorkshopEntityAbstract {
 	 */
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
 	@Column(unique = true, nullable = false)
-	@NotNull(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.notNull}")
-	@Pattern(groups = {Default.class, PersistenceValidation.class, MergingValidation.class}, message = "{validation.pattern.phone}",
+	@NotNull(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.notNull}")
+	@Pattern(groups = {Default.class, Persist.class, Merge.class}, message = "{validation.pattern.phone}",
 			 regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 	@EqualsAndHashCode.Include
 	private String phone;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER,
-			   cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne(targetEntity = Employee.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id", referencedColumnName = "id")
 	@Valid
 	private Employee employee;
 	
 	@JsonIdentityInfo(generator = ObjectIdGenerators.UUIDGenerator.class)
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	@Valid
 	private User user;
 	
 	public Phone(String name,
 		@NotNull(
-			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			groups = {Default.class, Persist.class, Merge.class},
 			message = "{validation.notNull}")
 		@Pattern(
-			groups = {Default.class, PersistenceValidation.class, MergingValidation.class},
+			groups = {Default.class, Persist.class, Merge.class},
 			message = "{validation.pattern.phone}",
 			regexp = "^(\\+?\\s?-?\\(?\\d\\)?-?\\s?){5,15}[^\\s\\D]$")
 			String phone) {
@@ -90,4 +94,19 @@ public class Phone extends WorkshopEntityAbstract {
 			created = ZonedDateTime.now();
 		}
 	}
+	
+/*
+	@PreRemove
+	public void preRemove() {
+		if (user != null) {
+//			Set<Phone> userPhones = new HashSet<>(user.getPhones());
+//			boolean contains = userPhones.contains(this);
+//			userPhones.forEach(phone1 -> System.out.println("INCLUDED HASH: "+phone1.hashCode()));
+//			System.out.println("THIS HASH: "+this.hashCode());
+			user.getPhones().remove(this);
+		} else if (employee != null) {
+			employee.getPhones().remove(this);
+		}
+	}
+*/
 }

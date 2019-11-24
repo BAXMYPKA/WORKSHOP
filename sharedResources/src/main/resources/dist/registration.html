@@ -1,0 +1,159 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{./layouts/layout.html}">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../dist/css/registration.css" th:href="@{/dist/css/registration.css}">
+	<script src="../src/js/registration.es6" th:src="@{/dist/js/registration.es6}" defer></script>
+	<title th:text="#{html.a.title.registration}">Registration</title>
+</head>
+<body>
+
+<th:block layout:fragment="articleFragment">
+	
+	<h1 th:text="#{html.h1.registration}">Registration</h1>
+	
+	<a class="repeatedActivationLink" href="#repeatedRegistrationLinkModalBackground" title="Reactivate account"
+	   th:href="@{#repeatedRegistrationLinkModalBackground}" th:text="#{html.a.text.repeatedActivationLink}"
+	th:title="#{html.a.title.repeatedAccountActivation}">
+		Send activation link again
+	</a>
+	
+	<div class="registrationTableContainer">
+		
+		<div class="login">
+			
+			<span class="redAsteriskWarning" th:text="#{html.span.text.redAsteriskFields}">
+				Asterisk-marked fields are obligatory to be filled up.
+			</span>
+			
+			<form name="registrationForm" action="registration.html" method="post" class="loginForm"
+				  th:action="@{/registration}" th:object="${userDto}">
+				
+				<input type="text" id="inputFirstName" name="firstName" placeholder="Enter your first name"
+					   th:placeholder="#{properties.firstName}" th:value="${userDto?.firstName}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="firstNameErrorMessage"
+					  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+					Possible error message
+				</span>
+				
+				<input type="text" id="inputLastName" name="lastName" placeholder="Enter your last name"
+					   th:placeholder="#{properties.lastName}" th:value="${userDto?.lastName}">
+				<span class="errorMessage" id="lastNameErrorMessage"
+					  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+					Possible error message
+				</span>
+				<br>
+				<input type="date" id="inputBirthday" name="birthday" placeholder="Enter your birthday"
+					   th:placeholder="#{properties.birthday}" th:value="${userDto?.birthday}">
+				<span class="errorMessage" id="birthdayErrorMessage"
+					  th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">
+					Possible error message
+				</span>
+				<br>
+				<div class="selectLanguageContainer">
+					<span class="selectLanguageSpan" th:text="#{html.span.text.selectYourLanguage}">
+						Select your language
+					</span>
+					<!--		//TODO: to complete interception and filling this property			-->
+					<select id="inputLanguageTag" name="languageTag" title="Select your language">
+						<option>RU</option>
+						<option>EN</option>
+					</select>
+				</div>
+				<input type="text" id="inputEmail" name="email" placeholder="Enter your email"
+					   th:placeholder="#{html.input.placeholder.enterYourEmail}" th:value="${userDto?.email}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="emailErrorMessage"
+					  th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+					Possible error message
+				</span>
+				
+				<input type="text" id="inputNewPassword" name="password" placeholder="12345"
+					   th:placeholder="#{html.input.placeholder.enterYourPassword}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="newPasswordErrorMessage"
+					  th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">
+					Possible error message
+				</span>
+				
+				<input type="text" id="inputConfirmPassword" name="confirmPassword" placeholder="12345"
+					   autocomplete="false"
+					   th:placeholder="#{html.input.placeholder.confirmYourPassword}">
+				<span class="redAsterisk">*</span>
+				<br>
+				<span class="errorMessage" id="confirmPasswordErrorMessage" style="display: none">
+					Possible error message
+				</span>
+				
+				<button class="buttonLogin buttonRegistration"
+						id="buttonSubmitRegistration"
+						title="Registration advantages description"
+						onclick="this.form.submit()"
+						th:text="#{html.submit.text.registration}"
+						th:title="#{html.submit.text.registration}">
+					Create account!
+				</button>
+			
+			</form>
+		
+		</div>
+		
+		<section class="registrationDescription">
+			Registration process description
+		</section>
+	
+	</div>
+	
+	<!--===== REGISTRATION REPEATED LINK MODAL WINDOW =====-->
+	
+	<div id="repeatedRegistrationLinkModalBackground" class="modalBackground">
+		
+		<div class="modalWindow repeatedRegistrationLinkModalWindow">
+			
+			<a class="closeHref" href=""
+			   th:href="@{${#request.getRequestURL()}}"
+			   th:text="#{html.a.text.close}">Close window</a>
+			
+			<p th:utext="#{html.article.registration.repeatedAccountActivationLinkRequestDemo}">
+				Repeated account activation link request process description
+			</p>
+			
+			<div class="formContainer">
+				
+				<div class="login">
+					
+					<div class="errorMessage" id="emailReactivationUserMessage">Possible error message</div>
+					
+					<form name="repeatedActivationLinkForm" action="/registration" method="post"
+						  class="loginForm repeatedActivationLinkFormClass"
+						  th:action="@{/ajax/registration/repeated-activation-link}">
+						
+						<input type="text" id="repeatedActivationEmail" name="email" placeholder="Registration email"
+							   th:placeholder="#{html.input.placeholder.enterRegistrationEmail}">
+						<br>
+						<br>
+						<button class="buttonLogin" id="buttonResendActivation"
+								th:text="#{html.submit.text.reactivation}">
+							Send activation link
+						</button>
+					
+					</form>
+				</div>
+			</div>
+		
+		</div>
+	
+	</div>
+
+</th:block>
+
+</body>
+</html>

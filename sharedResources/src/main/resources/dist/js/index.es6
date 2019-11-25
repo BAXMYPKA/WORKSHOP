@@ -97,63 +97,56 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _verifications_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./verifications.es6 */ "./src/js/verifications.es6");
 
+var inputUsername = document.querySelector("#inputUsername");
+var inputPassword = document.querySelector("#inputPassword");
+inputUsername.addEventListener("input", function (evt) {
+  var USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
+  var USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
+  var userErrorMessageSpan = document.querySelector("#userErrorMessage");
 
-const inputUsername = document.querySelector("#inputUsername");
-const inputPassword = document.querySelector("#inputPassword");
+  if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(inputUsername.value)) {
+    inputUsername.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
+    inputUsername.style.color = "red";
+    userErrorMessageSpan.style.display = "none";
+    return;
+  } else {
+    inputUsername.removeAttribute("title");
+    inputUsername.style.color = "green";
+    userErrorMessageSpan.style.display = "none";
+  }
 
-inputUsername.addEventListener("input", (evt) => {
-	const USER_EMAIL_INCORRECT_ERROR_MESSAGE = "Имя должно соответствовать\nформату электронного адреса!";
-	const USER_NOT_FOUND_ERROR_MESSAGE = "Пользователь не найден!";
-	const userErrorMessageSpan = document.querySelector("#userErrorMessage");
-	
-	if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(inputUsername.value)) {
-		inputUsername.setAttribute("title", USER_EMAIL_INCORRECT_ERROR_MESSAGE);
-		inputUsername.style.color = "red";
-		userErrorMessageSpan.style.display = "none";
-		return;
-	} else {
-		inputUsername.removeAttribute("title");
-		inputUsername.style.color = "green";
-		userErrorMessageSpan.style.display = "none";
-	}
-	Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(inputUsername.value)
-		.then((exist) => {
-			if (exist.exist) {
-				userErrorMessageSpan.style.display = "none";
-			} else {
-				userErrorMessageSpan.style.display = "block";
-				userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
-			}
-		});
+  Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["isUserEmailExist"])(inputUsername.value).then(function (exist) {
+    if (exist.exist) {
+      userErrorMessageSpan.style.display = "none";
+    } else {
+      userErrorMessageSpan.style.display = "block";
+      userErrorMessageSpan.innerHTML = USER_NOT_FOUND_ERROR_MESSAGE;
+    }
+  });
 });
+inputPassword.addEventListener("input", function (evt) {
+  var PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
+  var passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
 
-inputPassword.addEventListener("input", (evt) => {
-	const PASSWORD_INCORRECT_ERROR_MESSAGE = "Требуется минимум 5 знаков!";
-	const passwordErrorMessageSpan = document.querySelector("#passwordErrorMessage");
-	
-	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(inputPassword.value) === true) {
-		inputPassword.style.color = "green";
-		inputPassword.removeAttribute("title");
-		passwordErrorMessageSpan.style.display = "none";
-	} else {
-		inputPassword.style.color = "red";
-		inputPassword.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
-		passwordErrorMessageSpan.style.display = "block";
-		passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
-	}
+  if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(inputPassword.value) === true) {
+    inputPassword.style.color = "green";
+    inputPassword.removeAttribute("title");
+    passwordErrorMessageSpan.style.display = "none";
+  } else {
+    inputPassword.style.color = "red";
+    inputPassword.setAttribute("title", PASSWORD_INCORRECT_ERROR_MESSAGE);
+    passwordErrorMessageSpan.style.display = "block";
+    passwordErrorMessageSpan.innerHTML = PASSWORD_INCORRECT_ERROR_MESSAGE;
+  }
 });
-
-document.querySelector(".buttonResetPassword").addEventListener("click", (evt) => {
-	evt.preventDefault();
-	location.href = location.origin + "/workshop.pro/password-reset";
+document.querySelector(".buttonResetPassword").addEventListener("click", function (evt) {
+  evt.preventDefault();
+  location.href = location.origin + "/workshop.pro/password-reset";
 });
-
-document.querySelector("#buttonRegistration").addEventListener("click", evt => {
-	evt.preventDefault();
-	location.href = location.origin + "/workshop.pro/registration";
+document.querySelector("#buttonRegistration").addEventListener("click", function (evt) {
+  evt.preventDefault();
+  location.href = location.origin + "/workshop.pro/registration";
 });
-
-
 
 /***/ }),
 
@@ -174,83 +167,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNameCheck", function() { return phoneNameCheck; });
 /* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
-
 /**
  * Still in development as I don't know all the permitted symbols in the email string
  * @param email
  * @returns {boolean}
  */
+
 function emailRegexpCheck(email) {
-	
-	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
-	
-	if (typeof email === "string" && email.match(emailRegexp)) {
-		return true;
-	} else {
-		return false;
-	}
-}
+  var emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 
+  if (typeof email === "string" && email.match(emailRegexp)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
-
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isNonEnabledUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
 function passwordCheck(password) {
-	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
-		return false;
-	} else {
-		return true;
-	}
+  if (typeof password !== "string" && typeof password !== "number" || password.length < 5) {
+    return false;
+  } else {
+    return true;
+  }
 }
-
 function phoneNumberCheck(phoneNumber) {
-	
-	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
-	
-	if (typeof phoneNumber !== "string") {
-		return false;
-	} else {
-		let stringNumber = phoneNumber.toString();
-		return stringNumber.match(phoneNumberRegexp);
-	}
-}
+  var phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
 
+  if (typeof phoneNumber !== "string") {
+    return false;
+  } else {
+    var stringNumber = phoneNumber.toString();
+    return stringNumber.match(phoneNumberRegexp);
+  }
+}
 function phoneNameCheck(phoneName) {
-	
-	let phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
-	
-	if (typeof phoneName !== "string") {
-		return false;
-	} else {
-		return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
-	}
+  var phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
+
+  if (typeof phoneName !== "string") {
+    return false;
+  } else {
+    return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
+  }
 }
 
 /***/ }),
@@ -274,55 +256,53 @@ __webpack_require__.r(__webpack_exports__);
  * @param propertyValue A value of that property
  * @returns {Promise<Response>} with status.ok === true or status.ok === false
  */
-function checkWorkshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
-	
-	const formData = new FormData();
-	formData.append("workshopEntityType", workshopEntityType);
-	formData.append("propertyName", propertyName);
-	formData.append("propertyValue", propertyValue);
-	
-	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-		// headers: new Headers({
-		// 	"Content-Type": "application/x-www-form-urlencoded"
-		// })
-	}).then(function (promise) {
-		return promise;
-	});
-}
+function checkWorkshopEntityExist() {
+  var workshopEntityType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var propertyName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "default";
+  var propertyValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "default";
+  var formData = new FormData();
+  formData.append("workshopEntityType", workshopEntityType);
+  formData.append("propertyName", propertyName);
+  formData.append("propertyValue", propertyValue);
+  return fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+    // headers: new Headers({
+    // 	"Content-Type": "application/x-www-form-urlencoded"
+    // })
 
+  }).then(function (promise) {
+    return promise;
+  });
+}
 /**
  * Checks if the given email exist AND belongs to non-enabled User
  * @param nonEnabledUserEmail
  * @returns {Promise<Response>}
  */
-function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
-	
-	const formData = new FormData();
-	formData.append("email", nonEnabledUserEmail);
-	
-	return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-	}).then((promise) => {
-		return promise;
-	})
-}
 
-function passwordResetEmail(email = "") {
-	
-	const formData = new FormData();
-	formData.append("email", email);
-	
-	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
-		method: "POST",
-		body: formData
-	}) .then((promise) => {
-		return promise;
-	})
+function checkNonEnabledUserExist() {
+  var nonEnabledUserEmail = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var formData = new FormData();
+  formData.append("email", nonEnabledUserEmail);
+  return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+
+  }).then(function (promise) {
+    return promise;
+  });
+}
+function passwordResetEmail() {
+  var email = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var formData = new FormData();
+  formData.append("email", email);
+  return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+    method: "POST",
+    body: formData
+  }).then(function (promise) {
+    return promise;
+  });
 }
 
 /***/ })

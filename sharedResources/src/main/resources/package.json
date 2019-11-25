@@ -6,6 +6,7 @@
 	"scripts": {
 		"webpack": "webpack --config webpack.config.es6",
 		"watch": "webpack --watch --progress --config webpack.config.es6",
+		"server": "webpack-dev-server --config webpack.config.es6",
 		"test": "test"
 	},
 	"repository": {
@@ -26,6 +27,11 @@
 		"babel-loader": "^8.0.6",
 		"clean-webpack-plugin": "^3.0.0",
 		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.9"
+		"webpack-cli": "^3.3.9",
+		"webpack-dev-server": "^3.9.0"
+	},
+	"dependencies": {
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0"
 	}
 }

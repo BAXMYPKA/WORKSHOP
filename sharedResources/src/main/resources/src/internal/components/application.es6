@@ -1,10 +1,15 @@
 import React from "react";
 import {render} from "react-dom";
+import Header from "./header/Header.jsx";
 
-function HelloWorkshop() {
+function InternalWorkshop() {
 	return (
-		<div><h1>Hello Workshop Internal!</h1></div>
-	)
+		<div>
+			<Header/>
+			<h1>Hello Workshop Internal!</h1>
+			
+		</div>
+	);
 };
 
-render(<HelloWorkshop/>, document.getElementById("root"));
+render(<InternalWorkshop/>, document.getElementById("root"));

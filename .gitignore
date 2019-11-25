@@ -3,8 +3,8 @@
 *.txt
 *.iml
 ######################
-#TO BE VISIBLE MASTER BRANCH ONLY
-#applicationWORKSHOP.jar
+#TO BE VISIBLE IN JAR BRANCH ONLY
+applicationWORKSHOP.jar
 ######################
 
 /target

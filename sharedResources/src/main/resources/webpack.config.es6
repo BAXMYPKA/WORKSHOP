@@ -1,5 +1,5 @@
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+// const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -20,11 +20,17 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 	},
 	devServer: {
-		contentBase: path.join(__dirname, 'dist/internal'),
+		contentBase: path.join(__dirname, 'dist/internal/'),
+		publicPath: '/',
 		compress: true,
-		port: 9000
-		// watchContentBase: true,
-		// progress: true
+		port: 9000,
+		liveReload: true,
+		hot: true,
+		watchContentBase: true, //to force page reload
+		progress: true,
+		watchOptions: {
+			poll: true
+		}
 	},
 	watchOptions: {
 		aggregateTimeout: 500,

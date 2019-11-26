@@ -6,7 +6,7 @@
 	"scripts": {
 		"webpack": "webpack --config webpack.config.es6",
 		"watch": "webpack --watch --progress --config webpack.config.es6",
-		"server": "webpack-dev-server --config webpack.config.es6",
+		"server": "webpack-dev-server --config webpack.config.es6 --watch-poll",
 		"test": "test"
 	},
 	"repository": {

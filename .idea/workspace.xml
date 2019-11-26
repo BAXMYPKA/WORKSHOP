@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/article/Article.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/articleProps.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/webpack.config.es6" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,9 +67,10 @@
         <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
         <option value="JSX" />
+        <option value="EcmaScript" />
       </list>
     </option>
   </component>
@@ -171,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.WorkshopApplication">
+  <component name="RunManager" selected="npm.Webpack dev-server --watch">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
@@ -290,6 +295,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="Webpack dev-server --watch" type="js.build_tools.npm" activateToolWindowBeforeRun="false">
+      <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="server" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
       <command value="run" />
@@ -308,6 +323,7 @@
       <item itemvalue="JUnit.UuidsServiceTest.outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" />
       <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_PasswordResetUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
       <item itemvalue="JUnit.UuidsServiceTest" />
+      <item itemvalue="npm.Webpack dev-server --watch" />
       <item itemvalue="npm.Webpack --watch" />
       <item itemvalue="Spring Boot.WorkshopApplication" />
     </list>
@@ -432,6 +448,7 @@
       <workItem from="1574326284923" duration="12446000" />
       <workItem from="1574351169763" duration="4645000" />
       <workItem from="1574691952864" duration="11855000" />
+      <workItem from="1574749969452" duration="20959000" />
     </task>
     <servers />
   </component>

@@ -31926,16 +31926,149 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _header_Header_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header/Header.jsx */ "./src/internal/components/header/Header.jsx");
+/* harmony import */ var _article_Article_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./article/Article.jsx */ "./src/internal/components/article/Article.jsx");
+/* harmony import */ var _articleProps_es6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./articleProps.es6 */ "./src/internal/components/articleProps.es6");
+/* harmony import */ var _htmlProps_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./htmlProps.es6 */ "./src/internal/components/htmlProps.es6");
 
 
 
 
-function InternalWorkshop() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_Header_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello Workshop Internal!"));
+
+
+
+function Application() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_Header_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello Workshop Internal!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_article_Article_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    article: _articleProps_es6__WEBPACK_IMPORTED_MODULE_4__["default"][0],
+    html: _htmlProps_es6__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_article_Article_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    article: _articleProps_es6__WEBPACK_IMPORTED_MODULE_4__["default"][1],
+    html: _htmlProps_es6__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }));
 }
 
 ;
-Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InternalWorkshop, null), document.getElementById("root"));
+Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Application, null), document.getElementById("root"));
+
+/***/ }),
+
+/***/ "./src/internal/components/article/Article.jsx":
+/*!*****************************************************!*\
+  !*** ./src/internal/components/article/Article.jsx ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Article; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _common_Button_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/Button.jsx */ "./src/internal/components/common/Button.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Article =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Article, _React$Component);
+
+  function Article(props) {
+    var _this;
+
+    _classCallCheck(this, Article);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Article).call(this, props));
+    _this.state = {
+      isOpen: false
+    };
+
+    _this.closeClick = function () {
+      _this.setState({
+        isOpen: !_this.state.isOpen
+      });
+    };
+
+    return _this;
+  }
+
+  _createClass(Article, [{
+    key: "render",
+    value: function render() {
+      var textSection = this.state.isOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, this.props.article.text) : null;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.props.article.header), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_Button_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        button: this.props.html[0],
+        closeClick: this.closeClick,
+        buttonText: this.state.isOpen
+      }), textSection, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", null, new Date(this.props.article.date).toDateString())));
+    }
+  }]);
+
+  return Article;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./src/internal/components/articleProps.es6":
+/*!**************************************************!*\
+  !*** ./src/internal/components/articleProps.es6 ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  id: '001',
+  date: '2016-10-10T10:15:00',
+  header: 'The first article text Header',
+  text: 'React.js -- одна из самых популярных библиотек для создания сложных Frontend-приложений.\n' + '\n' + 'Однако, успешная разработка на нём требует хорошего понимания концепций, на которых он построен.'
+}, {
+  id: '002',
+  date: '2017-11-03T12:35:00',
+  header: 'The second article text Header',
+  text: 'В реакте поток данных — однонаправленный. Это значит что данные передаются как водопад, сверху вниз, от родителя к ребенку, через props.'
+}]);
+
+/***/ }),
+
+/***/ "./src/internal/components/common/Button.jsx":
+/*!***************************************************!*\
+  !*** ./src/internal/components/common/Button.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Button; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function Button(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: props.closeClick
+  }, props.buttonText === true ? props.button.textCollapse : props.button.textExpand);
+}
 
 /***/ }),
 
@@ -31952,9 +32085,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-function Header() {
+function Header(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, "HEADER");
 }
+
+/***/ }),
+
+/***/ "./src/internal/components/htmlProps.es6":
+/*!***********************************************!*\
+  !*** ./src/internal/components/htmlProps.es6 ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  "class": 'button',
+  id: 'collapse',
+  textCollapse: 'Свернуть',
+  textExpand: 'Развернуть'
+}]);
 
 /***/ })
 

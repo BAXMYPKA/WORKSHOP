@@ -14,17 +14,10 @@ export default class Article extends React.Component {
 	
 	render() {
 		
-		let textSection = this.state.isOpen ? <section>{this.props.article.text}</section> : null;
-		
 		return (
 			<article>
-				<h2>
-					{this.props.article.header}
-				</h2>
-				<Button button={this.props.html[0]} closeClick={this.closeClick} buttonText={this.state.isOpen}/>
-				{textSection}
 				<p><i>
-					{new Date(this.props.article.date).toDateString()}
+					Текст
 				</i></p>
 			</article>
 		);

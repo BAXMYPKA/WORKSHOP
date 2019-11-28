@@ -4,7 +4,8 @@ import Button from "../common/Button.jsx";
 export default class Article extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
+		
+			this.state = {
 			isOpen: false
 		};
 		this.closeClick = () => {

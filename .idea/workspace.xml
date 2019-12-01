@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_launcher_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_suite_api_1_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WORKSHOP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WORKSHOP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application/application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/external/external.iml" beforeDir="false" afterPath="$PROJECT_DIR$/external/external.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/internal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/internal/internal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/security/security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/sharedResources.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/sharedResources.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/article/Article.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/article/Article.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +120,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="javascript.nodejs.core.library.configured.version" value="12.1.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
     <property name="last.edited.regexp" value="sebastian-pidorin@ms.ss" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/css" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -175,14 +181,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="npm.Webpack dev-server --watch">
+  <component name="RunManager" selected="Compound.Watch dev server">
     <configuration name="Watch and Debug" type="CompoundRunConfigurationType">
       <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
       <method v="2" />
     </configuration>
+    <configuration name="Watch dev server" type="CompoundRunConfigurationType">
+      <toRun name="Webpack dev-server --watch" type="js.build_tools.npm" />
+      <toRun name="Webpack --watch" type="js.build_tools.npm" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="CompoundRunConfigurationType">
-      <toRun name="WorkshopApplication" type="SpringBootApplicationConfigurationType" />
+      <toRun name="Webpack dev-server --watch" type="js.build_tools.npm" />
       <toRun name="Webpack --watch" type="js.build_tools.npm" />
       <method v="2" />
     </configuration>
@@ -284,7 +295,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Webpack --watch" type="js.build_tools.npm" singleton="false">
+    <configuration name="Webpack --watch" type="js.build_tools.npm" activateToolWindowBeforeRun="false" singleton="false">
       <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
       <command value="run" />
       <scripts>
@@ -294,7 +305,7 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="Webpack dev-server --watch" type="js.build_tools.npm" activateToolWindowBeforeRun="false">
+    <configuration name="Webpack dev-server --watch" type="js.build_tools.npm" activateToolWindowBeforeRun="false" singleton="false">
       <package-json value="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" />
       <command value="run" />
       <scripts>
@@ -317,6 +328,7 @@
     </configuration>
     <list>
       <item itemvalue="Compound.Watch and Debug" />
+      <item itemvalue="Compound.Watch dev server" />
       <item itemvalue="JUnit.UuidsServiceTest.outdated_NewUserUuids_More_Than_24hrs_Should_Be_Deleted" />
       <item itemvalue="JUnit.UuidsServiceTest.not_Outdated_NewUserUuids_Less_Than_24hrs_Should_Not_Be_Deleted" />
       <item itemvalue="JUnit.UuidsServiceTest.outdated_PasswordResetUuids_More_Than_24hrs_Should_Be_Deleted" />
@@ -450,6 +462,9 @@
       <workItem from="1574749969452" duration="20959000" />
       <workItem from="1574835729034" duration="7436000" />
       <workItem from="1574921527045" duration="11646000" />
+      <workItem from="1575100985317" duration="3221000" />
+      <workItem from="1575109518053" duration="457000" />
+      <workItem from="1575184657815" duration="21345000" />
     </task>
     <servers />
   </component>

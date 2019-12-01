@@ -33208,67 +33208,167 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _MainContainer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MainContainer.jsx */ "./src/internal/components/MainContainer.jsx");
-/* harmony import */ var _articleProps_es6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./articleProps.es6 */ "./src/internal/components/articleProps.es6");
-/* harmony import */ var _htmlProps_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./htmlProps.es6 */ "./src/internal/components/htmlProps.es6");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+/* harmony import */ var _MainContainer_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MainContainer.jsx */ "./src/internal/components/MainContainer.jsx");
+/* harmony import */ var _articleProps_es6__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./articleProps.es6 */ "./src/internal/components/articleProps.es6");
+/* harmony import */ var _htmlProps_es6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./htmlProps.es6 */ "./src/internal/components/htmlProps.es6");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
 
 
+ ///////////////////////
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(languageReducer);
+var initialState = {
+  count: 0
+};
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_5__["createStore"])(reducer, initialState);
+var incrementAction = {
+  type: 'INCREMENT',
+  payload: 1
+};
+var decrementAction = {
+  type: 'DECREMENT',
+  payload: -1
+};
 
-function languageReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    count: 0
+  };
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  console.log("LANGUAGE ACTION = ".concat(action.type, " ").concat(action.payload));
 
-  if (action.type === 'CHANGE_LANG_EN') {
-    return [].concat(_toConsumableArray(state), [action.payload]);
+  if (action.type === 'INCREMENT') {
+    // console.log(state.count);
+    return {
+      count: state.count + Number(action.payload)
+    };
+  } else if (action.type === 'DECREMENT') {
+    // console.log(state.count);
+    return {
+      count: state.count + Number(action.payload)
+    };
+  } else if (action.type === 'RESET') {
+    return {
+      count: 0
+    };
   }
-
-  if (action.type === 'CHANGE_LANG_RU') {
-    return [].concat(_toConsumableArray(state), [action.payload]);
-  }
-
-  return state;
 }
 
-console.log('STORE INIT STATE = ' + store.getState());
-store.subscribe(function () {
-  console.log("STORE SUBSCRIBE = ".concat(store.getState()));
-  var testDiv = document.querySelector("#testDiv");
-  testDiv.innerHTML = ' !!! ' + store.getState();
-});
-store.dispatch({
-  type: 'CHANGE_LANG_EN',
-  payload: 'eng'
-});
-store.dispatch({
-  type: 'CHANGE_LANG_RU',
-  payload: 'ru'
-});
-var testInput = document.querySelector("#testInput").addEventListener('input', function (evt) {
-  // let testDiv = document.querySelector("#testDiv");
-  // testDiv.innerHTML = evt.currentTarget.value;
-  store.dispatch({
-    type: 'CHANGE_LANG_RU',
-    payload: evt.currentTarget.value
-  });
-});
-Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MainContainer_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-  htmlProps: _htmlProps_es6__WEBPACK_IMPORTED_MODULE_5__["default"]
-}), document.getElementById("root"));
+var Counter =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Counter, _React$Component);
+
+  function Counter(props) {
+    var _this;
+
+    _classCallCheck(this, Counter);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Counter).call(this, props));
+    _this.props = props;
+    _this.increment = _this.increment.bind(_assertThisInitialized(_this));
+    _this.decrement = _this.decrement.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Counter, [{
+    key: "increment",
+    value: function increment() {
+      store.dispatch(incrementAction);
+    }
+  }, {
+    key: "decrement",
+    value: function decrement() {
+      store.dispatch(decrementAction);
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      store.dispatch({
+        type: 'RESET'
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      store.subscribe(function () {
+        return _this2.forceUpdate();
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var counter = store.getState() ? store.getState().count : 0;
+
+      if (store.getState()) {
+        console.log(store.getState().count);
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, counter), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+        text: '-',
+        value: -1,
+        onclick: this.decrement
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+        text: '+',
+        value: 1,
+        onclick: this.increment
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+        text: 'reset',
+        onclick: this.reset
+      }));
+    }
+  }]);
+
+  return Counter;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var Button =
+/*#__PURE__*/
+function (_React$Component2) {
+  _inherits(Button, _React$Component2);
+
+  function Button(props) {
+    _classCallCheck(this, Button);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Button).call(this, props));
+  }
+
+  _createClass(Button, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        value: this.props.value,
+        onClick: this.props.onclick
+      }, this.props.text);
+    }
+  }]);
+
+  return Button;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Counter, null), document.querySelector("#root")); //////////////////////
+// render(<MainContainer htmlProps={htmlProps}/>, document.getElementById("root"));
 
 /***/ }),
 

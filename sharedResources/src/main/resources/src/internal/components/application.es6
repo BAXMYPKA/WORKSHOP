@@ -1,47 +1,87 @@
 import React from "react";
 import {render} from "react-dom";
-import {createStore} from "redux";
 
 import MainContainer from "./MainContainer.jsx";
 
 import articleProps from "./articleProps.es6";
 import htmlProps from "./htmlProps.es6";
 
-const store = createStore(languageReducer);
+import {createStore} from "redux";
 
-function languageReducer(state = [], action) {
-	console.log(`LANGUAGE ACTION = ${action.type} ${action.payload}`);
-	if (action.type === 'CHANGE_LANG_EN') {
-		return [
-			...state,
-			action.payload
-		];
+///////////////////////
+
+let initialState = {count: 0};
+const store = createStore(reducer, initialState);
+const incrementAction = {type: 'INCREMENT', payload: 1};
+const decrementAction = {type: 'DECREMENT', payload: -1};
+
+function reducer(state = {count: 0}, action) {
+	if (action.type === 'INCREMENT') {
+		// console.log(state.count);
+		return {count: state.count + Number(action.payload)};
+	} else if (action.type === 'DECREMENT') {
+		// console.log(state.count);
+		return {count: state.count + Number(action.payload)};
+	} else if (action.type === 'RESET') {
+		return {count: 0};
 	}
-	if (action.type === 'CHANGE_LANG_RU') {
-		return [
-			...state,
-			action.payload
-		];
-	}
-	return state;
 }
 
-console.log('STORE INIT STATE = ' + store.getState());
+class Counter extends React.Component {
+	constructor(props) {
+		super(props);
+		this.props = props;
+		this.increment = this.increment.bind(this);
+		this.decrement = this.decrement.bind(this);
+	}
+	
+	increment() {
+		store.dispatch(incrementAction);
+	}
+	
+	decrement() {
+		store.dispatch(decrementAction);
+	}
+	
+	reset() {
+		store.dispatch({type: 'RESET'});
+	}
+	
+	componentDidMount() {
+		store.subscribe(() => this.forceUpdate());
+	}
+	
+	render() {
+		const counter = store.getState() ? store.getState().count : 0;
+		if (store.getState()) {
+			console.log(store.getState().count);
+			
+		}
+		return (
+			<div>
+				<div>{counter}</div>
+				<Button text={'-'} value={-1} onclick={this.decrement}/>
+				<Button text={'+'} value={1} onclick={this.increment}/>
+				<Button text={'reset'} onclick={this.reset}/>
+			</div>
+		);
+	}
+}
 
-store.subscribe(() => {
-	console.log(`STORE SUBSCRIBE = ${store.getState()}`);
-	let testDiv = document.querySelector("#testDiv");
-	testDiv.innerHTML = ' !!! ' + store.getState();
-});
+class Button extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	
+	render() {
+		return <button value={this.props.value} onClick={this.props.onclick}>
+			{this.props.text}
+		</button>;
+	}
+}
 
-store.dispatch({type: 'CHANGE_LANG_EN', payload: 'eng'});
-store.dispatch({type: 'CHANGE_LANG_RU', payload: 'ru'});
+render(<Counter/>, document.querySelector("#root"));
 
-let testInput = document.querySelector("#testInput").addEventListener('input', (evt) => {
-	// let testDiv = document.querySelector("#testDiv");
-	// testDiv.innerHTML = evt.currentTarget.value;
-	store.dispatch({type: 'CHANGE_LANG_RU', payload: evt.currentTarget.value})
-});
+//////////////////////
 
-
-render(<MainContainer htmlProps={htmlProps}/>, document.getElementById("root"));
+// render(<MainContainer htmlProps={htmlProps}/>, document.getElementById("root"));

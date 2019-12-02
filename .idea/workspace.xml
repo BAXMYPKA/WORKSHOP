@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLine/bottomBlackLine.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/application.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/MainContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/MainContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/BottomBlackLine.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLine/BottomBlackLine.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/bottomBlackLine.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/mainContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/mainContainer.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -136,16 +137,6 @@
       <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\header" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.controllers.external" />
     </key>
@@ -155,6 +146,16 @@
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\dist\css" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\css" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\src\internal\components\bottomLine" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\header" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\internal" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -459,7 +460,7 @@
       <workItem from="1575100985317" duration="3221000" />
       <workItem from="1575109518053" duration="457000" />
       <workItem from="1575184657815" duration="21345000" />
-      <workItem from="1575267314769" duration="10217000" />
+      <workItem from="1575267314769" duration="21375000" />
     </task>
     <servers />
   </component>

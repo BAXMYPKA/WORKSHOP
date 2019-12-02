@@ -1,0 +1,75 @@
+.bottomBlackLine {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 2.8em;
+	width: 100%;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	border-bottom-left-radius: 1.5em;
+	border-bottom-right-radius: 1.5em;
+	/*margin-bottom: 0.5em;*/
+	background-color: rgba(0, 0, 0, 0.99);
+}
+
+.bottomBlackLine__centerLogoDiv {
+	justify-self: center;
+	align-self: center;
+	font-weight: bolder;
+	font-size: 1.2em;
+	/*font-family: "Comic Sans MS", sans-serif;*/
+	font-family: Arial, serif;
+	color: silver;
+}
+
+.rightBottomMenu {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 12em;
+	padding-right: 1.5em;
+}
+
+.menuButtonDiv{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-content: space-between;
+	align-items: center;
+	justify-items: center;
+	color: lightgray;
+}
+
+.menuName {
+	display: block;
+	margin-bottom: 0.4em;
+	text-transform: uppercase;
+	font-weight: bolder;
+	font-family: Arial, serif;
+	font-size: 0.6em;
+	color: lightgrey;
+}
+
+.menuButton {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 1.2em;
+	height: 1.2em;
+	background-color: grey;
+	border-radius: 50%;
+}
+
+.menuButton:hover {
+	cursor: pointer;
+}
+
+.powerButton {
+	display: inline-block;
+	width: 1.6em;
+	height: 1.6em;
+	background-color: darkgreen;
+	border-radius: 50%;
+	box-shadow: lawngreen 0em 0em 0.4em 0;
+}

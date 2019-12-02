@@ -1,0 +1,4 @@
+.containerCenter {
+	display: flex;
+	flex-direction: row;
+}

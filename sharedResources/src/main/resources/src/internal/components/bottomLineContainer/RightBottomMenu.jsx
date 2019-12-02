@@ -16,10 +16,19 @@ export default class RightBottomMenu extends React.Component {
 				<Button style={style.menuButton}/>
 			</div>
 			<div className={style.menuButtonDiv}>
-				<Span style={style.menuName} text={'Menu'}/>
+				<Span style={style.menuName} text={'Todos'}/>
 				<Button style={style.menuButton}/>
 			</div>
-			<PowerButton/>
+			<div className={style.menuButtonDiv}>
+				<Span style={style.menuName} text={'Chat'}/>
+				<Button style={style.menuButton}/>
+			</div>
+			<div className={style.separator}>
+				{/*<Span style={style.menuName} text={'Chat'}/>*/}
+				{/*<Button style={style.menuButton}/>*/}
+				
+			</div>
+			<PowerButton style={style.powerButton}/>
 		</div>;
 	}
 };

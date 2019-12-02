@@ -55,8 +55,8 @@
 	display: block;
 	margin: 0;
 	padding: 0;
-	width: 1.2em;
-	height: 1.2em;
+	width: 1.4em;
+	height: 1.4em;
 	background-color: grey;
 	border-radius: 50%;
 }
@@ -65,10 +65,16 @@
 	cursor: pointer;
 }
 
+.separator {
+	width: 2em;
+}
+
 .powerButton {
 	display: inline-block;
 	width: 1.6em;
 	height: 1.6em;
+	/*padding-left: 2em;*/
+	/*margin-left: 2em;*/
 	background-color: darkgreen;
 	border-radius: 50%;
 	box-shadow: lawngreen 0em 0em 0.4em 0;

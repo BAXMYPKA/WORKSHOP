@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../common/Button.jsx";
+import Button from "./Button.jsx";
 
 export default class Article extends React.Component {
 	constructor(props) {

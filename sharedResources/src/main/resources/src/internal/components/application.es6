@@ -1,14 +1,11 @@
 import React from "react";
 import {render} from "react-dom";
+import {createStore} from "redux";
 import './i18n.es6';
+import applicationReducer, {initialState} from "./applicationReducer.es6";
 
 import MainContainer from "./MainContainer.jsx";
 
+const store = createStore(applicationReducer, initialState);
 
-import articleProps from "./articleProps.es6";
-import htmlProps from "./htmlProps.es6";
-
-import {createStore} from "redux";
-
-
-render(<MainContainer htmlProps={htmlProps}/>, document.getElementById("root"));
+render(<MainContainer/>, document.getElementById("root"));

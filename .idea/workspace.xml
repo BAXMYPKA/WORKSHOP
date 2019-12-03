@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/LeftCenterContainer.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/leftCenterContainer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/24b5f2c2-4c77-4803-88fe-1f21de27ad7e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/MainContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/MainContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/RightBottomMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/RightBottomMenu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/bottomBlackLine.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/bottomBlackLine.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/centerContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/centerContainer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMenuContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/article/Article.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Article.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/redux.jsx" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,10 +67,10 @@
         <option value="Class" />
         <option value="JUnit5 Test Class" />
         <option value="HTML File" />
-        <option value="EcmaScript" />
         <option value="JavaScript File" />
         <option value="JSX" />
         <option value="CSS File" />
+        <option value="EcmaScript" />
       </list>
     </option>
   </component>
@@ -145,6 +137,16 @@
       <recent name="workshop.utils" />
       <recent name="workshop.internal.entities.utils" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\common" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\centerContainer\rightMenuContainer" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\centerContainer" />
+      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\src\internal\components\bottomLine" />
+      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\header" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="workshop.controllers.external" />
     </key>
@@ -154,16 +156,6 @@
       <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\dist\css" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist" />
       <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\dist\css" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\centerContainer\rightMenuContainer" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\centerContainer" />
-      <recent name="E:\SERGEY.SUSLYAKOV\JAVA PROJECTS\WORKSHOP\sharedResources\src\main\resources\src\internal\components\bottomLine" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components\header" />
-      <recent name="C:\Users\Sersus\IdeaProjects\WORKSHOP\sharedResources\src\main\resources\src\internal\components" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -473,6 +465,7 @@
       <workItem from="1575370246526" duration="50000" />
       <workItem from="1575370317612" duration="45000" />
       <workItem from="1575374287751" duration="9606000" />
+      <workItem from="1575388885358" duration="5281000" />
     </task>
     <servers />
   </component>

@@ -8,7 +8,7 @@ export default class RightMainMenu extends React.Component {
 	
 	render() {
 		return (
-			<div className={style.rightMainMenuContainer}>
+			<div className={style.rightMainMenuContainer} style={this.props.style}>
 				<div className={style.rightMainMenu__menuHeader}>
 					Main menu
 				</div>

@@ -6,10 +6,8 @@ export default class RightChat extends React.Component {
 		super(props);
 	}
 	render() {
-		let displayBlock = {display: 'block'};
-		let displayNone = {display: 'none'};
 		return(
-			<div className={style.rightChat} style={displayBlock}>
+			<div className={style.rightChat} style={this.props.style}>
 				CHAT
 			</div>
 		)

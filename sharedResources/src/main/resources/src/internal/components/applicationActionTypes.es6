@@ -1,0 +1,2 @@
+export const SET_DISPLAY_BLOCK = "SET_DISPLAY_BLOCK";
+export const SET_DISPLAY_NONE = "SET_DISPLAY_NONE";

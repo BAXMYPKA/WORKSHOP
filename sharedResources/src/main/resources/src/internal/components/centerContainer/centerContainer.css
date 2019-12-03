@@ -1,4 +1,8 @@
 .containerCenter {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	align-items: stretch;
+	height: 85%;
+	margin: 0em 0.5em  0em 0.5em;
 }

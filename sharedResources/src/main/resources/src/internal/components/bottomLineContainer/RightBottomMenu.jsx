@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./bottomBlackLine.css";
+
 import Button from "../common/Button.jsx";
 import PowerButton from "./PowerButton.jsx";
 import Span from "../common/Span.jsx";
@@ -24,9 +25,6 @@ export default class RightBottomMenu extends React.Component {
 				<Button style={style.menuButton}/>
 			</div>
 			<div className={style.separator}>
-				{/*<Span style={style.menuName} text={'Chat'}/>*/}
-				{/*<Button style={style.menuButton}/>*/}
-				
 			</div>
 			<PowerButton style={style.powerButton}/>
 		</div>;

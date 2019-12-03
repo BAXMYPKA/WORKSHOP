@@ -3,7 +3,7 @@ import styles from "./common.css"
 
 export default function Button(props) {
 	return(
-		<button onClick={props.closeClick} className={props.style}>
+		<button onClick={props.click} className={props.style}>
 		</button>
 	)
 }

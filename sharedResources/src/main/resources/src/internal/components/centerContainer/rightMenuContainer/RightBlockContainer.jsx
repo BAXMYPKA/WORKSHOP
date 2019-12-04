@@ -17,7 +17,7 @@ export default class RightBlockContainer extends React.Component {
 		return (
 			<div className={style.rightMenuContainer}>
 				<RightMainMenu/>
-				<RightChat style={this.state.style}/>
+				<RightChat style={this.state.styleDisplay}/>
 			</div>
 		);
 	}

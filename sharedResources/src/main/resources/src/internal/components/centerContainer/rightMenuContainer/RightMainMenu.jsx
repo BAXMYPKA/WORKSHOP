@@ -1,6 +1,8 @@
 import React from "react";
 import applicationStyle from "../../application.css"
 import style from "./rightMainMenu.css"
+
+
 export default class RightMainMenu extends React.Component {
 	constructor(props) {
 		super(props);
@@ -8,7 +10,7 @@ export default class RightMainMenu extends React.Component {
 	
 	render() {
 		return (
-			<div className={style.rightMainMenuContainer} style={this.props.style}>
+			<div className={style.rightMainMenuContainer}  style={store.getState().style}>
 				<div className={style.rightMainMenu__menuHeader}>
 					Main menu
 				</div>

@@ -6,6 +6,7 @@ import BottomBlackLine from "./bottomLineContainer/BottomBlackLine.jsx";
 import CenterContainer from "./centerContainer/CenterContainer.jsx";
 import RightBlockContainer from "./centerContainer/rightMenuContainer/RightBlockContainer.jsx";
 
+
 export default class MainContainer extends React.Component {
 	constructor(props) {
 		super(props);

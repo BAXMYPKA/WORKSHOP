@@ -1,5 +1,5 @@
 import React from "react";
-import {SET_DISPLAY_BLOCK, SET_DISPLAY_NONE} from "./applicationActionTypes.es6";
+import {SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR} from "./applicationActionTypes.es6";
 
 export function setDisplayNoneStyle() {
 	return {
@@ -17,4 +17,13 @@ export function setDisplayBlockStyle() {
 			display: 'block'
 		}
 	};
+}
+
+export function setBackgroundColor(color = "black") {
+	return {
+		type: SET_BACKGROUND_COLOR,
+		payload: {
+			color: color
+		}
+	}
 }

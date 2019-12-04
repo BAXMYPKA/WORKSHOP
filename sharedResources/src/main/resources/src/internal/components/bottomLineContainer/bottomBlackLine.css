@@ -76,6 +76,8 @@
 	background-color: darkgreen;
 	border-radius: 50%;
 	box-shadow: lawngreen 0em 0em 0.4em 0;
+	transition: background-color;
+	transition-duration: 200ms;
 }
 .powerButton:hover{
 	background-color: indianred;

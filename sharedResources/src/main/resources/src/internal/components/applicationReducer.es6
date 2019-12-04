@@ -1,27 +1,21 @@
 import React from "react";
-import {SET_DISPLAY_BLOCK, SET_DISPLAY_NONE} from "./applicationActionTypes.es6";
+import {SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR} from "./applicationActionTypes.es6";
 
 export const initialState = {
-	// display: 'none'
+	style: {
+		backgroundColor: 'green'
+	}
 };
 
 export default function applicationReducer(state = initialState, action) {
 	
-	const newState = {};
-	
 	switch (action.type) {
 		case SET_DISPLAY_BLOCK :
-			return Object.assign({}, state, {display : 'block'});
-			// state.style = {
-			// 	display: 'block'
-			// };
-			break;
+			return Object.assign({}, state, {styleDisplay:{display : 'block'}});
 		case SET_DISPLAY_NONE :
-			state.style = {
-				display: 'none'
-			};
-			break;
+			return Object.assign({}, state, {styleDisplay:{display: 'none'}});
+		case SET_BACKGROUND_COLOR :
+			return Object.assign({}, state, {style: {backgroundColor : action.payload.color}});
+		default: return state;
 	}
-	
-	return state;
 }

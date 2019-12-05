@@ -9,7 +9,7 @@ import MainContainer from "./MainContainer.jsx";
 import {setDisplayBlockStyle, setDisplayNoneStyle, setBackgroundColor} from "./applicationActions.es6";
 import {whenMergePropsIsOmitted} from "react-redux/lib/connect/mergeProps";
 
-const store = createStore(applicationReducer, initialState);
+export const store = createStore(applicationReducer, initialState);
 
 ////////////////
 

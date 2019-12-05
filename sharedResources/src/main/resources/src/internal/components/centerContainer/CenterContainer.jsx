@@ -2,6 +2,7 @@ import React from "react";
 import style from "./centerContainer.css"
 import RightBlockContainer from "./rightMenuContainer/RightBlockContainer.jsx";
 import LeftCenterContainer from "./LeftCenterContainer.jsx";
+import Button from "../common/Button.jsx";
 
 export default class CenterContainer extends React.Component{
 	constructor(props) {

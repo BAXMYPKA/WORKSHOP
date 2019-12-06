@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/application.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/common/Button.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/header/Header.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -465,6 +460,7 @@
       <workItem from="1575388885358" duration="5281000" />
       <workItem from="1575454583069" duration="10187000" />
       <workItem from="1575530904186" duration="13861000" />
+      <workItem from="1575612823564" duration="631000" />
     </task>
     <servers />
   </component>

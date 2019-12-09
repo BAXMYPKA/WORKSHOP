@@ -1,5 +1,12 @@
 import React from "react";
-import {SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR} from "./applicationActionTypes.es6";
+import {
+	SET_DISPLAY_BLOCK,
+	SET_DISPLAY_NONE,
+	SET_BACKGROUND_COLOR,
+	SET_DISPLAY_RIGHT_CHAT,
+	SET_DISPLAY_RIGHT_MENU,
+	SET_DISPLAY_RIGHT_TODO
+} from "./applicationActionTypes.es6";
 
 export function setDisplayNoneStyle() {
 	return {
@@ -25,5 +32,23 @@ export function setBackgroundColor(color = "black") {
 		payload: {
 			color: color
 		}
+	}
+}
+
+export function setDisplayRightMenu() {
+	return {
+		type: SET_DISPLAY_RIGHT_MENU
+	}
+}
+
+export function setDisplayRightChat() {
+	return {
+		type: SET_DISPLAY_RIGHT_CHAT
+	}
+}
+
+export function setDisplayRightTodo() {
+	return {
+		type: SET_DISPLAY_RIGHT_TODO
 	}
 }

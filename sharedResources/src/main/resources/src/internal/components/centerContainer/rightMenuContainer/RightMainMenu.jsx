@@ -1,16 +1,28 @@
 import React from "react";
 import applicationStyle from "../../application.css"
 import style from "./rightMainMenu.css"
+// import mapStateToProps from "react-redux/es/connect/mapStateToProps.js";
+import {connect} from "react-redux";
 
+const mapStateToProps = (state) => {
+	return {
+		style: state.displayRightMenu
+	}
+}
 
-export default class RightMainMenu extends React.Component {
+class rightMainMenu extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 	
+	componentDidMount() {
+		console.log("RIGHT MENU DID MOUNT MENU: " + this.props.displayRightMenu);
+		console.log("RIGHT MENU DID MOUNT CHAT: " + this.props.displayRightChat);
+	}
+	
 	render() {
 		return (
-			<div className={style.rightMainMenuContainer} >
+			<div className={style.rightMainMenuContainer} style={this.props.style} >
 				<div className={style.rightMainMenu__menuHeader}>
 					Main menu
 				</div>
@@ -26,3 +38,7 @@ export default class RightMainMenu extends React.Component {
 		);
 	}
 };
+
+const RightMainMenu = connect(mapStateToProps)(rightMainMenu);
+
+export default RightMainMenu;

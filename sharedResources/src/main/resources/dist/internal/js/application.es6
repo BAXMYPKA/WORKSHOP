@@ -867,19 +867,19 @@ exports.locals = {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/leftCenterContainer.css":
+/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerLeftContainer.css":
 /*!*************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/leftCenterContainer.css ***!
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/centerLeftContainer.css ***!
   \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".lLf4tWDUvayDI8nBXCOGi {\r\n\tbackground-color: lightgray;\r\n\twidth: 80%;\r\n\theight: auto;\r\n}", ""]);
+exports.push([module.i, ".sZMPeIxKVa3yDYKtbq3p9 {\r\n\tbackground-color: lightgray;\r\n\twidth: 80%;\r\n\theight: auto;\r\n}", ""]);
 // Exports
 exports.locals = {
-	"LeftCenterContainer": "lLf4tWDUvayDI8nBXCOGi"
+	"centerLeftContainer": "sZMPeIxKVa3yDYKtbq3p9"
 };
 
 /***/ }),
@@ -40887,7 +40887,7 @@ Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED
 /*!************************************************************!*\
   !*** ./src/internal/components/applicationActionTypes.es6 ***!
   \************************************************************/
-/*! exports provided: SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR, SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_RIGHT_CHAT, SET_DISPLAY_RIGHT_TODO */
+/*! exports provided: SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR, SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_RIGHT_CHAT, SET_DISPLAY_RIGHT_TODO, SET_DISPLAY_CENTER_LEFT_ORDERS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40898,12 +40898,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_MENU", function() { return SET_DISPLAY_RIGHT_MENU; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_CHAT", function() { return SET_DISPLAY_RIGHT_CHAT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_TODO", function() { return SET_DISPLAY_RIGHT_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_CENTER_LEFT_ORDERS", function() { return SET_DISPLAY_CENTER_LEFT_ORDERS; });
 var SET_DISPLAY_BLOCK = "SET_DISPLAY_BLOCK";
 var SET_DISPLAY_NONE = "SET_DISPLAY_NONE";
 var SET_BACKGROUND_COLOR = "SET_BACKGROUND_COLOR";
 var SET_DISPLAY_RIGHT_MENU = "SET_DISPLAY_RIGHT_MENU";
 var SET_DISPLAY_RIGHT_CHAT = "SET_DISPLAY_RIGHT_CHAT";
 var SET_DISPLAY_RIGHT_TODO = "SET_DISPLAY_RIGHT_TODO";
+var SET_DISPLAY_CENTER_LEFT_ORDERS = "SET_DISPLAY_CENTER_LEFT_ORDERS";
 
 /***/ }),
 
@@ -40911,7 +40913,7 @@ var SET_DISPLAY_RIGHT_TODO = "SET_DISPLAY_RIGHT_TODO";
 /*!********************************************************!*\
   !*** ./src/internal/components/applicationActions.es6 ***!
   \********************************************************/
-/*! exports provided: setDisplayNoneStyle, setDisplayBlockStyle, setBackgroundColor, setDisplayRightMenu, setDisplayRightChat, setDisplayRightTodo */
+/*! exports provided: setDisplayNoneStyle, setDisplayBlockStyle, setBackgroundColor, setDisplayRightMenu, setDisplayRightChat, setDisplayRightTodo, setDisplayCenterLeftOrders */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40922,6 +40924,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightMenu", function() { return setDisplayRightMenu; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightChat", function() { return setDisplayRightChat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightTodo", function() { return setDisplayRightTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayCenterLeftOrders", function() { return setDisplayCenterLeftOrders; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./applicationActionTypes.es6 */ "./src/internal/components/applicationActionTypes.es6");
@@ -40967,6 +40970,11 @@ function setDisplayRightTodo() {
     type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]
   };
 }
+function setDisplayCenterLeftOrders() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]
+  };
+}
 
 /***/ }),
 
@@ -40990,15 +40998,10 @@ var initialState = {
   style: {
     backgroundColor: 'green'
   },
-  displayRightMenu: {
-    display: 'none'
-  },
-  displayRightChat: {
-    display: 'none'
-  },
-  displayRightTodo: {
-    display: 'none'
-  }
+  displayRightMenu: false,
+  displayRightChat: false,
+  displayRightTodo: false,
+  displayCenterLeftOrders: false
 };
 function applicationReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -41028,47 +41031,34 @@ function applicationReducer() {
 
     case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_MENU"]:
       return Object.assign({}, state, {
-        displayRightMenu: {
-          display: 'box'
-        }
+        displayRightMenu: true
       }, {
-        displayRightChat: {
-          display: 'none'
-        }
+        displayRightChat: false
       }, {
-        displayRightTodo: {
-          display: 'none'
-        }
+        displayRightTodo: false
       });
 
     case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_CHAT"]:
       return Object.assign({}, state, {
-        displayRightChat: {
-          display: 'box'
-        }
+        displayRightChat: true
       }, {
-        displayRightMenu: {
-          display: 'none'
-        }
+        displayRightMenu: false
       }, {
-        displayRightTodo: {
-          display: 'none'
-        }
+        displayRightTodo: false
       });
 
     case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]:
       return Object.assign({}, state, {
-        displayRightTodo: {
-          display: 'box'
-        }
+        displayRightTodo: true
       }, {
-        displayRightMenu: {
-          display: 'none'
-        }
+        displayRightMenu: false
       }, {
-        displayRightChat: {
-          display: 'none'
-        }
+        displayRightChat: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]:
+      return Object.assign({}, state, {
+        displayCenterLeftOrders: true
       });
 
     default:
@@ -41332,7 +41322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _centerContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./centerContainer.css */ "./src/internal/components/centerContainer/centerContainer.css");
 /* harmony import */ var _centerContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_centerContainer_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _rightMenuContainer_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rightMenuContainer/RightBlockContainer.jsx */ "./src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx");
-/* harmony import */ var _LeftCenterContainer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LeftCenterContainer.jsx */ "./src/internal/components/centerContainer/LeftCenterContainer.jsx");
+/* harmony import */ var _CenterLeftContainer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CenterLeftContainer.jsx */ "./src/internal/components/centerContainer/CenterLeftContainer.jsx");
 /* harmony import */ var _common_Button_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/Button.jsx */ "./src/internal/components/common/Button.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -41358,6 +41348,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+function mapStateToProps(state) {
+  return {
+    one: state.g1
+  };
+}
+
 var CenterContainer =
 /*#__PURE__*/
 function (_React$Component) {
@@ -41374,7 +41370,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _centerContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.containerCenter
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LeftCenterContainer_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_rightMenuContainer_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftContainer_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_rightMenuContainer_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -41385,20 +41381,22 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/LeftCenterContainer.jsx":
+/***/ "./src/internal/components/centerContainer/CenterLeftContainer.jsx":
 /*!*************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/LeftCenterContainer.jsx ***!
+  !*** ./src/internal/components/centerContainer/CenterLeftContainer.jsx ***!
   \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LeftCenterContainer; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _leftCenterContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./leftCenterContainer.css */ "./src/internal/components/centerContainer/leftCenterContainer.css");
-/* harmony import */ var _leftCenterContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_leftCenterContainer_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./centerLeftContainer.css */ "./src/internal/components/centerContainer/centerLeftContainer.css");
+/* harmony import */ var _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../applicationActions.es6 */ "./src/internal/components/applicationActions.es6");
+/* harmony import */ var _CenterLeftOrdersView_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CenterLeftOrdersView.jsx */ "./src/internal/components/centerContainer/CenterLeftOrdersView.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41420,30 +41418,111 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var LeftCenterContainer =
+
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setDisplayCenterLeftOrders: function setDisplayCenterLeftOrders() {
+      return dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__["setDisplayCenterLeftOrders"])());
+    }
+  };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    displayCenterLeftOrders: state.displayCenterLeftOrders
+  };
+};
+
+var CenterLeftContainer =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(LeftCenterContainer, _React$Component);
+  _inherits(CenterLeftContainer, _React$Component);
 
-  function LeftCenterContainer(props) {
-    _classCallCheck(this, LeftCenterContainer);
+  function CenterLeftContainer(props) {
+    _classCallCheck(this, CenterLeftContainer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(LeftCenterContainer).call(this, props));
+    return _possibleConstructorReturn(this, _getPrototypeOf(CenterLeftContainer).call(this, props));
   }
 
-  _createClass(LeftCenterContainer, [{
+  _createClass(CenterLeftContainer, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: _leftCenterContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.LeftCenterContainer
-      }, "LEFT");
+        className: _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.centerLeftContainer
+      }, this.props.displayCenterLeftOrders ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftOrdersView_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null) : null);
     }
   }]);
 
-  return LeftCenterContainer;
+  return CenterLeftContainer;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps)(CenterLeftContainer));
 
+/***/ }),
+
+/***/ "./src/internal/components/centerContainer/CenterLeftOrdersView.jsx":
+/*!**************************************************************************!*\
+  !*** ./src/internal/components/centerContainer/CenterLeftOrdersView.jsx ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var centerLeftOrdersView =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(centerLeftOrdersView, _React$Component);
+
+  function centerLeftOrdersView(props) {
+    _classCallCheck(this, centerLeftOrdersView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(centerLeftOrdersView).call(this, props));
+  }
+
+  _createClass(centerLeftOrdersView, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "ORDERS VIEW");
+    }
+  }]);
+
+  return centerLeftOrdersView;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+var CenterLeftOrdersView = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(centerLeftOrdersView);
+/* harmony default export */ __webpack_exports__["default"] = (CenterLeftOrdersView);
 
 /***/ }),
 
@@ -41474,14 +41553,14 @@ if (content.locals) {
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/leftCenterContainer.css":
+/***/ "./src/internal/components/centerContainer/centerLeftContainer.css":
 /*!*************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/leftCenterContainer.css ***!
+  !*** ./src/internal/components/centerContainer/centerLeftContainer.css ***!
   \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./leftCenterContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/leftCenterContainer.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./centerLeftContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerLeftContainer.css");
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -41574,7 +41653,6 @@ function (_React$Component) {
     _classCallCheck(this, rightBlockContainer);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(rightBlockContainer).call(this, props));
-    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
 
     _this.props.setDisplayRightMenu();
 
@@ -41582,25 +41660,11 @@ function (_React$Component) {
   }
 
   _createClass(rightBlockContainer, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log("RIGHT BLOCK DID MOUNT CHAT: " + this.props.displayRightChat.display);
-      console.log("RIGHT BLOCK DID MOUNT MENU: " + this.props.displayRightMenu.display);
-    }
-  }, {
     key: "render",
     value: function render() {
-      console.log("RIGHT BLOCK RENDER CHAT: " + this.props.displayRightChat.display);
-      console.log("RIGHT BLOCK RENDER MENU: " + this.props.displayRightMenu.display);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _rightBlockContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.rightMenuContainer
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightMainMenu_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        style: this.props.displayRightMenu
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightChat_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        style: this.props.displayRightChat
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightTodo_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        style: this.props.displayRightTodo
-      }));
+      }, this.props.displayRightMenu ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightMainMenu_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null) : this.props.displayRightChat ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightChat_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null) : this.props.displayRightTodo ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightTodo_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null) : null);
     }
   }]);
 
@@ -41649,9 +41713,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
-    displayRightChat: state.displayRightChat
-  };
+  return {};
 };
 
 var rightChat =
@@ -41660,25 +41722,14 @@ function (_React$Component) {
   _inherits(rightChat, _React$Component);
 
   function rightChat(props) {
-    var _this;
-
     _classCallCheck(this, rightChat);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(rightChat).call(this, props));
-    console.log("CHAT CONSTRUCTOR: " + _this.props.style.display);
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(rightChat).call(this, props));
   }
 
   _createClass(rightChat, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log("CHAT DID MOUNT: " + this.props.style.display);
-    }
-  }, {
     key: "render",
     value: function render() {
-      console.log("CHAT RENDER DISPLAY: " + this.props.style.display);
-      console.log("CHAT RENDER DISPLAY CHAT: " + this.props.displayRightChat.display);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _rightChat_css__WEBPACK_IMPORTED_MODULE_1___default.a.rightChat,
         style: this.props.style
@@ -41711,6 +41762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rightMainMenu.css */ "./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css");
 /* harmony import */ var _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _common_A_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/A.jsx */ "./src/internal/components/common/A.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41721,9 +41773,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -41731,14 +41783,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import mapStateToProps from "react-redux/es/connect/mapStateToProps.js";
+
 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
-    style: state.displayRightMenu
-  };
+  return {};
 };
 
 var rightMainMenu =
@@ -41747,16 +41797,19 @@ function (_React$Component) {
   _inherits(rightMainMenu, _React$Component);
 
   function rightMainMenu(props) {
+    var _this;
+
     _classCallCheck(this, rightMainMenu);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(rightMainMenu).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(rightMainMenu).call(this, props));
+    _this.click = _this.click.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(rightMainMenu, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log("RIGHT MENU DID MOUNT MENU: " + this.props.displayRightMenu);
-      console.log("RIGHT MENU DID MOUNT CHAT: " + this.props.displayRightChat);
+    key: "click",
+    value: function click() {
+      console.log("CLICK HAS BEEN OCCURRED");
     }
   }, {
     key: "render",
@@ -41768,11 +41821,15 @@ function (_React$Component) {
         className: _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2___default.a.rightMainMenu__menuHeader
       }, "Main menu"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2___default.a.rightMainMenu
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: ''
-      }, "ITEM ONE")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: ''
-      }, " ITEM TWO "))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_A_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        href: '',
+        onClick: this.click,
+        text: 'ORDERS IN PROCESS'
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_A_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        href: '',
+        onClick: this.click,
+        text: 'TASKS IN PROGRESS'
+      }))));
     }
   }]);
 
@@ -41822,9 +41879,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
-    style: state.displayRightTodo
-  };
+  return {};
 };
 
 var rightTodo =
@@ -41962,6 +42017,34 @@ if (content.locals) {
   module.exports = content.locals;
 }
 
+
+/***/ }),
+
+/***/ "./src/internal/components/common/A.jsx":
+/*!**********************************************!*\
+  !*** ./src/internal/components/common/A.jsx ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return A; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function A(props) {
+  function handleClick(e) {
+    e.preventDefault();
+    props.onClick();
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: props.href,
+    onClick: handleClick
+  }, props.text);
+}
+;
 
 /***/ }),
 

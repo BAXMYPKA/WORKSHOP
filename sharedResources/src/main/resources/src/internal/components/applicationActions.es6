@@ -5,7 +5,7 @@ import {
 	SET_BACKGROUND_COLOR,
 	SET_DISPLAY_RIGHT_CHAT,
 	SET_DISPLAY_RIGHT_MENU,
-	SET_DISPLAY_RIGHT_TODO
+	SET_DISPLAY_RIGHT_TODO, SET_DISPLAY_CENTER_LEFT_ORDERS
 } from "./applicationActionTypes.es6";
 
 export function setDisplayNoneStyle() {
@@ -50,5 +50,11 @@ export function setDisplayRightChat() {
 export function setDisplayRightTodo() {
 	return {
 		type: SET_DISPLAY_RIGHT_TODO
+	}
+}
+
+export function setDisplayCenterLeftOrders() {
+	return {
+		type: SET_DISPLAY_CENTER_LEFT_ORDERS
 	}
 }

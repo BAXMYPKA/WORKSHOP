@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51ef1b16-861a-43c1-9c58-8be4de14c11f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/rightTodo.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/dist/internal/js/application.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationActionTypes.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationActionTypes.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationActions.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationActions.es6" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationReducer.es6" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/applicationReducer.es6" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/RightBottomMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/bottomLineContainer/RightBottomMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/LeftCenterContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/CenterLeftContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/leftCenterContainer.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/centerLeftContainer.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/rightChat.css" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/rightChat.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sharedResources/src/main/resources/src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,9 +71,9 @@
         <option value="JUnit5 Test Class" />
         <option value="HTML File" />
         <option value="JavaScript File" />
-        <option value="JSX" />
         <option value="CSS File" />
         <option value="EcmaScript" />
+        <option value="JSX" />
       </list>
     </option>
   </component>
@@ -474,6 +474,7 @@
       <workItem from="1575612823564" duration="631000" />
       <workItem from="1575708407039" duration="3031000" />
       <workItem from="1575872542034" duration="20481000" />
+      <workItem from="1575958577702" duration="24216000" />
     </task>
     <servers />
   </component>

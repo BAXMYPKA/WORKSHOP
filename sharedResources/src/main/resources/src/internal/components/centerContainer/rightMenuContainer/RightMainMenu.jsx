@@ -1,23 +1,22 @@
 import React from "react";
 import applicationStyle from "../../application.css"
 import style from "./rightMainMenu.css"
-// import mapStateToProps from "react-redux/es/connect/mapStateToProps.js";
 import {connect} from "react-redux";
+import A from "../../common/A.jsx";
 
 const mapStateToProps = (state) => {
 	return {
-		style: state.displayRightMenu
 	}
 }
 
 class rightMainMenu extends React.Component {
 	constructor(props) {
 		super(props);
+		this.click = this.click.bind(this);
 	}
 	
-	componentDidMount() {
-		console.log("RIGHT MENU DID MOUNT MENU: " + this.props.displayRightMenu);
-		console.log("RIGHT MENU DID MOUNT CHAT: " + this.props.displayRightChat);
+	click() {
+		console.log("CLICK HAS BEEN OCCURRED");
 	}
 	
 	render() {
@@ -28,10 +27,10 @@ class rightMainMenu extends React.Component {
 				</div>
 				<ul className={style.rightMainMenu}>
 					<li>
-						<a href={''}>ITEM ONE</a>
+						<A href={''} onClick={this.click} text={'ORDERS IN PROCESS'}/>
 					</li>
 					<li>
-						<a href={''}> ITEM TWO </a>
+						<A href={''} onClick={this.click} text={'TASKS IN PROGRESS'}/>
 					</li>
 				</ul>
 			</div>

@@ -5,22 +5,17 @@ import {
 	SET_BACKGROUND_COLOR,
 	SET_DISPLAY_RIGHT_CHAT,
 	SET_DISPLAY_RIGHT_TODO,
-	SET_DISPLAY_RIGHT_MENU
+	SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_CENTER_LEFT_ORDERS
 } from "./applicationActionTypes.es6";
 
 export const initialState = {
 	style: {
 		backgroundColor: 'green',
 	},
-	displayRightMenu: {
-		display: 'none'
-	},
-	displayRightChat: {
-		display: 'none'
-	},
-	displayRightTodo: {
-		display: 'none'
-	}
+	displayRightMenu: false,
+	displayRightChat: false,
+	displayRightTodo: false,
+	displayCenterLeftOrders: false
 };
 
 export default function applicationReducer(state = initialState, action) {
@@ -33,15 +28,16 @@ export default function applicationReducer(state = initialState, action) {
 		case SET_BACKGROUND_COLOR :
 			return Object.assign({}, state, {style: {backgroundColor: action.payload.color}});
 		case SET_DISPLAY_RIGHT_MENU :
-			return Object.assign({}, state, {displayRightMenu: {display: 'box'}},
-				{displayRightChat: {display: 'none'}}, {displayRightTodo: {display: 'none'}});
+			return Object.assign({}, state, {displayRightMenu: true},
+				{displayRightChat: false}, {displayRightTodo: false});
 		case SET_DISPLAY_RIGHT_CHAT :
-			return Object.assign({}, state, {displayRightChat: {display: 'box'}},
-				{displayRightMenu: {display: 'none'}}, {displayRightTodo: {display: 'none'}});
+			return Object.assign({}, state, {displayRightChat: true},
+				{displayRightMenu: false}, {displayRightTodo: false});
 		case SET_DISPLAY_RIGHT_TODO :
-			return Object.assign({}, state, {displayRightTodo: {display: 'box'}},
-				{displayRightMenu: {display: 'none'}}, {displayRightChat: {display: 'none'}});
-		
+			return Object.assign({}, state, {displayRightTodo: true},
+				{displayRightMenu: false}, {displayRightChat: false});
+		case SET_DISPLAY_CENTER_LEFT_ORDERS :
+			return Object.assign({}, state, {displayCenterLeftOrders: true});
 		default:
 			return state;
 	}

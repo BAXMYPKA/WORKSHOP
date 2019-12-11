@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -30,6 +31,7 @@ import java.util.Set;
 /**
  * Http Web servicing stateful External domain for Users.
  */
+@Configuration
 @EnableWebSecurity
 @Order(1)
 public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter {

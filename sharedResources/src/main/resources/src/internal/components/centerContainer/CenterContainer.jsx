@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./centerContainer.css"
-import RightBlockContainer from "./rightMenuContainer/RightBlockContainer.jsx";
+import RightBlockContainer from "./RightBlockContainer.jsx";
 import CenterLeftContainer from "./CenterLeftContainer.jsx";
 import Button from "../common/Button.jsx";
 

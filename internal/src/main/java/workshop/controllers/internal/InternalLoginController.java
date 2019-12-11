@@ -57,9 +57,9 @@ public class InternalLoginController {
 		return "internal/login";
 	}
 	
-	@PostMapping
-	public String postLogin(Model model) {
-		return "internal/login";
-	}
+//	@PostMapping
+//	public String postLogin(Model model) {
+//		return "internal/login";
+//	}
 	
 }

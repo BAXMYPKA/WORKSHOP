@@ -5,7 +5,10 @@ import {
 	SET_BACKGROUND_COLOR,
 	SET_DISPLAY_RIGHT_CHAT,
 	SET_DISPLAY_RIGHT_TODO,
-	SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_CENTER_LEFT_ORDERS
+	SET_DISPLAY_RIGHT_MENU,
+	SET_DISPLAY_CENTER_LEFT_ORDERS,
+	SET_DISPLAY_CENTER_LEFT_TASKS,
+	SET_DISPLAY_CENTER_LEFT_ARTICLES
 } from "./applicationActionTypes.es6";
 
 export const initialState = {
@@ -15,7 +18,9 @@ export const initialState = {
 	displayRightMenu: false,
 	displayRightChat: false,
 	displayRightTodo: false,
-	displayCenterLeftOrders: false
+	displayCenterLeftArticles: true,
+	displayCenterLeftOrders: false,
+	displayCenterLeftTasks: false
 };
 
 export default function applicationReducer(state = initialState, action) {
@@ -36,8 +41,15 @@ export default function applicationReducer(state = initialState, action) {
 		case SET_DISPLAY_RIGHT_TODO :
 			return Object.assign({}, state, {displayRightTodo: true},
 				{displayRightMenu: false}, {displayRightChat: false});
+		case SET_DISPLAY_CENTER_LEFT_ARTICLES :
+			return Object.assign({}, state, {displayCenterLeftArticles: true},
+				{displayCenterLeftTasks: false}, {displayCenterLeftOrders: false});
 		case SET_DISPLAY_CENTER_LEFT_ORDERS :
-			return Object.assign({}, state, {displayCenterLeftOrders: true});
+			return Object.assign({}, state, {displayCenterLeftOrders: true},
+				{displayCenterLeftTasks: false}, {displayCenterLeftArticles: false});
+		case SET_DISPLAY_CENTER_LEFT_TASKS :
+			return Object.assign({}, state, {displayCenterLeftTasks: true},
+				{displayCenterLeftOrders: false}, {displayCenterLeftArticles: false});
 		default:
 			return state;
 	}

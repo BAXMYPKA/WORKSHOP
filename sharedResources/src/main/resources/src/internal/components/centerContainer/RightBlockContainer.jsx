@@ -3,7 +3,7 @@ import style from "./rightBlockContainer.css";
 import RightMainMenu from "./RightMainMenu.jsx";
 import RightChat from "./RightChat.jsx";
 import RightTodo from "./RightTodo.jsx";
-import {setDisplayRightMenu} from "../../applicationActions.es6";
+import {setDisplayRightMenu} from "../../redux/applicationActions.es6";
 import {connect} from "react-redux";
 
 function mapDispatchToProps(dispatch) {

@@ -884,72 +884,72 @@ exports.locals = {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css":
-/*!********************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css ***!
-  \********************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightBlockContainer.css":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightBlockContainer.css ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "._1OhtykgIrJbKMOp8dXq8JY {\r\n\tbackground-color: floralwhite;\r\n\twidth: 25%;\r\n\t/*height: 100%;*/\r\n}", ""]);
+exports.push([module.i, "._3HAbGQZ5EPTIXDknD04EMe {\r\n\tbackground-color: floralwhite;\r\n\twidth: 25%;\r\n\t/*height: 100%;*/\r\n}", ""]);
 // Exports
 exports.locals = {
-	"rightMenuContainer": "_1OhtykgIrJbKMOp8dXq8JY"
+	"rightMenuContainer": "_3HAbGQZ5EPTIXDknD04EMe"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightChat.css":
-/*!**********************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightMenuContainer/rightChat.css ***!
-  \**********************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightChat.css":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightChat.css ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".eWnZatF2Va6-F5JKihX3l {\r\n\t/*display: none;*/\r\n\tbackground-color: indianred;\r\n}", ""]);
+exports.push([module.i, ".TujkmgSNTg0CjRbnUyM_a {\r\n\t/*display: none;*/\r\n\tbackground-color: indianred;\r\n}", ""]);
 // Exports
 exports.locals = {
-	"rightChat": "eWnZatF2Va6-F5JKihX3l"
+	"rightChat": "TujkmgSNTg0CjRbnUyM_a"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css":
-/*!**************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css ***!
-  \**************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMainMenu.css":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightMainMenu.css ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "._2lirRWjoHxuzJFrLa5XFJq {\r\n\tpadding: 1em;\r\n}\r\n\r\n._1Fs-_S6zwHfo9jeIEsV6Z_ {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tlist-style: none;\r\n\ttext-transform: uppercase;\r\n\tfont-weight: bolder;\r\n\tfont-family: \"Arial Black\", serif;\r\n\topacity: 0.7;\r\n}\r\n\r\n._1Fs-_S6zwHfo9jeIEsV6Z_ > li > a {\r\n\tmargin-bottom: 0.8em;\r\n\ttext-decoration: none;\r\n}\r\n\r\n\r\n._2-vvVocKS7Dm3PUx3BFqE {\r\n\tmargin-bottom: 1em;\r\n\ttext-align: center;\r\n\ttext-transform: uppercase;\r\n\tfont-weight: bolder;\r\n\tfont-family: \"Arial Black\", serif;\r\n\tfont-size: 2em;\r\n\topacity: 0.7;\r\n\t\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "._2jehMp1fQXQRvb3WacGpfa {\r\n\tpadding: 1em;\r\n}\r\n\r\n._31AIKV7u98UMlU8ICD4DZi {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\tlist-style: none;\r\n\ttext-transform: uppercase;\r\n\tfont-weight: bolder;\r\n\tfont-family: \"Arial Black\", serif;\r\n\topacity: 0.7;\r\n}\r\n\r\n._31AIKV7u98UMlU8ICD4DZi > li > a {\r\n\tmargin-bottom: 0.8em;\r\n\ttext-decoration: none;\r\n}\r\n\r\n\r\n._5WAn2VEbS1UhTvsMR1l2j {\r\n\tmargin-bottom: 1em;\r\n\ttext-align: center;\r\n\ttext-transform: uppercase;\r\n\tfont-weight: bolder;\r\n\tfont-family: \"Arial Black\", serif;\r\n\tfont-size: 2em;\r\n\topacity: 0.7;\r\n\t\r\n}\r\n\r\n", ""]);
 // Exports
 exports.locals = {
-	"rightMainMenuContainer": "_2lirRWjoHxuzJFrLa5XFJq",
-	"rightMainMenu": "_1Fs-_S6zwHfo9jeIEsV6Z_",
-	"rightMainMenu__menuHeader": "_2-vvVocKS7Dm3PUx3BFqE"
+	"rightMainMenuContainer": "_2jehMp1fQXQRvb3WacGpfa",
+	"rightMainMenu": "_31AIKV7u98UMlU8ICD4DZi",
+	"rightMainMenu__menuHeader": "_5WAn2VEbS1UhTvsMR1l2j"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css":
-/*!**********************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css ***!
-  \**********************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightTodo.css":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-1!./src/internal/components/centerContainer/rightTodo.css ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "._2z449H1p7Rgfnq1NyzRIvF {\r\n\t/*display: none;*/\r\n\tbackground-color: indianred;\r\n}", ""]);
+exports.push([module.i, "._2J44o55Ya8_g6SeHi5toH8 {\r\n\t/*display: none;*/\r\n\tbackground-color: indianred;\r\n}", ""]);
 // Exports
 exports.locals = {
-	"rightTodo": "_2z449H1p7Rgfnq1NyzRIvF"
+	"rightTodo": "_2J44o55Ya8_g6SeHi5toH8"
 };
 
 /***/ }),
@@ -40867,7 +40867,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _i18n_es6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./i18n.es6 */ "./src/internal/components/i18n.es6");
-/* harmony import */ var _applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./applicationReducer.es6 */ "./src/internal/components/applicationReducer.es6");
+/* harmony import */ var _redux_applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/applicationReducer.es6 */ "./src/internal/redux/applicationReducer.es6");
 /* harmony import */ var _MainContainer_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./MainContainer.jsx */ "./src/internal/components/MainContainer.jsx");
 
 
@@ -40876,195 +40876,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__["default"], _applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__["initialState"]);
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_redux_applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__["default"], _redux_applicationReducer_es6__WEBPACK_IMPORTED_MODULE_5__["initialState"]);
 Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
   store: store
 }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MainContainer_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], null)), document.getElementById("root"));
-
-/***/ }),
-
-/***/ "./src/internal/components/applicationActionTypes.es6":
-/*!************************************************************!*\
-  !*** ./src/internal/components/applicationActionTypes.es6 ***!
-  \************************************************************/
-/*! exports provided: SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR, SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_RIGHT_CHAT, SET_DISPLAY_RIGHT_TODO, SET_DISPLAY_CENTER_LEFT_ORDERS */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_BLOCK", function() { return SET_DISPLAY_BLOCK; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_NONE", function() { return SET_DISPLAY_NONE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BACKGROUND_COLOR", function() { return SET_BACKGROUND_COLOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_MENU", function() { return SET_DISPLAY_RIGHT_MENU; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_CHAT", function() { return SET_DISPLAY_RIGHT_CHAT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_TODO", function() { return SET_DISPLAY_RIGHT_TODO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_CENTER_LEFT_ORDERS", function() { return SET_DISPLAY_CENTER_LEFT_ORDERS; });
-var SET_DISPLAY_BLOCK = "SET_DISPLAY_BLOCK";
-var SET_DISPLAY_NONE = "SET_DISPLAY_NONE";
-var SET_BACKGROUND_COLOR = "SET_BACKGROUND_COLOR";
-var SET_DISPLAY_RIGHT_MENU = "SET_DISPLAY_RIGHT_MENU";
-var SET_DISPLAY_RIGHT_CHAT = "SET_DISPLAY_RIGHT_CHAT";
-var SET_DISPLAY_RIGHT_TODO = "SET_DISPLAY_RIGHT_TODO";
-var SET_DISPLAY_CENTER_LEFT_ORDERS = "SET_DISPLAY_CENTER_LEFT_ORDERS";
-
-/***/ }),
-
-/***/ "./src/internal/components/applicationActions.es6":
-/*!********************************************************!*\
-  !*** ./src/internal/components/applicationActions.es6 ***!
-  \********************************************************/
-/*! exports provided: setDisplayNoneStyle, setDisplayBlockStyle, setBackgroundColor, setDisplayRightMenu, setDisplayRightChat, setDisplayRightTodo, setDisplayCenterLeftOrders */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayNoneStyle", function() { return setDisplayNoneStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayBlockStyle", function() { return setDisplayBlockStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBackgroundColor", function() { return setBackgroundColor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightMenu", function() { return setDisplayRightMenu; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightChat", function() { return setDisplayRightChat; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightTodo", function() { return setDisplayRightTodo; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayCenterLeftOrders", function() { return setDisplayCenterLeftOrders; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./applicationActionTypes.es6 */ "./src/internal/components/applicationActionTypes.es6");
-
-
-function setDisplayNoneStyle() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_NONE"],
-    payload: {
-      display: 'none'
-    }
-  };
-}
-function setDisplayBlockStyle() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_BLOCK"],
-    payload: {
-      display: 'block'
-    }
-  };
-}
-function setBackgroundColor() {
-  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "black";
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_BACKGROUND_COLOR"],
-    payload: {
-      color: color
-    }
-  };
-}
-function setDisplayRightMenu() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_MENU"]
-  };
-}
-function setDisplayRightChat() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_CHAT"]
-  };
-}
-function setDisplayRightTodo() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]
-  };
-}
-function setDisplayCenterLeftOrders() {
-  return {
-    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]
-  };
-}
-
-/***/ }),
-
-/***/ "./src/internal/components/applicationReducer.es6":
-/*!********************************************************!*\
-  !*** ./src/internal/components/applicationReducer.es6 ***!
-  \********************************************************/
-/*! exports provided: initialState, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return applicationReducer; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./applicationActionTypes.es6 */ "./src/internal/components/applicationActionTypes.es6");
-
-
-var initialState = {
-  style: {
-    backgroundColor: 'green'
-  },
-  displayRightMenu: false,
-  displayRightChat: false,
-  displayRightTodo: false,
-  displayCenterLeftOrders: false
-};
-function applicationReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_BLOCK"]:
-      return Object.assign({}, state, {
-        styleDisplay: {
-          display: 'block'
-        }
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_NONE"]:
-      return Object.assign({}, state, {
-        styleDisplay: {
-          display: 'none'
-        }
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_BACKGROUND_COLOR"]:
-      return Object.assign({}, state, {
-        style: {
-          backgroundColor: action.payload.color
-        }
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_MENU"]:
-      return Object.assign({}, state, {
-        displayRightMenu: true
-      }, {
-        displayRightChat: false
-      }, {
-        displayRightTodo: false
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_CHAT"]:
-      return Object.assign({}, state, {
-        displayRightChat: true
-      }, {
-        displayRightMenu: false
-      }, {
-        displayRightTodo: false
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]:
-      return Object.assign({}, state, {
-        displayRightTodo: true
-      }, {
-        displayRightMenu: false
-      }, {
-        displayRightChat: false
-      });
-
-    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]:
-      return Object.assign({}, state, {
-        displayCenterLeftOrders: true
-      });
-
-    default:
-      return state;
-  }
-}
 
 /***/ }),
 
@@ -41158,7 +40973,7 @@ function PowerButton(props) {
     href: '/'
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: _bottomBlackLine_css__WEBPACK_IMPORTED_MODULE_1___default.a.powerButton,
-    src: '../img/powerButton.png'
+    src: '../dist/internal/img/powerButton.png'
   })));
 }
 ;
@@ -41182,7 +40997,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_Button_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/Button.jsx */ "./src/internal/components/common/Button.jsx");
 /* harmony import */ var _PowerButton_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PowerButton.jsx */ "./src/internal/components/bottomLineContainer/PowerButton.jsx");
 /* harmony import */ var _common_Span_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/Span.jsx */ "./src/internal/components/common/Span.jsx");
-/* harmony import */ var _applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../applicationActions.es6 */ "./src/internal/components/applicationActions.es6");
+/* harmony import */ var _redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../redux/applicationActions.es6 */ "./src/internal/redux/applicationActions.es6");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41212,13 +41027,13 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function mapDispatchToProps(dispatch) {
   return {
     setDisplayRightMenu: function setDisplayRightMenu() {
-      dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightMenu"])());
+      dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightMenu"])());
     },
     setDisplayRightChat: function setDisplayRightChat() {
-      dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightChat"])());
+      dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightChat"])());
     },
     setDisplayRightTodo: function setDisplayRightTodo() {
-      dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightTodo"])());
+      dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_6__["setDisplayRightTodo"])());
     }
   };
 }
@@ -41321,7 +41136,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _centerContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./centerContainer.css */ "./src/internal/components/centerContainer/centerContainer.css");
 /* harmony import */ var _centerContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_centerContainer_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _rightMenuContainer_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rightMenuContainer/RightBlockContainer.jsx */ "./src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx");
+/* harmony import */ var _RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RightBlockContainer.jsx */ "./src/internal/components/centerContainer/RightBlockContainer.jsx");
 /* harmony import */ var _CenterLeftContainer_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CenterLeftContainer.jsx */ "./src/internal/components/centerContainer/CenterLeftContainer.jsx");
 /* harmony import */ var _common_Button_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/Button.jsx */ "./src/internal/components/common/Button.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -41370,7 +41185,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _centerContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.containerCenter
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftContainer_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_rightMenuContainer_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftContainer_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RightBlockContainer_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -41378,6 +41193,70 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
+
+/***/ }),
+
+/***/ "./src/internal/components/centerContainer/CenterLeftArticlesView.jsx":
+/*!****************************************************************************!*\
+  !*** ./src/internal/components/centerContainer/CenterLeftArticlesView.jsx ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var centerLeftArticlesView =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(centerLeftArticlesView, _React$Component);
+
+  function centerLeftArticlesView(props) {
+    _classCallCheck(this, centerLeftArticlesView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(centerLeftArticlesView).call(this, props));
+  }
+
+  _createClass(centerLeftArticlesView, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "ARTICLES VIEW");
+    }
+  }]);
+
+  return centerLeftArticlesView;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+var CenterLeftArticlesView = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(centerLeftArticlesView);
+/* harmony default export */ __webpack_exports__["default"] = (CenterLeftArticlesView);
 
 /***/ }),
 
@@ -41394,9 +41273,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./centerLeftContainer.css */ "./src/internal/components/centerContainer/centerLeftContainer.css");
 /* harmony import */ var _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../applicationActions.es6 */ "./src/internal/components/applicationActions.es6");
+/* harmony import */ var _redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/applicationActions.es6 */ "./src/internal/redux/applicationActions.es6");
 /* harmony import */ var _CenterLeftOrdersView_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CenterLeftOrdersView.jsx */ "./src/internal/components/centerContainer/CenterLeftOrdersView.jsx");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _CenterLeftTasksView_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CenterLeftTasksView.jsx */ "./src/internal/components/centerContainer/CenterLeftTasksView.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _CenterLeftArticlesView_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CenterLeftArticlesView.jsx */ "./src/internal/components/centerContainer/CenterLeftArticlesView.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41421,17 +41302,21 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setDisplayCenterLeftOrders: function setDisplayCenterLeftOrders() {
-      return dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__["setDisplayCenterLeftOrders"])());
+      return dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_2__["setDisplayCenterLeftOrders"])());
     }
   };
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    displayCenterLeftOrders: state.displayCenterLeftOrders
+    displayCenterLeftArticles: state.displayCenterLeftArticles,
+    displayCenterLeftOrders: state.displayCenterLeftOrders,
+    displayCenterLeftTasks: state.displayCenterLeftTasks
   };
 };
 
@@ -41451,14 +41336,14 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: _centerLeftContainer_css__WEBPACK_IMPORTED_MODULE_1___default.a.centerLeftContainer
-      }, this.props.displayCenterLeftOrders ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftOrdersView_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null) : null);
+      }, this.props.displayCenterLeftArticles ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftArticlesView_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], null) : this.props.displayCenterLeftOrders ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftOrdersView_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], null) : this.props.displayCenterLeftTasks ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CenterLeftTasksView_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null) : null);
     }
   }]);
 
   return CenterLeftContainer;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps)(CenterLeftContainer));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["connect"])(mapStateToProps, mapDispatchToProps)(CenterLeftContainer));
 
 /***/ }),
 
@@ -41526,64 +41411,10 @@ var CenterLeftOrdersView = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["conn
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/centerContainer.css":
-/*!*********************************************************************!*\
-  !*** ./src/internal/components/centerContainer/centerContainer.css ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./centerContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerContainer.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = "head";
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-
-/***/ }),
-
-/***/ "./src/internal/components/centerContainer/centerLeftContainer.css":
+/***/ "./src/internal/components/centerContainer/CenterLeftTasksView.jsx":
 /*!*************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/centerLeftContainer.css ***!
+  !*** ./src/internal/components/centerContainer/CenterLeftTasksView.jsx ***!
   \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./centerLeftContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerLeftContainer.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = "head";
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-
-/***/ }),
-
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx":
-/*!********************************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/RightBlockContainer.jsx ***!
-  \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41591,12 +41422,76 @@ if (content.locals) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rightBlockContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightBlockContainer.css */ "./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
+
+var centerLeftTasksView =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(centerLeftTasksView, _React$Component);
+
+  function centerLeftTasksView(props) {
+    _classCallCheck(this, centerLeftTasksView);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(centerLeftTasksView).call(this, props));
+  }
+
+  _createClass(centerLeftTasksView, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TASKS VIEW");
+    }
+  }]);
+
+  return centerLeftTasksView;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+var CenterLeftTasksView = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(centerLeftTasksView);
+/* harmony default export */ __webpack_exports__["default"] = (CenterLeftTasksView);
+
+/***/ }),
+
+/***/ "./src/internal/components/centerContainer/RightBlockContainer.jsx":
+/*!*************************************************************************!*\
+  !*** ./src/internal/components/centerContainer/RightBlockContainer.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _rightBlockContainer_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightBlockContainer.css */ "./src/internal/components/centerContainer/rightBlockContainer.css");
 /* harmony import */ var _rightBlockContainer_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_rightBlockContainer_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _RightMainMenu_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RightMainMenu.jsx */ "./src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx");
-/* harmony import */ var _RightChat_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RightChat.jsx */ "./src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx");
-/* harmony import */ var _RightTodo_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RightTodo.jsx */ "./src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx");
-/* harmony import */ var _applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../applicationActions.es6 */ "./src/internal/components/applicationActions.es6");
+/* harmony import */ var _RightMainMenu_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RightMainMenu.jsx */ "./src/internal/components/centerContainer/RightMainMenu.jsx");
+/* harmony import */ var _RightChat_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RightChat.jsx */ "./src/internal/components/centerContainer/RightChat.jsx");
+/* harmony import */ var _RightTodo_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RightTodo.jsx */ "./src/internal/components/centerContainer/RightTodo.jsx");
+/* harmony import */ var _redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/applicationActions.es6 */ "./src/internal/redux/applicationActions.es6");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -41627,7 +41522,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function mapDispatchToProps(dispatch) {
   return {
     setDisplayRightMenu: function setDisplayRightMenu() {
-      return dispatch(Object(_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__["setDisplayRightMenu"])());
+      return dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__["setDisplayRightMenu"])());
     }
   };
 }
@@ -41676,10 +41571,10 @@ var RightBlockContainer = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["conne
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx":
-/*!**********************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/RightChat.jsx ***!
-  \**********************************************************************************/
+/***/ "./src/internal/components/centerContainer/RightChat.jsx":
+/*!***************************************************************!*\
+  !*** ./src/internal/components/centerContainer/RightChat.jsx ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41687,7 +41582,7 @@ var RightBlockContainer = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["conne
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rightChat_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightChat.css */ "./src/internal/components/centerContainer/rightMenuContainer/rightChat.css");
+/* harmony import */ var _rightChat_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightChat.css */ "./src/internal/components/centerContainer/rightChat.css");
 /* harmony import */ var _rightChat_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_rightChat_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -41746,10 +41641,10 @@ var RightChat = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapS
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx":
-/*!**************************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/RightMainMenu.jsx ***!
-  \**************************************************************************************/
+/***/ "./src/internal/components/centerContainer/RightMainMenu.jsx":
+/*!*******************************************************************!*\
+  !*** ./src/internal/components/centerContainer/RightMainMenu.jsx ***!
+  \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41757,12 +41652,13 @@ var RightChat = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapS
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _application_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../application.css */ "./src/internal/components/application.css");
+/* harmony import */ var _application_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../application.css */ "./src/internal/components/application.css");
 /* harmony import */ var _application_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_application_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rightMainMenu.css */ "./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css");
+/* harmony import */ var _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./rightMainMenu.css */ "./src/internal/components/centerContainer/rightMainMenu.css");
 /* harmony import */ var _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _common_A_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../common/A.jsx */ "./src/internal/components/common/A.jsx");
+/* harmony import */ var _common_A_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/A.jsx */ "./src/internal/components/common/A.jsx");
+/* harmony import */ var _redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/applicationActions.es6 */ "./src/internal/redux/applicationActions.es6");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41773,9 +41669,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -41787,8 +41683,24 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var mapStateToProps = function mapStateToProps(state) {
   return {};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setDisplayArticles: function setDisplayArticles() {
+      return dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__["setDisplayCenterLeftArticles"])());
+    },
+    setDisplayOrders: function setDisplayOrders() {
+      return dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__["setDisplayCenterLeftOrders"])());
+    },
+    setDisplayTasks: function setDisplayTasks() {
+      return dispatch(Object(_redux_applicationActions_es6__WEBPACK_IMPORTED_MODULE_5__["setDisplayCenterLeftTasks"])());
+    }
+  };
 };
 
 var rightMainMenu =
@@ -41797,21 +41709,12 @@ function (_React$Component) {
   _inherits(rightMainMenu, _React$Component);
 
   function rightMainMenu(props) {
-    var _this;
-
     _classCallCheck(this, rightMainMenu);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(rightMainMenu).call(this, props));
-    _this.click = _this.click.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(rightMainMenu).call(this, props));
   }
 
   _createClass(rightMainMenu, [{
-    key: "click",
-    value: function click() {
-      console.log("CLICK HAS BEEN OCCURRED");
-    }
-  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -41823,11 +41726,15 @@ function (_React$Component) {
         className: _rightMainMenu_css__WEBPACK_IMPORTED_MODULE_2___default.a.rightMainMenu
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_A_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         href: '',
-        onClick: this.click,
+        onClick: this.props.setDisplayArticles,
+        text: 'MAIN PAGE'
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_A_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        href: '',
+        onClick: this.props.setDisplayOrders,
         text: 'ORDERS IN PROCESS'
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_common_A_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         href: '',
-        onClick: this.click,
+        onClick: this.props.setDisplayTasks,
         text: 'TASKS IN PROGRESS'
       }))));
     }
@@ -41837,15 +41744,15 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-var RightMainMenu = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps)(rightMainMenu);
+var RightMainMenu = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(rightMainMenu);
 /* harmony default export */ __webpack_exports__["default"] = (RightMainMenu);
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx":
-/*!**********************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/RightTodo.jsx ***!
-  \**********************************************************************************/
+/***/ "./src/internal/components/centerContainer/RightTodo.jsx":
+/*!***************************************************************!*\
+  !*** ./src/internal/components/centerContainer/RightTodo.jsx ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41853,7 +41760,7 @@ var RightMainMenu = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rightTodo_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightTodo.css */ "./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css");
+/* harmony import */ var _rightTodo_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rightTodo.css */ "./src/internal/components/centerContainer/rightTodo.css");
 /* harmony import */ var _rightTodo_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_rightTodo_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -41912,14 +41819,14 @@ var RightTodo = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapS
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css":
-/*!********************************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css ***!
-  \********************************************************************************************/
+/***/ "./src/internal/components/centerContainer/centerContainer.css":
+/*!*********************************************************************!*\
+  !*** ./src/internal/components/centerContainer/centerContainer.css ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightBlockContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightBlockContainer.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./centerContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerContainer.css");
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -41930,7 +41837,7 @@ var options = {}
 options.insert = "head";
 options.singleton = false;
 
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
 
 if (content.locals) {
   module.exports = content.locals;
@@ -41939,14 +41846,14 @@ if (content.locals) {
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/rightChat.css":
-/*!**********************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/rightChat.css ***!
-  \**********************************************************************************/
+/***/ "./src/internal/components/centerContainer/centerLeftContainer.css":
+/*!*************************************************************************!*\
+  !*** ./src/internal/components/centerContainer/centerLeftContainer.css ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightChat.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightChat.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./centerLeftContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/centerLeftContainer.css");
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -41957,7 +41864,7 @@ var options = {}
 options.insert = "head";
 options.singleton = false;
 
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
 
 if (content.locals) {
   module.exports = content.locals;
@@ -41966,14 +41873,14 @@ if (content.locals) {
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css":
-/*!**************************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css ***!
-  \**************************************************************************************/
+/***/ "./src/internal/components/centerContainer/rightBlockContainer.css":
+/*!*************************************************************************!*\
+  !*** ./src/internal/components/centerContainer/rightBlockContainer.css ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightMainMenu.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightMainMenu.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightBlockContainer.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightBlockContainer.css");
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -41984,7 +41891,7 @@ var options = {}
 options.insert = "head";
 options.singleton = false;
 
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
 
 if (content.locals) {
   module.exports = content.locals;
@@ -41993,14 +41900,14 @@ if (content.locals) {
 
 /***/ }),
 
-/***/ "./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css":
-/*!**********************************************************************************!*\
-  !*** ./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css ***!
-  \**********************************************************************************/
+/***/ "./src/internal/components/centerContainer/rightChat.css":
+/*!***************************************************************!*\
+  !*** ./src/internal/components/centerContainer/rightChat.css ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightTodo.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMenuContainer/rightTodo.css");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightChat.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightChat.css");
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -42011,7 +41918,61 @@ var options = {}
 options.insert = "head";
 options.singleton = false;
 
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+
+/***/ "./src/internal/components/centerContainer/rightMainMenu.css":
+/*!*******************************************************************!*\
+  !*** ./src/internal/components/centerContainer/rightMainMenu.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightMainMenu.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightMainMenu.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+
+/***/ }),
+
+/***/ "./src/internal/components/centerContainer/rightTodo.css":
+/*!***************************************************************!*\
+  !*** ./src/internal/components/centerContainer/rightTodo.css ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader/dist/cjs.js??ref--5-1!./rightTodo.css */ "./node_modules/css-loader/dist/cjs.js?!./src/internal/components/centerContainer/rightTodo.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
 
 if (content.locals) {
   module.exports = content.locals;
@@ -42348,6 +42309,231 @@ if (content.locals) {
   module.exports = content.locals;
 }
 
+
+/***/ }),
+
+/***/ "./src/internal/redux/applicationActionTypes.es6":
+/*!*******************************************************!*\
+  !*** ./src/internal/redux/applicationActionTypes.es6 ***!
+  \*******************************************************/
+/*! exports provided: SET_DISPLAY_BLOCK, SET_DISPLAY_NONE, SET_BACKGROUND_COLOR, SET_DISPLAY_RIGHT_MENU, SET_DISPLAY_RIGHT_CHAT, SET_DISPLAY_RIGHT_TODO, SET_DISPLAY_CENTER_LEFT_ARTICLES, SET_DISPLAY_CENTER_LEFT_ORDERS, SET_DISPLAY_CENTER_LEFT_TASKS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_BLOCK", function() { return SET_DISPLAY_BLOCK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_NONE", function() { return SET_DISPLAY_NONE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BACKGROUND_COLOR", function() { return SET_BACKGROUND_COLOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_MENU", function() { return SET_DISPLAY_RIGHT_MENU; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_CHAT", function() { return SET_DISPLAY_RIGHT_CHAT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_RIGHT_TODO", function() { return SET_DISPLAY_RIGHT_TODO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_CENTER_LEFT_ARTICLES", function() { return SET_DISPLAY_CENTER_LEFT_ARTICLES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_CENTER_LEFT_ORDERS", function() { return SET_DISPLAY_CENTER_LEFT_ORDERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_DISPLAY_CENTER_LEFT_TASKS", function() { return SET_DISPLAY_CENTER_LEFT_TASKS; });
+var SET_DISPLAY_BLOCK = "SET_DISPLAY_BLOCK";
+var SET_DISPLAY_NONE = "SET_DISPLAY_NONE";
+var SET_BACKGROUND_COLOR = "SET_BACKGROUND_COLOR";
+var SET_DISPLAY_RIGHT_MENU = "SET_DISPLAY_RIGHT_MENU";
+var SET_DISPLAY_RIGHT_CHAT = "SET_DISPLAY_RIGHT_CHAT";
+var SET_DISPLAY_RIGHT_TODO = "SET_DISPLAY_RIGHT_TODO";
+var SET_DISPLAY_CENTER_LEFT_ARTICLES = "SET_DISPLAY_CENTER_LEFT_ARTCLES";
+var SET_DISPLAY_CENTER_LEFT_ORDERS = "SET_DISPLAY_CENTER_LEFT_ORDERS";
+var SET_DISPLAY_CENTER_LEFT_TASKS = "SET_DISPLAY_CENTER_LEFT_TASKS";
+
+/***/ }),
+
+/***/ "./src/internal/redux/applicationActions.es6":
+/*!***************************************************!*\
+  !*** ./src/internal/redux/applicationActions.es6 ***!
+  \***************************************************/
+/*! exports provided: setDisplayNoneStyle, setDisplayBlockStyle, setBackgroundColor, setDisplayRightMenu, setDisplayRightChat, setDisplayRightTodo, setDisplayCenterLeftOrders, setDisplayCenterLeftTasks, setDisplayCenterLeftArticles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayNoneStyle", function() { return setDisplayNoneStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayBlockStyle", function() { return setDisplayBlockStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBackgroundColor", function() { return setBackgroundColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightMenu", function() { return setDisplayRightMenu; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightChat", function() { return setDisplayRightChat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayRightTodo", function() { return setDisplayRightTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayCenterLeftOrders", function() { return setDisplayCenterLeftOrders; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayCenterLeftTasks", function() { return setDisplayCenterLeftTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDisplayCenterLeftArticles", function() { return setDisplayCenterLeftArticles; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./applicationActionTypes.es6 */ "./src/internal/redux/applicationActionTypes.es6");
+
+
+function setDisplayNoneStyle() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_NONE"],
+    payload: {
+      display: 'none'
+    }
+  };
+}
+function setDisplayBlockStyle() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_BLOCK"],
+    payload: {
+      display: 'block'
+    }
+  };
+}
+function setBackgroundColor() {
+  var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "black";
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_BACKGROUND_COLOR"],
+    payload: {
+      color: color
+    }
+  };
+}
+function setDisplayRightMenu() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_MENU"]
+  };
+}
+function setDisplayRightChat() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_CHAT"]
+  };
+}
+function setDisplayRightTodo() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]
+  };
+}
+function setDisplayCenterLeftOrders() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]
+  };
+}
+function setDisplayCenterLeftTasks() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_TASKS"]
+  };
+}
+function setDisplayCenterLeftArticles() {
+  return {
+    type: _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ARTICLES"]
+  };
+}
+
+/***/ }),
+
+/***/ "./src/internal/redux/applicationReducer.es6":
+/*!***************************************************!*\
+  !*** ./src/internal/redux/applicationReducer.es6 ***!
+  \***************************************************/
+/*! exports provided: initialState, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return applicationReducer; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./applicationActionTypes.es6 */ "./src/internal/redux/applicationActionTypes.es6");
+
+
+var initialState = {
+  style: {
+    backgroundColor: 'green'
+  },
+  displayRightMenu: false,
+  displayRightChat: false,
+  displayRightTodo: false,
+  displayCenterLeftArticles: true,
+  displayCenterLeftOrders: false,
+  displayCenterLeftTasks: false
+};
+function applicationReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_BLOCK"]:
+      return Object.assign({}, state, {
+        styleDisplay: {
+          display: 'block'
+        }
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_NONE"]:
+      return Object.assign({}, state, {
+        styleDisplay: {
+          display: 'none'
+        }
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_BACKGROUND_COLOR"]:
+      return Object.assign({}, state, {
+        style: {
+          backgroundColor: action.payload.color
+        }
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_MENU"]:
+      return Object.assign({}, state, {
+        displayRightMenu: true
+      }, {
+        displayRightChat: false
+      }, {
+        displayRightTodo: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_CHAT"]:
+      return Object.assign({}, state, {
+        displayRightChat: true
+      }, {
+        displayRightMenu: false
+      }, {
+        displayRightTodo: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_RIGHT_TODO"]:
+      return Object.assign({}, state, {
+        displayRightTodo: true
+      }, {
+        displayRightMenu: false
+      }, {
+        displayRightChat: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ARTICLES"]:
+      return Object.assign({}, state, {
+        displayCenterLeftArticles: true
+      }, {
+        displayCenterLeftTasks: false
+      }, {
+        displayCenterLeftOrders: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_ORDERS"]:
+      return Object.assign({}, state, {
+        displayCenterLeftOrders: true
+      }, {
+        displayCenterLeftTasks: false
+      }, {
+        displayCenterLeftArticles: false
+      });
+
+    case _applicationActionTypes_es6__WEBPACK_IMPORTED_MODULE_1__["SET_DISPLAY_CENTER_LEFT_TASKS"]:
+      return Object.assign({}, state, {
+        displayCenterLeftTasks: true
+      }, {
+        displayCenterLeftOrders: false
+      }, {
+        displayCenterLeftArticles: false
+      });
+
+    default:
+      return state;
+  }
+}
 
 /***/ })
 

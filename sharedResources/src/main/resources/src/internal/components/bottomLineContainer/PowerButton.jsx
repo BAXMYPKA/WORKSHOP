@@ -5,7 +5,7 @@ export default function PowerButton(props) {
 	return (
 		<div className={props.className}>
 			<a href={'/'}>
-				<img className={style.powerButton} src={'../img/powerButton.png'}/>
+				<img className={style.powerButton} src={'../dist/internal/img/powerButton.png'}/>
 			</a>
 		</div>
 	);

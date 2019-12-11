@@ -72,6 +72,8 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
 		webSecurityExpressionHandler.setPermissionEvaluator(workshopPermissionEvaluator);
 		web.expressionHandler(webSecurityExpressionHandler);
+		web.ignoring().antMatchers("/dist/internal/css/**", "/dist/internal/img/**", "/dist/internal/css/**",
+			"/dist/internal/js/**");
 	}
 	
 	/**
@@ -160,7 +162,7 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	@Bean
 	public AuthenticationSuccessHandler internalAuthenticationSuccessHandler() {
 		SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
-		successHandler.setDefaultTargetUrl("/internal/main");
+		successHandler.setDefaultTargetUrl("/internal/application");
 		successHandler.setUseReferer(true);
 		return successHandler;
 	}

@@ -21,7 +21,8 @@
 	
 	<div class="formContainer">
 		<div class="login">
-			<form name="loginForm" action="/internal/login" method="post" class="loginForm">
+			<form name="loginForm" action="/internal/login" method="post" class="loginForm"
+			th:action="@{/internal/login}">
 				<input type="text" placeholder="admin@workshop.pro"
 					   th:placeholder="${placeholders.adminLogin}">
 				<br>

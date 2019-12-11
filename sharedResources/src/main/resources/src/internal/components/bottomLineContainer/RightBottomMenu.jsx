@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Button from "../common/Button.jsx";
 import PowerButton from "./PowerButton.jsx";
 import Span from "../common/Span.jsx";
-import {setDisplayRightChat, setDisplayRightMenu, setDisplayRightTodo} from "../applicationActions.es6";
+import {setDisplayRightChat, setDisplayRightMenu, setDisplayRightTodo} from "../../redux/applicationActions.es6";
 
 function mapDispatchToProps(dispatch) {
 	return {

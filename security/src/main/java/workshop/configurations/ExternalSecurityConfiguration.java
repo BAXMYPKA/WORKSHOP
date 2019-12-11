@@ -31,11 +31,12 @@ import java.util.Set;
 /**
  * Http Web servicing stateful External domain for Users.
  */
-@Configuration
-@EnableWebSecurity
-@Order(1)
+//@Configuration
+//@EnableWebSecurity
+//@Order(1)
 public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+/*
 	@Value("${authorizationHeaderName}")
 	@Setter(AccessLevel.PACKAGE)
 	private String authorizationHeaderName;
@@ -164,4 +165,5 @@ public class ExternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		successHandler.setUseReferer(true);
 		return successHandler;
 	}
+*/
 }

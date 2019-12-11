@@ -24,6 +24,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping(path = "/internal/login")
+@SessionAttributes(names = {"loggedUsername"})
 public class InternalLoginController {
 	
 	@Value("${supportedLanguages}")
@@ -54,6 +55,7 @@ public class InternalLoginController {
 		model.addAttribute("supportedLanguages", headerContentLanguageValue.split(","));
 		model.addAttribute("placeholders", placeholders);
 		model.addAttribute("employees", employees);
+		model.addAttribute("loggedUsername", "");
 		return "internal/login";
 	}
 	

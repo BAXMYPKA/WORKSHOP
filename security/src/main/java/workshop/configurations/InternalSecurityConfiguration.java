@@ -31,12 +31,13 @@ import workshop.security.*;
  * REST servicing stateless Internal domain for Employees with SPA API.
  * For now works only with cookies for being carried the Authentication information.
  */
-@Configuration
-@EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(2)
+//@Configuration
+//@EnableJpaAuditing(auditorAwareRef = "userAuditorAware")
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Order(2)
 public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+/*
 	@Value("${authorizationHeaderName}")
 	@Setter(AccessLevel.PACKAGE)
 	private String authorizationHeaderName;
@@ -76,12 +77,14 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 			"/dist/internal/js/**");
 	}
 	
-	/**
+	*/
+/**
 	 * SessionManagement = STATELESS.
 	 * PermitAll to "/"
 	 * PermitAll to /internal/login**
 	 * Authenticated() to /internal**
-	 */
+	 *//*
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -145,12 +148,14 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 		return jwtAuthenticationFilter;
 	}
 	
+*/
 /*
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-*/
+*//*
+
 	
 	@Bean
 	public SimpleUrlAuthenticationFailureHandler internalAuthenticationFailureHandler() {
@@ -171,4 +176,5 @@ public class InternalSecurityConfiguration extends WebSecurityConfigurerAdapter 
 	public UserAuditorAware userAuditorAware() {
 		return new UserAuditorAware();
 	}
+*/
 }

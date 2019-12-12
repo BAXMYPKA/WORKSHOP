@@ -40970,8 +40970,9 @@ function PowerButton(props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: props.className
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: '/'
+    href: '../shutdown'
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    alt: props.alt,
     className: _bottomBlackLine_css__WEBPACK_IMPORTED_MODULE_1___default.a.powerButton,
     src: '../dist/internal/img/powerButton.png'
   })));

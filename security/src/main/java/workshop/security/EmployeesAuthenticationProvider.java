@@ -78,7 +78,6 @@ public class EmployeesAuthenticationProvider implements AuthenticationProvider {
 		
 		UsernamePasswordAuthenticationToken authenticatedToken =
 			new UsernamePasswordAuthenticationToken(userDetailsEmployee,"", userDetailsEmployee.getAuthorities());
-		authenticatedToken.setAuthenticated(true);
 		return authenticatedToken;
 	}
 	

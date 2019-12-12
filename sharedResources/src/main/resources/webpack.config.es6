@@ -20,8 +20,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 	},
 	devServer: {
-		contentBase: path.join(__dirname, 'dist/internal/'),
-		publicPath: '/',
+		contentBase: path.resolve(__dirname, 'dist/internal/'),
+		// publicPath: 'http://localhost:9000/dist/internal/',
+		index: 'application.html',
 		compress: true,
 		port: 9000,
 		liveReload: true,

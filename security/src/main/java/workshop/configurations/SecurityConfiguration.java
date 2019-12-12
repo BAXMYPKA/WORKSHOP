@@ -20,9 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import workshop.http.CookieUtils;
@@ -70,6 +68,9 @@ public class SecurityConfiguration {
 		@Autowired
 		private WorkshopAuthenticationManager workshopAuthenticationManager;
 		
+		@Autowired
+		private WorkshopUrlAuthenticationSuccessHandler workshopUrlAuthenticationSuccessHandler;
+		
 		@Override
 		public void configure(WebSecurity web) {
 			DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
@@ -100,19 +101,19 @@ public class SecurityConfiguration {
 				.authorizeRequests()
 				.antMatchers("/internal/login**")
 				.permitAll()
-//				.antMatchers("/internal/**")
-//				.hasAuthority("EMPLOYEE_READ")
+				.antMatchers("/internal/**")
+				.hasAuthority("EMPLOYEE_READ")
 				.and()
 				.formLogin()
-				.loginPage("/internal/login")
+//				.loginPage("/internal/login") //"/login" page is always used by Spring Security
 //				.loginProcessingUrl("/internal/login")
 				.failureHandler(internalAuthenticationFailureHandler())
-				.successHandler(internalAuthenticationSuccessHandler())
+				.successHandler(getConfiguredInternalUrlAuthSuccessHandler())
 				.and()
 				.logout()
 				.logoutUrl("/internal/logout")
 				.deleteCookies(internalAuthCookieName)
-//				.invalidateHttpSession(true)
+				.invalidateHttpSession(true)
 				.clearAuthentication(true)
 				.logoutSuccessUrl("/internal/login")
 				.and();
@@ -130,7 +131,7 @@ public class SecurityConfiguration {
 		public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 			LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
 			loginAuthenticationFilter.setAuthenticationFailureHandler(internalAuthenticationFailureHandler());
-			loginAuthenticationFilter.setAuthenticationSuccessHandler(internalAuthenticationSuccessHandler());
+			loginAuthenticationFilter.setAuthenticationSuccessHandler(getConfiguredInternalUrlAuthSuccessHandler());
 			loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager);
 			loginAuthenticationFilter.setCookieUtils(cookieUtils);
 			loginAuthenticationFilter.setJwtUtils(jwtUtils);
@@ -149,13 +150,6 @@ public class SecurityConfiguration {
 			jwtAuthenticationFilter.setAuthenticationCookieName(internalAuthCookieName);
 			return jwtAuthenticationFilter;
 		}
-	
-/*
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-*/
 		
 		@Bean
 		public SimpleUrlAuthenticationFailureHandler internalAuthenticationFailureHandler() {
@@ -164,12 +158,10 @@ public class SecurityConfiguration {
 			return authenticationFailureHandler;
 		}
 		
-		@Bean
-		public AuthenticationSuccessHandler internalAuthenticationSuccessHandler() {
-			SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
-			successHandler.setDefaultTargetUrl("/internal/application");
-			successHandler.setUseReferer(true);
-			return successHandler;
+		public WorkshopUrlAuthenticationSuccessHandler getConfiguredInternalUrlAuthSuccessHandler() {
+			workshopUrlAuthenticationSuccessHandler.setUseInternalReferer(true);
+			workshopUrlAuthenticationSuccessHandler.setInternalTargetUrl("/internal/application");
+			return workshopUrlAuthenticationSuccessHandler;
 		}
 		
 		@Bean
@@ -200,6 +192,9 @@ public class SecurityConfiguration {
 		@Autowired
 		private CookieUtils cookieUtils;
 		
+		@Autowired
+		private WorkshopUrlAuthenticationSuccessHandler workshopUrlAuthenticationSuccessHandler;
+		
 		@Override
 		public void configure(WebSecurity web) throws Exception {
 			web.ignoring().antMatchers("/dist/css/**", "/dist/img/**", "/dist/css/**", "/dist/js/**");
@@ -223,7 +218,7 @@ public class SecurityConfiguration {
 				.formLogin()
 				.loginPage("/login")
 				.failureHandler(externalAuthenticationFailureHandler())
-				.successHandler(externalAuthenticationSuccessHandler())
+				.successHandler(getConfiguredExternalUrlAuthSuccessHandler())
 				.and()
 				.logout()
 				.logoutUrl("/logout")
@@ -240,7 +235,7 @@ public class SecurityConfiguration {
 		public UsernamePasswordAuthenticationFilter loginAuthenticationFilter() {
 			LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
 			loginAuthenticationFilter.setAuthenticationFailureHandler(externalAuthenticationFailureHandler());
-			loginAuthenticationFilter.setAuthenticationSuccessHandler(externalAuthenticationSuccessHandler());
+			loginAuthenticationFilter.setAuthenticationSuccessHandler(getConfiguredExternalUrlAuthSuccessHandler());
 			loginAuthenticationFilter.setAuthenticationManager(workshopAuthenticationManager());
 			loginAuthenticationFilter.setCookieUtils(cookieUtils);
 			loginAuthenticationFilter.setJwtUtils(jwtUtils);
@@ -304,12 +299,9 @@ public class SecurityConfiguration {
 			return externalAuthenticationFailureHandler;
 		}
 		
-		@Bean
-		public AuthenticationSuccessHandler externalAuthenticationSuccessHandler() {
-			SimpleUrlAuthenticationSuccessHandler successHandler =
-				new SimpleUrlAuthenticationSuccessHandler();
-			successHandler.setUseReferer(true);
-			return successHandler;
+		public WorkshopUrlAuthenticationSuccessHandler getConfiguredExternalUrlAuthSuccessHandler() {
+			workshopUrlAuthenticationSuccessHandler.setUseExternalReferer(true);
+			return workshopUrlAuthenticationSuccessHandler;
 		}
 	}
 }

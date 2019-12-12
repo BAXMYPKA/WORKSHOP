@@ -98,34 +98,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePhone", function() { return deletePhone; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addPhone", function() { return addPhone; });
 function deletePhone(phoneId) {
-	
-	return fetch(`http://localhost:18080/workshop.pro/ajax/phones/${phoneId}`,
-		{
-			method: "DELETE",
-			credentials: "same-origin"
-		})
-		.then((resolve) => {
-			return resolve;
-		})
-		.catch((reject) => {
-			return reject;
-		});
+  return fetch("http://localhost:18080/workshop.pro/ajax/phones/".concat(phoneId), {
+    method: "DELETE",
+    credentials: "same-origin"
+  }).then(function (resolve) {
+    return resolve;
+  })["catch"](function (reject) {
+    return reject;
+  });
 }
-
 function addPhone(phoneNum, phoneName) {
-	let phoneForm = new FormData;
-	phoneForm.append("name", phoneName);
-	phoneForm.append("phone", phoneNum);
-	
-	return fetch("http://localhost:18080/workshop.pro/ajax/phones",
-		{
-			method: "POST",
-			credentials: "same-origin",
-			body: phoneForm
-		});
-};
-
-
+  var phoneForm = new FormData();
+  phoneForm.append("name", phoneName);
+  phoneForm.append("phone", phoneNum);
+  return fetch("http://localhost:18080/workshop.pro/ajax/phones", {
+    method: "POST",
+    credentials: "same-origin",
+    body: phoneForm
+  });
+}
+;
 
 /***/ }),
 
@@ -140,11 +132,10 @@ function addPhone(phoneNum, phoneName) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteUserPhoto", function() { return deleteUserPhoto; });
 function deleteUserPhoto(src) {
-	return fetch(src,
-		{
-			method: "delete",
-			credentials: "same-origin"
-		});
+  return fetch(src, {
+    method: "delete",
+    credentials: "same-origin"
+  });
 }
 
 /***/ }),
@@ -164,122 +155,119 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const PHONE_DELETION_ERROR_MESSAGE = "Не удалось удалить телефон!";
-const PHONE_NAME_OR_NUMBER_ERROR_MESSAGE = "Имя или номер телефона содержат неверный формат!";
-let phoneIdToOperateOn;
-let phoneNameInput = document.querySelector('input[name="newPhoneName"]');
-let phoneNumberInput = document.querySelector('input[name="newPhoneNumber"]');
-
-document.querySelector("#changePasswordButton").addEventListener("click", (env) => {
-	env.preventDefault();
-	location.href = "/workshop.pro/password-reset";
+var PHONE_DELETION_ERROR_MESSAGE = "Не удалось удалить телефон!";
+var PHONE_NAME_OR_NUMBER_ERROR_MESSAGE = "Имя или номер телефона содержат неверный формат!";
+var phoneIdToOperateOn;
+var phoneNameInput = document.querySelector('input[name="newPhoneName"]');
+var phoneNumberInput = document.querySelector('input[name="newPhoneNumber"]');
+document.querySelector("#changePasswordButton").addEventListener("click", function (env) {
+  env.preventDefault();
+  location.href = "/workshop.pro/password-reset";
 });
-
 document.querySelectorAll(".deleteButton").forEach(function (button, key, parent) {
-	
-	const userMessageContainer = document.querySelector("#userMessageContainer");
-	const userMessageSpan = document.querySelector("#userMessage");
-	
-	if (button.id === 'deletePhotoButton') {
-		button.addEventListener('click', (buttonEvent) => {
-			buttonEvent.preventDefault();
-			const userPhotoImg = document.querySelector("#userPhoto");
-			let scr = userPhotoImg.src;
-			Object(_photoFetch_es6__WEBPACK_IMPORTED_MODULE_2__["deleteUserPhoto"])(scr)
-				.then((promise) => {
-					if (promise.ok) {
-						userMessageContainer.hidden = true;
-						let userPhotoImg = document.querySelector("#userPhoto");
-						userPhotoImg.src = "../dist/img/bicycle-logo.jpg";
-					} else {
-						promise.json()
-							.then((json) => {
-								userMessageContainer.hidden = false;
-								userMessageSpan.textContent = JSON.parse(json)['userMessage'];
-							});
-					}
-				})
-		});
-		return;
-	};
-	
-	button.addEventListener("click", (buttonEvent) => {
-		buttonEvent.preventDefault();
-		phoneIdToOperateOn = buttonEvent.currentTarget.value;
-		Object(_phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__["deletePhone"])(buttonEvent.currentTarget.value)
-			.then((promise) => {
-				if (promise.ok) {
-					let rowToHide = document.getElementById(`phoneId=${phoneIdToOperateOn}`);
-					rowToHide.style.display = "none";
-				} else {
-					let phoneErrorMessageId = document.getElementById(`phoneErrorId=${phoneIdToOperateOn}`);
-					phoneErrorMessageId.innerHTML = PHONE_DELETION_ERROR_MESSAGE;
-					phoneErrorMessageId.style.color = "red";
-					phoneErrorMessageId.style.fontStyle = "italic";
-				}
-			});
-	});
-});
+  var userMessageContainer = document.querySelector("#userMessageContainer");
+  var userMessageSpan = document.querySelector("#userMessage");
 
-phoneNameInput.addEventListener("input", (inputEvent) => {
-	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_1__["phoneNameCheck"])(inputEvent.currentTarget.value)) {
-		phoneNameInput.style.color = "green";
-	} else {
-		phoneNameInput.style.color = "red";
-	}
-});
+  if (button.id === 'deletePhotoButton') {
+    button.addEventListener('click', function (buttonEvent) {
+      buttonEvent.preventDefault();
+      var userPhotoImg = document.querySelector("#userPhoto");
+      var scr = userPhotoImg.src;
+      Object(_photoFetch_es6__WEBPACK_IMPORTED_MODULE_2__["deleteUserPhoto"])(scr).then(function (promise) {
+        if (promise.ok) {
+          userMessageContainer.hidden = true;
 
-phoneNumberInput.addEventListener("input", (inputNumberEvent) => {
-	if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_1__["phoneNumberCheck"])(inputNumberEvent.currentTarget.value)) {
-		phoneNumberInput.style.color = "green";
-	} else {
-		phoneNumberInput.style.color = "red";
-	}
-});
+          var _userPhotoImg = document.querySelector("#userPhoto");
 
-document.querySelector(".addButton").addEventListener("click", (buttonEvent) => {
-	buttonEvent.preventDefault();
-	
-	if (phoneNameInput.style.color.match("red") || phoneNumberInput.style.color.match("red")) {
-		let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-		phoneErrorTd.hidden = false;
-		let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-		phoneErrorMessageSpan.textContent = PHONE_NAME_OR_NUMBER_ERROR_MESSAGE;
-		return;
-	} else {
-		let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-		phoneErrorTd.hidden = true;
-	}
-	
-	Object(_phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__["addPhone"])(phoneNumberInput.value.toString().trim(), phoneNameInput.value)
-		.then((result) => {
-			if (result.ok) {
-				let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-				phoneErrorTd.hidden = true;
-				let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-				phoneErrorMessageSpan.textContent = "";
-				window.location.reload();
-			} else {
-				result.json().then(json => {
-					let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-					phoneErrorTd.hidden = false;
-					let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-					if (json['phone']) {
-						phoneErrorMessageSpan.textContent = "Телефон: " + json['phone'];
-					}
-					if (json['name']) {
-						phoneErrorMessageSpan.textContent = " Имя: " + json['name'];
-					}
-				});
-			}
-		})
-		.catch((reject) => {
-			let phoneErrorTd = document.querySelector("#phoneErrorIdNew");
-			phoneErrorTd.hidden = false;
-			let phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
-			phoneErrorMessageSpan.textContent = "NETWORK ERROR";
-		});
+          _userPhotoImg.src = "../dist/img/bicycle-logo.jpg";
+        } else {
+          promise.json().then(function (json) {
+            userMessageContainer.hidden = false;
+            userMessageSpan.textContent = JSON.parse(json)['userMessage'];
+          });
+        }
+      });
+    });
+    return;
+  }
+
+  ;
+  button.addEventListener("click", function (buttonEvent) {
+    buttonEvent.preventDefault();
+    phoneIdToOperateOn = buttonEvent.currentTarget.value;
+    Object(_phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__["deletePhone"])(buttonEvent.currentTarget.value).then(function (promise) {
+      if (promise.ok) {
+        var rowToHide = document.getElementById("phoneId=".concat(phoneIdToOperateOn));
+        rowToHide.style.display = "none";
+      } else {
+        var phoneErrorMessageId = document.getElementById("phoneErrorId=".concat(phoneIdToOperateOn));
+        phoneErrorMessageId.innerHTML = PHONE_DELETION_ERROR_MESSAGE;
+        phoneErrorMessageId.style.color = "red";
+        phoneErrorMessageId.style.fontStyle = "italic";
+      }
+    });
+  });
+});
+phoneNameInput.addEventListener("input", function (inputEvent) {
+  if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_1__["phoneNameCheck"])(inputEvent.currentTarget.value)) {
+    phoneNameInput.style.color = "green";
+  } else {
+    phoneNameInput.style.color = "red";
+  }
+});
+phoneNumberInput.addEventListener("input", function (inputNumberEvent) {
+  if (Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_1__["phoneNumberCheck"])(inputNumberEvent.currentTarget.value)) {
+    phoneNumberInput.style.color = "green";
+  } else {
+    phoneNumberInput.style.color = "red";
+  }
+});
+document.querySelector(".addButton").addEventListener("click", function (buttonEvent) {
+  buttonEvent.preventDefault();
+
+  if (phoneNameInput.style.color.match("red") || phoneNumberInput.style.color.match("red")) {
+    var phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+    phoneErrorTd.hidden = false;
+    var phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
+    phoneErrorMessageSpan.textContent = PHONE_NAME_OR_NUMBER_ERROR_MESSAGE;
+    return;
+  } else {
+    var _phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+
+    _phoneErrorTd.hidden = true;
+  }
+
+  Object(_phoneFetch_es6__WEBPACK_IMPORTED_MODULE_0__["addPhone"])(phoneNumberInput.value.toString().trim(), phoneNameInput.value).then(function (result) {
+    if (result.ok) {
+      var _phoneErrorTd2 = document.querySelector("#phoneErrorIdNew");
+
+      _phoneErrorTd2.hidden = true;
+
+      var _phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
+
+      _phoneErrorMessageSpan.textContent = "";
+      window.location.reload();
+    } else {
+      result.json().then(function (json) {
+        var phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+        phoneErrorTd.hidden = false;
+        var phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
+
+        if (json['phone']) {
+          phoneErrorMessageSpan.textContent = "Телефон: " + json['phone'];
+        }
+
+        if (json['name']) {
+          phoneErrorMessageSpan.textContent = " Имя: " + json['name'];
+        }
+      });
+    }
+  })["catch"](function (reject) {
+    var phoneErrorTd = document.querySelector("#phoneErrorIdNew");
+    phoneErrorTd.hidden = false;
+    var phoneErrorMessageSpan = document.querySelector("#phoneErrorNew");
+    phoneErrorMessageSpan.textContent = "NETWORK ERROR";
+  });
 });
 
 /***/ }),
@@ -301,83 +289,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNameCheck", function() { return phoneNameCheck; });
 /* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
-
 /**
  * Still in development as I don't know all the permitted symbols in the email string
  * @param email
  * @returns {boolean}
  */
+
 function emailRegexpCheck(email) {
-	
-	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
-	
-	if (typeof email === "string" && email.match(emailRegexp)) {
-		return true;
-	} else {
-		return false;
-	}
-}
+  var emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 
+  if (typeof email === "string" && email.match(emailRegexp)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
-
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isNonEnabledUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
 function passwordCheck(password) {
-	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
-		return false;
-	} else {
-		return true;
-	}
+  if (typeof password !== "string" && typeof password !== "number" || password.length < 5) {
+    return false;
+  } else {
+    return true;
+  }
 }
-
 function phoneNumberCheck(phoneNumber) {
-	
-	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
-	
-	if (typeof phoneNumber !== "string") {
-		return false;
-	} else {
-		let stringNumber = phoneNumber.toString();
-		return stringNumber.match(phoneNumberRegexp);
-	}
-}
+  var phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
 
+  if (typeof phoneNumber !== "string") {
+    return false;
+  } else {
+    var stringNumber = phoneNumber.toString();
+    return stringNumber.match(phoneNumberRegexp);
+  }
+}
 function phoneNameCheck(phoneName) {
-	
-	let phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
-	
-	if (typeof phoneName !== "string") {
-		return false;
-	} else {
-		return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
-	}
+  var phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
+
+  if (typeof phoneName !== "string") {
+    return false;
+  } else {
+    return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
+  }
 }
 
 /***/ }),
@@ -401,55 +378,53 @@ __webpack_require__.r(__webpack_exports__);
  * @param propertyValue A value of that property
  * @returns {Promise<Response>} with status.ok === true or status.ok === false
  */
-function checkWorkshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
-	
-	const formData = new FormData();
-	formData.append("workshopEntityType", workshopEntityType);
-	formData.append("propertyName", propertyName);
-	formData.append("propertyValue", propertyValue);
-	
-	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-		// headers: new Headers({
-		// 	"Content-Type": "application/x-www-form-urlencoded"
-		// })
-	}).then(function (promise) {
-		return promise;
-	});
-}
+function checkWorkshopEntityExist() {
+  var workshopEntityType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var propertyName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "default";
+  var propertyValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "default";
+  var formData = new FormData();
+  formData.append("workshopEntityType", workshopEntityType);
+  formData.append("propertyName", propertyName);
+  formData.append("propertyValue", propertyValue);
+  return fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+    // headers: new Headers({
+    // 	"Content-Type": "application/x-www-form-urlencoded"
+    // })
 
+  }).then(function (promise) {
+    return promise;
+  });
+}
 /**
  * Checks if the given email exist AND belongs to non-enabled User
  * @param nonEnabledUserEmail
  * @returns {Promise<Response>}
  */
-function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
-	
-	const formData = new FormData();
-	formData.append("email", nonEnabledUserEmail);
-	
-	return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-	}).then((promise) => {
-		return promise;
-	})
-}
 
-function passwordResetEmail(email = "") {
-	
-	const formData = new FormData();
-	formData.append("email", email);
-	
-	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
-		method: "POST",
-		body: formData
-	}) .then((promise) => {
-		return promise;
-	})
+function checkNonEnabledUserExist() {
+  var nonEnabledUserEmail = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var formData = new FormData();
+  formData.append("email", nonEnabledUserEmail);
+  return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+
+  }).then(function (promise) {
+    return promise;
+  });
+}
+function passwordResetEmail() {
+  var email = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var formData = new FormData();
+  formData.append("email", email);
+  return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+    method: "POST",
+    body: formData
+  }).then(function (promise) {
+    return promise;
+  });
 }
 
 /***/ })

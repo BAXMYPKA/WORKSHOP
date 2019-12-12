@@ -93,18 +93,18 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-const unrollHref = document.querySelector(".unrollHref");
+var unrollHref = document.querySelector(".unrollHref");
+unrollHref.addEventListener("click", function (clickEvent) {
+  var orderTasksTable = document.querySelector(".orderTasksTable");
+  var unrollHref = document.querySelector(".unrollHref");
+  clickEvent.preventDefault();
+  orderTasksTable.hidden = orderTasksTable.hidden ? false : true;
 
-unrollHref.addEventListener("click", (clickEvent) => {
-	const orderTasksTable = document.querySelector(".orderTasksTable");
-	const unrollHref = document.querySelector(".unrollHref");
-	clickEvent.preventDefault();
-	orderTasksTable.hidden = orderTasksTable.hidden ? false : true;
-	if (orderTasksTable.hidden) {
-		unrollHref.textContent = "РАЗВЕРНУТЬ";
-	} else {
-		unrollHref.textContent = "СВЕРНУТЬ";
-	}
+  if (orderTasksTable.hidden) {
+    unrollHref.textContent = "РАЗВЕРНУТЬ";
+  } else {
+    unrollHref.textContent = "СВЕРНУТЬ";
+  }
 });
 
 /***/ })

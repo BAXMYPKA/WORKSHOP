@@ -6,6 +6,7 @@
 	"scripts": {
 		"webpack": "webpack --config webpack.config.es6",
 		"watch": "webpack --watch --progress --config webpack.config.es6",
+		"server": "webpack-dev-server --config webpack.config.es6 --watch-poll",
 		"test": "test"
 	},
 	"repository": {
@@ -25,7 +26,21 @@
 		"@babel/preset-react": "^7.6.3",
 		"babel-loader": "^8.0.6",
 		"clean-webpack-plugin": "^3.0.0",
+		"css-loader": "^3.2.0",
+		"style-loader": "^1.0.0",
 		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.9"
+		"webpack-cli": "^3.3.9",
+		"webpack-dev-server": "^3.9.0"
+	},
+	"dependencies": {
+		"i18next": "^19.0.1",
+		"i18next-browser-languagedetector": "^4.0.1",
+		"i18next-xhr-backend": "^3.2.2",
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
+		"react-i18next": "^11.2.5",
+		"react-redux": "^7.1.3",
+		"redux": "^4.0.4",
+		"redux-devtools": "^3.5.0"
 	}
 }

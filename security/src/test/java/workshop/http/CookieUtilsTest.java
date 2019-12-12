@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import workshop.configurations.InternalSecurityConfiguration;
+import workshop.configurations.SecurityConfiguration;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -22,7 +22,7 @@ class CookieUtilsTest {
 	private final String internalPathName = "/internal";
 	
 	@Mock
-	private InternalSecurityConfiguration internalSecurityConfiguration;
+	private SecurityConfiguration internalSecurityConfiguration;
 	@Mock
 	private HttpServletRequestWrapper requestWrapper;
 	@Mock

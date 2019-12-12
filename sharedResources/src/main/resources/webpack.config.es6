@@ -1,29 +1,37 @@
 const path = require('path');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+// const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
 	entry: {
-		index: './src/js/index.es6',
-		profile: './src/js/profile.es6',
-		userOrder: './src/js/userOrder.es6',
-		registration: './src/js/registration.es6',
-		passwordReset: './src/js/passwordReset.es6'
+		'js/index': './src/js/index.es6',
+		'js/profile': './src/js/profile.es6',
+		'js/userOrder': './src/js/userOrder.es6',
+		'js/registration': './src/js/registration.es6',
+		'js/passwordReset': './src/js/passwordReset.es6',
+		'internal/js/application': './src/internal/components/application.es6'
 	},
 	devtool: 'source-map',
 	plugins: [
-		new CleanWebpackPlugin(),
+		// new CleanWebpackPlugin(),
 	],
 	output: {
 		filename: '[name].es6',
-		path: path.resolve(__dirname, 'dist/js'),
+		path: path.resolve(__dirname, 'dist'),
 	},
 	devServer: {
-		contentBase: path.join(__dirname, "dist/js"),
+		contentBase: path.resolve(__dirname, 'dist/internal/'),
+		// publicPath: 'http://localhost:9000/dist/internal/',
+		index: 'application.html',
 		compress: true,
 		port: 9000,
-		watchContentBase: true,
-		progress: true
+		liveReload: true,
+		hot: true,
+		watchContentBase: true, //to force page reload
+		progress: true,
+		watchOptions: {
+			poll: true
+		}
 	},
 	watchOptions: {
 		aggregateTimeout: 500,
@@ -32,14 +40,30 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.m?js$/,
+				test: /\.m?es6|jsx$/,
 				exclude: /(node_modules|bower_components)/,
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['@babel/preset-env']
+						presets: [
+							'@babel/preset-env',
+							'@babel/preset-react'
+						]
 					}
 				}
+			},
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1,
+							modules: true
+						}
+					}
+				]
 			}
 		]
 	}

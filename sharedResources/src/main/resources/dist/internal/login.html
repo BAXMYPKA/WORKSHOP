@@ -21,12 +21,13 @@
 	
 	<div class="formContainer">
 		<div class="login">
-			<form name="loginForm" action="/internal/login" method="post" class="loginForm">
-				<input type="text" placeholder="admin@workshop.pro"
-					   th:placeholder="${placeholders.adminLogin}">
+			<form name="loginForm" action="/internal/login" method="post" class="loginForm"
+			th:action="@{/login}">
+				<input type="text" placeholder="admin@workshop.pro" name="email"
+					   th:value="${placeholders.adminLogin}">
 				<br>
-				<input type="text" placeholder="12345"
-					   th:placeholder="${placeholders.adminPassword}">
+				<input type="text" placeholder="12345" name="password"
+					   th:value="${placeholders.adminPassword}">
 				<br>
 				<!--					<input type="submit" value="LOGIN"-->
 				<!--						   th:value="#{html.submit.text.login}">-->
@@ -40,7 +41,7 @@
 	
 	<section>
 		
-		<table >
+		<table class="employeesTable">
 			
 			<caption title th:text="#{html.thead.internal.login.predefinedEmployees}">
 				The predefined users list

@@ -101,109 +101,97 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * If an authenticated or Users with UUID requested the page
  */
-if (document.querySelector("#loggedUsersResetForm") !== null) {
-	
-	const passwordInput = document.querySelector("#inputPassword");
-	const passwordConfirmInput = document.querySelector("#inputConfirmPassword");
-	const userErrorPassword = document.querySelector("#userErrorPasswordMessage");
-	const userErrorConfirmPassword = document.querySelector("#userErrorConfirmPasswordMessage");
-	const errorMessageNull = "Все поля должны быть заполнены!";
-	const errorMessagePasswordsCoincidence = "Пароли должны совпадать!";
-	const errorMessagePasswordRules = "Пароль должен содержать минимум 5 знаков без пробелов!";
-	
-	passwordInput.addEventListener("input", evt => {
-		
-		userErrorPassword.style.display = "none";
-		
-		if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(evt.currentTarget.value)) {
-			passwordInput.style.color = "red";
-		} else {
-			passwordInput.style.color = "green";
-		}
-	});
-	
-	passwordConfirmInput.addEventListener("input", evt => {
-		
-		userErrorConfirmPassword.style.display = "none";
-		
-		if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordConfirmInput.value)) {
-			passwordConfirmInput.style.color = "red";
-		} else {
-			passwordConfirmInput.style.color = "green";
-		}
-	});
-	
-	document.querySelector(".buttonLogin").addEventListener("click", evt => {
-		evt.preventDefault();
-		if (passwordInput.value === null || passwordConfirmInput.value === null ||
-			passwordInput.value === "" || passwordConfirmInput.value === "") {
-			userErrorPassword.style.display = "block";
-			userErrorPassword.textContent = errorMessageNull;
-			return;
-		} else if (passwordInput.value !== passwordConfirmInput.value) {
-			userErrorConfirmPassword.style.display = "block";
-			userErrorConfirmPassword.textContent = errorMessagePasswordsCoincidence;
-			return;
-		} else if (passwordInput.style.color !== "green" && passwordConfirmInput.style.color !== "green") {
-			userErrorPassword.style.display = "block";
-			userErrorPassword.textContent = errorMessagePasswordRules;
-			return;
-		}
-		document.querySelector("#loggedUsersResetForm").submit();
-	});
-}
 
+if (document.querySelector("#loggedUsersResetForm") !== null) {
+  var passwordInput = document.querySelector("#inputPassword");
+  var passwordConfirmInput = document.querySelector("#inputConfirmPassword");
+  var userErrorPassword = document.querySelector("#userErrorPasswordMessage");
+  var userErrorConfirmPassword = document.querySelector("#userErrorConfirmPasswordMessage");
+  var errorMessageNull = "Все поля должны быть заполнены!";
+  var errorMessagePasswordsCoincidence = "Пароли должны совпадать!";
+  var errorMessagePasswordRules = "Пароль должен содержать минимум 5 знаков без пробелов!";
+  passwordInput.addEventListener("input", function (evt) {
+    userErrorPassword.style.display = "none";
+
+    if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(evt.currentTarget.value)) {
+      passwordInput.style.color = "red";
+    } else {
+      passwordInput.style.color = "green";
+    }
+  });
+  passwordConfirmInput.addEventListener("input", function (evt) {
+    userErrorConfirmPassword.style.display = "none";
+
+    if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["passwordCheck"])(passwordConfirmInput.value)) {
+      passwordConfirmInput.style.color = "red";
+    } else {
+      passwordConfirmInput.style.color = "green";
+    }
+  });
+  document.querySelector(".buttonLogin").addEventListener("click", function (evt) {
+    evt.preventDefault();
+
+    if (passwordInput.value === null || passwordConfirmInput.value === null || passwordInput.value === "" || passwordConfirmInput.value === "") {
+      userErrorPassword.style.display = "block";
+      userErrorPassword.textContent = errorMessageNull;
+      return;
+    } else if (passwordInput.value !== passwordConfirmInput.value) {
+      userErrorConfirmPassword.style.display = "block";
+      userErrorConfirmPassword.textContent = errorMessagePasswordsCoincidence;
+      return;
+    } else if (passwordInput.style.color !== "green" && passwordConfirmInput.style.color !== "green") {
+      userErrorPassword.style.display = "block";
+      userErrorPassword.textContent = errorMessagePasswordRules;
+      return;
+    }
+
+    document.querySelector("#loggedUsersResetForm").submit();
+  });
+}
 /**
  * If a not logged User requested the page for get an email with password reset UUID
  */
+
+
 if (document.querySelector("#notLoggedUsersForm") !== null) {
-	
-	const emailInput = document.querySelector("#userEmail");
-	const buttonLogin = document.querySelector(".buttonLogin");
-	const userErrorMessageEmail = document.querySelector("#userErrorMessageEmail");
-	const emailNotExistMessage = "Такого адреса в базе нет!";
-	
-	document.querySelector("#userEmail").addEventListener("input", (evn) => {
-		if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(emailInput.value)) {
-			emailInput.style.color = "red";
-			buttonLogin.disabled = true;
-		} else {
-			emailInput.style.color = "green";
-			buttonLogin.disabled = false;
-		}
-	});
-	
-	document.querySelector(".buttonLogin").addEventListener("click", (env) => {
-		env.preventDefault();
-		Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["checkWorkshopEntityExist"])('User', 'email', emailInput.value)
-			.then(promise => {
-				if (promise.ok) {
-					Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["passwordResetEmail"])(emailInput.value)
-						.then(promise => {
-							promise.json()
-								.then(json => {
-									emailInput.style.color = "green";
-									emailInput.value = "";
-									userErrorMessageEmail.textContent = "";
-									userErrorMessageEmail.style.display = "none";
-									let userMessage = JSON.stringify(json);
-									Object(_userMessaging_es6__WEBPACK_IMPORTED_MODULE_2__["setUserMessage"])(JSON.parse(userMessage)['userMessage']);
-								});
-						});
-				} else {
-					emailInput.style.color = "red";
-					userErrorMessageEmail.style.display = "block";
-					userErrorMessageEmail.textContent = emailNotExistMessage;
-				}
-			});
-	});
+  var emailInput = document.querySelector("#userEmail");
+  var buttonLogin = document.querySelector(".buttonLogin");
+  var userErrorMessageEmail = document.querySelector("#userErrorMessageEmail");
+  var emailNotExistMessage = "Такого адреса в базе нет!";
+  document.querySelector("#userEmail").addEventListener("input", function (evn) {
+    if (!Object(_verifications_es6__WEBPACK_IMPORTED_MODULE_0__["emailRegexpCheck"])(emailInput.value)) {
+      emailInput.style.color = "red";
+      buttonLogin.disabled = true;
+    } else {
+      emailInput.style.color = "green";
+      buttonLogin.disabled = false;
+    }
+  });
+  document.querySelector(".buttonLogin").addEventListener("click", function (env) {
+    env.preventDefault();
+    Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["checkWorkshopEntityExist"])('User', 'email', emailInput.value).then(function (promise) {
+      if (promise.ok) {
+        Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_1__["passwordResetEmail"])(emailInput.value).then(function (promise) {
+          promise.json().then(function (json) {
+            emailInput.style.color = "green";
+            emailInput.value = "";
+            userErrorMessageEmail.textContent = "";
+            userErrorMessageEmail.style.display = "none";
+            var userMessage = JSON.stringify(json);
+            Object(_userMessaging_es6__WEBPACK_IMPORTED_MODULE_2__["setUserMessage"])(JSON.parse(userMessage)['userMessage']);
+          });
+        });
+      } else {
+        emailInput.style.color = "red";
+        userErrorMessageEmail.style.display = "block";
+        userErrorMessageEmail.textContent = emailNotExistMessage;
+      }
+    });
+  });
 }
-
-
 
 /***/ }),
 
@@ -220,21 +208,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserMessage", function() { return setUserMessage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addUserMessage", function() { return addUserMessage; });
 function deleteUserMessage() {
-	const userMessageDiv = document.querySelector("#userMessage");
-	userMessageDiv.innerHTML = "";
-	userMessageDiv.style.display = "none";
+  var userMessageDiv = document.querySelector("#userMessage");
+  userMessageDiv.innerHTML = "";
+  userMessageDiv.style.display = "none";
 }
-
-function setUserMessage(userMessage = "") {
-	const userMessageDiv = document.querySelector("#userMessage");
-	userMessageDiv.style.display = "block";
-	userMessageDiv.innerHTML = userMessage;
+function setUserMessage() {
+  var userMessage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var userMessageDiv = document.querySelector("#userMessage");
+  userMessageDiv.style.display = "block";
+  userMessageDiv.innerHTML = userMessage;
 }
-
-function addUserMessage(additionalUserMessage = "") {
-	const userMessageDiv = document.querySelector("#userMessage");
-	userMessageDiv.style.display = "block";
-	userMessageDiv.innerHTML.concat("<br>").concat(additionalUserMessage);
+function addUserMessage() {
+  var additionalUserMessage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var userMessageDiv = document.querySelector("#userMessage");
+  userMessageDiv.style.display = "block";
+  userMessageDiv.innerHTML.concat("<br>").concat(additionalUserMessage);
 }
 
 /***/ }),
@@ -256,83 +244,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "phoneNameCheck", function() { return phoneNameCheck; });
 /* harmony import */ var _workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./workshopEntitiesFetches.es6 */ "./src/js/workshopEntitiesFetches.es6");
 
-
 /**
  * Still in development as I don't know all the permitted symbols in the email string
  * @param email
  * @returns {boolean}
  */
+
 function emailRegexpCheck(email) {
-	
-	let emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
-	
-	if (typeof email === "string" && email.match(emailRegexp)) {
-		return true;
-	} else {
-		return false;
-	}
-}
+  var emailRegexp = /^([^\s][\d]|[\w-]){3,25}@([^\s][\d]|[\w]){2,15}\.([^\s][\d]|[\w]){2,15}\.?([^\s][\d]|[\w]){0,10}$/i;
 
+  if (typeof email === "string" && email.match(emailRegexp)) {
+    return true;
+  } else {
+    return false;
+  }
+}
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkWorkshopEntityExist"])("User", "email", userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
-
 /**
  * Async function!
  *
  * @param userEmail
  * @returns {Promise<unknown>} with '.exist' additional boolean property.
  */
+
 function isNonEnabledUserEmailExist(userEmail) {
-	
-	return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail)
-		.then((promise) => {
-			promise.exist = promise.ok;
-			return promise;
-		});
+  return Object(_workshopEntitiesFetches_es6__WEBPACK_IMPORTED_MODULE_0__["checkNonEnabledUserExist"])(userEmail).then(function (promise) {
+    promise.exist = promise.ok;
+    return promise;
+  });
 }
-
 function passwordCheck(password) {
-	if ((typeof password !== "string" && typeof password !== "number") || password.length < 5) {
-		return false;
-	} else {
-		return true;
-	}
+  if (typeof password !== "string" && typeof password !== "number" || password.length < 5) {
+    return false;
+  } else {
+    return true;
+  }
 }
-
 function phoneNumberCheck(phoneNumber) {
-	
-	let phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
-	
-	if (typeof phoneNumber !== "string") {
-		return false;
-	} else {
-		let stringNumber = phoneNumber.toString();
-		return stringNumber.match(phoneNumberRegexp);
-	}
-}
+  var phoneNumberRegexp = /^[+(]?\s?[\d()\-^\s]{10,20}$/;
 
+  if (typeof phoneNumber !== "string") {
+    return false;
+  } else {
+    var stringNumber = phoneNumber.toString();
+    return stringNumber.match(phoneNumberRegexp);
+  }
+}
 function phoneNameCheck(phoneName) {
-	
-	let phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
-	
-	if (typeof phoneName !== "string") {
-		return false;
-	} else {
-		return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
-	}
+  var phoneNameRegexp = /^[\w\sа-яЁёА-Я]{2,15}$/;
+
+  if (typeof phoneName !== "string") {
+    return false;
+  } else {
+    return phoneName.toString().match(/^$/) || phoneName.match(phoneNameRegexp);
+  }
 }
 
 /***/ }),
@@ -356,55 +333,53 @@ __webpack_require__.r(__webpack_exports__);
  * @param propertyValue A value of that property
  * @returns {Promise<Response>} with status.ok === true or status.ok === false
  */
-function checkWorkshopEntityExist(workshopEntityType = "default", propertyName = "default", propertyValue = "default") {
-	
-	const formData = new FormData();
-	formData.append("workshopEntityType", workshopEntityType);
-	formData.append("propertyName", propertyName);
-	formData.append("propertyValue", propertyValue);
-	
-	return  fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-		// headers: new Headers({
-		// 	"Content-Type": "application/x-www-form-urlencoded"
-		// })
-	}).then(function (promise) {
-		return promise;
-	});
-}
+function checkWorkshopEntityExist() {
+  var workshopEntityType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var propertyName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "default";
+  var propertyValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "default";
+  var formData = new FormData();
+  formData.append("workshopEntityType", workshopEntityType);
+  formData.append("propertyName", propertyName);
+  formData.append("propertyValue", propertyValue);
+  return fetch("http://localhost:18080/workshop.pro/ajax/entity-exist", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+    // headers: new Headers({
+    // 	"Content-Type": "application/x-www-form-urlencoded"
+    // })
 
+  }).then(function (promise) {
+    return promise;
+  });
+}
 /**
  * Checks if the given email exist AND belongs to non-enabled User
  * @param nonEnabledUserEmail
  * @returns {Promise<Response>}
  */
-function checkNonEnabledUserExist(nonEnabledUserEmail = "default") {
-	
-	const formData = new FormData();
-	formData.append("email", nonEnabledUserEmail);
-	
-	return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
-		method: "POST",
-		body: formData
-		// credentials: "same-origin"
-	}).then((promise) => {
-		return promise;
-	})
-}
 
-function passwordResetEmail(email = "") {
-	
-	const formData = new FormData();
-	formData.append("email", email);
-	
-	return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
-		method: "POST",
-		body: formData
-	}) .then((promise) => {
-		return promise;
-	})
+function checkNonEnabledUserExist() {
+  var nonEnabledUserEmail = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "default";
+  var formData = new FormData();
+  formData.append("email", nonEnabledUserEmail);
+  return fetch("http://localhost:18080/workshop.pro/ajax/registration/repeated-activation-link", {
+    method: "POST",
+    body: formData // credentials: "same-origin"
+
+  }).then(function (promise) {
+    return promise;
+  });
+}
+function passwordResetEmail() {
+  var email = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var formData = new FormData();
+  formData.append("email", email);
+  return fetch(location.origin + "/workshop.pro/ajax/password-reset/email", {
+    method: "POST",
+    body: formData
+  }).then(function (promise) {
+    return promise;
+  });
 }
 
 /***/ })

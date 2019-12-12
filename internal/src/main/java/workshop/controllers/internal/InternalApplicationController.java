@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RestController
-@RequestMapping(path = "/internal")
-public class InternalController {
+@Controller
+@RequestMapping(path = "/internal/application")
+public class InternalApplicationController {
 	
-	@GetMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@GetMapping
 	public String getInternal() {
-		log.error("MAIN");
-		return "Success";
+		log.trace("application.html will be returned");
+		return "internal/application";
 	}
 }

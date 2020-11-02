@@ -77,7 +77,7 @@
 Сортировать можно по проивольному свойству в алфавитном или обратном порядке.
 
 <details>
- <summary>Показать\Скрыть детальное описание</summary>
+ <b><summary>Показать\Скрыть детальное описание</summary></b>
  
  Например, на GET-запрос всех Positions (Должностей) принадлежащих объекту Department (Отдел) с id=300 по ссылке вида [workshop.pro/internal/departments/300/positions?pageSize=3&pageNum=1&order-by=name](http://localhost:18080/workshop.pro/internal/departments/300/positions?pageSize=3&pageNum=1&order-by=name&order=asc) вернется HTTP-response с заголовком:
  

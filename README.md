@@ -9,22 +9,30 @@
 ### ВКРАТЦЕ О САМОМ ПРИЛОЖЕНИИ
 
 Прием заказов, формирование набора услуг в заказе, назначение исполнителей, сопровождение и сигнализация пользователям о готовности.
+ 
+Интерфейс из трех частей:
+ 
+ * Главная демо-страница с кратким описанием проекта.
+ 
+ <a href="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Demo_screen.jpg" target="_blank">
+  <img width="600" align="center"  src="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Demo_screen.jpg"/>
+</a>
+
+ * Главная страница проекта для клиентов. Все заявленные особенности честно и полноценно работают во взаимодействии с базой данных. 
+ 
+ <a href="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Main%20screen.jpg" target="_blank">
+  <img width="600" align="center"  src="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Main%20screen.jpg"/>
+</a>
+
+ * Внутренний домен для сотрудников - это в разработке, планируется React.
 
 ## КАК ЗАПУСКАТЬ ПРИЛОЖЕНИЕ
 
 Приложение представлено самозапускающимся архивом [applicationWORKSHOP.jar](https://github.com/BAXMYPKA/WORKSHOP/releases/download/v1.0/WORKSHOP.zip). Его можно скачать и запустить у себя локально.
 
-Для запуска необходима предустановленная [Java SE 8+](https://www.oracle.com/java/technologies/javase-downloads.html)
-
 После запуска заходим в любом браузере по адресу: [http://localhost:18080/workshop.pro/index-demo](http://localhost:18080/workshop.pro/index-demo)
  
 Выключается кнопкой "ЗАКРЫТЬ" в верхнем правом углу интерфейса. (В противном случае, вам придется искать java-процесс в памяти и убивать его вручную.) После выключения все изменения сгорают.
- 
-Интерфейс из трех частей:
- 
- * Главная демо-страница с кратким описанием проекта.
- * Главная страница проекта для клиентов. Все заявленные особенности честно и полноценно работают во взаимодействии с базой данных. 
- * Внутренний домен для сотрудников - это в разработке, планируется React.
 
 При запуске стартуют:
  * Сервер Tomcat
@@ -32,7 +40,7 @@
 
 ## СИСТЕМНЫЕ ТРЕБОВАНИЯ
 
-* Установленная Java JRE version 8 (1.8.0) и выше.
+* Установленная Java JRE 8 и выше.
 * Свободные TCP/IP порты:
     * 18080 для функционирования сервера. *Его можно изменить в файле "application.properties" в строке "server.port="*
     * 9092 *Его можно изменить в файле "application.properties" в строке "h2.port="*
@@ -195,6 +203,14 @@
  </details>
 
 ## БЕЗОПАСНОСТЬ (АУТЕНТИФИКАЦИЯ И АВТОРИЗАЦИЯ)
+
+<a href="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Registration%20screen.jpg" target="_blank">
+  <img width="600" align="center"  src="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Registration%20screen.jpg"/>
+</a>
+
+<a href="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Login%20screen.jpg" target="_blank">
+  <img width="600" align="center"  src="https://github.com/BAXMYPKA/WORKSHOP/blob/master/sharedResources/src/main/resources/screenshots/Login%20screen.jpg"/>
+</a>
 
 В данном демо-режиме все работает без HTTPS. Но! Работает честно и по полной программе.
 

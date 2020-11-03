@@ -12,7 +12,7 @@
 
 ## КАК ЗАПУСКАТЬ ПРИЛОЖЕНИЕ
 
-Приложение представлено самозапускающимся архивом ~55MB [applicationWORKSHOP.jar](https://github.com/BAXMYPKA/WORKSHOP/raw/jar/applicationWORKSHOP.jar). Его можно скачать и запустить у себя локально.
+Приложение представлено самозапускающимся архивом [applicationWORKSHOP.jar](https://github.com/BAXMYPKA/WORKSHOP/releases/download/v1.0/WORKSHOP.zip). Его можно скачать и запустить у себя локально.
 
 Для запуска необходима предустановленная [Java SE 8+](https://www.oracle.com/java/technologies/javase-downloads.html)
 

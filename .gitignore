@@ -2,11 +2,6 @@
 .idea
 *.txt
 *.iml
-######################
-#TO BE VISIBLE IN JAR BRANCH ONLY
-applicationWORKSHOP.jar
-######################
-
 /target
 /logs
 /security/target/
